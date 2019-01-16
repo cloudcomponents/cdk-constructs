@@ -1,0 +1,25 @@
+{
+  "name": "github-webhook-example",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "hello@webappsolutions.de",
+  "private": true,
+  "bin": {
+    "git-webhook": "bin/git-webhook.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^0.21.0",
+    "@aws-cdk/cdk": "^0.21.0",
+    "@cloudcomponents/cdk-github-webhook": "^1.0.0",
+    "dotenv": "^6.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.1.2",
+    "aws-cdk": "^0.21.0"
+  }
+}

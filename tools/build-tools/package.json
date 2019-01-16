@@ -1,0 +1,25 @@
+{
+  "name": "@cloudcomponents/build-tools",
+  "version": "1.0.0",
+  "privte": true,
+  "license": "MIT",
+  "author": "hello@webappsolutions.de",
+  "bin": {
+    "build-tools": "bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "archiver": "^3.0.0",
+    "clime": "^0.5.10",
+    "fs-extra": "^7.0.1",
+    "npm-packlist": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^2.1.2",
+    "@types/fs-extra": "^5.0.4",
+    "@types/npm-packlist": "^1.1.0"
+  }
+}

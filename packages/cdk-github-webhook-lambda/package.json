@@ -1,0 +1,29 @@
+{
+  "name": "@cloudcomponents/cdk-github-webhook-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "hello@webappsolutions.de",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "files": [
+    "lib"
+  ],
+  "bundleDependencies": [
+    "@cloudcomponents/custom-resource-helper",
+    "@octokit/rest",
+    "axios",
+    "parse-github-url"
+  ],
+  "dependencies": {
+    "@cloudcomponents/custom-resource-helper": "^1.0.1",
+    "@octokit/rest": "^16.3.0",
+    "axios": "^0.18.0",
+    "parse-github-url": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/parse-github-url": "^1.0.0"
+  }
+}
