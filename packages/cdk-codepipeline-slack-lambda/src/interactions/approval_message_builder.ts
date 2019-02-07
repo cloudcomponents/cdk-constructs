@@ -43,7 +43,7 @@ export class ApprovalMessageBuilder {
 
   public get message() {
     const title = 'APPROVAL NEEDED';
-    const text = 'The following Approval action is waitung for your response:';
+    const text = 'The following Approval action is waiting for your response:';
     const callback_id = 'slack_approval';
     const message: any = {
       attachments: [
