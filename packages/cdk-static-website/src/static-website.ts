@@ -57,7 +57,8 @@ export class StaticWebsite extends Construct {
       disableUpload,
       source,
       websiteIndexDocument,
-      websiteErrorDocument
+      websiteErrorDocument,
+      webACLId
     } = props;
 
     const originId = new CfnCloudFrontOriginAccessIdentity(
