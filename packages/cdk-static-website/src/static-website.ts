@@ -11,12 +11,15 @@ import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 import { Construct, SSMParameterProvider } from '@aws-cdk/cdk';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 
+import { EdgeLambda } from './edge-lambda';
+
 export interface StaticWebsiteProps {
   domainName: string;
   siteSubDomain: string;
   source?: string;
   websiteIndexDocument?: string;
   websiteErrorDocument?: string;
+  webACLId?: string;
 }
 
 export class StaticWebsite extends Construct {
@@ -31,7 +34,8 @@ export class StaticWebsite extends Construct {
       siteSubDomain,
       source,
       websiteIndexDocument,
-      websiteErrorDocument
+      websiteErrorDocument,
+      webACLId
     } = props;
 
     this.siteDomain = `${siteSubDomain}.${domainName}`;
@@ -96,9 +100,14 @@ export class StaticWebsite extends Construct {
             },
             behaviors: [{ isDefaultBehavior: true }]
           }
-        ]
+        ],
+        webACLId
       }
     );
+
+    new EdgeLambda(this, 'EdgeLambda', {
+      distribution
+    });
 
     const zone = new HostedZoneProvider(this, {
       domainName

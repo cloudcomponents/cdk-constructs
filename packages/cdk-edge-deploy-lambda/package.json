@@ -1,0 +1,25 @@
+{
+  "name": "@cloudcomponents/cdk-edge-deploy-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "hello@webappsolutions.de",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "files": [
+    "lib"
+  ],
+  "bundleDependencies": [
+    "@aws-cdk/aws-iam",
+    "@aws-cdk/aws-lambda",
+    "@cloudcomponents/custom-resource-helper"
+  ],
+  "dependencies": {
+    "@aws-cdk/aws-iam": "^0.22.0",
+    "@aws-cdk/aws-lambda": "^0.22.0",
+    "@cloudcomponents/custom-resource-helper": "^1.0.1",
+    "aws-sdk": "^2.391.0"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "@cloudcomponents/cdk-edge-deploy",
+  "version": "1.0.0",
+  "description": "Cdk component that allows to deploy Lambda@Edge functions from any region",
+  "license": "MIT",
+  "author": "hello@webappsolutions.de",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudcomponents/cdk-components"
+  },
+  "keywords": [
+    "aws",
+    "cdk",
+    "lambda",
+    "edge"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "lambda"
+  ],
+  "scripts": {
+    "build": "tsc && build-tools ziplambda",
+    "watch": "tsc -w"
+  },
+  "lambdaDependencies": {
+    "@cloudcomponents/cdk-edge-deploy-lambda": "bundle.zip"
+  },
+  "peerDependencies": {
+    "@aws-cdk/cdk": "^0.22.0"
+  },
+  "dependencies": {
+    "@aws-cdk/assets": "^0.22.0",
+    "@aws-cdk/aws-cloudformation": "^0.22.0",
+    "@aws-cdk/aws-lambda": "^0.22.0"
+  },
+  "devDependencies": {
+    "@cloudcomponents/build-tools": "^1.0.4",
+    "@cloudcomponents/cdk-edge-deploy-lambda": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "dcd5204208a79bec98cdb193e79afbad99ab4408"
+}
