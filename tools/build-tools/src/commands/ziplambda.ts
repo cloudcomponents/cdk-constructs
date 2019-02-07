@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as fs from 'fs-extra';
 import { Command, command, metadata } from 'clime';
 
 import { packDirectory } from '../pack-directory';
@@ -27,6 +28,10 @@ export default class extends Command {
           'lambda',
           lambdaDependencies[lambdaPkg]
         );
+
+        if (!(await fs.pathExists(lambdaDest))) {
+          await fs.createFile(lambdaDest);
+        }
 
         await packDirectory(lambdaSrc, lambdaDest);
       });
