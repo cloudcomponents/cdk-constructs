@@ -20,8 +20,11 @@ export class StaticWebsiteStack extends Stack {
     super(parent, name, props);
 
     new StaticWebsite(this, 'StaticWebsite', {
-      domainName: 'cloudcomponents.org',
-      siteSubDomain: 'demo',
+      siteName: 'testpage',
+      aliasConfiguration: {
+        domainName: 'cloudcomponents.org',
+        siteSubDomain: 'test'
+      },
       source: path.join(__dirname, '..', 'website', 'build')
     });
   }
