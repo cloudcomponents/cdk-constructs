@@ -42,3 +42,7 @@ export class GithubWebhookStack extends Stack {
 }
 
 ```
+
+## License
+
+[MIT](../../LICENSE)

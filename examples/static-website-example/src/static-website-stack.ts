@@ -25,12 +25,5 @@ export class StaticWebsiteStack extends Stack {
         acmCertRef: certificateArn
       }
     });
-
-    // website.addLambdaFunctionAssociation({
-    //   functionArn:
-    //     'arn:aws:lambda:us-east-1:741759823656:function:LambdaEdgeStack-Redirect7D9319B2-1FI8G8X0T3WCE',
-    //   functionVersion: '2',
-    //   eventType: 'origin-request'
-    // });
   }
 }

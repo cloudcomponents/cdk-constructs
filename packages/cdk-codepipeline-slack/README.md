@@ -53,3 +53,7 @@ export class CodepipelineSlackApprovalStack extends Stack {
 }
 
 ```
+
+## License
+
+[MIT](../../LICENSE)
