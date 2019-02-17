@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cdk-github-webhook snapshot 1`] = `
+Object {
+  "Parameters": Object {
+    "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232ECodeS3BucketB7B66645": Object {
+      "Description": "S3 bucket for asset \\"Custom::GithubWebhook83CBF3EB7B6244F28C678441E4C1232E/Code\\"",
+      "Type": "String",
+    },
+    "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232ECodeS3VersionKeyCF7474D7": Object {
+      "Description": "S3 key for asset version \\"Custom::GithubWebhook83CBF3EB7B6244F28C678441E4C1232E/Code\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EA4E17075": Object {
+      "DependsOn": Array [
+        "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EServiceRoleA1A794DD",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232ECodeS3BucketB7B66645",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232ECodeS3VersionKeyCF7474D7",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232ECodeS3VersionKeyCF7474D7",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "lib/github-webhook.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EServiceRoleA1A794DD",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs8.10",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EServiceRoleA1A794DD": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "GithubWebhookCustomResourceA8270ACA": Object {
+      "Properties": Object {
+        "Events": Array [
+          "test",
+        ],
+        "GithubApiToken": "test12",
+        "GithubRepoUrl": "test",
+        "PayloadUrl": "test",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EA4E17075",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::GithubWebhook",
+    },
+  },
+}
+`;
