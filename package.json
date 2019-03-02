@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "test": "jest",
     "build": "lerna run build",
     "outdated": "npm outdated; lerna exec --no-bail -- npm outdated"
