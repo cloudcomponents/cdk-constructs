@@ -1,6 +1,8 @@
 # @cloudcomponents/cdk-components
 
-> A collection of cdk components
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
+> A collection of cdk components: slack-approval-workflow, github-webhook, static-website, ...
 
 ## Packages
 

@@ -1,1 +1,1 @@
-export * from './slack-approval';
+export * from './slack-approval-action';
