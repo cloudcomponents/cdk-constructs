@@ -1,5 +1,8 @@
 {
   "npmClient": "npm",
   "packages": ["packages/*", "tools/*", "examples/*"],
-  "version": "independent"
+  "version": "independent",
+  "publishConfig": {
+    "access": "public"
+  }
 }

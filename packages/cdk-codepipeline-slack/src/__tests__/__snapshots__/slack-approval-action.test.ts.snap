@@ -1,0 +1,721 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cdk-codepipeline-slack: slack-approval-action snapshot 1`] = `
+Object {
+  "Outputs": Object {
+    "PipelineApproveSlackApprovalSlackApprovalApiEndpointDDD3E033": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+            },
+            ".execute-api.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            Object {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            Object {
+              "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3BucketB16D109A": Object {
+      "Description": "S3 bucket for asset \\"Pipeline/Approve/SlackApproval/SlackApprovalHandlerFunction/Code\\"",
+      "Type": "String",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3VersionKey099C4A00": Object {
+      "Description": "S3 key for asset version \\"Pipeline/Approve/SlackApproval/SlackApprovalHandlerFunction/Code\\"",
+      "Type": "String",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3Bucket63CF329A": Object {
+      "Description": "S3 bucket for asset \\"Pipeline/Approve/SlackApproval/SlackApprovalRequesterFunction/Code\\"",
+      "Type": "String",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3VersionKey764246BB": Object {
+      "Description": "S3 key for asset version \\"Pipeline/Approve/SlackApproval/SlackApprovalRequesterFunction/Code\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "Bucket83908E77": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiANY6EE37757": Object {
+      "Properties": Object {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "ANY",
+        "Integration": Object {
+          "Type": "MOCK",
+        },
+        "ResourceId": Object {
+          "Fn::GetAtt": Array [
+            "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+            "RootResourceId",
+          ],
+        },
+        "RestApiId": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiAccountA4491BD6": Object {
+      "DependsOn": Array [
+        "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+      ],
+      "Properties": Object {
+        "CloudWatchRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "PipelineApproveSlackApprovalSlackApprovalApiCloudWatchRoleE69841A0",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B": Object {
+      "Properties": Object {
+        "Name": "SlackApprovalApi",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiCloudWatchRoleE69841A0": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0aa7ccf147a2f5112be2e53f20ceb07d4": Object {
+      "DependsOn": Array [
+        "PipelineApproveSlackApprovalSlackApprovalApiproxyANYF7F7CA26",
+        "PipelineApproveSlackApprovalSlackApprovalApiproxyD7A51F70",
+        "PipelineApproveSlackApprovalSlackApprovalApiANY6EE37757",
+      ],
+      "Properties": Object {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15": Object {
+      "Properties": Object {
+        "DeploymentId": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0aa7ccf147a2f5112be2e53f20ceb07d4",
+        },
+        "RestApiId": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiproxyANYF7F7CA26": Object {
+      "Properties": Object {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "ANY",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiproxyD7A51F70",
+        },
+        "RestApiId": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiproxyD7A51F70": Object {
+      "Properties": Object {
+        "ParentId": Object {
+          "Fn::GetAtt": Array [
+            "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "{proxy+}",
+        "RestApiId": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9": Object {
+      "DependsOn": Array [
+        "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRoleDefaultPolicy90D2E91B",
+        "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRole9CFAC29B",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3BucketB16D109A",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3VersionKey099C4A00",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3VersionKey099C4A00",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "SLACK_BOT_ICON": ":robot_face:",
+            "SLACK_BOT_NAME": "botName",
+            "SLACK_BOT_TOKEN": "botToken",
+            "SLACK_CHANNEL": "channel",
+            "SLACK_SIGNING_SECRET": "signingSecret",
+          },
+        },
+        "Handler": "lib/approval-handler.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRole9CFAC29B",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs8.10",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionApiPermissionANYproxyECF83BF5": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9",
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+              },
+              "/",
+              Object {
+                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15",
+              },
+              "/*/{proxy+}",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionApiPermissionTestANYproxy542BC74B": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9",
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+              },
+              "/test-invoke-stage/*/{proxy+}",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRole9CFAC29B": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRoleDefaultPolicy90D2E91B": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "codepipeline:PutApprovalResult",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":codepipeline:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "PipelineC660917D",
+                    },
+                    "/Approve/SlackApproval",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRoleDefaultPolicy90D2E91B",
+        "Roles": Array [
+          Object {
+            "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRole9CFAC29B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionD07D9FBD": Object {
+      "DependsOn": Array [
+        "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionServiceRole89EBD53E",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3Bucket63CF329A",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3VersionKey764246BB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3VersionKey764246BB",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "SLACK_BOT_ICON": ":robot_face:",
+            "SLACK_BOT_NAME": "botName",
+            "SLACK_BOT_TOKEN": "botToken",
+            "SLACK_CHANNEL": "channel",
+            "SLACK_SIGNING_SECRET": "signingSecret",
+          },
+        },
+        "Handler": "lib/approval-requester.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionServiceRole89EBD53E",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs8.10",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionServiceRole89EBD53E": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionSlackApprovalTopic971D5BCB": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionD07D9FBD",
+        },
+        "Principal": "sns.amazonaws.com",
+        "SourceArn": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalTopic3F680CD9",
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionSlackApprovalTopicSubscriptionCFA90317": Object {
+      "Properties": Object {
+        "Endpoint": Object {
+          "Fn::GetAtt": Array [
+            "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionD07D9FBD",
+            "Arn",
+          ],
+        },
+        "Protocol": "lambda",
+        "TopicArn": Object {
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalTopic3F680CD9",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalTopic3F680CD9": Object {
+      "Type": "AWS::SNS::Topic",
+    },
+    "PipelineC660917D": Object {
+      "DependsOn": Array [
+        "PipelineRoleDefaultPolicyC7A05455",
+        "PipelineRoleD68726F7",
+      ],
+      "Properties": Object {
+        "ArtifactStore": Object {
+          "Location": Object {
+            "Ref": "Bucket83908E77",
+          },
+          "Type": "S3",
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "PipelineRoleD68726F7",
+            "Arn",
+          ],
+        },
+        "Stages": Array [
+          Object {
+            "Actions": Array [
+              Object {
+                "ActionTypeId": Object {
+                  "Category": "Source",
+                  "Owner": "AWS",
+                  "Provider": "S3",
+                  "Version": "1",
+                },
+                "Configuration": Object {
+                  "S3Bucket": Object {
+                    "Ref": "Bucket83908E77",
+                  },
+                  "S3ObjectKey": "file.zip",
+                },
+                "InputArtifacts": Array [],
+                "Name": "S3",
+                "OutputArtifacts": Array [
+                  Object {
+                    "Name": "Artifact_S3_Bucket",
+                  },
+                ],
+                "RunOrder": 1,
+              },
+            ],
+            "Name": "Source",
+          },
+          Object {
+            "Actions": Array [
+              Object {
+                "ActionTypeId": Object {
+                  "Category": "Approval",
+                  "Owner": "AWS",
+                  "Provider": "Manual",
+                  "Version": "1",
+                },
+                "Configuration": Object {
+                  "CustomData": "snapshotTest",
+                  "NotificationArn": Object {
+                    "Ref": "PipelineApproveSlackApprovalSlackApprovalTopic3F680CD9",
+                  },
+                },
+                "InputArtifacts": Array [],
+                "Name": "SlackApproval",
+                "OutputArtifacts": Array [],
+                "RunOrder": 1,
+              },
+            ],
+            "Name": "Approve",
+          },
+        ],
+      },
+      "Type": "AWS::CodePipeline::Pipeline",
+    },
+    "PipelineRoleD68726F7": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codepipeline.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PipelineRoleDefaultPolicyC7A05455": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "Bucket83908E77",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "Bucket83908E77",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "Bucket83908E77",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "Bucket83908E77",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "PipelineApproveSlackApprovalSlackApprovalTopic3F680CD9",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PipelineRoleDefaultPolicyC7A05455",
+        "Roles": Array [
+          Object {
+            "Ref": "PipelineRoleD68726F7",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+}
+`;

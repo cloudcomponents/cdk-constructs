@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "@aws-cdk/aws-apigateway": "^0.25.0",
-    "@aws-cdk/aws-codepipeline": "^0.25.0",
     "@aws-cdk/aws-codepipeline-api": "^0.25.0",
     "@aws-cdk/aws-iam": "^0.25.0",
     "@aws-cdk/aws-lambda": "^0.25.0",
@@ -42,11 +41,11 @@
     "@aws-cdk/cdk": "^0.25.0"
   },
   "devDependencies": {
+    "@aws-cdk/aws-codepipeline": "^0.25.0",
+    "@aws-cdk/aws-s3": "^0.25.0",
     "@cloudcomponents/build-tools": "^1.0.7",
     "@cloudcomponents/cdk-codepipeline-slack-lambda": "^1.0.5",
+    "@cloudcomponents/jest-cdk-snapshot": "^1.0.1",
     "typescript": "^3.3.3333"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

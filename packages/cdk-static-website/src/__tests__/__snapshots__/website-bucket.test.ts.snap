@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cdk-static-website: website-bucket snapshot 1`] = `
+Object {
+  "Resources": Object {
+    "WebsiteBucket3C288C20": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketName": "testBucket",
+        "WebsiteConfiguration": Object {
+          "ErrorDocument": "error.html",
+          "IndexDocument": "index.html",
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+    },
+    "WebsiteBucketOriginAccessIdentity2FD53DC0": Object {
+      "Properties": Object {
+        "CloudFrontOriginAccessIdentityConfig": Object {
+          "Comment": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "CloudFront OriginAccessIdentity for ",
+                Object {
+                  "Ref": "WebsiteBucket3C288C20",
+                },
+              ],
+            ],
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+    },
+    "WebsiteBucketPolicy65FBF6CB": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "WebsiteBucket3C288C20",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": Object {
+                "CanonicalUser": Object {
+                  "Fn::GetAtt": Array [
+                    "WebsiteBucketOriginAccessIdentity2FD53DC0",
+                    "S3CanonicalUserId",
+                  ],
+                },
+              },
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "WebsiteBucket3C288C20",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+  },
+}
+`;
