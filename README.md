@@ -4,9 +4,9 @@
 
 > A collection of higher-level cdk components: slack-approval-workflow, github-webhook, static-website, ...
 
-## Packages
+## Components
 
-This repository is a monorepo managed with [Lerna](https://github.com/lerna/lerna). [Several packages](/packages) are published to npm from the same codebase.
+This repository is a monorepo managed with [Lerna](https://github.com/lerna/lerna). [Several components](/packages) are published to npm from the same codebase.
 
 | Component                                                  | Description                                                                                                                  |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
