@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
 
-> A collection of higher-level cdk components: slack-approval-workflow, github-webhook, static-website, ...
+> A collection of higher-level [cdk components](https://github.com/awslabs/aws-cdk): slack-approval-workflow, github-webhook, static-website, ...
 
 ## Components
 
