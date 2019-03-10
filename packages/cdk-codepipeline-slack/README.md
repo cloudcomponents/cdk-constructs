@@ -2,9 +2,9 @@
 
 > Cdk component that provisions a #slack approval workflow
 
-![Approval Workflow](assets/approval_workflow.png?raw=true 'Approval Workflow')
+![Approval Workflow](/packages/cdk-codepipeline-slack/assets/approval_workflow.png?raw=true 'Approval Workflow')
 
-![Review Dialog](assets/review_dialog.png?raw=true 'Review Dialog')
+![Review Dialog](/packages/cdk-codepipeline-slack/assets/review_dialog.png?raw=true 'Review Dialog')
 
 ## Install
 
@@ -78,13 +78,13 @@ Create an app that’s just for your workspace
 
 Select Permission Scopes:
 
-![OAuth Scopes](assets/oauth_scope.png?raw=true 'OAuth scopes')
+![OAuth Scopes](/packages/cdk-codepipeline-slack/assets/oauth_scope.png?raw=true 'OAuth scopes')
 
 ### Interactive Components
 
 Enter the url of your api:
 
-![Interactive Components](assets/interactive_components.png?raw=true 'Interactive Components')
+![Interactive Components](/packages/cdk-codepipeline-slack/assets/interactive_components.png?raw=true 'Interactive Components')
 
 ## License
 
