@@ -1,4 +1,4 @@
-import { Stack } from '@aws-cdk/cdk';
+import { Stack } from '@aws-cdk/core';
 import { GithubWebhook } from '../github-webhook';
 import { toMatchCdkSnapshot } from '@cloudcomponents/jest-cdk-snapshot';
 

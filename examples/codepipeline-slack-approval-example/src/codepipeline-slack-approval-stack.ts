@@ -1,6 +1,7 @@
-import { App, Stack, StackProps } from '@aws-cdk/cdk';
+import { App, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline } from '@aws-cdk/aws-codepipeline';
+import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
+import { CodeCommitSourceAction, CodeBuildAction } from '@aws-cdk/aws-codepipeline-actions';
 import { PipelineProject } from '@aws-cdk/aws-codebuild';
 
 import { SlackApprovalAction } from '@cloudcomponents/cdk-codepipeline-slack';
@@ -9,31 +10,26 @@ export class CodepipelineSlackApprovalStack extends Stack {
   constructor(parent: App, name: string, props?: StackProps) {
     super(parent, name, props);
 
-    const pipeline = new Pipeline(this, 'MyPipeline', {
-      pipelineName: 'MyPipeline'
-    });
-
-    const sourceStage = pipeline.addStage({ name: 'Source' });
-
-    const repo = new Repository(this, 'Repository', {
+    const repository = new Repository(this, 'Repository', {
       repositoryName: 'MyRepositoryName',
       description: 'Some description.' // optional property
     });
-    const sourceAction = repo.toCodePipelineSourceAction({
-      actionName: 'CodeCommit'
+
+    const sourceArtifact = new Artifact();
+    
+    const sourceAction = new CodeCommitSourceAction({
+      actionName: 'CodeCommit',
+      repository,
+      output: sourceArtifact
     });
-    sourceStage.addAction(sourceAction);
-
-    const buildStage = pipeline.addStage({ name: 'Build' });
-
+    
     const project = new PipelineProject(this, 'MyProject');
-    const buildAction = project.toCodePipelineBuildAction({
+    
+    const buildAction = new CodeBuildAction({
       actionName: 'CodeBuild',
-      inputArtifact: sourceAction.outputArtifact
+      project,
+      input: sourceArtifact,
     });
-    buildStage.addAction(buildAction);
-
-    const approvalStage = pipeline.addStage({ name: 'Approval' });
 
     const slackBotToken = process.env.SLACK_BOT_TOKEN as string;
     const slackSigningSecret = process.env.SLACK_SIGNING_SECRET as string;
@@ -48,6 +44,23 @@ export class CodepipelineSlackApprovalStack extends Stack {
       additionalInformation:
         'Would you like to promote the build to production?'
     });
-    approvalStage.addAction(approvalAction);
+
+    new Pipeline(this, 'MyPipeline', {
+      pipelineName: 'MyPipeline',
+      stages: [
+        {
+          stageName: 'Source',
+          actions: [sourceAction]
+        },
+        {
+          stageName: 'Build',
+          actions: [buildAction]
+        },
+        {
+          stageName: 'Approval',
+          actions: [approvalAction]
+        }
+      ]
+    });
   }
 }

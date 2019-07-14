@@ -2,7 +2,7 @@ import {
   CloudFrontWebDistribution,
   CfnDistribution
 } from '@aws-cdk/aws-cloudfront';
-import { Construct } from '@aws-cdk/cdk';
+import { Construct } from '@aws-cdk/core';
 
 export interface Association {
   functionArn: string;

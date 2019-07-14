@@ -1,5 +1,5 @@
 import { RestApi } from '@aws-cdk/aws-apigateway';
-import { App, Stack, StackProps } from '@aws-cdk/cdk';
+import { App, Stack, StackProps } from '@aws-cdk/core';
 import { GithubWebhook } from '@cloudcomponents/cdk-github-webhook';
 
 export class GithubWebhookStack extends Stack {

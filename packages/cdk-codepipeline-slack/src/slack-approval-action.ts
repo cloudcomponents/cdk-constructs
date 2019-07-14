@@ -1,12 +1,9 @@
 import * as path from 'path';
-import { Construct, Token } from '@aws-cdk/cdk';
-import {
-  Action,
-  ActionCategory,
-  CommonActionProps,
-  IStage
-} from '@aws-cdk/aws-codepipeline-api';
-import { ITopic, Topic } from '@aws-cdk/aws-sns';
+import { Construct } from '@aws-cdk/core';
+import { ActionCategory, CommonActionProps, IStage, ActionBindOptions, ActionConfig } from '@aws-cdk/aws-codepipeline';
+import { Action } from '@aws-cdk/aws-codepipeline-actions';
+import { Topic } from '@aws-cdk/aws-sns';
+import { LambdaSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { RestApi, LambdaIntegration } from '@aws-cdk/aws-apigateway';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
@@ -22,27 +19,23 @@ export interface SlackApprovalActionProps extends CommonActionProps {
 }
 
 export class SlackApprovalAction extends Action {
-  private readonly props: SlackApprovalActionProps;
-  private topic: ITopic;
-
-  constructor(props: SlackApprovalActionProps) {
+  constructor(private props: SlackApprovalActionProps) {
     super({
       ...props,
-      category: ActionCategory.Approval,
+      category: ActionCategory.APPROVAL,
       provider: 'Manual',
       artifactBounds: {
         minInputs: 0,
         maxInputs: 0,
         minOutputs: 0,
         maxOutputs: 0
-      },
-      configuration: new Token(() => this.actionConfiguration())
+      }
     });
 
     this.props = props;
   }
 
-  protected bind(stage: IStage, scope: Construct): void {
+  protected bound(scope: Construct, stage: IStage, options: ActionBindOptions): ActionConfig {
     const environment = {
       SLACK_BOT_TOKEN: this.props.slackBotToken,
       SLACK_SIGNING_SECRET: this.props.slackSigningSecret,
@@ -55,22 +48,22 @@ export class SlackApprovalAction extends Action {
       scope,
       'SlackApprovalRequesterFunction',
       {
-        runtime: Runtime.NodeJS810,
+        runtime: Runtime.NODEJS_10_X,
         handler: 'lib/approval-requester.handler',
         code: Code.asset(path.join(__dirname, '..', 'lambda', 'bundle.zip')),
         environment
       }
     );
 
-    this.topic = new Topic(scope, 'SlackApprovalTopic');
-    this.topic.grantPublish(stage.pipeline.role);
-    this.topic.subscribeLambda(approvalRequester);
+    const topic = new Topic(scope, 'SlackApprovalTopic');
+    topic.grantPublish(options.role);
+    topic.addSubscription(new LambdaSubscription(approvalRequester));
 
     const approvalHandler = new Function(
       scope,
       'SlackApprovalHandlerFunction',
       {
-        runtime: Runtime.NodeJS810,
+        runtime: Runtime.NODEJS_10_X,
         handler: 'lib/approval-handler.handler',
         code: Code.asset(path.join(__dirname, '..', 'lambda', 'bundle.zip')),
         environment
@@ -83,21 +76,20 @@ export class SlackApprovalAction extends Action {
     });
 
     approvalHandler.addToRolePolicy(
-      new PolicyStatement()
-        .addResource(
-          `${stage.pipeline.pipelineArn}/${stage.stageName}/${
-            this.props.actionName
-          }`
-        )
-        .addActions('codepipeline:PutApprovalResult')
+      new PolicyStatement({
+        actions: ['codepipeline:PutApprovalResult'],
+        resources: [`${stage.pipeline.pipelineArn}/${stage.stageName}/${
+          this.props.actionName
+          }`]
+      })  
     );
-  }
 
-  private actionConfiguration(): any {
     return {
-      NotificationArn: this.topic.topicArn,
-      CustomData: this.props.additionalInformation,
-      ExternalEntityLink: this.props.externalEntityLink
+      configuration: {
+        NotificationArn: topic.topicArn,
+        CustomData: this.props.additionalInformation,
+        ExternalEntityLink: this.props.externalEntityLink
+      }
     };
   }
 }

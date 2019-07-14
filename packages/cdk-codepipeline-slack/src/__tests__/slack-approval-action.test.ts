@@ -1,6 +1,7 @@
-import { Stack } from '@aws-cdk/cdk';
-import { Pipeline } from '@aws-cdk/aws-codepipeline';
-import { Bucket, PipelineSourceAction } from '@aws-cdk/aws-s3';
+import { Stack } from '@aws-cdk/core';
+import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
+import { S3SourceAction } from '@aws-cdk/aws-codepipeline-actions';
+import { Bucket } from '@aws-cdk/aws-s3';
 import { SlackApprovalAction } from '../slack-approval-action';
 import { toMatchCdkSnapshot } from '@cloudcomponents/jest-cdk-snapshot';
 
@@ -12,21 +13,24 @@ describe('cdk-codepipeline-slack: slack-approval-action', () => {
 
     const bucket = new Bucket(stack, 'Bucket');
 
+    const sourceArtifact = new Artifact();
+
     new Pipeline(stack, 'Pipeline', {
       artifactBucket: bucket,
       stages: [
         {
-          name: 'Source',
+          stageName: 'Source',
           actions: [
-            new PipelineSourceAction({
+            new S3SourceAction({
               actionName: 'S3',
               bucket,
-              bucketKey: 'file.zip'
+              bucketKey: 'file.zip',
+              output: sourceArtifact
             })
           ]
         },
         {
-          name: 'Approve',
+          stageName: 'Approve',
           actions: [
             new SlackApprovalAction({
               actionName: 'SlackApproval',

@@ -2,8 +2,8 @@ import * as path from 'path';
 import { CfnCloudFrontOriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
-import { Construct, RemovalPolicy } from '@aws-cdk/cdk';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Construct, RemovalPolicy } from '@aws-cdk/core';
+import { CanonicalUserPrincipal  } from '@aws-cdk/aws-iam';
 
 export interface WebsiteBucketProps {
   /** Name of the bucket */
@@ -58,14 +58,7 @@ export class WebsiteBucket extends Construct {
       }
     );
 
-    this.bucket.addToResourcePolicy(
-      new PolicyStatement()
-        .addAction('s3:GetObject')
-        .addCanonicalUserPrincipal(
-          this.originId.cloudFrontOriginAccessIdentityS3CanonicalUserId
-        )
-        .addResource(`${this.bucket.bucketArn}/*`)
-    );
+    this.bucket.grantRead(new CanonicalUserPrincipal(this.originId.attrS3CanonicalUserId))
 
     if (!disableUpload) {
       const placeHolderSource = path.join(__dirname, '..', 'website');

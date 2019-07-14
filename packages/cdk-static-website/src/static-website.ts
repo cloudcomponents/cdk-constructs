@@ -3,7 +3,8 @@ import {
   CloudFrontWebDistribution,
   CloudFrontWebDistributionProps
 } from '@aws-cdk/aws-cloudfront';
-import { Construct } from '@aws-cdk/cdk';
+import { Construct } from '@aws-cdk/core';
+import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
 import { WebsiteBucket, WebsiteBucketProps } from './website-bucket';
 import { WebsiteAliasRecord } from './website-alias-record';
 import {
@@ -60,7 +61,7 @@ export class StaticWebsite extends Construct {
       new WebsiteAliasRecord(this, 'WebsiteAliasRecord', {
         domainName: aliasConfiguration.domainName,
         recordNames: aliasConfiguration.names,
-        target: this.distribution
+        target: new CloudFrontTarget(this.distribution)
       });
     }
   }

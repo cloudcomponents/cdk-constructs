@@ -2,22 +2,20 @@ import {
   App,
   Stack,
   StackProps,
-  SSMParameterProvider,
   RemovalPolicy
-} from '@aws-cdk/cdk';
+} from '@aws-cdk/core';
+import { StringParameter } from '@aws-cdk/aws-ssm';
 import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
 
 export class StaticWebsiteStack extends Stack {
   constructor(parent: App, name: string, props?: StackProps) {
     super(parent, name, props);
 
-    const certificateArn = new SSMParameterProvider(this, {
-      parameterName: '/certificate/cloudcomponents.org'
-    }).parameterValue();
+    const certificateArn = StringParameter.valueFromLookup(this, '/certificate/cloudcomponents.org');
 
     new StaticWebsite(this, 'StaticWebsite', {
       bucketConfiguration: {
-        removalPolicy: RemovalPolicy.Destroy
+        removalPolicy: RemovalPolicy.DESTROY
       },
       aliasConfiguration: {
         domainName: 'cloudcomponents.org',

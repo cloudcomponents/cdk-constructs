@@ -1,7 +1,7 @@
 import * as path from 'path';
-import { CustomResource } from '@aws-cdk/aws-cloudformation';
+import { CustomResource, CustomResourceProvider } from '@aws-cdk/aws-cloudformation';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Construct } from '@aws-cdk/cdk';
+import { Construct, Duration } from '@aws-cdk/core';
 
 export interface GithubWebhookProps {
   githubApiToken: string;
@@ -17,11 +17,11 @@ export class GithubWebhook extends Construct {
 
     const handler = new SingletonFunction(this, 'CustomResourceHandler', {
       uuid: '83CBF3EB-7B62-44F2-8C67-8441E4C1232E',
-      runtime: Runtime.NodeJS810,
+      runtime: Runtime.NODEJS_10_X,
       code: Code.asset(path.join(__dirname, '..', 'lambda', 'bundle.zip')),
       handler: 'lib/github-webhook.handler',
       lambdaPurpose: 'Custom::GithubWebhook',
-      timeout: 15 * 60
+      timeout: Duration.minutes(15)
     });
 
     const {
@@ -33,7 +33,7 @@ export class GithubWebhook extends Construct {
     } = props;
 
     new CustomResource(this, 'CustomResource', {
-      lambdaProvider: handler,
+      provider: CustomResourceProvider.lambda(handler),
       resourceType: 'Custom::GithubWebhook',
       properties: {
         GithubApiToken: githubApiToken,

@@ -1,9 +1,10 @@
 import {
-  AliasRecord,
-  HostedZoneProvider,
+  ARecord,
+  RecordTarget,
+  HostedZone,
   IAliasRecordTarget
 } from '@aws-cdk/aws-route53';
-import { Construct } from '@aws-cdk/cdk';
+import { Construct } from '@aws-cdk/core';
 
 export interface WebsiteAliasRecordProps {
   /** The domain name for the site like 'cloudcomponents.org' */
@@ -22,15 +23,15 @@ export class WebsiteAliasRecord extends Construct {
 
     const { domainName, recordNames, target } = props;
 
-    const zone = new HostedZoneProvider(this, {
+    const zone = HostedZone.fromLookup(this, 'Zone', {
       domainName
-    }).findAndImport(this, 'Zone');
+    })
 
     recordNames.forEach((recordName, idx) => {
-      new AliasRecord(this, `WebsiteAliasRecord${idx}`, {
+      new ARecord(this, `WebsiteAliasRecord${idx}`, {
         zone,
         recordName: `${recordName}.`,
-        target
+        target: RecordTarget.fromAlias(target)
       });
     });
   }

@@ -1,10 +1,13 @@
 #!/usr/bin/env node
-require('dotenv').config();
-const cdk = require('@aws-cdk/cdk');
+const { App } = require('@aws-cdk/core');
 const {
   CodepipelineSlackApprovalStack
 } = require('../lib/codepipeline-slack-approval-stack');
 
-const app = new cdk.App();
-new CodepipelineSlackApprovalStack(app, 'CodepipelineSlackApprovalStack');
-app.run();
+const app = new App();
+new CodepipelineSlackApprovalStack(app, 'CodepipelineSlackApprovalStack', {
+  env: {
+        region: process.env.CDK_DEFAULT_REGION,
+        account: process.env.CDK_DEFAULT_ACCOUNT,
+    }
+});
