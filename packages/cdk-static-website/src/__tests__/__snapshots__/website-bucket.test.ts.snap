@@ -6,13 +6,14 @@ Object {
     "WebsiteBucket3C288C20": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
-        "BucketName": "testBucket",
+        "BucketName": "testbucket",
         "WebsiteConfiguration": Object {
           "ErrorDocument": "error.html",
           "IndexDocument": "index.html",
         },
       },
       "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
     },
     "WebsiteBucketOriginAccessIdentity2FD53DC0": Object {
       "Properties": Object {
@@ -40,7 +41,11 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "s3:GetObject",
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
               "Effect": "Allow",
               "Principal": Object {
                 "CanonicalUser": Object {
@@ -50,20 +55,28 @@ Object {
                   ],
                 },
               },
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "WebsiteBucket3C288C20",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "WebsiteBucket3C288C20",
+                    "Arn",
                   ],
-                ],
-              },
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "WebsiteBucket3C288C20",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
             },
           ],
           "Version": "2012-10-17",

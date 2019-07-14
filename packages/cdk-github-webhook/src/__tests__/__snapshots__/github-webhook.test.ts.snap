@@ -3,6 +3,10 @@
 exports[`cdk-github-webhook snapshot 1`] = `
 Object {
   "Parameters": Object {
+    "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232ECodeArtifactHash7626A53A": Object {
+      "Description": "Artifact hash for asset \\"Custom::GithubWebhook83CBF3EB7B6244F28C678441E4C1232E/Code\\"",
+      "Type": "String",
+    },
     "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232ECodeS3BucketB7B66645": Object {
       "Description": "S3 bucket for asset \\"Custom::GithubWebhook83CBF3EB7B6244F28C678441E4C1232E/Code\\"",
       "Type": "String",
@@ -63,7 +67,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs8.10",
+        "Runtime": "nodejs10.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
@@ -76,7 +80,17 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "lambda.amazonaws.com",
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "lambda.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
               },
             },
           ],
@@ -100,6 +114,7 @@ Object {
       "Type": "AWS::IAM::Role",
     },
     "GithubWebhookCustomResourceA8270ACA": Object {
+      "DeletionPolicy": "Delete",
       "Properties": Object {
         "Events": Array [
           "test",
@@ -115,6 +130,7 @@ Object {
         },
       },
       "Type": "Custom::GithubWebhook",
+      "UpdateReplacePolicy": "Delete",
     },
   },
 }
