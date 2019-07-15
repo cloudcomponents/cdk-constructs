@@ -2,7 +2,11 @@
   "npmClient": "npm",
   "packages": ["packages/*", "tools/*", "examples/*"],
   "version": "independent",
-  "publishConfig": {
-    "access": "public"
+  "command": {
+    "publish": {
+      "publishConfig": {
+        "access": "public"
+      }
+    }
   }
 }
