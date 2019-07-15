@@ -1,6 +1,6 @@
 # @cloudcomponents/cdk-pull-request-check
 
-> Cdk component to check pull requests
+> Cdk component that automatically check pull requests
 
 ## Install
 
