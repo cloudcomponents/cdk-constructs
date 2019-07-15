@@ -1,0 +1,42 @@
+{
+  "name": "@cloudcomponents/cdk-pull-request-check",
+  "version": "1.0.0",
+  "description": "Cdk component to check pull requests",
+  "license": "MIT",
+  "author": "hello@webappsolutions.de",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudcomponents/cdk-components"
+  },
+  "keywords": [
+    "aws",
+    "cdk",
+    "codecommit",
+    "codebuild",
+    "pull request",
+    "@cloudcomponents"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "resources"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-codebuild": "^1.0.0",
+    "@aws-cdk/aws-codecommit": "^1.0.0",
+    "@aws-cdk/aws-events": "^1.0.0",
+    "@aws-cdk/aws-events-targets": "^1.0.0",
+    "@aws-cdk/aws-iam": "^1.0.0",
+    "@aws-cdk/aws-lambda": "^1.0.0",
+    "@aws-cdk/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "8.10.45",
+    "typescript": "^3.5.3"
+  }
+}
