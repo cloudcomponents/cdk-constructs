@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "test": "jest",
+    "postinstall": "lerna bootstrap",
+    "test": "npm run build; jest",
     "build": "lerna run build",
     "grooming": "npm outdated; lerna exec --no-bail -- npm outdated"
   },
