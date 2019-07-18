@@ -4,7 +4,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "postinstall": "lerna bootstrap",
-    "test": "npm run build; jest",
+    "pretest": "lerna run pretest",
+    "test": "jest",
     "build": "lerna run build",
     "grooming": "npm outdated; lerna exec --no-bail -- npm outdated"
   },
