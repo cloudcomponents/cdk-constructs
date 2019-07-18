@@ -6,6 +6,7 @@
     "postinstall": "lerna bootstrap",
     "pretest": "lerna run pretest",
     "test": "jest",
+    "build:tools": "lerna --scope @cloudcomponents/build-tools run build ",
     "build": "lerna run build",
     "grooming": "npm outdated; lerna exec --no-bail -- npm outdated"
   },
