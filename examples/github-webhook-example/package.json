@@ -1,24 +1,25 @@
 {
-  "name": "github-webhook-example",
-  "version": "0.1.16",
-  "license": "MIT",
-  "author": "hello@webappsolutions.de",
-  "private": true,
-  "bin": {
-    "git-webhook": "bin/git-webhook.js"
-  },
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "cdk": "cdk"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.0.0",
-    "@aws-cdk/core": "^1.0.0",
-    "@cloudcomponents/cdk-github-webhook": "^1.0.16"
-  },
-  "devDependencies": {
-    "aws-cdk": "^1.0.0",
-    "typescript": "^3.3.5"
-  }
+    "name": "github-webhook-example",
+    "version": "0.1.16",
+    "license": "MIT",
+    "author": "hello@webappsolutions.de",
+    "private": true,
+    "bin": {
+        "git-webhook": "bin/git-webhook.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w",
+        "cdk": "cdk"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-apigateway": "^1.1.0",
+        "@aws-cdk/core": "^1.1.0",
+        "@cloudcomponents/cdk-github-webhook": "^1.0.16"
+    },
+    "devDependencies": {
+        "aws-cdk": "^1.1.0",
+        "ts-node": "^8.3.0",
+        "typescript": "^3.5.3"
+    }
 }

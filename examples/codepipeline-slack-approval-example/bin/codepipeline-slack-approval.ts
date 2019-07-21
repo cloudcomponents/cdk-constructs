@@ -1,13 +1,11 @@
 #!/usr/bin/env node
-const { App } = require('@aws-cdk/core');
-const {
-  CodepipelineSlackApprovalStack
-} = require('../lib/codepipeline-slack-approval-stack');
+import { App } from '@aws-cdk/core';
+import { CodepipelineSlackApprovalStack } from '../lib/codepipeline-slack-approval-stack';
 
 const app = new App();
 new CodepipelineSlackApprovalStack(app, 'CodepipelineSlackApprovalStack', {
-  env: {
+    env: {
         region: process.env.CDK_DEFAULT_REGION,
         account: process.env.CDK_DEFAULT_ACCOUNT,
-    }
+    },
 });
