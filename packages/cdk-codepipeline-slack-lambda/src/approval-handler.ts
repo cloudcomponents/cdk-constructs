@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { createServer, proxy } from 'aws-serverless-express';
-import { APIGatewayEvent, Context } from 'aws-lambda'; // eslint-disable-line import/no-unresolved
+import { APIGatewayEvent, Context } from 'aws-lambda';
 import { createMessageAdapter } from '@slack/interactive-messages';
 
 import { Server } from 'http';

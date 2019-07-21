@@ -1,4 +1,4 @@
-import { SNSEvent } from 'aws-lambda'; // eslint-disable-line import/no-unresolved
+import { SNSEvent } from 'aws-lambda';
 import { requestApproval } from './interactions/approval-interactions';
 
 export const handler = async (event: SNSEvent): Promise<void> => {

@@ -1,4 +1,4 @@
-import { CloudFormationCustomResourceEvent } from 'aws-lambda'; // eslint-disable-line import/no-unresolved
+import { CloudFormationCustomResourceEvent } from 'aws-lambda';
 
 import {
     customResourceHelper,
