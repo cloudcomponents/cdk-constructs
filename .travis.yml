@@ -5,10 +5,13 @@ sudo: false
 node_js:
   - "10"
 
-script:
-  - node --version
+install:
+  - npm install
   - npm run bootstrap
+
+script:
   - npm run build:tools
+  - npm run lint:ci
   - npm run test
   - npm run build
 

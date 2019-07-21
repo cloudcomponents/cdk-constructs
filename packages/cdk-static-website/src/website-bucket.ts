@@ -3,77 +3,82 @@ import { CfnCloudFrontOriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 import { Construct, RemovalPolicy } from '@aws-cdk/core';
-import { CanonicalUserPrincipal  } from '@aws-cdk/aws-iam';
+import { CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
 
 export interface WebsiteBucketProps {
-  /** Name of the bucket */
-  bucketName?: string;
+    /** Name of the bucket */
+    bucketName?: string;
 
-  /** Policy to apply when the bucket is removed from this stack. */
-  removalPolicy?: RemovalPolicy;
+    /** Policy to apply when the bucket is removed from this stack. */
+    removalPolicy?: RemovalPolicy;
 
-  source?: string;
+    source?: string;
 
-  disableUpload?: boolean;
+    disableUpload?: boolean;
 
-  /** The index page for the site like 'index.html' */
-  websiteIndexDocument?: string;
+    /** The index page for the site like 'index.html' */
+    websiteIndexDocument?: string;
 
-  /** The error page for the site like 'error.html' */
-  websiteErrorDocument?: string;
+    /** The error page for the site like 'error.html' */
+    websiteErrorDocument?: string;
 }
 
 export class WebsiteBucket extends Construct {
-  private readonly originId: CfnCloudFrontOriginAccessIdentity;
-  private readonly bucket: Bucket;
+    private readonly originId: CfnCloudFrontOriginAccessIdentity;
 
-  constructor(parent: Construct, name: string, props: WebsiteBucketProps) {
-    super(parent, name);
+    private readonly bucket: Bucket;
 
-    const {
-      bucketName,
-      removalPolicy,
-      disableUpload = false,
-      source,
-      websiteIndexDocument,
-      websiteErrorDocument
-    } = props;
+    public constructor(
+        parent: Construct,
+        name: string,
+        props: WebsiteBucketProps,
+    ) {
+        super(parent, name);
 
-    this.bucket = new Bucket(this, 'WebsiteBucket', {
-      bucketName,
-      removalPolicy,
-      websiteIndexDocument: websiteIndexDocument || 'index.html',
-      websiteErrorDocument: websiteErrorDocument || 'error.html'
-    });
+        const {
+            bucketName,
+            removalPolicy,
+            disableUpload = false,
+            source,
+            websiteIndexDocument,
+            websiteErrorDocument,
+        } = props;
 
-    this.originId = new CfnCloudFrontOriginAccessIdentity(
-      this,
-      'OriginAccessIdentity',
-      {
-        cloudFrontOriginAccessIdentityConfig: {
-          comment: `CloudFront OriginAccessIdentity for ${
-            this.bucket.bucketName
-          }`
+        this.bucket = new Bucket(this, 'WebsiteBucket', {
+            bucketName,
+            removalPolicy,
+            websiteIndexDocument: websiteIndexDocument || 'index.html',
+            websiteErrorDocument: websiteErrorDocument || 'error.html',
+        });
+
+        this.originId = new CfnCloudFrontOriginAccessIdentity(
+            this,
+            'OriginAccessIdentity',
+            {
+                cloudFrontOriginAccessIdentityConfig: {
+                    comment: `CloudFront OriginAccessIdentity for ${this.bucket.bucketName}`,
+                },
+            },
+        );
+
+        this.bucket.grantRead(
+            new CanonicalUserPrincipal(this.originId.attrS3CanonicalUserId),
+        );
+
+        if (!disableUpload) {
+            const placeHolderSource = path.join(__dirname, '..', 'website');
+
+            new BucketDeployment(this, 'DeployWebsite', {
+                source: Source.asset(source || placeHolderSource),
+                destinationBucket: this.bucket,
+            });
         }
-      }
-    );
-
-    this.bucket.grantRead(new CanonicalUserPrincipal(this.originId.attrS3CanonicalUserId))
-
-    if (!disableUpload) {
-      const placeHolderSource = path.join(__dirname, '..', 'website');
-
-      new BucketDeployment(this, 'DeployWebsite', {
-        source: Source.asset(source || placeHolderSource),
-        destinationBucket: this.bucket
-      });
     }
-  }
 
-  public get s3OriginSource() {
-    return {
-      originAccessIdentity: this.originId,
-      s3BucketSource: this.bucket
-    };
-  }
+    public get s3OriginSource() {
+        return {
+            originAccessIdentity: this.originId,
+            s3BucketSource: this.bucket,
+        };
+    }
 }

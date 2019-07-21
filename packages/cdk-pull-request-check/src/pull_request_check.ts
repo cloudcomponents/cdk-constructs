@@ -3,7 +3,11 @@ import { IRepository } from '@aws-cdk/aws-codecommit';
 import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
 import { ServicePrincipal, Role, PolicyStatement } from '@aws-cdk/aws-iam';
 import {
-    Project, Source, LinuxBuildImage, ComputeType, BuildSpec,
+    Project,
+    Source,
+    LinuxBuildImage,
+    ComputeType,
+    BuildSpec,
 } from '@aws-cdk/aws-codebuild';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 
@@ -14,7 +18,11 @@ export interface PullRequestCheckProps {
     buildSpec: BuildSpec;
 }
 export class PullRequestCheck extends Construct {
-    public constructor(parent: Construct, id: string, props: PullRequestCheckProps) {
+    public constructor(
+        parent: Construct,
+        id: string,
+        props: PullRequestCheckProps,
+    ) {
         super(parent, id);
 
         const { repository, buildSpec } = props;
@@ -23,18 +31,19 @@ export class PullRequestCheck extends Construct {
             assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
         });
 
-        lambdaRole.addToPolicy(new PolicyStatement({
-            resources: ['*'],
-            actions: [
-                'codebuild:*',
-                'codecommit:*',
-                'logs:CreateLogGroup',
-                'logs:CreateLogStream',
-                'logs:PutLogEvents',
-                'logs:GetLogEvents',
-            ],
-        }));
-
+        lambdaRole.addToPolicy(
+            new PolicyStatement({
+                resources: ['*'],
+                actions: [
+                    'codebuild:*',
+                    'codecommit:*',
+                    'logs:CreateLogGroup',
+                    'logs:CreateLogStream',
+                    'logs:PutLogEvents',
+                    'logs:GetLogEvents',
+                ],
+            }),
+        );
 
         const pullRequestFunction = new Function(this, 'PullRequestFunction', {
             runtime: Runtime.PYTHON_3_7,
@@ -43,12 +52,16 @@ export class PullRequestCheck extends Construct {
             role: lambdaRole,
         });
 
-        const codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
-            runtime: Runtime.PYTHON_3_7,
-            code: Code.asset('resources'),
-            handler: 'code_build_result.lambda_handler',
-            role: lambdaRole,
-        });
+        const codeBuildResultFunction = new Function(
+            this,
+            'CodeBuildResultFunction',
+            {
+                runtime: Runtime.PYTHON_3_7,
+                code: Code.asset('resources'),
+                handler: 'code_build_result.lambda_handler',
+                role: lambdaRole,
+            },
+        );
 
         const pullRequestProject = new Project(this, 'PullRequestProject', {
             projectName: `${repository.repositoryName}-pull-request`,
@@ -66,13 +79,19 @@ export class PullRequestCheck extends Construct {
             target: new LambdaFunction(codeBuildResultFunction),
         });
 
-        const rule = repository.onPullRequestStateChange('PullRequestChangeRule', {
-            eventPattern: {
-                detail: {
-                    event: ['pullRequestSourceBranchUpdated', 'pullRequestCreated'],
+        const rule = repository.onPullRequestStateChange(
+            'PullRequestChangeRule',
+            {
+                eventPattern: {
+                    detail: {
+                        event: [
+                            'pullRequestSourceBranchUpdated',
+                            'pullRequestCreated',
+                        ],
+                    },
                 },
             },
-        });
+        );
 
         rule.addTarget(new LambdaFunction(pullRequestFunction));
         rule.addTarget(new PullRequestProjectTarget(pullRequestProject));
