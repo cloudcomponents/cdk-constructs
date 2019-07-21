@@ -1,8 +1,6 @@
 import { Stack } from '@aws-cdk/core';
-import { toMatchCdkSnapshot } from '@cloudcomponents/jest-cdk-snapshot';
+import '@cloudcomponents/jest-cdk-snapshot';
 import { GithubWebhook } from '../github-webhook';
-
-expect.extend({ toMatchCdkSnapshot });
 
 describe('cdk-github-webhook', (): void => {
     it('snapshot', (): void => {

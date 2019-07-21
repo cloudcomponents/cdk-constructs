@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { App } from '@aws-cdk/core';
-import { CodepipelineSlackApprovalStack } from '../lib/codepipeline-slack-approval-stack';
+import { CodepipelineSlackApprovalStack } from '../src/codepipeline-slack-approval-stack';
 
 const app = new App();
 new CodepipelineSlackApprovalStack(app, 'CodepipelineSlackApprovalStack', {

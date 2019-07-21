@@ -2,10 +2,8 @@ import { Stack } from '@aws-cdk/core';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { S3SourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { Bucket } from '@aws-cdk/aws-s3';
-import { toMatchCdkSnapshot } from '@cloudcomponents/jest-cdk-snapshot';
+import '@cloudcomponents/jest-cdk-snapshot';
 import { SlackApprovalAction } from '../slack-approval-action';
-
-expect.extend({ toMatchCdkSnapshot });
 
 describe('cdk-codepipeline-slack: slack-approval-action', (): void => {
     it('snapshot', (): void => {
