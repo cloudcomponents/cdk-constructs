@@ -42,7 +42,7 @@ Object {
           "Fn::Join": Array [
             "",
             Array [
-              "{\\"widgets\\":[{\\"type\\":\\"text\\",\\"width\\":24,\\"height\\":2,\\"x\\":0,\\"y\\":0,\\"properties\\":{\\"markdown\\":\\"# cloudcomponents\\\\n[button:cloudcomponents](https: www.cloudcomponents.org)\\"}},{\\"type\\":\\"metric\\",\\"width\\":6,\\"height\\":6,\\"x\\":0,\\"y\\":2,\\"properties\\":{\\"view\\":\\"timeSeries\\",\\"title\\":\\"Success\\",\\"region\\":\\"",
+              "{\\"widgets\\":[{\\"type\\":\\"text\\",\\"width\\":24,\\"height\\":2,\\"x\\":0,\\"y\\":0,\\"properties\\":{\\"markdown\\":\\"# cloudcomponents\\\\n[button:cloudcomponents](https://www.cloudcomponents.org)\\"}},{\\"type\\":\\"metric\\",\\"width\\":6,\\"height\\":6,\\"x\\":0,\\"y\\":2,\\"properties\\":{\\"view\\":\\"timeSeries\\",\\"title\\":\\"Success\\",\\"region\\":\\"",
               Object {
                 "Ref": "AWS::Region",
               },
@@ -195,7 +195,7 @@ Object {
     },
     "WebsiteMonitorScheduler4DC65597": Object {
       "Properties": Object {
-        "ScheduleExpression": "cron(5 * * * ? *)",
+        "ScheduleExpression": "rate(2 minutes)",
         "State": "ENABLED",
         "Targets": Array [
           Object {
