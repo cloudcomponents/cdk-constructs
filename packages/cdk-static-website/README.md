@@ -11,29 +11,30 @@ npm install --save @cloudcomponents/cdk-static-website
 ## How to use
 
 ```javascript
-import * as path from 'path';
-import { App, Stack, StackProps, SSMParameterProvider } from '@aws-cdk/cdk';
+import { App, Stack, StackProps, RemovalPolicy } from '@aws-cdk/core';
+import { StringParameter } from '@aws-cdk/aws-ssm';
 import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
 
 export class StaticWebsiteStack extends Stack {
-  constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+    public constructor(parent: App, name: string, props?: StackProps) {
+        super(parent, name, props);
 
-    const certificateArn = new SSMParameterProvider(this, {
-      parameterName: '/certificate/cloudcomponents.org'
-    }).parameterValue();
+        const certificateArn = StringParameter.valueFromLookup(
+            this,
+            '/certificate/cloudcomponents.org',
+        );
 
-    const website = new StaticWebsite(this, 'StaticWebsite', {
-      bucketConfiguration: {
-        source: path.join(__dirname, '..', 'website', 'build')
-      },
-      aliasConfiguration: {
-        domainName: 'cloudcomponents.org',
-        names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
-        acmCertRef: certificateArn
-      }
-    });
-  }
+        new StaticWebsite(this, 'StaticWebsite', {
+            bucketConfiguration: {
+                removalPolicy: RemovalPolicy.DESTROY,
+            },
+            aliasConfiguration: {
+                domainName: 'cloudcomponents.org',
+                names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
+                acmCertRef: certificateArn,
+            },
+        });
+    }
 }
 ```
 
@@ -41,9 +42,9 @@ export class StaticWebsiteStack extends Stack {
 
 ```javascript
 website.addLambdaFunctionAssociation({
-  functionArn: 'arn:aws:lambda:...',
-  functionVersion: '1',
-  eventType: 'origin-request'
+    functionArn: 'arn:aws:lambda:...',
+    functionVersion: '1',
+    eventType: 'origin-request',
 });
 ```
 
