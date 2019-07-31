@@ -13,7 +13,8 @@ npm install --save @cloudcomponents/cdk-pull-request-check
 ```javascript
 import { App, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
-import { PullRequestCheck } from 'pull-request-check';
+import { BuildSpec } from '@aws-cdk/aws-codebuild';
+import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 
 export class CodepipelineStack extends Stack {
     constructor(parent: App, name: string, props?: StackProps) {
