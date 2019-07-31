@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { Construct } from '@aws-cdk/core';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
@@ -16,6 +17,8 @@ import { PullRequestProjectTarget } from './pull_request_project_target';
 export interface PullRequestCheckProps {
     repository: IRepository;
     buildSpec: BuildSpec;
+    buildImage?: LinuxBuildImage;
+    computeType?: ComputeType;
 }
 export class PullRequestCheck extends Construct {
     public constructor(
@@ -25,7 +28,12 @@ export class PullRequestCheck extends Construct {
     ) {
         super(parent, id);
 
-        const { repository, buildSpec } = props;
+        const {
+            repository,
+            buildSpec,
+            buildImage = LinuxBuildImage.STANDARD_2_0,
+            computeType = ComputeType.SMALL,
+        } = props;
 
         const lambdaRole = new Role(this, 'LambdaRole', {
             assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
@@ -47,7 +55,7 @@ export class PullRequestCheck extends Construct {
 
         const pullRequestFunction = new Function(this, 'PullRequestFunction', {
             runtime: Runtime.PYTHON_3_7,
-            code: Code.asset('resources'),
+            code: Code.asset(path.join(__dirname, '..', 'resources')),
             handler: 'pull_request.lambda_handler',
             role: lambdaRole,
         });
@@ -57,7 +65,7 @@ export class PullRequestCheck extends Construct {
             'CodeBuildResultFunction',
             {
                 runtime: Runtime.PYTHON_3_7,
-                code: Code.asset('resources'),
+                code: Code.asset(path.join(__dirname, '..', 'resources')),
                 handler: 'code_build_result.lambda_handler',
                 role: lambdaRole,
             },
@@ -69,8 +77,8 @@ export class PullRequestCheck extends Construct {
                 repository,
             }),
             environment: {
-                buildImage: LinuxBuildImage.STANDARD_2_0,
-                computeType: ComputeType.SMALL,
+                buildImage,
+                computeType,
             },
             buildSpec,
         });

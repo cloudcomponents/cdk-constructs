@@ -1,46 +1,47 @@
 {
-  "name": "@cloudcomponents/cdk-pull-request-check",
-  "version": "1.0.7",
-  "description": "Cdk component that automatically check pull requests",
-  "license": "MIT",
-  "author": "hello@webappsolutions.de",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cloudcomponents/cdk-components"
-  },
-  "keywords": [
-    "aws",
-    "cdk",
-    "codecommit",
-    "codebuild",
-    "pull request",
-    "@cloudcomponents"
-  ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib",
-    "resources"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-codebuild": "^1.1.0",
-    "@aws-cdk/aws-codecommit": "^1.1.0",
-    "@aws-cdk/aws-events": "^1.1.0",
-    "@aws-cdk/aws-events-targets": "^1.1.0",
-    "@aws-cdk/aws-iam": "^1.1.0",
-    "@aws-cdk/aws-lambda": "^1.1.0",
-    "@aws-cdk/core": "^1.1.0"
-  },
-  "devDependencies": {
-    "@types/node": "8.10.45",
-    "typescript": "^3.5.3"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "e222e9d778427876cc76bf34ebdb5c2b1e6dfba1"
+    "name": "@cloudcomponents/cdk-pull-request-check",
+    "version": "1.0.7",
+    "description": "Cdk component that automatically check pull requests",
+    "license": "MIT",
+    "author": "hello@webappsolutions.de",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "codecommit",
+        "codebuild",
+        "pull request",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "resources"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codebuild": "^1.1.0",
+        "@aws-cdk/aws-codecommit": "^1.1.0",
+        "@aws-cdk/aws-events": "^1.1.0",
+        "@aws-cdk/aws-events-targets": "^1.1.0",
+        "@aws-cdk/aws-iam": "^1.1.0",
+        "@aws-cdk/aws-lambda": "^1.1.0",
+        "@aws-cdk/core": "^1.1.0"
+    },
+    "devDependencies": {
+        "@cloudcomponents/jest-cdk-snapshot": "^1.0.5",
+        "@types/node": "8.10.45",
+        "typescript": "^3.5.3"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "e222e9d778427876cc76bf34ebdb5c2b1e6dfba1"
 }
