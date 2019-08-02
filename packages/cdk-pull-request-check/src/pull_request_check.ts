@@ -14,6 +14,8 @@ import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 
 import { PullRequestProjectTarget } from './pull_request_project_target';
 
+const pathLambdas = path.join(__dirname, '..', 'lambdas');
+
 export interface PullRequestCheckProps {
     repository: IRepository;
     buildSpec: BuildSpec;
@@ -55,7 +57,7 @@ export class PullRequestCheck extends Construct {
 
         const pullRequestFunction = new Function(this, 'PullRequestFunction', {
             runtime: Runtime.PYTHON_3_7,
-            code: Code.asset(path.join(__dirname, '..', 'resources')),
+            code: Code.asset(`${pathLambdas}/pull-request`),
             handler: 'pull_request.lambda_handler',
             role: lambdaRole,
         });
@@ -65,7 +67,7 @@ export class PullRequestCheck extends Construct {
             'CodeBuildResultFunction',
             {
                 runtime: Runtime.PYTHON_3_7,
-                code: Code.asset(path.join(__dirname, '..', 'resources')),
+                code: Code.asset(`${pathLambdas}/code-build-result`),
                 handler: 'code_build_result.lambda_handler',
                 role: lambdaRole,
             },
