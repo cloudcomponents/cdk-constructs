@@ -1,33 +1,33 @@
 {
-    "name": "root",
-    "private": true,
-    "scripts": {
-        "bootstrap": "lerna bootstrap",
-        "postinstall": "lerna bootstrap",
-        "pretest": "lerna run pretest",
-        "test": "jest",
-        "build:tools": "lerna --scope @cloudcomponents/build-tools run build ",
-        "build": "lerna run build",
-        "grooming": "npm outdated; lerna exec --no-bail -- npm outdated",
-        "lint": "eslint '*/**/*.ts' --cache  --report-unused-disable-directives",
-        "lint:ci": "eslint '*/**/*.ts' --report-unused-disable-directives",
-        "lint:fix": "eslint '*/**/*.ts' --cache --fix"
-    },
-    "devDependencies": {
-        "@types/jest": "^24.0.15",
-        "@types/node": "^11.13.18",
-        "@typescript-eslint/eslint-plugin": "^1.12.0",
-        "@typescript-eslint/parser": "^1.12.0",
-        "eslint": "^5.16.0",
-        "eslint-config-airbnb-base": "^13.2.0",
-        "eslint-config-prettier": "^6.0.0",
-        "eslint-plugin-import": "^2.18.2",
-        "eslint-plugin-prettier": "^3.1.0",
-        "glob": "^7.1.4",
-        "jest": "^24.8.0",
-        "lerna": "^3.16.1",
-        "prettier": "^1.18.2",
-        "ts-jest": "^24.0.2",
-        "typescript": "^3.5.3"
-    }
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "postinstall": "lerna bootstrap",
+    "pretest": "lerna run pretest",
+    "test": "jest",
+    "build:tools": "lerna --scope @cloudcomponents/build-tools run build ",
+    "build": "lerna run build",
+    "grooming": "npm outdated; lerna exec --no-bail -- npm outdated",
+    "lint": "eslint '*/**/*.ts' --cache  --report-unused-disable-directives",
+    "lint:ci": "eslint '*/**/*.ts' --report-unused-disable-directives",
+    "lint:fix": "eslint '*/**/*.ts' --cache --fix"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.16",
+    "@types/node": "^11.13.18",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "glob": "^7.1.4",
+    "jest": "^24.8.0",
+    "lerna": "^3.16.4",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  }
 }
