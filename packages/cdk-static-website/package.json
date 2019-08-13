@@ -1,42 +1,42 @@
 {
-  "name": "@cloudcomponents/cdk-static-website",
-  "version": "1.0.15",
-  "description": "Cdk component that creates a static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS)",
-  "license": "MIT",
-  "author": "hello@webappsolutions.de",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cloudcomponents/cdk-components"
-  },
-  "keywords": [
-    "aws",
-    "cdk",
-    "s3",
-    "cloudfront",
-    "website",
-    "route53",
-    "@cloudcomponents"
-  ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
-  "peerDependencies": {
-    "@aws-cdk/core": "^1.0.0"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-cloudfront": "^1.1.0",
-    "@aws-cdk/aws-iam": "^1.1.0",
-    "@aws-cdk/aws-route53": "^1.1.0",
-    "@aws-cdk/aws-route53-targets": "^1.1.0",
-    "@aws-cdk/aws-s3": "^1.1.0",
-    "@aws-cdk/aws-s3-deployment": "^1.1.0"
-  },
-  "devDependencies": {
-    "@cloudcomponents/jest-cdk-snapshot": "^1.0.5",
-    "typescript": "^3.5.3"
-  },
-  "gitHead": "e222e9d778427876cc76bf34ebdb5c2b1e6dfba1"
+    "name": "@cloudcomponents/cdk-static-website",
+    "version": "1.0.15",
+    "description": "Cdk component that creates a static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS)",
+    "license": "MIT",
+    "author": "hello@webappsolutions.de",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "s3",
+        "cloudfront",
+        "website",
+        "route53",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "peerDependencies": {
+        "@aws-cdk/core": "^1.0.0"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-cloudfront": "^1.3.0",
+        "@aws-cdk/aws-iam": "^1.3.0",
+        "@aws-cdk/aws-route53": "^1.3.0",
+        "@aws-cdk/aws-route53-targets": "^1.3.0",
+        "@aws-cdk/aws-s3": "^1.3.0",
+        "@aws-cdk/aws-s3-deployment": "^1.3.0"
+    },
+    "devDependencies": {
+        "jest-cdk-snapshot": "^1.0.11",
+        "typescript": "^3.5.3"
+    },
+    "gitHead": "e222e9d778427876cc76bf34ebdb5c2b1e6dfba1"
 }

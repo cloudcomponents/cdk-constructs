@@ -1,8 +1,7 @@
 import { Stack } from '@aws-cdk/core';
-import { toMatchCdkSnapshot } from '@cloudcomponents/jest-cdk-snapshot';
-import { WebsiteBucket } from '../website-bucket';
+import 'jest-cdk-snapshot';
 
-expect.extend({ toMatchCdkSnapshot });
+import { WebsiteBucket } from '../website-bucket';
 
 describe('cdk-static-website: website-bucket', (): void => {
     it('snapshot', (): void => {

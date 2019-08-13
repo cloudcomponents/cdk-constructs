@@ -1,10 +1,9 @@
 import { Stack } from '@aws-cdk/core';
-import { toMatchCdkSnapshot } from '@cloudcomponents/jest-cdk-snapshot';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
-import { PullRequestCheck } from '../pull_request_check';
+import 'jest-cdk-snapshot';
 
-expect.extend({ toMatchCdkSnapshot });
+import { PullRequestCheck } from '../pull_request_check';
 
 describe('cdk-pull-request-check', (): void => {
     it('snapshot', (): void => {

@@ -1,31 +1,31 @@
 {
-  "name": "@cloudcomponents/cdk-github-webhook-lambda",
-  "version": "1.0.12",
-  "private": true,
-  "license": "MIT",
-  "author": "hello@webappsolutions.de",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
-  "files": [
-    "lib"
-  ],
-  "bundleDependencies": [
-    "@cloudcomponents/custom-resource-helper",
-    "@octokit/rest",
-    "axios",
-    "parse-github-url"
-  ],
-  "dependencies": {
-    "@cloudcomponents/custom-resource-helper": "^1.0.4",
-    "@octokit/rest": "^16.28.5",
-    "axios": "^0.19.0",
-    "parse-github-url": "^1.0.2"
-  },
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.30",
-    "@types/parse-github-url": "^1.0.0",
-    "typescript": "^3.5.3"
-  }
+    "name": "@cloudcomponents/cdk-github-webhook-lambda",
+    "version": "1.0.12",
+    "private": true,
+    "license": "MIT",
+    "author": "hello@webappsolutions.de",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "files": [
+        "lib"
+    ],
+    "bundleDependencies": [
+        "@cloudcomponents/custom-resource-helper",
+        "@octokit/rest",
+        "axios",
+        "parse-github-url"
+    ],
+    "dependencies": {
+        "@octokit/rest": "^16.28.7",
+        "axios": "^0.19.0",
+        "custom-resource-helper": "^1.0.7",
+        "parse-github-url": "^1.0.2"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.31",
+        "@types/parse-github-url": "^1.0.0",
+        "typescript": "^3.5.3"
+    }
 }

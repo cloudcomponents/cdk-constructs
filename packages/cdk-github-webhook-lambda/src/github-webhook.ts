@@ -7,7 +7,7 @@ import {
     OnDeleteHandler,
     ResourceHandler,
     ResourceHandlerReturn,
-} from '@cloudcomponents/custom-resource-helper';
+} from 'custom-resource-helper';
 
 import { createWebhook, updateWebhook, deleteWebhook } from './webhook-api';
 
