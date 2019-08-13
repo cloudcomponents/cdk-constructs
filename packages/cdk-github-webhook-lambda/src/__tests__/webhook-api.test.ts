@@ -3,7 +3,7 @@ const createMock = jest.fn();
 const updateMock = jest.fn();
 const deleteMock = jest.fn();
 
-/* eslint-disable-next-line */
+/* eslint-disable */
 jest.mock('@octokit/rest', () =>
     jest.fn().mockImplementation(() => ({
         authenticate: authenticateMock,
@@ -14,6 +14,7 @@ jest.mock('@octokit/rest', () =>
         },
     })),
 );
+/* eslint-enable */
 
 /* eslint-disable */
 import { createWebhook, updateWebhook, deleteWebhook } from '../webhook-api';
@@ -102,7 +103,9 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
         });
     });
 
-    it('should throw an exception if the githubUrl is not correct', (): void => {
+    it('should throw an exception if the githubUrl is not correct', async (): Promise<
+        void
+    > => {
         const githubApiToken = 'secure';
         const githubRepoUrl = '*INCORRECT_URL*';
         const payloadUrl = 'payloadUrl';
@@ -111,6 +114,6 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
         const call = (): Promise<Response<ReposCreateHookResponse>> =>
             createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
-        expect(call).toThrow('GithubRepoUrl is not correct');
+        expect(call()).rejects.toThrow('GithubRepoUrl is not correct');
     });
 });

@@ -1,4 +1,4 @@
-import { WebClient } from '@slack/client';
+import { WebClient, WebAPICallResult } from '@slack/web-api';
 
 export class SlackBot {
     private bot;
@@ -16,7 +16,7 @@ export class SlackBot {
         this.icon = icon;
     }
 
-    public async postMessage(message) {
+    public async postMessage(message): Promise<WebAPICallResult> {
         const channel = await this.findChannel(this.channel);
 
         return this.bot.chat.postMessage({
@@ -27,7 +27,7 @@ export class SlackBot {
         });
     }
 
-    public async updateMessage(ts, message) {
+    public async updateMessage(ts, message): Promise<WebAPICallResult> {
         const channel = await this.findChannel(this.channel);
 
         return this.bot.chat.update({
@@ -44,7 +44,7 @@ export class SlackBot {
         return response.channels.find(channel => channel.name === name);
     }
 
-    public async openDialog(triggerId, dialog) {
+    public async openDialog(triggerId, dialog): Promise<WebAPICallResult> {
         return this.bot.dialog.open({ trigger_id: triggerId, dialog });
     }
 }

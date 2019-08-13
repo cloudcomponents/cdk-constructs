@@ -3,33 +3,24 @@ import * as parseGithubUrl from 'parse-github-url';
 
 const octokit = new Octokit();
 
-const parseGithubRepoUrl = (githubRepoUrl: string) => {
+export const createWebhook = async (
+    githubApiToken: string,
+    githubRepoUrl: string,
+    payloadUrl: string,
+    events: string[],
+): Promise<Octokit.Response<Octokit.ReposCreateHookResponse>> => {
+    octokit.authenticate({ type: 'token', token: githubApiToken });
+
     const gh = parseGithubUrl(githubRepoUrl);
 
     if (gh === null || gh.owner === null || gh.name === null) {
         throw new Error('GithubRepoUrl is not correct');
     }
 
-    return {
-        repo: gh.name,
-        owner: gh.owner,
-    };
-};
-
-export const createWebhook = (
-    githubApiToken: string,
-    githubRepoUrl: string,
-    payloadUrl: string,
-    events: string[],
-) => {
-    octokit.authenticate({ type: 'token', token: githubApiToken });
-
-    const { repo, owner } = parseGithubRepoUrl(githubRepoUrl);
-
     const params = {
         name: 'web',
-        owner,
-        repo,
+        owner: gh.owner,
+        repo: gh.name,
         config: { url: payloadUrl, content_type: 'json' },
         events,
         active: true,
@@ -38,20 +29,24 @@ export const createWebhook = (
     return octokit.repos.createHook(params);
 };
 
-export const updateWebhook = (
+export const updateWebhook = async (
     githubApiToken: string,
     githubRepoUrl: string,
     payloadUrl: string,
     events: string[],
     hookId: number,
-) => {
+): Promise<Octokit.Response<Octokit.ReposUpdateHookResponse>> => {
     octokit.authenticate({ type: 'token', token: githubApiToken });
 
-    const { repo, owner } = parseGithubRepoUrl(githubRepoUrl);
+    const gh = parseGithubUrl(githubRepoUrl);
+
+    if (gh === null || gh.owner === null || gh.name === null) {
+        throw new Error('GithubRepoUrl is not correct');
+    }
 
     const params = {
-        owner,
-        repo,
+        owner: gh.owner,
+        repo: gh.name,
         config: { url: payloadUrl, content_type: 'json' },
         events,
         active: true,
@@ -61,18 +56,21 @@ export const updateWebhook = (
     return octokit.repos.updateHook(params);
 };
 
-export const deleteWebhook = (
+export const deleteWebhook = async (
     githubApiToken: string,
     githubRepoUrl: string,
     hookId: number,
-) => {
+): Promise<Octokit.Response<Octokit.ReposDeleteHookResponse>> => {
     octokit.authenticate({ type: 'token', token: githubApiToken });
 
-    const { repo, owner } = parseGithubRepoUrl(githubRepoUrl);
+    const gh = parseGithubUrl(githubRepoUrl);
 
+    if (gh === null || gh.owner === null || gh.name === null) {
+        throw new Error('GithubRepoUrl is not correct');
+    }
     const params = {
-        owner,
-        repo,
+        owner: gh.owner,
+        repo: gh.name,
         hook_id: hookId,
     };
 

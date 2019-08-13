@@ -11,7 +11,16 @@ import {
 
 import { createWebhook, updateWebhook, deleteWebhook } from './webhook-api';
 
-const getProperties = (event: CloudFormationCustomResourceEvent) => {
+export interface WebhookProps {
+    githubApiToken: string;
+    githubRepoUrl: string;
+    payloadUrl: string;
+    events: string[];
+}
+
+const getProperties = (
+    event: CloudFormationCustomResourceEvent,
+): WebhookProps => {
     const props = event.ResourceProperties;
 
     const githubApiToken = props.GithubApiToken;
@@ -34,19 +43,23 @@ const handleCreate: OnCreateHandler = async (
     const { githubApiToken, githubRepoUrl, payloadUrl, events } = getProperties(
         event,
     );
-    const { data: responseData } = await createWebhook(
-        githubApiToken,
-        githubRepoUrl,
-        payloadUrl,
-        events,
-    );
+    try {
+        const { data: responseData } = await createWebhook(
+            githubApiToken,
+            githubRepoUrl,
+            payloadUrl,
+            events,
+        );
 
-    const physicalResourceId = responseData.id.toString();
+        const physicalResourceId = responseData.id.toString();
 
-    return {
-        physicalResourceId,
-        responseData,
-    };
+        return {
+            physicalResourceId,
+            responseData,
+        };
+    } catch (error) {
+        throw error;
+    }
 };
 
 const handleUpdate: OnUpdateHandler = async (

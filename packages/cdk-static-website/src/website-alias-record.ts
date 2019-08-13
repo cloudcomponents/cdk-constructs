@@ -1,29 +1,25 @@
 import {
     ARecord,
-    RecordTarget,
     HostedZone,
     IAliasRecordTarget,
+    RecordTarget,
 } from '@aws-cdk/aws-route53';
 import { Construct } from '@aws-cdk/core';
 
 export interface WebsiteAliasRecordProps {
-    /** The domain name for the site like 'cloudcomponents.org' */
-    domainName: string;
+    /** The domain name for the site like 'example.com' */
+    readonly domainName: string;
 
     /** Names for the records. */
-    recordNames: string[];
+    readonly recordNames: string[];
 
     /** Target for the alias record */
-    target: IAliasRecordTarget;
+    readonly target: IAliasRecordTarget;
 }
 
 export class WebsiteAliasRecord extends Construct {
-    public constructor(
-        parent: Construct,
-        name: string,
-        props: WebsiteAliasRecordProps,
-    ) {
-        super(parent, name);
+    constructor(scope: Construct, id: string, props: WebsiteAliasRecordProps) {
+        super(scope, id);
 
         const { domainName, recordNames, target } = props;
 
