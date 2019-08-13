@@ -6,7 +6,7 @@ import { createMessageAdapter } from '@slack/interactive-messages';
 import { Server } from 'http';
 import { handleButtonClicked, handleDialog } from './interactions';
 
-const { SLACK_SIGNING_SECRET } = process.env;
+const SLACK_SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET as string;
 
 const app = express();
 

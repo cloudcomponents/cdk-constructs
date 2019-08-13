@@ -1,84 +1,106 @@
-import * as path from 'path';
-import { CfnCloudFrontOriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
+import {
+    CfnCloudFrontOriginAccessIdentity,
+    S3OriginConfig,
+} from '@aws-cdk/aws-cloudfront';
+import { CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 import { Construct, RemovalPolicy } from '@aws-cdk/core';
-import { CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
+import * as path from 'path';
 
 export interface WebsiteBucketProps {
-    /** Name of the bucket */
-    bucketName?: string;
+    /**
+     * Name of the bucket
+     *
+     * @default - Assigned by CloudFormation (recommended).
+     */
+    readonly bucketName?: string;
 
-    /** Policy to apply when the bucket is removed from this stack. */
-    removalPolicy?: RemovalPolicy;
+    /**
+     * Policy to apply when the bucket is removed from this stack.
+     *
+     * @default - The bucket will be orphaned.
+     */
+    readonly removalPolicy?: RemovalPolicy;
 
-    source?: string;
+    /**
+     * The source from which to deploy the website
+     *
+     * @default - Dummy placeholder
+     */
+    readonly source?: string;
 
-    disableUpload?: boolean;
+    /**
+     * Disable website deployment
+     *
+     * @default - false
+     */
+    readonly disableUpload?: boolean;
 
-    /** The index page for the site like 'index.html' */
-    websiteIndexDocument?: string;
+    /**
+     * The index page for the site like 'index.html'
+     *
+     * @default - index.html
+     */
+    readonly websiteIndexDocument?: string;
 
-    /** The error page for the site like 'error.html' */
-    websiteErrorDocument?: string;
+    /**
+     *  The error page for the site like 'error.html'
+     *
+     *  @default - error.html
+     */
+    readonly websiteErrorDocument?: string;
 }
 
 export class WebsiteBucket extends Construct {
-    private readonly originId: CfnCloudFrontOriginAccessIdentity;
+    public readonly s3OriginConfig: S3OriginConfig;
 
-    private readonly bucket: Bucket;
-
-    public constructor(
-        parent: Construct,
-        name: string,
-        props: WebsiteBucketProps,
-    ) {
-        super(parent, name);
+    constructor(scope: Construct, id: string, props: WebsiteBucketProps = {}) {
+        super(scope, id);
 
         const {
             bucketName,
-            removalPolicy,
+            removalPolicy = RemovalPolicy.RETAIN,
             disableUpload = false,
             source,
             websiteIndexDocument,
             websiteErrorDocument,
         } = props;
 
-        this.bucket = new Bucket(this, 'WebsiteBucket', {
+        const bucket = new Bucket(this, 'WebsiteBucket', {
             bucketName,
             removalPolicy,
             websiteIndexDocument: websiteIndexDocument || 'index.html',
             websiteErrorDocument: websiteErrorDocument || 'error.html',
         });
 
-        this.originId = new CfnCloudFrontOriginAccessIdentity(
+        const originId = new CfnCloudFrontOriginAccessIdentity(
             this,
             'OriginAccessIdentity',
             {
                 cloudFrontOriginAccessIdentityConfig: {
-                    comment: `CloudFront OriginAccessIdentity for ${this.bucket.bucketName}`,
+                    comment: `CloudFront OriginAccessIdentity for ${bucket.bucketName}`,
                 },
             },
         );
 
-        this.bucket.grantRead(
-            new CanonicalUserPrincipal(this.originId.attrS3CanonicalUserId),
+        bucket.grantRead(
+            new CanonicalUserPrincipal(originId.attrS3CanonicalUserId),
         );
 
         if (!disableUpload) {
             const placeHolderSource = path.join(__dirname, '..', 'website');
 
-            new BucketDeployment(this, 'DeployWebsite', {
+            new BucketDeployment(this, 'WebsiteDeployment', {
                 source: Source.asset(source || placeHolderSource),
-                destinationBucket: this.bucket,
+                destinationBucket: bucket,
+                retainOnDelete: removalPolicy === RemovalPolicy.RETAIN,
             });
         }
-    }
 
-    public get s3OriginSource() {
-        return {
-            originAccessIdentity: this.originId,
-            s3BucketSource: this.bucket,
+        this.s3OriginConfig = {
+            originAccessIdentityId: originId.ref,
+            s3BucketSource: bucket,
         };
     }
 }

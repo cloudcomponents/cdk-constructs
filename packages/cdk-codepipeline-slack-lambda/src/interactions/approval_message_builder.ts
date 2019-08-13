@@ -24,11 +24,11 @@ export class ApprovalMessageBuilder {
         }
     }
 
-    public removeActions() {
+    public removeActions(): void {
         this.actions = [];
     }
 
-    public updateStatus(value) {
+    public updateStatus(value): void {
         this.fields.forEach(field => {
             if (field.title === 'Status') {
                 /* eslint-disable-next-line no-param-reassign */
@@ -37,7 +37,7 @@ export class ApprovalMessageBuilder {
         });
     }
 
-    public attachComment(comment) {
+    public attachComment(comment): void {
         this.fields.push({
             title: 'Comment',
             value: comment,

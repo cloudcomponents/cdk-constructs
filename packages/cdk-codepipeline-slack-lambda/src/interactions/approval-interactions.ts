@@ -4,10 +4,12 @@ import { CodePipeline } from 'aws-sdk';
 import { SlackBot } from './slack-bot';
 import { ApprovalMessageBuilder } from './approval_message_builder';
 
-const { SLACK_BOT_TOKEN } = process.env;
-const { SLACK_CHANNEL } = process.env;
-const { SLACK_BOT_NAME } = process.env;
-const { SLACK_BOT_ICON } = process.env;
+const {
+    SLACK_BOT_TOKEN,
+    SLACK_CHANNEL,
+    SLACK_BOT_NAME,
+    SLACK_BOT_ICON,
+} = process.env;
 
 const pipeline = new CodePipeline();
 
@@ -37,7 +39,7 @@ const buildDialog = payload => {
     return dialog;
 };
 
-export const requestApproval = async approval => {
+export const requestApproval = async (approval): Promise<void> => {
     try {
         const messageBuilder = ApprovalMessageBuilder.fromApprovalRequest(
             approval,
@@ -74,7 +76,7 @@ export const handleButtonClicked = async payload => {
     }
 };
 
-const handleDialogSubmission = async payload => {
+const handleDialogSubmission = async (payload): Promise<void> => {
     const { user, state, callback_id, submission } = payload;
     const { comment } = submission;
     const { ts, approval } = JSON.parse(state);
@@ -109,7 +111,7 @@ const handleDialogSubmission = async payload => {
     await bot.updateMessage(ts, messageBuilder.message);
 };
 
-const handleDialogCancellation = async payload => {
+const handleDialogCancellation = async (payload): Promise<void> => {
     const { state } = payload;
     const { ts, approval } = JSON.parse(state);
 
@@ -118,7 +120,7 @@ const handleDialogCancellation = async payload => {
     await bot.updateMessage(ts, messageBuilder.message);
 };
 
-export const handleDialog = async payload => {
+export const handleDialog = async (payload): Promise<void> => {
     try {
         console.log(payload);
 
