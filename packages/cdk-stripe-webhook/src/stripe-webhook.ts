@@ -6,37 +6,35 @@ import {
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
 import { Construct, Duration } from '@aws-cdk/core';
 
-export interface ContentfulWebhookProps {
-    accessToken: string;
-    spaceId: string;
-    name: string;
+export interface StripeWebhookProps {
+    secretKey: string;
     url: string;
-    topics: string[];
+    events: string[];
     logLevel?: 'debug' | 'info' | 'warning' | 'error';
 }
 
-export class ContentfulWebhook extends Construct {
+export class StripeWebhook extends Construct {
     public constructor(
         scope: Construct,
         id: string,
-        props: ContentfulWebhookProps,
+        props: StripeWebhookProps,
     ) {
         super(scope, id);
 
         const handler = new SingletonFunction(this, 'CustomResourceHandler', {
-            uuid: '91f2075f-b950-4743-a66b-ee0f6febf50d',
+            uuid: 'e9db3870-d793-4cd2-96a9-efe2e318ebbc',
             runtime: Runtime.NODEJS_10_X,
             code: Code.asset(
                 path.join(__dirname, '..', 'lambda', 'bundle.zip'),
             ),
-            handler: 'lib/contentful-webhook.handler',
-            lambdaPurpose: 'Custom::ContentfulWebhook',
+            handler: 'lib/stripe-webhook.handler',
+            lambdaPurpose: 'Custom::StripeWebhook',
             timeout: Duration.minutes(15),
         });
 
         new CustomResource(this, 'CustomResource', {
             provider: CustomResourceProvider.lambda(handler),
-            resourceType: 'Custom::ContentfulWebhook',
+            resourceType: 'Custom::StripeWebhook',
             properties: {
                 ...props,
             },

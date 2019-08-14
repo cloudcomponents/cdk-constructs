@@ -1,53 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cdk-contentful-webhook snapshot 1`] = `
+exports[`cdk-stripe-webhook snapshot 1`] = `
 Object {
   "Parameters": Object {
-    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeArtifactHashC39FE184": Object {
-      "Description": "Artifact hash for asset \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+    "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcCodeArtifactHashF6417DE2": Object {
+      "Description": "Artifact hash for asset \\"Custom::StripeWebhooke9db3870d7934cd296a9efe2e318ebbc/Code\\"",
       "Type": "String",
     },
-    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3Bucket144A2F2C": Object {
-      "Description": "S3 bucket for asset \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+    "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcCodeS3Bucket1A124396": Object {
+      "Description": "S3 bucket for asset \\"Custom::StripeWebhooke9db3870d7934cd296a9efe2e318ebbc/Code\\"",
       "Type": "String",
     },
-    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E": Object {
-      "Description": "S3 key for asset version \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+    "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcCodeS3VersionKey260932AE": Object {
+      "Description": "S3 key for asset version \\"Custom::StripeWebhooke9db3870d7934cd296a9efe2e318ebbc/Code\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "ContentfulWebhookCustomResourceFC4E1F73": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "AccessToken": "<access_token>",
-        "Name": "My webhook",
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50d4005AAA1",
-            "Arn",
-          ],
-        },
-        "SpaceId": "<space_id>",
-        "Topics": Array [
-          "Entry.create",
-          "ContentType.create",
-          "*.publish",
-          "Asset.*",
-        ],
-        "Url": "https://www.example.com/test",
-      },
-      "Type": "Custom::ContentfulWebhook",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50d4005AAA1": Object {
+    "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbc3F433A9D": Object {
       "DependsOn": Array [
-        "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dServiceRole311F9EBA",
+        "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcServiceRole975E615A",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3Bucket144A2F2C",
+            "Ref": "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcCodeS3Bucket1A124396",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -60,7 +37,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E",
+                          "Ref": "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcCodeS3VersionKey260932AE",
                         },
                       ],
                     },
@@ -73,7 +50,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E",
+                          "Ref": "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcCodeS3VersionKey260932AE",
                         },
                       ],
                     },
@@ -83,10 +60,10 @@ Object {
             ],
           },
         },
-        "Handler": "lib/contentful-webhook.handler",
+        "Handler": "lib/stripe-webhook.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dServiceRole311F9EBA",
+            "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcServiceRole975E615A",
             "Arn",
           ],
         },
@@ -95,7 +72,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dServiceRole311F9EBA": Object {
+    "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcServiceRole975E615A": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -135,6 +112,25 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
+    },
+    "StripeWebhookCustomResource8D1A2FEA": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Events": Array [
+          "charge.failed",
+          "charge.succeeded",
+        ],
+        "SecretKey": "sk_test_1213fdsdfsgfsdgdfgfdg",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbc3F433A9D",
+            "Arn",
+          ],
+        },
+        "Url": "https://www.example.com/test",
+      },
+      "Type": "Custom::StripeWebhook",
+      "UpdateReplacePolicy": "Delete",
     },
   },
 }
