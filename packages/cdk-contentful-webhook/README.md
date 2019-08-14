@@ -1,11 +1,11 @@
-# @cloudcomponents/cdk-github-webhook
+# @cloudcomponents/cdk-contentful-webhook
 
-> Cdk component that provisions github webhooks
+> Cdk component that provisions contentful webhooks
 
 ## Install
 
 ```bash
-npm install --save @cloudcomponents/cdk-github-webhook
+npm install --save @cloudcomponents/cdk-contentful-webhook
 ```
 
 ## How to use
