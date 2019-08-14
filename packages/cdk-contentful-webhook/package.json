@@ -1,17 +1,17 @@
 {
-    "name": "@cloudcomponents/cdk-github-webhook",
-    "version": "1.0.20",
-    "description": "Cdk component that provides github webhooks",
+    "name": "@cloudcomponents/cdk-contentful-webhook",
+    "version": "1.0.0",
+    "description": "Cdk component that provides contentful webhooks",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/cloudcomponents/cdk-components",
-        "directory": "packages/cdk-github-webhook"
+        "url": "https://github.com/cloudcomponents/cdk-components.git",
+        "directory": "packages/cdk-contentful-webhook"
     },
     "keywords": [
         "aws",
         "cdk",
-        "github",
+        "contentful",
         "webhook",
         "@cloudcomponents"
     ],
@@ -27,7 +27,7 @@
         "watch": "tsc -w"
     },
     "lambdaDependencies": {
-        "@cloudcomponents/cdk-github-webhook-lambda": "bundle.zip"
+        "@cloudcomponents/cdk-contentful-webhook-lambda": "bundle.zip"
     },
     "peerDependencies": {
         "@aws-cdk/core": "^1.0.0"
@@ -38,9 +38,8 @@
     },
     "devDependencies": {
         "@cloudcomponents/build-tools": "^1.0.14",
-        "@cloudcomponents/cdk-github-webhook-lambda": "^1.0.14",
+        "@cloudcomponents/cdk-contentful-webhook-lambda": "^1.0.0",
         "jest-cdk-snapshot": "^1.0.11",
         "typescript": "^3.5.3"
-    },
-    "gitHead": "e222e9d778427876cc76bf34ebdb5c2b1e6dfba1"
+    }
 }

@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cdk-contentful-webhook snapshot 1`] = `
+Object {
+  "Parameters": Object {
+    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeArtifactHashC39FE184": Object {
+      "Description": "Artifact hash for asset \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+      "Type": "String",
+    },
+    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3Bucket144A2F2C": Object {
+      "Description": "S3 bucket for asset \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+      "Type": "String",
+    },
+    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E": Object {
+      "Description": "S3 key for asset version \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "ContentfulWebhookCustomResourceFC4E1F73": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "AccessToken": "<access_token>",
+        "Name": "My webhook",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50d4005AAA1",
+            "Arn",
+          ],
+        },
+        "SpaceId": "<space_id>",
+        "Topics": Array [
+          "Entry.create",
+          "ContentType.create",
+          "*.publish",
+          "Asset.*",
+        ],
+        "Url": "https://www.example.com/test",
+      },
+      "Type": "Custom::ContentfulWebhook",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50d4005AAA1": Object {
+      "DependsOn": Array [
+        "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dServiceRole311F9EBA",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3Bucket144A2F2C",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "lib/contentful-webhook.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dServiceRole311F9EBA",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs10.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dServiceRole311F9EBA": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "lambda.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;

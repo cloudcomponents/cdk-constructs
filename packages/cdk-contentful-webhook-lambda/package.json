@@ -1,0 +1,25 @@
+{
+    "name": "@cloudcomponents/cdk-contentful-webhook-lambda",
+    "version": "1.0.0",
+    "private": true,
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "files": [
+        "lib"
+    ],
+    "bundleDependencies": [
+        "contentful-management",
+        "custom-resource-helper"
+    ],
+    "dependencies": {
+        "contentful-management": "^5.9.0",
+        "custom-resource-helper": "^1.0.7"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.31",
+        "typescript": "^3.5.3"
+    }
+}
