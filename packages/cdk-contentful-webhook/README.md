@@ -19,7 +19,7 @@ export class ContentfulWebhookStack extends Stack {
     public constructor(scope: App, id: string, props?: StackProps) {
         super(scope, id, props);
 
-        const api = new RestApi(this, 'TargetWebhook');
+        const api = new RestApi(this, 'Endpoint');
         api.root.addMethod('POST');
 
         const accessToken = process.env.ACCESS_TOKEN as string;

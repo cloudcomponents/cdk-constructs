@@ -1,0 +1,48 @@
+{
+    "name": "@cloudcomponents/cdk-stripe-webhook",
+    "version": "1.0.0",
+    "description": "Cdk component that provides stripe webhooks",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cloudcomponents/cdk-components.git",
+        "directory": "packages/cdk-stripe-webhook"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "stripe",
+        "webhook",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "lambda"
+    ],
+    "scripts": {
+        "pretest": "build-tools ziplambda",
+        "build": "tsc && build-tools ziplambda",
+        "watch": "tsc -w"
+    },
+    "lambdaDependencies": {
+        "@cloudcomponents/cdk-stripe-webhook-lambda": "bundle.zip"
+    },
+    "peerDependencies": {
+        "@aws-cdk/core": "^1.0.0"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-cloudformation": "^1.3.0",
+        "@aws-cdk/aws-lambda": "^1.3.0"
+    },
+    "devDependencies": {
+        "@cloudcomponents/build-tools": "^1.0.14",
+        "@cloudcomponents/cdk-stripe-webhook-lambda": "^1.0.0",
+        "jest-cdk-snapshot": "^1.0.11",
+        "typescript": "^3.5.3"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
