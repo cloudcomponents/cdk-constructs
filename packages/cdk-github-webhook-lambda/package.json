@@ -12,7 +12,7 @@
         "lib"
     ],
     "bundleDependencies": [
-        "@cloudcomponents/custom-resource-helper",
+        "custom-resource-helper",
         "@octokit/rest",
         "axios",
         "parse-github-url"
@@ -20,11 +20,12 @@
     "dependencies": {
         "@octokit/rest": "^16.28.7",
         "axios": "^0.19.0",
-        "custom-resource-helper": "^1.0.9",
+        "custom-resource-helper": "^1.0.10",
         "parse-github-url": "^1.0.2"
     },
     "devDependencies": {
         "@types/aws-lambda": "^8.10.31",
+        "@types/node": "^8.10.53",
         "@types/parse-github-url": "^1.0.0",
         "typescript": "^3.6.2"
     }
