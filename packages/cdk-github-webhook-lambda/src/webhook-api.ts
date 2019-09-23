@@ -60,7 +60,7 @@ export const deleteWebhook = async (
     githubApiToken: string,
     githubRepoUrl: string,
     hookId: number,
-): Promise<Octokit.Response<Octokit.ReposDeleteHookResponse>> => {
+): Promise<Octokit.Response<Octokit.ReposDeleteResponse>> => {
     octokit.authenticate({ type: 'token', token: githubApiToken });
 
     const gh = parseGithubUrl(githubRepoUrl);

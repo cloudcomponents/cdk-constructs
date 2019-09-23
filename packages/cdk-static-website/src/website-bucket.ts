@@ -92,7 +92,7 @@ export class WebsiteBucket extends Construct {
             const placeHolderSource = path.join(__dirname, '..', 'website');
 
             new BucketDeployment(this, 'WebsiteDeployment', {
-                source: Source.asset(source || placeHolderSource),
+                sources: [Source.asset(source || placeHolderSource)],
                 destinationBucket: bucket,
                 retainOnDelete: removalPolicy === RemovalPolicy.RETAIN,
             });

@@ -187,7 +187,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0aa7ccf147a2f5112be2e53f20ceb07d4": Object {
+    "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0856acd35debc166161db28a775f67480": Object {
       "DependsOn": Array [
         "PipelineApproveSlackApprovalSlackApprovalApiproxyANYF7F7CA26",
         "PipelineApproveSlackApprovalSlackApprovalApiproxyD7A51F70",
@@ -204,7 +204,7 @@ Object {
     "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15": Object {
       "Properties": Object {
         "DeploymentId": Object {
-          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0aa7ccf147a2f5112be2e53f20ceb07d4",
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0856acd35debc166161db28a775f67480",
         },
         "RestApiId": Object {
           "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
@@ -212,6 +212,84 @@ Object {
         "StageName": "prod",
       },
       "Type": "AWS::ApiGateway::Stage",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiproxyANYApiPermissionPipelineApproveSlackApprovalSlackApprovalApi9824A4AEANYproxyA9562C02": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+              },
+              "/",
+              Object {
+                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15",
+              },
+              "/*/{proxy+}",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "PipelineApproveSlackApprovalSlackApprovalApiproxyANYApiPermissionTestPipelineApproveSlackApprovalSlackApprovalApi9824A4AEANYproxy9CD1F476": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
+              },
+              "/test-invoke-stage/*/{proxy+}",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiproxyANYF7F7CA26": Object {
       "Properties": Object {
@@ -331,84 +409,6 @@ Object {
         "Runtime": "nodejs10.x",
       },
       "Type": "AWS::Lambda::Function",
-    },
-    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionApiPermissionPipelineApproveSlackApprovalSlackApprovalApi9824A4AEANYproxy5FD2077D": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9",
-            "Arn",
-          ],
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "arn:",
-              Object {
-                "Ref": "AWS::Partition",
-              },
-              ":execute-api:",
-              Object {
-                "Ref": "AWS::Region",
-              },
-              ":",
-              Object {
-                "Ref": "AWS::AccountId",
-              },
-              ":",
-              Object {
-                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
-              },
-              "/",
-              Object {
-                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15",
-              },
-              "/*/{proxy+}",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionApiPermissionTestPipelineApproveSlackApprovalSlackApprovalApi9824A4AEANYproxy9C70F00D": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9",
-            "Arn",
-          ],
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "arn:",
-              Object {
-                "Ref": "AWS::Partition",
-              },
-              ":execute-api:",
-              Object {
-                "Ref": "AWS::Region",
-              },
-              ":",
-              Object {
-                "Ref": "AWS::AccountId",
-              },
-              ":",
-              Object {
-                "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
-              },
-              "/test-invoke-stage/*/{proxy+}",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
     },
     "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRole9CFAC29B": Object {
       "Properties": Object {
