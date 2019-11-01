@@ -3,16 +3,16 @@
 exports[`cdk-contentful-webhook snapshot 1`] = `
 Object {
   "Parameters": Object {
-    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeArtifactHashC39FE184": Object {
-      "Description": "Artifact hash for asset \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+    "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262ArtifactHash8EA4FF52": Object {
+      "Description": "Artifact hash for asset \\"69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262\\"",
       "Type": "String",
     },
-    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3Bucket144A2F2C": Object {
-      "Description": "S3 bucket for asset \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+    "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3Bucket18224C47": Object {
+      "Description": "S3 bucket for asset \\"69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262\\"",
       "Type": "String",
     },
-    "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E": Object {
-      "Description": "S3 key for asset version \\"Custom::ContentfulWebhook91f2075fb9504743a66bee0f6febf50d/Code\\"",
+    "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3VersionKeyED23AA03": Object {
+      "Description": "S3 key for asset version \\"69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262\\"",
       "Type": "String",
     },
   },
@@ -47,7 +47,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3Bucket144A2F2C",
+            "Ref": "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3Bucket18224C47",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -60,7 +60,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E",
+                          "Ref": "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3VersionKeyED23AA03",
                         },
                       ],
                     },
@@ -73,7 +73,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dCodeS3VersionKeyD712F43E",
+                          "Ref": "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3VersionKeyED23AA03",
                         },
                       ],
                     },

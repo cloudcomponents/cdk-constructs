@@ -31,28 +31,16 @@ Object {
     },
   },
   "Parameters": Object {
-    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeArtifactHash04D6C610": Object {
-      "Description": "Artifact hash for asset \\"Pipeline/Approve/SlackApproval/SlackApprovalHandlerFunction/Code\\"",
+    "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dArtifactHash9680AF88": Object {
+      "Description": "Artifact hash for asset \\"724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2d\\"",
       "Type": "String",
     },
-    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3BucketB16D109A": Object {
-      "Description": "S3 bucket for asset \\"Pipeline/Approve/SlackApproval/SlackApprovalHandlerFunction/Code\\"",
+    "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3Bucket9A273085": Object {
+      "Description": "S3 bucket for asset \\"724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2d\\"",
       "Type": "String",
     },
-    "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3VersionKey099C4A00": Object {
-      "Description": "S3 key for asset version \\"Pipeline/Approve/SlackApproval/SlackApprovalHandlerFunction/Code\\"",
-      "Type": "String",
-    },
-    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeArtifactHash9DC0FDF3": Object {
-      "Description": "Artifact hash for asset \\"Pipeline/Approve/SlackApproval/SlackApprovalRequesterFunction/Code\\"",
-      "Type": "String",
-    },
-    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3Bucket63CF329A": Object {
-      "Description": "S3 bucket for asset \\"Pipeline/Approve/SlackApproval/SlackApprovalRequesterFunction/Code\\"",
-      "Type": "String",
-    },
-    "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3VersionKey764246BB": Object {
-      "Description": "S3 key for asset version \\"Pipeline/Approve/SlackApproval/SlackApprovalRequesterFunction/Code\\"",
+    "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7": Object {
+      "Description": "S3 key for asset version \\"724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2d\\"",
       "Type": "String",
     },
   },
@@ -187,7 +175,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0856acd35debc166161db28a775f67480": Object {
+    "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0aa7ccf147a2f5112be2e53f20ceb07d4": Object {
       "DependsOn": Array [
         "PipelineApproveSlackApprovalSlackApprovalApiproxyANYF7F7CA26",
         "PipelineApproveSlackApprovalSlackApprovalApiproxyD7A51F70",
@@ -204,7 +192,7 @@ Object {
     "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15": Object {
       "Properties": Object {
         "DeploymentId": Object {
-          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0856acd35debc166161db28a775f67480",
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0aa7ccf147a2f5112be2e53f20ceb07d4",
         },
         "RestApiId": Object {
           "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
@@ -354,7 +342,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3BucketB16D109A",
+            "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3Bucket9A273085",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -367,7 +355,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3VersionKey099C4A00",
+                          "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7",
                         },
                       ],
                     },
@@ -380,7 +368,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionCodeS3VersionKey099C4A00",
+                          "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7",
                         },
                       ],
                     },
@@ -508,7 +496,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3Bucket63CF329A",
+            "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3Bucket9A273085",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -521,7 +509,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3VersionKey764246BB",
+                          "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7",
                         },
                       ],
                     },
@@ -534,7 +522,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionCodeS3VersionKey764246BB",
+                          "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7",
                         },
                       ],
                     },

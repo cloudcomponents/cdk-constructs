@@ -43,23 +43,20 @@ const handleCreate: OnCreateHandler = async (
     const { githubApiToken, githubRepoUrl, payloadUrl, events } = getProperties(
         event,
     );
-    try {
-        const { data: responseData } = await createWebhook(
-            githubApiToken,
-            githubRepoUrl,
-            payloadUrl,
-            events,
-        );
 
-        const physicalResourceId = responseData.id.toString();
+    const { data: responseData } = await createWebhook(
+        githubApiToken,
+        githubRepoUrl,
+        payloadUrl,
+        events,
+    );
 
-        return {
-            physicalResourceId,
-            responseData,
-        };
-    } catch (error) {
-        throw error;
-    }
+    const physicalResourceId = responseData.id.toString();
+
+    return {
+        physicalResourceId,
+        responseData,
+    };
 };
 
 const handleUpdate: OnUpdateHandler = async (

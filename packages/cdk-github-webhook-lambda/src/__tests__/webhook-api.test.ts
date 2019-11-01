@@ -3,7 +3,6 @@ const createMock = jest.fn();
 const updateMock = jest.fn();
 const deleteMock = jest.fn();
 
-/* eslint-disable */
 jest.mock('@octokit/rest', () =>
     jest.fn().mockImplementation(() => ({
         authenticate: authenticateMock,
@@ -14,7 +13,6 @@ jest.mock('@octokit/rest', () =>
         },
     })),
 );
-/* eslint-enable */
 
 /* eslint-disable */
 import { createWebhook, updateWebhook, deleteWebhook } from '../webhook-api';
