@@ -2,64 +2,14 @@
 
 exports[`cdk-github-webhook snapshot 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParametersa79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745ArtifactHashE860CF21": Object {
-      "Description": "Artifact hash for asset \\"a79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745\\"",
-      "Type": "String",
-    },
-    "AssetParametersa79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745S3Bucket3B1DCBA7": Object {
-      "Description": "S3 bucket for asset \\"a79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745\\"",
-      "Type": "String",
-    },
-    "AssetParametersa79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745S3VersionKeyFDF55CA9": Object {
-      "Description": "S3 key for asset version \\"a79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EA4E17075": Object {
       "DependsOn": Array [
         "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EServiceRoleA1A794DD",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersa79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745S3Bucket3B1DCBA7",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersa79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745S3VersionKeyFDF55CA9",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersa79be6d9b02eb1326f56c0f1f7ba55fd6fa643854f26ccf0c0da88a19c5f6745S3VersionKeyFDF55CA9",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "lib/github-webhook.handler",
         "Role": Object {
           "Fn::GetAtt": Array [

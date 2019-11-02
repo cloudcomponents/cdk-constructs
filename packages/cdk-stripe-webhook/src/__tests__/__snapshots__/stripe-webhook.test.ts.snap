@@ -2,64 +2,14 @@
 
 exports[`cdk-stripe-webhook snapshot 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParameters628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035ArtifactHash29E11907": Object {
-      "Description": "Artifact hash for asset \\"628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035\\"",
-      "Type": "String",
-    },
-    "AssetParameters628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035S3Bucket5E397CBF": Object {
-      "Description": "S3 bucket for asset \\"628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035\\"",
-      "Type": "String",
-    },
-    "AssetParameters628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035S3VersionKeyF6CA1E6A": Object {
-      "Description": "S3 key for asset version \\"628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbc3F433A9D": Object {
       "DependsOn": Array [
         "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcServiceRole975E615A",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035S3Bucket5E397CBF",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035S3VersionKeyF6CA1E6A",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters628d723dd93ac7dd3f8622fb9ebdd881ae92ba6bb6315381f3a9d7f83de52035S3VersionKeyF6CA1E6A",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "lib/stripe-webhook.handler",
         "Role": Object {
           "Fn::GetAtt": Array [

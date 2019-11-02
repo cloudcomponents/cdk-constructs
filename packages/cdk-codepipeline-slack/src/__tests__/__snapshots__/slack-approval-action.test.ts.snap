@@ -30,20 +30,7 @@ Object {
       },
     },
   },
-  "Parameters": Object {
-    "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dArtifactHash9680AF88": Object {
-      "Description": "Artifact hash for asset \\"724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2d\\"",
-      "Type": "String",
-    },
-    "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3Bucket9A273085": Object {
-      "Description": "S3 bucket for asset \\"724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2d\\"",
-      "Type": "String",
-    },
-    "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7": Object {
-      "Description": "S3 key for asset version \\"724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2d\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "Bucket83908E77": Object {
       "DeletionPolicy": "Retain",
@@ -340,44 +327,7 @@ Object {
         "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRole9CFAC29B",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3Bucket9A273085",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "SLACK_BOT_ICON": ":robot_face:",
@@ -494,44 +444,7 @@ Object {
         "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionServiceRole89EBD53E",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3Bucket9A273085",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters724fd976d152c35509c2adcb555214c774f3b94663f57d971f297c9ef74e2e2dS3VersionKey8F17A3A7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "SLACK_BOT_ICON": ":robot_face:",

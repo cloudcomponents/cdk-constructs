@@ -77,7 +77,7 @@ export class SlackApprovalAction extends Action {
             {
                 runtime: Runtime.NODEJS_10_X,
                 handler: 'lib/approval-handler.handler',
-                code: Code.asset(
+                code: Code.fromAsset(
                     path.join(__dirname, '..', 'lambda', 'bundle.zip'),
                 ),
                 environment,

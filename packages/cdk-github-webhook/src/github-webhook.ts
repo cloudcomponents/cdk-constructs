@@ -25,7 +25,7 @@ export class GithubWebhook extends Construct {
         const handler = new SingletonFunction(this, 'CustomResourceHandler', {
             uuid: '83CBF3EB-7B62-44F2-8C67-8441E4C1232E',
             runtime: Runtime.NODEJS_10_X,
-            code: Code.asset(
+            code: Code.fromAsset(
                 path.join(__dirname, '..', 'lambda', 'bundle.zip'),
             ),
             handler: 'lib/github-webhook.handler',

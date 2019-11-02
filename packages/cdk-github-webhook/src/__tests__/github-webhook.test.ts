@@ -14,6 +14,17 @@ describe('cdk-github-webhook', (): void => {
             events: ['test'],
         });
 
-        expect(stack).toMatchCdkSnapshot();
+        expect(stack).toMatchCdkSnapshot({
+            propertyMatchers: {
+                Parameters: expect.any(Object),
+                Resources: {
+                    CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EA4E17075: {
+                        Properties: {
+                            Code: expect.any(Object),
+                        },
+                    },
+                },
+            },
+        });
     });
 });

@@ -44,6 +44,22 @@ describe('cdk-codepipeline-slack: slack-approval-action', (): void => {
             ],
         });
 
-        expect(stack).toMatchCdkSnapshot();
+        expect(stack).toMatchCdkSnapshot({
+            propertyMatchers: {
+                Parameters: expect.any(Object),
+                Resources: {
+                    PipelineApproveSlackApprovalSlackApprovalHandlerFunction7B7AF5E9: {
+                        Properties: {
+                            Code: expect.any(Object),
+                        },
+                    },
+                    PipelineApproveSlackApprovalSlackApprovalRequesterFunctionD07D9FBD: {
+                        Properties: {
+                            Code: expect.any(Object),
+                        },
+                    },
+                },
+            },
+        });
     });
 });

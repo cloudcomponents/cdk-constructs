@@ -26,7 +26,7 @@ export class ContentfulWebhook extends Construct {
         const handler = new SingletonFunction(this, 'CustomResourceHandler', {
             uuid: '91f2075f-b950-4743-a66b-ee0f6febf50d',
             runtime: Runtime.NODEJS_10_X,
-            code: Code.asset(
+            code: Code.fromAsset(
                 path.join(__dirname, '..', 'lambda', 'bundle.zip'),
             ),
             handler: 'lib/contentful-webhook.handler',

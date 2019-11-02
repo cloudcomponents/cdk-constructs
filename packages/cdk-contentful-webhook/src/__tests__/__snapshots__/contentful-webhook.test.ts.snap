@@ -2,20 +2,7 @@
 
 exports[`cdk-contentful-webhook snapshot 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262ArtifactHash8EA4FF52": Object {
-      "Description": "Artifact hash for asset \\"69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262\\"",
-      "Type": "String",
-    },
-    "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3Bucket18224C47": Object {
-      "Description": "S3 bucket for asset \\"69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262\\"",
-      "Type": "String",
-    },
-    "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3VersionKeyED23AA03": Object {
-      "Description": "S3 key for asset version \\"69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "ContentfulWebhookCustomResourceFC4E1F73": Object {
       "DeletionPolicy": "Delete",
@@ -45,44 +32,7 @@ Object {
         "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dServiceRole311F9EBA",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3Bucket18224C47",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3VersionKeyED23AA03",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters69f1a6347d9ec8846b5238785f2600d4d4498066a39df6942b0b4b7416efa262S3VersionKeyED23AA03",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "lib/contentful-webhook.handler",
         "Role": Object {
           "Fn::GetAtt": Array [

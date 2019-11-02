@@ -13,6 +13,17 @@ describe('cdk-stripe-webhook', (): void => {
             events: ['charge.failed', 'charge.succeeded'],
         });
 
-        expect(stack).toMatchCdkSnapshot();
+        expect(stack).toMatchCdkSnapshot({
+            propertyMatchers: {
+                Parameters: expect.any(Object),
+                Resources: {
+                    CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbc3F433A9D: {
+                        Properties: {
+                            Code: expect.any(Object),
+                        },
+                    },
+                },
+            },
+        });
     });
 });

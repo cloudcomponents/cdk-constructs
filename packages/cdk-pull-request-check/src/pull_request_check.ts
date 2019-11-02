@@ -82,7 +82,7 @@ export class PullRequestCheck extends Construct {
 
         const pullRequestFunction = new Function(this, 'PullRequestFunction', {
             runtime: Runtime.PYTHON_3_7,
-            code: Code.asset(`${lambdaPath}/pull-request`),
+            code: Code.fromAsset(`${lambdaPath}/pull-request`),
             handler: 'pull_request.lambda_handler',
             role: lambdaRole,
         });
