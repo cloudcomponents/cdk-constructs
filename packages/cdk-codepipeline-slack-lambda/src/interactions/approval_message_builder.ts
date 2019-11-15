@@ -70,7 +70,7 @@ export class ApprovalMessageBuilder {
         return message;
     }
 
-    public static fromMessage(message) {
+    public static fromMessage(message): ApprovalMessageBuilder {
         const attachment = message.attachments[0];
 
         return new ApprovalMessageBuilder({
@@ -81,7 +81,7 @@ export class ApprovalMessageBuilder {
         });
     }
 
-    public static fromApprovalRequest(approval) {
+    public static fromApprovalRequest(approval): ApprovalMessageBuilder {
         const actions = [
             {
                 name: 'reject',
