@@ -8,20 +8,18 @@
         "build": "tsc",
         "watch": "tsc -w"
     },
-    "files": [
-        "lib"
-    ],
     "bundleDependencies": [
         "@slack/client",
         "@slack/interactive-messages",
         "aws-serverless-express",
-        "express",
-        "aws-sdk"
+        "express"
     ],
+    "peerDependencies": {
+        "aws-sdk": "^2.578.0"
+    },
     "dependencies": {
         "@slack/interactive-messages": "^1.4.0",
         "@slack/web-api": "^5.6.0",
-        "aws-sdk": "^2.578.0",
         "aws-serverless-express": "^3.3.6",
         "express": "^4.17.1"
     },
@@ -29,6 +27,7 @@
         "@types/aws-lambda": "^8.10.36",
         "@types/aws-serverless-express": "^3.3.2",
         "@types/express": "^4.17.2",
+        "aws-sdk": "^2.578.0",
         "typescript": "^3.7.2"
     }
 }
