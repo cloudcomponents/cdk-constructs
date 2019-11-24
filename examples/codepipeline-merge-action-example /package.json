@@ -1,0 +1,28 @@
+{
+    "name": "codepipeline-merge-action-example",
+    "version": "0.1.13",
+    "license": "MIT",
+    "author": "hello@webappsolutions.de",
+    "private": true,
+    "bin": {
+        "codepipeline-merge-action": "bin/codepipeline-merge-action.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w",
+        "cdk": "cdk"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codecommit": "^1.17.1",
+        "@aws-cdk/aws-codepipeline": "^1.17.1",
+        "@aws-cdk/aws-codepipeline-actions": "^1.17.1",
+        "@aws-cdk/core": "^1.17.1",
+        "@cloudcomponents/cdk-codepipeline-merge-action": "^1.0.0",
+        "dotenv": "^8.2.0"
+    },
+    "devDependencies": {
+        "aws-cdk": "^1.17.1",
+        "ts-node": "^8.5.2",
+        "typescript": "^3.7.2"
+    }
+}

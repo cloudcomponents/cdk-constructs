@@ -1,0 +1,45 @@
+{
+    "name": "@cloudcomponents/cdk-codepipeline-merge-action",
+    "version": "1.0.0",
+    "description": "Cdk component that automatically merge branches in codepipelines",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "codecommit",
+        "codepipeline",
+        "merge",
+        "branches",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "lambdas"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codecommit": "^1.17.1",
+        "@aws-cdk/aws-codepipeline": "^1.17.1",
+        "@aws-cdk/aws-codepipeline-actions": "^1.6.1",
+        "@aws-cdk/aws-iam": "^1.17.1",
+        "@aws-cdk/aws-lambda": "^1.17.1",
+        "@aws-cdk/core": "^1.17.1"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.17.1",
+        "jest-cdk-snapshot": "^1.2.0",
+        "typescript": "^3.7.2"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
