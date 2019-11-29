@@ -7,7 +7,10 @@ import {
 } from '@aws-cdk/aws-codepipeline-actions';
 import { PipelineProject } from '@aws-cdk/aws-codebuild';
 
-import { SlackApprovalAction } from '@cloudcomponents/cdk-codepipeline-slack';
+import {
+    SlackApprovalAction,
+    SlackNotifier,
+} from '@cloudcomponents/cdk-codepipeline-slack';
 
 export class CodepipelineSlackApprovalStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
@@ -36,19 +39,19 @@ export class CodepipelineSlackApprovalStack extends Stack {
 
         const slackBotToken = process.env.SLACK_BOT_TOKEN as string;
         const slackSigningSecret = process.env.SLACK_SIGNING_SECRET as string;
-        const slackChannel = process.env.SLACK_CHANNEL as string;
+        const slackChannelName = process.env.SLACK_CHANNEL_NAME as string;
 
         const approvalAction = new SlackApprovalAction({
             actionName: 'SlackApproval',
             slackBotToken,
             slackSigningSecret,
-            slackChannel,
+            slackChannelName,
             externalEntityLink: 'http://cloudcomponents.org',
             additionalInformation:
                 'Would you like to promote the build to production?',
         });
 
-        new Pipeline(this, 'MyPipeline', {
+        const pipeline = new Pipeline(this, 'MyPipeline', {
             pipelineName: 'MyPipeline',
             stages: [
                 {
@@ -64,6 +67,13 @@ export class CodepipelineSlackApprovalStack extends Stack {
                     actions: [approvalAction],
                 },
             ],
+        });
+
+        new SlackNotifier(this, 'SlackNotifier', {
+            pipeline,
+            slackBotToken,
+            slackSigningSecret,
+            slackChannelName,
         });
     }
 }

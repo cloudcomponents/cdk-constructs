@@ -35,7 +35,7 @@ describe('cdk-codepipeline-slack: slack-approval-action', (): void => {
                             actionName: 'SlackApproval',
                             slackBotToken: 'botToken',
                             slackSigningSecret: 'signingSecret',
-                            slackChannel: 'channel',
+                            slackChannelName: 'channel',
                             slackBotName: 'botName',
                             additionalInformation: 'snapshotTest',
                         }),

@@ -1,29 +1,6 @@
-export interface ApprovalMessageBuilderProps {
-    actions: any;
-    fields: any;
-    footer: string;
-    ts?: string;
-}
+import { MessageBuilder, Field, Message } from './message-builder';
 
-export class ApprovalMessageBuilder {
-    private actions: any;
-
-    private ts?: string;
-
-    private fields: any;
-
-    private footer: string;
-
-    private constructor(props: ApprovalMessageBuilderProps) {
-        this.actions = props.actions;
-        this.fields = props.fields;
-        this.footer = props.footer;
-
-        if (props.ts) {
-            this.ts = props.ts;
-        }
-    }
-
+export class ApprovalMessageBuilder extends MessageBuilder {
     public removeActions(): void {
         this.actions = [];
     }
@@ -37,7 +14,7 @@ export class ApprovalMessageBuilder {
         });
     }
 
-    public attachComment(comment): void {
+    public attachComment(comment: string): void {
         this.fields.push({
             title: 'Comment',
             value: comment,
@@ -45,12 +22,12 @@ export class ApprovalMessageBuilder {
         });
     }
 
-    public get message() {
+    public get message(): Message {
         const title = 'APPROVAL NEEDED';
         const text =
             'The following Approval action is waiting for your response:';
         const callbackId = 'slack_approval';
-        const message: any = {
+        const message: Message = {
             attachments: [
                 {
                     title,
@@ -70,7 +47,7 @@ export class ApprovalMessageBuilder {
         return message;
     }
 
-    public static fromMessage(message): ApprovalMessageBuilder {
+    public static fromMessage(message: Message): ApprovalMessageBuilder {
         const attachment = message.attachments[0];
 
         return new ApprovalMessageBuilder({
@@ -103,7 +80,7 @@ export class ApprovalMessageBuilder {
             },
         ];
 
-        const fields: any = [];
+        const fields: Field[] = [];
 
         fields.push({
             title: 'Pipeline',
