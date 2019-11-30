@@ -3,7 +3,6 @@
     "version": "1.0.21",
     "private": true,
     "license": "MIT",
-    "author": "hello@webappsolutions.de",
     "bin": {
         "build-tools": "bin/cli.js"
     },
@@ -13,14 +12,20 @@
     },
     "dependencies": {
         "archiver": "^3.1.1",
-        "clime": "^0.5.10",
+        "chalk": "^3.0.0",
+        "figlet": "^1.2.4",
+        "folder-hash": "^3.3.0",
         "fs-extra": "^8.1.0",
-        "npm-packlist": "^2.0.1"
+        "npm-packlist": "^2.0.1",
+        "yargs": "^15.0.2"
     },
     "devDependencies": {
         "@types/archiver": "^3.0.0",
+        "@types/figlet": "^1.2.0",
         "@types/fs-extra": "^8.0.1",
         "@types/npm-packlist": "^1.1.1",
+        "@types/yargs": "^13.0.3",
+        "rimraf": "^3.0.0",
         "typescript": "^3.7.2"
     },
     "gitHead": "dcd5204208a79bec98cdb193e79afbad99ab4408"
