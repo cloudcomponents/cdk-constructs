@@ -31,7 +31,7 @@ export interface CodepipelineCheckParameterActionProps
      *
      * @default false The parameter is not logged
      */
-    readonly echo?: boolean;
+    readonly logParameter?: boolean;
 }
 
 /**
@@ -61,7 +61,7 @@ export class CodepipelineCheckParameterAction extends Action {
         _stage: IStage,
         options: ActionBindOptions,
     ): ActionConfig {
-        const { parameterName, regExp, echo = false } = this.props;
+        const { parameterName, regExp, logParameter = false } = this.props;
 
         const checkParameterFunction = new Function(
             scope,
@@ -122,7 +122,7 @@ export class CodepipelineCheckParameterAction extends Action {
                 UserParameters: Stack.of(scope).toJsonString({
                     parameterName,
                     regExp: regExp ? regExp.source : undefined,
-                    echo,
+                    logParameter,
                 }),
             },
         };

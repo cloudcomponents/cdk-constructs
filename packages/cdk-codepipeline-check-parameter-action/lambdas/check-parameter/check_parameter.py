@@ -39,7 +39,8 @@ def lambda_handler(event, context):
                 put_job_failure(job_id, 'Value does not match the regular expression:' +
                                 params['regExp'])
 
-        put_job_success(job_id, parameter if params['echo'] else 'Echo is off')
+        put_job_success(
+            job_id, parameter if params['logParameter'] else 'Logging is off')
 
     except Exception as e:
         print('Function failed due to exception.')
@@ -81,11 +82,11 @@ def get_user_params(job_data):
         raise Exception(
             'Your UserParameters JSON must include the parameter name')
 
-    if 'echo' not in decoded_parameters:
+    if 'logParameter' not in decoded_parameters:
         # Validate that the stack is provided, otherwise fail the job
         # with a helpful message.
         raise Exception(
-            'Your UserParameters JSON must include echo')
+            'Your UserParameters JSON must include logParameter')
 
     return decoded_parameters
 

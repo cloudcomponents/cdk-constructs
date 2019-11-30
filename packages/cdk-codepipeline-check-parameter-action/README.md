@@ -1,6 +1,6 @@
-# @cloudcomponents/cdk-codepipeline-merge-action
+# @cloudcomponents/cdk-codepipeline-check-parameter-action
 
-> Cdk component that automatically merge branches in codepipelines
+> Cdk component that checks if system parameters are set correctly
 
 ## Install
 
@@ -39,7 +39,7 @@ export class CodepipelineCheckParameterActionStack extends Stack {
             actionName: 'CheckUrl',
             parameterName: '/url',
             regExp: /^http:\/\/[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-]+$/,
-            echo: true,
+            logParameter: true,
         });
 
         new Pipeline(this, 'MyPipeline', {

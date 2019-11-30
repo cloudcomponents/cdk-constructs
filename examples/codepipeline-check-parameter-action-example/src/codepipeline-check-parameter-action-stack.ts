@@ -26,7 +26,7 @@ export class CodepipelineCheckParameterActionStack extends Stack {
             actionName: 'Check',
             parameterName: '/test',
             regExp: /^The.*Spain$/,
-            echo: true,
+            logParameter: true,
         });
 
         new Pipeline(this, 'MyPipeline', {
