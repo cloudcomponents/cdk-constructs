@@ -40,7 +40,7 @@ export class SlackBot {
     }
 
     public async findChannel(name) {
-        const response = await this.bot.conversations.list();
+        const response = await this.bot.conversations.list({ limit: 1000 });
         return response.channels.find(channel => channel.name === name);
     }
 
