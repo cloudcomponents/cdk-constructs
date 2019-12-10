@@ -7,6 +7,7 @@ import { ApprovalMessageBuilder } from './approval_message_builder';
 const {
     SLACK_BOT_TOKEN,
     SLACK_CHANNEL,
+    SLACK_CHANNEL_ID,
     SLACK_BOT_NAME,
     SLACK_BOT_ICON,
 } = process.env;
@@ -16,6 +17,7 @@ const pipeline = new CodePipeline();
 const bot = new SlackBot({
     token: SLACK_BOT_TOKEN,
     channel: SLACK_CHANNEL,
+    channel_id: SLACK_CHANNEL_ID,
     name: SLACK_BOT_NAME,
     icon: SLACK_BOT_ICON,
 });
