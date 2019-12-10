@@ -16,8 +16,8 @@ const pipeline = new CodePipeline();
 
 const bot = new SlackBot({
     token: SLACK_BOT_TOKEN,
-    channel: SLACK_CHANNEL,
-    channel_id: SLACK_CHANNEL_ID,
+    channelName: SLACK_CHANNEL,
+    channelId: SLACK_CHANNEL_ID,
     name: SLACK_BOT_NAME,
     icon: SLACK_BOT_ICON,
 });
