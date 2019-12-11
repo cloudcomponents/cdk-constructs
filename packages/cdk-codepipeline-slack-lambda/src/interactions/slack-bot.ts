@@ -3,24 +3,27 @@ import { WebClient, WebAPICallResult } from '@slack/web-api';
 export class SlackBot {
     private bot;
 
-    private channel;
+    private channelName;
+
+    private channelId;
 
     private name: string;
 
     private icon: string;
 
-    public constructor({ token, channel, name, icon }) {
+    public constructor({ token, channelName, channelId, name, icon }) {
         this.bot = new WebClient(token);
-        this.channel = channel;
+        this.channelName = channelName;
+        this.channelId = channelId;
         this.name = name;
         this.icon = icon;
     }
 
     public async postMessage(message): Promise<WebAPICallResult> {
-        const channel = await this.findChannel(this.channel);
+        await this.setChannelId();
 
         return this.bot.chat.postMessage({
-            channel: channel.id,
+            channel: this.channelId,
             icon_emoji: this.icon,
             username: this.name,
             ...message,
@@ -28,10 +31,10 @@ export class SlackBot {
     }
 
     public async updateMessage(ts, message): Promise<WebAPICallResult> {
-        const channel = await this.findChannel(this.channel);
+        await this.setChannelId();
 
         return this.bot.chat.update({
-            channel: channel.id,
+            channel: this.channelId,
             icon_emoji: this.icon,
             username: this.name,
             ts,
@@ -39,9 +42,13 @@ export class SlackBot {
         });
     }
 
-    public async findChannel(name) {
-        const response = await this.bot.conversations.list();
-        return response.channels.find(channel => channel.name === name);
+    public async setChannelId(): Promise<void> {
+        if (this.channelName) {
+            const response = await this.bot.conversations.list();
+            this.channelId = response.channels.find(
+                channel => channel.name === this.channelName,
+            ).id;
+        }
     }
 
     public async openDialog(triggerId, dialog): Promise<WebAPICallResult> {

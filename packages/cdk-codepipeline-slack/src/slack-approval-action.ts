@@ -17,7 +17,8 @@ import { PolicyStatement } from '@aws-cdk/aws-iam';
 export interface SlackApprovalActionProps extends CommonActionProps {
     slackBotToken: string;
     slackSigningSecret: string;
-    slackChannel: string;
+    slackChannel?: string;
+    slackChannelId?: string;
     slackBotName?: string;
     slackBotIcon?: string;
     additionalInformation?: string;
@@ -49,7 +50,8 @@ export class SlackApprovalAction extends Action {
         const environment = {
             SLACK_BOT_TOKEN: this.props.slackBotToken,
             SLACK_SIGNING_SECRET: this.props.slackSigningSecret,
-            SLACK_CHANNEL: this.props.slackChannel,
+            SLACK_CHANNEL: this.props.slackChannel as string,
+            SLACK_CHANNEL_ID: this.props.slackChannelId as string,
             SLACK_BOT_NAME: this.props.slackBotName || 'buildbot',
             SLACK_BOT_ICON: this.props.slackBotIcon || ':robot_face:',
         };
