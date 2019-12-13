@@ -11,6 +11,7 @@ type Channel = { id: string; name: string };
 
 type Message = Record<string, any>;
 
+
 export class SlackBot {
     private bot: WebClient;
 
@@ -19,6 +20,8 @@ export class SlackBot {
     private name: string;
 
     private icon: string;
+
+    //    private messageCache: Record<string, Message>; // TODO
 
     public constructor({
         token,
@@ -30,21 +33,22 @@ export class SlackBot {
         this.channelName = channelName;
         this.name = name;
         this.icon = icon;
+        // this.messageCache = {};
     }
 
     public async postMessage(message): Promise<WebAPICallResult> {
         const channel = await this.findChannel(this.channelName);
-
         if (!channel) {
             throw Error(`Channel ${this.channelName} undefined!`);
         }
 
-        return this.bot.chat.postMessage({
+        const result = await this.bot.chat.postMessage({
             channel: channel.id,
             icon_emoji: this.icon,
             username: this.name,
             ...message,
         });
+        return result;
     }
 
     public async updateMessage(ts, message): Promise<WebAPICallResult> {
@@ -82,6 +86,32 @@ export class SlackBot {
         })) as Record<string, Message[]>;
 
         return response.messages;
+    }
+
+    public async findMessageForExecutionId(
+        this: SlackBot,
+        executionId: string,
+    ): Promise<Message | undefined> {
+        const channel = await this.findChannel(this.channelName);
+        if (!channel) {
+            return undefined;
+        }
+        const messages = await this.findMessages(channel.id);
+
+        if (!messages) {
+            return undefined;
+        }
+
+        const foundMessage = messages.find(message => {
+            if (!message.attachments) {
+                return false;
+            }
+            return message.attachments.find(attachment => {
+                return attachment.footer === executionId;
+            });
+        });
+
+        return foundMessage;
     }
 
     public async openDialog(triggerId, dialog): Promise<WebAPICallResult> {

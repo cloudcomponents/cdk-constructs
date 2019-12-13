@@ -8,6 +8,7 @@
         "test": "jest",
         "build:tools": "lerna --scope @cloudcomponents/build-tools run build ",
         "build": "lerna run build",
+        "watch": "lerna run watch --parallel",
         "prepare": "npm run build",
         "all:outdated": "npm outdated; lerna exec --no-bail -- npm outdated",
         "all:upgrade": "npm upgrade; lerna exec --no-bail -- npm upgrade",

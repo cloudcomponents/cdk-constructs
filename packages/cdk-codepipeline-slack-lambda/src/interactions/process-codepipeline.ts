@@ -1,6 +1,5 @@
 import { CodePipelineCloudWatchEvent } from 'aws-lambda';
-
-import { Message } from './message-builder';
+import { CodePipeline } from 'aws-sdk';
 import { NotifierMessageBuilder } from './notifier-message-builder';
 import { SlackBot } from './slack-bot';
 
@@ -18,24 +17,46 @@ const bot = new SlackBot({
     icon: SLACK_BOT_ICON,
 });
 
-const messageCache: Record<string, Message> = {};
+const codePipeline = new CodePipeline({ apiVersion: '2015-07-09' });
 
 export const processCodepipeline = async (
     event: CodePipelineCloudWatchEvent,
 ): Promise<void> => {
-    console.log(event);
+    const executionId = event.detail['execution-id'];
+    const isStateChange =
+        event['detail-type'] === 'CodePipeline Stage Execution State Change';
 
-    const notifierMessageBuilder = NotifierMessageBuilder.fromPipelineEvent(
+    if (!isStateChange) {
+        return;
+    }
+
+    const pipelineState = await codePipeline
+        .getPipelineState({ name: event.detail.pipeline })
+        .promise();
+
+    const { pipelineExecution } = await codePipeline
+        .getPipelineExecution({
+            pipelineName: event.detail.pipeline,
+            pipelineExecutionId: executionId,
+        })
+        .promise();
+
+    const notifierMessageBuilder = NotifierMessageBuilder.fromPipelineEventAndPipelineState(
         event,
+        pipelineState,
+        pipelineExecution,
     );
 
-    //builder.updatePipelineEvent(event);
+    //  builder.updatePipelineEvent(event);
+
+    const existingMessage = await bot.findMessageForExecutionId(executionId);
 
     const { message } = notifierMessageBuilder;
 
-    if (message.ts) {
-        bot.updateMessage(message.ts, message);
+    if (existingMessage) {
+        message.ts = existingMessage.ts;
+        await bot.updateMessage(existingMessage.ts, message);
+    } else {
+        await bot.postMessage(message);
     }
-
-    bot.postMessage(message);
 };

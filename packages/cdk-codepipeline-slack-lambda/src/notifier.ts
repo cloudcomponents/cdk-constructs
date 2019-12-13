@@ -5,6 +5,6 @@ export const handler = async (
     event: CodePipelineCloudWatchEvent,
 ): Promise<void> => {
     if (event.source === 'aws.codepipeline') {
-        processCodepipeline(event);
+        await processCodepipeline(event);
     }
 };

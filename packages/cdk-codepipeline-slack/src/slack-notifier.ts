@@ -4,6 +4,7 @@ import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { Pipeline } from '@aws-cdk/aws-codepipeline';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { Rule } from '@aws-cdk/aws-events';
+import { PolicyStatement } from '@aws-cdk/aws-iam';
 
 export interface SlackNotifierProps {
     slackBotToken: string;
@@ -51,6 +52,15 @@ export class SlackNotifier extends Construct {
             ),
             environment,
         });
+        notifier.addToRolePolicy(
+            new PolicyStatement({
+                resources: [pipeline.pipelineArn],
+                actions: [
+                    'codepipeline:GetPipelineState',
+                    'codepipeline:GetPipelineExecution',
+                ],
+            }),
+        );
 
         pipeline.onStateChange('SlackPipelineNotifierRule', {
             target: new LambdaFunction(notifier),
