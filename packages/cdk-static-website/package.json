@@ -1,6 +1,6 @@
 {
     "name": "@cloudcomponents/cdk-static-website",
-    "version": "1.0.25",
+    "version": "1.0.26",
     "description": "Cdk component that creates a static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS)",
     "license": "MIT",
     "author": "hello@webappsolutions.de",
@@ -27,15 +27,15 @@
         "@aws-cdk/core": "^1.0.0"
     },
     "dependencies": {
-        "@aws-cdk/aws-cloudfront": "^1.17.1",
-        "@aws-cdk/aws-iam": "^1.17.1",
-        "@aws-cdk/aws-route53": "^1.17.1",
-        "@aws-cdk/aws-route53-targets": "^1.17.1",
-        "@aws-cdk/aws-s3": "^1.17.1",
-        "@aws-cdk/aws-s3-deployment": "^1.17.1"
+        "@aws-cdk/aws-cloudfront": "^1.18.0",
+        "@aws-cdk/aws-iam": "^1.18.0",
+        "@aws-cdk/aws-route53": "^1.18.0",
+        "@aws-cdk/aws-route53-targets": "^1.18.0",
+        "@aws-cdk/aws-s3": "^1.18.0",
+        "@aws-cdk/aws-s3-deployment": "^1.18.0"
     },
     "devDependencies": {
-        "@aws-cdk/assert": "^1.17.1",
+        "@aws-cdk/assert": "^1.18.0",
         "jest-cdk-snapshot": "^1.2.0",
         "typescript": "^3.7.2"
     },

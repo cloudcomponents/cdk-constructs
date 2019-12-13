@@ -33,15 +33,15 @@ export class CodepipelineSlackApprovalStack extends Stack {
     });
 
     const sourceArtifact = new Artifact();
-    
+
     const sourceAction = new CodeCommitSourceAction({
       actionName: 'CodeCommit',
       repository,
       output: sourceArtifact
     });
-    
+
     const project = new PipelineProject(this, 'MyProject');
-    
+
     const buildAction = new CodeBuildAction({
       actionName: 'CodeBuild',
       project,
@@ -50,13 +50,13 @@ export class CodepipelineSlackApprovalStack extends Stack {
 
     const slackBotToken = process.env.SLACK_BOT_TOKEN as string;
     const slackSigningSecret = process.env.SLACK_SIGNING_SECRET as string;
-    const slackChannel = process.env.SLACK_CHANNEL as string;
+    const slackChannelId = process.env.SLACK_CHANNEL_ID as string;
 
     const approvalAction = new SlackApprovalAction({
       actionName: 'SlackApproval',
       slackBotToken,
       slackSigningSecret,
-      slackChannel,
+      slackChannelId,
       externalEntityLink: 'http://cloudcomponents.org',
       additionalInformation:
         'Would you like to promote the build to production?'

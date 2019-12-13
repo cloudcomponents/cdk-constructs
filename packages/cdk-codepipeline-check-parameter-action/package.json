@@ -1,0 +1,47 @@
+{
+    "name": "@cloudcomponents/cdk-codepipeline-check-parameter-action",
+    "version": "1.0.3",
+    "description": "Cdk component that checks if system parameters are set correctly",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components",
+        "directory": "packages/cdk-codepipeline-check-parameter-action"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "action",
+        "codepipeline",
+        "ssm",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "lambdas"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codepipeline": "^1.18.0",
+        "@aws-cdk/aws-codepipeline-actions": "^1.18.0",
+        "@aws-cdk/aws-iam": "^1.18.0",
+        "@aws-cdk/aws-lambda": "^1.18.0",
+        "@aws-cdk/core": "^1.18.0",
+        "email-regex": "^4.0.0",
+        "url-regex": "^5.0.0"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.18.0",
+        "@aws-cdk/aws-codecommit": "^1.18.0",
+        "jest-cdk-snapshot": "^1.2.0",
+        "typescript": "^3.7.2"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

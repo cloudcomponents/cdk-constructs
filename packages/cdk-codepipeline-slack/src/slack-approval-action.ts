@@ -17,7 +17,8 @@ import { PolicyStatement } from '@aws-cdk/aws-iam';
 export interface SlackApprovalActionProps extends CommonActionProps {
     slackBotToken: string;
     slackSigningSecret: string;
-    slackChannelName: string;
+    slackChannel?: string;
+    slackChannelId?: string;
     slackBotName?: string;
     slackBotIcon?: string;
     additionalInformation?: string;
@@ -46,27 +47,22 @@ export class SlackApprovalAction extends Action {
         stage: IStage,
         options: ActionBindOptions,
     ): ActionConfig {
-        const {
-            slackBotToken,
-            slackSigningSecret,
-            slackChannelName,
-            slackBotName,
-            slackBotIcon,
-        } = this.props;
-
-        const environment: Record<string, string> = {
-            SLACK_BOT_TOKEN: slackBotToken,
-            SLACK_SIGNING_SECRET: slackSigningSecret,
-            SLACK_CHANNEL_NAME: slackChannelName,
+        const environment = {
+            SLACK_BOT_TOKEN: this.props.slackBotToken,
+            SLACK_SIGNING_SECRET: this.props.slackSigningSecret,
+            SLACK_CHANNEL: this.props.slackChannel as string,
+            SLACK_CHANNEL_ID: this.props.slackChannelId as string,
+            SLACK_BOT_NAME: this.props.slackBotName || 'buildbot',
+            SLACK_BOT_ICON: this.props.slackBotIcon || ':robot_face:',
         };
 
-        if (slackBotName) {
-            environment.SLACK_BOT_NAME = slackBotName;
-        }
+        // if (slackBotName) {
+        //     environment.SLACK_BOT_NAME = slackBotName;
+        // }
 
-        if (slackBotIcon) {
-            environment.SLACK_BOT_ICON = slackBotIcon;
-        }
+        // if (slackBotIcon) {
+        //     environment.SLACK_BOT_ICON = slackBotIcon;
+        // }
 
         const approvalRequester = new Function(
             scope,

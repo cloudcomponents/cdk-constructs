@@ -1,10 +1,25 @@
-import { CLI, Shim } from 'clime';
-import * as path from 'path';
+import * as yargs from 'yargs';
+import * as chalk from 'chalk';
+import * as figlet from 'figlet';
 
-// The second parameter is the path to folder that contains command modules.
-const cli = new CLI('cloudcomponents', path.join(__dirname, 'commands'));
+import * as zipLambda from './commands/zip-lambda';
+import * as create from './commands/create';
 
-// Clime in its core provides an object-based command-line infrastructure.
-// To have it work as a common CLI, a shim needs to be applied:
-const shim = new Shim(cli);
-shim.execute(process.argv);
+const NAME = 'cloudcomponents';
+
+// eslint-disable-next-line no-console
+console.log(
+    chalk.red(figlet.textSync(NAME, { horizontalLayout: 'full' })),
+    '\n',
+);
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { version } = require('../package.json');
+
+// eslint-disable-next-line no-unused-expressions
+yargs
+    .version(version)
+    .scriptName(NAME)
+    .help('help')
+    .command(zipLambda)
+    .command(create).argv;

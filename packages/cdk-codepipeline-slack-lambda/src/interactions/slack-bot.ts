@@ -3,6 +3,7 @@ import { WebClient, WebAPICallResult } from '@slack/web-api';
 export interface SlackBotProps {
     token: string;
     channelName: string;
+    channelId?: string;
     name?: string;
     icon?: string;
 }
@@ -11,55 +12,47 @@ type Channel = { id: string; name: string };
 
 type Message = Record<string, any>;
 
-
 export class SlackBot {
     private bot: WebClient;
 
-    private channelName: string;
+    private channelName?: string;
+
+    private channelId: string;
 
     private name: string;
 
     private icon: string;
 
-    //    private messageCache: Record<string, Message>; // TODO
-
-    public constructor({
-        token,
-        channelName,
-        name = 'buildbot',
-        icon = ':robot_face:',
-    }: SlackBotProps) {
+    public constructor(props: SlackBotProps) {
+        const { token, channelName, channelId, name, icon } = props;
         this.bot = new WebClient(token);
-        this.channelName = channelName;
-        this.name = name;
-        this.icon = icon;
+        if (channelName) {
+            this.channelName = channelName;
+        }
+        if (channelId) {
+            this.channelId = channelId;
+        }
+        this.name = name || 'Pipeline Bot';
+        this.icon = icon || ':robot_face:';
         // this.messageCache = {};
     }
 
     public async postMessage(message): Promise<WebAPICallResult> {
-        const channel = await this.findChannel(this.channelName);
-        if (!channel) {
-            throw Error(`Channel ${this.channelName} undefined!`);
-        }
+        await this.setChannelId();
 
-        const result = await this.bot.chat.postMessage({
-            channel: channel.id,
+        return this.bot.chat.postMessage({
+            channel: this.channelId,
             icon_emoji: this.icon,
             username: this.name,
             ...message,
         });
-        return result;
     }
 
     public async updateMessage(ts, message): Promise<WebAPICallResult> {
-        const channel = await this.findChannel(this.channelName);
-
-        if (!channel) {
-            throw Error(`Channel ${this.channelName} undefined!`);
-        }
+        await this.setChannelId();
 
         return this.bot.chat.update({
-            channel: channel.id,
+            channel: this.channelId,
             icon_emoji: this.icon,
             username: this.name,
             ts,
@@ -77,7 +70,7 @@ export class SlackBot {
         return response.channels.find(channel => channel.name === channelName);
     }
 
-    public async findMessages(
+    protected async findMessages(
         channelId: string,
     ): Promise<Message[] | undefined> {
         const response = (await this.bot.channels.history({
@@ -92,11 +85,8 @@ export class SlackBot {
         this: SlackBot,
         executionId: string,
     ): Promise<Message | undefined> {
-        const channel = await this.findChannel(this.channelName);
-        if (!channel) {
-            return undefined;
-        }
-        const messages = await this.findMessages(channel.id);
+        this.setChannelId();
+        const messages = await this.findMessages(this.channelId);
 
         if (!messages) {
             return undefined;
@@ -112,6 +102,15 @@ export class SlackBot {
         });
 
         return foundMessage;
+    }
+
+    public async setChannelId(): Promise<void> {
+        if (this.channelName) {
+            const response = await this.bot.conversations.list();
+            this.channelId = (response.channels as any).find(
+                channel => channel.name === this.channelName,
+            ).id as string;
+        }
     }
 
     public async openDialog(triggerId, dialog): Promise<WebAPICallResult> {

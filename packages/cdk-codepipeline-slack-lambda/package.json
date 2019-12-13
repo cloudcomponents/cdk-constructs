@@ -1,6 +1,6 @@
 {
     "name": "@cloudcomponents/cdk-codepipeline-slack-lambda",
-    "version": "1.0.20",
+    "version": "1.0.24",
     "private": true,
     "license": "MIT",
     "author": "hello@webappsolutions.de",
@@ -9,9 +9,9 @@
         "watch": "tsc -w"
     },
     "bundleDependencies": [
-        "@slack/web-api",
         "@slack/client",
         "@slack/interactive-messages",
+        "@slack/web-api",
         "aws-serverless-express",
         "express"
     ],
@@ -28,7 +28,7 @@
         "@types/aws-lambda": "^8.10.36",
         "@types/aws-serverless-express": "^3.3.2",
         "@types/express": "^4.17.2",
-        "aws-sdk": "^2.578.0",
+        "aws-sdk": "^2.580.0",
         "typescript": "^3.7.2"
     }
 }

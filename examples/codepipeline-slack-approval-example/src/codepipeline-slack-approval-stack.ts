@@ -39,13 +39,13 @@ export class CodepipelineSlackApprovalStack extends Stack {
 
         const slackBotToken = process.env.SLACK_BOT_TOKEN as string;
         const slackSigningSecret = process.env.SLACK_SIGNING_SECRET as string;
-        const slackChannelName = process.env.SLACK_CHANNEL_NAME as string;
+        const slackChannel = process.env.SLACK_CHANNEL_NAME as string;
 
         const approvalAction = new SlackApprovalAction({
             actionName: 'SlackApproval',
             slackBotToken,
             slackSigningSecret,
-            slackChannelName,
+            slackChannel,
             externalEntityLink: 'http://cloudcomponents.org',
             additionalInformation:
                 'Would you like to promote the build to production?',
@@ -73,7 +73,7 @@ export class CodepipelineSlackApprovalStack extends Stack {
             pipeline,
             slackBotToken,
             slackSigningSecret,
-            slackChannelName,
+            slackChannel,
         });
     }
 }

@@ -5,14 +5,14 @@ import { SlackBot } from './slack-bot';
 
 const {
     SLACK_BOT_TOKEN,
-    SLACK_CHANNEL_NAME,
+    SLACK_CHANNEL,
     SLACK_BOT_NAME,
     SLACK_BOT_ICON,
 } = process.env;
 
 const bot = new SlackBot({
     token: SLACK_BOT_TOKEN as string,
-    channelName: SLACK_CHANNEL_NAME as string,
+    channelName: SLACK_CHANNEL as string,
     name: SLACK_BOT_NAME,
     icon: SLACK_BOT_ICON,
 });

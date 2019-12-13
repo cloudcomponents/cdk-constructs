@@ -9,7 +9,8 @@ import { PolicyStatement } from '@aws-cdk/aws-iam';
 export interface SlackNotifierProps {
     slackBotToken: string;
     slackSigningSecret: string;
-    slackChannelName: string;
+    slackChannel?: string;
+    slackChannelId?: string;
     slackBotName?: string;
     slackBotIcon?: string;
     pipeline: Pipeline;
@@ -23,7 +24,8 @@ export class SlackNotifier extends Construct {
         const {
             slackBotToken,
             slackSigningSecret,
-            slackChannelName,
+            slackChannel,
+            slackChannelId,
             slackBotName,
             slackBotIcon,
             pipeline,
@@ -33,7 +35,8 @@ export class SlackNotifier extends Construct {
         const environment: Record<string, string> = {
             SLACK_BOT_TOKEN: slackBotToken,
             SLACK_SIGNING_SECRET: slackSigningSecret,
-            SLACK_CHANNEL_NAME: slackChannelName,
+            SLACK_CHANNEL: slackChannel || '',
+            SLACK_CHANNEL_ID: slackChannelId || '',
         };
 
         if (slackBotName) {
