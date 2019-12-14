@@ -1,9 +1,9 @@
+import { Server } from 'http';
 import * as express from 'express';
 import { createServer, proxy } from 'aws-serverless-express';
 import { APIGatewayEvent, Context } from 'aws-lambda';
 import { createMessageAdapter } from '@slack/interactive-messages';
 
-import { Server } from 'http';
 import { handleButtonClicked, handleDialog } from './interactions';
 
 const SLACK_SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET as string;
@@ -20,5 +20,6 @@ slackInteractions.action(/(\w+)_dialog/, handleDialog);
 
 const server = createServer(app);
 
-export const handler = (event: APIGatewayEvent, context: Context): Server =>
-    proxy(server, event, context);
+export const handler = (event: APIGatewayEvent, context: Context): Server => {
+    return proxy(server, event, context);
+};

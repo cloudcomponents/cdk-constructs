@@ -2,7 +2,7 @@
 
 import { CodePipeline } from 'aws-sdk';
 import { SlackBot } from './slack-bot';
-import { ApprovalMessageBuilder } from './approval_message_builder';
+import { ApprovalMessageBuilder } from './approval-message-builder';
 
 const {
     SLACK_BOT_TOKEN,
@@ -15,8 +15,8 @@ const {
 const pipeline = new CodePipeline();
 
 const bot = new SlackBot({
-    token: SLACK_BOT_TOKEN,
-    channelName: SLACK_CHANNEL,
+    token: SLACK_BOT_TOKEN as string,
+    channelName: SLACK_CHANNEL as string,
     channelId: SLACK_CHANNEL_ID,
     name: SLACK_BOT_NAME,
     icon: SLACK_BOT_ICON,
