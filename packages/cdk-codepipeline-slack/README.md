@@ -21,7 +21,10 @@ import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeCommitSourceAction, CodeBuildAction } from '@aws-cdk/aws-codepipeline-actions';
 import { PipelineProject } from '@aws-cdk/aws-codebuild';
 
-import { SlackApprovalAction } from '@cloudcomponents/cdk-codepipeline-slack';
+import {
+    SlackApprovalAction,
+    SlackNotifier,
+} from '@cloudcomponents/cdk-codepipeline-slack';
 
 export class CodepipelineSlackApprovalStack extends Stack {
   constructor(parent: App, name: string, props?: StackProps) {
@@ -62,7 +65,7 @@ export class CodepipelineSlackApprovalStack extends Stack {
         'Would you like to promote the build to production?'
     });
 
-    new Pipeline(this, 'MyPipeline', {
+    const pipeline = new Pipeline(this, 'MyPipeline', {
       pipelineName: 'MyPipeline',
       stages: [
         {
@@ -79,6 +82,13 @@ export class CodepipelineSlackApprovalStack extends Stack {
         }
       ]
     });
+
+    new SlackNotifier(this, 'SlackNotifier', {
+      pipeline,
+      slackBotToken,
+      slackSigningSecret,
+      slackChannel,
+    });
   }
 }
 ```
@@ -89,13 +99,15 @@ Create an app that’s just for your workspace
 
 ### OAuth & Permissions
 
+Grant the `channels::history`-Scope to the Bot in your app and Add the Bot to the configured Slack-Channel
+
 Select Permission Scopes:
 
 ![OAuth Scopes](/packages/cdk-codepipeline-slack/assets/oauth_scope.png?raw=true 'OAuth scopes')
 
 ### Interactive Components
 
-Enter the url of your api:
+Enter the url of your api from the AWS Api Gateway and append `/slack/actions`:
 
 ![Interactive Components](/packages/cdk-codepipeline-slack/assets/interactive_components.png?raw=true 'Interactive Components')
 

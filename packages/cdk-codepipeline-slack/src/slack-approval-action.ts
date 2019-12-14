@@ -56,14 +56,6 @@ export class SlackApprovalAction extends Action {
             SLACK_BOT_ICON: this.props.slackBotIcon || ':robot_face:',
         };
 
-        // if (slackBotName) {
-        //     environment.SLACK_BOT_NAME = slackBotName;
-        // }
-
-        // if (slackBotIcon) {
-        //     environment.SLACK_BOT_ICON = slackBotIcon;
-        // }
-
         const approvalRequester = new Function(
             scope,
             'SlackApprovalRequesterFunction',

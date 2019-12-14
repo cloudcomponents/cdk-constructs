@@ -4,39 +4,11 @@ import { CodePipeline } from 'aws-sdk';
 
 import { MessageBuilder, Message, Field } from './message-builder';
 
-// https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
-// const StateIcons = {
-//     STARTED: ':building_construction:',
-//     SUCCEEDED: ':white_check_mark:',
-//     RESUMED: '',
-//     FAILED: ':x:',
-//     CANCELED: ':no_entry:',
-//     SUPERSEDED: '',
-// };
 const PipelineStateIcons = {
     InProgress: ':building_construction:',
     Succeeded: ':white_check_mark:',
     Failed: ':x:',
 };
-
-// const STATE_COLORS = {
-//     STARTED: '#9E9E9E',
-//     SUCCEEDED: 'good',
-//     RESUMED: '',
-//     FAILED: 'danger',
-//     CANCELED: '',
-//     SUPERSEDED: '',
-// };
-
-// // https://docs.aws.amazon.com/codebuild/latest/APIReference/API_BuildPhase.html
-// const BUILD_PHASES = {
-//     SUCCEEDED: ':white_check_mark:',
-//     FAILED: ':x:',
-//     FAULT: '',
-//     TIMED_OUT: ':stop_watch:',
-//     IN_PROGRESS: ':building_construction:',
-//     STOPPED: '',
-// };
 
 export class NotifierMessageBuilder extends MessageBuilder {
     protected title: string;

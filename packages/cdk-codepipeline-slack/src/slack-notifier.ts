@@ -18,6 +18,8 @@ export interface SlackNotifierProps {
 }
 
 export class SlackNotifier extends Construct {
+    protected environment: Record<string, string>;
+
     constructor(scope: Construct, id: string, props: SlackNotifierProps) {
         super(scope, id);
 
@@ -32,7 +34,7 @@ export class SlackNotifier extends Construct {
             stageNames,
         } = props;
 
-        const environment: Record<string, string> = {
+        this.environment = {
             SLACK_BOT_TOKEN: slackBotToken,
             SLACK_SIGNING_SECRET: slackSigningSecret,
             SLACK_CHANNEL: slackChannel || '',
@@ -40,11 +42,11 @@ export class SlackNotifier extends Construct {
         };
 
         if (slackBotName) {
-            environment.SLACK_BOT_NAME = slackBotName;
+            this.environment.SLACK_BOT_NAME = slackBotName;
         }
 
         if (slackBotIcon) {
-            environment.SLACK_BOT_ICON = slackBotIcon;
+            this.environment.SLACK_BOT_ICON = slackBotIcon;
         }
 
         const notifier = new Function(scope, 'SlackNotifierFunction', {
@@ -53,7 +55,7 @@ export class SlackNotifier extends Construct {
             code: Code.asset(
                 path.join(__dirname, '..', 'lambda', 'bundle.zip'),
             ),
-            environment,
+            environment: this.environment,
         });
         notifier.addToRolePolicy(
             new PolicyStatement({
@@ -86,5 +88,25 @@ export class SlackNotifier extends Construct {
                 },
             });
         }
+    }
+
+    protected validate(this: SlackNotifier): string[] {
+        if (
+            this.environment.SLACK_CHANNEL &&
+            this.environment.SLACK_CHANNEL_ID
+        ) {
+            return [
+                'Redundant Configuration: Please configure slackChannel by id (prop slackChannelId) OR name (prop slackChannel)',
+            ];
+        }
+        if (
+            !this.environment.SLACK_CHANNEL &&
+            !this.environment.SLACK_CHANNEL_ID
+        ) {
+            return [
+                'Missing Configuration: Please configure slackChannel by id (prop slackChannelId) or name (prop slackChannel)',
+            ];
+        }
+        return [];
     }
 }

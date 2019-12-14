@@ -1,7 +1,7 @@
 {
     "name": "@cloudcomponents/cdk-codepipeline-slack",
     "version": "1.0.34",
-    "description": "Cdk component that provisions a #slack approval workflow",
+    "description": "Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes",
     "license": "MIT",
     "author": "hello@webappsolutions.de",
     "repository": {
@@ -15,6 +15,9 @@
         "codepipeline",
         "chatops",
         "approval",
+        "notification",
+        "notifier",
+        "codebuild",
         "@cloudcomponents"
     ],
     "main": "lib/index.js",
