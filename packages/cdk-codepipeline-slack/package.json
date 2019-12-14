@@ -1,6 +1,6 @@
 {
     "name": "@cloudcomponents/cdk-codepipeline-slack",
-    "version": "1.0.34",
+    "version": "1.0.35",
     "description": "Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes",
     "license": "MIT",
     "repository": {
@@ -37,12 +37,12 @@
         "@aws-cdk/core": "^1.0.0"
     },
     "dependencies": {
-        "@aws-cdk/aws-events": "^1.18.0",
-        "@aws-cdk/aws-events-targets": "^1.18.0",
         "@aws-cdk/aws-apigateway": "^1.18.0",
         "@aws-cdk/aws-codebuild": "^1.18.0",
         "@aws-cdk/aws-codepipeline": "^1.18.0",
         "@aws-cdk/aws-codepipeline-actions": "^1.18.0",
+        "@aws-cdk/aws-events": "^1.18.0",
+        "@aws-cdk/aws-events-targets": "^1.18.0",
         "@aws-cdk/aws-iam": "^1.18.0",
         "@aws-cdk/aws-lambda": "^1.18.0",
         "@aws-cdk/aws-s3": "^1.18.0",
@@ -52,8 +52,8 @@
     },
     "devDependencies": {
         "@aws-cdk/assert": "^1.18.0",
-        "@cloudcomponents/build-tools": "^1.0.22",
-        "@cloudcomponents/cdk-codepipeline-slack-lambda": "^1.0.24",
+        "@cloudcomponents/build-tools": "^1.0.23",
+        "@cloudcomponents/cdk-codepipeline-slack-lambda": "^1.0.25",
         "jest-cdk-snapshot": "^1.2.0",
         "typescript": "^3.7.2"
     },
