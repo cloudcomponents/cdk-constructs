@@ -3,13 +3,11 @@
     "version": "1.0.24",
     "private": true,
     "license": "MIT",
-    "author": "hello@webappsolutions.de",
     "scripts": {
         "build": "tsc",
         "watch": "tsc -w"
     },
     "bundleDependencies": [
-        "@slack/client",
         "@slack/interactive-messages",
         "@slack/web-api",
         "aws-serverless-express",

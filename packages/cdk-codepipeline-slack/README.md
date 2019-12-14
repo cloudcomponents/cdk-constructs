@@ -1,6 +1,6 @@
 # @cloudcomponents/cdk-codepipeline-slack
 
-> Cdk component that provisions a #slack approval workflow
+> Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes
 
 ![Approval Workflow](/packages/cdk-codepipeline-slack/assets/approval_workflow.png?raw=true 'Approval Workflow')
 

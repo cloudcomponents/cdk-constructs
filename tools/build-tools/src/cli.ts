@@ -8,10 +8,7 @@ import * as create from './commands/create';
 const NAME = 'cloudcomponents';
 
 // eslint-disable-next-line no-console
-console.log(
-    chalk.red(figlet.textSync(NAME, { horizontalLayout: 'full' })),
-    '\n',
-);
+console.log(chalk.red(figlet.textSync(NAME)), '\n');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { version } = require('../package.json');
