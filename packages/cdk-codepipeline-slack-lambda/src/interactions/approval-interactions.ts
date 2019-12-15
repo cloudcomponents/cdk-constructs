@@ -67,9 +67,17 @@ export const handleButtonClicked = async payload => {
             payload.original_message,
         );
 
-        messageBuilder.removeActions();
+        // Disabled for now cause there is no Event on Slack Dialog Cancelation.
+        // If the Actions are removed it is not possible to Approve/Reject a approval
+        // if the Slack dialog is canceled
+        //
+        // downside: maybe to users will be able to open the dialog to
+        //           perform the approval at the same time
+        //
+        // see: https://github.com/slackapi/node-slack-sdk/issues/524
 
-        messageBuilder.updateStatus(':building_construction: Work in progress');
+        // messageBuilder.removeActions();
+        // messageBuilder.updateStatus(':building_construction: Work in progress');
 
         return messageBuilder.message;
     } catch (error) {
