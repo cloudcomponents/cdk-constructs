@@ -102,7 +102,7 @@ export class ApprovalMessageBuilder extends MessageBuilder {
 
         fields.push({
             title: 'Region',
-            value: 'TODO',
+            value: approval.region,
             short: true,
         });
 
