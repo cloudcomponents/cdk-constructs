@@ -1,8 +1,4 @@
-import {
-    CfnCloudFrontOriginAccessIdentity,
-    S3OriginConfig,
-} from '@aws-cdk/aws-cloudfront';
-import { CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
+import { S3OriginConfig, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 import { Construct, RemovalPolicy } from '@aws-cdk/core';
@@ -74,19 +70,15 @@ export class WebsiteBucket extends Construct {
             websiteErrorDocument: websiteErrorDocument || 'error.html',
         });
 
-        const originId = new CfnCloudFrontOriginAccessIdentity(
+        const originAccessIdentity = new OriginAccessIdentity(
             this,
             'OriginAccessIdentity',
             {
-                cloudFrontOriginAccessIdentityConfig: {
-                    comment: `CloudFront OriginAccessIdentity for ${bucket.bucketName}`,
-                },
+                comment: `CloudFront OriginAccessIdentity for ${bucket.bucketName}`,
             },
         );
 
-        bucket.grantRead(
-            new CanonicalUserPrincipal(originId.attrS3CanonicalUserId),
-        );
+        bucket.grantRead(originAccessIdentity.grantPrincipal);
 
         if (!disableUpload) {
             const placeHolderSource = path.join(__dirname, '..', 'website');
@@ -99,7 +91,7 @@ export class WebsiteBucket extends Construct {
         }
 
         this.s3OriginConfig = {
-            originAccessIdentityId: originId.ref,
+            originAccessIdentity,
             s3BucketSource: bucket,
         };
     }

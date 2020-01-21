@@ -15,7 +15,7 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "WebsiteBucketOriginAccessIdentity2FD53DC0": Object {
+    "WebsiteBucketOriginAccessIdentity717BE380": Object {
       "Properties": Object {
         "CloudFrontOriginAccessIdentityConfig": Object {
           "Comment": Object {
@@ -50,7 +50,7 @@ Object {
               "Principal": Object {
                 "CanonicalUser": Object {
                   "Fn::GetAtt": Array [
-                    "WebsiteBucketOriginAccessIdentity2FD53DC0",
+                    "WebsiteBucketOriginAccessIdentity717BE380",
                     "S3CanonicalUserId",
                   ],
                 },
