@@ -1,22 +1,20 @@
-const authenticateMock = jest.fn();
 const createMock = jest.fn();
 const updateMock = jest.fn();
 const deleteMock = jest.fn();
 
-jest.mock('@octokit/rest', () =>
-    jest.fn().mockImplementation(() => ({
-        authenticate: authenticateMock,
+jest.mock('@octokit/rest', () => ({
+    Octokit: jest.fn().mockImplementation(() => ({
         repos: {
             createHook: createMock,
             updateHook: updateMock,
             deleteHook: deleteMock,
         },
     })),
-);
+}));
 
 /* eslint-disable */
 import { createWebhook, updateWebhook, deleteWebhook } from '../webhook-api';
-import { Response, ReposCreateHookResponse } from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 /* eslint-enable */
 
 describe('cdk-github-webhook-lambda: webhook-api', (): void => {
@@ -28,12 +26,6 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
         const events = ['*'];
 
         createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
-
-        expect(authenticateMock).toHaveBeenCalled();
-        expect(authenticateMock).toHaveBeenCalledWith({
-            token: 'secure',
-            type: 'token',
-        });
 
         expect(createMock).toHaveBeenCalled();
         expect(createMock).toHaveBeenCalledWith({
@@ -62,12 +54,6 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
             hookId,
         );
 
-        expect(authenticateMock).toHaveBeenCalled();
-        expect(authenticateMock).toHaveBeenCalledWith({
-            token: 'secure',
-            type: 'token',
-        });
-
         expect(updateMock).toHaveBeenCalled();
         expect(updateMock).toHaveBeenCalledWith({
             owner: 'cloudcomponents',
@@ -87,12 +73,6 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
 
         deleteWebhook(githubApiToken, githubRepoUrl, hookId);
 
-        expect(authenticateMock).toHaveBeenCalled();
-        expect(authenticateMock).toHaveBeenCalledWith({
-            token: 'secure',
-            type: 'token',
-        });
-
         expect(deleteMock).toHaveBeenCalled();
         expect(deleteMock).toHaveBeenCalledWith({
             owner: 'cloudcomponents',
@@ -109,8 +89,9 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
         const payloadUrl = 'payloadUrl';
         const events = ['*'];
 
-        const call = (): Promise<Response<ReposCreateHookResponse>> =>
-            createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
+        const call = (): Promise<Octokit.Response<
+            Octokit.ReposCreateHookResponse
+        >> => createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
         expect(call()).rejects.toThrow('GithubRepoUrl is not correct');
     });

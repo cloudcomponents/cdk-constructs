@@ -1,7 +1,5 @@
-import * as Octokit from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import * as parseGithubUrl from 'parse-github-url';
-
-const octokit = new Octokit();
 
 export const createWebhook = async (
     githubApiToken: string,
@@ -9,7 +7,9 @@ export const createWebhook = async (
     payloadUrl: string,
     events: string[],
 ): Promise<Octokit.Response<Octokit.ReposCreateHookResponse>> => {
-    octokit.authenticate({ type: 'token', token: githubApiToken });
+    const octokit = new Octokit({
+        auth: githubApiToken,
+    });
 
     const gh = parseGithubUrl(githubRepoUrl);
 
@@ -36,7 +36,9 @@ export const updateWebhook = async (
     events: string[],
     hookId: number,
 ): Promise<Octokit.Response<Octokit.ReposUpdateHookResponse>> => {
-    octokit.authenticate({ type: 'token', token: githubApiToken });
+    const octokit = new Octokit({
+        auth: githubApiToken,
+    });
 
     const gh = parseGithubUrl(githubRepoUrl);
 
@@ -61,7 +63,9 @@ export const deleteWebhook = async (
     githubRepoUrl: string,
     hookId: number,
 ): Promise<Octokit.Response<Octokit.ReposDeleteResponse>> => {
-    octokit.authenticate({ type: 'token', token: githubApiToken });
+    const octokit = new Octokit({
+        auth: githubApiToken,
+    });
 
     const gh = parseGithubUrl(githubRepoUrl);
 
