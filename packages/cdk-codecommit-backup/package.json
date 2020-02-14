@@ -1,0 +1,46 @@
+{
+    "name": "@cloudcomponents/cdk-codecommit-backup",
+    "version": "1.0.0",
+    "description": "Backup CodeCommit repositories to S3",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "codecommit",
+        "backup",
+        "s3",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "lambdas"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codebuild": "^1.23.0",
+        "@aws-cdk/aws-events": "^1.23.0",
+        "@aws-cdk/aws-events-targets": "^1.23.0",
+        "@aws-cdk/aws-iam": "^1.23.0",
+        "@aws-cdk/aws-s3": "^1.23.0",
+        "@aws-cdk/aws-s3-assets": "^1.23.0",
+        "@aws-cdk/aws-sns": "^1.23.0",
+        "@aws-cdk/core": "^1.23.0"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.23.0",
+        "jest-cdk-snapshot": "^1.2.1",
+        "typescript": "^3.7.5"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
