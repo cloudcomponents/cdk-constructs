@@ -66,7 +66,6 @@ def get_user_params(job_data):
 
     """
     try:
-        # Get the user parameters which contain the stack, artifact and file settings
         user_parameters = job_data['actionConfiguration']['configuration']['UserParameters']
         decoded_parameters = json.loads(user_parameters)
 
@@ -77,14 +76,10 @@ def get_user_params(job_data):
         raise Exception('UserParameters could not be decoded as JSON')
 
     if 'parameterName' not in decoded_parameters:
-        # Validate that the stack is provided, otherwise fail the job
-        # with a helpful message.
         raise Exception(
             'Your UserParameters JSON must include the parameter name')
 
     if 'logParameter' not in decoded_parameters:
-        # Validate that the stack is provided, otherwise fail the job
-        # with a helpful message.
         raise Exception(
             'Your UserParameters JSON must include logParameter')
 
