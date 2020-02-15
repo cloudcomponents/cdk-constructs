@@ -4,7 +4,7 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import {
     BackupBucket,
-    CodecommitBackup,
+    S3CodecommitBackup,
 } from '@cloudcomponents/cdk-codecommit-backup';
 
 export class CodecommitBackupStack extends Stack {
@@ -22,7 +22,7 @@ export class CodecommitBackupStack extends Stack {
         });
 
         // The following example runs a task every day at 4am
-        new CodecommitBackup(this, 'CodecommitBackup', {
+        new S3CodecommitBackup(this, 'S3CodecommitBackup', {
             backupBucket,
             schedule: Schedule.cron({
                 minute: '0',

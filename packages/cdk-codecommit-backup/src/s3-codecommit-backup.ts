@@ -16,7 +16,7 @@ import { PolicyStatement } from '@aws-cdk/aws-iam';
 const S3_BUCKET_ENV = 'SCRIPTS_BUCKET';
 const S3_KEY_ENV = 'SCRIPTS_BUCKET_KEY';
 
-export interface CodecommitBackupProps {
+export interface S3CodecommitBackupProps {
     backupBucket: Bucket;
     schedule: Schedule;
     repositoryNames?: string[];
@@ -24,8 +24,8 @@ export interface CodecommitBackupProps {
     computeType?: ComputeType;
 }
 
-export class CodecommitBackup extends Construct {
-    constructor(scope: Construct, id: string, props: CodecommitBackupProps) {
+export class S3CodecommitBackup extends Construct {
+    constructor(scope: Construct, id: string, props: S3CodecommitBackupProps) {
         super(scope, id);
 
         const {
