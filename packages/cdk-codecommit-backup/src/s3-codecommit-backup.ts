@@ -17,10 +17,34 @@ const S3_BUCKET_ENV = 'SCRIPTS_BUCKET';
 const S3_KEY_ENV = 'SCRIPTS_BUCKET_KEY';
 
 export interface S3CodecommitBackupProps {
+    /**
+     * Bucket for storing the backups.
+     */
     backupBucket: Bucket;
+
+    /**
+     * Schedule for backups.
+     */
     schedule: Schedule;
+
+    /**
+     * The names of the repositories in the region to be backed up.
+     *
+     * @default - All repositories in the region
+     */
     repositoryNames?: string[];
+
+    /**
+     * Topic to be informed about a failed backup.
+     */
     failedTopic?: ITopic;
+
+    /**
+     * The type of compute to use for backup the repositories.
+     * See the {@link ComputeType} enum for the possible values.
+     *
+     * @default taken from {@link #buildImage#defaultComputeType}
+     */
     computeType?: ComputeType;
 }
 
@@ -51,7 +75,7 @@ export class S3CodecommitBackup extends Construct {
                 BACKUP_BUCKET: {
                     value: backupBucket.bucketName,
                 },
-                REPOSITORIES: {
+                REPOSITORY_NAMES: {
                     value: repositoryNames.join(' '),
                 },
                 [S3_BUCKET_ENV]: { value: asset.s3BucketName },
