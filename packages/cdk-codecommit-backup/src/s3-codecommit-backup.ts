@@ -6,11 +6,10 @@ import {
     Project,
     ComputeType,
 } from '@aws-cdk/aws-codebuild';
-import { Rule, Schedule } from '@aws-cdk/aws-events';
-import { CodeBuildProject, SnsTopic } from '@aws-cdk/aws-events-targets';
+import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
+import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Asset } from '@aws-cdk/aws-s3-assets';
-import { ITopic } from '@aws-cdk/aws-sns';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 
 const S3_BUCKET_ENV = 'SCRIPTS_BUCKET';
@@ -20,24 +19,19 @@ export interface S3CodecommitBackupProps {
     /**
      * Bucket for storing the backups.
      */
-    backupBucket: Bucket;
+    readonly backupBucket: Bucket;
 
     /**
      * Schedule for backups.
      */
-    schedule: Schedule;
+    readonly schedule: Schedule;
 
     /**
      * The names of the repositories in the region to be backed up.
      *
      * @default - All repositories in the region
      */
-    repositoryNames?: string[];
-
-    /**
-     * Topic to be informed about a failed backup.
-     */
-    failedTopic?: ITopic;
+    readonly repositoryNames?: string[];
 
     /**
      * The type of compute to use for backup the repositories.
@@ -45,10 +39,12 @@ export interface S3CodecommitBackupProps {
      *
      * @default taken from {@link #buildImage#defaultComputeType}
      */
-    computeType?: ComputeType;
+    readonly computeType?: ComputeType;
 }
 
 export class S3CodecommitBackup extends Construct {
+    private readonly backupProject: Project;
+
     constructor(scope: Construct, id: string, props: S3CodecommitBackupProps) {
         super(scope, id);
 
@@ -56,7 +52,6 @@ export class S3CodecommitBackup extends Construct {
             backupBucket,
             schedule,
             repositoryNames = [],
-            failedTopic,
             computeType,
         } = props;
 
@@ -66,7 +61,7 @@ export class S3CodecommitBackup extends Construct {
 
         const buildImage = LinuxBuildImage.STANDARD_2_0;
 
-        const backupProject = new Project(this, 'BackupProject', {
+        this.backupProject = new Project(this, 'BackupProject', {
             environment: {
                 buildImage,
                 computeType: computeType || buildImage.defaultComputeType,
@@ -101,17 +96,11 @@ export class S3CodecommitBackup extends Construct {
             }),
         });
 
-        if (failedTopic) {
-            backupProject.onBuildFailed('onFailed', {
-                target: new SnsTopic(failedTopic),
-            });
-        }
+        asset.grantRead(this.backupProject);
 
-        asset.grantRead(backupProject);
+        backupBucket.grantPut(this.backupProject);
 
-        backupBucket.grantPut(backupProject);
-
-        backupProject.addToRolePolicy(
+        this.backupProject.addToRolePolicy(
             new PolicyStatement({
                 resources: ['*'],
                 actions: [
@@ -126,7 +115,28 @@ export class S3CodecommitBackup extends Construct {
 
         new Rule(this, 'ScheduleRule', {
             schedule,
-            targets: [new CodeBuildProject(backupProject)],
+            targets: [new CodeBuildProject(this.backupProject)],
         });
+    }
+
+    /**
+     * Defines an event rule which triggers when a backup fails.
+     */
+    public onBackupFailed(id: string, options?: OnEventOptions): Rule {
+        return this.backupProject.onBuildFailed(id, options);
+    }
+
+    /**
+     * Defines an event rule which triggers when a backup starts.
+     */
+    public onBackupStarted(id: string, options?: OnEventOptions): Rule {
+        return this.backupProject.onBuildStarted(id, options);
+    }
+
+    /**
+     * Defines an event rule which triggers when a backup complets successfully.
+     */
+    public onBackupSucceeded(id: string, options?: OnEventOptions): Rule {
+        return this.backupProject.onBuildSucceeded(id, options);
     }
 }
