@@ -1,0 +1,45 @@
+{
+    "name": "@cloudcomponents/cdk-dependency-check",
+    "version": "1.0.0",
+    "description": "OWASP dependency-check",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components",
+        "directory": "packages/cdk-dependency-check"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "codecommit",
+        "OWASP",
+        "dependency-check",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codebuild": "^1.24.0",
+        "@aws-cdk/aws-codecommit": "^1.24.0",
+        "@aws-cdk/aws-events": "^1.24.0",
+        "@aws-cdk/aws-events-targets": "^1.24.0",
+        "@aws-cdk/aws-iam": "^1.24.0",
+        "@aws-cdk/core": "^1.24.0"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.24.0",
+        "@aws-cdk/aws-sns": "^1.24.0",
+        "jest-cdk-snapshot": "^1.2.1",
+        "typescript": "^3.7.5"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
