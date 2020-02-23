@@ -1,1 +1,1 @@
-export * from './dependency-check';
+export * from './codecommit-dependency-check';

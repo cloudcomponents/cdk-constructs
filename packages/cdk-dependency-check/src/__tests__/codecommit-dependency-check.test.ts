@@ -5,7 +5,7 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { Topic } from '@aws-cdk/aws-sns';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { DependencyCheck } from '../dependency-check';
+import { CodecommitDependencyCheck } from '../codecommit-dependency-check';
 
 test('default setup', (): void => {
     const stack = new Stack();
@@ -16,7 +16,7 @@ test('default setup', (): void => {
         'repo1',
     );
 
-    new DependencyCheck(stack, 'DependencyCheck', {
+    new CodecommitDependencyCheck(stack, 'CodecommitDependencyCheck', {
         repository,
         schedule: Schedule.cron({
             minute: '0',
@@ -36,7 +36,7 @@ test('preCheckCommand', (): void => {
         'repo1',
     );
 
-    new DependencyCheck(stack, 'DependencyCheck', {
+    new CodecommitDependencyCheck(stack, 'CodecommitDependencyCheck', {
         repository,
         preCheckCommand: 'npm i',
         schedule: Schedule.cron({
@@ -57,13 +57,17 @@ test('events', (): void => {
         'repo1',
     );
 
-    const check = new DependencyCheck(stack, 'DependencyCheck', {
-        repository,
-        schedule: Schedule.cron({
-            minute: '0',
-            hour: '4',
-        }),
-    });
+    const check = new CodecommitDependencyCheck(
+        stack,
+        'CodecommitDependencyCheck',
+        {
+            repository,
+            schedule: Schedule.cron({
+                minute: '0',
+                hour: '4',
+            }),
+        },
+    );
 
     const checkTopic = new Topic(stack, 'CheckTopic');
 

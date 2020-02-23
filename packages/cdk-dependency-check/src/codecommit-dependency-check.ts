@@ -12,19 +12,21 @@ import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
 import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 
-export interface DependencyCheckProps {
+import { Cli, ScanProps } from './cli';
+
+export interface CodecommitDependencyCheckProps {
     /**
-     * Bucket for storing the backups.
+     * The repository to be checked
      */
     readonly repository: IRepository;
 
     /**
-     * Schedule for backups.
+     * Schedule for dependency check.
      */
     readonly schedule: Schedule;
 
     /**
-     * The type of compute to use for backup the repositories.
+     * The type of compute to use for check the repositories.
      * See the {@link ComputeType} enum for the possible values.
      *
      * @default taken from {@link #buildImage#defaultComputeType}
@@ -45,18 +47,19 @@ export interface DependencyCheckProps {
      */
     readonly version?: string;
 
-    /**
-     * Name of the project
-     *
-     * @default taken from {@link #repository#repositoryName}
-     */
-    readonly projectName?: string;
+    readonly projectName?: ScanProps['projectName'];
+
+    readonly failOnCVSS?: ScanProps['failOnCVSS'];
 }
 
-export class DependencyCheck extends Construct {
+export class CodecommitDependencyCheck extends Construct {
     private readonly checkProject: Project;
 
-    constructor(scope: Construct, id: string, props: DependencyCheckProps) {
+    constructor(
+        scope: Construct,
+        id: string,
+        props: CodecommitDependencyCheckProps,
+    ) {
         super(scope, id);
 
         const {
@@ -66,9 +69,20 @@ export class DependencyCheck extends Construct {
             preCheckCommand = `echo "No preCheckCommand!"`,
             version = '5.3.0',
             projectName,
+            failOnCVSS,
         } = props;
 
+        const {
+            repositoryName,
+            repositoryCloneUrlHttp,
+            repositoryArn,
+        } = repository;
+
         const buildImage = LinuxBuildImage.STANDARD_2_0;
+
+        const dependencyCheck = `dependency-check-${version}-release`;
+
+        const cli = new Cli();
 
         this.checkProject = new Project(this, 'CheckProject', {
             cache: Cache.local(LocalCacheMode.CUSTOM),
@@ -85,8 +99,13 @@ export class DependencyCheck extends Construct {
                     install: {
                         commands: [
                             `echo "[===== Install OWASP Dependency Check =====]"`,
-                            `curl -L https://dl.bintray.com/jeremy-long/owasp/dependency-check-${version}-release.zip -o dependency-check.zip`,
-                            `unzip dependency-check.zip -d "/opt"`,
+                            `wget -O public-key.asc https://bintray.com/user/downloadSubjectPublicKey?username=jeremy-long`,
+                            `gpg --keyid-format long --list-options show-keyring public-key.asc`,
+                            `gpg --import public-key.asc`,
+                            `wget https://dl.bintray.com/jeremy-long/owasp/${dependencyCheck}.zip`,
+                            `wget https://dl.bintray.com/jeremy-long/owasp/${dependencyCheck}.zip.asc`,
+                            `gpg --verify ${dependencyCheck}.zip.asc ${dependencyCheck}.zip`,
+                            `unzip ${dependencyCheck}.zip -d /opt`,
                             `chmod +x /opt/dependency-check/bin/dependency-check.sh`,
                             `export PATH="$PATH:/opt/dependency-check/bin"`,
                             `mkdir reports`,
@@ -94,21 +113,24 @@ export class DependencyCheck extends Construct {
                     },
                     pre_build: {
                         commands: [
-                            `echo "[===== Clone repository: ${repository.repositoryName} =====]"`,
-                            `git clone "${repository.repositoryCloneUrlHttp}"`,
-                            `cd ${repository.repositoryName}`,
+                            `echo "[===== Clone repository: ${repositoryName} =====]"`,
+                            `git clone "${repositoryCloneUrlHttp}"`,
+                            `cd ${repositoryName}`,
                             `${preCheckCommand}`,
+                            `SHA=$(git rev-parse HEAD)`,
                             `cd \${CODEBUILD_SRC_DIR}`,
                         ],
                     },
                     build: {
                         commands: [
-                            `echo "[===== Scan repository: ${repository.repositoryName} =====]"`,
-                            `dependency-check.sh --version`,
-                            `dependency-check.sh --project "${projectName ||
-                                repository.repositoryName}" --scan "${
-                                repository.repositoryName
-                            }/" --failOnCVSS 5 --prettyPrint --format "ALL" --out reports`,
+                            `echo "[===== Scan repository: ${repositoryName} =====]"`,
+                            `echo "[===== SHA: $SHA =====]"`,
+                            cli.version(),
+                            cli.scan({
+                                projectName: projectName || repositoryName,
+                                paths: [`${repositoryName}/`],
+                                failOnCVSS,
+                            }),
                         ],
                     },
                 },
@@ -125,7 +147,7 @@ export class DependencyCheck extends Construct {
 
         this.checkProject.addToRolePolicy(
             new PolicyStatement({
-                resources: [repository.repositoryArn],
+                resources: [repositoryArn],
                 actions: [
                     'codecommit:BatchGet*',
                     'codecommit:Get*',

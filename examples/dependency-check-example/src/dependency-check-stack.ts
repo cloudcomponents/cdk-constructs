@@ -4,7 +4,7 @@ import { Schedule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import { DependencyCheck } from '@cloudcomponents/cdk-dependency-check';
+import { CodecommitDependencyCheck } from '@cloudcomponents/cdk-dependency-check';
 
 export class DependencyCheckStack extends Stack {
     public constructor(scope: App, id: string, props?: StackProps) {
@@ -17,14 +17,18 @@ export class DependencyCheckStack extends Stack {
         );
 
         // The following example runs a task every day at 4am
-        const check = new DependencyCheck(this, 'DependencyCheck', {
-            repository,
-            preCheckCommand: 'npm i',
-            schedule: Schedule.cron({
-                minute: '0',
-                hour: '4',
-            }),
-        });
+        const check = new CodecommitDependencyCheck(
+            this,
+            'CodecommitDependencyCheck',
+            {
+                repository,
+                preCheckCommand: 'npm i',
+                schedule: Schedule.cron({
+                    minute: '0',
+                    hour: '4',
+                }),
+            },
+        );
 
         const checkTopic = new Topic(this, 'CheckTopic');
 
