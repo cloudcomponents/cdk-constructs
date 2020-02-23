@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
 
-> A collection of higher-level [cdk components](https://github.com/awslabs/aws-cdk): slack-approval-workflow, slack-notifier, codecommit-backup, contentful-webhook, github-webhook, static-website, pull-request-check, codepipeline-merge-action, codepipeline-check-parameter-action...
+> A collection of higher-level [cdk components](https://github.com/awslabs/aws-cdk): slack-approval-workflow, slack-notifier, codecommit-backup, OWASP dependency-check, contentful-webhook, github-webhook, static-website, pull-request-check, codepipeline-merge-action, codepipeline-check-parameter-action...
 
 ## Components
 
