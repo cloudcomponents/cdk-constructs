@@ -47,6 +47,11 @@ export interface CodecommitDependencyCheckProps {
      */
     readonly version?: string;
 
+    /**
+     * The name of the project being scanned.
+     *
+     * * @default taken from {@link #repository#repositoryName}
+     */
     readonly projectName?: ScanProps['projectName'];
 
     readonly failOnCVSS?: ScanProps['failOnCVSS'];
