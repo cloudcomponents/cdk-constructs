@@ -1,6 +1,6 @@
 # @cloudcomponents/cdk-dependency-check
 
-> OWASP dependency-check
+> [OWASP dependency-check](https://owasp.org/www-project-dependency-check/) for codecommit repositories
 
 ## Install
 
