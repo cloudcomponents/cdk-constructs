@@ -19,6 +19,7 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 | [cdk-codepipeline-merge-action](/packages/cdk-codepipeline-merge-action)                     | Cdk component that automatically merge branches in codepipelines                                                             |
 | [cdk-codepipeline-check-parameter-action](/packages/cdk-codepipeline-check-parameter-action) | Cdk component that checks if system parameters are set correctly                                                             |
 | [cdk-codecommit-backup](/packages/cdk-codecommit-backup)                                     | Backup CodeCommit repositories to S3                                                                                         |
+| [cdk-dependency-check](/packages/cdk-dependency-check)                                       | OWASP dependency-check                                                                                                       |
 
 ## Contributing
 
