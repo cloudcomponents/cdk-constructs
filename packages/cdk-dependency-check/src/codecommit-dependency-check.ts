@@ -70,7 +70,7 @@ export interface CodecommitDependencyCheckProps {
     readonly paths?: string[];
 
     /**
-     * Enable the experimental analyzers. If not set the analyzers marked as experimental be
+     * Enable the experimental analyzers. If not set the analyzers marked as experimental will not be loaded or used.
      *
      * @default false
      */
