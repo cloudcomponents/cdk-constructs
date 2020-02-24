@@ -68,6 +68,13 @@ export interface CodecommitDependencyCheckProps {
      * @default the repositoryDir
      */
     readonly paths?: string[];
+
+    /**
+     * Enable the experimental analyzers. If not set the analyzers marked as experimental be
+     *
+     * @default false
+     */
+    readonly enableExperimental?: boolean;
 }
 
 export class CodecommitDependencyCheck extends Construct {
@@ -89,6 +96,7 @@ export class CodecommitDependencyCheck extends Construct {
             projectName,
             failOnCVSS = 0,
             paths = ['.'],
+            enableExperimental,
         } = props;
 
         const {
@@ -127,7 +135,6 @@ export class CodecommitDependencyCheck extends Construct {
                             `unzip ${dependencyCheck}.zip -d /opt`,
                             `chmod +x /opt/dependency-check/bin/dependency-check.sh`,
                             `export PATH="$PATH:/opt/dependency-check/bin"`,
-                            `mkdir reports`,
                         ],
                     },
                     pre_build: {
@@ -144,6 +151,7 @@ export class CodecommitDependencyCheck extends Construct {
                         commands: [
                             `echo "[===== Scan repository: ${repositoryName} =====]"`,
                             `echo "[===== SHA: $SHA =====]"`,
+                            `mkdir reports`,
                             cli.version(),
                             cli.scan({
                                 projectName: projectName || repositoryName,
@@ -151,6 +159,7 @@ export class CodecommitDependencyCheck extends Construct {
                                     join(repositoryName, path),
                                 ),
                                 failOnCVSS,
+                                enableExperimental,
                             }),
                         ],
                     },

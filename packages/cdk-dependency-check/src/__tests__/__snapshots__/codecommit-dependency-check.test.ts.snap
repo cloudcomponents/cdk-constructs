@@ -48,8 +48,7 @@ Object {
         \\"gpg --verify dependency-check-5.3.0-release.zip.asc dependency-check-5.3.0-release.zip\\",
         \\"unzip dependency-check-5.3.0-release.zip -d /opt\\",
         \\"chmod +x /opt/dependency-check/bin/dependency-check.sh\\",
-        \\"export PATH=\\\\\\"$PATH:/opt/dependency-check/bin\\\\\\"\\",
-        \\"mkdir reports\\"
+        \\"export PATH=\\\\\\"$PATH:/opt/dependency-check/bin\\\\\\"\\"
       ]
     },
     \\"pre_build\\": {
@@ -74,6 +73,7 @@ Object {
       \\"commands\\": [
         \\"echo \\\\\\"[===== Scan repository: repo1 =====]\\\\\\"\\",
         \\"echo \\\\\\"[===== SHA: $SHA =====]\\\\\\"\\",
+        \\"mkdir reports\\",
         \\"dependency-check.sh --version\\",
         \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format \\\\\\"ALL\\\\\\" --out reports\\"
       ]
@@ -378,8 +378,7 @@ Object {
         \\"gpg --verify dependency-check-5.3.0-release.zip.asc dependency-check-5.3.0-release.zip\\",
         \\"unzip dependency-check-5.3.0-release.zip -d /opt\\",
         \\"chmod +x /opt/dependency-check/bin/dependency-check.sh\\",
-        \\"export PATH=\\\\\\"$PATH:/opt/dependency-check/bin\\\\\\"\\",
-        \\"mkdir reports\\"
+        \\"export PATH=\\\\\\"$PATH:/opt/dependency-check/bin\\\\\\"\\"
       ]
     },
     \\"pre_build\\": {
@@ -404,6 +403,7 @@ Object {
       \\"commands\\": [
         \\"echo \\\\\\"[===== Scan repository: repo1 =====]\\\\\\"\\",
         \\"echo \\\\\\"[===== SHA: $SHA =====]\\\\\\"\\",
+        \\"mkdir reports\\",
         \\"dependency-check.sh --version\\",
         \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format \\\\\\"ALL\\\\\\" --out reports\\"
       ]
@@ -775,8 +775,7 @@ Object {
         \\"gpg --verify dependency-check-5.3.0-release.zip.asc dependency-check-5.3.0-release.zip\\",
         \\"unzip dependency-check-5.3.0-release.zip -d /opt\\",
         \\"chmod +x /opt/dependency-check/bin/dependency-check.sh\\",
-        \\"export PATH=\\\\\\"$PATH:/opt/dependency-check/bin\\\\\\"\\",
-        \\"mkdir reports\\"
+        \\"export PATH=\\\\\\"$PATH:/opt/dependency-check/bin\\\\\\"\\"
       ]
     },
     \\"pre_build\\": {
@@ -801,6 +800,7 @@ Object {
       \\"commands\\": [
         \\"echo \\\\\\"[===== Scan repository: repo1 =====]\\\\\\"\\",
         \\"echo \\\\\\"[===== SHA: $SHA =====]\\\\\\"\\",
+        \\"mkdir reports\\",
         \\"dependency-check.sh --version\\",
         \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format \\\\\\"ALL\\\\\\" --out reports\\"
       ]

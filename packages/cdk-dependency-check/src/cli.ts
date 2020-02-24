@@ -20,6 +20,13 @@ export interface ScanProps {
      * @default 0
      */
     readonly failOnCVSS?: number;
+
+    /**
+     * Enable the experimental analyzers. If not set the analyzers marked as experimental be
+     *
+     * @default false
+     */
+    readonly enableExperimental?: boolean;
 }
 
 export class Cli {
@@ -28,7 +35,13 @@ export class Cli {
     public scan(props: ScanProps): string {
         const args = [this.command];
 
-        const { projectName, paths, excludes = [], failOnCVSS = 0 } = props;
+        const {
+            projectName,
+            paths,
+            excludes = [],
+            failOnCVSS = 0,
+            enableExperimental = false,
+        } = props;
 
         if (projectName) {
             args.push('--project', `"${projectName}"`);
@@ -45,6 +58,10 @@ export class Cli {
         args.push('--failOnCVSS', `${failOnCVSS}`);
 
         args.push('--junitFailOnCVSS', `${failOnCVSS}`);
+
+        if (enableExperimental) {
+            args.push('--enableExperimental');
+        }
 
         args.push('--prettyPrint --format "ALL"');
 
