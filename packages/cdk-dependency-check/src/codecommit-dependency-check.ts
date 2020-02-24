@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { Construct } from '@aws-cdk/core';
 import {
     BuildSpec,
@@ -54,7 +55,19 @@ export interface CodecommitDependencyCheckProps {
      */
     readonly projectName?: ScanProps['projectName'];
 
+    /**
+     * If the score set between 0 and 10 the exit code from dependency-check will indicate if a vulnerability with a CVSS score equal to or higher was identified.
+     *
+     * @default 0
+     */
     readonly failOnCVSS?: ScanProps['failOnCVSS'];
+
+    /**
+     * The paths to scan. Basedir repositoryDir
+     *
+     * @default the repositoryDir
+     */
+    readonly paths?: string[];
 }
 
 export class CodecommitDependencyCheck extends Construct {
@@ -74,7 +87,8 @@ export class CodecommitDependencyCheck extends Construct {
             preCheckCommand = `echo "No preCheckCommand!"`,
             version = '5.3.0',
             projectName,
-            failOnCVSS,
+            failOnCVSS = 0,
+            paths = ['.'],
         } = props;
 
         const {
@@ -133,7 +147,9 @@ export class CodecommitDependencyCheck extends Construct {
                             cli.version(),
                             cli.scan({
                                 projectName: projectName || repositoryName,
-                                paths: [`${repositoryName}/`],
+                                paths: paths.map(path =>
+                                    join(repositoryName, path),
+                                ),
                                 failOnCVSS,
                             }),
                         ],
