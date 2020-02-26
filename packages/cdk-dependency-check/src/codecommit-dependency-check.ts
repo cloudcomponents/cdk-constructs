@@ -162,6 +162,10 @@ export class CodecommitDependencyCheck extends Construct {
                                 enableExperimental,
                             }),
                         ],
+                        // finally: [
+                        //     `echo "[===== Print json report =====]"`,
+                        //     `[ -f "reports/dependency-check-report.json" ] && cat reports/dependency-check-report.json || echo "No report!"`,
+                        // ],
                     },
                 },
                 reports: {
