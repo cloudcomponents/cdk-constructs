@@ -1,25 +1,26 @@
 {
-  "name": "static-website-example",
-  "version": "0.1.36",
-  "license": "MIT",
-  "author": "hello@webappsolutions.de",
-  "private": true,
-  "bin": {
-    "static-website": "bin/static-website.js"
-  },
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "cdk": "cdk"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-ssm": "^1.26.0",
-    "@aws-cdk/core": "^1.26.0",
-    "@cloudcomponents/cdk-static-website": "^1.0.32"
-  },
-  "devDependencies": {
-    "aws-cdk": "^1.26.0",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.8.2"
-  }
+    "name": "static-website-example",
+    "version": "0.1.36",
+    "license": "MIT",
+    "author": "hello@webappsolutions.de",
+    "private": true,
+    "bin": {
+        "static-website": "bin/static-website.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w",
+        "cdk": "cdk"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-ssm": "^1.26.0",
+        "@aws-cdk/core": "^1.26.0",
+        "@cloudcomponents/cdk-static-website": "^1.0.32",
+        "dotenv": "^8.2.0"
+    },
+    "devDependencies": {
+        "aws-cdk": "^1.26.0",
+        "ts-node": "^8.6.2",
+        "typescript": "^3.8.2"
+    }
 }
