@@ -1,8 +1,17 @@
+import { join } from 'path';
+
 export interface ScanProps {
     /**
      * The name of the project being scanned.
      */
     readonly projectName?: string;
+
+    /**
+     * Basedir
+     *
+     * @default `.`
+     */
+    readonly basedir?: string;
 
     /**
      * The path to scan.
@@ -27,6 +36,18 @@ export interface ScanProps {
      * @default false
      */
     readonly enableExperimental?: boolean;
+
+    /**
+     * Disables the automatic updating of the CPE data.
+     *
+     * @default false
+     */
+    readonly noUpdate?: boolean;
+
+    /**
+     * The file paths to the suppression XML files; used to suppress false positives.
+     */
+    readonly suppressions?: string[];
 }
 
 export class Cli {
@@ -37,33 +58,44 @@ export class Cli {
 
         const {
             projectName,
+            basedir = '.',
             paths,
             excludes = [],
+            suppressions = [],
             failOnCVSS = 0,
             enableExperimental = false,
+            noUpdate = false,
         } = props;
 
         if (projectName) {
-            args.push('--project', `"${projectName}"`);
+            args.push(`--project "${projectName}"`);
         }
 
         paths.forEach(path => {
-            args.push('--scan', `"${path}"`);
+            args.push(`--scan "${join(basedir, path)}"`);
         });
 
         excludes.forEach(exclude => {
-            args.push('--exclude', `"${exclude}"`);
+            args.push(`--exclude "${join(basedir, exclude)}"`);
         });
 
-        args.push('--failOnCVSS', `${failOnCVSS}`);
+        suppressions.forEach(suppression => {
+            args.push(`--suppression "${join(basedir, suppression)}}"`);
+        });
 
-        args.push('--junitFailOnCVSS', `${failOnCVSS}`);
+        args.push(`--failOnCVSS ${failOnCVSS}`);
+
+        args.push(`--junitFailOnCVSS ${failOnCVSS}`);
 
         if (enableExperimental) {
             args.push('--enableExperimental');
         }
 
-        args.push('--prettyPrint --format "ALL"');
+        if (noUpdate) {
+            args.push('--noupdate');
+        }
+
+        args.push('--prettyPrint --format HTML --format JUNIT');
 
         args.push('--out reports');
 

@@ -64,6 +64,23 @@ export class DependencyCheckStack extends Stack {
 }
 ```
 
+## Upload HTML Reports
+
+```typescript
+const reportsBucket = new Bucket(this, 'Bucket');
+
+// The following example runs a task every day at 4am
+const check = new CodecommitDependencyCheck(this, 'CodecommitDependencyCheck', {
+    repository,
+    reportsBucket,
+    preCheckCommand: 'npm i',
+    schedule: Schedule.cron({
+        minute: '0',
+        hour: '4',
+    }),
+});
+```
+
 ## License
 
 [MIT](../../LICENSE)

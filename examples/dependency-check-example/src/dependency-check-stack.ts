@@ -2,6 +2,7 @@ import { App, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
+import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { CodecommitDependencyCheck } from '@cloudcomponents/cdk-dependency-check';
@@ -16,12 +17,15 @@ export class DependencyCheckStack extends Stack {
             process.env.REPOSITORY_NAME as string,
         );
 
+        const reportsBucket = new Bucket(this, 'Bucket');
+
         // The following example runs a task every day at 4am
         const check = new CodecommitDependencyCheck(
             this,
             'CodecommitDependencyCheck',
             {
                 repository,
+                reportsBucket,
                 preCheckCommand: 'npm i',
                 schedule: Schedule.cron({
                     minute: '0',

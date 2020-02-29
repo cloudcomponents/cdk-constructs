@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { Construct } from '@aws-cdk/core';
 import {
     BuildSpec,
@@ -12,6 +11,7 @@ import { IRepository } from '@aws-cdk/aws-codecommit';
 import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
 import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Bucket } from '@aws-cdk/aws-s3';
 
 import { Cli, ScanProps } from './cli';
 
@@ -70,11 +70,26 @@ export interface CodecommitDependencyCheckProps {
     readonly paths?: string[];
 
     /**
+     * The path patterns to exclude from the scan
+     */
+    readonly excludes?: string[];
+
+    /**
+     * The file paths to the suppression XML files; used to suppress false positives.
+     */
+    readonly suppressions?: string[];
+
+    /**
      * Enable the experimental analyzers. If not set the analyzers marked as experimental will not be loaded or used.
      *
      * @default false
      */
     readonly enableExperimental?: boolean;
+
+    /**
+     * Bucket for uploading html reports
+     */
+    readonly reportsBucket?: Bucket;
 }
 
 export class CodecommitDependencyCheck extends Construct {
@@ -96,7 +111,10 @@ export class CodecommitDependencyCheck extends Construct {
             projectName,
             failOnCVSS = 0,
             paths = ['.'],
+            excludes,
+            suppressions,
             enableExperimental,
+            reportsBucket,
         } = props;
 
         const {
@@ -155,17 +173,21 @@ export class CodecommitDependencyCheck extends Construct {
                             cli.version(),
                             cli.scan({
                                 projectName: projectName || repositoryName,
-                                paths: paths.map(path =>
-                                    join(repositoryName, path),
-                                ),
+                                basedir: repositoryName,
+                                paths,
                                 failOnCVSS,
                                 enableExperimental,
+                                suppressions,
+                                excludes,
                             }),
                         ],
-                        // finally: [
-                        //     `echo "[===== Print json report =====]"`,
-                        //     `[ -f "reports/dependency-check-report.json" ] && cat reports/dependency-check-report.json || echo "No report!"`,
-                        // ],
+                        finally: [
+                            `echo "[===== Upload reports =====]"`,
+                            `dt=$(date -u '+%Y_%m_%d_%H_%M')`,
+                            reportsBucket
+                                ? `aws s3 cp reports/dependency-check-report.html s3://${reportsBucket.bucketName}/${repositoryName}/\${dt}_UTC/`
+                                : `echo "No reportsBuckets`,
+                        ],
                     },
                 },
                 reports: {
@@ -203,6 +225,10 @@ export class CodecommitDependencyCheck extends Construct {
                 ],
             }),
         );
+
+        if (reportsBucket) {
+            reportsBucket.grantWrite(this.checkProject);
+        }
 
         new Rule(this, 'ScheduleRule', {
             schedule,

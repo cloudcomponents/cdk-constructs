@@ -75,7 +75,12 @@ Object {
         \\"echo \\\\\\"[===== SHA: $SHA =====]\\\\\\"\\",
         \\"mkdir reports\\",
         \\"dependency-check.sh --version\\",
-        \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format \\\\\\"ALL\\\\\\" --out reports\\"
+        \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format HTML --format JUNIT --out reports\\"
+      ],
+      \\"finally\\": [
+        \\"echo \\\\\\"[===== Upload reports =====]\\\\\\"\\",
+        \\"dt=$(date -u '+%Y_%m_%d_%H_%M')\\",
+        \\"echo \\\\\\"No reportsBuckets\\"
       ]
     }
   },
@@ -405,7 +410,12 @@ Object {
         \\"echo \\\\\\"[===== SHA: $SHA =====]\\\\\\"\\",
         \\"mkdir reports\\",
         \\"dependency-check.sh --version\\",
-        \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format \\\\\\"ALL\\\\\\" --out reports\\"
+        \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format HTML --format JUNIT --out reports\\"
+      ],
+      \\"finally\\": [
+        \\"echo \\\\\\"[===== Upload reports =====]\\\\\\"\\",
+        \\"dt=$(date -u '+%Y_%m_%d_%H_%M')\\",
+        \\"echo \\\\\\"No reportsBuckets\\"
       ]
     }
   },
@@ -802,7 +812,12 @@ Object {
         \\"echo \\\\\\"[===== SHA: $SHA =====]\\\\\\"\\",
         \\"mkdir reports\\",
         \\"dependency-check.sh --version\\",
-        \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format \\\\\\"ALL\\\\\\" --out reports\\"
+        \\"dependency-check.sh --project \\\\\\"repo1\\\\\\" --scan \\\\\\"repo1\\\\\\" --failOnCVSS 0 --junitFailOnCVSS 0 --prettyPrint --format HTML --format JUNIT --out reports\\"
+      ],
+      \\"finally\\": [
+        \\"echo \\\\\\"[===== Upload reports =====]\\\\\\"\\",
+        \\"dt=$(date -u '+%Y_%m_%d_%H_%M')\\",
+        \\"echo \\\\\\"No reportsBuckets\\"
       ]
     }
   },
