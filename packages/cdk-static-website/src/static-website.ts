@@ -49,7 +49,7 @@ export class StaticWebsite extends Construct {
 
         const { aliasConfiguration, bucketConfiguration, webACLId } = props;
 
-        const websiteBucket = new WebsiteBucket(this, 'WebsiteBucket', {
+        const websiteBucket = new WebsiteBucket(this, 'Bucket', {
             ...bucketConfiguration,
         });
 
@@ -68,12 +68,12 @@ export class StaticWebsite extends Construct {
 
         this.distribution = new CloudFrontWebDistribution(
             this,
-            'WebSiteDistribution',
+            'Distribution',
             distibutionConfig,
         );
 
         if (aliasConfiguration) {
-            new WebsiteAliasRecord(this, 'WebsiteAliasRecord', {
+            new WebsiteAliasRecord(this, 'AliasRecord', {
                 domainName: aliasConfiguration.domainName,
                 recordNames: aliasConfiguration.names,
                 target: new CloudFrontTarget(this.distribution),
@@ -81,11 +81,15 @@ export class StaticWebsite extends Construct {
         }
     }
 
-    public addLambdaFunctionAssociation(assosiation: Association) {
+    public addLambdaFunctionAssociation(
+        assosiation: Association,
+    ): LambdaFunctionAssociations {
         return this.addLambdaFunctionAssociations([assosiation]);
     }
 
-    public addLambdaFunctionAssociations(assosiations: Association[]) {
+    public addLambdaFunctionAssociations(
+        assosiations: Association[],
+    ): LambdaFunctionAssociations {
         return new LambdaFunctionAssociations(
             this,
             'LambdaFunctionAssociation',

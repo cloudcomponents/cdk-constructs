@@ -1,8 +1,8 @@
+import * as path from 'path';
 import { S3OriginConfig, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 import { Construct, RemovalPolicy } from '@aws-cdk/core';
-import * as path from 'path';
 
 export interface WebsiteBucketProps {
     /**
@@ -83,7 +83,7 @@ export class WebsiteBucket extends Construct {
         if (!disableUpload) {
             const placeHolderSource = path.join(__dirname, '..', 'website');
 
-            new BucketDeployment(this, 'WebsiteDeployment', {
+            new BucketDeployment(this, 'Deployment', {
                 sources: [Source.asset(source || placeHolderSource)],
                 destinationBucket: bucket,
                 retainOnDelete: removalPolicy === RemovalPolicy.RETAIN,

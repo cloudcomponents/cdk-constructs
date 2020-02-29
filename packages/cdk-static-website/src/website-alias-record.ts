@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import {
     ARecord,
     HostedZone,
@@ -27,8 +28,14 @@ export class WebsiteAliasRecord extends Construct {
             domainName,
         });
 
-        recordNames.forEach((recordName, idx): void => {
-            new ARecord(this, `WebsiteAliasRecord${idx}`, {
+        recordNames.forEach((recordName): void => {
+            const hash = crypto
+                .createHash('md5')
+                .update(recordName)
+                .digest('hex')
+                .substr(0, 6);
+
+            new ARecord(this, `WebsiteAliasRecord${hash}`, {
                 zone,
                 recordName: `${recordName}.`,
                 target: RecordTarget.fromAlias(target),
