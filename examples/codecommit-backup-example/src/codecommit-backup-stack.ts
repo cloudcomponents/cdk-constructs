@@ -1,4 +1,5 @@
 import { App, Stack, StackProps, Duration } from '@aws-cdk/core';
+import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Topic } from '@aws-cdk/aws-sns';
@@ -12,6 +13,12 @@ export class CodecommitBackupStack extends Stack {
     public constructor(scope: App, id: string, props?: StackProps) {
         super(scope, id, props);
 
+        const repository = Repository.fromRepositoryName(
+            this,
+            'Repository',
+            process.env.REPOSITORY_NAME as string,
+        );
+
         const backupBucket = new BackupBucket(this, 'BackupBuckt', {
             retentionPeriod: Duration.days(90),
         });
@@ -19,6 +26,7 @@ export class CodecommitBackupStack extends Stack {
         // The following example runs a task every day at 4am
         const backup = new S3CodecommitBackup(this, 'S3CodecommitBackup', {
             backupBucket,
+            repository,
             schedule: Schedule.cron({
                 minute: '0',
                 hour: '4',

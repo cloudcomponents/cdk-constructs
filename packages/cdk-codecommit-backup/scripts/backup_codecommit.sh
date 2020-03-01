@@ -2,9 +2,6 @@
 
 set -ex
 
-git config --global credential.helper '!aws codecommit credential-helper $@'
-git config --global credential.UseHttpPath true
-
 declare -a repos
 
 if [ -z ${REPOSITORY_NAMES} ]; then

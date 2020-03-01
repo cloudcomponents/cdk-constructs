@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { Construct } from '@aws-cdk/core';
 import {
     BuildSpec,
@@ -5,13 +6,16 @@ import {
     Project,
     ComputeType,
 } from '@aws-cdk/aws-codebuild';
-import { IRepository } from '@aws-cdk/aws-codecommit';
 import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
 import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
 import { Bucket } from '@aws-cdk/aws-s3';
+import { Asset } from '@aws-cdk/aws-s3-assets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 
-export interface S3CodecommitBackupProps {
+const S3_BUCKET_ENV = 'SCRIPTS_BUCKET';
+const S3_KEY_ENV = 'SCRIPTS_BUCKET_KEY';
+
+export interface FullRegionS3CodecommitBackupProps {
     /**
      * Bucket for storing the backups.
      */
@@ -23,9 +27,11 @@ export interface S3CodecommitBackupProps {
     readonly schedule: Schedule;
 
     /**
-     * Repository to be backed up
+     * The names of the repositories in the region to be backed up.
+     *
+     * @default - All repositories in the region
      */
-    readonly repository: IRepository;
+    readonly repositoryNames?: string[];
 
     /**
      * The type of compute to use for backup the repositories.
@@ -36,26 +42,43 @@ export interface S3CodecommitBackupProps {
     readonly computeType?: ComputeType;
 }
 
-export class S3CodecommitBackup extends Construct {
+export class FullRegionS3CodecommitBackup extends Construct {
     private readonly backupProject: Project;
 
-    constructor(scope: Construct, id: string, props: S3CodecommitBackupProps) {
+    constructor(
+        scope: Construct,
+        id: string,
+        props: FullRegionS3CodecommitBackupProps,
+    ) {
         super(scope, id);
 
-        const { backupBucket, schedule, computeType, repository } = props;
-
         const {
-            repositoryName,
-            repositoryCloneUrlHttp,
-            repositoryArn,
-        } = repository;
+            backupBucket,
+            schedule,
+            repositoryNames = [],
+            computeType,
+        } = props;
+
+        const asset = new Asset(this, 'ScriptsDirectory', {
+            path: path.join(__dirname, '..', 'scripts'),
+        });
 
         const buildImage = LinuxBuildImage.STANDARD_2_0;
 
-        this.backupProject = new Project(this, 'BackupProject', {
+        this.backupProject = new Project(this, 'FullRegionBackupProject', {
             environment: {
                 buildImage,
                 computeType: computeType || buildImage.defaultComputeType,
+            },
+            environmentVariables: {
+                BACKUP_BUCKET: {
+                    value: backupBucket.bucketName,
+                },
+                REPOSITORY_NAMES: {
+                    value: repositoryNames.join(' '),
+                },
+                [S3_BUCKET_ENV]: { value: asset.s3BucketName },
+                [S3_KEY_ENV]: { value: asset.s3ObjectKey },
             },
             buildSpec: BuildSpec.fromObject({
                 version: '0.2',
@@ -65,28 +88,28 @@ export class S3CodecommitBackup extends Construct {
                 phases: {
                     pre_build: {
                         commands: [
-                            `echo "[===== Clone repository: ${repositoryName} =====]"`,
-                            `git clone "${repositoryCloneUrlHttp}"`,
+                            `echo "Downloading scripts from s3://\${${S3_BUCKET_ENV}}/\${${S3_KEY_ENV}}"`,
+                            `aws s3 cp s3://\${${S3_BUCKET_ENV}}/\${${S3_KEY_ENV}} ./`,
+                            `unzip ./$(basename \${${S3_KEY_ENV}})`,
                         ],
                     },
                     build: {
                         commands: [
-                            `dt=$(date -u '+%Y_%m_%d_%H_%M')`,
-                            `zipfile="${repositoryName}_backup_\${dt}_UTC.tar.gz"`,
-                            `echo "Compressing repository: ${repositoryName} into file: \${zipfile} and uploading to S3 bucket: ${backupBucket.bucketName}/${repositoryName}"`,
-                            `tar -zcvf "\${zipfile}" "${repositoryName}/"`,
-                            `aws s3 cp "\${zipfile}" "s3://${backupBucket.bucketName}/${repositoryName}/\${zipfile}"`,
+                            'chmod +x backup_codecommit.sh',
+                            './backup_codecommit.sh',
                         ],
                     },
                 },
             }),
         });
 
+        asset.grantRead(this.backupProject);
+
         backupBucket.grantPut(this.backupProject);
 
         this.backupProject.addToRolePolicy(
             new PolicyStatement({
-                resources: [repositoryArn],
+                resources: ['*'],
                 actions: [
                     'codecommit:BatchGet*',
                     'codecommit:Get*',

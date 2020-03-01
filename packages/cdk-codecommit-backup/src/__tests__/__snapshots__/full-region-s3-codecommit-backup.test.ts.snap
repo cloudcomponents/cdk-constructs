@@ -1,0 +1,1275 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default setup 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7ArtifactHash85008A0E": Object {
+      "Description": "Artifact hash for asset \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D": Object {
+      "Description": "S3 bucket for asset \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2": Object {
+      "Description": "S3 key for asset version \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "BackupBucket26B8E51C": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LifecycleConfiguration": Object {
+          "Rules": Array [
+            Object {
+              "ExpirationInDays": 35,
+              "Status": "Enabled",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F": Object {
+      "Properties": Object {
+        "Artifacts": Object {
+          "Type": "NO_ARTIFACTS",
+        },
+        "Environment": Object {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": Array [
+            Object {
+              "Name": "BACKUP_BUCKET",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Ref": "BackupBucket26B8E51C",
+              },
+            },
+            Object {
+              "Name": "REPOSITORY_NAMES",
+              "Type": "PLAINTEXT",
+              "Value": "",
+            },
+            Object {
+              "Name": "SCRIPTS_BUCKET",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+              },
+            },
+            Object {
+              "Name": "SCRIPTS_BUCKET_KEY",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::Select": Array [
+                        0,
+                        Object {
+                          "Fn::Split": Array [
+                            "||",
+                            Object {
+                              "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    Object {
+                      "Fn::Select": Array [
+                        1,
+                        Object {
+                          "Fn::Split": Array [
+                            "||",
+                            Object {
+                              "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Image": "aws/codebuild/standard:2.0",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER",
+        },
+        "ServiceRole": Object {
+          "Fn::GetAtt": Array [
+            "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33",
+            "Arn",
+          ],
+        },
+        "Source": Object {
+          "BuildSpec": "{
+  \\"version\\": \\"0.2\\",
+  \\"env\\": {
+    \\"git-credential-helper\\": \\"yes\\"
+  },
+  \\"phases\\": {
+    \\"pre_build\\": {
+      \\"commands\\": [
+        \\"echo \\\\\\"Downloading scripts from s3://\${SCRIPTS_BUCKET}/\${SCRIPTS_BUCKET_KEY}\\\\\\"\\",
+        \\"aws s3 cp s3://\${SCRIPTS_BUCKET}/\${SCRIPTS_BUCKET_KEY} ./\\",
+        \\"unzip ./$(basename \${SCRIPTS_BUCKET_KEY})\\"
+      ]
+    },
+    \\"build\\": {
+      \\"commands\\": [
+        \\"chmod +x backup_codecommit.sh\\",
+        \\"./backup_codecommit.sh\\"
+      ]
+    }
+  }
+}",
+          "Type": "NO_SOURCE",
+        },
+      },
+      "Type": "AWS::CodeBuild::Project",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRoleDefaultPolicyC9EAE1E1": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "codebuild:StartBuild",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRoleDefaultPolicyC9EAE1E1",
+        "Roles": Array [
+          Object {
+            "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectRoleDefaultPolicy0D8A93BD": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      Object {
+                        "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      Object {
+                        "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "BackupBucket26B8E51C",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "codecommit:BatchGet*",
+                "codecommit:Get*",
+                "codecommit:Describe*",
+                "codecommit:List*",
+                "codecommit:GitPull",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FullRegionS3CodecommitBackupFullRegionBackupProjectRoleDefaultPolicy0D8A93BD",
+        "Roles": Array [
+          Object {
+            "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FullRegionS3CodecommitBackupScheduleRule4A593D08": Object {
+      "Properties": Object {
+        "ScheduleExpression": "cron(0 4 * * ? *)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+            "RoleArn": Object {
+              "Fn::GetAtt": Array [
+                "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8",
+                "Arn",
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+  },
+}
+`;
+
+exports[`events 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7ArtifactHash85008A0E": Object {
+      "Description": "Artifact hash for asset \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D": Object {
+      "Description": "S3 bucket for asset \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2": Object {
+      "Description": "S3 key for asset version \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "BackupBucket26B8E51C": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LifecycleConfiguration": Object {
+          "Rules": Array [
+            Object {
+              "ExpirationInDays": 35,
+              "Status": "Enabled",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F": Object {
+      "Properties": Object {
+        "Artifacts": Object {
+          "Type": "NO_ARTIFACTS",
+        },
+        "Environment": Object {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": Array [
+            Object {
+              "Name": "BACKUP_BUCKET",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Ref": "BackupBucket26B8E51C",
+              },
+            },
+            Object {
+              "Name": "REPOSITORY_NAMES",
+              "Type": "PLAINTEXT",
+              "Value": "repo1 repo2",
+            },
+            Object {
+              "Name": "SCRIPTS_BUCKET",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+              },
+            },
+            Object {
+              "Name": "SCRIPTS_BUCKET_KEY",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::Select": Array [
+                        0,
+                        Object {
+                          "Fn::Split": Array [
+                            "||",
+                            Object {
+                              "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    Object {
+                      "Fn::Select": Array [
+                        1,
+                        Object {
+                          "Fn::Split": Array [
+                            "||",
+                            Object {
+                              "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Image": "aws/codebuild/standard:2.0",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER",
+        },
+        "ServiceRole": Object {
+          "Fn::GetAtt": Array [
+            "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33",
+            "Arn",
+          ],
+        },
+        "Source": Object {
+          "BuildSpec": "{
+  \\"version\\": \\"0.2\\",
+  \\"env\\": {
+    \\"git-credential-helper\\": \\"yes\\"
+  },
+  \\"phases\\": {
+    \\"pre_build\\": {
+      \\"commands\\": [
+        \\"echo \\\\\\"Downloading scripts from s3://\${SCRIPTS_BUCKET}/\${SCRIPTS_BUCKET_KEY}\\\\\\"\\",
+        \\"aws s3 cp s3://\${SCRIPTS_BUCKET}/\${SCRIPTS_BUCKET_KEY} ./\\",
+        \\"unzip ./$(basename \${SCRIPTS_BUCKET_KEY})\\"
+      ]
+    },
+    \\"build\\": {
+      \\"commands\\": [
+        \\"chmod +x backup_codecommit.sh\\",
+        \\"./backup_codecommit.sh\\"
+      ]
+    }
+  }
+}",
+          "Type": "NO_SOURCE",
+        },
+      },
+      "Type": "AWS::CodeBuild::Project",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRoleDefaultPolicyC9EAE1E1": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "codebuild:StartBuild",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRoleDefaultPolicyC9EAE1E1",
+        "Roles": Array [
+          Object {
+            "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectRoleDefaultPolicy0D8A93BD": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      Object {
+                        "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      Object {
+                        "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "BackupBucket26B8E51C",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "codecommit:BatchGet*",
+                "codecommit:Get*",
+                "codecommit:Describe*",
+                "codecommit:List*",
+                "codecommit:GitPull",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FullRegionS3CodecommitBackupFullRegionBackupProjectRoleDefaultPolicy0D8A93BD",
+        "Roles": Array [
+          Object {
+            "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectfailedFFBA1253": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "build-status": Array [
+              "FAILED",
+            ],
+            "project-name": Array [
+              Object {
+                "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+              },
+            ],
+          },
+          "detail-type": Array [
+            "CodeBuild Build State Change",
+          ],
+          "source": Array [
+            "aws.codebuild",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Ref": "TopicBFC7AF6E",
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectstartedB5D6D431": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "build-status": Array [
+              "IN_PROGRESS",
+            ],
+            "project-name": Array [
+              Object {
+                "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+              },
+            ],
+          },
+          "detail-type": Array [
+            "CodeBuild Build State Change",
+          ],
+          "source": Array [
+            "aws.codebuild",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Ref": "TopicBFC7AF6E",
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectsucceeded0F37CFCA": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "build-status": Array [
+              "SUCCEEDED",
+            ],
+            "project-name": Array [
+              Object {
+                "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+              },
+            ],
+          },
+          "detail-type": Array [
+            "CodeBuild Build State Change",
+          ],
+          "source": Array [
+            "aws.codebuild",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Ref": "TopicBFC7AF6E",
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "FullRegionS3CodecommitBackupScheduleRule4A593D08": Object {
+      "Properties": Object {
+        "ScheduleExpression": "cron(0 4 * * ? *)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+            "RoleArn": Object {
+              "Fn::GetAtt": Array [
+                "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8",
+                "Arn",
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "TopicBFC7AF6E": Object {
+      "Type": "AWS::SNS::Topic",
+    },
+    "TopicPolicyA1747468": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+              "Resource": Object {
+                "Ref": "TopicBFC7AF6E",
+              },
+              "Sid": "0",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Topics": Array [
+          Object {
+            "Ref": "TopicBFC7AF6E",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::TopicPolicy",
+    },
+  },
+}
+`;
+
+exports[`repositories 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7ArtifactHash85008A0E": Object {
+      "Description": "Artifact hash for asset \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D": Object {
+      "Description": "S3 bucket for asset \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+    "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2": Object {
+      "Description": "S3 key for asset version \\"8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "BackupBucket26B8E51C": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "BucketEncryption": Object {
+          "ServerSideEncryptionConfiguration": Array [
+            Object {
+              "ServerSideEncryptionByDefault": Object {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "LifecycleConfiguration": Object {
+          "Rules": Array [
+            Object {
+              "ExpirationInDays": 35,
+              "Status": "Enabled",
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F": Object {
+      "Properties": Object {
+        "Artifacts": Object {
+          "Type": "NO_ARTIFACTS",
+        },
+        "Environment": Object {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": Array [
+            Object {
+              "Name": "BACKUP_BUCKET",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Ref": "BackupBucket26B8E51C",
+              },
+            },
+            Object {
+              "Name": "REPOSITORY_NAMES",
+              "Type": "PLAINTEXT",
+              "Value": "repo1 repo2",
+            },
+            Object {
+              "Name": "SCRIPTS_BUCKET",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+              },
+            },
+            Object {
+              "Name": "SCRIPTS_BUCKET_KEY",
+              "Type": "PLAINTEXT",
+              "Value": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::Select": Array [
+                        0,
+                        Object {
+                          "Fn::Split": Array [
+                            "||",
+                            Object {
+                              "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    Object {
+                      "Fn::Select": Array [
+                        1,
+                        Object {
+                          "Fn::Split": Array [
+                            "||",
+                            Object {
+                              "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3VersionKey59C9E5D2",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Image": "aws/codebuild/standard:2.0",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER",
+        },
+        "ServiceRole": Object {
+          "Fn::GetAtt": Array [
+            "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33",
+            "Arn",
+          ],
+        },
+        "Source": Object {
+          "BuildSpec": "{
+  \\"version\\": \\"0.2\\",
+  \\"env\\": {
+    \\"git-credential-helper\\": \\"yes\\"
+  },
+  \\"phases\\": {
+    \\"pre_build\\": {
+      \\"commands\\": [
+        \\"echo \\\\\\"Downloading scripts from s3://\${SCRIPTS_BUCKET}/\${SCRIPTS_BUCKET_KEY}\\\\\\"\\",
+        \\"aws s3 cp s3://\${SCRIPTS_BUCKET}/\${SCRIPTS_BUCKET_KEY} ./\\",
+        \\"unzip ./$(basename \${SCRIPTS_BUCKET_KEY})\\"
+      ]
+    },
+    \\"build\\": {
+      \\"commands\\": [
+        \\"chmod +x backup_codecommit.sh\\",
+        \\"./backup_codecommit.sh\\"
+      ]
+    }
+  }
+}",
+          "Type": "NO_SOURCE",
+        },
+      },
+      "Type": "AWS::CodeBuild::Project",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRoleDefaultPolicyC9EAE1E1": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "codebuild:StartBuild",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRoleDefaultPolicyC9EAE1E1",
+        "Roles": Array [
+          Object {
+            "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FullRegionS3CodecommitBackupFullRegionBackupProjectRoleDefaultPolicy0D8A93BD": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      Object {
+                        "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      Object {
+                        "Ref": "AssetParameters8c39ccfcb52ba304dd23ed9a66ef146b4322421c74a917e26fb564847c8452c7S3Bucket2255584D",
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "BackupBucket26B8E51C",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "codecommit:BatchGet*",
+                "codecommit:Get*",
+                "codecommit:Describe*",
+                "codecommit:List*",
+                "codecommit:GitPull",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FullRegionS3CodecommitBackupFullRegionBackupProjectRoleDefaultPolicy0D8A93BD",
+        "Roles": Array [
+          Object {
+            "Ref": "FullRegionS3CodecommitBackupFullRegionBackupProjectRole15F90C33",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FullRegionS3CodecommitBackupScheduleRule4A593D08": Object {
+      "Properties": Object {
+        "ScheduleExpression": "cron(0 4 * * ? *)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "FullRegionS3CodecommitBackupFullRegionBackupProjectABDD658F",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+            "RoleArn": Object {
+              "Fn::GetAtt": Array [
+                "FullRegionS3CodecommitBackupFullRegionBackupProjectEventsRole2D90A4C8",
+                "Arn",
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+  },
+}
+`;
