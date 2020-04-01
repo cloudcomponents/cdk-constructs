@@ -24,19 +24,17 @@
         "build": "tsc",
         "watch": "tsc -w"
     },
-    "peerDependencies": {
-        "@aws-cdk/core": "^1.0.0"
-    },
     "dependencies": {
-        "@aws-cdk/aws-cloudfront": "^1.27.0",
-        "@aws-cdk/aws-iam": "^1.27.0",
-        "@aws-cdk/aws-route53": "^1.27.0",
-        "@aws-cdk/aws-route53-targets": "^1.27.0",
-        "@aws-cdk/aws-s3": "^1.27.0",
-        "@aws-cdk/aws-s3-deployment": "^1.27.0"
+        "@aws-cdk/aws-cloudfront": "^1.31.0",
+        "@aws-cdk/aws-iam": "^1.31.0",
+        "@aws-cdk/aws-route53": "^1.31.0",
+        "@aws-cdk/aws-route53-targets": "^1.31.0",
+        "@aws-cdk/aws-s3": "^1.31.0",
+        "@aws-cdk/aws-s3-deployment": "^1.31.0",
+        "@aws-cdk/core": "^1.31.0"
     },
     "devDependencies": {
-        "@aws-cdk/assert": "^1.27.0",
+        "@aws-cdk/assert": "^1.31.0",
         "jest-cdk-snapshot": "^1.2.1",
         "typescript": "^3.8.3"
     },
