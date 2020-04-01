@@ -44,7 +44,7 @@ export interface CodecommitDependencyCheckProps {
     /**
      * Version of the dependency check
      *
-     * @default 5.3.0
+     * @default 5.3.2
      */
     readonly version?: string;
 
@@ -107,7 +107,7 @@ export class CodecommitDependencyCheck extends Construct {
             computeType,
             repository,
             preCheckCommand = `echo "No preCheckCommand!"`,
-            version = '5.3.0',
+            version = '5.3.2',
             projectName,
             failOnCVSS = 0,
             paths = ['.'],
