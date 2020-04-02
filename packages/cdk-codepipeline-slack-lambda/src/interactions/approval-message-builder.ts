@@ -6,7 +6,7 @@ export class ApprovalMessageBuilder extends MessageBuilder {
     }
 
     public updateStatus(value): void {
-        this.fields.forEach(field => {
+        this.fields.forEach((field) => {
             if (field.title === 'Status') {
                 /* eslint-disable-next-line no-param-reassign */
                 field.value = value;

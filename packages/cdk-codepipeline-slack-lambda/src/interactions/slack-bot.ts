@@ -67,7 +67,9 @@ export class SlackBot {
             string,
             Channel[]
         >;
-        return response.channels.find(channel => channel.name === channelName);
+        return response.channels.find(
+            (channel) => channel.name === channelName,
+        );
     }
 
     protected async findMessages(
@@ -92,11 +94,11 @@ export class SlackBot {
             return undefined;
         }
 
-        const foundMessage = messages.find(message => {
+        const foundMessage = messages.find((message) => {
             if (!message.attachments) {
                 return false;
             }
-            return message.attachments.find(attachment => {
+            return message.attachments.find((attachment) => {
                 return attachment.footer === executionId;
             });
         });
@@ -108,7 +110,7 @@ export class SlackBot {
         if (this.channelName) {
             const response = await this.bot.conversations.list();
             this.channelId = (response.channels as any).find(
-                channel => channel.name === this.channelName,
+                (channel) => channel.name === this.channelName,
             ).id as string;
         }
     }

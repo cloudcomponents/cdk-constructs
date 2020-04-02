@@ -67,7 +67,7 @@ export class NotifierMessageBuilder extends MessageBuilder {
     private static getPipelineStatusText(pipelineState, executionId): string {
         let pipelineStatusText = '';
         if (pipelineState.stageStates) {
-            pipelineState.stageStates.forEach(stageState => {
+            pipelineState.stageStates.forEach((stageState) => {
                 if (
                     stageState.latestExecution.pipelineExecutionId ===
                     executionId
@@ -89,12 +89,12 @@ export class NotifierMessageBuilder extends MessageBuilder {
     ): string {
         let actionStatusText = '';
         if (pipelineState.stageStates) {
-            pipelineState.stageStates.forEach(stageState => {
+            pipelineState.stageStates.forEach((stageState) => {
                 if (
                     stageState.latestExecution.pipelineExecutionId ===
                     executionId
                 ) {
-                    stageState.actionStates.forEach(actionState => {
+                    stageState.actionStates.forEach((actionState) => {
                         actionStatusText = `${actionStatusText} ${
                             actionState.actionName
                         }: ${

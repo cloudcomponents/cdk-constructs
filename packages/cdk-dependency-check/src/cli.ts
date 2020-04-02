@@ -71,15 +71,15 @@ export class Cli {
             args.push(`--project "${projectName}"`);
         }
 
-        paths.forEach(path => {
+        paths.forEach((path) => {
             args.push(`--scan "${join(basedir, path)}"`);
         });
 
-        excludes.forEach(exclude => {
+        excludes.forEach((exclude) => {
             args.push(`--exclude "${join(basedir, exclude)}"`);
         });
 
-        suppressions.forEach(suppression => {
+        suppressions.forEach((suppression) => {
             args.push(`--suppression "${join(basedir, suppression)}}"`);
         });
 

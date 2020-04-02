@@ -22,7 +22,7 @@ const bot = new SlackBot({
     icon: SLACK_BOT_ICON,
 });
 
-const buildDialog = payload => {
+const buildDialog = (payload) => {
     const ts = payload.message_ts;
     const { name, value } = payload.actions[0];
 
@@ -54,7 +54,7 @@ export const requestApproval = async (approval): Promise<void> => {
     }
 };
 
-export const handleButtonClicked = async payload => {
+export const handleButtonClicked = async (payload) => {
     try {
         console.log(payload);
 

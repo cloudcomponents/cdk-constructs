@@ -89,9 +89,9 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
         const payloadUrl = 'payloadUrl';
         const events = ['*'];
 
-        const call = (): Promise<Octokit.Response<
-            Octokit.ReposCreateHookResponse
-        >> => createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
+        const call = (): Promise<
+            Octokit.Response<Octokit.ReposCreateHookResponse>
+        > => createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
         expect(call()).rejects.toThrow('GithubRepoUrl is not correct');
     });
