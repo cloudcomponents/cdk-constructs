@@ -162,7 +162,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0aa7ccf147a2f5112be2e53f20ceb07d4": Object {
+    "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE01cde33ef942aa0a8f7065400447651dd": Object {
       "DependsOn": Array [
         "PipelineApproveSlackApprovalSlackApprovalApiproxyANYF7F7CA26",
         "PipelineApproveSlackApprovalSlackApprovalApiproxyD7A51F70",
@@ -179,7 +179,7 @@ Object {
     "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15": Object {
       "Properties": Object {
         "DeploymentId": Object {
-          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE0aa7ccf147a2f5112be2e53f20ceb07d4",
+          "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE01cde33ef942aa0a8f7065400447651dd",
         },
         "RestApiId": Object {
           "Ref": "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
