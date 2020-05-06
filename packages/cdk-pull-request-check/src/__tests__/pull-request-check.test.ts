@@ -48,3 +48,43 @@ test('custom setup', (): void => {
     // THEN
     expect(stack).toMatchCdkSnapshot();
 });
+
+test('privileged', (): void => {
+    // GIVEN
+    const stack = new Stack();
+
+    const repository = new Repository(stack, 'Repository', {
+        repositoryName: 'MyRepositoryName',
+        description: 'Some description.',
+    });
+
+    // WHEN
+    new PullRequestCheck(stack, 'PullRequestCheck', {
+        repository,
+        privileged: true,
+        buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
+    });
+
+    // THEN
+    expect(stack).toMatchCdkSnapshot();
+});
+
+test('custom projectName', (): void => {
+    // GIVEN
+    const stack = new Stack();
+
+    const repository = new Repository(stack, 'Repository', {
+        repositoryName: 'MyRepositoryName',
+        description: 'Some description.',
+    });
+
+    // WHEN
+    new PullRequestCheck(stack, 'PullRequestCheck', {
+        projectName: 'custom-pr-project',
+        repository,
+        buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
+    });
+
+    // THEN
+    expect(stack).toMatchCdkSnapshot();
+});

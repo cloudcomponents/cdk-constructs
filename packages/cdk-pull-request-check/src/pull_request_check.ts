@@ -23,6 +23,12 @@ export interface PullRequestCheckProps {
     readonly repository: IRepository;
 
     /**
+     * The human-visible name of this PullRequest-Project.
+     *  * @default taken from {@link #repository:#repositoryName}-pull-request
+     */
+    readonly projectName?: string;
+
+    /**
      * Filename or contents of buildspec in JSON format.
      * @see https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-example
      */
@@ -42,6 +48,18 @@ export interface PullRequestCheckProps {
      * @default taken from {@link #buildImage#defaultComputeType}
      */
     readonly computeType?: ComputeType;
+
+    /**
+     * Indicates how the project builds Docker images. Specify true to enable
+     * running the Docker daemon inside a Docker container. This value must be
+     * set to true only if this build project will be used to build Docker
+     * images, and the specified build environment image is not one provided by
+     * AWS CodeBuild with Docker support. Otherwise, all associated builds that
+     * attempt to interact with the Docker daemon will fail.
+     *
+     * @default false
+     */
+    readonly privileged?: boolean;
 }
 
 /**
@@ -58,8 +76,10 @@ export class PullRequestCheck extends Construct {
         const {
             repository,
             buildSpec,
-            buildImage = LinuxBuildImage.STANDARD_2_0,
+            buildImage = LinuxBuildImage.STANDARD_4_0,
             computeType = buildImage.defaultComputeType,
+            privileged = false,
+            projectName = `${repository.repositoryName}-pull-request`,
         } = props;
 
         const lambdaRole = new Role(this, 'LambdaRole', {
@@ -99,13 +119,14 @@ export class PullRequestCheck extends Construct {
         );
 
         const pullRequestProject = new Project(this, 'PullRequestProject', {
-            projectName: `${repository.repositoryName}-pull-request`,
+            projectName,
             source: Source.codeCommit({
                 repository,
             }),
             environment: {
                 buildImage,
                 computeType,
+                privileged,
             },
             buildSpec,
         });
