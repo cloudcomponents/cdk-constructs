@@ -76,7 +76,7 @@ export class PullRequestCheck extends Construct {
         const {
             repository,
             buildSpec,
-            buildImage = LinuxBuildImage.AMAZON_LINUX_2_3,
+            buildImage = LinuxBuildImage.STANDARD_4_0,
             computeType = buildImage.defaultComputeType,
             privileged = false,
             projectName = `${repository.repositoryName}-pull-request`,
