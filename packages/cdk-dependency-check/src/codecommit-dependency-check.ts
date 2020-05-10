@@ -214,18 +214,6 @@ export class CodecommitDependencyCheck extends Construct {
             }),
         );
 
-        this.checkProject.addToRolePolicy(
-            new PolicyStatement({
-                resources: ['*'], // TODO
-                actions: [
-                    'codebuild:CreateReportGroup',
-                    'codebuild:CreateReport',
-                    'codebuild:UpdateReport',
-                    'codebuild:BatchPutTestCases',
-                ],
-            }),
-        );
-
         if (reportsBucket) {
             reportsBucket.grantWrite(this.checkProject);
         }

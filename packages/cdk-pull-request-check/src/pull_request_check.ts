@@ -1,3 +1,4 @@
+import * as path from 'path';
 import {
     BuildSpec,
     ComputeType,
@@ -5,16 +6,14 @@ import {
     LinuxBuildImage,
     Project,
     Source,
+    BuildEnvironmentVariableType,
 } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import { EventField, RuleTargetInput } from '@aws-cdk/aws-events';
 import { CodeBuildProject, LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { PolicyStatement, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
+import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { Construct } from '@aws-cdk/core';
-import * as path from 'path';
-
-const lambdaPath = path.join(__dirname, '..', 'lambdas');
 
 export interface PullRequestCheckProps {
     /**
@@ -60,6 +59,13 @@ export interface PullRequestCheckProps {
      * @default false
      */
     readonly privileged?: boolean;
+
+    /**
+     * Indicates whether the approval state [APPROVE, REVOKE] should be updated
+     *
+     * @default true
+     */
+    readonly updateApprovalState?: boolean;
 }
 
 /**
@@ -79,43 +85,29 @@ export class PullRequestCheck extends Construct {
             buildImage = LinuxBuildImage.STANDARD_4_0,
             computeType = buildImage.defaultComputeType,
             privileged = false,
+            updateApprovalState = true,
             projectName = `${repository.repositoryName}-pull-request`,
         } = props;
-
-        const lambdaRole = new Role(this, 'LambdaRole', {
-            assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
-        });
-
-        lambdaRole.addToPolicy(
-            new PolicyStatement({
-                resources: ['*'],
-                actions: [
-                    'codebuild:*',
-                    'codecommit:*',
-                    'logs:CreateLogGroup',
-                    'logs:CreateLogStream',
-                    'logs:PutLogEvents',
-                    'logs:GetLogEvents',
-                ],
-            }),
-        );
-
-        const pullRequestFunction = new Function(this, 'PullRequestFunction', {
-            runtime: Runtime.PYTHON_3_7,
-            code: Code.fromAsset(`${lambdaPath}/pull-request`),
-            handler: 'pull_request.lambda_handler',
-            role: lambdaRole,
-        });
 
         const codeBuildResultFunction = new Function(
             this,
             'CodeBuildResultFunction',
             {
                 runtime: Runtime.PYTHON_3_7,
-                code: Code.asset(`${lambdaPath}/code-build-result`),
+                code: Code.asset(path.join(__dirname, '..', 'lambdas')),
                 handler: 'code_build_result.lambda_handler',
-                role: lambdaRole,
             },
+        );
+
+        codeBuildResultFunction.addToRolePolicy(
+            new PolicyStatement({
+                effect: Effect.ALLOW,
+                resources: [repository.repositoryArn],
+                actions: [
+                    'codecommit:PostCommentForPullRequest',
+                    'codecommit:UpdatePullRequestApprovalState',
+                ],
+            }),
         );
 
         const pullRequestProject = new Project(this, 'PullRequestProject', {
@@ -127,6 +119,12 @@ export class PullRequestCheck extends Construct {
                 buildImage,
                 computeType,
                 privileged,
+                environmentVariables: {
+                    UPDATE_APPROVAL_STATE: {
+                        type: BuildEnvironmentVariableType.PLAINTEXT,
+                        value: updateApprovalState ? 'TRUE' : 'FALSE',
+                    },
+                },
             },
             buildSpec,
         });
@@ -149,7 +147,6 @@ export class PullRequestCheck extends Construct {
             },
         );
 
-        rule.addTarget(new LambdaFunction(pullRequestFunction));
         rule.addTarget(
             new CodeBuildProject(pullRequestProject, {
                 event: RuleTargetInput.fromObject({
@@ -180,6 +177,11 @@ export class PullRequestCheck extends Construct {
                             value: EventField.fromPath(
                                 '$.detail.destinationCommit',
                             ),
+                            type: 'PLAINTEXT',
+                        },
+                        {
+                            name: 'revisionId',
+                            value: EventField.fromPath('$.detail.revisionId'),
                             type: 'PLAINTEXT',
                         },
                     ],

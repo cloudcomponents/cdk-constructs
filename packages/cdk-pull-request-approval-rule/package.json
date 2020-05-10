@@ -1,0 +1,47 @@
+{
+    "name": "@cloudcomponents/cdk-pull-request-approval-rule",
+    "version": "1.0.0",
+    "description": "Codecommit pull request approval rules",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components",
+        "directory": "packages/cdk-pull-request-approval-rule"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "codecommit",
+        "approval",
+        "rules",
+        "pull request",
+        "pr",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "peerDependencies": {
+        "aws-sdk": "^2.673.0"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codecommit": "^1.37.0",
+        "@aws-cdk/core": "^1.37.0"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.37.0",
+        "@types/aws-lambda": "^8.10.51",
+        "aws-sdk": "^2.673.0",
+        "jest-cdk-snapshot": "^1.3.0",
+        "typescript": "^3.8.3"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

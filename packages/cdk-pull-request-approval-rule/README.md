@@ -1,11 +1,19 @@
+# @cloudcomponents/cdk-pull-request-approval-rule
+
+> Codecommit pull request approval rules
+
+## Install
+
+```bash
+npm i @cloudcomponents/cdk-pull-request-approval-rule
+```
+
+## How to use
+
+```typescript
 import { App, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import {
-    CodeCommitSourceAction,
-    CodeBuildAction,
-} from '@aws-cdk/aws-codepipeline-actions';
-import { PipelineProject, BuildSpec } from '@aws-cdk/aws-codebuild';
+import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 import {
     ApprovalRuleTemplate,
@@ -17,7 +25,7 @@ export class CodepipelinePullRequestCheckStack extends Stack {
         super(parent, name, props);
 
         const repository = new Repository(this, 'Repository', {
-            repositoryName: 'pr-check-repository',
+            repositoryName: 'repository',
             description: 'Some description.', // optional property
         });
 
@@ -25,7 +33,7 @@ export class CodepipelinePullRequestCheckStack extends Stack {
             this,
             'ApprovalRuleTemplate',
             {
-                approvalRuleTemplateName: 'template-name',
+                approvalRuleTemplateName: 'Require 1 approver',
                 template: {
                     approvers: {
                         numberOfApprovalsNeeded: 1,
@@ -43,39 +51,15 @@ export class CodepipelinePullRequestCheckStack extends Stack {
             },
         );
 
+        // Approves the pull request
         new PullRequestCheck(this, 'PullRequestCheck', {
             repository,
             buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
         });
-
-        const sourceArtifact = new Artifact();
-
-        const sourceAction = new CodeCommitSourceAction({
-            actionName: 'CodeCommit',
-            repository,
-            output: sourceArtifact,
-        });
-
-        const project = new PipelineProject(this, 'MyProject');
-
-        const buildAction = new CodeBuildAction({
-            actionName: 'CodeBuild',
-            project,
-            input: sourceArtifact,
-        });
-
-        new Pipeline(this, 'MyPipeline', {
-            pipelineName: 'pr-check-pipeline',
-            stages: [
-                {
-                    stageName: 'Source',
-                    actions: [sourceAction],
-                },
-                {
-                    stageName: 'Build',
-                    actions: [buildAction],
-                },
-            ],
-        });
     }
 }
+```
+
+## License
+
+[MIT](../../LICENSE)
