@@ -80,6 +80,11 @@ Object {
             ],
           },
         },
+        "Environment": Object {
+          "Variables": Object {
+            "UPDATE_APPROVAL_STATE": "TRUE",
+          },
+        },
         "Handler": "code_build_result.lambda_handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -201,13 +206,6 @@ Object {
         },
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "EnvironmentVariables": Array [
-            Object {
-              "Name": "UPDATE_APPROVAL_STATE",
-              "Type": "PLAINTEXT",
-              "Value": "TRUE",
-            },
-          ],
           "Image": "aws/codebuild/standard:4.0",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -543,6 +541,11 @@ Object {
             ],
           },
         },
+        "Environment": Object {
+          "Variables": Object {
+            "UPDATE_APPROVAL_STATE": "TRUE",
+          },
+        },
         "Handler": "code_build_result.lambda_handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -664,13 +667,6 @@ Object {
         },
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_LARGE",
-          "EnvironmentVariables": Array [
-            Object {
-              "Name": "UPDATE_APPROVAL_STATE",
-              "Type": "PLAINTEXT",
-              "Value": "TRUE",
-            },
-          ],
           "Image": "aws/codebuild/python:3.7.1",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -1019,6 +1015,11 @@ Object {
             ],
           },
         },
+        "Environment": Object {
+          "Variables": Object {
+            "UPDATE_APPROVAL_STATE": "TRUE",
+          },
+        },
         "Handler": "code_build_result.lambda_handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -1140,13 +1141,6 @@ Object {
         },
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "EnvironmentVariables": Array [
-            Object {
-              "Name": "UPDATE_APPROVAL_STATE",
-              "Type": "PLAINTEXT",
-              "Value": "TRUE",
-            },
-          ],
           "Image": "aws/codebuild/standard:4.0",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -1495,6 +1489,11 @@ Object {
             ],
           },
         },
+        "Environment": Object {
+          "Variables": Object {
+            "UPDATE_APPROVAL_STATE": "TRUE",
+          },
+        },
         "Handler": "code_build_result.lambda_handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -1616,13 +1615,6 @@ Object {
         },
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "EnvironmentVariables": Array [
-            Object {
-              "Name": "UPDATE_APPROVAL_STATE",
-              "Type": "PLAINTEXT",
-              "Value": "TRUE",
-            },
-          ],
           "Image": "aws/codebuild/standard:4.0",
           "PrivilegedMode": true,
           "Type": "LINUX_CONTAINER",

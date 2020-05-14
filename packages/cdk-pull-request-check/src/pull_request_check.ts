@@ -6,7 +6,6 @@ import {
     LinuxBuildImage,
     Project,
     Source,
-    BuildEnvironmentVariableType,
 } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import { EventField, RuleTargetInput } from '@aws-cdk/aws-events';
@@ -96,6 +95,11 @@ export class PullRequestCheck extends Construct {
                 runtime: Runtime.PYTHON_3_7,
                 code: Code.asset(path.join(__dirname, '..', 'lambdas')),
                 handler: 'code_build_result.lambda_handler',
+                environment: {
+                    UPDATE_APPROVAL_STATE: updateApprovalState
+                        ? 'TRUE'
+                        : 'FALSE',
+                },
             },
         );
 
@@ -119,12 +123,6 @@ export class PullRequestCheck extends Construct {
                 buildImage,
                 computeType,
                 privileged,
-                environmentVariables: {
-                    UPDATE_APPROVAL_STATE: {
-                        type: BuildEnvironmentVariableType.PLAINTEXT,
-                        value: updateApprovalState ? 'TRUE' : 'FALSE',
-                    },
-                },
             },
             buildSpec,
         });
