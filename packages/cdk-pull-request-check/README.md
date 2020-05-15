@@ -29,7 +29,7 @@ export class CodepipelineStack extends Stack {
 
         new PullRequestCheck(this, 'PullRequestCheck', {
             repository,
-            buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
+            buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
         });
     }
 }
@@ -53,7 +53,6 @@ export class CodepipelinePullRequestCheckStack extends Stack {
 
         const repository = new Repository(this, 'Repository', {
             repositoryName: 'repository',
-            description: 'Some description.', // optional property
         });
 
         const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
@@ -74,14 +73,14 @@ export class CodepipelinePullRequestCheckStack extends Stack {
             'ApprovalRuleTemplateRepositoryAssociation',
             {
                 approvalRuleTemplateName,
-                repositories: [repository],
+                repository,
             },
         );
 
         // Approves the pull request
         new PullRequestCheck(this, 'PullRequestCheck', {
             repository,
-            buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
+            buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
         });
     }
 }

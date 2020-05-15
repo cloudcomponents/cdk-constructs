@@ -21,14 +21,12 @@ Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "ApprovalRuleTemplateName": "name",
-        "RepositoryNames": Array [
-          Object {
-            "Fn::GetAtt": Array [
-              "Repository22E53BBD",
-              "Name",
-            ],
-          },
-        ],
+        "RepositoryName": Object {
+          "Fn::GetAtt": Array [
+            "Repository22E53BBD",
+            "Name",
+          ],
+        },
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "CustomApprovalRuleTemplateRepositoryAssociationCustomResourceProviderHandler5B209F6B",
@@ -127,14 +125,12 @@ Object {
                     "codecommit:ListAssociatedApprovalRuleTemplatesForRepository",
                   ],
                   "Effect": "Allow",
-                  "Resource": Array [
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "Repository22E53BBD",
-                        "Arn",
-                      ],
-                    },
-                  ],
+                  "Resource": Object {
+                    "Fn::GetAtt": Array [
+                      "Repository22E53BBD",
+                      "Arn",
+                    ],
+                  },
                 },
               ],
               "Version": "2012-10-17",
@@ -150,6 +146,221 @@ Object {
         "RepositoryName": "repo",
       },
       "Type": "AWS::CodeCommit::Repository",
+    },
+  },
+}
+`;
+
+exports[`onOverridden 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914eArtifactHashC7635B5D": Object {
+      "Description": "Artifact hash for asset \\"42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914e\\"",
+      "Type": "String",
+    },
+    "AssetParameters42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914eS3Bucket7DB2401C": Object {
+      "Description": "S3 bucket for asset \\"42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914e\\"",
+      "Type": "String",
+    },
+    "AssetParameters42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914eS3VersionKey1B824975": Object {
+      "Description": "S3 key for asset version \\"42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914e\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "ApprovalRuleTemplateRepositoryAssociationCustomResource78A24919": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "ApprovalRuleTemplateName": "name",
+        "RepositoryName": Object {
+          "Fn::GetAtt": Array [
+            "Repository22E53BBD",
+            "Name",
+          ],
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomApprovalRuleTemplateRepositoryAssociationCustomResourceProviderHandler5B209F6B",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::ApprovalRuleTemplateRepositoryAssociation",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CustomApprovalRuleTemplateRepositoryAssociationCustomResourceProviderHandler5B209F6B": Object {
+      "DependsOn": Array [
+        "CustomApprovalRuleTemplateRepositoryAssociationCustomResourceProviderRoleD1B94887",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914eS3Bucket7DB2401C",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914eS3VersionKey1B824975",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters42f0c22c820374e244ef664337eb3d003fbe5ae42e3d8b3a178de2582782914eS3VersionKey1B824975",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomApprovalRuleTemplateRepositoryAssociationCustomResourceProviderRoleD1B94887",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomApprovalRuleTemplateRepositoryAssociationCustomResourceProviderRoleD1B94887": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "codecommit:AssociateApprovalRuleTemplateWithRepository",
+                    "codecommit:BatchAssociateApprovalRuleTemplateWithRepositories",
+                    "codecommit:BatchDisassociateApprovalRuleTemplateFromRepositories",
+                    "codecommit:DisassociateApprovalRuleTemplateFromRepository",
+                    "codecommit:ListAssociatedApprovalRuleTemplatesForRepository",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::GetAtt": Array [
+                      "Repository22E53BBD",
+                      "Arn",
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "Inline",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "Repository22E53BBD": Object {
+      "Properties": Object {
+        "RepositoryName": "repo",
+      },
+      "Type": "AWS::CodeCommit::Repository",
+    },
+    "Repositoryoverridden5BAF2C46": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "event": Array [
+              "pullRequestApprovalRuleOverridden",
+            ],
+          },
+          "detail-type": Array [
+            "CodeCommit Pull Request State Change",
+          ],
+          "resources": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "Repository22E53BBD",
+                "Arn",
+              ],
+            },
+          ],
+          "source": Array [
+            "aws.codecommit",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Ref": "TopicBFC7AF6E",
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "TopicBFC7AF6E": Object {
+      "Type": "AWS::SNS::Topic",
+    },
+    "TopicPolicyA1747468": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+              "Resource": Object {
+                "Ref": "TopicBFC7AF6E",
+              },
+              "Sid": "0",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Topics": Array [
+          Object {
+            "Ref": "TopicBFC7AF6E",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::TopicPolicy",
     },
   },
 }

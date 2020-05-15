@@ -1,12 +1,8 @@
 {
-    "name": "codepipeline-pull-request-check-example",
+    "name": "pull-request-example",
     "version": "0.1.34",
     "license": "MIT",
-    "author": "hello@webappsolutions.de",
     "private": true,
-    "bin": {
-        "codepipeline-slack-approval": "bin/codepipeline-pull-request-check.js"
-    },
     "scripts": {
         "build": "tsc",
         "watch": "tsc -w",
@@ -15,8 +11,6 @@
     "dependencies": {
         "@aws-cdk/aws-codebuild": "^1.37.0",
         "@aws-cdk/aws-codecommit": "^1.37.0",
-        "@aws-cdk/aws-codepipeline": "^1.37.0",
-        "@aws-cdk/aws-codepipeline-actions": "^1.37.0",
         "@aws-cdk/core": "^1.37.0",
         "@cloudcomponents/cdk-pull-request-approval-rule": "^1.0.3",
         "@cloudcomponents/cdk-pull-request-check": "^1.0.36",

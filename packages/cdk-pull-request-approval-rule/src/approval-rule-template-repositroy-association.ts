@@ -4,6 +4,7 @@ import {
     CustomResourceProvider,
     CustomResourceProviderRuntime,
 } from '@aws-cdk/core';
+import { OnEventOptions, Rule } from '@aws-cdk/aws-events';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 
 import { approvalRuleTemplateRepositoryAssociationDir } from './directories';
@@ -15,12 +16,14 @@ export interface ApprovalRuleTemplateRepositoryAssociationProps {
     approvalRuleTemplateName: string;
 
     /**
-     * The repositories you want to associate with the template.
+     * The repository you want to associate with the template.
      */
-    repositories: IRepository[];
+    repository: IRepository;
 }
 
 export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
+    private repository: IRepository;
+
     public constructor(
         parent: Construct,
         id: string,
@@ -28,7 +31,7 @@ export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
     ) {
         super(parent, id);
 
-        const { approvalRuleTemplateName, repositories } = props;
+        this.repository = props.repository;
 
         const resourceType =
             'Custom::ApprovalRuleTemplateRepositoryAssociation';
@@ -49,9 +52,7 @@ export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
                             'codecommit:DisassociateApprovalRuleTemplateFromRepository',
                             'codecommit:ListAssociatedApprovalRuleTemplatesForRepository',
                         ],
-                        Resource: repositories.map(
-                            ({ repositoryArn }) => repositoryArn,
-                        ),
+                        Resource: this.repository.repositoryArn,
                     },
                 ],
             },
@@ -61,11 +62,19 @@ export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
             serviceToken,
             resourceType,
             properties: {
-                ApprovalRuleTemplateName: approvalRuleTemplateName,
-                RepositoryNames: repositories.map(
-                    (repo) => repo.repositoryName,
-                ),
+                ApprovalRuleTemplateName: props.approvalRuleTemplateName,
+                RepositoryName: this.repository.repositoryName,
             },
         });
+    }
+
+    public onOverridden(id: string, options: OnEventOptions): Rule {
+        const rule = this.repository.onPullRequestStateChange(id, options);
+        rule.addEventPattern({
+            detail: {
+                event: ['pullRequestApprovalRuleOverridden'],
+            },
+        });
+        return rule;
     }
 }

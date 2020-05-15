@@ -47,7 +47,7 @@ export class CodepipelinePullRequestCheckStack extends Stack {
             'ApprovalRuleTemplateRepositoryAssociation',
             {
                 approvalRuleTemplateName,
-                repositories: [repository],
+                repository,
             },
         );
 

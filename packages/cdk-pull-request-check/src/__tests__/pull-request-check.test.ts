@@ -4,6 +4,8 @@ import {
     LinuxBuildImage,
 } from '@aws-cdk/aws-codebuild';
 import { Repository } from '@aws-cdk/aws-codecommit';
+import { Topic } from '@aws-cdk/aws-sns';
+import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
@@ -84,6 +86,32 @@ test('custom projectName', (): void => {
         repository,
         buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
     });
+
+    // THEN
+    expect(stack).toMatchCdkSnapshot();
+});
+
+test('events', (): void => {
+    // GIVEN
+    const stack = new Stack();
+
+    const repository = new Repository(stack, 'Repository', {
+        repositoryName: 'MyRepositoryName',
+    });
+
+    const topic = new Topic(stack, 'Topic');
+
+    // WHEN
+    const prCheck = new PullRequestCheck(stack, 'PullRequestCheck', {
+        repository,
+        buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
+    });
+
+    prCheck.onCheckStarted('started', { target: new SnsTopic(topic) });
+
+    prCheck.onCheckSucceeded('succeeded', { target: new SnsTopic(topic) });
+
+    prCheck.onCheckFailed('failed', { target: new SnsTopic(topic) });
 
     // THEN
     expect(stack).toMatchCdkSnapshot();
