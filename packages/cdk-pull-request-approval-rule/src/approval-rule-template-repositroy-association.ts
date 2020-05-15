@@ -1,4 +1,3 @@
-import * as path from 'path';
 import {
     Construct,
     CustomResource,
@@ -6,6 +5,8 @@ import {
     CustomResourceProviderRuntime,
 } from '@aws-cdk/core';
 import { IRepository } from '@aws-cdk/aws-codecommit';
+
+import { approvalRuleTemplateRepositoryAssociationDir } from './directories';
 
 export interface ApprovalRuleTemplateRepositoryAssociationProps {
     /**
@@ -36,11 +37,7 @@ export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
             this,
             resourceType,
             {
-                codeDirectory: path.join(
-                    __dirname,
-                    'lambdas',
-                    'approval-rule-template-repository-association',
-                ),
+                codeDirectory: approvalRuleTemplateRepositoryAssociationDir,
                 runtime: CustomResourceProviderRuntime.NODEJS_12,
                 policyStatements: [
                     {

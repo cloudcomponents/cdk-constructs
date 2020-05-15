@@ -28,37 +28,33 @@ def lambda_handler(event, context):
                 approvalState='REVOKE'
             )
 
-        codecommit_client.post_comment_for_pull_request(
-            pullRequestId=pull_request_id,
-            repositoryName=repository_name,
-            beforeCommitId=before_commit_id,
-            afterCommitId=after_commit_id,
-            content='**Build started at {}**'.format(
-                datetime.datetime.utcnow().time())
-        )
+        if os.getenv('POST_COMMENT') == 'TRUE':
+            codecommit_client.post_comment_for_pull_request(
+                pullRequestId=pull_request_id,
+                repositoryName=repository_name,
+                beforeCommitId=before_commit_id,
+                afterCommitId=after_commit_id,
+                content='**Build started at {}**'.format(
+                    datetime.datetime.utcnow().time())
+            )
 
     elif event['detail']['build-status'] == 'FAILED':
-        badge = 'https://{0}.amazonaws.com/codefactory-{1}-prod-default-build-badges/failing.svg'.format(
-            s3_prefix, event['region'])
+        if os.getenv('POST_COMMENT') == 'TRUE':
+            badge = 'https://{0}.amazonaws.com/codefactory-{1}-prod-default-build-badges/failing.svg'.format(
+                s3_prefix, event['region'])
 
-        content = '![Failing]({0} "Failing") - See the [Logs]({1})'.format(
-            badge, event['detail']['additional-information']['logs']['deep-link'])
+            content = '![Failing]({0} "Failing") - See the [Logs]({1})'.format(
+                badge, event['detail']['additional-information']['logs']['deep-link'])
 
-        codecommit_client.post_comment_for_pull_request(
-            pullRequestId=pull_request_id,
-            repositoryName=repository_name,
-            beforeCommitId=before_commit_id,
-            afterCommitId=after_commit_id,
-            content=content
-        )
+            codecommit_client.post_comment_for_pull_request(
+                pullRequestId=pull_request_id,
+                repositoryName=repository_name,
+                beforeCommitId=before_commit_id,
+                afterCommitId=after_commit_id,
+                content=content
+            )
 
     elif event['detail']['build-status'] == 'SUCCEEDED':
-        badge = 'https://{0}.amazonaws.com/codefactory-{1}-prod-default-build-badges/passing.svg'.format(
-            s3_prefix, event['region'])
-
-        content = '![Passing]({0} "Passing") - See the [Logs]({1})'.format(
-            badge, event['detail']['additional-information']['logs']['deep-link'])
-
         if os.getenv('UPDATE_APPROVAL_STATE') == 'TRUE':
             codecommit_client.update_pull_request_approval_state(
                 pullRequestId=pull_request_id,
@@ -66,13 +62,20 @@ def lambda_handler(event, context):
                 approvalState='APPROVE'
             )
 
-        codecommit_client.post_comment_for_pull_request(
-            pullRequestId=pull_request_id,
-            repositoryName=repository_name,
-            beforeCommitId=before_commit_id,
-            afterCommitId=after_commit_id,
-            content=content
-        )
+        if os.getenv('POST_COMMENT') == 'TRUE':
+            badge = 'https://{0}.amazonaws.com/codefactory-{1}-prod-default-build-badges/passing.svg'.format(
+                s3_prefix, event['region'])
+
+            content = '![Passing]({0} "Passing") - See the [Logs]({1})'.format(
+                badge, event['detail']['additional-information']['logs']['deep-link'])
+
+            codecommit_client.post_comment_for_pull_request(
+                pullRequestId=pull_request_id,
+                repositoryName=repository_name,
+                beforeCommitId=before_commit_id,
+                afterCommitId=after_commit_id,
+                content=content
+            )
 
     elif event['detail']['build-status'] == 'STOPPED':
         print('Build stopped!')

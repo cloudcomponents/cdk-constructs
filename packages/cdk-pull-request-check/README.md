@@ -87,6 +87,56 @@ export class CodepipelinePullRequestCheckStack extends Stack {
 }
 ```
 
+## Custom notifications
+
+The component comments the pull request and sets the approval state by default. Custom notifications can be set up this way
+
+```typescript
+import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Repository } from '@aws-cdk/aws-codecommit';
+import { BuildSpec } from '@aws-cdk/aws-codebuild';
+import { SnsTopic } from '@aws-cdk/aws-events-targets';
+import { Topic } from '@aws-cdk/aws-sns';
+import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
+import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
+
+export class CodepipelineStack extends Stack {
+    constructor(parent: App, name: string, props?: StackProps) {
+        super(parent, name, props);
+
+        const repository = new Repository(this, 'Repository', {
+            repositoryName: 'MyRepositoryName',
+            description: 'Some description.', // optional property
+        });
+
+        // Your Codepipeline...
+
+        const prCheck = new PullRequestCheck(this, 'PullRequestCheck', {
+            repository,
+            buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
+        });
+
+        const prTopic = new Topic(this, 'PullRequestTopic');
+
+        prTopic.addSubscription(
+            new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
+        );
+
+        prCheck.onCheckStarted('started', {
+            target: new SnsTopic(prTopic),
+        });
+
+        prCheck.onCheckSucceeded('succeeded', {
+            target: new SnsTopic(prTopic),
+        });
+
+        prCheck.onCheckFailed('failed', {
+            target: new SnsTopic(prTopic),
+        });
+    }
+}
+```
+
 ## License
 
 [MIT](../../LICENSE)

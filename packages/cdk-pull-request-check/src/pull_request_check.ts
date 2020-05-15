@@ -8,7 +8,12 @@ import {
     Source,
 } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
-import { EventField, RuleTargetInput } from '@aws-cdk/aws-events';
+import {
+    EventField,
+    RuleTargetInput,
+    OnEventOptions,
+    Rule,
+} from '@aws-cdk/aws-events';
 import { CodeBuildProject, LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
@@ -65,12 +70,21 @@ export interface PullRequestCheckProps {
      * @default true
      */
     readonly updateApprovalState?: boolean;
+
+    /**
+     * Specifies whether comments should be written in the request
+     *
+     * @default true
+     */
+    readonly postComment?: boolean;
 }
 
 /**
  * Represents a reference to a PullRequestCheck.
  */
 export class PullRequestCheck extends Construct {
+    private pullRequestProject: Project;
+
     public constructor(
         scope: Construct,
         id: string,
@@ -85,36 +99,11 @@ export class PullRequestCheck extends Construct {
             computeType = buildImage.defaultComputeType,
             privileged = false,
             updateApprovalState = true,
+            postComment = true,
             projectName = `${repository.repositoryName}-pull-request`,
         } = props;
 
-        const codeBuildResultFunction = new Function(
-            this,
-            'CodeBuildResultFunction',
-            {
-                runtime: Runtime.PYTHON_3_7,
-                code: Code.asset(path.join(__dirname, '..', 'lambdas')),
-                handler: 'code_build_result.lambda_handler',
-                environment: {
-                    UPDATE_APPROVAL_STATE: updateApprovalState
-                        ? 'TRUE'
-                        : 'FALSE',
-                },
-            },
-        );
-
-        codeBuildResultFunction.addToRolePolicy(
-            new PolicyStatement({
-                effect: Effect.ALLOW,
-                resources: [repository.repositoryArn],
-                actions: [
-                    'codecommit:PostCommentForPullRequest',
-                    'codecommit:UpdatePullRequestApprovalState',
-                ],
-            }),
-        );
-
-        const pullRequestProject = new Project(this, 'PullRequestProject', {
+        this.pullRequestProject = new Project(this, 'PullRequestProject', {
             projectName,
             source: Source.codeCommit({
                 repository,
@@ -127,9 +116,38 @@ export class PullRequestCheck extends Construct {
             buildSpec,
         });
 
-        pullRequestProject.onStateChange('PullRequestValidationRule', {
-            target: new LambdaFunction(codeBuildResultFunction),
-        });
+        if (updateApprovalState || postComment) {
+            const codeBuildResultFunction = new Function(
+                this,
+                'CodeBuildResultFunction',
+                {
+                    runtime: Runtime.PYTHON_3_7,
+                    code: Code.asset(path.join(__dirname, '..', 'lambdas')),
+                    handler: 'code_build_result.lambda_handler',
+                    environment: {
+                        UPDATE_APPROVAL_STATE: updateApprovalState
+                            ? 'TRUE'
+                            : 'FALSE',
+                        POST_COMMENT: postComment ? 'TRUE' : 'FALSE',
+                    },
+                },
+            );
+
+            codeBuildResultFunction.addToRolePolicy(
+                new PolicyStatement({
+                    effect: Effect.ALLOW,
+                    resources: [repository.repositoryArn],
+                    actions: [
+                        'codecommit:PostCommentForPullRequest',
+                        'codecommit:UpdatePullRequestApprovalState',
+                    ],
+                }),
+            );
+
+            this.pullRequestProject.onStateChange('PullRequestValidationRule', {
+                target: new LambdaFunction(codeBuildResultFunction),
+            });
+        }
 
         const rule = repository.onPullRequestStateChange(
             'PullRequestChangeRule',
@@ -146,7 +164,7 @@ export class PullRequestCheck extends Construct {
         );
 
         rule.addTarget(
-            new CodeBuildProject(pullRequestProject, {
+            new CodeBuildProject(this.pullRequestProject, {
                 event: RuleTargetInput.fromObject({
                     sourceVersion: EventField.fromPath('$.detail.sourceCommit'),
                     artifactsOverride: { type: 'NO_ARTIFACTS' },
@@ -186,5 +204,26 @@ export class PullRequestCheck extends Construct {
                 }),
             }),
         );
+    }
+
+    /**
+     * Defines an event rule which triggers when a check fails.
+     */
+    public onCheckFailed(id: string, options?: OnEventOptions): Rule {
+        return this.pullRequestProject.onBuildFailed(id, options);
+    }
+
+    /**
+     * Defines an event rule which triggers when a check starts.
+     */
+    public onCheckStarted(id: string, options?: OnEventOptions): Rule {
+        return this.pullRequestProject.onBuildStarted(id, options);
+    }
+
+    /**
+     * Defines an event rule which triggers when a check complets successfully.
+     */
+    public onCheckSucceeded(id: string, options?: OnEventOptions): Rule {
+        return this.pullRequestProject.onBuildSucceeded(id, options);
     }
 }

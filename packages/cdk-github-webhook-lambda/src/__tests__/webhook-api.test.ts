@@ -12,10 +12,8 @@ jest.mock('@octokit/rest', () => ({
     })),
 }));
 
-/* eslint-disable */
 import { createWebhook, updateWebhook, deleteWebhook } from '../webhook-api';
 import { Octokit } from '@octokit/rest';
-/* eslint-enable */
 
 describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     it('should call createHook with correct params', (): void => {
@@ -93,6 +91,6 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
             Octokit.Response<Octokit.ReposCreateHookResponse>
         > => createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
-        expect(call()).rejects.toThrow('GithubRepoUrl is not correct');
+        await expect(call()).rejects.toThrow('GithubRepoUrl is not correct');
     });
 });

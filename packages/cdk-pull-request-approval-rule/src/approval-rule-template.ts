@@ -1,10 +1,11 @@
-import * as path from 'path';
 import {
     Construct,
     CustomResource,
     CustomResourceProvider,
     CustomResourceProviderRuntime,
 } from '@aws-cdk/core';
+
+import { approvalRuleTemplateDir } from './directories';
 
 interface Approvers {
     numberOfApprovalsNeeded: number;
@@ -53,11 +54,7 @@ export class ApprovalRuleTemplate extends Construct {
             this,
             'Custom::ApprovalRuleTemplate',
             {
-                codeDirectory: path.join(
-                    __dirname,
-                    'lambdas',
-                    'approval-rule-template',
-                ),
+                codeDirectory: approvalRuleTemplateDir,
                 runtime: CustomResourceProviderRuntime.NODEJS_12,
                 policyStatements: [
                     {
