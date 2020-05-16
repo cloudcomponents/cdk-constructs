@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-static-website
 
 > Cdk component that creates a static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS)

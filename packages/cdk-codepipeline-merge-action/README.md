@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-codepipeline-merge-action
 
 > Cdk component that automatically merge branches in codepipelines

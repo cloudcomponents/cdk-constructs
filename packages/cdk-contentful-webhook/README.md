@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-contentful-webhook
 
 > Cdk component that provisions contentful webhooks

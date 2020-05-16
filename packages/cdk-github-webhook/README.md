@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-github-webhook
 
 > Cdk component that provisions github webhooks

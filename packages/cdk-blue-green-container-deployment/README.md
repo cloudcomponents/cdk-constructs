@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-blue-green-container-deployment
 
 > Blue green container deployment

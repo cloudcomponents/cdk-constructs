@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-codepipeline-check-parameter-action
 
 > Cdk component that checks if system parameters are set correctly

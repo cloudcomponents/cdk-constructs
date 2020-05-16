@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-codecommit-backup
 
 > Backup CodeCommit repositories to S3

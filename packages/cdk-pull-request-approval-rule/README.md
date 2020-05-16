@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-pull-request-approval-rule
 
 > Codecommit pull request approval rules

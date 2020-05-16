@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-codepipeline-slack
 
 > Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes

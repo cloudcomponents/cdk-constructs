@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-pull-request-check
 
 > Cdk component that automatically check pull requests

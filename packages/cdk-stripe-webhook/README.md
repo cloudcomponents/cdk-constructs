@@ -1,3 +1,5 @@
+![cloudcomponents Logo](../../logo.png)
+
 # @cloudcomponents/cdk-stripe-webhook
 
 > Cdk component that provisions stripe webhooks
