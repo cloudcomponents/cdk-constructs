@@ -1,10 +1,6 @@
 import * as path from 'path';
-import {
-    CustomResource,
-    CustomResourceProvider,
-} from '@aws-cdk/aws-cloudformation';
+import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Construct, Duration } from '@aws-cdk/core';
 
 export interface GithubWebhookProps {
     githubApiToken: string;
@@ -42,7 +38,7 @@ export class GithubWebhook extends Construct {
         } = props;
 
         new CustomResource(this, 'CustomResource', {
-            provider: CustomResourceProvider.lambda(handler),
+            serviceToken: handler.functionArn,
             resourceType: 'Custom::GithubWebhook',
             properties: {
                 GithubApiToken: githubApiToken,
