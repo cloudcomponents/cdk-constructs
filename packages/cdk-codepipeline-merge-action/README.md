@@ -1,4 +1,4 @@
-![cloudcomponents Logo](../../logo.png?raw=true)
+![cloudcomponents Logo](/logo.png?raw=true)
 
 # @cloudcomponents/cdk-codepipeline-merge-action
 
