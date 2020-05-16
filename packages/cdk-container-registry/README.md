@@ -1,4 +1,4 @@
-![cloudcomponents Logo](../../logo.png)
+![cloudcomponents Logo](../../logo.png?raw=true)
 
 # @cloudcomponents/cdk-container-registry
 
