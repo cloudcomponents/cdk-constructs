@@ -2,7 +2,7 @@
 import { App } from '@aws-cdk/core';
 import { config } from 'dotenv';
 
-import { CodepipelineSlackApprovalStack } from '../lib/codepipeline-slack-approval-stack';
+import { CodepipelineSlackApprovalStack } from '../src/codepipeline-slack-approval-stack';
 
 config();
 

@@ -1,8 +1,10 @@
-# @cloudcomponents/cdk-components
+![cloudcomponents Logo](/logo.png)
+
+# @cloudcomponents/cdk-componenent
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
 
-> A collection of higher-level [cdk components](https://github.com/awslabs/aws-cdk): slack-approval-workflow, slack-notifier, codecommit-backup, OWASP dependency-check, contentful-webhook, github-webhook, static-website, pull-request-check, pull-request-approval-rule, codepipeline-merge-action, codepipeline-check-parameter-action...
+> A collection of higher-level reusable [cdk components](https://github.com/awslabs/aws-cdk)
 
 ## Components
 
@@ -21,6 +23,8 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 | [cdk-codepipeline-check-parameter-action](/packages/cdk-codepipeline-check-parameter-action) | Cdk component that checks if system parameters are set correctly                                                             |
 | [cdk-codecommit-backup](/packages/cdk-codecommit-backup)                                     | Backup CodeCommit repositories to S3                                                                                         |
 | [cdk-dependency-check](/packages/cdk-dependency-check)                                       | OWASP dependency-check for codecommit repositories                                                                           |
+| [cdk-container-registry](/packages/cdk-container-registry)                                   | Registry for container images                                                                                                |
+| [cdk-blue-green-container-deployment](/packages/cdk-blue-green-container-deployment)         | Blue green container deployment                                                                                              |
 
 ## Contributing
 

@@ -1,0 +1,596 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default setup 1`] = `
+Object {
+  "Resources": Object {
+    "ImageRepositoryBBCBC9DF": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::ECR::Repository",
+      "UpdateReplacePolicy": "Retain",
+    },
+  },
+}
+`;
+
+exports[`forceDelete 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669ArtifactHash2C09C7CA": Object {
+      "Description": "Artifact hash for asset \\"f35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669\\"",
+      "Type": "String",
+    },
+    "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3Bucket536257BA": Object {
+      "Description": "S3 bucket for asset \\"f35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669\\"",
+      "Type": "String",
+    },
+    "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3VersionKeyC1EF3D23": Object {
+      "Description": "S3 key for asset version \\"f35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3Bucket536257BA",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3VersionKeyC1EF3D23",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3VersionKeyC1EF3D23",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ecr:DeleteRepository",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ImageRepositoryBBCBC9DF",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ImageRepositoryBBCBC9DF": Object {
+      "DeletionPolicy": "Delete",
+      "Type": "AWS::ECR::Repository",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ImageRepositoryForceImageRepositoryDeletion90140ED1": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Delete": Object {
+          "action": "deleteRepository",
+          "parameters": Object {
+            "force": "TRUE:BOOLEAN",
+            "repositoryName": Object {
+              "Ref": "ImageRepositoryBBCBC9DF",
+            },
+          },
+          "physicalResourceId": Object {
+            "id": Object {
+              "Fn::GetAtt": Array [
+                "ImageRepositoryBBCBC9DF",
+                "Arn",
+              ],
+            },
+          },
+          "service": "ECR",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::ECRForceImageRepositoryDeletion",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+}
+`;
+
+exports[`onFinding 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669ArtifactHash2C09C7CA": Object {
+      "Description": "Artifact hash for asset \\"f35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669\\"",
+      "Type": "String",
+    },
+    "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3Bucket536257BA": Object {
+      "Description": "S3 bucket for asset \\"f35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669\\"",
+      "Type": "String",
+    },
+    "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3VersionKeyC1EF3D23": Object {
+      "Description": "S3 key for asset version \\"f35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669\\"",
+      "Type": "String",
+    },
+    "AssetParametersf5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1dArtifactHash68F60FD6": Object {
+      "Description": "Artifact hash for asset \\"f5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1d\\"",
+      "Type": "String",
+    },
+    "AssetParametersf5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1dS3Bucket9C0EDD9B": Object {
+      "Description": "S3 bucket for asset \\"f5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1d\\"",
+      "Type": "String",
+    },
+    "AssetParametersf5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1dS3VersionKey1EAE1C02": Object {
+      "Description": "S3 key for asset version \\"f5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1d\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3Bucket536257BA",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3VersionKeyC1EF3D23",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersf35d0a3ea655835ce2bf399c19e80a38397cebc9cff491b04a9312c92d338669S3VersionKeyC1EF3D23",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ecr:PutImageScanningConfiguration",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ImageRepositoryBBCBC9DF",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "AlarmTopicD01E77F9": Object {
+      "Type": "AWS::SNS::Topic",
+    },
+    "ImageRepositoryBBCBC9DF": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::ECR::Repository",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ImageRepositoryImageScanOnPush3D23220F": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Create": Object {
+          "action": "putImageScanningConfiguration",
+          "parameters": Object {
+            "imageScanningConfiguration": Object {
+              "scanOnPush": "TRUE:BOOLEAN",
+            },
+            "repositoryName": Object {
+              "Ref": "ImageRepositoryBBCBC9DF",
+            },
+          },
+          "physicalResourceId": Object {
+            "id": Object {
+              "Fn::GetAtt": Array [
+                "ImageRepositoryBBCBC9DF",
+                "Arn",
+              ],
+            },
+          },
+          "service": "ECR",
+        },
+        "Delete": Object {
+          "action": "putImageScanningConfiguration",
+          "parameters": Object {
+            "imageScanningConfiguration": Object {
+              "scanOnPush": "FALSE:BOOLEAN",
+            },
+            "repositoryName": Object {
+              "Ref": "ImageRepositoryBBCBC9DF",
+            },
+          },
+          "physicalResourceId": Object {
+            "id": Object {
+              "Fn::GetAtt": Array [
+                "ImageRepositoryBBCBC9DF",
+                "Arn",
+              ],
+            },
+          },
+          "service": "ECR",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+        "Update": Object {
+          "action": "putImageScanningConfiguration",
+          "parameters": Object {
+            "imageScanningConfiguration": Object {
+              "scanOnPush": "TRUE:BOOLEAN",
+            },
+            "repositoryName": Object {
+              "Ref": "ImageRepositoryBBCBC9DF",
+            },
+          },
+          "physicalResourceId": Object {
+            "id": Object {
+              "Fn::GetAtt": Array [
+                "ImageRepositoryBBCBC9DF",
+                "Arn",
+              ],
+            },
+          },
+          "service": "ECR",
+        },
+      },
+      "Type": "Custom::ECRImageScanOnPush",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ImageRepositorySevierityFilterAllowEventRuleImageRepositoryfinding6652C3FBAADA6A95": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "ImageRepositorySevierityFilterF442A020",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "ImageRepositoryfinding97FFACE3",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "ImageRepositorySevierityFilterF442A020": Object {
+      "DependsOn": Array [
+        "ImageRepositorySevierityFilterServiceRoleDefaultPolicyAFA4D8E3",
+        "ImageRepositorySevierityFilterServiceRole7A5C269E",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersf5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1dS3Bucket9C0EDD9B",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersf5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1dS3VersionKey1EAE1C02",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersf5fcbbea3802549fc76b1c2eb49e83b8610d561a79b0bf19b8ebdfa1031cec1dS3VersionKey1EAE1C02",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "ImageRepositorySevierityFilterServiceRole7A5C269E",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "ImageRepositorySevierityFilterServiceRole7A5C269E": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ImageRepositorySevierityFilterServiceRoleDefaultPolicyAFA4D8E3": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "AlarmTopicD01E77F9",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ImageRepositorySevierityFilterServiceRoleDefaultPolicyAFA4D8E3",
+        "Roles": Array [
+          Object {
+            "Ref": "ImageRepositorySevierityFilterServiceRole7A5C269E",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ImageRepositoryfinding97FFACE3": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "repository-name": Array [
+              Object {
+                "Ref": "ImageRepositoryBBCBC9DF",
+              },
+            ],
+            "scan-status": Array [
+              "COMPLETE",
+            ],
+          },
+          "detail-type": Array [
+            "ECR Image Scan",
+          ],
+          "source": Array [
+            "aws.ecr",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "ImageRepositorySevierityFilterF442A020",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+            "InputTransformer": Object {
+              "InputPathsMap": Object {
+                "account": "$.account",
+                "detail-finding-severity-counts": "$.detail.finding-severity-counts",
+                "detail-image-digest": "$.detail.image-digest",
+                "detail-image-tags": "$.detail.image-tags",
+                "detail-repository-name": "$.detail.repository-name",
+                "region": "$.region",
+                "time": "$.time",
+              },
+              "InputTemplate": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "{\\"account\\":<account>,\\"region\\":<region>,\\"time\\":<time>,\\"repositoryName\\":<detail-repository-name>,\\"imageDigest\\":<detail-image-digest>,\\"imageTags\\":<detail-image-tags>,\\"findingSeveriyCounts\\":<detail-finding-severity-counts>,\\"severity\\":\\"CRITICAL\\",\\"alarmTopicArn\\":\\"",
+                    Object {
+                      "Ref": "AlarmTopicD01E77F9",
+                    },
+                    "\\"}",
+                  ],
+                ],
+              },
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+  },
+}
+`;

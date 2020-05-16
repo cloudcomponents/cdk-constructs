@@ -47,10 +47,7 @@ export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
                         Effect: 'Allow',
                         Action: [
                             'codecommit:AssociateApprovalRuleTemplateWithRepository',
-                            'codecommit:BatchAssociateApprovalRuleTemplateWithRepositories',
-                            'codecommit:BatchDisassociateApprovalRuleTemplateFromRepositories',
                             'codecommit:DisassociateApprovalRuleTemplateFromRepository',
-                            'codecommit:ListAssociatedApprovalRuleTemplatesForRepository',
                         ],
                         Resource: this.repository.repositoryArn,
                     },

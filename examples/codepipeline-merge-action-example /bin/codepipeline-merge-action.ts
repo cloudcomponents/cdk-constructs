@@ -2,7 +2,7 @@
 import { App } from '@aws-cdk/core';
 import { config } from 'dotenv';
 
-import { CodepipelineMergeActionStack } from '../lib/codepipeline-merge-action-stack';
+import { CodepipelineMergeActionStack } from '../src/codepipeline-merge-action-stack';
 
 config();
 
