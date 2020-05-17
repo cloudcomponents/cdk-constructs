@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-chatops
 
-> ChatOps
+> ChatOps components
 
 ## Install
 
