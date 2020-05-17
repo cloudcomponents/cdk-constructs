@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default setup 1`] = `
+Object {
+  "Resources": Object {
+    "SlackChannelConfiguration9AFE1994": Object {
+      "Properties": Object {
+        "ConfigurationName": "name",
+        "IamRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "SlackChannelConfigurationServiceRole517C6CD4",
+            "Arn",
+          ],
+        },
+        "LoggingLevel": "NONE",
+        "SlackChannelId": "channelId",
+        "SlackWorkspaceId": "workspaceId",
+      },
+      "Type": "AWS::Chatbot::SlackChannelConfiguration",
+    },
+    "SlackChannelConfigurationServiceRole517C6CD4": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "chatbot.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;

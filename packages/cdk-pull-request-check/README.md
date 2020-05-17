@@ -24,7 +24,6 @@ export class CodepipelineStack extends Stack {
 
         const repository = new Repository(this, 'Repository', {
             repositoryName: 'MyRepositoryName',
-            description: 'Some description.', // optional property
         });
 
         // Codepipeline etc.

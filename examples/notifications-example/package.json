@@ -1,0 +1,26 @@
+{
+    "name": "notifications-example",
+    "version": "0.1.33",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w",
+        "cdk": "cdk"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codecommit": "^1.39.0",
+        "@aws-cdk/aws-codepipeline": "^1.39.0",
+        "@aws-cdk/aws-codepipeline-actions": "^1.39.0",
+        "@aws-cdk/core": "^1.39.0",
+        "@cloudcomponents/cdk-developer-tools-notifications": "^1.0.0",
+        "@cloudcomponents/cdk-chatops": "^1.0.0",
+        "dotenv": "^8.2.0",
+        "source-map-support": "^0.5.19"
+    },
+    "devDependencies": {
+        "aws-cdk": "^1.39.0",
+        "ts-node": "^8.10.1",
+        "typescript": "^3.9.2"
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "name": "@cloudcomponents/cdk-chatops",
+    "version": "1.0.0",
+    "description": "ChatOps",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components",
+        "directory": "packages/cdk-chatops"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "chatbot",
+        "chatops",
+        "slack",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-chatbot": "^1.39.0",
+        "@aws-cdk/aws-iam": "^1.39.0",
+        "@aws-cdk/aws-sns": "^1.39.0",
+        "@aws-cdk/aws-lambda": "^1.39.0",
+        "@aws-cdk/core": "^1.39.0"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.39.0",
+        "jest-cdk-snapshot": "^1.3.0",
+        "typescript": "^3.9.2"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

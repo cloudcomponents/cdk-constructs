@@ -25,7 +25,7 @@ export class EcsBlueGreenDeploymentStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 
-        const alarmTopic = new Topic(this, 'PullRequestTopic');
+        const alarmTopic = new Topic(this, 'Topic');
 
         alarmTopic.addSubscription(
             new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),

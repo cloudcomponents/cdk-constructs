@@ -25,6 +25,8 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 | [cdk-dependency-check](/packages/cdk-dependency-check)                                       | OWASP dependency-check for codecommit repositories                                                                           |
 | [cdk-container-registry](/packages/cdk-container-registry)                                   | Registry for container images                                                                                                |
 | [cdk-blue-green-container-deployment](/packages/cdk-blue-green-container-deployment)         | Blue green container deployment                                                                                              |
+| [cdk-chatops](/packages/cdk-chatops)                                                         | Chatops deployment                                                                                                           |
+| [cdk-developer-tools-notifications](/packages/cdk-developer-tools-notifications)             | Notifications for developer tools: CodeCommit, CodeBuild, CodeDeploy, CodePipeline                                           |
 
 ## Contributing
 

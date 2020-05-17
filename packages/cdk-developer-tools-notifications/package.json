@@ -1,0 +1,50 @@
+{
+    "name": "@cloudcomponents/cdk-developer-tools-notifications",
+    "version": "1.0.0",
+    "description": "Notifications for developer tools: CodeCommit, CodeBuild, CodeDeploy, CodePipeline",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components",
+        "directory": "packages/cdk-developer-tools-notifications"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "codecommit",
+        "codepipeline",
+        "codebuild",
+        "codedeploy",
+        "notifications",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codecommit": "^1.39.0",
+        "@aws-cdk/aws-codepipeline": "^1.39.0",
+        "@aws-cdk/aws-codebuild": "^1.39.0",
+        "@aws-cdk/aws-codedeploy": "^1.39.0",
+        "@aws-cdk/aws-codestarnotifications": "^1.39.0",
+        "@aws-cdk/aws-iam": "^1.39.0",
+        "@aws-cdk/aws-sns": "^1.39.0",
+        "@aws-cdk/aws-lambda": "^1.39.0",
+        "@aws-cdk/core": "^1.39.0",
+        "@cloudcomponents/cdk-chatops": "^1.0.0"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.39.0",
+        "jest-cdk-snapshot": "^1.3.0",
+        "typescript": "^3.9.2"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
