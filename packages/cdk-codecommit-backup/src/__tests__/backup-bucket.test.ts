@@ -4,19 +4,19 @@ import 'jest-cdk-snapshot';
 import { BackupBucket } from '../backup-bucket';
 
 test('default setup', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    new BackupBucket(stack, 'BackupBucket');
+  new BackupBucket(stack, 'BackupBucket');
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });
 
 test('retentionPeriod', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    new BackupBucket(stack, 'BackupBucket', {
-        retentionPeriod: Duration.days(4711),
-    });
+  new BackupBucket(stack, 'BackupBucket', {
+    retentionPeriod: Duration.days(4711),
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });

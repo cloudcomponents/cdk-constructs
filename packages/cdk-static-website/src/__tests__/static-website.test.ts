@@ -4,11 +4,11 @@ import 'jest-cdk-snapshot';
 import { StaticWebsite } from '../static-website';
 
 test('default setup', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    new StaticWebsite(stack, 'StaticWebsite', {
-        disableUpload: true,
-    });
+  new StaticWebsite(stack, 'StaticWebsite', {
+    disableUpload: true,
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });

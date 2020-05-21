@@ -1,103 +1,103 @@
 import {
-    CloudFormationCustomResourceEvent,
-    CloudFormationCustomResourceCreateEvent,
-    CloudFormationCustomResourceUpdateEvent,
-    CloudFormationCustomResourceDeleteEvent,
+  CloudFormationCustomResourceEvent,
+  CloudFormationCustomResourceCreateEvent,
+  CloudFormationCustomResourceUpdateEvent,
+  CloudFormationCustomResourceDeleteEvent,
 } from 'aws-lambda';
 import { ECS } from 'aws-sdk';
 
 interface HandlerReturn {
-    PhysicalResourceId: string;
-    Data: {
-        ServiceName: string;
-    };
+  PhysicalResourceId: string;
+  Data: {
+    ServiceName: string;
+  };
 }
 
 export interface BlueGreenServiceProps {
-    cluster: string;
-    serviceName: string;
-    taskDefinition: string;
-    launchType: string;
-    platformVersion: string;
-    desiredCount: number;
-    subnets: string[];
-    securityGroups: string[];
-    targetGroupArn: string;
-    containerPort: number;
-    schedulingStrategy: string;
+  cluster: string;
+  serviceName: string;
+  taskDefinition: string;
+  launchType: string;
+  platformVersion: string;
+  desiredCount: number;
+  subnets: string[];
+  securityGroups: string[];
+  targetGroupArn: string;
+  containerPort: number;
+  schedulingStrategy: string;
 }
 
 const ecs = new ECS();
 
 const getProperties = (
-    props: CloudFormationCustomResourceEvent['ResourceProperties'],
+  props: CloudFormationCustomResourceEvent['ResourceProperties'],
 ): BlueGreenServiceProps => ({
-    cluster: props.Cluster,
-    serviceName: props.ServiceName,
-    taskDefinition: props.TaskDefinition,
-    launchType: props.LaunchType,
-    platformVersion: props.PlatformVersion,
-    desiredCount: props.DesiredCount,
-    subnets: props.Subnets,
-    securityGroups: props.SecurityGroups,
-    targetGroupArn: props.TargetGroupArn,
-    containerPort: props.ContainerPort,
-    schedulingStrategy: props.SchedulingStrategy,
+  cluster: props.Cluster,
+  serviceName: props.ServiceName,
+  taskDefinition: props.TaskDefinition,
+  launchType: props.LaunchType,
+  platformVersion: props.PlatformVersion,
+  desiredCount: props.DesiredCount,
+  subnets: props.Subnets,
+  securityGroups: props.SecurityGroups,
+  targetGroupArn: props.TargetGroupArn,
+  containerPort: props.ContainerPort,
+  schedulingStrategy: props.SchedulingStrategy,
 });
 
 const onCreate = async (
-    event: CloudFormationCustomResourceCreateEvent,
+  event: CloudFormationCustomResourceCreateEvent,
 ): Promise<HandlerReturn> => {
-    const {
-        cluster,
-        serviceName,
-        taskDefinition,
-        launchType,
-        platformVersion,
-        desiredCount,
-        subnets,
-        securityGroups,
-        targetGroupArn,
-        containerPort,
-        schedulingStrategy,
-    } = getProperties(event.ResourceProperties);
+  const {
+    cluster,
+    serviceName,
+    taskDefinition,
+    launchType,
+    platformVersion,
+    desiredCount,
+    subnets,
+    securityGroups,
+    targetGroupArn,
+    containerPort,
+    schedulingStrategy,
+  } = getProperties(event.ResourceProperties);
 
-    const { service } = await ecs
-        .createService({
-            cluster,
-            serviceName,
-            taskDefinition,
-            launchType,
-            platformVersion,
-            desiredCount,
-            schedulingStrategy,
-            deploymentController: {
-                type: 'CODE_DEPLOY',
-            },
-            networkConfiguration: {
-                awsvpcConfiguration: {
-                    subnets,
-                    securityGroups,
-                },
-            },
-            loadBalancers: [
-                {
-                    targetGroupArn: targetGroupArn,
-                    containerPort,
-                    containerName: 'sample-website',
-                },
-            ],
-        })
-        .promise();
-
-    if (!service) throw Error('Service could not be created');
-
-    return {
-        PhysicalResourceId: service.serviceArn as string,
-        Data: {
-            ServiceName: service.serviceName as string,
+  const { service } = await ecs
+    .createService({
+      cluster,
+      serviceName,
+      taskDefinition,
+      launchType,
+      platformVersion,
+      desiredCount,
+      schedulingStrategy,
+      deploymentController: {
+        type: 'CODE_DEPLOY',
+      },
+      networkConfiguration: {
+        awsvpcConfiguration: {
+          subnets,
+          securityGroups,
         },
-    };
+      },
+      loadBalancers: [
+        {
+          targetGroupArn: targetGroupArn,
+          containerPort,
+          containerName: 'sample-website',
+        },
+      ],
+    })
+    .promise();
+
+  if (!service) throw Error('Service could not be created');
+
+  return {
+    PhysicalResourceId: service.serviceArn as string,
+    Data: {
+      ServiceName: service.serviceName as string,
+    },
+  };
 };
 
 /**
@@ -109,57 +109,57 @@ const onCreate = async (
  * For more information, see CreateDeployment in the AWS CodeDeploy API Reference.
  */
 const onUpdate = async (
-    event: CloudFormationCustomResourceUpdateEvent,
+  event: CloudFormationCustomResourceUpdateEvent,
 ): Promise<HandlerReturn> => {
-    const { cluster, serviceName, desiredCount } = getProperties(
-        event.ResourceProperties,
-    );
+  const { cluster, serviceName, desiredCount } = getProperties(
+    event.ResourceProperties,
+  );
 
-    const { service } = await ecs
-        .updateService({
-            service: serviceName,
-            cluster,
-            desiredCount,
-        })
-        .promise();
+  const { service } = await ecs
+    .updateService({
+      service: serviceName,
+      cluster,
+      desiredCount,
+    })
+    .promise();
 
-    if (!service) throw Error('Service could not be updated');
+  if (!service) throw Error('Service could not be updated');
 
-    return {
-        PhysicalResourceId: service.serviceArn as string,
-        Data: {
-            ServiceName: service.serviceName as string,
-        },
-    };
+  return {
+    PhysicalResourceId: service.serviceArn as string,
+    Data: {
+      ServiceName: service.serviceName as string,
+    },
+  };
 };
 
 const onDelete = async (
-    event: CloudFormationCustomResourceDeleteEvent,
+  event: CloudFormationCustomResourceDeleteEvent,
 ): Promise<void> => {
-    const { cluster, serviceName } = getProperties(event.ResourceProperties);
+  const { cluster, serviceName } = getProperties(event.ResourceProperties);
 
-    await ecs
-        .deleteService({
-            service: serviceName,
-            cluster: cluster,
-            force: true,
-        })
-        .promise();
+  await ecs
+    .deleteService({
+      service: serviceName,
+      cluster: cluster,
+      force: true,
+    })
+    .promise();
 };
 
 export const handler = async (
-    event: CloudFormationCustomResourceEvent,
+  event: CloudFormationCustomResourceEvent,
 ): Promise<HandlerReturn | void> => {
-    const requestType = event.RequestType;
+  const requestType = event.RequestType;
 
-    switch (requestType) {
-        case 'Create':
-            return onCreate(event as CloudFormationCustomResourceCreateEvent);
-        case 'Update':
-            return onUpdate(event as CloudFormationCustomResourceUpdateEvent);
-        case 'Delete':
-            return onDelete(event as CloudFormationCustomResourceDeleteEvent);
-        default:
-            throw new Error(`Invalid request type: ${requestType}`);
-    }
+  switch (requestType) {
+    case 'Create':
+      return onCreate(event as CloudFormationCustomResourceCreateEvent);
+    case 'Update':
+      return onUpdate(event as CloudFormationCustomResourceUpdateEvent);
+    case 'Delete':
+      return onDelete(event as CloudFormationCustomResourceDeleteEvent);
+    default:
+      throw new Error(`Invalid request type: ${requestType}`);
+  }
 };

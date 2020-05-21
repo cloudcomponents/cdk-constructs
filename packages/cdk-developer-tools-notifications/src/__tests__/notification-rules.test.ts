@@ -5,37 +5,37 @@ import { SlackChannelConfiguration } from '@cloudcomponents/cdk-chatops';
 import 'jest-cdk-snapshot';
 
 import {
-    RepositoryNotificationRule,
-    RepositoryEvent,
+  RepositoryNotificationRule,
+  RepositoryEvent,
 } from '../notification-rules';
 import { SlackChannel, SnsTopic } from '../notification-targets';
 
 const createSlackChannel = (stack: Stack): SlackChannelConfiguration =>
-    new SlackChannelConfiguration(stack, 'SlackChannelConfiguration', {
-        configurationName: 'name',
-        slackChannelId: 'channelId',
-        slackWorkspaceId: 'workspaceId',
-    });
+  new SlackChannelConfiguration(stack, 'SlackChannelConfiguration', {
+    configurationName: 'name',
+    slackChannelId: 'channelId',
+    slackWorkspaceId: 'workspaceId',
+  });
 
 test('repository notification rule', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    const slackChannel = createSlackChannel(stack);
-    const topic = new Topic(stack, 'Topic');
+  const slackChannel = createSlackChannel(stack);
+  const topic = new Topic(stack, 'Topic');
 
-    const repository = new Repository(stack, 'Repository', {
-        repositoryName: 'repository-name',
-    });
+  const repository = new Repository(stack, 'Repository', {
+    repositoryName: 'repository-name',
+  });
 
-    new RepositoryNotificationRule(stack, 'RepositoryNotificationRule', {
-        name: 'repository',
-        repository,
-        targets: [new SlackChannel(slackChannel), new SnsTopic(topic)],
-        events: [
-            RepositoryEvent.PULL_REQUEST_CREATED,
-            RepositoryEvent.APPROVAL_STATUS_CHANGED,
-        ],
-    });
+  new RepositoryNotificationRule(stack, 'RepositoryNotificationRule', {
+    name: 'repository',
+    repository,
+    targets: [new SlackChannel(slackChannel), new SnsTopic(topic)],
+    events: [
+      RepositoryEvent.PULL_REQUEST_CREATED,
+      RepositoryEvent.APPROVAL_STATUS_CHANGED,
+    ],
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });

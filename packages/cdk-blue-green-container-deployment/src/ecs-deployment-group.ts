@@ -1,139 +1,132 @@
 import * as path from 'path';
 import {
-    Role,
-    ServicePrincipal,
-    ManagedPolicy,
-    Effect,
+  Role,
+  ServicePrincipal,
+  ManagedPolicy,
+  Effect,
 } from '@aws-cdk/aws-iam';
 import {
-    EcsApplication,
-    IEcsDeploymentGroup,
-    IEcsApplication,
-    IEcsDeploymentConfig,
-    EcsDeploymentConfig,
+  EcsApplication,
+  IEcsDeploymentGroup,
+  IEcsApplication,
+  IEcsDeploymentConfig,
+  EcsDeploymentConfig,
 } from '@aws-cdk/aws-codedeploy';
 import {
-    Aws,
-    Construct,
-    Resource,
-    CustomResource,
-    CustomResourceProvider,
-    CustomResourceProviderRuntime,
+  Aws,
+  Construct,
+  Resource,
+  CustomResource,
+  CustomResourceProvider,
+  CustomResourceProviderRuntime,
 } from '@aws-cdk/core';
 
 interface EcsService {
-    clusterName: string;
-    serviceName: string;
+  clusterName: string;
+  serviceName: string;
 }
 
 export interface EcsDeploymentGroupProps {
-    readonly applicationName?: string;
+  readonly applicationName?: string;
 
-    readonly deploymentGroupName: string;
+  readonly deploymentGroupName: string;
 
-    readonly deploymentConfig?: IEcsDeploymentConfig;
+  readonly deploymentConfig?: IEcsDeploymentConfig;
 
-    readonly ecsServices: EcsService[];
+  readonly ecsServices: EcsService[];
 
-    readonly targetGroupNames: string[];
+  readonly targetGroupNames: string[];
 
-    readonly prodTrafficListenerArn: string;
+  readonly prodTrafficListenerArn: string;
 
-    readonly testTrafficListenerArn: string;
+  readonly testTrafficListenerArn: string;
 }
 
 export class EcsDeploymentGroup extends Resource
-    implements IEcsDeploymentGroup {
-    public readonly application: IEcsApplication;
-    public readonly deploymentGroupName: string;
-    public readonly deploymentGroupArn: string;
-    public readonly deploymentConfig: IEcsDeploymentConfig;
+  implements IEcsDeploymentGroup {
+  public readonly application: IEcsApplication;
+  public readonly deploymentGroupName: string;
+  public readonly deploymentGroupArn: string;
+  public readonly deploymentConfig: IEcsDeploymentConfig;
 
-    constructor(parent: Construct, id: string, props: EcsDeploymentGroupProps) {
-        super(parent, id);
+  constructor(parent: Construct, id: string, props: EcsDeploymentGroupProps) {
+    super(parent, id);
 
-        const {
-            applicationName,
-            deploymentGroupName,
-            deploymentConfig,
-            ecsServices,
-            targetGroupNames,
-            prodTrafficListenerArn,
-            testTrafficListenerArn,
-        } = props;
+    const {
+      applicationName,
+      deploymentGroupName,
+      deploymentConfig,
+      ecsServices,
+      targetGroupNames,
+      prodTrafficListenerArn,
+      testTrafficListenerArn,
+    } = props;
 
-        const codeDeployEcsRole = new Role(this, 'EcsCodeDeployRole', {
-            assumedBy: new ServicePrincipal('codedeploy.amazonaws.com'),
-            managedPolicies: [
-                ManagedPolicy.fromAwsManagedPolicyName(
-                    'AWSCodeDeployRoleForECS',
-                ),
+    const codeDeployEcsRole = new Role(this, 'EcsCodeDeployRole', {
+      assumedBy: new ServicePrincipal('codedeploy.amazonaws.com'),
+      managedPolicies: [
+        ManagedPolicy.fromAwsManagedPolicyName('AWSCodeDeployRoleForECS'),
+      ],
+    });
+
+    this.application = new EcsApplication(this, 'EcsApplication', {
+      applicationName,
+    });
+
+    const serviceToken = CustomResourceProvider.getOrCreate(
+      this,
+      'Custom::EcsDeploymentGroup',
+      {
+        codeDirectory: path.join(__dirname, 'lambdas', 'ecs-deployment-group'),
+        runtime: CustomResourceProviderRuntime.NODEJS_12,
+        policyStatements: [
+          {
+            Effect: Effect.ALLOW,
+            Action: [
+              'codeDeploy:CreateDeploymentGroup',
+              'codeDeploy:UpdateDeploymentGroup',
+              'codeDeploy:DeleteDeploymentGroup',
             ],
-        });
+            Resource: '*',
+          },
+          {
+            Effect: Effect.ALLOW,
+            Action: ['iam:PassRole'],
+            Resource: codeDeployEcsRole.roleArn,
+          },
+        ],
+      },
+    );
 
-        this.application = new EcsApplication(this, 'EcsApplication', {
-            applicationName,
-        });
+    const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
+      serviceToken,
+      resourceType: 'Custom::EcsDeploymentGroup',
+      properties: {
+        ApplicationName: this.application.applicationName,
+        DeploymentGroupName: deploymentGroupName,
+        ServiceRoleArn: codeDeployEcsRole.roleArn,
+        TargetGroupNames: targetGroupNames,
+        EcsServices: ecsServices.map((service) => ({
+          ClusterName: service.clusterName,
+          ServiceName: service.serviceName,
+        })),
+        ProdTrafficListenerArn: prodTrafficListenerArn,
+        TestTrafficListenerArn: testTrafficListenerArn,
+      },
+    });
 
-        const serviceToken = CustomResourceProvider.getOrCreate(
-            this,
-            'Custom::EcsDeploymentGroup',
-            {
-                codeDirectory: path.join(
-                    __dirname,
-                    'lambdas',
-                    'ecs-deployment-group',
-                ),
-                runtime: CustomResourceProviderRuntime.NODEJS_12,
-                policyStatements: [
-                    {
-                        Effect: Effect.ALLOW,
-                        Action: [
-                            'codeDeploy:CreateDeploymentGroup',
-                            'codeDeploy:UpdateDeploymentGroup',
-                            'codeDeploy:DeleteDeploymentGroup',
-                        ],
-                        Resource: '*',
-                    },
-                    {
-                        Effect: Effect.ALLOW,
-                        Action: ['iam:PassRole'],
-                        Resource: codeDeployEcsRole.roleArn,
-                    },
-                ],
-            },
-        );
+    this.deploymentGroupName = ecsDeploymentGroup.ref;
+    this.deploymentGroupArn = this.arnForDeploymentGroup(
+      this.application.applicationName,
+      this.deploymentGroupName,
+    );
+    this.deploymentConfig = deploymentConfig || EcsDeploymentConfig.ALL_AT_ONCE;
+  }
 
-        const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
-            serviceToken,
-            resourceType: 'Custom::EcsDeploymentGroup',
-            properties: {
-                ApplicationName: this.application.applicationName,
-                DeploymentGroupName: deploymentGroupName,
-                ServiceRoleArn: codeDeployEcsRole.roleArn,
-                TargetGroupNames: targetGroupNames,
-                EcsServices: ecsServices.map((service) => ({
-                    ClusterName: service.clusterName,
-                    ServiceName: service.serviceName,
-                })),
-                ProdTrafficListenerArn: prodTrafficListenerArn,
-                TestTrafficListenerArn: testTrafficListenerArn,
-            },
-        });
-
-        this.deploymentGroupName = ecsDeploymentGroup.ref;
-        this.deploymentGroupArn = this.arnForDeploymentGroup(
-            this.application.applicationName,
-            this.deploymentGroupName,
-        );
-        this.deploymentConfig =
-            deploymentConfig || EcsDeploymentConfig.ALL_AT_ONCE;
-    }
-
-    private arnForDeploymentGroup(
-        applicationName: string,
-        deploymentGroupName: string,
-    ): string {
-        return `arn:${Aws.PARTITION}:codedeploy:${Aws.REGION}:${Aws.ACCOUNT_ID}:deploymentgroup:${applicationName}/${deploymentGroupName}`;
-    }
+  private arnForDeploymentGroup(
+    applicationName: string,
+    deploymentGroupName: string,
+  ): string {
+    return `arn:${Aws.PARTITION}:codedeploy:${Aws.REGION}:${Aws.ACCOUNT_ID}:deploymentgroup:${applicationName}/${deploymentGroupName}`;
+  }
 }

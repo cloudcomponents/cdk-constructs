@@ -9,12 +9,12 @@ config();
 const app = new App();
 
 new CodePipelineCheckParameterActionStack(
-    app,
-    'CodePipelineCheckParameterActionStack',
-    {
-        env: {
-            region: process.env.CDK_DEFAULT_REGION,
-            account: process.env.CDK_DEFAULT_ACCOUNT,
-        },
+  app,
+  'CodePipelineCheckParameterActionStack',
+  {
+    env: {
+      region: process.env.CDK_DEFAULT_REGION,
+      account: process.env.CDK_DEFAULT_ACCOUNT,
     },
+  },
 );

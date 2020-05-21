@@ -4,11 +4,11 @@ import 'jest-cdk-snapshot';
 import { DeletableBucket } from '../deletable-bucket';
 
 test('default setup', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    new DeletableBucket(stack, 'DeletableBucket', {
-        forceDelete: true,
-    });
+  new DeletableBucket(stack, 'DeletableBucket', {
+    forceDelete: true,
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });

@@ -7,43 +7,43 @@ import 'jest-cdk-snapshot';
 import { CodePipelineMergeAction } from '../codepipeline-merge-action';
 
 test('default setup', (): void => {
-    // GIVEN
-    const stack = new Stack();
+  // GIVEN
+  const stack = new Stack();
 
-    // WHEN
-    const repository = new Repository(stack, 'Repository', {
-        repositoryName: 'MyRepositoryName',
-        description: 'Some description.',
-    });
+  // WHEN
+  const repository = new Repository(stack, 'Repository', {
+    repositoryName: 'MyRepositoryName',
+    description: 'Some description.',
+  });
 
-    const sourceArtifact = new Artifact();
+  const sourceArtifact = new Artifact();
 
-    new Pipeline(stack, 'Pipeline', {
-        stages: [
-            {
-                stageName: 'Source',
-                actions: [
-                    new CodeCommitSourceAction({
-                        actionName: 'CodeCommit',
-                        repository,
-                        output: sourceArtifact,
-                    }),
-                ],
-            },
-            {
-                stageName: 'Merge',
-                actions: [
-                    new CodePipelineMergeAction({
-                        actionName: 'Merge',
-                        repository,
-                        sourceCommitSpecifier: 'next',
-                        destinationCommitSpecifier: 'master',
-                    }),
-                ],
-            },
+  new Pipeline(stack, 'Pipeline', {
+    stages: [
+      {
+        stageName: 'Source',
+        actions: [
+          new CodeCommitSourceAction({
+            actionName: 'CodeCommit',
+            repository,
+            output: sourceArtifact,
+          }),
         ],
-    });
+      },
+      {
+        stageName: 'Merge',
+        actions: [
+          new CodePipelineMergeAction({
+            actionName: 'Merge',
+            repository,
+            sourceCommitSpecifier: 'next',
+            destinationCommitSpecifier: 'master',
+          }),
+        ],
+      },
+    ],
+  });
 
-    // THEN
-    expect(stack).toMatchCdkSnapshot();
+  // THEN
+  expect(stack).toMatchCdkSnapshot();
 });

@@ -9,8 +9,8 @@ config();
 const app = new App();
 
 new CodePipelineSlackApprovalStack(app, 'CodePipelineSlackApprovalStack', {
-    env: {
-        region: process.env.CDK_DEFAULT_REGION,
-        account: process.env.CDK_DEFAULT_ACCOUNT,
-    },
+  env: {
+    region: process.env.CDK_DEFAULT_REGION,
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+  },
 });

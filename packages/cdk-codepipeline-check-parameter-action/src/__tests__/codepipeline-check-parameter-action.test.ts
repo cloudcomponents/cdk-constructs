@@ -7,80 +7,80 @@ import 'jest-cdk-snapshot';
 import { CodePipelineCheckParameterAction } from '../codepipeline-check-parameter-action';
 
 test('default setup', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    const repository = new Repository(stack, 'Repository', {
-        repositoryName: 'MyRepositoryName',
-        description: 'Some description.',
-    });
+  const repository = new Repository(stack, 'Repository', {
+    repositoryName: 'MyRepositoryName',
+    description: 'Some description.',
+  });
 
-    const parameterName = '/test';
+  const parameterName = '/test';
 
-    const sourceArtifact = new Artifact();
+  const sourceArtifact = new Artifact();
 
-    new Pipeline(stack, 'Pipeline', {
-        stages: [
-            {
-                stageName: 'Source',
-                actions: [
-                    new CodeCommitSourceAction({
-                        actionName: 'CodeCommit',
-                        repository,
-                        output: sourceArtifact,
-                    }),
-                ],
-            },
-            {
-                stageName: 'CheckParamter',
-                actions: [
-                    new CodePipelineCheckParameterAction({
-                        actionName: 'CheckParamter',
-                        parameterName,
-                    }),
-                ],
-            },
+  new Pipeline(stack, 'Pipeline', {
+    stages: [
+      {
+        stageName: 'Source',
+        actions: [
+          new CodeCommitSourceAction({
+            actionName: 'CodeCommit',
+            repository,
+            output: sourceArtifact,
+          }),
         ],
-    });
+      },
+      {
+        stageName: 'CheckParamter',
+        actions: [
+          new CodePipelineCheckParameterAction({
+            actionName: 'CheckParamter',
+            parameterName,
+          }),
+        ],
+      },
+    ],
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });
 
 test('with regExp', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    const repository = new Repository(stack, 'Repository', {
-        repositoryName: 'MyRepositoryName',
-        description: 'Some description.',
-    });
+  const repository = new Repository(stack, 'Repository', {
+    repositoryName: 'MyRepositoryName',
+    description: 'Some description.',
+  });
 
-    const parameterName = '/test';
+  const parameterName = '/test';
 
-    const sourceArtifact = new Artifact();
+  const sourceArtifact = new Artifact();
 
-    new Pipeline(stack, 'Pipeline', {
-        stages: [
-            {
-                stageName: 'Source',
-                actions: [
-                    new CodeCommitSourceAction({
-                        actionName: 'CodeCommit',
-                        repository,
-                        output: sourceArtifact,
-                    }),
-                ],
-            },
-            {
-                stageName: 'CheckParamter',
-                actions: [
-                    new CodePipelineCheckParameterAction({
-                        actionName: 'CheckParamter',
-                        parameterName,
-                        regExp: /[0123456789]/,
-                    }),
-                ],
-            },
+  new Pipeline(stack, 'Pipeline', {
+    stages: [
+      {
+        stageName: 'Source',
+        actions: [
+          new CodeCommitSourceAction({
+            actionName: 'CodeCommit',
+            repository,
+            output: sourceArtifact,
+          }),
         ],
-    });
+      },
+      {
+        stageName: 'CheckParamter',
+        actions: [
+          new CodePipelineCheckParameterAction({
+            actionName: 'CheckParamter',
+            parameterName,
+            regExp: /[0123456789]/,
+          }),
+        ],
+      },
+    ],
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });

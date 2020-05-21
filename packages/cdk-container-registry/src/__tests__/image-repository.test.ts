@@ -6,36 +6,36 @@ import { ImageRepository } from '../image-repository';
 import { Severity } from '../lambdas/severity-filter';
 
 test('default setup', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    new ImageRepository(stack, 'ImageRepository');
+  new ImageRepository(stack, 'ImageRepository');
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });
 
 test('forceDelete', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    new ImageRepository(stack, 'ImageRepository', {
-        forceDelete: true,
-    });
+  new ImageRepository(stack, 'ImageRepository', {
+    forceDelete: true,
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });
 
 test('onFinding', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    const alarmTopic = new Topic(stack, 'AlarmTopic');
+  const alarmTopic = new Topic(stack, 'AlarmTopic');
 
-    const repo = new ImageRepository(stack, 'ImageRepository', {
-        imageScanOnPush: true,
-    });
+  const repo = new ImageRepository(stack, 'ImageRepository', {
+    imageScanOnPush: true,
+  });
 
-    repo.onFinding('finding', {
-        severity: Severity.CRITICAL,
-        alarmTopic,
-    });
+  repo.onFinding('finding', {
+    severity: Severity.CRITICAL,
+    alarmTopic,
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });

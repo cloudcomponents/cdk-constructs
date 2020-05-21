@@ -21,5 +21,5 @@ slackInteractions.action(/(\w+)_dialog/, handleDialog);
 const server = createServer(app);
 
 export const handler = (event: APIGatewayEvent, context: Context): Server => {
-    return proxy(server, event, context);
+  return proxy(server, event, context);
 };

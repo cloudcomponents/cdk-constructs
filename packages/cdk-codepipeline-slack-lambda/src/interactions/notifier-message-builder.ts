@@ -5,165 +5,150 @@ import { CodePipeline } from 'aws-sdk';
 import { MessageBuilder, Message, Field } from './message-builder';
 
 const PipelineStateIcons = {
-    InProgress: ':building_construction:',
-    Succeeded: ':white_check_mark:',
-    Failed: ':x:',
+  InProgress: ':building_construction:',
+  Succeeded: ':white_check_mark:',
+  Failed: ':x:',
 };
 
 export class NotifierMessageBuilder extends MessageBuilder {
-    protected title: string;
+  protected title: string;
 
-    protected text: string;
+  protected text: string;
 
-    constructor(props: MessageBuilderProps) {
-        super({ ...props });
-        this.title = props.title;
-        this.text = props.text;
+  constructor(props: MessageBuilderProps) {
+    super({ ...props });
+    this.title = props.title;
+    this.text = props.text;
+  }
+
+  public get message(): Message {
+    const callbackId = 'slack_notifier';
+    const message: Message = {
+      attachments: [
+        {
+          title: this.title,
+          text: this.text,
+          callback_id: callbackId,
+          fields: this.fields,
+          footer: this.footer,
+          actions: this.actions,
+        },
+      ],
+    };
+
+    if (this.ts) {
+      message.ts = this.ts;
     }
 
-    public get message(): Message {
-        const callbackId = 'slack_notifier';
-        const message: Message = {
-            attachments: [
-                {
-                    title: this.title,
-                    text: this.text,
-                    callback_id: callbackId,
-                    fields: this.fields,
-                    footer: this.footer,
-                    actions: this.actions,
-                },
-            ],
-        };
+    return message;
+  }
 
-        if (this.ts) {
-            message.ts = this.ts;
+  private static getRevisionInfo(pipelineExecution): string {
+    let revisonInfo = ' - no Info -';
+    if (pipelineExecution && pipelineExecution.artifactRevisions) {
+      const rev = pipelineExecution.artifactRevisions[0];
+      if (rev && rev.revisionId) {
+        const revId = rev.revisionId.substr(rev.revisionId.length - 7);
+        revisonInfo = `<${rev.revisionUrl}|${revId}>, ${rev.revisionSummary}`;
+      }
+    }
+    return revisonInfo;
+  }
+
+  private static getPipelineExecutionStatus(pipelineExecution): string {
+    let pipelineExecutionStatus = 'UNKNOWN';
+    if (pipelineExecution) {
+      const { status } = pipelineExecution;
+      pipelineExecutionStatus = status as string;
+    }
+    return pipelineExecutionStatus;
+  }
+
+  private static getPipelineStatusText(pipelineState, executionId): string {
+    let pipelineStatusText = '';
+    if (pipelineState.stageStates) {
+      pipelineState.stageStates.forEach((stageState) => {
+        if (stageState.latestExecution.pipelineExecutionId === executionId) {
+          pipelineStatusText = `${pipelineStatusText} ${
+            stageState.stageName
+          }: ${PipelineStateIcons[stageState.latestExecution.status]}`;
         }
-
-        return message;
+      });
     }
+    return pipelineStatusText;
+  }
 
-    private static getRevisionInfo(pipelineExecution): string {
-        let revisonInfo = ' - no Info -';
-        if (pipelineExecution && pipelineExecution.artifactRevisions) {
-            const rev = pipelineExecution.artifactRevisions[0];
-            if (rev && rev.revisionId) {
-                const revId = rev.revisionId.substr(rev.revisionId.length - 7);
-                revisonInfo = `<${rev.revisionUrl}|${revId}>, ${rev.revisionSummary}`;
-            }
+  private static getBuildActionStatusText(pipelineState, executionId): string {
+    let actionStatusText = '';
+    if (pipelineState.stageStates) {
+      pipelineState.stageStates.forEach((stageState) => {
+        if (stageState.latestExecution.pipelineExecutionId === executionId) {
+          stageState.actionStates.forEach((actionState) => {
+            actionStatusText = `${actionStatusText} ${
+              actionState.actionName
+            }: ${PipelineStateIcons[actionState.latestExecution.status]}`;
+          });
         }
-        return revisonInfo;
+      });
     }
+    return actionStatusText;
+  }
 
-    private static getPipelineExecutionStatus(pipelineExecution): string {
-        let pipelineExecutionStatus = 'UNKNOWN';
-        if (pipelineExecution) {
-            const { status } = pipelineExecution;
-            pipelineExecutionStatus = status as string;
-        }
-        return pipelineExecutionStatus;
-    }
+  public static fromPipelineEventAndPipelineState(
+    pipelineEvent: CodePipelineCloudWatchEvent,
+    pipelineState: CodePipeline.Types.GetPipelineStateOutput,
+    pipelineExecution: CodePipeline.Types.PipelineExecution | undefined,
+    existingMessage?: Message,
+  ): NotifierMessageBuilder {
+    const pipelineName = pipelineEvent.detail.pipeline;
+    const ts = existingMessage ? existingMessage.ts : undefined;
 
-    private static getPipelineStatusText(pipelineState, executionId): string {
-        let pipelineStatusText = '';
-        if (pipelineState.stageStates) {
-            pipelineState.stageStates.forEach((stageState) => {
-                if (
-                    stageState.latestExecution.pipelineExecutionId ===
-                    executionId
-                ) {
-                    pipelineStatusText = `${pipelineStatusText} ${
-                        stageState.stageName
-                    }: ${
-                        PipelineStateIcons[stageState.latestExecution.status]
-                    }`;
-                }
-            });
-        }
-        return pipelineStatusText;
-    }
+    const pipelineStatusText = NotifierMessageBuilder.getPipelineStatusText(
+      pipelineState,
+      pipelineEvent.detail['execution-id'],
+    );
 
-    private static getBuildActionStatusText(
-        pipelineState,
-        executionId,
-    ): string {
-        let actionStatusText = '';
-        if (pipelineState.stageStates) {
-            pipelineState.stageStates.forEach((stageState) => {
-                if (
-                    stageState.latestExecution.pipelineExecutionId ===
-                    executionId
-                ) {
-                    stageState.actionStates.forEach((actionState) => {
-                        actionStatusText = `${actionStatusText} ${
-                            actionState.actionName
-                        }: ${
-                            PipelineStateIcons[
-                                actionState.latestExecution.status
-                            ]
-                        }`;
-                    });
-                }
-            });
-        }
-        return actionStatusText;
-    }
+    const actionStatusText = NotifierMessageBuilder.getBuildActionStatusText(
+      pipelineState,
+      pipelineEvent.detail['execution-id'],
+    );
 
-    public static fromPipelineEventAndPipelineState(
-        pipelineEvent: CodePipelineCloudWatchEvent,
-        pipelineState: CodePipeline.Types.GetPipelineStateOutput,
-        pipelineExecution: CodePipeline.Types.PipelineExecution | undefined,
-        existingMessage?: Message,
-    ): NotifierMessageBuilder {
-        const pipelineName = pipelineEvent.detail.pipeline;
-        const ts = existingMessage ? existingMessage.ts : undefined;
+    const revisonInfo = NotifierMessageBuilder.getRevisionInfo(
+      pipelineExecution,
+    );
 
-        const pipelineStatusText = NotifierMessageBuilder.getPipelineStatusText(
-            pipelineState,
-            pipelineEvent.detail['execution-id'],
-        );
+    const pipelineExecutionStatus = NotifierMessageBuilder.getPipelineExecutionStatus(
+      pipelineExecution,
+    );
 
-        const actionStatusText = NotifierMessageBuilder.getBuildActionStatusText(
-            pipelineState,
-            pipelineEvent.detail['execution-id'],
-        );
-
-        const revisonInfo = NotifierMessageBuilder.getRevisionInfo(
-            pipelineExecution,
-        );
-
-        const pipelineExecutionStatus = NotifierMessageBuilder.getPipelineExecutionStatus(
-            pipelineExecution,
-        );
-
-        return new NotifierMessageBuilder({
-            title: '',
-            text: '',
-            fields: [
-                {
-                    title: pipelineName,
-                    value: pipelineExecutionStatus,
-                    short: true,
-                },
-                { title: 'Revision', value: revisonInfo, short: true },
-                { title: 'Stages', value: pipelineStatusText, short: false },
-                {
-                    title: 'Build Actions',
-                    value: actionStatusText,
-                    short: false,
-                },
-            ],
-            ts,
-            actions: [],
-            footer: pipelineEvent.detail['execution-id'],
-        });
-    }
+    return new NotifierMessageBuilder({
+      title: '',
+      text: '',
+      fields: [
+        {
+          title: pipelineName,
+          value: pipelineExecutionStatus,
+          short: true,
+        },
+        { title: 'Revision', value: revisonInfo, short: true },
+        { title: 'Stages', value: pipelineStatusText, short: false },
+        {
+          title: 'Build Actions',
+          value: actionStatusText,
+          short: false,
+        },
+      ],
+      ts,
+      actions: [],
+      footer: pipelineEvent.detail['execution-id'],
+    });
+  }
 }
 export interface MessageBuilderProps {
-    title: string;
-    text: string;
-    actions: Record<string, string>[];
-    fields: Field[];
-    footer: string;
-    ts?: string;
+  title: string;
+  text: string;
+  actions: Record<string, string>[];
+  fields: Field[];
+  footer: string;
+  ts?: string;
 }

@@ -14,8 +14,8 @@ console.log(chalk.red(figlet.textSync(NAME)), '\n');
 const { version } = fs.readJsonSync(path.join(__dirname, '..', 'package.json'));
 
 yargs
-    .version(version)
-    .scriptName(NAME)
-    .help('help')
-    .command(zipLambda)
-    .command(create).argv;
+  .version(version)
+  .scriptName(NAME)
+  .help('help')
+  .command(zipLambda)
+  .command(create).argv;

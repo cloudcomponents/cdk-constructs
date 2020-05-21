@@ -8,53 +8,53 @@ import 'jest-cdk-snapshot';
 import { ApprovalRuleTemplateRepositoryAssociation } from '../approval-rule-template-repositroy-association';
 
 jest.mock('../directories', () => ({
-    approvalRuleTemplateRepositoryAssociationDir: path.join(
-        __dirname,
-        'mocks',
-        'approval-rule-template-repository-association',
-    ),
+  approvalRuleTemplateRepositoryAssociationDir: path.join(
+    __dirname,
+    'mocks',
+    'approval-rule-template-repository-association',
+  ),
 }));
 
 test('default setup', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    const repository = new Repository(stack, 'Repository', {
-        repositoryName: 'repo',
-    });
+  const repository = new Repository(stack, 'Repository', {
+    repositoryName: 'repo',
+  });
 
-    new ApprovalRuleTemplateRepositoryAssociation(
-        stack,
-        'ApprovalRuleTemplateRepositoryAssociation',
-        {
-            approvalRuleTemplateName: 'name',
-            repository,
-        },
-    );
+  new ApprovalRuleTemplateRepositoryAssociation(
+    stack,
+    'ApprovalRuleTemplateRepositoryAssociation',
+    {
+      approvalRuleTemplateName: 'name',
+      repository,
+    },
+  );
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });
 
 test('onOverridden', (): void => {
-    const stack = new Stack();
+  const stack = new Stack();
 
-    const repository = new Repository(stack, 'Repository', {
-        repositoryName: 'repo',
-    });
+  const repository = new Repository(stack, 'Repository', {
+    repositoryName: 'repo',
+  });
 
-    const ruleAsscociation = new ApprovalRuleTemplateRepositoryAssociation(
-        stack,
-        'ApprovalRuleTemplateRepositoryAssociation',
-        {
-            approvalRuleTemplateName: 'name',
-            repository,
-        },
-    );
+  const ruleAsscociation = new ApprovalRuleTemplateRepositoryAssociation(
+    stack,
+    'ApprovalRuleTemplateRepositoryAssociation',
+    {
+      approvalRuleTemplateName: 'name',
+      repository,
+    },
+  );
 
-    const topic = new Topic(stack, 'Topic');
+  const topic = new Topic(stack, 'Topic');
 
-    ruleAsscociation.onOverridden('overridden', {
-        target: new SnsTopic(topic),
-    });
+  ruleAsscociation.onOverridden('overridden', {
+    target: new SnsTopic(topic),
+  });
 
-    expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot();
 });

@@ -7,12 +7,12 @@ config();
 const app = new App();
 
 new BlueGreenContainerDeploymentStack(
-    app,
-    'BlueGreenContainerDeploymentStack',
-    {
-        env: {
-            region: process.env.DEFAULT_REGION,
-            account: process.env.CDK_DEFAULT_ACCOUNT,
-        },
+  app,
+  'BlueGreenContainerDeploymentStack',
+  {
+    env: {
+      region: process.env.DEFAULT_REGION,
+      account: process.env.CDK_DEFAULT_ACCOUNT,
     },
+  },
 );

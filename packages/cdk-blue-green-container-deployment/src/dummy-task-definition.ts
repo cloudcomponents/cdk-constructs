@@ -1,106 +1,98 @@
 import * as path from 'path';
 import {
-    Construct,
-    CustomResource,
-    CustomResourceProvider,
-    CustomResourceProviderRuntime,
+  Construct,
+  CustomResource,
+  CustomResourceProvider,
+  CustomResourceProviderRuntime,
 } from '@aws-cdk/core';
 
 import { NetworkMode } from '@aws-cdk/aws-ecs';
 import {
-    Role,
-    ServicePrincipal,
-    ManagedPolicy,
-    PolicyStatement,
-    Effect,
-    IRole,
+  Role,
+  ServicePrincipal,
+  ManagedPolicy,
+  PolicyStatement,
+  Effect,
+  IRole,
 } from '@aws-cdk/aws-iam';
 
 export interface IDummyTaskDefinition {
-    readonly executionRole: IRole;
+  readonly executionRole: IRole;
 
-    readonly family: string;
+  readonly family: string;
 
-    readonly taskDefinitionArn: string;
+  readonly taskDefinitionArn: string;
 }
 export interface DummyTaskDefinitionProps {
-    family?: string;
-    image: string;
-    containerPort?: number;
+  family?: string;
+  image: string;
+  containerPort?: number;
 }
 
 export class DummyTaskDefinition extends Construct
-    implements IDummyTaskDefinition {
-    public readonly executionRole: IRole;
+  implements IDummyTaskDefinition {
+  public readonly executionRole: IRole;
 
-    public readonly family: string;
+  public readonly family: string;
 
-    public readonly taskDefinitionArn: string;
+  public readonly taskDefinitionArn: string;
 
-    constructor(
-        parent: Construct,
-        id: string,
-        props: DummyTaskDefinitionProps,
-    ) {
-        super(parent, id);
+  constructor(parent: Construct, id: string, props: DummyTaskDefinitionProps) {
+    super(parent, id);
 
-        this.executionRole = new Role(this, 'ExecutionRole', {
-            assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),
-            managedPolicies: [
-                ManagedPolicy.fromAwsManagedPolicyName(
-                    'service-role/AmazonECSTaskExecutionRolePolicy',
-                ),
+    this.executionRole = new Role(this, 'ExecutionRole', {
+      assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),
+      managedPolicies: [
+        ManagedPolicy.fromAwsManagedPolicyName(
+          'service-role/AmazonECSTaskExecutionRolePolicy',
+        ),
+      ],
+    });
+
+    const serviceToken = CustomResourceProvider.getOrCreate(
+      this,
+      'Custom::DummyTaskDefinition',
+      {
+        codeDirectory: path.join(__dirname, 'lambdas', 'dummy-task-definition'),
+        runtime: CustomResourceProviderRuntime.NODEJS_12,
+        policyStatements: [
+          {
+            Effect: Effect.ALLOW,
+            Action: [
+              'ecs:RegisterTaskDefinition',
+              'ecs:DeregisterTaskDefinition',
             ],
-        });
+            Resource: '*',
+          },
+          {
+            Effect: Effect.ALLOW,
+            Action: ['iam:PassRole'],
+            Resource: this.executionRole.roleArn,
+          },
+        ],
+      },
+    );
 
-        const serviceToken = CustomResourceProvider.getOrCreate(
-            this,
-            'Custom::DummyTaskDefinition',
-            {
-                codeDirectory: path.join(
-                    __dirname,
-                    'lambdas',
-                    'dummy-task-definition',
-                ),
-                runtime: CustomResourceProviderRuntime.NODEJS_12,
-                policyStatements: [
-                    {
-                        Effect: Effect.ALLOW,
-                        Action: [
-                            'ecs:RegisterTaskDefinition',
-                            'ecs:DeregisterTaskDefinition',
-                        ],
-                        Resource: '*',
-                    },
-                    {
-                        Effect: Effect.ALLOW,
-                        Action: ['iam:PassRole'],
-                        Resource: this.executionRole.roleArn,
-                    },
-                ],
-            },
-        );
+    this.family = props.family || this.node.uniqueId;
 
-        this.family = props.family || this.node.uniqueId;
+    const taskDefinition = new CustomResource(this, 'CustomResource', {
+      serviceToken,
+      resourceType: 'Custom::DummyTaskDefinition',
+      properties: {
+        Family: this.family,
+        Image: props.image,
+        ExecutionRoleArn: this.executionRole.roleArn,
+        NetworkMode: NetworkMode.AWS_VPC,
+      },
+    });
 
-        const taskDefinition = new CustomResource(this, 'CustomResource', {
-            serviceToken,
-            resourceType: 'Custom::DummyTaskDefinition',
-            properties: {
-                Family: this.family,
-                Image: props.image,
-                ExecutionRoleArn: this.executionRole.roleArn,
-                NetworkMode: NetworkMode.AWS_VPC,
-            },
-        });
+    this.taskDefinitionArn = taskDefinition.ref;
+  }
 
-        this.taskDefinitionArn = taskDefinition.ref;
-    }
-
-    /**
-     * Adds a policy statement to the task execution IAM role.
-     */
-    public addToExecutionRolePolicy(statement: PolicyStatement): void {
-        this.executionRole.addToPolicy(statement);
-    }
+  /**
+   * Adds a policy statement to the task execution IAM role.
+   */
+  public addToExecutionRolePolicy(statement: PolicyStatement): void {
+    this.executionRole.addToPolicy(statement);
+  }
 }
