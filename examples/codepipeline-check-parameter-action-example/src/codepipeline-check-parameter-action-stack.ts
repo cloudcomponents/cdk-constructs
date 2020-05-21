@@ -2,9 +2,9 @@ import { App, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { CodepipelineCheckParameterAction } from '@cloudcomponents/cdk-codepipeline-check-parameter-action';
+import { CodePipelineCheckParameterAction } from '@cloudcomponents/cdk-codepipeline-check-parameter-action';
 
-export class CodepipelineCheckParameterActionStack extends Stack {
+export class CodePipelineCheckParameterActionStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 
@@ -22,7 +22,7 @@ export class CodepipelineCheckParameterActionStack extends Stack {
             branch: 'master',
         });
 
-        const checkAction = new CodepipelineCheckParameterAction({
+        const checkAction = new CodePipelineCheckParameterAction({
             actionName: 'Check',
             parameterName: '/test',
             regExp: /^The.*Spain$/,

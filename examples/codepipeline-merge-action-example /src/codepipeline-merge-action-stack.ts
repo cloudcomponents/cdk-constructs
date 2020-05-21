@@ -2,9 +2,9 @@ import { App, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { CodepipelineMergeAction } from '@cloudcomponents/cdk-codepipeline-merge-action';
+import { CodePipelineMergeAction } from '@cloudcomponents/cdk-codepipeline-merge-action';
 
-export class CodepipelineMergeActionStack extends Stack {
+export class CodePipelineMergeActionStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 
@@ -22,7 +22,7 @@ export class CodepipelineMergeActionStack extends Stack {
             branch: 'next',
         });
 
-        const mergeAction = new CodepipelineMergeAction({
+        const mergeAction = new CodePipelineMergeAction({
             actionName: 'Merge',
             repository,
             sourceCommitSpecifier: 'next',

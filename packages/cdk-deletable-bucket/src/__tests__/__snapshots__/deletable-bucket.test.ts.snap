@@ -1,0 +1,314 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default setup 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061ArtifactHash40CCFA64": Object {
+      "Description": "Artifact hash for asset \\"4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061\\"",
+      "Type": "String",
+    },
+    "AssetParameters4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061S3Bucket0A1029B1": Object {
+      "Description": "S3 bucket for asset \\"4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061\\"",
+      "Type": "String",
+    },
+    "AssetParameters4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061S3VersionKeyFB75FDAC": Object {
+      "Description": "S3 key for asset version \\"4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061\\"",
+      "Type": "String",
+    },
+    "AssetParameters76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6fArtifactHash009B293C": Object {
+      "Description": "Artifact hash for asset \\"76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6f\\"",
+      "Type": "String",
+    },
+    "AssetParameters76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6fS3BucketB6CD09A5": Object {
+      "Description": "S3 bucket for asset \\"76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6f\\"",
+      "Type": "String",
+    },
+    "AssetParameters76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6fS3VersionKey3E23209A": Object {
+      "Description": "S3 key for asset version \\"76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6f\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "DeletableBucket57D73C39": Object {
+      "DeletionPolicy": "Delete",
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "DeletableBucketEmptyBucketCustomResource2332430B": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "BucketName": Object {
+          "Ref": "DeletableBucket57D73C39",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEvent3E17DC13",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::EmptyBucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEvent3E17DC13": Object {
+      "DependsOn": Array [
+        "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicy12B3C80B",
+        "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleF9BBD633",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061S3Bucket0A1029B1",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061S3VersionKeyFB75FDAC",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4c2988a57571fd4c34de12bae67441541aeea1a59e085f95e5b708922ff45061S3VersionKeyFB75FDAC",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleF9BBD633",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs10.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicy12B3C80B": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicy12B3C80B",
+        "Roles": Array [
+          Object {
+            "Ref": "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleF9BBD633",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "DeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleF9BBD633": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE": Object {
+      "DependsOn": Array [
+        "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909",
+        "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6fS3BucketB6CD09A5",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6fS3VersionKey3E23209A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters76781028b5efb85dabb209c5959bba74ee7a5dfea0c0aa2f7739a9d6089f5c6fS3VersionKey3E23209A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "DeletableBucket57D73C39",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "DeletableBucket57D73C39",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909",
+        "Roles": Array [
+          Object {
+            "Ref": "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;

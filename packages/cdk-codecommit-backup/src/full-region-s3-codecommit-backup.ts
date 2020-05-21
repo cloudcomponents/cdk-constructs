@@ -15,7 +15,7 @@ import { PolicyStatement } from '@aws-cdk/aws-iam';
 const S3_BUCKET_ENV = 'SCRIPTS_BUCKET';
 const S3_KEY_ENV = 'SCRIPTS_BUCKET_KEY';
 
-export interface FullRegionS3CodecommitBackupProps {
+export interface FullRegionS3CodeCommitBackupProps {
     /**
      * Bucket for storing the backups.
      */
@@ -42,13 +42,13 @@ export interface FullRegionS3CodecommitBackupProps {
     readonly computeType?: ComputeType;
 }
 
-export class FullRegionS3CodecommitBackup extends Construct {
+export class FullRegionS3CodeCommitBackup extends Construct {
     private readonly backupProject: Project;
 
     constructor(
         scope: Construct,
         id: string,
-        props: FullRegionS3CodecommitBackupProps,
+        props: FullRegionS3CodeCommitBackupProps,
     ) {
         super(scope, id);
 

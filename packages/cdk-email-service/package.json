@@ -1,0 +1,49 @@
+{
+    "name": "@cloudcomponents/cdk-email-service",
+    "version": "1.0.0",
+    "description": "",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cloudcomponents/cdk-components",
+        "directory": "packages/cdk-email-service"
+    },
+    "keywords": [
+        "aws",
+        "cdk",
+        "ses",
+        "email",
+        "templates",
+        "@cloudcomponents"
+    ],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "peerDependencies": {
+        "aws-sdk": "^2.673.0"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-iam": "^1.39.0",
+        "@aws-cdk/aws-sns": "^1.39.0",
+        "@aws-cdk/aws-ses": "^1.39.0",
+        "@aws-cdk/aws-lambda-event-sources": "^1.39.0",
+        "@aws-cdk/custom-resources": "^1.39.0",
+        "@aws-cdk/core": "^1.39.0"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.39.0",
+        "@types/aws-lambda": "^8.10.51",
+        "aws-sdk": "^2.678.0",
+        "jest-cdk-snapshot": "^1.3.0",
+        "typescript": "^3.9.2"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

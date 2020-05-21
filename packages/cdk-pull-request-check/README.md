@@ -2,6 +2,8 @@
 
 # @cloudcomponents/cdk-pull-request-check
 
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
 > Cdk component that automatically check pull requests
 
 ## Install
@@ -18,7 +20,7 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 
-export class CodepipelineStack extends Stack {
+export class CodePipelineStack extends Stack {
     constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 
@@ -26,7 +28,7 @@ export class CodepipelineStack extends Stack {
             repositoryName: 'MyRepositoryName',
         });
 
-        // Codepipeline etc.
+        // CodePipeline etc.
 
         new PullRequestCheck(this, 'PullRequestCheck', {
             repository,
@@ -48,7 +50,7 @@ import {
     ApprovalRuleTemplateRepositoryAssociation,
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
-export class CodepipelinePullRequestCheckStack extends Stack {
+export class CodePipelinePullRequestCheckStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 
@@ -100,7 +102,7 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 
-export class CodepipelineStack extends Stack {
+export class CodePipelineStack extends Stack {
     constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 
@@ -109,7 +111,7 @@ export class CodepipelineStack extends Stack {
             description: 'Some description.', // optional property
         });
 
-        // Your Codepipeline...
+        // Your CodePipeline...
 
         const prCheck = new PullRequestCheck(this, 'PullRequestCheck', {
             repository,

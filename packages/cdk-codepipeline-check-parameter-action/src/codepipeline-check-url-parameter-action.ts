@@ -1,12 +1,12 @@
 import * as urlRegex from 'url-regex';
 
 import {
-    CodepipelineCheckParameterAction,
-    CodepipelineCheckParameterActionProps,
+    CodePipelineCheckParameterAction,
+    CodePipelineCheckParameterActionProps,
 } from './codepipeline-check-parameter-action';
 
-export interface CodepipelineCheckUrlParameterActionProps
-    extends Omit<CodepipelineCheckParameterActionProps, 'regExp'> {
+export interface CodePipelineCheckUrlParameterActionProps
+    extends Omit<CodePipelineCheckParameterActionProps, 'regExp'> {
     /**
      * Only match an exact string
      *
@@ -20,8 +20,8 @@ export interface CodepipelineCheckUrlParameterActionProps
     readonly strict?: boolean;
 }
 
-export class CodepipelineCheckUrlParameterAction extends CodepipelineCheckParameterAction {
-    constructor(props: CodepipelineCheckUrlParameterActionProps) {
+export class CodePipelineCheckUrlParameterAction extends CodePipelineCheckParameterAction {
+    constructor(props: CodePipelineCheckUrlParameterActionProps) {
         const { exact = true, strict = true, ...rest } = props;
 
         super({

@@ -33,7 +33,7 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "S3CodecommitBackupBackupProject92CAF3BE": Object {
+    "S3CodeCommitBackupBackupProjectC3E749BB": Object {
       "Properties": Object {
         "Artifacts": Object {
           "Type": "NO_ARTIFACTS",
@@ -46,7 +46,7 @@ Object {
         },
         "ServiceRole": Object {
           "Fn::GetAtt": Array [
-            "S3CodecommitBackupBackupProjectRole1AE06943",
+            "S3CodeCommitBackupBackupProjectRoleD3A8AC78",
             "Arn",
           ],
         },
@@ -102,7 +102,7 @@ Object {
       },
       "Type": "AWS::CodeBuild::Project",
     },
-    "S3CodecommitBackupBackupProjectEventsRoleD78BA4F1": Object {
+    "S3CodeCommitBackupBackupProjectEventsRoleB0ED5BDB": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -119,7 +119,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "S3CodecommitBackupBackupProjectEventsRoleDefaultPolicyDB9A02C4": Object {
+    "S3CodeCommitBackupBackupProjectEventsRoleDefaultPolicy62BEB058": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -128,7 +128,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "S3CodecommitBackupBackupProject92CAF3BE",
+                  "S3CodeCommitBackupBackupProjectC3E749BB",
                   "Arn",
                 ],
               },
@@ -136,16 +136,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "S3CodecommitBackupBackupProjectEventsRoleDefaultPolicyDB9A02C4",
+        "PolicyName": "S3CodeCommitBackupBackupProjectEventsRoleDefaultPolicy62BEB058",
         "Roles": Array [
           Object {
-            "Ref": "S3CodecommitBackupBackupProjectEventsRoleD78BA4F1",
+            "Ref": "S3CodeCommitBackupBackupProjectEventsRoleB0ED5BDB",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "S3CodecommitBackupBackupProjectRole1AE06943": Object {
+    "S3CodeCommitBackupBackupProjectRoleD3A8AC78": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -162,7 +162,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "S3CodecommitBackupBackupProjectRoleDefaultPolicy0DD7A726": Object {
+    "S3CodeCommitBackupBackupProjectRoleDefaultPolicyFDEDDCCE": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -192,7 +192,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                        "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
                       },
                     ],
                   ],
@@ -215,7 +215,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                        "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
                       },
                       ":*",
                     ],
@@ -249,7 +249,7 @@ Object {
                     },
                     ":report-group/",
                     Object {
-                      "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                      "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
                     },
                     "-*",
                   ],
@@ -310,16 +310,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "S3CodecommitBackupBackupProjectRoleDefaultPolicy0DD7A726",
+        "PolicyName": "S3CodeCommitBackupBackupProjectRoleDefaultPolicyFDEDDCCE",
         "Roles": Array [
           Object {
-            "Ref": "S3CodecommitBackupBackupProjectRole1AE06943",
+            "Ref": "S3CodeCommitBackupBackupProjectRoleD3A8AC78",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "S3CodecommitBackupScheduleRuleBDDF5519": Object {
+    "S3CodeCommitBackupScheduleRule653D4FDB": Object {
       "Properties": Object {
         "ScheduleExpression": "cron(0 4 * * ? *)",
         "State": "ENABLED",
@@ -327,14 +327,14 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "S3CodecommitBackupBackupProject92CAF3BE",
+                "S3CodeCommitBackupBackupProjectC3E749BB",
                 "Arn",
               ],
             },
             "Id": "Target0",
             "RoleArn": Object {
               "Fn::GetAtt": Array [
-                "S3CodecommitBackupBackupProjectEventsRoleD78BA4F1",
+                "S3CodeCommitBackupBackupProjectEventsRoleB0ED5BDB",
                 "Arn",
               ],
             },
@@ -380,7 +380,7 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "S3CodecommitBackupBackupProject92CAF3BE": Object {
+    "S3CodeCommitBackupBackupProjectC3E749BB": Object {
       "Properties": Object {
         "Artifacts": Object {
           "Type": "NO_ARTIFACTS",
@@ -393,7 +393,7 @@ Object {
         },
         "ServiceRole": Object {
           "Fn::GetAtt": Array [
-            "S3CodecommitBackupBackupProjectRole1AE06943",
+            "S3CodeCommitBackupBackupProjectRoleD3A8AC78",
             "Arn",
           ],
         },
@@ -449,7 +449,7 @@ Object {
       },
       "Type": "AWS::CodeBuild::Project",
     },
-    "S3CodecommitBackupBackupProjectEventsRoleD78BA4F1": Object {
+    "S3CodeCommitBackupBackupProjectEventsRoleB0ED5BDB": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -466,7 +466,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "S3CodecommitBackupBackupProjectEventsRoleDefaultPolicyDB9A02C4": Object {
+    "S3CodeCommitBackupBackupProjectEventsRoleDefaultPolicy62BEB058": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -475,7 +475,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "S3CodecommitBackupBackupProject92CAF3BE",
+                  "S3CodeCommitBackupBackupProjectC3E749BB",
                   "Arn",
                 ],
               },
@@ -483,16 +483,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "S3CodecommitBackupBackupProjectEventsRoleDefaultPolicyDB9A02C4",
+        "PolicyName": "S3CodeCommitBackupBackupProjectEventsRoleDefaultPolicy62BEB058",
         "Roles": Array [
           Object {
-            "Ref": "S3CodecommitBackupBackupProjectEventsRoleD78BA4F1",
+            "Ref": "S3CodeCommitBackupBackupProjectEventsRoleB0ED5BDB",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "S3CodecommitBackupBackupProjectRole1AE06943": Object {
+    "S3CodeCommitBackupBackupProjectRoleD3A8AC78": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -509,7 +509,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "S3CodecommitBackupBackupProjectRoleDefaultPolicy0DD7A726": Object {
+    "S3CodeCommitBackupBackupProjectRoleDefaultPolicyFDEDDCCE": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -539,7 +539,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                        "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
                       },
                     ],
                   ],
@@ -562,7 +562,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                        "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
                       },
                       ":*",
                     ],
@@ -596,7 +596,7 @@ Object {
                     },
                     ":report-group/",
                     Object {
-                      "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                      "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
                     },
                     "-*",
                   ],
@@ -657,16 +657,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "S3CodecommitBackupBackupProjectRoleDefaultPolicy0DD7A726",
+        "PolicyName": "S3CodeCommitBackupBackupProjectRoleDefaultPolicyFDEDDCCE",
         "Roles": Array [
           Object {
-            "Ref": "S3CodecommitBackupBackupProjectRole1AE06943",
+            "Ref": "S3CodeCommitBackupBackupProjectRoleD3A8AC78",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "S3CodecommitBackupBackupProjectfailed2E64FE18": Object {
+    "S3CodeCommitBackupBackupProjectfailed80AC0893": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -675,7 +675,7 @@ Object {
             ],
             "project-name": Array [
               Object {
-                "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
               },
             ],
           },
@@ -698,7 +698,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "S3CodecommitBackupBackupProjectstartedB41DC829": Object {
+    "S3CodeCommitBackupBackupProjectstarted44B1DD39": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -707,7 +707,7 @@ Object {
             ],
             "project-name": Array [
               Object {
-                "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
               },
             ],
           },
@@ -730,7 +730,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "S3CodecommitBackupBackupProjectsucceeded91711467": Object {
+    "S3CodeCommitBackupBackupProjectsucceededF6797C74": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -739,7 +739,7 @@ Object {
             ],
             "project-name": Array [
               Object {
-                "Ref": "S3CodecommitBackupBackupProject92CAF3BE",
+                "Ref": "S3CodeCommitBackupBackupProjectC3E749BB",
               },
             ],
           },
@@ -762,7 +762,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "S3CodecommitBackupScheduleRuleBDDF5519": Object {
+    "S3CodeCommitBackupScheduleRule653D4FDB": Object {
       "Properties": Object {
         "ScheduleExpression": "cron(0 4 * * ? *)",
         "State": "ENABLED",
@@ -770,14 +770,14 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "S3CodecommitBackupBackupProject92CAF3BE",
+                "S3CodeCommitBackupBackupProjectC3E749BB",
                 "Arn",
               ],
             },
             "Id": "Target0",
             "RoleArn": Object {
               "Fn::GetAtt": Array [
-                "S3CodecommitBackupBackupProjectEventsRoleD78BA4F1",
+                "S3CodeCommitBackupBackupProjectEventsRoleB0ED5BDB",
                 "Arn",
               ],
             },

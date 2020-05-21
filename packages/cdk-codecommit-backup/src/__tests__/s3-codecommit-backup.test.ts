@@ -4,7 +4,7 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { Topic } from '@aws-cdk/aws-sns';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { S3CodecommitBackup } from '../s3-codecommit-backup';
+import { S3CodeCommitBackup } from '../s3-codecommit-backup';
 import { BackupBucket } from '../backup-bucket';
 
 test('default setup', (): void => {
@@ -19,7 +19,7 @@ test('default setup', (): void => {
     const backupBucket = new BackupBucket(stack, 'BackupBucket');
 
     // The following example runs a task every day at 4am
-    new S3CodecommitBackup(stack, 'S3CodecommitBackup', {
+    new S3CodeCommitBackup(stack, 'S3CodeCommitBackup', {
         backupBucket,
         repository,
         schedule: Schedule.cron({ minute: '0', hour: '4' }),
@@ -42,7 +42,7 @@ test('events', (): void => {
     const backupBucket = new BackupBucket(stack, 'BackupBucket');
 
     // The following example runs a task every day at 4am
-    const backup = new S3CodecommitBackup(stack, 'S3CodecommitBackup', {
+    const backup = new S3CodeCommitBackup(stack, 'S3CodeCommitBackup', {
         backupBucket,
         repository,
         schedule: Schedule.cron({ minute: '0', hour: '4' }),

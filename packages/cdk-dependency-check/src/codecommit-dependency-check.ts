@@ -15,7 +15,7 @@ import { Bucket } from '@aws-cdk/aws-s3';
 
 import { Cli, ScanProps } from './cli';
 
-export interface CodecommitDependencyCheckProps {
+export interface CodeCommitDependencyCheckProps {
     /**
      * The repository to be checked
      */
@@ -92,13 +92,13 @@ export interface CodecommitDependencyCheckProps {
     readonly reportsBucket?: Bucket;
 }
 
-export class CodecommitDependencyCheck extends Construct {
+export class CodeCommitDependencyCheck extends Construct {
     private readonly checkProject: Project;
 
     constructor(
         scope: Construct,
         id: string,
-        props: CodecommitDependencyCheckProps,
+        props: CodeCommitDependencyCheckProps,
     ) {
         super(scope, id);
 

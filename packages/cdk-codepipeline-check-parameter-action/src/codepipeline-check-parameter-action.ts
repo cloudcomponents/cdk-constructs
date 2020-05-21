@@ -14,7 +14,7 @@ import * as path from 'path';
 
 const LAMBDA_PATH = path.join(__dirname, '..', 'lambdas');
 
-export interface CodepipelineCheckParameterActionProps
+export interface CodePipelineCheckParameterActionProps
     extends CommonAwsActionProps {
     /**
      * The name of the parameter.
@@ -35,12 +35,12 @@ export interface CodepipelineCheckParameterActionProps
 }
 
 /**
- * Represents a reference to a CodepipelineCheckParameterAction.
+ * Represents a reference to a CodePipelineCheckParameterAction.
  */
-export class CodepipelineCheckParameterAction extends Action {
-    private readonly props: CodepipelineCheckParameterActionProps;
+export class CodePipelineCheckParameterAction extends Action {
+    private readonly props: CodePipelineCheckParameterActionProps;
 
-    constructor(props: CodepipelineCheckParameterActionProps) {
+    constructor(props: CodePipelineCheckParameterActionProps) {
         super({
             ...props,
             category: ActionCategory.INVOKE,

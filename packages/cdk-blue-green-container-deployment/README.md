@@ -2,6 +2,8 @@
 
 # @cloudcomponents/cdk-blue-green-container-deployment
 
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
 > Blue green container deployment
 
 ## Install

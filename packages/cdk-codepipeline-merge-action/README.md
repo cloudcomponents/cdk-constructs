@@ -2,6 +2,8 @@
 
 # @cloudcomponents/cdk-codepipeline-merge-action
 
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
 > Cdk component that automatically merge branches in codepipelines
 
 ## Install
@@ -17,17 +19,16 @@ import { App, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { CodepipelineMergeAction } from '@cloudcomponents/cdk-codepipeline-merge-action';
+import { CodePipelineMergeAction } from '@cloudcomponents/cdk-codepipeline-merge-action';
 
 const PIPELINE_BRANCH = 'next';
 
-export class CodepipelineMergeActionStack extends Stack {
+export class CodePipelineMergeActionStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 
         const repository = new Repository(this, 'Repository', {
             repositoryName: 'MyRepositoryName',
-            description: 'Some description.', // optional property
         });
 
         const sourceArtifact = new Artifact();
@@ -39,7 +40,7 @@ export class CodepipelineMergeActionStack extends Stack {
             branch: PIPELINE_BRANCH,
         });
 
-        const mergeAction = new CodepipelineMergeAction({
+        const mergeAction = new CodePipelineMergeAction({
             actionName: 'MergeIntoMaster',
             repository,
             sourceCommitSpecifier: PIPELINE_BRANCH,

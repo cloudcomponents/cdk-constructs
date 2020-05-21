@@ -1,5 +1,5 @@
+import { Construct } from '@aws-cdk/core';
 import { ITopic } from '@aws-cdk/aws-sns';
-
 import { ISlackChannelConfiguration } from '@cloudcomponents/cdk-chatops';
 
 export interface NotificationTargetProperty {
@@ -8,13 +8,13 @@ export interface NotificationTargetProperty {
 }
 
 export interface INotificationTarget {
-    bind(): NotificationTargetProperty;
+    bind(scope: Construct): NotificationTargetProperty;
 }
 
 export class SnsTopic implements INotificationTarget {
     constructor(private readonly topic: ITopic) {}
 
-    public bind(): NotificationTargetProperty {
+    public bind(_scope: Construct): NotificationTargetProperty {
         return {
             targetType: TargetType.SNS,
             targetAddress: this.topic.topicArn,
@@ -25,7 +25,7 @@ export class SnsTopic implements INotificationTarget {
 export class SlackChannel implements INotificationTarget {
     constructor(private readonly channel: ISlackChannelConfiguration) {}
 
-    public bind(): NotificationTargetProperty {
+    public bind(_scope: Construct): NotificationTargetProperty {
         return {
             targetType: TargetType.AWSChatbotSlack,
             targetAddress: this.channel.configurationArn,

@@ -1,12 +1,12 @@
 import * as emailRegex from 'email-regex';
 
 import {
-    CodepipelineCheckParameterAction,
-    CodepipelineCheckParameterActionProps,
+    CodePipelineCheckParameterAction,
+    CodePipelineCheckParameterActionProps,
 } from './codepipeline-check-parameter-action';
 
-export interface CodepipelineCheckEmailParameterActionProps
-    extends Omit<CodepipelineCheckParameterActionProps, 'regExp'> {
+export interface CodePipelineCheckEmailParameterActionProps
+    extends Omit<CodePipelineCheckParameterActionProps, 'regExp'> {
     /**
      * Only match an exact string
      *
@@ -15,8 +15,8 @@ export interface CodepipelineCheckEmailParameterActionProps
     readonly exact?: boolean;
 }
 
-export class CodepipelineCheckEmailParameterAction extends CodepipelineCheckParameterAction {
-    constructor(props: CodepipelineCheckEmailParameterActionProps) {
+export class CodePipelineCheckEmailParameterAction extends CodePipelineCheckParameterAction {
+    constructor(props: CodePipelineCheckEmailParameterActionProps) {
         const { exact = true, ...rest } = props;
 
         super({

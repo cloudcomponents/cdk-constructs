@@ -15,7 +15,7 @@ import * as path from 'path';
 
 const LAMBDA_PATH = path.join(__dirname, '..', 'lambdas');
 
-export interface CodepipelineMergeActionProps extends CommonAwsActionProps {
+export interface CodePipelineMergeActionProps extends CommonAwsActionProps {
     /**
      * The CodeCommit repository.
      */
@@ -35,12 +35,12 @@ export interface CodepipelineMergeActionProps extends CommonAwsActionProps {
 }
 
 /**
- * Represents a reference to a CodepipelineMergeAction.
+ * Represents a reference to a CodePipelineMergeAction.
  */
-export class CodepipelineMergeAction extends Action {
-    private readonly props: CodepipelineMergeActionProps;
+export class CodePipelineMergeAction extends Action {
+    private readonly props: CodePipelineMergeActionProps;
 
-    constructor(props: CodepipelineMergeActionProps) {
+    constructor(props: CodePipelineMergeActionProps) {
         super({
             ...props,
             category: ActionCategory.INVOKE,

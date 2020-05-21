@@ -2,6 +2,8 @@
 
 # @cloudcomponents/cdk-codecommit-backup
 
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
 > Backup CodeCommit repositories to S3
 
 ## Install
@@ -21,10 +23,10 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import {
     BackupBucket,
-    S3CodecommitBackup,
+    S3CodeCommitBackup,
 } from '@cloudcomponents/cdk-codecommit-backup';
 
-export class S3CodecommitBackupStack extends Stack {
+export class S3CodeCommitBackupStack extends Stack {
     public constructor(scope: App, id: string, props?: StackProps) {
         super(scope, id, props);
 
@@ -39,7 +41,7 @@ export class S3CodecommitBackupStack extends Stack {
         });
 
         // The following example runs a task every day at 4am
-        const backup = new S3CodecommitBackup(this, 'S3CodecommitBackup', {
+        const backup = new S3CodeCommitBackup(this, 'S3CodeCommitBackup', {
             backupBucket,
             repository,
             schedule: Schedule.cron({
@@ -81,10 +83,10 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import {
     BackupBucket,
-    FullRegionS3CodecommitBackup,
+    FullRegionS3CodeCommitBackup,
 } from '@cloudcomponents/cdk-codecommit-backup';
 
-export class FullRegionS3CodecommitBackupStack extends Stack {
+export class FullRegionS3CodeCommitBackupStack extends Stack {
     public constructor(scope: App, id: string, props?: StackProps) {
         super(scope, id, props);
 
@@ -93,9 +95,9 @@ export class FullRegionS3CodecommitBackupStack extends Stack {
         });
 
         // The following example runs a task every day at 4am
-        const backup = new FullRegionS3CodecommitBackup(
+        const backup = new FullRegionS3CodeCommitBackup(
             this,
-            'FullRegionS3CodecommitBackup',
+            'FullRegionS3CodeCommitBackup',
             {
                 backupBucket,
                 // repositoryNames: ['repo1', 'repo2'],

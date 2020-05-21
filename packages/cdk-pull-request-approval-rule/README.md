@@ -2,7 +2,9 @@
 
 # @cloudcomponents/cdk-pull-request-approval-rule
 
-> Codecommit pull request approval rules
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
+> CodeCommit pull request approval rules
 
 ## Install
 
@@ -22,7 +24,7 @@ import {
     ApprovalRuleTemplateRepositoryAssociation,
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
-export class CodepipelinePullRequestCheckStack extends Stack {
+export class CodePipelinePullRequestCheckStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 
@@ -76,7 +78,7 @@ import {
     ApprovalRuleTemplateRepositoryAssociation,
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
-export class CodepipelinePullRequestCheckStack extends Stack {
+export class CodePipelinePullRequestCheckStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 

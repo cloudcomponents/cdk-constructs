@@ -2,6 +2,8 @@
 
 # @cloudcomponents/cdk-dependency-check
 
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
 > [OWASP dependency-check](https://owasp.org/www-project-dependency-check/) for codecommit repositories
 
 ## Install
@@ -19,7 +21,7 @@ import { Schedule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import { CodecommitDependencyCheck } from '@cloudcomponents/cdk-dependency-check';
+import { CodeCommitDependencyCheck } from '@cloudcomponents/cdk-dependency-check';
 
 export class DependencyCheckStack extends Stack {
     public constructor(scope: App, id: string, props?: StackProps) {
@@ -32,9 +34,9 @@ export class DependencyCheckStack extends Stack {
         );
 
         // The following example runs a task every day at 4am
-        const check = new CodecommitDependencyCheck(
+        const check = new CodeCommitDependencyCheck(
             this,
-            'CodecommitDependencyCheck',
+            'CodeCommitDependencyCheck',
             {
                 repository,
                 preCheckCommand: 'npm i',
@@ -72,7 +74,7 @@ export class DependencyCheckStack extends Stack {
 const reportsBucket = new Bucket(this, 'Bucket');
 
 // The following example runs a task every day at 4am
-const check = new CodecommitDependencyCheck(this, 'CodecommitDependencyCheck', {
+const check = new CodeCommitDependencyCheck(this, 'CodeCommitDependencyCheck', {
     repository,
     reportsBucket,
     preCheckCommand: 'npm i',

@@ -85,6 +85,9 @@ export const handler = async (
     switch (requestType) {
         case 'Create':
             return onCreate(event as CloudFormationCustomResourceCreateEvent);
+        case 'Update':
+            // CodeDeploy is responsible for updates on the TaskDefinition
+            return;
         case 'Delete':
             return onDelete(event as CloudFormationCustomResourceDeleteEvent);
         default:

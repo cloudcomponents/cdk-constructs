@@ -13,10 +13,16 @@ import {
     SlackChannel,
 } from '@cloudcomponents/cdk-developer-tools-notifications';
 import { SlackChannelConfiguration } from '@cloudcomponents/cdk-chatops';
+import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 export class NotificationsStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
+
+        new DeletableBucket(this, 'DeletableBucket', {
+            bucketName: 'ccloudcomponentsdelete123',
+            forceDelete: true,
+        });
 
         const slackChannel = new SlackChannelConfiguration(
             this,

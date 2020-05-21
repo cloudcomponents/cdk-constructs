@@ -2,6 +2,8 @@
 
 # @cloudcomponents/cdk-container-registry
 
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
 > Registry for container images
 
 ## Install

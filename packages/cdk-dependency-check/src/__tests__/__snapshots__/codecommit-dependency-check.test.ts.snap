@@ -3,7 +3,7 @@
 exports[`default setup 1`] = `
 Object {
   "Resources": Object {
-    "CodecommitDependencyCheckCheckProject502DB37A": Object {
+    "CodeCommitDependencyCheckCheckProject490B8892": Object {
       "Properties": Object {
         "Artifacts": Object {
           "Type": "NO_ARTIFACTS",
@@ -22,7 +22,7 @@ Object {
         },
         "ServiceRole": Object {
           "Fn::GetAtt": Array [
-            "CodecommitDependencyCheckCheckProjectRole22A38DA2",
+            "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1",
             "Arn",
           ],
         },
@@ -105,7 +105,7 @@ Object {
       },
       "Type": "AWS::CodeBuild::Project",
     },
-    "CodecommitDependencyCheckCheckProjectEventsRole55008F08": Object {
+    "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -122,7 +122,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "CodecommitDependencyCheckCheckProjectEventsRoleDefaultPolicy9F7F50F2": Object {
+    "CodeCommitDependencyCheckCheckProjectEventsRoleDefaultPolicy3E8344B4": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -131,7 +131,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "CodecommitDependencyCheckCheckProject502DB37A",
+                  "CodeCommitDependencyCheckCheckProject490B8892",
                   "Arn",
                 ],
               },
@@ -139,33 +139,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "CodecommitDependencyCheckCheckProjectEventsRoleDefaultPolicy9F7F50F2",
+        "PolicyName": "CodeCommitDependencyCheckCheckProjectEventsRoleDefaultPolicy3E8344B4",
         "Roles": Array [
           Object {
-            "Ref": "CodecommitDependencyCheckCheckProjectEventsRole55008F08",
+            "Ref": "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CodecommitDependencyCheckCheckProjectRole22A38DA2": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "codebuild.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "CodecommitDependencyCheckCheckProjectRoleDefaultPolicyD7ADBCD8": Object {
+    "CodeCommitDependencyCheckCheckProjectRoleDefaultPolicyD92593DA": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -195,7 +178,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                        "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                       },
                     ],
                   ],
@@ -218,7 +201,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                        "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                       },
                       ":*",
                     ],
@@ -252,7 +235,7 @@ Object {
                     },
                     ":report-group/",
                     Object {
-                      "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                      "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                     },
                     "-*",
                   ],
@@ -292,16 +275,33 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "CodecommitDependencyCheckCheckProjectRoleDefaultPolicyD7ADBCD8",
+        "PolicyName": "CodeCommitDependencyCheckCheckProjectRoleDefaultPolicyD92593DA",
         "Roles": Array [
           Object {
-            "Ref": "CodecommitDependencyCheckCheckProjectRole22A38DA2",
+            "Ref": "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CodecommitDependencyCheckScheduleRuleC61A12F1": Object {
+    "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CodeCommitDependencyCheckScheduleRule65A51424": Object {
       "Properties": Object {
         "ScheduleExpression": "cron(0 4 * * ? *)",
         "State": "ENABLED",
@@ -309,14 +309,14 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "CodecommitDependencyCheckCheckProject502DB37A",
+                "CodeCommitDependencyCheckCheckProject490B8892",
                 "Arn",
               ],
             },
             "Id": "Target0",
             "RoleArn": Object {
               "Fn::GetAtt": Array [
-                "CodecommitDependencyCheckCheckProjectEventsRole55008F08",
+                "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4",
                 "Arn",
               ],
             },
@@ -361,7 +361,7 @@ Object {
       },
       "Type": "AWS::SNS::TopicPolicy",
     },
-    "CodecommitDependencyCheckCheckProject502DB37A": Object {
+    "CodeCommitDependencyCheckCheckProject490B8892": Object {
       "Properties": Object {
         "Artifacts": Object {
           "Type": "NO_ARTIFACTS",
@@ -380,7 +380,7 @@ Object {
         },
         "ServiceRole": Object {
           "Fn::GetAtt": Array [
-            "CodecommitDependencyCheckCheckProjectRole22A38DA2",
+            "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1",
             "Arn",
           ],
         },
@@ -463,7 +463,7 @@ Object {
       },
       "Type": "AWS::CodeBuild::Project",
     },
-    "CodecommitDependencyCheckCheckProjectEventsRole55008F08": Object {
+    "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -480,7 +480,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "CodecommitDependencyCheckCheckProjectEventsRoleDefaultPolicy9F7F50F2": Object {
+    "CodeCommitDependencyCheckCheckProjectEventsRoleDefaultPolicy3E8344B4": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -489,7 +489,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "CodecommitDependencyCheckCheckProject502DB37A",
+                  "CodeCommitDependencyCheckCheckProject490B8892",
                   "Arn",
                 ],
               },
@@ -497,33 +497,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "CodecommitDependencyCheckCheckProjectEventsRoleDefaultPolicy9F7F50F2",
+        "PolicyName": "CodeCommitDependencyCheckCheckProjectEventsRoleDefaultPolicy3E8344B4",
         "Roles": Array [
           Object {
-            "Ref": "CodecommitDependencyCheckCheckProjectEventsRole55008F08",
+            "Ref": "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CodecommitDependencyCheckCheckProjectRole22A38DA2": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "codebuild.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "CodecommitDependencyCheckCheckProjectRoleDefaultPolicyD7ADBCD8": Object {
+    "CodeCommitDependencyCheckCheckProjectRoleDefaultPolicyD92593DA": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -553,7 +536,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                        "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                       },
                     ],
                   ],
@@ -576,7 +559,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                        "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                       },
                       ":*",
                     ],
@@ -610,7 +593,7 @@ Object {
                     },
                     ":report-group/",
                     Object {
-                      "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                      "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                     },
                     "-*",
                   ],
@@ -650,16 +633,33 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "CodecommitDependencyCheckCheckProjectRoleDefaultPolicyD7ADBCD8",
+        "PolicyName": "CodeCommitDependencyCheckCheckProjectRoleDefaultPolicyD92593DA",
         "Roles": Array [
           Object {
-            "Ref": "CodecommitDependencyCheckCheckProjectRole22A38DA2",
+            "Ref": "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CodecommitDependencyCheckCheckProjectfailed458EEA09": Object {
+    "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CodeCommitDependencyCheckCheckProjectfailed08FAF287": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -668,7 +668,7 @@ Object {
             ],
             "project-name": Array [
               Object {
-                "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
               },
             ],
           },
@@ -691,7 +691,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "CodecommitDependencyCheckCheckProjectstartedD82B54EC": Object {
+    "CodeCommitDependencyCheckCheckProjectstartedA3213349": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -700,7 +700,7 @@ Object {
             ],
             "project-name": Array [
               Object {
-                "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
               },
             ],
           },
@@ -723,7 +723,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "CodecommitDependencyCheckCheckProjectsucceeded8CD84271": Object {
+    "CodeCommitDependencyCheckCheckProjectsucceeded4A50E207": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -732,7 +732,7 @@ Object {
             ],
             "project-name": Array [
               Object {
-                "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
               },
             ],
           },
@@ -755,7 +755,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "CodecommitDependencyCheckScheduleRuleC61A12F1": Object {
+    "CodeCommitDependencyCheckScheduleRule65A51424": Object {
       "Properties": Object {
         "ScheduleExpression": "cron(0 4 * * ? *)",
         "State": "ENABLED",
@@ -763,14 +763,14 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "CodecommitDependencyCheckCheckProject502DB37A",
+                "CodeCommitDependencyCheckCheckProject490B8892",
                 "Arn",
               ],
             },
             "Id": "Target0",
             "RoleArn": Object {
               "Fn::GetAtt": Array [
-                "CodecommitDependencyCheckCheckProjectEventsRole55008F08",
+                "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4",
                 "Arn",
               ],
             },
@@ -786,7 +786,7 @@ Object {
 exports[`preCheckCommand 1`] = `
 Object {
   "Resources": Object {
-    "CodecommitDependencyCheckCheckProject502DB37A": Object {
+    "CodeCommitDependencyCheckCheckProject490B8892": Object {
       "Properties": Object {
         "Artifacts": Object {
           "Type": "NO_ARTIFACTS",
@@ -805,7 +805,7 @@ Object {
         },
         "ServiceRole": Object {
           "Fn::GetAtt": Array [
-            "CodecommitDependencyCheckCheckProjectRole22A38DA2",
+            "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1",
             "Arn",
           ],
         },
@@ -888,7 +888,7 @@ Object {
       },
       "Type": "AWS::CodeBuild::Project",
     },
-    "CodecommitDependencyCheckCheckProjectEventsRole55008F08": Object {
+    "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -905,7 +905,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "CodecommitDependencyCheckCheckProjectEventsRoleDefaultPolicy9F7F50F2": Object {
+    "CodeCommitDependencyCheckCheckProjectEventsRoleDefaultPolicy3E8344B4": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -914,7 +914,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "CodecommitDependencyCheckCheckProject502DB37A",
+                  "CodeCommitDependencyCheckCheckProject490B8892",
                   "Arn",
                 ],
               },
@@ -922,33 +922,16 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "CodecommitDependencyCheckCheckProjectEventsRoleDefaultPolicy9F7F50F2",
+        "PolicyName": "CodeCommitDependencyCheckCheckProjectEventsRoleDefaultPolicy3E8344B4",
         "Roles": Array [
           Object {
-            "Ref": "CodecommitDependencyCheckCheckProjectEventsRole55008F08",
+            "Ref": "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CodecommitDependencyCheckCheckProjectRole22A38DA2": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "codebuild.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "CodecommitDependencyCheckCheckProjectRoleDefaultPolicyD7ADBCD8": Object {
+    "CodeCommitDependencyCheckCheckProjectRoleDefaultPolicyD92593DA": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -978,7 +961,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                        "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                       },
                     ],
                   ],
@@ -1001,7 +984,7 @@ Object {
                       },
                       ":log-group:/aws/codebuild/",
                       Object {
-                        "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                        "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                       },
                       ":*",
                     ],
@@ -1035,7 +1018,7 @@ Object {
                     },
                     ":report-group/",
                     Object {
-                      "Ref": "CodecommitDependencyCheckCheckProject502DB37A",
+                      "Ref": "CodeCommitDependencyCheckCheckProject490B8892",
                     },
                     "-*",
                   ],
@@ -1075,16 +1058,33 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "CodecommitDependencyCheckCheckProjectRoleDefaultPolicyD7ADBCD8",
+        "PolicyName": "CodeCommitDependencyCheckCheckProjectRoleDefaultPolicyD92593DA",
         "Roles": Array [
           Object {
-            "Ref": "CodecommitDependencyCheckCheckProjectRole22A38DA2",
+            "Ref": "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CodecommitDependencyCheckScheduleRuleC61A12F1": Object {
+    "CodeCommitDependencyCheckCheckProjectRoleFBCBA6E1": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CodeCommitDependencyCheckScheduleRule65A51424": Object {
       "Properties": Object {
         "ScheduleExpression": "cron(0 4 * * ? *)",
         "State": "ENABLED",
@@ -1092,14 +1092,14 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "CodecommitDependencyCheckCheckProject502DB37A",
+                "CodeCommitDependencyCheckCheckProject490B8892",
                 "Arn",
               ],
             },
             "Id": "Target0",
             "RoleArn": Object {
               "Fn::GetAtt": Array [
-                "CodecommitDependencyCheckCheckProjectEventsRole55008F08",
+                "CodeCommitDependencyCheckCheckProjectEventsRole8D5979E4",
                 "Arn",
               ],
             },

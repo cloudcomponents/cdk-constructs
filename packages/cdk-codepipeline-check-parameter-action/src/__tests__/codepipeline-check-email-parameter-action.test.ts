@@ -4,7 +4,7 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
-import { CodepipelineCheckEmailParameterAction } from '../codepipeline-check-email-parameter-action';
+import { CodePipelineCheckEmailParameterAction } from '../codepipeline-check-email-parameter-action';
 
 test('default setup', (): void => {
     const stack = new Stack();
@@ -33,7 +33,7 @@ test('default setup', (): void => {
             {
                 stageName: 'CheckParamter',
                 actions: [
-                    new CodepipelineCheckEmailParameterAction({
+                    new CodePipelineCheckEmailParameterAction({
                         actionName: 'CheckParamter',
                         parameterName,
                     }),

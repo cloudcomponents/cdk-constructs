@@ -2,7 +2,9 @@
 
 # @cloudcomponents/cdk-github-webhook
 
-> Cdk component that provisions github webhooks
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
+> Create, update and delete github webhooks with your app deployment
 
 ## Install
 

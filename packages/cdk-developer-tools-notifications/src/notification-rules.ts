@@ -93,7 +93,7 @@ export class NotificationRule extends Construct implements INotificationRule {
     }
 
     public addTarget(target: INotificationTarget): void {
-        this.targets.push(target.bind());
+        this.targets.push(target.bind(this));
     }
 
     protected validate(): string[] {

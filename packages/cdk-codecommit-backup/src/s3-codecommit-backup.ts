@@ -11,7 +11,7 @@ import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 
-export interface S3CodecommitBackupProps {
+export interface S3CodeCommitBackupProps {
     /**
      * Bucket for storing the backups.
      */
@@ -36,10 +36,10 @@ export interface S3CodecommitBackupProps {
     readonly computeType?: ComputeType;
 }
 
-export class S3CodecommitBackup extends Construct {
+export class S3CodeCommitBackup extends Construct {
     private readonly backupProject: Project;
 
-    constructor(scope: Construct, id: string, props: S3CodecommitBackupProps) {
+    constructor(scope: Construct, id: string, props: S3CodeCommitBackupProps) {
         super(scope, id);
 
         const { backupBucket, schedule, computeType, repository } = props;

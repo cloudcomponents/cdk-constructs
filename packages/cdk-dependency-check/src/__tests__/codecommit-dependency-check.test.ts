@@ -5,7 +5,7 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { Topic } from '@aws-cdk/aws-sns';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { CodecommitDependencyCheck } from '../codecommit-dependency-check';
+import { CodeCommitDependencyCheck } from '../codecommit-dependency-check';
 
 test('default setup', (): void => {
     const stack = new Stack();
@@ -16,7 +16,7 @@ test('default setup', (): void => {
         'repo1',
     );
 
-    new CodecommitDependencyCheck(stack, 'CodecommitDependencyCheck', {
+    new CodeCommitDependencyCheck(stack, 'CodeCommitDependencyCheck', {
         repository,
         schedule: Schedule.cron({
             minute: '0',
@@ -36,7 +36,7 @@ test('preCheckCommand', (): void => {
         'repo1',
     );
 
-    new CodecommitDependencyCheck(stack, 'CodecommitDependencyCheck', {
+    new CodeCommitDependencyCheck(stack, 'CodeCommitDependencyCheck', {
         repository,
         preCheckCommand: 'npm i',
         schedule: Schedule.cron({
@@ -57,9 +57,9 @@ test('events', (): void => {
         'repo1',
     );
 
-    const check = new CodecommitDependencyCheck(
+    const check = new CodeCommitDependencyCheck(
         stack,
-        'CodecommitDependencyCheck',
+        'CodeCommitDependencyCheck',
         {
             repository,
             schedule: Schedule.cron({

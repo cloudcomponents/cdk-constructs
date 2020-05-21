@@ -4,7 +4,7 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
-import { CodepipelineCheckParameterAction } from '../codepipeline-check-parameter-action';
+import { CodePipelineCheckParameterAction } from '../codepipeline-check-parameter-action';
 
 test('default setup', (): void => {
     const stack = new Stack();
@@ -33,7 +33,7 @@ test('default setup', (): void => {
             {
                 stageName: 'CheckParamter',
                 actions: [
-                    new CodepipelineCheckParameterAction({
+                    new CodePipelineCheckParameterAction({
                         actionName: 'CheckParamter',
                         parameterName,
                     }),
@@ -72,7 +72,7 @@ test('with regExp', (): void => {
             {
                 stageName: 'CheckParamter',
                 actions: [
-                    new CodepipelineCheckParameterAction({
+                    new CodePipelineCheckParameterAction({
                         actionName: 'CheckParamter',
                         parameterName,
                         regExp: /[0123456789]/,

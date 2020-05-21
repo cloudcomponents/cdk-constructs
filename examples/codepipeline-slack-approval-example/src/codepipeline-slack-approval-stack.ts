@@ -12,7 +12,7 @@ import {
     SlackNotifier,
 } from '@cloudcomponents/cdk-codepipeline-slack';
 
-export class CodepipelineSlackApprovalStack extends Stack {
+export class CodePipelineSlackApprovalStack extends Stack {
     public constructor(parent: App, name: string, props?: StackProps) {
         super(parent, name, props);
 

@@ -2,15 +2,15 @@
 import { App } from '@aws-cdk/core';
 import { config } from 'dotenv';
 
-import { CodepipelineCheckParameterActionStack } from '../src/codepipeline-check-parameter-action-stack';
+import { CodePipelineCheckParameterActionStack } from '../src/codepipeline-check-parameter-action-stack';
 
 config();
 
 const app = new App();
 
-new CodepipelineCheckParameterActionStack(
+new CodePipelineCheckParameterActionStack(
     app,
-    'CodepipelineCheckParameterActionStack',
+    'CodePipelineCheckParameterActionStack',
     {
         env: {
             region: process.env.CDK_DEFAULT_REGION,

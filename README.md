@@ -1,32 +1,33 @@
 ![cloudcomponents Logo](/logo.png)
 
-# @cloudcomponents/cdk-components
+# @cloudcomponents/cdk-constructs
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
 
-> A collection of higher-level reusable [cdk components](https://github.com/awslabs/aws-cdk)
+> A collection of higher-level reusable [cdk constructs](https://github.com/awslabs/aws-cdk)
 
-## Components
+## Constructs
 
-This repository is a monorepo managed with [Lerna](https://github.com/lerna/lerna). [Several components](/packages) are published to npm from the same codebase.
+This repository is a monorepo managed with [Lerna](https://github.com/lerna/lerna). [Several constructs](/packages) are published to npm from the same codebase.
 
-| Component                                                                                    | Description                                                                                                                  |
-| -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| [cdk-codepipeline-slack](/packages/cdk-codepipeline-slack)                                   | Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes             |
-| [cdk-contentful-webhook](/packages/cdk-contentful-webhook)                                   | Cdk component that provides contentful webhooks                                                                              |
-| [cdk-github-webhook](/packages/cdk-github-webhook)                                           | Cdk component that provides github webhooks                                                                                  |
-| [cdk-stripe-webhook](/packages/cdk-stripe-webhook)                                           | Cdk component that provides stripe webhooks                                                                                  |
-| [cdk-static-website](/packages/cdk-static-website)                                           | Cdk component that creates a static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS) |
-| [cdk-pull-request-check](/packages/cdk-pull-request-check)                                   | Cdk component that automatically checks pull requests                                                                        |
-| [cdk-pull-request-approval-rule](/packages/cdk-pull-request-approval-rule)                   | Codecommit pull request approval rules                                                                                       |
-| [cdk-codepipeline-merge-action](/packages/cdk-codepipeline-merge-action)                     | Cdk component that automatically merges branches in codepipelines                                                            |
-| [cdk-codepipeline-check-parameter-action](/packages/cdk-codepipeline-check-parameter-action) | Cdk component that checks if system parameters are set correctly                                                             |
-| [cdk-codecommit-backup](/packages/cdk-codecommit-backup)                                     | Backup CodeCommit repositories to S3                                                                                         |
-| [cdk-dependency-check](/packages/cdk-dependency-check)                                       | OWASP dependency-check for codecommit repositories                                                                           |
-| [cdk-container-registry](/packages/cdk-container-registry)                                   | Registry for container images                                                                                                |
-| [cdk-blue-green-container-deployment](/packages/cdk-blue-green-container-deployment)         | Blue green container deployment                                                                                              |
-| [cdk-chatops](/packages/cdk-chatops)                                                         | Chatops components                                                                                                           |
-| [cdk-developer-tools-notifications](/packages/cdk-developer-tools-notifications)             | Notifications for developer tools: CodeCommit, CodeBuild, CodeDeploy, CodePipeline                                           |
+| Constructs                                                                                   | Description                                                                                       | Downloads                                                                                      |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| [cdk-codepipeline-slack](/packages/cdk-codepipeline-slack)                                   | #slack approval workflow and notification messages on codepipeline state changes                  | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-codepipeline-slack)                  |
+| [cdk-contentful-webhook](/packages/cdk-contentful-webhook)                                   | Create, update and delete contentful webhooks with your app deployment                            | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-contentful-webhook)                  |
+| [cdk-github-webhook](/packages/cdk-github-webhook)                                           | Create, update and delete github webhooks with your app deployment                                | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-github-webhook)                      |
+| [cdk-stripe-webhook](/packages/cdk-stripe-webhook)                                           | Create, update and delete stripe webhooks with your app deployment                                | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-stripe-webhook)                      |
+| [cdk-static-website](/packages/cdk-static-website)                                           | Static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS)   | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-static-website)                      |
+| [cdk-pull-request-check](/packages/cdk-pull-request-check)                                   | CodeCommit pull request check                                                                     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-pull-request-check)                  |
+| [cdk-pull-request-approval-rule](/packages/cdk-pull-request-approval-rule)                   | CodeCommit pull request approval rules                                                            | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-pull-request-approval-rule)          |
+| [cdk-codepipeline-merge-action](/packages/cdk-codepipeline-merge-action)                     | CodePipeline action to merge branches                                                             | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-codepipeline-merge-action)           |
+| [cdk-codepipeline-check-parameter-action](/packages/cdk-codepipeline-check-parameter-action) | Cdk component that checks if system parameters are set correctly                                  | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-codepipeline-check-parameter-action) |
+| [cdk-codecommit-backup](/packages/cdk-codecommit-backup)                                     | Backup CodeCommit repositories to S3                                                              | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-codecommit-backup)                   |
+| [cdk-dependency-check](/packages/cdk-dependency-check)                                       | OWASP dependency-check for codecommit repositories                                                | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-dependency-check)                    |
+| [cdk-container-registry](/packages/cdk-container-registry)                                   | Registry for container images                                                                     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-container-registry)                  |
+| [cdk-blue-green-container-deployment](/packages/cdk-blue-green-container-deployment)         | Blue green container deployment                                                                   | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-blue-green-container-deployment)     |
+| [cdk-chatops](/packages/cdk-chatops)                                                         | Chatops components                                                                                | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-chatops)                             |
+| [cdk-developer-tools-notifications](/packages/cdk-developer-tools-notifications)             | #slack / email notifications for developer tools: CodeCommit, CodeBuild, CodeDeploy, CodePipeline | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-developer-tools-notifications)       |
+| [cdk-deletable-bucket](/packages/cdk-deletable-bucket)                                       | Bucket with content cleanup to allow bucket deletion when the stack will be destroyed             | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-deletable-bucket)                    |
 
 ## Contributing
 

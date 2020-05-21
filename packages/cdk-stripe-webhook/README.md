@@ -2,7 +2,9 @@
 
 # @cloudcomponents/cdk-stripe-webhook
 
-> Cdk component that provisions stripe webhooks
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
+> Create, update and delete stripe webhooks with your app deployment
 
 ## Install
 

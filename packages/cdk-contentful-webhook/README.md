@@ -2,7 +2,9 @@
 
 # @cloudcomponents/cdk-contentful-webhook
 
-> Cdk component that provisions contentful webhooks
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
+> Create, update and delete contentful webhooks with your app deployment
 
 ## Install
 

@@ -2,6 +2,8 @@
 
 # @cloudcomponents/cdk-codepipeline-slack
 
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+
 > Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes
 
 ![Approval Workflow](/packages/cdk-codepipeline-slack/assets/approval_workflow.png?raw=true 'Approval Workflow')
@@ -28,13 +30,12 @@ import {
     SlackNotifier,
 } from '@cloudcomponents/cdk-codepipeline-slack';
 
-export class CodepipelineSlackApprovalStack extends Stack {
+export class CodePipelineSlackApprovalStack extends Stack {
   constructor(parent: App, name: string, props?: StackProps) {
     super(parent, name, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'MyRepositoryName',
-      description: 'Some description.' // optional property
     });
 
     const sourceArtifact = new Artifact();

@@ -4,7 +4,7 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
-import { CodepipelineMergeAction } from '../codepipeline-merge-action';
+import { CodePipelineMergeAction } from '../codepipeline-merge-action';
 
 test('default setup', (): void => {
     // GIVEN
@@ -33,7 +33,7 @@ test('default setup', (): void => {
             {
                 stageName: 'Merge',
                 actions: [
-                    new CodepipelineMergeAction({
+                    new CodePipelineMergeAction({
                         actionName: 'Merge',
                         repository,
                         sourceCommitSpecifier: 'next',

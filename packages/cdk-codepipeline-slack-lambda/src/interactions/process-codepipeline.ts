@@ -19,7 +19,7 @@ const bot = new SlackBot({
 
 const codePipeline = new CodePipeline({ apiVersion: '2015-07-09' });
 
-export const processCodepipeline = async (
+export const processCodePipeline = async (
     event: CodePipelineCloudWatchEvent,
 ): Promise<void> => {
     const executionId = event.detail['execution-id'];
