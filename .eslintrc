@@ -1,33 +1,51 @@
 {
-    "extends": [
-        "eslint:recommended",
-        "plugin:prettier/recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:jest/recommended",
-        "plugin:import/typescript"
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jest/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": ["import"],
+  "rules": {
+    "camelcase": "off",
+    "@typescript-eslint/camelcase": [
+      "error",
+      {
+        "properties": "never"
+      }
     ],
-    "rules": {
-        "camelcase": "off",
-        "@typescript-eslint/camelcase": [
-            "error",
-            {
-                "properties": "never"
-            }
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+
+    // Require use of the `import { foo } from 'bar';` form instead of `import foo = require("bar");`
+    "@typescript-eslint/no-require-imports": ["error"],
+
+    // Require all imported dependencies are actually declared in package.json
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          // Only allow importing devDependencies from:
+          "**/build-tools /**", // --> Build tools
+          "**/__tests__/**", // --> Unit tests
+          "**/lambdas/**", // --> Lambdas
+          "**/*-lambda/**" // --> Lambdas
         ],
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": [
-            "error",
-            {
-                "vars": "all",
-                "args": "after-used",
-                "ignoreRestSiblings": false,
-                "argsIgnorePattern": "^_"
-            }
-        ],
-        "@typescript-eslint/interface-name-prefix": "off",
-        "@typescript-eslint/no-use-before-define": "off",
-        // Require use of the `import { foo } from 'bar';` form instead of `import foo = require('bar');`
-        "@typescript-eslint/no-require-imports": ["error"]
-    }
+        "optionalDependencies": false, // Disallow importing optional dependencies (those shouldn't be in use in the project)
+        "peerDependencies": false // Disallow importing peer dependencies (that aren't also direct dependencies)
+      }
+    ]
+  }
 }
