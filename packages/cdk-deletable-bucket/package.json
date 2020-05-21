@@ -1,6 +1,6 @@
 {
     "name": "@cloudcomponents/cdk-deletable-bucket",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Bucket with content cleanup to allow bucket deletion when the stack will be destroyed",
     "license": "MIT",
     "repository": {
@@ -29,10 +29,10 @@
         "aws-sdk": "^2.673.0"
     },
     "dependencies": {
-        "@aws-cdk/aws-s3": "^1.39.0",
         "@aws-cdk/aws-lambda": "^1.39.0",
-        "@aws-cdk/custom-resources": "^1.39.0",
-        "@aws-cdk/core": "^1.39.0"
+        "@aws-cdk/aws-s3": "^1.39.0",
+        "@aws-cdk/core": "^1.39.0",
+        "@aws-cdk/custom-resources": "^1.39.0"
     },
     "devDependencies": {
         "@aws-cdk/assert": "^1.39.0",
