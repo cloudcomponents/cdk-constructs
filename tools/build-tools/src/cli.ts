@@ -1,3 +1,5 @@
+import * as path from 'path';
+import * as fs from 'fs-extra';
 import * as yargs from 'yargs';
 import * as chalk from 'chalk';
 import * as figlet from 'figlet';
@@ -9,8 +11,7 @@ const NAME = 'cloudcomponents';
 
 console.log(chalk.red(figlet.textSync(NAME)), '\n');
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { version } = require('../package.json');
+const { version } = fs.readJsonSync(path.join(__dirname, '..', 'package.json'));
 
 yargs
     .version(version)
