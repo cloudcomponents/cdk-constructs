@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
-> Blue green container deployment
+> Blue green container deployment with CodeDeploy
 
 ## Install
 
