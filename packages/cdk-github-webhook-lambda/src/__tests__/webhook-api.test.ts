@@ -18,7 +18,7 @@ import { Octokit } from '@octokit/rest';
 describe('cdk-github-webhook-lambda: webhook-api', (): void => {
   it('should call createHook with correct params', (): void => {
     const githubApiToken = 'secure';
-    const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-components';
+    const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-constructs';
     const payloadUrl = 'payloadUrl';
     const events = ['*'];
 
@@ -28,7 +28,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     expect(createMock).toHaveBeenCalledWith({
       name: 'web',
       owner: 'cloudcomponents',
-      repo: 'cdk-components',
+      repo: 'cdk-constructs',
       config: { url: payloadUrl, content_type: 'json' },
       events,
       active: true,
@@ -37,7 +37,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
 
   it('should call updateHook with correct params', (): void => {
     const githubApiToken = 'secure';
-    const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-components';
+    const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-constructs';
     const payloadUrl = 'payloadUrl';
     const events = ['*'];
     const hookId = 12;
@@ -47,7 +47,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     expect(updateMock).toHaveBeenCalled();
     expect(updateMock).toHaveBeenCalledWith({
       owner: 'cloudcomponents',
-      repo: 'cdk-components',
+      repo: 'cdk-constructs',
       config: { url: payloadUrl, content_type: 'json' },
       events,
       active: true,
@@ -57,7 +57,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
 
   it('should call deleteHook with correct params', (): void => {
     const githubApiToken = 'secure';
-    const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-components';
+    const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-constructs';
     const hookId = 12;
 
     deleteWebhook(githubApiToken, githubRepoUrl, hookId);
@@ -65,7 +65,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     expect(deleteMock).toHaveBeenCalled();
     expect(deleteMock).toHaveBeenCalledWith({
       owner: 'cloudcomponents',
-      repo: 'cdk-components',
+      repo: 'cdk-constructs',
       hook_id: hookId,
     });
   });

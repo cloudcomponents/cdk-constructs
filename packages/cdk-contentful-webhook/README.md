@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-contentful-webhook
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > Create, update and delete contentful webhooks with your app deployment
 
@@ -20,27 +20,27 @@ import { App, Stack, StackProps } from '@aws-cdk/core';
 import { ContentfulWebhook } from '@cloudcomponents/cdk-contentful-webhook';
 
 export class ContentfulWebhookStack extends Stack {
-    public constructor(scope: App, id: string, props?: StackProps) {
-        super(scope, id, props);
+  public constructor(scope: App, id: string, props?: StackProps) {
+    super(scope, id, props);
 
-        const api = new RestApi(this, 'Endpoint');
-        api.root.addMethod('POST');
+    const api = new RestApi(this, 'Endpoint');
+    api.root.addMethod('POST');
 
-        const accessToken = process.env.ACCESS_TOKEN as string;
+    const accessToken = process.env.ACCESS_TOKEN as string;
 
-        const spaceId = process.env.SPACE_ID as string;
+    const spaceId = process.env.SPACE_ID as string;
 
-        const topics = ['Entry.create'];
+    const topics = ['Entry.create'];
 
-        new ContentfulWebhook(this, 'ContentfulWebhook', {
-            accessToken,
-            spaceId,
-            name: 'ExampleWebhook',
-            url: api.url,
-            topics,
-            logLevel: 'debug',
-        });
-    }
+    new ContentfulWebhook(this, 'ContentfulWebhook', {
+      accessToken,
+      spaceId,
+      name: 'ExampleWebhook',
+      url: api.url,
+      topics,
+      logLevel: 'debug',
+    });
+  }
 }
 ```
 

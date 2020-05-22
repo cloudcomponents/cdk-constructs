@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-deletable-bucket
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > Bucket with content cleanup to allow bucket deletion when the stack will be destroyed
 
@@ -19,14 +19,14 @@ import { App, Stack, StackProps } from '@aws-cdk/core';
 import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 export class DeletableBucketStack extends Stack {
-    public constructor(parent: App, name: string, props?: StackProps) {
-        super(parent, name, props);
+  public constructor(parent: App, name: string, props?: StackProps) {
+    super(parent, name, props);
 
-        new DeletableBucket(this, 'DeletableBucket', {
-            bucketName: 'bucket2delete',
-            forceDelete: true,
-        });
-    }
+    new DeletableBucket(this, 'DeletableBucket', {
+      bucketName: 'bucket2delete',
+      forceDelete: true,
+    });
+  }
 }
 ```
 

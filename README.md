@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-constructs
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > A collection of higher-level reusable [cdk constructs](https://github.com/awslabs/aws-cdk)
 

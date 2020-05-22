@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-static-website
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > Cdk component that creates a static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS)
 
@@ -46,9 +46,9 @@ export class StaticWebsiteStack extends Stack {
 
 ```javascript
 website.addLambdaFunctionAssociation({
-    functionArn: 'arn:aws:lambda:...',
-    functionVersion: '1',
-    eventType: 'origin-request',
+  functionArn: 'arn:aws:lambda:...',
+  functionVersion: '1',
+  eventType: 'origin-request',
 });
 ```
 

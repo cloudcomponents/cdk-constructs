@@ -1,46 +1,46 @@
 {
-    "name": "@cloudcomponents/cdk-codepipeline-merge-action",
-    "version": "1.0.20",
-    "description": "Cdk component that automatically merge branches in codepipelines",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/cloudcomponents/cdk-components",
-        "directory": "packages/cdk-codepipeline-merge-action"
-    },
-    "keywords": [
-        "aws",
-        "cdk",
-        "codecommit",
-        "codepipeline",
-        "merge",
-        "branches",
-        "@cloudcomponents"
-    ],
-    "main": "lib/index.js",
-    "types": "lib/index.d.ts",
-    "files": [
-        "lib",
-        "lambdas"
-    ],
-    "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w"
-    },
-    "dependencies": {
-        "@aws-cdk/aws-codecommit": "^1.41.0",
-        "@aws-cdk/aws-codepipeline": "^1.41.0",
-        "@aws-cdk/aws-codepipeline-actions": "^1.41.0",
-        "@aws-cdk/aws-iam": "^1.41.0",
-        "@aws-cdk/aws-lambda": "^1.41.0",
-        "@aws-cdk/core": "^1.41.0"
-    },
-    "devDependencies": {
-        "@aws-cdk/assert": "^1.41.0",
-        "jest-cdk-snapshot": "^1.3.0",
-        "typescript": "^3.9.3"
-    },
-    "publishConfig": {
-        "access": "public"
-    }
+  "name": "@cloudcomponents/cdk-codepipeline-merge-action",
+  "version": "1.0.20",
+  "description": "Cdk component that automatically merge branches in codepipelines",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudcomponents/cdk-constructs",
+    "directory": "packages/cdk-codepipeline-merge-action"
+  },
+  "keywords": [
+    "aws",
+    "cdk",
+    "codecommit",
+    "codepipeline",
+    "merge",
+    "branches",
+    "@cloudcomponents"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "lambdas"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-codecommit": "^1.41.0",
+    "@aws-cdk/aws-codepipeline": "^1.41.0",
+    "@aws-cdk/aws-codepipeline-actions": "^1.41.0",
+    "@aws-cdk/aws-iam": "^1.41.0",
+    "@aws-cdk/aws-lambda": "^1.41.0",
+    "@aws-cdk/core": "^1.41.0"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.41.0",
+    "jest-cdk-snapshot": "^1.3.0",
+    "typescript": "^3.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-pull-request-approval-rule
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > CodeCommit pull request approval rules
 
@@ -20,47 +20,47 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 import {
-    ApprovalRuleTemplate,
-    ApprovalRuleTemplateRepositoryAssociation,
+  ApprovalRuleTemplate,
+  ApprovalRuleTemplateRepositoryAssociation,
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
 export class CodePipelinePullRequestCheckStack extends Stack {
-    public constructor(parent: App, name: string, props?: StackProps) {
-        super(parent, name, props);
+  public constructor(parent: App, name: string, props?: StackProps) {
+    super(parent, name, props);
 
-        const repository = new Repository(this, 'Repository', {
-            repositoryName: 'repository',
-            description: 'Some description.', // optional property
-        });
+    const repository = new Repository(this, 'Repository', {
+      repositoryName: 'repository',
+      description: 'Some description.', // optional property
+    });
 
-        const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
-            this,
-            'ApprovalRuleTemplate',
-            {
-                approvalRuleTemplateName: 'Require 1 approver',
-                template: {
-                    approvers: {
-                        numberOfApprovalsNeeded: 1,
-                    },
-                },
-            },
-        );
+    const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
+      this,
+      'ApprovalRuleTemplate',
+      {
+        approvalRuleTemplateName: 'Require 1 approver',
+        template: {
+          approvers: {
+            numberOfApprovalsNeeded: 1,
+          },
+        },
+      },
+    );
 
-        new ApprovalRuleTemplateRepositoryAssociation(
-            this,
-            'ApprovalRuleTemplateRepositoryAssociation',
-            {
-                approvalRuleTemplateName,
-                repository,
-            },
-        );
+    new ApprovalRuleTemplateRepositoryAssociation(
+      this,
+      'ApprovalRuleTemplateRepositoryAssociation',
+      {
+        approvalRuleTemplateName,
+        repository,
+      },
+    );
 
-        // Approves the pull request
-        new PullRequestCheck(this, 'PullRequestCheck', {
-            repository,
-            buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
-        });
-    }
+    // Approves the pull request
+    new PullRequestCheck(this, 'PullRequestCheck', {
+      repository,
+      buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
+    });
+  }
 }
 ```
 

@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-codepipeline-slack
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes
 

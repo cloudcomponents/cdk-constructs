@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-dependency-check
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > [OWASP dependency-check](https://owasp.org/www-project-dependency-check/) for codecommit repositories
 
@@ -24,47 +24,47 @@ import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { CodeCommitDependencyCheck } from '@cloudcomponents/cdk-dependency-check';
 
 export class DependencyCheckStack extends Stack {
-    public constructor(scope: App, id: string, props?: StackProps) {
-        super(scope, id, props);
+  public constructor(scope: App, id: string, props?: StackProps) {
+    super(scope, id, props);
 
-        const repository = Repository.fromRepositoryName(
-            this,
-            'Repository',
-            process.env.REPOSITORY_NAME as string,
-        );
+    const repository = Repository.fromRepositoryName(
+      this,
+      'Repository',
+      process.env.REPOSITORY_NAME as string,
+    );
 
-        // The following example runs a task every day at 4am
-        const check = new CodeCommitDependencyCheck(
-            this,
-            'CodeCommitDependencyCheck',
-            {
-                repository,
-                preCheckCommand: 'npm i',
-                schedule: Schedule.cron({
-                    minute: '0',
-                    hour: '4',
-                }),
-            },
-        );
+    // The following example runs a task every day at 4am
+    const check = new CodeCommitDependencyCheck(
+      this,
+      'CodeCommitDependencyCheck',
+      {
+        repository,
+        preCheckCommand: 'npm i',
+        schedule: Schedule.cron({
+          minute: '0',
+          hour: '4',
+        }),
+      },
+    );
 
-        const checkTopic = new Topic(this, 'CheckTopic');
+    const checkTopic = new Topic(this, 'CheckTopic');
 
-        checkTopic.addSubscription(
-            new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
-        );
+    checkTopic.addSubscription(
+      new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
+    );
 
-        check.onCheckStarted('started', {
-            target: new SnsTopic(checkTopic),
-        });
+    check.onCheckStarted('started', {
+      target: new SnsTopic(checkTopic),
+    });
 
-        check.onCheckSucceeded('succeeded', {
-            target: new SnsTopic(checkTopic),
-        });
+    check.onCheckSucceeded('succeeded', {
+      target: new SnsTopic(checkTopic),
+    });
 
-        check.onCheckFailed('failed', {
-            target: new SnsTopic(checkTopic),
-        });
-    }
+    check.onCheckFailed('failed', {
+      target: new SnsTopic(checkTopic),
+    });
+  }
 }
 ```
 
@@ -75,13 +75,13 @@ const reportsBucket = new Bucket(this, 'Bucket');
 
 // The following example runs a task every day at 4am
 const check = new CodeCommitDependencyCheck(this, 'CodeCommitDependencyCheck', {
-    repository,
-    reportsBucket,
-    preCheckCommand: 'npm i',
-    schedule: Schedule.cron({
-        minute: '0',
-        hour: '4',
-    }),
+  repository,
+  reportsBucket,
+  preCheckCommand: 'npm i',
+  schedule: Schedule.cron({
+    minute: '0',
+    hour: '4',
+  }),
 });
 ```
 

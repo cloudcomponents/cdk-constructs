@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-github-webhook
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > Create, update and delete github webhooks with your app deployment
 
@@ -29,7 +29,7 @@ export class GithubWebhookStack extends Stack {
 
         const githubApiToken = process.env.API_TOKEN as string;
 
-        // @example https://github.com/cloudcomponents/cdk-components
+        // @example https://github.com/cloudcomponents/cdk-constructs
         const githubRepoUrl = process.env.REPO_URL as string;
 
         // @see https://developer.github.com/v3/activity/events/types/

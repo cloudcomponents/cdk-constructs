@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-container-registry
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > Registry for container images
 
@@ -19,30 +19,30 @@ import { App, Stack, StackProps } from '@aws-cdk/core';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import {
-    ImageRepository,
-    Severity,
+  ImageRepository,
+  Severity,
 } from '@cloudcomponents/cdk-container-registry';
 
 export class EcsBlueGreenDeploymentStack extends Stack {
-    public constructor(parent: App, name: string, props?: StackProps) {
-        super(parent, name, props);
+  public constructor(parent: App, name: string, props?: StackProps) {
+    super(parent, name, props);
 
-        const alarmTopic = new Topic(this, 'Topic');
+    const alarmTopic = new Topic(this, 'Topic');
 
-        alarmTopic.addSubscription(
-            new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
-        );
+    alarmTopic.addSubscription(
+      new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
+    );
 
-        const imageRepository = new ImageRepository(this, 'ImageRepository', {
-            forceDelete: true, //Only for tests
-            imageScanOnPush: true,
-        });
+    const imageRepository = new ImageRepository(this, 'ImageRepository', {
+      forceDelete: true, //Only for tests
+      imageScanOnPush: true,
+    });
 
-        imageRepository.onFinding('finding', {
-            severity: Severity.HIGH,
-            alarmTopic,
-        });
-    }
+    imageRepository.onFinding('finding', {
+      severity: Severity.HIGH,
+      alarmTopic,
+    });
+  }
 }
 ```
 

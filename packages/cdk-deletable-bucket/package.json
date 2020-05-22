@@ -1,47 +1,47 @@
 {
-    "name": "@cloudcomponents/cdk-deletable-bucket",
-    "version": "1.0.3",
-    "description": "Bucket with content cleanup to allow bucket deletion when the stack will be destroyed",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/cloudcomponents/cdk-components",
-        "directory": "packages/cdk-deletable-bucket"
-    },
-    "keywords": [
-        "aws",
-        "cdk",
-        "ses",
-        "email",
-        "templates",
-        "@cloudcomponents"
-    ],
-    "main": "lib/index.js",
-    "types": "lib/index.d.ts",
-    "files": [
-        "lib"
-    ],
-    "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w"
-    },
-    "peerDependencies": {
-        "aws-sdk": "^2.673.0"
-    },
-    "dependencies": {
-        "@aws-cdk/aws-lambda": "^1.41.0",
-        "@aws-cdk/aws-s3": "^1.41.0",
-        "@aws-cdk/core": "^1.41.0",
-        "@aws-cdk/custom-resources": "^1.41.0"
-    },
-    "devDependencies": {
-        "@aws-cdk/assert": "^1.41.0",
-        "@types/aws-lambda": "^8.10.51",
-        "aws-sdk": "^2.681.0",
-        "jest-cdk-snapshot": "^1.3.0",
-        "typescript": "^3.9.3"
-    },
-    "publishConfig": {
-        "access": "public"
-    }
+  "name": "@cloudcomponents/cdk-deletable-bucket",
+  "version": "1.0.3",
+  "description": "Bucket with content cleanup to allow bucket deletion when the stack will be destroyed",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudcomponents/cdk-constructs",
+    "directory": "packages/cdk-deletable-bucket"
+  },
+  "keywords": [
+    "aws",
+    "cdk",
+    "ses",
+    "email",
+    "templates",
+    "@cloudcomponents"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "peerDependencies": {
+    "aws-sdk": "^2.673.0"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-lambda": "^1.41.0",
+    "@aws-cdk/aws-s3": "^1.41.0",
+    "@aws-cdk/core": "^1.41.0",
+    "@aws-cdk/custom-resources": "^1.41.0"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.41.0",
+    "@types/aws-lambda": "^8.10.51",
+    "aws-sdk": "^2.681.0",
+    "jest-cdk-snapshot": "^1.3.0",
+    "typescript": "^3.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

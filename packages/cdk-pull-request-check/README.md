@@ -2,7 +2,7 @@
 
 # @cloudcomponents/cdk-pull-request-check
 
-[![Build Status](https://travis-ci.org/cloudcomponents/cdk-components.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-components)
+[![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
 > Cdk component that automatically check pull requests
 
@@ -21,20 +21,20 @@ import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 
 export class CodePipelineStack extends Stack {
-    constructor(parent: App, name: string, props?: StackProps) {
-        super(parent, name, props);
+  constructor(parent: App, name: string, props?: StackProps) {
+    super(parent, name, props);
 
-        const repository = new Repository(this, 'Repository', {
-            repositoryName: 'MyRepositoryName',
-        });
+    const repository = new Repository(this, 'Repository', {
+      repositoryName: 'MyRepositoryName',
+    });
 
-        // CodePipeline etc.
+    // CodePipeline etc.
 
-        new PullRequestCheck(this, 'PullRequestCheck', {
-            repository,
-            buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
-        });
-    }
+    new PullRequestCheck(this, 'PullRequestCheck', {
+      repository,
+      buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
+    });
+  }
 }
 ```
 
@@ -46,46 +46,46 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 import {
-    ApprovalRuleTemplate,
-    ApprovalRuleTemplateRepositoryAssociation,
+  ApprovalRuleTemplate,
+  ApprovalRuleTemplateRepositoryAssociation,
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
 export class CodePipelinePullRequestCheckStack extends Stack {
-    public constructor(parent: App, name: string, props?: StackProps) {
-        super(parent, name, props);
+  public constructor(parent: App, name: string, props?: StackProps) {
+    super(parent, name, props);
 
-        const repository = new Repository(this, 'Repository', {
-            repositoryName: 'repository',
-        });
+    const repository = new Repository(this, 'Repository', {
+      repositoryName: 'repository',
+    });
 
-        const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
-            this,
-            'ApprovalRuleTemplate',
-            {
-                approvalRuleTemplateName: 'Require 1 approver',
-                template: {
-                    approvers: {
-                        numberOfApprovalsNeeded: 1,
-                    },
-                },
-            },
-        );
+    const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
+      this,
+      'ApprovalRuleTemplate',
+      {
+        approvalRuleTemplateName: 'Require 1 approver',
+        template: {
+          approvers: {
+            numberOfApprovalsNeeded: 1,
+          },
+        },
+      },
+    );
 
-        new ApprovalRuleTemplateRepositoryAssociation(
-            this,
-            'ApprovalRuleTemplateRepositoryAssociation',
-            {
-                approvalRuleTemplateName,
-                repository,
-            },
-        );
+    new ApprovalRuleTemplateRepositoryAssociation(
+      this,
+      'ApprovalRuleTemplateRepositoryAssociation',
+      {
+        approvalRuleTemplateName,
+        repository,
+      },
+    );
 
-        // Approves the pull request
-        new PullRequestCheck(this, 'PullRequestCheck', {
-            repository,
-            buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
-        });
-    }
+    // Approves the pull request
+    new PullRequestCheck(this, 'PullRequestCheck', {
+      repository,
+      buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
+    });
+  }
 }
 ```
 
@@ -103,39 +103,39 @@ import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 
 export class CodePipelineStack extends Stack {
-    constructor(parent: App, name: string, props?: StackProps) {
-        super(parent, name, props);
+  constructor(parent: App, name: string, props?: StackProps) {
+    super(parent, name, props);
 
-        const repository = new Repository(this, 'Repository', {
-            repositoryName: 'MyRepositoryName',
-            description: 'Some description.', // optional property
-        });
+    const repository = new Repository(this, 'Repository', {
+      repositoryName: 'MyRepositoryName',
+      description: 'Some description.', // optional property
+    });
 
-        // Your CodePipeline...
+    // Your CodePipeline...
 
-        const prCheck = new PullRequestCheck(this, 'PullRequestCheck', {
-            repository,
-            buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
-        });
+    const prCheck = new PullRequestCheck(this, 'PullRequestCheck', {
+      repository,
+      buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
+    });
 
-        const prTopic = new Topic(this, 'PullRequestTopic');
+    const prTopic = new Topic(this, 'PullRequestTopic');
 
-        prTopic.addSubscription(
-            new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
-        );
+    prTopic.addSubscription(
+      new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
+    );
 
-        prCheck.onCheckStarted('started', {
-            target: new SnsTopic(prTopic),
-        });
+    prCheck.onCheckStarted('started', {
+      target: new SnsTopic(prTopic),
+    });
 
-        prCheck.onCheckSucceeded('succeeded', {
-            target: new SnsTopic(prTopic),
-        });
+    prCheck.onCheckSucceeded('succeeded', {
+      target: new SnsTopic(prTopic),
+    });
 
-        prCheck.onCheckFailed('failed', {
-            target: new SnsTopic(prTopic),
-        });
-    }
+    prCheck.onCheckFailed('failed', {
+      target: new SnsTopic(prTopic),
+    });
+  }
 }
 ```
 
