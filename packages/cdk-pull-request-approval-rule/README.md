@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 
-> CodeCommit pull request approval rules
+> CodeCommit pull request approval rules to enforcing your pull request workflow
 
 ## Install
 
