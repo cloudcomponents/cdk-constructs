@@ -11,6 +11,7 @@ import {
   RepositoryEvent,
   PipelineEvent,
   SlackChannel,
+  MSTeamsIncomingWebhook,
 } from '@cloudcomponents/cdk-developer-tools-notifications';
 import { SlackChannelConfiguration } from '@cloudcomponents/cdk-chatops';
 import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
@@ -42,7 +43,10 @@ export class NotificationsStack extends Stack {
         RepositoryEvent.PULL_REQUEST_CREATED,
         RepositoryEvent.PULL_REQUEST_MERGED,
       ],
-      targets: [new SlackChannel(slackChannel)],
+      targets: [
+        new SlackChannel(slackChannel),
+        new MSTeamsIncomingWebhook(process.env.INCOMING_WEBHOOK_URL as string),
+      ],
     });
 
     const sourceArtifact = new Artifact();
@@ -82,7 +86,10 @@ export class NotificationsStack extends Stack {
         PipelineEvent.MANUAL_APPROVAL_SUCCEEDED,
         PipelineEvent.MANUAL_APPROVAL_FAILED,
       ],
-      targets: [new SlackChannel(slackChannel)],
+      targets: [
+        new SlackChannel(slackChannel),
+        new MSTeamsIncomingWebhook(process.env.INCOMING_WEBHOOK_URL as string),
+      ],
     });
   }
 }

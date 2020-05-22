@@ -76,6 +76,32 @@ Object {
     "TopicBFC7AF6E": Object {
       "Type": "AWS::SNS::Topic",
     },
+    "TopicPolicyA1747468": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codestar-notifications.amazonaws.com",
+              },
+              "Resource": Object {
+                "Ref": "TopicBFC7AF6E",
+              },
+              "Sid": "0",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Topics": Array [
+          Object {
+            "Ref": "TopicBFC7AF6E",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::TopicPolicy",
+    },
   },
 }
 `;
