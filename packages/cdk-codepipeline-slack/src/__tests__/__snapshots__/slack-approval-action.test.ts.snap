@@ -337,7 +337,7 @@ Object {
             "SLACK_SIGNING_SECRET": "signingSecret",
           },
         },
-        "Handler": "lib/approval-handler.handler",
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
             "PipelineApproveSlackApprovalSlackApprovalHandlerFunctionServiceRole9CFAC29B",
@@ -454,7 +454,7 @@ Object {
             "SLACK_SIGNING_SECRET": "signingSecret",
           },
         },
-        "Handler": "lib/approval-requester.handler",
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
             "PipelineApproveSlackApprovalSlackApprovalRequesterFunctionServiceRole89EBD53E",
