@@ -1,6 +1,7 @@
 {
-  "npmClient": "npm",
-  "packages": ["packages/*", "tools/*", "examples/*"],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "packages": ["packages/*", "examples/*"],
   "version": "independent",
   "publishConfig": {
     "access": "public"

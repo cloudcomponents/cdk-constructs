@@ -9,7 +9,7 @@ const app = new App();
 
 new NotificationsStack(app, 'NotificationsStack', {
   env: {
-    region: process.env.DEFAULT_REGION,
+    region: process.env.REGION,
     account: process.env.CDK_DEFAULT_ACCOUNT,
   },
 });

@@ -7,13 +7,10 @@ node_js:
   - "12"
 
 install:
-  - npm install
-  - npm run bootstrap
+  - yarn --frozen-lockfile
 
 script:
-  - npm run build:tools
   - npm run lint
   - npm run test
-  - npm run build
 
-cache: npm
+cache: yarn

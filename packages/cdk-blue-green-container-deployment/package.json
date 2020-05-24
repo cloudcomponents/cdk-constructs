@@ -24,11 +24,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
-  "peerDependencies": {
-    "aws-sdk": "^2.673.0"
+    "build": "cdkdx build"
   },
   "dependencies": {
     "@aws-cdk/aws-codebuild": "^1.41.0",
@@ -44,9 +40,12 @@
     "@aws-cdk/assert": "^1.41.0",
     "@types/aws-lambda": "^8.10.51",
     "aws-sdk": "^2.681.0",
-    "jest-cdk-snapshot": "^1.3.0",
-    "typescript": "^3.9.3"
+    "cdkdx": "^0.0.25",
+    "jest-cdk-snapshot": "^1.3.0"
   },
+  "externals": [
+    "aws-sdk"
+  ],
   "publishConfig": {
     "access": "public"
   }

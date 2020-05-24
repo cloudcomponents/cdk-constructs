@@ -33,7 +33,7 @@ Object {
       ],
       "Properties": Object {
         "Code": Any<Object>,
-        "Handler": "lib/contentful-webhook.handler",
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
             "CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50dServiceRole311F9EBA",
