@@ -61,8 +61,8 @@ export class SlackApprovalAction extends Action {
       'SlackApprovalRequesterFunction',
       {
         runtime: Runtime.NODEJS_10_X,
-        handler: 'lib/approval-requester.handler',
-        code: Code.asset(path.join(__dirname, '..', 'lambda', 'bundle.zip')),
+        handler: 'index.handler',
+        code: Code.asset(path.join(__dirname, 'lambdas', 'approval-requester')),
         environment,
       },
     );
@@ -76,9 +76,9 @@ export class SlackApprovalAction extends Action {
       'SlackApprovalHandlerFunction',
       {
         runtime: Runtime.NODEJS_10_X,
-        handler: 'lib/approval-handler.handler',
+        handler: 'index.handler',
         code: Code.fromAsset(
-          path.join(__dirname, '..', 'lambda', 'bundle.zip'),
+          path.join(__dirname, 'lambdas', 'approval-handler'),
         ),
         environment,
       },

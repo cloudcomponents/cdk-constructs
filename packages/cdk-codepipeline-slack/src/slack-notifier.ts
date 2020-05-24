@@ -51,8 +51,8 @@ export class SlackNotifier extends Construct {
 
     const notifier = new Function(scope, 'SlackNotifierFunction', {
       runtime: Runtime.NODEJS_10_X,
-      handler: 'lib/notifier.handler',
-      code: Code.asset(path.join(__dirname, '..', 'lambda', 'bundle.zip')),
+      handler: 'index.handler',
+      code: Code.asset(path.join(__dirname, 'lambdas', 'notifier')),
       environment: this.environment,
     });
     notifier.addToRolePolicy(
