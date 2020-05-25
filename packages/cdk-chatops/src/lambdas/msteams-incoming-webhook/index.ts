@@ -1,5 +1,3 @@
-// import * as https from 'https';
-// import * as url from 'url';
 import axios from 'axios';
 import { SNSEvent } from 'aws-lambda';
 
@@ -48,7 +46,6 @@ export const handler = async (event: SNSEvent): Promise<void> => {
           });
         }
         return axios.post(process.env.URL as string, messageCard.payload);
-        //return sendHttpRequest(JSON.stringify(messageCard.payload));
       }),
     );
   } catch (e) {
@@ -56,33 +53,8 @@ export const handler = async (event: SNSEvent): Promise<void> => {
   }
 };
 
-// TODO
-// const sendHttpRequest = async (body: string): Promise<void> => {
-//   const parsedUrl = url.parse(process.env.URL as string);
-
-//   const options = {
-//     hostname: parsedUrl.hostname,
-//     path: parsedUrl.path,
-//     method: 'POST',
-//     headers: {
-//       'content-type': 'application/json',
-//       'content-length': body.length,
-//     },
-//   };
-
-//   return new Promise((resolve, reject) => {
-//     try {
-//       const request = https.request(options, () => resolve());
-//       request.on('error', reject);
-//       request.write(body);
-//       request.end();
-//     } catch (e) {
-//       reject(e);
-//     }
-//   });
-// };
-
 const capitalizeFirstLetter = (s: string): string =>
   s.charAt(0).toUpperCase() + s.slice(1);
 
-const isEmpty = (obj: object): boolean => Object.keys(obj).length === 0;
+const isEmpty = (obj: Record<string, unknown>): boolean =>
+  Object.keys(obj).length === 0;

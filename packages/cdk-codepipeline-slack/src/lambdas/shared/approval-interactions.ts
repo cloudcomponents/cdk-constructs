@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 import { CodePipeline } from 'aws-sdk';
 import { SlackBot } from './slack-bot';
 import { ApprovalMessageBuilder } from './approval-message-builder';
