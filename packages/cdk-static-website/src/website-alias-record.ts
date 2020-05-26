@@ -1,6 +1,7 @@
 import * as crypto from 'crypto';
 import {
   ARecord,
+  AaaaRecord,
   HostedZone,
   IAliasRecordTarget,
   RecordTarget,
@@ -16,6 +17,9 @@ export interface WebsiteAliasRecordProps {
 
   /** Target for the alias record */
   readonly target: IAliasRecordTarget;
+
+  /** We support IPv6 and add an AAAA record by default, but you can turn it off */
+  readonly disableIPv6?: boolean;
 }
 
 export class WebsiteAliasRecord extends Construct {
@@ -40,6 +44,14 @@ export class WebsiteAliasRecord extends Construct {
         recordName: `${recordName}.`,
         target: RecordTarget.fromAlias(target),
       });
+
+      if (!props.disableIPv6) {
+        new AaaaRecord(this, `WebsiteIPv6AliasRecord${hash}`, {
+          zone,
+          recordName: `${recordName}.`,
+          target: RecordTarget.fromAlias(target),
+        });
+      }
     });
   }
 }
