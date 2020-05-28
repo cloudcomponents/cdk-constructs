@@ -39,6 +39,14 @@ export interface StaticWebsiteProps extends WebsiteBucketProps {
    * @default - No AWS Web Application Firewall web access control list (web ACL)
    */
   readonly webACLId?: string;
+
+  /**
+   * An override flag that allows you to turn off support for IPv6 if required.
+   *
+   * @default - Cloudfront IPv6 support is enabled and if you've supplied an aliasConfiguration, an
+   * AAAA record will be created for your service, set this to true to switch this off.
+   */
+  readonly disableIPv6?: boolean;
 }
 
 export class StaticWebsite extends Construct {
@@ -47,7 +55,12 @@ export class StaticWebsite extends Construct {
   constructor(scope: Construct, id: string, props: StaticWebsiteProps = {}) {
     super(scope, id);
 
-    const { aliasConfiguration, bucketConfiguration, webACLId } = props;
+    const {
+      aliasConfiguration,
+      bucketConfiguration,
+      webACLId,
+      disableIPv6,
+    } = props;
 
     const websiteBucket = new WebsiteBucket(this, 'Bucket', {
       ...bucketConfiguration,
@@ -55,6 +68,7 @@ export class StaticWebsite extends Construct {
 
     const distibutionConfig: CloudFrontWebDistributionProps = {
       webACLId,
+      enableIpV6: !disableIPv6,
       originConfigs: [
         {
           s3OriginSource: {
@@ -77,6 +91,7 @@ export class StaticWebsite extends Construct {
         domainName: aliasConfiguration.domainName,
         recordNames: aliasConfiguration.names,
         target: new CloudFrontTarget(this.distribution),
+        disableIPv6,
       });
     }
   }
