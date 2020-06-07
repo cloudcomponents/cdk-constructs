@@ -33,7 +33,6 @@
           // Only allow importing devDependencies from:
           "**/build-tools /**", // --> Build tools
           "**/__tests__/**", // --> Unit tests
-          "**/custom-resources/**", // --> Custom Resources
           "**/lambdas/**" // --> Lambdas
         ],
         "optionalDependencies": false, // Disallow importing optional dependencies (those shouldn't be in use in the project)
