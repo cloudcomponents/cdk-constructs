@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+
 import { App } from '@aws-cdk/core';
 import { config } from 'dotenv';
 
-import { CodePipelineCheckParameterActionStack } from '../src/codepipeline-check-parameter-action-stack';
+import { CodePipelineCheckParameterActionStack } from './codepipeline-check-parameter-action-stack';
 
 config();
 

@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 import { App } from '@aws-cdk/core';
 import { config } from 'dotenv';
-import { PullRequestStack } from '../src/pull-request-stack';
+import { ContentfulWebhookStack } from './contentful-webhook-stack';
 
 config();
 
 const app = new App();
 
-new PullRequestStack(app, 'PullRequestStack', {
+new ContentfulWebhookStack(app, 'ContentfulWebhookStack', {
   env: {
-    region: process.env.DEFAULT_REGION,
+    region: process.env.CDK_DEFAULT_REGION,
     account: process.env.CDK_DEFAULT_ACCOUNT,
   },
 });
