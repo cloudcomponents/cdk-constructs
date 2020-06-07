@@ -3,7 +3,6 @@
   "version": "1.0.47",
   "description": "Cdk component that creates a static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS)",
   "license": "MIT",
-  "author": "hello@webappsolutions.de",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cloudcomponents/cdk-constructs",
@@ -21,8 +20,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
+    "build": "cdkdx build",
+    "test": "cdkdx test"
   },
   "dependencies": {
     "@aws-cdk/aws-cloudfront": "^1.44.0",
@@ -35,8 +34,8 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.44.0",
-    "jest-cdk-snapshot": "^1.3.0",
-    "typescript": "^3.9.5"
+    "cdkdx": "^0.0.42",
+    "jest-cdk-snapshot": "^1.3.0"
   },
   "gitHead": "a0777f00456246755f974e2372f151efd66b003c"
 }

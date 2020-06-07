@@ -23,8 +23,8 @@
     "lambdas"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
+    "build": "cdkdx build",
+    "test": "cdkdx test"
   },
   "dependencies": {
     "@aws-cdk/aws-codepipeline": "^1.44.0",
@@ -38,8 +38,8 @@
   "devDependencies": {
     "@aws-cdk/assert": "^1.44.0",
     "@aws-cdk/aws-codecommit": "^1.44.0",
-    "jest-cdk-snapshot": "^1.3.0",
-    "typescript": "^3.9.5"
+    "cdkdx": "^0.0.42",
+    "jest-cdk-snapshot": "^1.3.0"
   },
   "publishConfig": {
     "access": "public"
