@@ -1,26 +1,21 @@
 {
-    "name": "contentful-webhook-example",
-    "version": "0.1.39",
-    "license": "MIT",
-    "private": true,
-    "bin": {
-        "contentful-webhook": "bin/contentful-webhook.js"
-    },
-    "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w",
-        "cdk": "cdk"
-    },
-    "dependencies": {
-        "@aws-cdk/aws-apigateway": "^1.41.0",
-        "@aws-cdk/core": "^1.41.0",
-        "@cloudcomponents/cdk-contentful-webhook": "^1.0.35",
-        "dotenv": "^8.2.0"
-    },
-    "devDependencies": {
-        "@types/dotenv": "^8.2.0",
-        "aws-cdk": "^1.41.0",
-        "ts-node": "^8.10.1",
-        "typescript": "^3.9.3"
-    }
+  "name": "contentful-webhook-example",
+  "version": "0.1.39",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "cdkdx build",
+    "cdk": "cdk"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.44.0",
+    "@aws-cdk/core": "^1.44.0",
+    "@cloudcomponents/cdk-contentful-webhook": "^1.0.35",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "aws-cdk": "^1.44.0",
+    "cdkdx": "^0.0.44"
+  }
 }

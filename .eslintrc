@@ -9,13 +9,6 @@
   ],
   "plugins": ["import"],
   "rules": {
-    "camelcase": "off",
-    "@typescript-eslint/camelcase": [
-      "error",
-      {
-        "properties": "never"
-      }
-    ],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -40,8 +33,7 @@
           // Only allow importing devDependencies from:
           "**/build-tools /**", // --> Build tools
           "**/__tests__/**", // --> Unit tests
-          "**/lambdas/**", // --> Lambdas
-          "**/*-lambda/**" // --> Lambdas
+          "**/lambdas/**" // --> Lambdas
         ],
         "optionalDependencies": false, // Disallow importing optional dependencies (those shouldn't be in use in the project)
         "peerDependencies": false // Disallow importing peer dependencies (that aren't also direct dependencies)

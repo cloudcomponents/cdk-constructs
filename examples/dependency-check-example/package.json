@@ -1,31 +1,26 @@
 {
-    "name": "dependency-check-example",
-    "version": "0.1.46",
-    "license": "MIT",
-    "private": true,
-    "bin": {
-        "stripe-webhook": "bin/dependency-check.js"
-    },
-    "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w",
-        "cdk": "cdk"
-    },
-    "dependencies": {
-        "@aws-cdk/aws-codecommit": "^1.41.0",
-        "@aws-cdk/aws-events": "^1.41.0",
-        "@aws-cdk/aws-events-targets": "^1.41.0",
-        "@aws-cdk/aws-s3": "^1.41.0",
-        "@aws-cdk/aws-sns": "^1.41.0",
-        "@aws-cdk/aws-sns-subscriptions": "^1.41.0",
-        "@aws-cdk/core": "^1.41.0",
-        "@cloudcomponents/cdk-dependency-check": "^1.0.20",
-        "dotenv": "^8.2.0"
-    },
-    "devDependencies": {
-        "@types/dotenv": "^8.2.0",
-        "aws-cdk": "^1.41.0",
-        "ts-node": "^8.10.1",
-        "typescript": "^3.9.3"
-    }
+  "name": "dependency-check-example",
+  "version": "0.1.46",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "cdkdx build",
+    "cdk": "cdk"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-codecommit": "^1.44.0",
+    "@aws-cdk/aws-events": "^1.44.0",
+    "@aws-cdk/aws-events-targets": "^1.44.0",
+    "@aws-cdk/aws-s3": "^1.44.0",
+    "@aws-cdk/aws-sns": "^1.44.0",
+    "@aws-cdk/aws-sns-subscriptions": "^1.44.0",
+    "@aws-cdk/core": "^1.44.0",
+    "@cloudcomponents/cdk-dependency-check": "^1.0.20",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "aws-cdk": "^1.44.0",
+    "cdkdx": "^0.0.44"
+  }
 }

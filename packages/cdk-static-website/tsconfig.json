@@ -4,8 +4,5 @@
     "outDir": "./lib"
   },
   "include": ["./src"],
-  "exclude": [
-    "node_modules",
-    "**/__tests__/*"
-  ]
+  "exclude": ["./src/lambdas", "./src/**/__tests__"]
 }

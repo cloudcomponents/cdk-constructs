@@ -10,7 +10,7 @@ Object {
       ],
       "Properties": Object {
         "Code": Any<Object>,
-        "Handler": "lib/github-webhook.handler",
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
             "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EServiceRoleA1A794DD",

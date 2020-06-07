@@ -24,29 +24,29 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
-  "peerDependencies": {
-    "aws-sdk": "^2.673.0"
+    "build": "cdkdx build",
+    "test": "cdkdx test"
   },
   "dependencies": {
-    "@aws-cdk/aws-codebuild": "^1.41.0",
-    "@aws-cdk/aws-codedeploy": "^1.41.0",
-    "@aws-cdk/aws-ec2": "^1.41.0",
-    "@aws-cdk/aws-ecr": "^1.41.0",
-    "@aws-cdk/aws-ecs": "^1.41.0",
-    "@aws-cdk/aws-elasticloadbalancingv2": "^1.41.0",
-    "@aws-cdk/aws-iam": "^1.41.0",
-    "@aws-cdk/core": "^1.41.0"
+    "@aws-cdk/aws-codebuild": "^1.44.0",
+    "@aws-cdk/aws-codedeploy": "^1.44.0",
+    "@aws-cdk/aws-ec2": "^1.44.0",
+    "@aws-cdk/aws-ecr": "^1.44.0",
+    "@aws-cdk/aws-ecs": "^1.44.0",
+    "@aws-cdk/aws-elasticloadbalancingv2": "^1.44.0",
+    "@aws-cdk/aws-iam": "^1.44.0",
+    "@aws-cdk/core": "^1.44.0"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.41.0",
-    "@types/aws-lambda": "^8.10.51",
-    "aws-sdk": "^2.681.0",
-    "jest-cdk-snapshot": "^1.3.0",
-    "typescript": "^3.9.3"
+    "@aws-cdk/assert": "^1.44.0",
+    "@types/aws-lambda": "^8.10.53",
+    "aws-sdk": "^2.691.0",
+    "cdkdx": "^0.0.44",
+    "jest-cdk-snapshot": "^1.3.0"
   },
+  "externals": [
+    "aws-sdk"
+  ],
   "publishConfig": {
     "access": "public"
   }

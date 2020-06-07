@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+import 'source-map-support/register';
 import { config } from 'dotenv';
 import { App } from '@aws-cdk/core';
 import { BlueGreenContainerDeploymentStack } from './blue-green-container-deployment-stack';

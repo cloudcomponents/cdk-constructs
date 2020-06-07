@@ -1,21 +1,36 @@
+import { Action } from './actions';
 // https://github.com/OfficeDev/outlook-dev-docs/blob/master/docs/actionable-messages/message-card-reference.md
+// https://docs.microsoft.com/de-de/outlook/actionable-messages/message-card-reference
 
 export interface Fact {
   name: string;
   value: string;
 }
+
+export interface Image {
+  image: string;
+  title: string;
+}
+
 export interface Section {
   title: string;
+  startGroup?: boolean;
+  heroImage?: Image;
+  text?: string;
   facts: Fact[];
+  images?: Image[];
+  potentialAction?: Action[];
 }
 
 export interface Payload {
   '@type': 'MessageCard';
   '@context': 'http://schema.org/extensions';
+  correlationId?: string;
+  themeColor?: string;
   title: string;
   text: string;
-  themeColor?: string;
   sections?: Section[];
+  potentialAction?: Action[];
 }
 
 export interface MessageCardProps {
@@ -40,8 +55,8 @@ export class MessageCard {
     }
   }
 
-  public setThemeColor(color: string): void {
-    this.payload.themeColor = color;
+  public setThemeColor(themeColor: string): void {
+    this.payload.themeColor = themeColor;
   }
 
   public addSection(section: Section): void {

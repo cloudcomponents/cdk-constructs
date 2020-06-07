@@ -10,7 +10,7 @@ Object {
       ],
       "Properties": Object {
         "Code": Any<Object>,
-        "Handler": "lib/stripe-webhook.handler",
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
             "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcServiceRole975E615A",
