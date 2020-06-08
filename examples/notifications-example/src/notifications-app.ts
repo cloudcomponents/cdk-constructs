@@ -2,11 +2,8 @@
 
 import 'source-map-support/register';
 import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
 
 import { NotificationsStack } from './notifications-stack';
-
-config();
 
 const app = new App();
 

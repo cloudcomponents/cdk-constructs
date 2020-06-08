@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
-import { ContentfulWebhookStack } from './contentful-webhook-stack';
 
-config();
+import 'source-map-support/register';
+import { App } from '@aws-cdk/core';
+
+import { ContentfulWebhookStack } from './contentful-webhook-stack';
 
 const app = new App();
 

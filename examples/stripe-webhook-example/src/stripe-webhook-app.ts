@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
-import { StripeWebhookStack } from './stripe-webhook-stack';
 
-config();
+import 'source-map-support/register';
+import { App } from '@aws-cdk/core';
+
+import { StripeWebhookStack } from './stripe-webhook-stack';
 
 const app = new App();
 

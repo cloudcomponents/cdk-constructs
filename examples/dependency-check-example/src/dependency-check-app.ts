@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
-import { DependencyCheckStack } from './dependency-check-stack';
 
-config();
+import 'source-map-support/register';
+import { App } from '@aws-cdk/core';
+
+import { DependencyCheckStack } from './dependency-check-stack';
 
 const app = new App();
 

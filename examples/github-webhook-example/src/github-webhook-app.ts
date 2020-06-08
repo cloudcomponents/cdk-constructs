@@ -1,10 +1,9 @@
 #!/usr/bin/env node
+
+import 'source-map-support/register';
 import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
 
 import { GithubWebhookStack } from './github-webhook-stack';
-
-config();
 
 const app = new App();
 

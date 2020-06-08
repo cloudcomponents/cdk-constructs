@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
-import { StaticWebsiteStack } from './static-website-stack';
 
-config();
+import 'source-map-support/register';
+import { App } from '@aws-cdk/core';
+
+import { StaticWebsiteStack } from './static-website-stack';
 
 const app = new App();
 new StaticWebsiteStack(app, 'StaticWebsiteStack', {

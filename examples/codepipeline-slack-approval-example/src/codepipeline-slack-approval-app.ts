@@ -1,10 +1,9 @@
 #!/usr/bin/env node
+
+import 'source-map-support/register';
 import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
 
 import { CodePipelineSlackApprovalStack } from './codepipeline-slack-approval-stack';
-
-config();
 
 const app = new App();
 

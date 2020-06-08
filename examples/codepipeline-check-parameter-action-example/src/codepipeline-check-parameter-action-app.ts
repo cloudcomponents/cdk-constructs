@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 
+import 'source-map-support/register';
 import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
 
 import { CodePipelineCheckParameterActionStack } from './codepipeline-check-parameter-action-stack';
-
-config();
 
 const app = new App();
 

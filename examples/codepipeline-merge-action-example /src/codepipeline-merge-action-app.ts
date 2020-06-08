@@ -1,10 +1,9 @@
 #!/usr/bin/env node
+
+import 'source-map-support/register';
 import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
 
 import { CodePipelineMergeActionStack } from './codepipeline-merge-action-stack';
-
-config();
 
 const app = new App();
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { App } from '@aws-cdk/core';
-import { config } from 'dotenv';
-import { CodeCommitBackupStack } from './codecommit-backup-stack';
 
-config();
+import 'source-map-support/register';
+import { App } from '@aws-cdk/core';
+
+import { CodeCommitBackupStack } from './codecommit-backup-stack';
 
 const app = new App();
 
