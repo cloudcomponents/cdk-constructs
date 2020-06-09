@@ -1,6 +1,8 @@
-import { Construct, Lazy } from '@aws-cdk/core';
+import { Construct } from '@aws-cdk/core';
 import {
   BuildSpec,
+  Cache,
+  LocalCacheMode,
   LinuxBuildImage,
   PipelineProject,
   ComputeType,
@@ -23,6 +25,19 @@ export interface CodePipelineDockerfileLinterActionProps
    */
   readonly input: Artifact;
 
+  /**
+   * Version of hadolint
+   *
+   * @default v1.18.0
+   */
+  readonly version?: string;
+
+  /**
+   * The type of compute to use for backup the repositories.
+   * See the {@link ComputeType} enum for the possible values.
+   *
+   * @default taken from {@link LinuxBuildImage.STANDARD_4_0#defaultComputeType}
+   */
   readonly computeType?: ComputeType;
 }
 
@@ -36,9 +51,9 @@ export class CodePipelineDockerfileLinterAction extends Action {
       provider: 'CodeBuild',
       artifactBounds: {
         minInputs: 1,
-        maxInputs: 5,
+        maxInputs: 1,
         minOutputs: 0,
-        maxOutputs: 5,
+        maxOutputs: 0,
       },
       inputs: [props.input],
     });
@@ -53,7 +68,10 @@ export class CodePipelineDockerfileLinterAction extends Action {
   ): ActionConfig {
     const buildImage = LinuxBuildImage.STANDARD_4_0;
 
+    const version = this.props.version || 'v1.18.0';
+
     const project = new PipelineProject(scope, 'LinterProject', {
+      cache: Cache.local(LocalCacheMode.DOCKER_LAYER),
       environment: {
         buildImage,
         computeType: this.props.computeType || buildImage.defaultComputeType,
@@ -68,19 +86,19 @@ export class CodePipelineDockerfileLinterAction extends Action {
           pre_build: {
             commands: [
               `echo Pulling the hadolint docker image`,
-              `docker pull hadolint/hadolint:v1.18.0`,
+              `docker pull hadolint/hadolint:${version}`,
             ],
           },
           build: {
             commands: [],
             finally: [
               `echo Scan started on \`date\``,
-              `result=$(docker run --rm -i hadolint/hadolint:v1.18.0 hadolint -f json - < Dockerfile)`,
+              `result=$(docker run --rm -i hadolint/hadolint:${version} hadolint -f json - < Dockerfile)`,
             ],
           },
           post_build: {
             commands: [
-              `echo $result | jq .`,
+              `if [ "$result" != "[]" ]; then echo $result | jq .; else echo "Awesome! No findings!"; fi`,
               `echo Scan completed on \`date\``,
             ],
           },
@@ -104,25 +122,13 @@ export class CodePipelineDockerfileLinterAction extends Action {
     // but only if the project is not imported
     // (ie., has a role) - otherwise, the IAM library throws an error
     if (project.role) {
-      if ((this.actionProperties.outputs || []).length > 0) {
-        options.bucket.grantReadWrite(project);
-      } else {
-        options.bucket.grantRead(project);
-      }
+      options.bucket.grantRead(project);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const configuration: any = {
-      ProjectName: project.projectName,
-    };
-    if ((this.actionProperties.inputs || []).length > 1) {
-      // lazy, because the Artifact name might be generated lazily
-      configuration.PrimarySource = Lazy.stringValue({
-        produce: () => this.props.input.artifactName,
-      });
-    }
     return {
-      configuration,
+      configuration: {
+        ProjectName: project.projectName,
+      },
     };
   }
 }
