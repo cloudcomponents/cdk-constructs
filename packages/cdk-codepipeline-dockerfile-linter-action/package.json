@@ -1,0 +1,45 @@
+{
+  "name": "@cloudcomponents/cdk-codepipeline-dockerfile-linter-action",
+  "version": "1.0.0",
+  "description": "Codepipeline action to lint dockerfiles with hadolint",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudcomponents/cdk-components",
+    "directory": "packages/cdk-codepipeline-dockerfile-linter-action"
+  },
+  "keywords": [
+    "aws",
+    "cdk",
+    "docker",
+    "sast",
+    "linter",
+    "hadolint",
+    "security",
+    "@cloudcomponents"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "cdkdx build",
+    "test": "cdkdx test"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-codebuild": "^1.44.0",
+    "@aws-cdk/aws-codepipeline": "^1.44.0",
+    "@aws-cdk/aws-codepipeline-actions": "^1.44.0",
+    "@aws-cdk/aws-iam": "^1.44.0",
+    "@aws-cdk/core": "^1.44.0"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.44.0",
+    "cdkdx": "^0.0.45",
+    "jest-cdk-snapshot": "^1.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
