@@ -1,11 +1,11 @@
-# @cloudcomponents/cdk-codepipeline-dockerfile-linter-action
+# @cloudcomponents/cdk-codepipeline-anchore-inline-scan-action
 
-> CodePipeline action to lint dockerfiles with hadolint
+> CodePipeline action to integrate [Anchore Engine](https://docs.anchore.com/current/) into your pipeline
 
 ## Install
 
 ```bash
-npm i @cloudcomponents/cdk-codepipeline-dockerfile-linter-action
+npm i @cloudcomponents/cdk-codepipeline-anchore-inline-scan-action
 ```
 
 ## How to use

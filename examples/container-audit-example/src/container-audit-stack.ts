@@ -3,7 +3,7 @@ import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { CodePipelineDockerfileLinterAction } from '@cloudcomponents/cdk-codepipeline-dockerfile-linter-action';
-
+import { CodePipelineAnchoreInlineScanAction } from '@cloudcomponents/cdk-codepipeline-anchore-inline-scan-action';
 export class ContainerAuditStack extends Stack {
   public constructor(parent: App, name: string, props?: StackProps) {
     super(parent, name, props);
@@ -26,6 +26,11 @@ export class ContainerAuditStack extends Stack {
       input: sourceArtifact,
     });
 
+    const vulnScanAction = new CodePipelineAnchoreInlineScanAction({
+      actionName: 'VulnScan',
+      input: sourceArtifact,
+    });
+
     new Pipeline(this, 'Pipeline', {
       pipelineName: 'container-audit-pipeline',
       stages: [
@@ -35,7 +40,7 @@ export class ContainerAuditStack extends Stack {
         },
         {
           stageName: 'Audit',
-          actions: [linterAction],
+          actions: [linterAction, vulnScanAction],
         },
       ],
     });
