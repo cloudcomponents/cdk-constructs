@@ -1,7 +1,7 @@
 import { SnsMessage } from '../sns-message';
 import { MessageCard } from '../message-card';
 
-import { Account } from './Account';
+import { Account } from './account';
 
 export abstract class Message {
   private account: Account;
