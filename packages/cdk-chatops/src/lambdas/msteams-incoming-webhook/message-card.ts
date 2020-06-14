@@ -13,11 +13,11 @@ export interface Image {
 }
 
 export interface Section {
-  title: string;
+  title?: string;
   startGroup?: boolean;
   heroImage?: Image;
   text?: string;
-  facts: Fact[];
+  facts?: Fact[];
   images?: Image[];
   potentialAction?: Action[];
 }
@@ -65,5 +65,13 @@ export class MessageCard {
       return;
     }
     this.payload.sections = [section];
+  }
+
+  public addPotentialAction(action: Action): void {
+    if (this.payload.potentialAction) {
+      this.payload.potentialAction.push(action);
+      return;
+    }
+    this.payload.potentialAction = [action];
   }
 }

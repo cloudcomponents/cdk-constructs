@@ -3,6 +3,7 @@ import { Construct } from '@aws-cdk/core';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { ITopic } from '@aws-cdk/aws-sns';
 import { SnsEventSource } from '@aws-cdk/aws-lambda-event-sources';
+import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
 
 export interface MSTeamsIncomingWebhookConfigurationProps {
   /**
@@ -34,6 +35,14 @@ export class MSTeamsIncomingWebhookConfiguration extends Construct {
         URL: props.url,
       },
     });
+
+    incomingWebhook.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: ['iam:ListAccountAliases'],
+        resources: ['*'],
+      }),
+    );
 
     props.notificationTopics?.forEach((topic) => {
       incomingWebhook.addEventSource(new SnsEventSource(topic));
