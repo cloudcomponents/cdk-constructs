@@ -42,16 +42,10 @@ import {
   SlackChannelConfiguration,
   MSTeamsIncomingWebhookConfiguration,
 } from '@cloudcomponents/cdk-chatops';
-import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 export class NotificationsStack extends Stack {
   public constructor(parent: App, name: string, props?: StackProps) {
     super(parent, name, props);
-
-    new DeletableBucket(this, 'DeletableBucket', {
-      bucketName: 'ccloudcomponentsdelete123',
-      forceDelete: true,
-    });
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'notifications-repository',
