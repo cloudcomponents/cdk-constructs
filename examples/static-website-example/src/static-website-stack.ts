@@ -43,7 +43,7 @@ export class StaticWebsiteWithExistingSourcesAndSecurityPolicyStack extends Stac
         domainName: 'cloudcomponents.org',
         names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
         acmCertRef: certificateArn,
-        securityPolicy: SecurityPolicyProtocol.TLS_V1_2_2018
+        securityPolicy: SecurityPolicyProtocol.TLS_V1_2_2018,
       },
     });
   }
