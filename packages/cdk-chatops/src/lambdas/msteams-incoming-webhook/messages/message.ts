@@ -15,6 +15,7 @@ export abstract class Message {
   public abstract async getMessageCard(): Promise<MessageCard>;
 
   public async getAccountLabel(): Promise<string> {
+    //return 'Account: cloudcomponents (1234567890)';
     return this.account.getAccountLabel();
   }
 

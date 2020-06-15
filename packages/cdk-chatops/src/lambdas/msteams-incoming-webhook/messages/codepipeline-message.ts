@@ -53,7 +53,7 @@ export class CodePipelineMessage extends Message {
     const emoji = this.getEmoji();
 
     const messageCard = new MessageCard({
-      title: `${emoji} AWS CodePipeline Notification | ${this.snsMessage.region} | ${accountLabel})`,
+      title: `${emoji} AWS CodePipeline Notification | ${this.snsMessage.region} | ${accountLabel}`,
       text: this.getText(),
       themeColor: '#CEDB56',
     });

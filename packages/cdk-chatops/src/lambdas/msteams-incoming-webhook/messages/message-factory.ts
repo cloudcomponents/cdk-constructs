@@ -7,6 +7,7 @@ import { CodePipelineMessage } from './codepipeline-message';
 
 export enum MessageSource {
   'CODE_PIPELINE' = 'aws.codepipeline',
+  'CODE_COMMIT' = 'aws.codecommit',
   'DEFAULT' = 'default',
 }
 

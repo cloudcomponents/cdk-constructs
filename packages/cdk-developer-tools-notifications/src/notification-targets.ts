@@ -1,6 +1,7 @@
 import { Construct } from '@aws-cdk/core';
-import { ITopic, Topic } from '@aws-cdk/aws-sns';
+import { Topic, ITopic } from '@aws-cdk/aws-sns';
 import { ServicePrincipal } from '@aws-cdk/aws-iam';
+import { SnsEventSource } from '@aws-cdk/aws-lambda-event-sources';
 import {
   ISlackChannelConfiguration,
   MSTeamsIncomingWebhookConfiguration,
@@ -44,23 +45,16 @@ export class SlackChannel implements INotificationTarget {
 }
 
 export class MSTeamsIncomingWebhook implements INotificationTarget {
-  constructor(private readonly url: string) {}
+  constructor(private readonly webhook: MSTeamsIncomingWebhookConfiguration) {}
 
   public bind(scope: Construct): NotificationTargetProperty {
-    const msTeamsTopic = new Topic(scope, 'MSTeamsTopic');
+    const msTeamsTopic = new Topic(scope, `${scope.node.id}MSTeamsTopic`);
 
     msTeamsTopic.grantPublish(
       new ServicePrincipal('codestar-notifications.amazonaws.com'),
     );
 
-    new MSTeamsIncomingWebhookConfiguration(
-      scope,
-      'MSTeamsIncomingWebhookConfiguration',
-      {
-        url: this.url,
-        notificationTopics: [msTeamsTopic],
-      },
-    );
+    this.webhook.addEventSource(new SnsEventSource(msTeamsTopic));
 
     return {
       targetType: TargetType.SNS,

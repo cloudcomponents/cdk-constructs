@@ -30,11 +30,24 @@ import {
   SlackChannel,
   MSTeamsIncomingWebhook,
 } from '@cloudcomponents/cdk-developer-tools-notifications';
-import { SlackChannelConfiguration } from '@cloudcomponents/cdk-chatops';
+import {
+  SlackChannelConfiguration,
+  MSTeamsIncomingWebhookConfiguration,
+} from '@cloudcomponents/cdk-chatops';
+import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 export class NotificationsStack extends Stack {
   public constructor(parent: App, name: string, props?: StackProps) {
     super(parent, name, props);
+
+    new DeletableBucket(this, 'DeletableBucket', {
+      bucketName: 'ccloudcomponentsdelete123',
+      forceDelete: true,
+    });
+
+    const repository = new Repository(this, 'Repository', {
+      repositoryName: 'notifications-repository',
+    });
 
     const slackChannel = new SlackChannelConfiguration(this, 'SlackChannel', {
       slackWorkspaceId: process.env.SLACK_WORKSPACE_ID as string,
@@ -42,9 +55,13 @@ export class NotificationsStack extends Stack {
       slackChannelId: process.env.SLACK_CHANNEL_ID as string,
     });
 
-    const repository = new Repository(this, 'Repository', {
-      repositoryName: 'notifications-repository',
-    });
+    const webhook = new MSTeamsIncomingWebhookConfiguration(
+      this,
+      'MSTeamsWebhook',
+      {
+        url: process.env.INCOMING_WEBHOOK_URL as string,
+      },
+    );
 
     new RepositoryNotificationRule(this, 'RepoNotifications', {
       name: 'notifications-repository',
@@ -56,7 +73,7 @@ export class NotificationsStack extends Stack {
       ],
       targets: [
         new SlackChannel(slackChannel),
-        new MSTeamsIncomingWebhook(process.env.INCOMING_WEBHOOK_URL as string),
+        new MSTeamsIncomingWebhook(webhook),
       ],
     });
 
@@ -99,7 +116,7 @@ export class NotificationsStack extends Stack {
       ],
       targets: [
         new SlackChannel(slackChannel),
-        new MSTeamsIncomingWebhook(process.env.INCOMING_WEBHOOK_URL as string),
+        new MSTeamsIncomingWebhook(webhook),
       ],
     });
   }

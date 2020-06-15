@@ -1,6 +1,6 @@
 import * as path from 'path';
 import { Construct } from '@aws-cdk/core';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Code, Function, IFunction, Runtime } from '@aws-cdk/aws-lambda';
 import { ITopic } from '@aws-cdk/aws-sns';
 import { SnsEventSource } from '@aws-cdk/aws-lambda-event-sources';
 import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
@@ -18,6 +18,8 @@ export interface MSTeamsIncomingWebhookConfigurationProps {
 }
 
 export class MSTeamsIncomingWebhookConfiguration extends Construct {
+  private incomingWebhook: IFunction;
+
   constructor(
     scope: Construct,
     id: string,
@@ -25,7 +27,7 @@ export class MSTeamsIncomingWebhookConfiguration extends Construct {
   ) {
     super(scope, id);
 
-    const incomingWebhook = new Function(this, 'SevierityFilter', {
+    this.incomingWebhook = new Function(this, 'Function', {
       runtime: Runtime.NODEJS_12_X,
       code: Code.fromAsset(
         path.join(__dirname, 'lambdas', 'msteams-incoming-webhook'),
@@ -36,7 +38,7 @@ export class MSTeamsIncomingWebhookConfiguration extends Construct {
       },
     });
 
-    incomingWebhook.addToRolePolicy(
+    this.incomingWebhook.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
         actions: ['iam:ListAccountAliases'],
@@ -45,7 +47,11 @@ export class MSTeamsIncomingWebhookConfiguration extends Construct {
     );
 
     props.notificationTopics?.forEach((topic) => {
-      incomingWebhook.addEventSource(new SnsEventSource(topic));
+      this.incomingWebhook.addEventSource(new SnsEventSource(topic));
     });
+  }
+
+  public addEventSource(snsEventSource: SnsEventSource): void {
+    this.incomingWebhook.addEventSource(snsEventSource);
   }
 }
