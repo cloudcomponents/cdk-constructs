@@ -19,8 +19,8 @@ const codecommit = new CodeCommit();
 
 const getProperties = (
   props:
-    | CloudFormationCustomResourceEvent['ResourceProperties']
-    | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
+  | CloudFormationCustomResourceEvent['ResourceProperties']
+  | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
 ): ApprovalRuleRepositoryAssociationProps => ({
   approvalRuleTemplateName: props.ApprovalRuleTemplateName,
   repositoryName: props.RepositoryName,

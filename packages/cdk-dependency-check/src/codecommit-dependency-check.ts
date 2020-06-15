@@ -106,7 +106,7 @@ export class CodeCommitDependencyCheck extends Construct {
       schedule,
       computeType,
       repository,
-      preCheckCommand = `echo "No preCheckCommand!"`,
+      preCheckCommand = 'echo "No preCheckCommand!"',
       version = '5.3.2',
       projectName,
       failOnCVSS = 0,
@@ -143,16 +143,16 @@ export class CodeCommitDependencyCheck extends Construct {
         phases: {
           install: {
             commands: [
-              `echo "[===== Install OWASP Dependency Check =====]"`,
-              `wget -O public-key.asc https://bintray.com/user/downloadSubjectPublicKey?username=jeremy-long`,
-              `gpg --keyid-format long --list-options show-keyring public-key.asc`,
-              `gpg --import public-key.asc`,
+              'echo "[===== Install OWASP Dependency Check =====]"',
+              'wget -O public-key.asc https://bintray.com/user/downloadSubjectPublicKey?username=jeremy-long',
+              'gpg --keyid-format long --list-options show-keyring public-key.asc',
+              'gpg --import public-key.asc',
               `wget https://dl.bintray.com/jeremy-long/owasp/${dependencyCheck}.zip`,
               `wget https://dl.bintray.com/jeremy-long/owasp/${dependencyCheck}.zip.asc`,
               `gpg --verify ${dependencyCheck}.zip.asc ${dependencyCheck}.zip`,
               `unzip ${dependencyCheck}.zip -d /opt`,
-              `chmod +x /opt/dependency-check/bin/dependency-check.sh`,
-              `export PATH="$PATH:/opt/dependency-check/bin"`,
+              'chmod +x /opt/dependency-check/bin/dependency-check.sh',
+              'export PATH="$PATH:/opt/dependency-check/bin"',
             ],
           },
           pre_build: {
@@ -161,15 +161,15 @@ export class CodeCommitDependencyCheck extends Construct {
               `git clone "${repositoryCloneUrlHttp}"`,
               `cd ${repositoryName}`,
               `${preCheckCommand}`,
-              `SHA=$(git rev-parse HEAD)`,
-              `cd \${CODEBUILD_SRC_DIR}`,
+              'SHA=$(git rev-parse HEAD)',
+              'cd ${CODEBUILD_SRC_DIR}',
             ],
           },
           build: {
             commands: [
               `echo "[===== Scan repository: ${repositoryName} =====]"`,
-              `echo "[===== SHA: $SHA =====]"`,
-              `mkdir reports`,
+              'echo "[===== SHA: $SHA =====]"',
+              'mkdir reports',
               cli.version(),
               cli.scan({
                 projectName: projectName || repositoryName,
@@ -182,11 +182,11 @@ export class CodeCommitDependencyCheck extends Construct {
               }),
             ],
             finally: [
-              `echo "[===== Upload reports =====]"`,
-              `dt=$(date -u '+%Y_%m_%d_%H_%M')`,
+              'echo "[===== Upload reports =====]"',
+              'dt=$(date -u \'+%Y_%m_%d_%H_%M\')',
               reportsBucket
                 ? `aws s3 cp reports/dependency-check-report.html s3://${reportsBucket.bucketName}/${repositoryName}/\${dt}_UTC/`
-                : `echo "No reportsBuckets"`,
+                : 'echo "No reportsBuckets"',
             ],
           },
         },

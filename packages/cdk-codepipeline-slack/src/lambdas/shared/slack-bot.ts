@@ -62,8 +62,8 @@ export class SlackBot {
 
   public async findChannel(channelName: string): Promise<Channel | undefined> {
     const response = (await this.bot.conversations.list()) as Record<
-      string,
-      Channel[]
+    string,
+    Channel[]
     >;
     return response.channels.find((channel) => channel.name === channelName);
   }

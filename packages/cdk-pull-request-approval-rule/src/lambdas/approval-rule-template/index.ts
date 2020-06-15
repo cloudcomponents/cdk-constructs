@@ -33,8 +33,8 @@ const codecommit = new CodeCommit();
 
 const getProperties = (
   props:
-    | CloudFormationCustomResourceEvent['ResourceProperties']
-    | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
+  | CloudFormationCustomResourceEvent['ResourceProperties']
+  | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
 ): ApprovalRuleTemplateProps => ({
   approvalRuleTemplateName: props.ApprovalRuleTemplateName,
   approvalRuleTemplateDescription: props.ApprovalRuleTemplateDescription,

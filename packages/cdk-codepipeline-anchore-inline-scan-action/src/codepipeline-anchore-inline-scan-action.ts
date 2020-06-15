@@ -82,17 +82,17 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
         phases: {
           build: {
             commands: [
-              `echo Build started on \`date\``,
-              `docker build -t image2scan:ci .`,
-              `echo Build completed on \`date\``,
+              'echo Build started on `date`',
+              'docker build -t image2scan:ci .',
+              'echo Build completed on `date`',
             ],
           },
           post_build: {
             commands: [],
             finally: [
-              `echo Scan started on \`date\``,
+              'echo Scan started on `date`',
               `curl -s https://ci-tools.anchore.io/inline_scan-${version} | bash -s -- -f image2scan:ci`,
-              `echo Scan completed on \`date\``,
+              'echo Scan completed on `date`',
             ],
           },
         },

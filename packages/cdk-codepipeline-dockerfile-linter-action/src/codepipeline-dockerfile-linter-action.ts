@@ -85,21 +85,21 @@ export class CodePipelineDockerfileLinterAction extends Action {
           },
           pre_build: {
             commands: [
-              `echo Pulling the hadolint docker image`,
+              'echo Pulling the hadolint docker image',
               `docker pull hadolint/hadolint:${version}`,
             ],
           },
           build: {
             commands: [],
             finally: [
-              `echo Scan started on \`date\``,
+              'echo Scan started on `date`',
               `result=$(docker run --rm -i hadolint/hadolint:${version} hadolint -f json - < Dockerfile)`,
             ],
           },
           post_build: {
             commands: [
-              `if [ "$result" != "[]" ]; then echo $result | jq .; else echo "Awesome! No findings!"; fi`,
-              `echo Scan completed on \`date\``,
+              'if [ "$result" != "[]" ]; then echo $result | jq .; else echo "Awesome! No findings!"; fi',
+              'echo Scan completed on `date`',
             ],
           },
         },

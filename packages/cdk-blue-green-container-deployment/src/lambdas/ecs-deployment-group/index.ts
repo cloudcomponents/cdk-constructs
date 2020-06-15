@@ -29,8 +29,8 @@ const codeDeploy = new CodeDeploy();
 
 const getProperties = (
   props:
-    | CloudFormationCustomResourceEvent['ResourceProperties']
-    | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
+  | CloudFormationCustomResourceEvent['ResourceProperties']
+  | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
 ): EcsDeploymentGroupProps => ({
   applicationName: props.ApplicationName,
   deploymentGroupName: props.DeploymentGroupName,

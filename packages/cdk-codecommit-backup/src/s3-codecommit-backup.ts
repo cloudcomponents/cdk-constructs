@@ -71,7 +71,7 @@ export class S3CodeCommitBackup extends Construct {
           },
           build: {
             commands: [
-              `dt=$(date -u '+%Y_%m_%d_%H_%M')`,
+              'dt=$(date -u \'+%Y_%m_%d_%H_%M\')',
               `zipfile="${repositoryName}_backup_\${dt}_UTC.tar.gz"`,
               `echo "Compressing repository: ${repositoryName} into file: \${zipfile} and uploading to S3 bucket: ${backupBucket.bucketName}/${repositoryName}"`,
               `tar -zcvf "\${zipfile}" "${repositoryName}/"`,
