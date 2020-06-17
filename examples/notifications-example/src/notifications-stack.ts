@@ -95,7 +95,7 @@ export class NotificationsStack extends Stack {
         // PipelineEvent.ACTION_EXECUTION_FAILED,
         PipelineEvent.MANUAL_APPROVAL_NEEDED,
         PipelineEvent.MANUAL_APPROVAL_SUCCEEDED,
-        PipelineEvent.MANUAL_APPROVAL_FAILED,
+        // PipelineEvent.MANUAL_APPROVAL_FAILED,
         // PipelineEvent.STAGE_EXECUTION_STARTED,
         // PipelineEvent.STAGE_EXECUTION_SUCCEEDED,
         // PipelineEvent.STAGE_EXECUTION_FAILED,
