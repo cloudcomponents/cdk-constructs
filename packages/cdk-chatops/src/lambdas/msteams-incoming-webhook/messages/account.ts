@@ -1,28 +1,33 @@
 import { IAM } from 'aws-sdk';
-import { SnsMessage } from '../sns-message';
 
 let accountAlias = '';
 
-export interface AccountOptions {
-  showAccountAlias: boolean;
-}
-
 export class Account {
-  constructor(
-    private readonly message: SnsMessage,
-    private readonly options: AccountOptions,
-  ) {}
+  constructor(private readonly accountId: string) {}
 
-  public async getAccountLabel(): Promise<string> {
-    if (this.options.showAccountAlias) {
-      const alias = await this.getAccountAlias();
-      return `Account: ${alias} (${this.message.account})`;
+  public async renderLabel(
+    accountLabelMode: AccountLabelMode,
+  ): Promise<string> {
+    switch (accountLabelMode) {
+      case AccountLabelMode.ID: {
+        return `Account: ${this.accountId}`;
+      }
+      case AccountLabelMode.ALIAS:
+      default: {
+        const alias = await this.getAccountAlias();
+        // return 'Account: cloudcomponents (1234567890)';
+        return accountLabelMode === AccountLabelMode.ALIAS
+          ? `Account: ${alias} (${this.accountId})`
+          : `Account: ${alias} (${this.accountId})`;
+      }
     }
-
-    return `Account: ${this.message.account}`;
   }
 
-  private async getAccountAlias(): Promise<string> {
+  public getAccountId(): string {
+    return this.accountId;
+  }
+
+  public async getAccountAlias(): Promise<string> {
     if (!accountAlias) {
       const iam = new IAM();
 
@@ -35,4 +40,10 @@ export class Account {
 
     return accountAlias;
   }
+}
+
+export enum AccountLabelMode {
+  ID = 'ID',
+  ALIAS = 'ALIAS',
+  ID_AND_ALIAS = 'ID_AND_ALIAS',
 }

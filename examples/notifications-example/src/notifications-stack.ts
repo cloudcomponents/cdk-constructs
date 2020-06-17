@@ -16,6 +16,7 @@ import {
 import {
   SlackChannelConfiguration,
   MSTeamsIncomingWebhookConfiguration,
+  AccountLabelMode,
 } from '@cloudcomponents/cdk-chatops';
 
 export class NotificationsStack extends Stack {
@@ -37,6 +38,8 @@ export class NotificationsStack extends Stack {
       'MSTeamsWebhook',
       {
         url: process.env.INCOMING_WEBHOOK_URL as string,
+        accountLabelMode: AccountLabelMode.ID_AND_ALIAS,
+        themeColor: '#FF0000',
       },
     );
 
@@ -87,9 +90,15 @@ export class NotificationsStack extends Stack {
         PipelineEvent.PIPELINE_EXECUTION_STARTED,
         PipelineEvent.PIPELINE_EXECUTION_FAILED,
         PipelineEvent.PIPELINE_EXECUTION_SUCCEEDED,
+        // PipelineEvent.ACTION_EXECUTION_STARTED,
+        // PipelineEvent.ACTION_EXECUTION_SUCCEEDED,
+        // PipelineEvent.ACTION_EXECUTION_FAILED,
         PipelineEvent.MANUAL_APPROVAL_NEEDED,
         PipelineEvent.MANUAL_APPROVAL_SUCCEEDED,
         PipelineEvent.MANUAL_APPROVAL_FAILED,
+        // PipelineEvent.STAGE_EXECUTION_STARTED,
+        // PipelineEvent.STAGE_EXECUTION_SUCCEEDED,
+        // PipelineEvent.STAGE_EXECUTION_FAILED,
       ],
       targets: [
         new SlackChannel(slackChannel),

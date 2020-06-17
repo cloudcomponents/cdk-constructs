@@ -1,25 +1,49 @@
 import { SnsMessage } from '../sns-message';
 import { MessageCard } from '../message-card';
 
-import { Account } from './account';
+import { Account, AccountLabelMode } from './account';
+
+export interface MessageOptions {
+  accountLabelMode?: AccountLabelMode;
+  themeColor?: string;
+}
 
 export abstract class Message {
-  private account: Account;
+  constructor(
+    protected readonly title: string,
+    protected readonly snsMessage: SnsMessage,
+    private readonly options: MessageOptions,
+  ) {}
 
-  constructor(protected readonly snsMessage: SnsMessage) {
-    this.account = new Account(snsMessage, {
-      showAccountAlias: true,
+  public async render(): Promise<MessageCard> {
+    const { account: accountId, region } = this.snsMessage;
+
+    const account = new Account(accountId);
+
+    const accountLabel = await account.renderLabel(
+      this.options.accountLabelMode,
+    );
+
+    const emoji = this.getEmoji();
+
+    const messageCard = new MessageCard({
+      title: `${emoji} ${this.title} | ${region} | ${accountLabel})`,
+      text: this.getText(),
+      themeColor: this.options.themeColor,
     });
+
+    return this.renderMessageCard(messageCard);
   }
 
-  public abstract async getMessageCard(): Promise<MessageCard>;
+  protected abstract async renderMessageCard(
+    messageCard: MessageCard,
+  ): Promise<MessageCard>;
 
-  public async getAccountLabel(): Promise<string> {
-    //return 'Account: cloudcomponents (1234567890)';
-    return this.account.getAccountLabel();
+  protected getText(): string {
+    return this.snsMessage.detailType;
   }
 
-  public getEmoji(): string {
+  protected getEmoji(): string {
     return '📣';
   }
 }

@@ -12,6 +12,18 @@ export interface MSTeamsIncomingWebhookConfigurationProps {
   readonly url: string;
 
   /**
+   * Specifies a custom brand color for the card. The color will be displayed in a non-obtrusive manner.
+   *
+   * @default `#CEDB56`
+   */
+  readonly themeColor?: string;
+
+  /**
+   * @default ACCOUNT_LABEL_MODE.ID_AND_ALIAS
+   */
+  readonly accountLabelMode?: AccountLabelMode;
+
+  /**
    * The SNS topics that deliver notifications to MS Teams.
    */
   readonly notificationTopics?: ITopic[];
@@ -35,6 +47,9 @@ export class MSTeamsIncomingWebhookConfiguration extends Construct {
       handler: 'index.handler',
       environment: {
         URL: props.url,
+        THEME_COLOR: props.themeColor || '#CEDB56',
+        ACCOUNT_LABEL_MODE:
+          props.accountLabelMode || AccountLabelMode.ID_AND_ALIAS,
       },
     });
 
@@ -54,4 +69,10 @@ export class MSTeamsIncomingWebhookConfiguration extends Construct {
   public addEventSource(snsEventSource: SnsEventSource): void {
     this.incomingWebhook.addEventSource(snsEventSource);
   }
+}
+
+export enum AccountLabelMode {
+  ID = 'ID',
+  ALIAS = 'ALIAS',
+  ID_AND_ALIAS = 'ID_AND_ALIAS',
 }
