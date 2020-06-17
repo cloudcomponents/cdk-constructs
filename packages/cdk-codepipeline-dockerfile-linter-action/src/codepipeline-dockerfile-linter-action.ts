@@ -80,9 +80,6 @@ export class CodePipelineDockerfileLinterAction extends Action {
       buildSpec: BuildSpec.fromObject({
         version: '0.2',
         phases: {
-          install: {
-            commands: [],
-          },
           pre_build: {
             commands: [
               'echo Pulling the hadolint docker image',
