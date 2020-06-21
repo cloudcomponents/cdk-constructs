@@ -7,7 +7,8 @@
     "build": "lerna run build",
     "prepare": "yarn run build",
     "outdated:all": "yarn outdated",
-    "upgrade:all": "yarn upgrade-interactive --latest",
+    "upgrade:all": "yarn upgrade",
+    "upgrade-interactive:all": "yarn upgrade-interactive --latest",
     "lint": "eslint '*/**/*.ts' --report-unused-disable-directives",
     "lint:fix": "eslint '*/**/*.ts' --fix"
   },
@@ -22,7 +23,7 @@
     "@typescript-eslint/parser": "^3.2.0",
     "@typescript-eslint/typescript-estree": "^3.2.0",
     "eslint": "^7.2.0",
-    "eslint-config-cdk": "^0.0.45",
+    "eslint-config-cdk": "^0.0.47",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jest": "^23.13.2",
     "glob": "^7.1.6",
