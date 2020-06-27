@@ -1,0 +1,620 @@
+{
+  "blacklisted_images": [],
+  "description": "Single policy, single whitelist bundle for performing security checks, including example blacklist known malicious packages by name.",
+  "id": "anchore_security_only",
+  "last_updated": 1548806387,
+  "mappings": [
+    {
+      "id": "c4f9bf74-dc38-4ddf-b5cf-00e9c0074611",
+      "image": {
+        "type": "tag",
+        "value": "*"
+      },
+      "name": "default",
+      "policy_ids": ["48e6f7d6-1765-11e8-b5f9-8b6f228548b6"],
+      "registry": "*",
+      "repository": "*",
+      "whitelist_ids": ["2cedec50-2dd9-4b0a-85ec-52dbfa62201b"]
+    }
+  ],
+  "name": "anchore_security_only",
+  "policies": [
+    {
+      "comment": "Critical vulnerability,  secrets, dockerfile security checks, and examples of some known malicious packages.",
+      "id": "48e6f7d6-1765-11e8-b5f9-8b6f228548b6",
+      "name": "Security Checks",
+      "rules": [
+        {
+          "action": "STOP",
+          "gate": "vulnerabilities",
+          "id": "97622a21-45b2-4de1-9955-74a6197214c0",
+          "params": [
+            {
+              "name": "package_type",
+              "value": "all"
+            },
+            {
+              "name": "severity_comparison",
+              "value": ">="
+            },
+            {
+              "name": "severity",
+              "value": "high"
+            },
+            {
+              "name": "vendor_only",
+              "value": "true"
+            }
+          ],
+          "trigger": "package"
+        },
+        {
+          "action": "STOP",
+          "gate": "vulnerabilities",
+          "id": "92b1c635-5ba4-422d-951b-0e4172a18d1a",
+          "params": [
+            {
+              "name": "package_type",
+              "value": "all"
+            },
+            {
+              "name": "severity_comparison",
+              "value": ">="
+            },
+            {
+              "name": "severity",
+              "value": "medium"
+            },
+            {
+              "name": "fix_available",
+              "value": "true"
+            }
+          ],
+          "trigger": "package"
+        },
+        {
+          "action": "STOP",
+          "gate": "dockerfile",
+          "id": "20a32af4-5c16-487f-8c67-212ff2bc2d11",
+          "params": [
+            {
+              "name": "users",
+              "value": "root"
+            },
+            {
+              "name": "type",
+              "value": "blacklist"
+            }
+          ],
+          "trigger": "effective_user"
+        },
+        {
+          "action": "STOP",
+          "gate": "secret_scans",
+          "id": "509d5438-f0e3-41df-bb1a-33013f23e31c",
+          "params": [
+            {
+              "name": "content_regex_name",
+              "value": "AWS_ACCESS_KEY,AWS_SECRET_KEY"
+            }
+          ],
+          "trigger": "content_regex_checks"
+        },
+        {
+          "action": "STOP",
+          "gate": "dockerfile",
+          "id": "ce7b8000-829b-4c27-8122-69cd59018400",
+          "params": [
+            {
+              "name": "ports",
+              "value": "22,80,443"
+            },
+            {
+              "name": "type",
+              "value": "blacklist"
+            }
+          ],
+          "trigger": "exposed_ports"
+        },
+        {
+          "action": "STOP",
+          "gate": "vulnerabilities",
+          "id": "6b5c14e7-a6f7-48cc-99d2-959273a2c6fa",
+          "params": [
+            {
+              "name": "max_days_since_sync",
+              "value": "2"
+            }
+          ],
+          "trigger": "stale_feed_data"
+        },
+        {
+          "action": "STOP",
+          "gate": "vulnerabilities",
+          "id": "3e79ea94-18c4-4d26-9e29-3b9172a62c2e",
+          "params": [],
+          "trigger": "vulnerability_data_unavailable"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "84ae8aef-2949-4424-958e-fbd01f1b2f48",
+          "params": [
+            {
+              "name": "name",
+              "value": "babelcli"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "a98bd587-2227-4e44-8cca-c101610f7170",
+          "params": [
+            {
+              "name": "name",
+              "value": "crossenv"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "0ac23c9c-7306-4364-9d49-0db2407a8663",
+          "params": [
+            {
+              "name": "name",
+              "value": "cross-env.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "b3c9850b-2836-490b-83ad-776518277217",
+          "params": [
+            {
+              "name": "name",
+              "value": "d3.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "75996053-9348-46cb-9820-20599037dcb5",
+          "params": [
+            {
+              "name": "name",
+              "value": "fabric-js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "23f528e6-8cb3-4f06-bb34-8f0169d0e752",
+          "params": [
+            {
+              "name": "name",
+              "value": "ffmepg"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "b2dd62c6-626d-4eb5-82bc-16c24ed0f16c",
+          "params": [
+            {
+              "name": "name",
+              "value": "gruntcli"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "5ec2972d-268c-41e8-b8e0-d83a9acfa087",
+          "params": [
+            {
+              "name": "name",
+              "value": "http-proxy.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "929f4f74-265f-4628-acb3-87970e86585c",
+          "params": [
+            {
+              "name": "name",
+              "value": "jquery.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "527177fd-403f-4d96-96fb-86041ae9f765",
+          "params": [
+            {
+              "name": "name",
+              "value": "mariadb"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "b7ed966a-e0a7-469e-be3f-da885ce06cf4",
+          "params": [
+            {
+              "name": "name",
+              "value": "mongose"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "7c22941e-84ad-4143-ac1f-aa2a32958ee3",
+          "params": [
+            {
+              "name": "name",
+              "value": "mssql.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "59396a5e-ce5c-45b0-80a1-c1cb2a2d0a6a",
+          "params": [
+            {
+              "name": "name",
+              "value": "mssql-node"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "fe9fe0b7-1449-41d1-94a1-ab474d1643db",
+          "params": [
+            {
+              "name": "name",
+              "value": "mysqljs"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "1f5a9f9c-4279-4a89-bc1a-43ab71f22207",
+          "params": [
+            {
+              "name": "name",
+              "value": "nodecaffe"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "1351d66b-7de4-4ebf-918d-cfb9381d9e5c",
+          "params": [
+            {
+              "name": "name",
+              "value": "nodefabric"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "a0f661a0-3a97-418c-af51-d60b1592fe5b",
+          "params": [
+            {
+              "name": "name",
+              "value": "node-fabric"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "1730f31f-0bf0-4a6d-9e31-5760b71edde8",
+          "params": [
+            {
+              "name": "name",
+              "value": "nodeffmpeg"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "5dec49e8-3e7c-4cb9-92ed-d47bd0d2a92a",
+          "params": [
+            {
+              "name": "name",
+              "value": "nodemailer-js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "a706b8c5-cda2-48a3-ac37-c1f1809105ed",
+          "params": [
+            {
+              "name": "name",
+              "value": "nodemailer.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "780b0b8e-d0de-4707-9a7e-3b249134a29e",
+          "params": [
+            {
+              "name": "name",
+              "value": "nodemssql"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "c8e435bb-f865-42e6-978f-273005e5372c",
+          "params": [
+            {
+              "name": "name",
+              "value": "node-opencv"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "58fdfc0f-2203-49b1-ab5f-1648c84a546a",
+          "params": [
+            {
+              "name": "name",
+              "value": "node-opensl"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "d246ca0a-2f31-4e8e-bf67-1bb8ef717c99",
+          "params": [
+            {
+              "name": "name",
+              "value": "node-openssl"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "eeca6810-99d1-447e-8288-890c8b47e045",
+          "params": [
+            {
+              "name": "name",
+              "value": "noderequest"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "eacb401e-253d-4918-994a-e510b19e9f8e",
+          "params": [
+            {
+              "name": "name",
+              "value": "nodesass"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "b99f7fe1-9f52-459e-91b8-6fdaf31d4b52",
+          "params": [
+            {
+              "name": "name",
+              "value": "nodesqlite"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "ee4790cb-981f-404f-a565-7dd5c9141fdd",
+          "params": [
+            {
+              "name": "name",
+              "value": "node-sqlite"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "6465656d-008e-44cd-bfde-816a350fad46",
+          "params": [
+            {
+              "name": "name",
+              "value": "node-tkinter"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "2cebdc71-416f-48bf-af5e-fbc85162e7a1",
+          "params": [
+            {
+              "name": "name",
+              "value": "opencv.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "aef3b2a3-c1aa-4e3e-9997-843b19807f45",
+          "params": [
+            {
+              "name": "name",
+              "value": "openssl.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "6beb5b4d-a5f3-493d-a6ae-4a6da91cfbf1",
+          "params": [
+            {
+              "name": "name",
+              "value": "proxy.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "0fa886ff-eb62-448b-a419-7e9a4af53cb0",
+          "params": [
+            {
+              "name": "name",
+              "value": "shadowsock"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "f29c365c-8397-47a4-bad3-5a15d7ba27e1",
+          "params": [
+            {
+              "name": "name",
+              "value": "smb"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "3bb94730-d788-417d-80ba-668d53b0eaa6",
+          "params": [
+            {
+              "name": "name",
+              "value": "sqlite.js"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "fee22782-1a0e-4c18-96b7-6f7ed0bdcbb3",
+          "params": [
+            {
+              "name": "name",
+              "value": "sqliter"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "eeb22fa0-c382-4178-bd05-f9c5e13f6089",
+          "params": [
+            {
+              "name": "name",
+              "value": "sqlserver"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        },
+        {
+          "action": "STOP",
+          "gate": "npms",
+          "id": "749720a9-7fcc-405b-aad3-5bb552938abe",
+          "params": [
+            {
+              "name": "name",
+              "value": "tkinter"
+            }
+          ],
+          "trigger": "blacklisted_name_version"
+        }
+      ],
+      "version": "1_0"
+    }
+  ],
+  "version": "1_0",
+  "whitelisted_images": [],
+  "whitelists": [
+    {
+      "comment": "Example of whitelisting known derived packages that contain only development headers but may trigger as vulnerable as they are associated with the packages that contain the software itself",
+      "id": "2cedec50-2dd9-4b0a-85ec-52dbfa62201b",
+      "items": [
+        {
+          "gate": "vulnerabilities",
+          "id": "1409ebfd-7aec-44e8-bb27-73a3b97ba16b",
+          "trigger_id": "*+linux-headers-*"
+        },
+        {
+          "gate": "vulnerabilities",
+          "id": "45925fb3-c7ac-4ceb-9e9f-a6402f798f1f",
+          "trigger_id": "*+*-dev"
+        }
+      ],
+      "name": "Development OS Packages",
+      "version": "1_0"
+    }
+  ]
+}

@@ -33,6 +33,13 @@ export interface CodePipelineAnchoreInlineScanActionProps
   readonly version?: string;
 
   /**
+   * Path to local Anchore policy bundle
+   *
+   * @default ./policy_bundle.json
+   */
+  readonly policyBundlePath?: string;
+
+  /**
    * The type of compute to use for backup the repositories.
    * See the {@link ComputeType} enum for the possible values.
    *
@@ -68,7 +75,12 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
   ): ActionConfig {
     const buildImage = LinuxBuildImage.STANDARD_4_0;
 
-    const version = this.props.version || 'v0.7.2';
+    const version = this.props.version ?? 'v0.7.2';
+
+    const policyBundlePath =
+      this.props.policyBundlePath ?? './policy_bundle.json';
+
+    const url = `https://ci-tools.anchore.io/inline_scan-${version}`;
 
     const project = new PipelineProject(scope, 'VulnScanProject', {
       cache: Cache.local(LocalCacheMode.DOCKER_LAYER),
@@ -90,7 +102,7 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
           build: {
             commands: [
               'echo Scan started on `date`',
-              `curl -s https://ci-tools.anchore.io/inline_scan-${version} | bash -s -- -f image2scan:ci`,
+              `curl -s ${url} | if [ -f "${policyBundlePath}" ]; then bash -s -- -f -b ${policyBundlePath} image2scan:ci; else bash -s -- -f image2scan:ci; fi`,
               'echo Scan completed on `date`',
             ],
           },
