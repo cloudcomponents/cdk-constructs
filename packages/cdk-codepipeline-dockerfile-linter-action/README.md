@@ -1,6 +1,6 @@
 # @cloudcomponents/cdk-codepipeline-dockerfile-linter-action
 
-> CodePipeline action to lint dockerfiles with hadolint
+> CodePipeline action to lint dockerfiles with [hadolint](https://github.com/hadolint/hadolint)
 
 ## Install
 
@@ -17,6 +17,7 @@ import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { CodePipelineDockerfileLinterAction } from '@cloudcomponents/cdk-codepipeline-dockerfile-linter-action';
 import { CodePipelineAnchoreInlineScanAction } from '@cloudcomponents/cdk-codepipeline-anchore-inline-scan-action';
+
 export class ContainerAuditStack extends Stack {
   public constructor(parent: App, name: string, props?: StackProps) {
     super(parent, name, props);
