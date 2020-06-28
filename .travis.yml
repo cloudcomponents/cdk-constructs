@@ -10,6 +10,7 @@ install:
   - yarn --frozen-lockfile
 
 script:
+  - npm run build
   - npm run lint
   - npm run test
 
