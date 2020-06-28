@@ -1,0 +1,25 @@
+name: Build
+on:
+  pull_request: {}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["10", "12"]
+    name: Node ${{ matrix.node }} build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Installing
+        run: yarn install --frozen-lockfile
+      - name: Linting
+        run: yarn lint
+      - name: Testing
+        run: yarn test
+      - name: Anti-tamper check
+        run: git diff --exit-code
+    container:
+      image: jsii/superchain
