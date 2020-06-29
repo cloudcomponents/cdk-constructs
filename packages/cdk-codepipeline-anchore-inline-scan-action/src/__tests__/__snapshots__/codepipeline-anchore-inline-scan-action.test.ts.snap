@@ -249,7 +249,7 @@ Object {
     \\"build\\": {
       \\"commands\\": [
         \\"echo Scan started on \`date\`\\",
-        \\"curl -s https://ci-tools.anchore.io/inline_scan-v0.7.2 | if [ -f \\\\\\"./policy_bundle.json\\\\\\" ]; then bash -s -- -f -b ./policy_bundle.json image2scan:ci; else bash -s -- -f image2scan:ci; fi\\",
+        \\"curl -s https://ci-tools.anchore.io/inline_scan-v0.7.2 | if [ -f \\\\\\"./policy_bundle.json\\\\\\" ]; then bash -s -- -f -t 300 -b ./policy_bundle.json image2scan:ci; else bash -s -- -f -t 300 image2scan:ci; fi\\",
         \\"echo Scan completed on \`date\`\\"
       ]
     }
