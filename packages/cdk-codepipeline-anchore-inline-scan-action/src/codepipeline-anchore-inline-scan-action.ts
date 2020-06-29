@@ -40,6 +40,13 @@ export interface CodePipelineAnchoreInlineScanActionProps
   readonly policyBundlePath?: string;
 
   /**
+   * Specify timeout for image scanning in seconds.
+   *
+   * @default 300
+   */
+  readonly timeout?: number;
+
+  /**
    * The type of compute to use for backup the repositories.
    * See the {@link ComputeType} enum for the possible values.
    *
@@ -71,11 +78,13 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
   protected bound(
     scope: Construct,
     _stage: IStage,
-    options: ActionBindOptions,
+    options: ActionBindOptions
   ): ActionConfig {
     const buildImage = LinuxBuildImage.STANDARD_4_0;
 
     const version = this.props.version ?? 'v0.7.2';
+
+    const timeout = this.props.timeout ?? 300;
 
     const policyBundlePath =
       this.props.policyBundlePath ?? './policy_bundle.json';
@@ -102,7 +111,7 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
           build: {
             commands: [
               'echo Scan started on `date`',
-              `curl -s ${url} | if [ -f "${policyBundlePath}" ]; then bash -s -- -f -b ${policyBundlePath} image2scan:ci; else bash -s -- -f image2scan:ci; fi`,
+              `curl -s ${url} | if [ -f "${policyBundlePath}" ]; then bash -s -- -f -t ${timeout} -b ${policyBundlePath} image2scan:ci; else bash -s -- -f -t ${timeout} image2scan:ci; fi`,
               'echo Scan completed on `date`',
             ],
           },
@@ -119,7 +128,7 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
           'codebuild:StartBuild',
           'codebuild:StopBuild',
         ],
-      }),
+      })
     );
 
     // allow the Project access to the Pipeline's artifact Bucket
