@@ -40,6 +40,17 @@ export interface EcsDeploymentGroupProps {
   readonly prodTrafficListenerArn: string;
 
   readonly testTrafficListenerArn: string;
+
+  /**
+   * the number of minutes before deleting the original (blue) task set.
+   * During an Amazon ECS deployment, CodeDeploy shifts traffic from the
+   * original (blue) task set to a replacement (green) task set.
+   *
+   * The maximum setting is 2880 minutes (2 days).
+   *
+   * @default 60
+   */
+  readonly terminationWaitTimeInMinutes?: number;
 }
 
 export class EcsDeploymentGroup extends Resource
@@ -60,7 +71,14 @@ export class EcsDeploymentGroup extends Resource
       targetGroupNames,
       prodTrafficListenerArn,
       testTrafficListenerArn,
+      terminationWaitTimeInMinutes = 60,
     } = props;
+
+    if (terminationWaitTimeInMinutes > 2880) {
+      throw new Error(
+        'Invalid TerminationWaitTimeInMinutes: The maximum setting is 2880 minutes (2 days).'
+      );
+    }
 
     const codeDeployEcsRole = new Role(this, 'EcsCodeDeployRole', {
       assumedBy: new ServicePrincipal('codedeploy.amazonaws.com'),
@@ -95,7 +113,7 @@ export class EcsDeploymentGroup extends Resource
             Resource: codeDeployEcsRole.roleArn,
           },
         ],
-      },
+      }
     );
 
     const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
@@ -112,20 +130,21 @@ export class EcsDeploymentGroup extends Resource
         })),
         ProdTrafficListenerArn: prodTrafficListenerArn,
         TestTrafficListenerArn: testTrafficListenerArn,
+        TerminationWaitTimeInMinutes: terminationWaitTimeInMinutes,
       },
     });
 
     this.deploymentGroupName = ecsDeploymentGroup.ref;
     this.deploymentGroupArn = this.arnForDeploymentGroup(
       this.application.applicationName,
-      this.deploymentGroupName,
+      this.deploymentGroupName
     );
     this.deploymentConfig = deploymentConfig || EcsDeploymentConfig.ALL_AT_ONCE;
   }
 
   private arnForDeploymentGroup(
     applicationName: string,
-    deploymentGroupName: string,
+    deploymentGroupName: string
   ): string {
     return `arn:${Aws.PARTITION}:codedeploy:${Aws.REGION}:${Aws.ACCOUNT_ID}:deploymentgroup:${applicationName}/${deploymentGroupName}`;
   }
