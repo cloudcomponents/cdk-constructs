@@ -23,6 +23,7 @@ export interface EcsDeploymentGroupProps {
   targetGroupNames: string[];
   prodTrafficListenerArn: string;
   testTrafficListenerArn: string;
+  terminationWaitTimeInMinutes: number;
 }
 
 const codeDeploy = new CodeDeploy();
@@ -30,7 +31,7 @@ const codeDeploy = new CodeDeploy();
 const getProperties = (
   props:
   | CloudFormationCustomResourceEvent['ResourceProperties']
-  | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
+  | CloudFormationCustomResourceUpdateEvent['OldResourceProperties']
 ): EcsDeploymentGroupProps => ({
   applicationName: props.ApplicationName,
   deploymentGroupName: props.DeploymentGroupName,
@@ -42,15 +43,19 @@ const getProperties = (
     }: {
       ClusterName: string;
       ServiceName: string;
-    }) => ({ clusterName: ClusterName, serviceName: ServiceName }),
+    }) => ({
+      clusterName: ClusterName,
+      serviceName: ServiceName,
+    })
   ),
   targetGroupNames: props.TargetGroupNames,
   prodTrafficListenerArn: props.ProdTrafficListenerArn,
   testTrafficListenerArn: props.TestTrafficListenerArn,
+  terminationWaitTimeInMinutes: props.TerminationWaitTimeInMinutes,
 });
 
 const onCreate = async (
-  event: CloudFormationCustomResourceCreateEvent,
+  event: CloudFormationCustomResourceCreateEvent
 ): Promise<HandlerReturn> => {
   const {
     applicationName,
@@ -60,6 +65,7 @@ const onCreate = async (
     targetGroupNames,
     prodTrafficListenerArn,
     testTrafficListenerArn,
+    terminationWaitTimeInMinutes,
   } = getProperties(event.ResourceProperties);
 
   await codeDeploy
@@ -86,7 +92,7 @@ const onCreate = async (
       blueGreenDeploymentConfiguration: {
         terminateBlueInstancesOnDeploymentSuccess: {
           action: 'TERMINATE',
-          terminationWaitTimeInMinutes: 60,
+          terminationWaitTimeInMinutes,
         },
         deploymentReadyOption: {
           actionOnTimeout: 'CONTINUE_DEPLOYMENT',
@@ -105,7 +111,7 @@ const onCreate = async (
 };
 
 const onUpdate = async (
-  event: CloudFormationCustomResourceUpdateEvent,
+  event: CloudFormationCustomResourceUpdateEvent
 ): Promise<HandlerReturn> => {
   const newProps = getProperties(event.ResourceProperties);
   const oldProps = getProperties(event.OldResourceProperties);
@@ -140,10 +146,10 @@ const onUpdate = async (
 };
 
 const onDelete = async (
-  event: CloudFormationCustomResourceDeleteEvent,
+  event: CloudFormationCustomResourceDeleteEvent
 ): Promise<void> => {
   const { applicationName, deploymentGroupName } = getProperties(
-    event.ResourceProperties,
+    event.ResourceProperties
   );
 
   await codeDeploy
@@ -155,7 +161,7 @@ const onDelete = async (
 };
 
 export const handler = async (
-  event: CloudFormationCustomResourceEvent,
+  event: CloudFormationCustomResourceEvent
 ): Promise<HandlerReturn | void> => {
   const requestType = event.RequestType;
 
