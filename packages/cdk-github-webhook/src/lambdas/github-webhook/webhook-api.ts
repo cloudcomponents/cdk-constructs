@@ -1,12 +1,12 @@
-import { Octokit } from '@octokit/rest';
+import { Octokit, RestEndpointMethodTypes } from '@octokit/rest';
 import * as parseGithubUrl from 'parse-github-url';
 
 export const createWebhook = async (
   githubApiToken: string,
   githubRepoUrl: string,
   payloadUrl: string,
-  events: string[],
-): Promise<Octokit.Response<Octokit.ReposCreateHookResponse>> => {
+  events: string[]
+): Promise<RestEndpointMethodTypes['repos']['createWebhook']['response']> => {
   const octokit = new Octokit({
     auth: githubApiToken,
   });
@@ -26,7 +26,7 @@ export const createWebhook = async (
     active: true,
   };
 
-  return octokit.repos.createHook(params);
+  return octokit.repos.createWebhook(params);
 };
 
 export const updateWebhook = async (
@@ -34,8 +34,8 @@ export const updateWebhook = async (
   githubRepoUrl: string,
   payloadUrl: string,
   events: string[],
-  hookId: number,
-): Promise<Octokit.Response<Octokit.ReposUpdateHookResponse>> => {
+  hookId: number
+): Promise<RestEndpointMethodTypes['repos']['updateWebhook']['response']> => {
   const octokit = new Octokit({
     auth: githubApiToken,
   });
@@ -55,14 +55,14 @@ export const updateWebhook = async (
     hook_id: hookId,
   };
 
-  return octokit.repos.updateHook(params);
+  return octokit.repos.updateWebhook(params);
 };
 
 export const deleteWebhook = async (
   githubApiToken: string,
   githubRepoUrl: string,
-  hookId: number,
-): Promise<Octokit.Response<Octokit.ReposDeleteResponse>> => {
+  hookId: number
+): Promise<RestEndpointMethodTypes['repos']['deleteWebhook']['response']> => {
   const octokit = new Octokit({
     auth: githubApiToken,
   });
@@ -78,5 +78,5 @@ export const deleteWebhook = async (
     hook_id: hookId,
   };
 
-  return octokit.repos.deleteHook(params);
+  return octokit.repos.deleteWebhook(params);
 };

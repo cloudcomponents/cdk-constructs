@@ -5,15 +5,15 @@ const deleteMock = jest.fn();
 jest.mock('@octokit/rest', () => ({
   Octokit: jest.fn().mockImplementation(() => ({
     repos: {
-      createHook: createMock,
-      updateHook: updateMock,
-      deleteHook: deleteMock,
+      createWebhook: createMock,
+      updateWebhook: updateMock,
+      deleteWebhook: deleteMock,
     },
   })),
 }));
 
 import { createWebhook, updateWebhook, deleteWebhook } from '../webhook-api';
-import { Octokit } from '@octokit/rest';
+import { RestEndpointMethodTypes } from '@octokit/rest';
 
 describe('cdk-github-webhook-lambda: webhook-api', (): void => {
   it('should call createHook with correct params', (): void => {
@@ -79,7 +79,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     const events = ['*'];
 
     const call = (): Promise<
-    Octokit.Response<Octokit.ReposCreateHookResponse>
+    RestEndpointMethodTypes['repos']['createWebhook']['response']
     > => createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
     await expect(call()).rejects.toThrow('GithubRepoUrl is not correct');
