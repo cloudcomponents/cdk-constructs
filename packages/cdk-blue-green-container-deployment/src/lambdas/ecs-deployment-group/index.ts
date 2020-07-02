@@ -6,24 +6,22 @@ import {
 } from 'aws-lambda';
 import { CodeDeploy } from 'aws-sdk';
 
+import { RollbackEvent } from '../../ecs-deployment-group';
+
 interface HandlerReturn {
   PhysicalResourceId: string;
-}
-
-interface EcsService {
-  clusterName: string;
-  serviceName: string;
 }
 
 export interface EcsDeploymentGroupProps {
   applicationName: string;
   deploymentGroupName: string;
   serviceRoleArn: string;
-  ecsServices: EcsService[];
+  ecsServices: CodeDeploy.ECSServiceList;
   targetGroupNames: string[];
   prodTrafficListenerArn: string;
   testTrafficListenerArn: string;
   terminationWaitTimeInMinutes: number;
+  autoRollbackOnEvents?: RollbackEvent[];
 }
 
 const codeDeploy = new CodeDeploy();
@@ -52,6 +50,7 @@ const getProperties = (
   prodTrafficListenerArn: props.ProdTrafficListenerArn,
   testTrafficListenerArn: props.TestTrafficListenerArn,
   terminationWaitTimeInMinutes: props.TerminationWaitTimeInMinutes,
+  autoRollbackOnEvents: props.AutoRollbackOnEvents,
 });
 
 const onCreate = async (
@@ -66,6 +65,7 @@ const onCreate = async (
     prodTrafficListenerArn,
     testTrafficListenerArn,
     terminationWaitTimeInMinutes,
+    autoRollbackOnEvents,
   } = getProperties(event.ResourceProperties);
 
   await codeDeploy
@@ -88,6 +88,10 @@ const onCreate = async (
             })),
           },
         ],
+      },
+      autoRollbackConfiguration: {
+        enabled: !!autoRollbackOnEvents,
+        events: autoRollbackOnEvents,
       },
       blueGreenDeploymentConfiguration: {
         terminateBlueInstancesOnDeploymentSuccess: {
@@ -136,6 +140,19 @@ const onUpdate = async (
             })),
           },
         ],
+      },
+      autoRollbackConfiguration: {
+        enabled: !!newProps.autoRollbackOnEvents,
+        events: newProps.autoRollbackOnEvents,
+      },
+      blueGreenDeploymentConfiguration: {
+        terminateBlueInstancesOnDeploymentSuccess: {
+          action: 'TERMINATE',
+          terminationWaitTimeInMinutes: newProps.terminationWaitTimeInMinutes,
+        },
+        deploymentReadyOption: {
+          actionOnTimeout: 'CONTINUE_DEPLOYMENT',
+        },
       },
     })
     .promise();

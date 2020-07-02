@@ -12,20 +12,19 @@ import {
   Port,
 } from '@aws-cdk/aws-ec2';
 import {
-  IApplicationLoadBalancer,
-  IApplicationTargetGroup,
+  ITargetGroup,
 } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { ICluster, LaunchType } from '@aws-cdk/aws-ecs';
 import { Effect } from '@aws-cdk/aws-iam';
 
 import { DummyTaskDefinition } from './dummy-task-definition';
 
-export enum SchedulingStrategy {
-  REPLICA = 'REPLICA',
-  DAEMON = 'DAEMON',
+export interface IEcsService {
+  clusterName: string;
+  serviceName: string;
 }
 
-export interface BlueGreenServiceProps {
+export interface EcsServiceProps {
   securityGroups?: SecurityGroup[];
   cluster: ICluster;
   serviceName: string;
@@ -33,16 +32,16 @@ export interface BlueGreenServiceProps {
   platformVersion?: string;
   desiredCount?: number;
   containerPort?: number;
-  prodTargetGroup: IApplicationTargetGroup;
-  applicationLoadBalancer: IApplicationLoadBalancer;
+  prodTargetGroup: ITargetGroup;
   taskDefinition: DummyTaskDefinition;
 }
 
-export class BlueGreenService extends Construct implements IConnectable {
+export class EcsService extends Construct implements IConnectable, IEcsService {
+  public readonly clusterName: string;
   public readonly serviceName: string;
   public readonly connections: Connections;
 
-  constructor(parent: Construct, id: string, props: BlueGreenServiceProps) {
+  constructor(parent: Construct, id: string, props: EcsServiceProps) {
     super(parent, id);
 
     const {
@@ -52,7 +51,6 @@ export class BlueGreenService extends Construct implements IConnectable {
       platformVersion = '1.4.0',
       desiredCount = 1,
       containerPort = 80,
-      applicationLoadBalancer,
       prodTargetGroup,
       taskDefinition,
     } = props;
@@ -70,7 +68,7 @@ export class BlueGreenService extends Construct implements IConnectable {
       this,
       'Custom::BlueGreenService',
       {
-        codeDirectory: path.join(__dirname, 'lambdas', 'blue-green-service'),
+        codeDirectory: path.join(__dirname, 'lambdas', 'ecs-service'),
         runtime: CustomResourceProviderRuntime.NODEJS_12,
         policyStatements: [
           {
@@ -109,13 +107,19 @@ export class BlueGreenService extends Construct implements IConnectable {
       },
     });
 
-    service.node.addDependency(applicationLoadBalancer);
+    service.node.addDependency(prodTargetGroup.loadBalancerAttached);
 
     this.serviceName = service.getAttString('ServiceName');
+    this.clusterName = cluster.clusterName;
 
     this.connections = new Connections({
       securityGroups,
       defaultPort: Port.tcp(containerPort),
     });
   }
+}
+
+export enum SchedulingStrategy {
+  REPLICA = 'REPLICA',
+  DAEMON = 'DAEMON',
 }
