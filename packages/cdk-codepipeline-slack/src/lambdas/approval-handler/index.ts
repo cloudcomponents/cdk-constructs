@@ -1,5 +1,5 @@
 import { Server } from 'http';
-import * as express from 'express';
+import express from 'express';
 import { createServer, proxy } from 'aws-serverless-express';
 import { APIGatewayEvent, Context } from 'aws-lambda';
 import { createMessageAdapter } from '@slack/interactive-messages';
