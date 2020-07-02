@@ -30,11 +30,10 @@ import {
   CodeCommitSourceAction,
   CodeDeployEcsDeployAction,
 } from '@aws-cdk/aws-codepipeline-actions';
-import { BuildSpec } from '@aws-cdk/aws-codebuild';
 
 import { ImageRepository } from '@cloudcomponents/cdk-container-registry';
 import {
-  BlueGreenService,
+  EcsService,
   DummyTaskDefinition,
   EcsDeploymentGroup,
   PushImageProject,
@@ -73,7 +72,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
         port: 80,
         targetType: TargetType.IP,
         vpc,
-      },
+      }
     );
 
     prodListener.addTargetGroups('AddProdTg', {
@@ -87,7 +86,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
         port: 8080,
         targetType: TargetType.IP,
         vpc,
-      },
+      }
     );
 
     testListener.addTargetGroups('AddTestTg', {
@@ -101,29 +100,25 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       {
         image: 'nginx',
         family: 'blue-green',
-      },
+      }
     );
 
-    const blueGreenService = new BlueGreenService(this, 'BlueGreenService', {
+    const ecsService = new EcsService(this, 'EcsService', {
       cluster,
       serviceName: 'blue-green-service',
       desiredCount: 2,
       taskDefinition,
       prodTargetGroup,
-      applicationLoadBalancer: loadBalancer,
     });
 
-    blueGreenService.connections.allowFrom(loadBalancer, Port.tcp(80));
-    blueGreenService.connections.allowFrom(loadBalancer, Port.tcp(8080));
+    ecsService.connections.allowFrom(loadBalancer, Port.tcp(80));
+    ecsService.connections.allowFrom(loadBalancer, Port.tcp(8080));
 
     const deploymentGroup = new EcsDeploymentGroup(this, 'DeploymentGroup', {
       applicationName: 'blue-green-application',
       deploymentGroupName: 'blue-green-deployment-group',
       ecsServices: [
-        {
-          clusterName: cluster.clusterName,
-          serviceName: blueGreenService.serviceName,
-        },
+        ecsService,
       ],
       targetGroupNames: [
         prodTargetGroup.targetGroupName,
@@ -131,8 +126,10 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       ],
       prodTrafficListenerArn: prodListener.listenerArn,
       testTrafficListenerArn: testListener.listenerArn,
+      terminationWaitTimeInMinutes: 100,
     });
 
+    // @see files: ./blue-green-repository for example content
     const repository = new Repository(this, 'CodeRepository', {
       repositoryName: 'blue-green-repository',
     });
@@ -155,9 +152,6 @@ export class BlueGreenContainerDeploymentStack extends Stack {
     const pushImageProject = new PushImageProject(this, 'PushImageProject', {
       imageRepository,
       taskDefinition,
-      // buildSpec: BuildSpec.fromSourceFilename(
-      //     'custom-buildspec.yaml',
-      // ),
     });
 
     const buildAction = new CodeBuildAction({

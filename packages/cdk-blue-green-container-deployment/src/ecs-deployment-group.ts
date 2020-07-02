@@ -21,10 +21,7 @@ import {
   CustomResourceProviderRuntime,
 } from '@aws-cdk/core';
 
-interface EcsService {
-  clusterName: string;
-  serviceName: string;
-}
+import { IEcsService } from './ecs-service';
 
 export interface EcsDeploymentGroupProps {
   readonly applicationName?: string;
@@ -33,7 +30,7 @@ export interface EcsDeploymentGroupProps {
 
   readonly deploymentConfig?: IEcsDeploymentConfig;
 
-  readonly ecsServices: EcsService[];
+  readonly ecsServices: IEcsService[];
 
   readonly targetGroupNames: string[];
 
@@ -51,6 +48,11 @@ export interface EcsDeploymentGroupProps {
    * @default 60
    */
   readonly terminationWaitTimeInMinutes?: number;
+
+  /**
+   * The event type or types that trigger a rollback.
+   */
+  readonly autoRollbackOnEvents?: RollbackEvent[];
 }
 
 export class EcsDeploymentGroup extends Resource
@@ -72,6 +74,7 @@ export class EcsDeploymentGroup extends Resource
       prodTrafficListenerArn,
       testTrafficListenerArn,
       terminationWaitTimeInMinutes = 60,
+      autoRollbackOnEvents,
     } = props;
 
     if (terminationWaitTimeInMinutes > 2880) {
@@ -131,6 +134,7 @@ export class EcsDeploymentGroup extends Resource
         ProdTrafficListenerArn: prodTrafficListenerArn,
         TestTrafficListenerArn: testTrafficListenerArn,
         TerminationWaitTimeInMinutes: terminationWaitTimeInMinutes,
+        AutoRollbackOnEvents: autoRollbackOnEvents,
       },
     });
 
@@ -148,4 +152,10 @@ export class EcsDeploymentGroup extends Resource
   ): string {
     return `arn:${Aws.PARTITION}:codedeploy:${Aws.REGION}:${Aws.ACCOUNT_ID}:deploymentgroup:${applicationName}/${deploymentGroupName}`;
   }
+}
+
+export enum RollbackEvent {
+  DEPLOYMENT_FAILURE = 'DEPLOYMENT_FAILURE',
+  DEPLOYMENT_STOP_ON_ALARM = 'DEPLOYMENT_STOP_ON_ALARM',
+  DEPLOYMENT_STOP_ON_REQUEST = 'DEPLOYMENT_STOP_ON_REQUEST'
 }
