@@ -1,4 +1,6 @@
-import { WebClient, WebAPICallResult } from '@slack/web-api';
+import { WebClient, WebAPICallResult, Dialog } from '@slack/web-api';
+
+import { Message } from './message';
 
 export interface SlackBotProps {
   token: string;
@@ -8,9 +10,10 @@ export interface SlackBotProps {
   icon?: string;
 }
 
-type Channel = { id: string; name: string };
-
-type Message = Record<string, any>;
+interface Channel {
+  id: string;
+  name: string;
+}
 
 export class SlackBot {
   private bot: WebClient;
@@ -37,7 +40,7 @@ export class SlackBot {
     // this.messageCache = {};
   }
 
-  public async postMessage(message): Promise<WebAPICallResult> {
+  public async postMessage(message: Message): Promise<WebAPICallResult> {
     await this.setChannelId();
 
     return this.bot.chat.postMessage({
@@ -48,7 +51,7 @@ export class SlackBot {
     });
   }
 
-  public async updateMessage(ts, message): Promise<WebAPICallResult> {
+  public async updateMessage(ts: string, message: Message): Promise<WebAPICallResult> {
     await this.setChannelId();
 
     return this.bot.chat.update({
@@ -71,7 +74,7 @@ export class SlackBot {
   protected async findMessages(
     channelId: string,
   ): Promise<Message[] | undefined> {
-    const response = (await this.bot.channels.history({
+    const response = (await this.bot.conversations.history({
       channel: channelId,
       // oldest: Date.now() - 7 Days
     })) as Record<string, Message[]>;
@@ -105,13 +108,13 @@ export class SlackBot {
   public async setChannelId(): Promise<void> {
     if (this.channelName) {
       const response = await this.bot.conversations.list();
-      this.channelId = (response.channels as any).find(
+      this.channelId = (response.channels as Channel[]).find(
         (channel) => channel.name === this.channelName,
       ).id as string;
     }
   }
 
-  public async openDialog(triggerId, dialog): Promise<WebAPICallResult> {
+  public async openDialog(triggerId: string, dialog: Dialog): Promise<WebAPICallResult> {
     return this.bot.dialog.open({ trigger_id: triggerId, dialog });
   }
 }

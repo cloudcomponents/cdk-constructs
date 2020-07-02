@@ -1,6 +1,19 @@
 import { CodePipeline } from 'aws-sdk';
+import { Dialog } from '@slack/web-api';
+
+import { Message } from './message';
 import { SlackBot } from './slack-bot';
 import { ApprovalMessageBuilder } from './approval-message-builder';
+
+interface DialogPayload {
+  type: string;
+  state: string;
+  trigger_id: string;
+  original_message: Message;
+  callback_id: string;
+  user: { id: string, name: string };
+  submission: { comment: string };
+}
 
 const {
   SLACK_BOT_TOKEN,
@@ -20,11 +33,11 @@ const bot = new SlackBot({
   icon: SLACK_BOT_ICON,
 });
 
-const buildDialog = (payload) => {
+const buildDialog = (payload): Dialog => {
   const ts = payload.message_ts;
   const { name, value } = payload.actions[0];
 
-  const dialog = {
+  return {
     callback_id: name === 'approve' ? 'approve_dialog' : 'reject_dialog',
     title: 'Review',
     elements: [{ type: 'textarea', name: 'comment', label: 'Comment' }],
@@ -35,8 +48,6 @@ const buildDialog = (payload) => {
     submit_label: name === 'approve' ? 'Approve' : 'Reject',
     notify_on_cancel: true,
   };
-
-  return dialog;
 };
 
 export const requestApproval = async (approval): Promise<void> => {
@@ -50,10 +61,8 @@ export const requestApproval = async (approval): Promise<void> => {
   }
 };
 
-export const handleButtonClicked = async (payload) => {
+export const handleButtonClicked = async (payload: DialogPayload): Promise<Message> => {
   try {
-    console.log(payload);
-
     const triggerId = payload.trigger_id;
     const dialog = buildDialog(payload);
 
@@ -82,7 +91,7 @@ export const handleButtonClicked = async (payload) => {
   }
 };
 
-const handleDialogSubmission = async (payload): Promise<void> => {
+const handleDialogSubmission = async (payload: DialogPayload): Promise<void> => {
   const { user, state, callback_id, submission } = payload;
   const { comment } = submission;
   const { ts, approval } = JSON.parse(state);
@@ -116,7 +125,7 @@ const handleDialogSubmission = async (payload): Promise<void> => {
   await bot.updateMessage(ts, messageBuilder.message);
 };
 
-const handleDialogCancellation = async (payload): Promise<void> => {
+const handleDialogCancellation = async (payload: DialogPayload): Promise<void> => {
   const { state } = payload;
   const { ts, approval } = JSON.parse(state);
 
@@ -125,10 +134,8 @@ const handleDialogCancellation = async (payload): Promise<void> => {
   await bot.updateMessage(ts, messageBuilder.message);
 };
 
-export const handleDialog = async (payload): Promise<void> => {
+export const handleDialog = async (payload: DialogPayload): Promise<void> => {
   try {
-    console.log(payload);
-
     const { type } = payload;
 
     if (type === 'dialog_submission') {

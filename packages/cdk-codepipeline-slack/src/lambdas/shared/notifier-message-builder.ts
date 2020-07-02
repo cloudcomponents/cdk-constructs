@@ -2,7 +2,8 @@ import { CodePipelineCloudWatchEvent } from 'aws-lambda';
 
 import { CodePipeline } from 'aws-sdk';
 
-import { MessageBuilder, Message, Field } from './message-builder';
+import { Message } from './message';
+import { MessageBuilder, MessageBuilderProps } from './message-builder';
 
 const PipelineStateIcons = {
   InProgress: ':building_construction:',
@@ -10,13 +11,18 @@ const PipelineStateIcons = {
   Failed: ':x:',
 };
 
+export interface NotifierMessageBuilderProps extends MessageBuilderProps {
+  title: string;
+  text: string;
+}
+
 export class NotifierMessageBuilder extends MessageBuilder {
   protected title: string;
 
   protected text: string;
 
-  constructor(props: MessageBuilderProps) {
-    super({ ...props });
+  constructor(props: NotifierMessageBuilderProps) {
+    super(props);
     this.title = props.title;
     this.text = props.text;
   }
@@ -24,6 +30,7 @@ export class NotifierMessageBuilder extends MessageBuilder {
   public get message(): Message {
     const callbackId = 'slack_notifier';
     const message: Message = {
+      text: '',
       attachments: [
         {
           title: this.title,
@@ -68,7 +75,7 @@ export class NotifierMessageBuilder extends MessageBuilder {
     let pipelineStatusText = '';
     if (pipelineState.stageStates) {
       pipelineState.stageStates.forEach((stageState) => {
-        if (stageState.latestExecution.pipelineExecutionId === executionId) {
+        if (stageState?.latestExecution?.pipelineExecutionId === executionId) {
           pipelineStatusText = `${pipelineStatusText} ${
             stageState.stageName
           }: ${PipelineStateIcons[stageState.latestExecution.status]}`;
@@ -82,7 +89,7 @@ export class NotifierMessageBuilder extends MessageBuilder {
     let actionStatusText = '';
     if (pipelineState.stageStates) {
       pipelineState.stageStates.forEach((stageState) => {
-        if (stageState.latestExecution.pipelineExecutionId === executionId) {
+        if (stageState?.latestExecution?.pipelineExecutionId === executionId) {
           stageState.actionStates.forEach((actionState) => {
             actionStatusText = `${actionStatusText} ${
               actionState.actionName
@@ -143,12 +150,4 @@ export class NotifierMessageBuilder extends MessageBuilder {
       footer: pipelineEvent.detail['execution-id'],
     });
   }
-}
-export interface MessageBuilderProps {
-  title: string;
-  text: string;
-  actions: Record<string, string>[];
-  fields: Field[];
-  footer: string;
-  ts?: string;
 }
