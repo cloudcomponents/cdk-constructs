@@ -1,14 +1,17 @@
-import { MessageBuilder, Field, Message } from './message-builder';
+import { AttachmentAction } from '@slack/web-api';
+
+import { Message } from './message';
+import { MessageBuilder, Field } from './message-builder';
 
 export class ApprovalMessageBuilder extends MessageBuilder {
   public removeActions(): void {
     this.actions = [];
   }
 
-  public updateStatus(value): void {
+  public updateStatus(status: string): void {
     this.fields.forEach((field) => {
       if (field.title === 'Status') {
-        field.value = value;
+        field.value = status;
       }
     });
   }
@@ -26,6 +29,7 @@ export class ApprovalMessageBuilder extends MessageBuilder {
     const text = 'The following Approval action is waiting for your response:';
     const callbackId = 'slack_approval';
     const message: Message = {
+      text: '',
       attachments: [
         {
           title,
@@ -57,7 +61,8 @@ export class ApprovalMessageBuilder extends MessageBuilder {
   }
 
   public static fromApprovalRequest(approval): ApprovalMessageBuilder {
-    const actions = [
+
+    const actions: AttachmentAction[] = [
       {
         name: 'reject',
         text: 'Reject',

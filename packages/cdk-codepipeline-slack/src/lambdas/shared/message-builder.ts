@@ -1,15 +1,16 @@
-export type Field = { title: string; value: string; short: boolean };
+import { Message } from './message';
+import { AttachmentAction } from '@slack/web-api';
 
-export type Message = Record<string, any>;
+export type Field = { title: string; value: string; short?: boolean };
 
 export interface MessageBuilderProps {
-  actions: Record<string, string>[];
+  actions: AttachmentAction[];
   fields: Field[];
   footer: string;
   ts?: string;
 }
 export abstract class MessageBuilder {
-  protected actions: Record<string, string>[];
+  protected actions: AttachmentAction[];
 
   protected ts?: string;
 
