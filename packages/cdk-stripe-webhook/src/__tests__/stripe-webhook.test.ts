@@ -4,7 +4,7 @@ import 'jest-cdk-snapshot';
 import { StripeWebhook } from '../stripe-webhook';
 
 describe('cdk-stripe-webhook', (): void => {
-  it('snapshot', (): void => {
+  test('snapshot', (): void => {
     const stack = new Stack();
 
     new StripeWebhook(stack, 'StripeWebhook', {

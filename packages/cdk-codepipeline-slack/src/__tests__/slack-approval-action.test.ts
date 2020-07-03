@@ -7,7 +7,7 @@ import 'jest-cdk-snapshot';
 import { SlackApprovalAction } from '../slack-approval-action';
 
 describe('cdk-codepipeline-slack: slack-approval-action', (): void => {
-  it('snapshot', (): void => {
+  test('snapshot', (): void => {
     const stack = new Stack();
 
     const bucket = new Bucket(stack, 'Bucket');

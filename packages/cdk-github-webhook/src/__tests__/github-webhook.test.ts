@@ -4,7 +4,7 @@ import 'jest-cdk-snapshot';
 import { GithubWebhook } from '../github-webhook';
 
 describe('cdk-github-webhook', (): void => {
-  it('snapshot', (): void => {
+  test('snapshot', (): void => {
     const stack = new Stack();
 
     new GithubWebhook(stack, 'GithubWebhook', {

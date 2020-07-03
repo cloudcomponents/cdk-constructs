@@ -16,7 +16,7 @@ import { createWebhook, updateWebhook, deleteWebhook } from '../webhook-api';
 import { RestEndpointMethodTypes } from '@octokit/rest';
 
 describe('cdk-github-webhook-lambda: webhook-api', (): void => {
-  it('should call createHook with correct params', (): void => {
+  test('should call createHook with correct params', (): void => {
     const githubApiToken = 'secure';
     const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-constructs';
     const payloadUrl = 'payloadUrl';
@@ -35,7 +35,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     });
   });
 
-  it('should call updateHook with correct params', (): void => {
+  test('should call updateHook with correct params', (): void => {
     const githubApiToken = 'secure';
     const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-constructs';
     const payloadUrl = 'payloadUrl';
@@ -55,7 +55,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     });
   });
 
-  it('should call deleteHook with correct params', (): void => {
+  test('should call deleteHook with correct params', (): void => {
     const githubApiToken = 'secure';
     const githubRepoUrl = 'https://github.com/cloudcomponents/cdk-constructs';
     const hookId = 12;
@@ -70,7 +70,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     });
   });
 
-  it('should throw an exception if the githubUrl is not correct', async (): Promise<
+  test('should throw an exception if the githubUrl is not correct', async (): Promise<
   void
   > => {
     const githubApiToken = 'secure';

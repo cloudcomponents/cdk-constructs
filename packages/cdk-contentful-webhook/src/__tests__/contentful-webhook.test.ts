@@ -4,7 +4,7 @@ import 'jest-cdk-snapshot';
 import { ContentfulWebhook } from '../contentful-webhook';
 
 describe('cdk-contentful-webhook', (): void => {
-  it('snapshot', (): void => {
+  test('snapshot', (): void => {
     const stack = new Stack();
 
     new ContentfulWebhook(stack, 'ContentfulWebhook', {
