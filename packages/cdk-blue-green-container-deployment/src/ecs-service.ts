@@ -77,6 +77,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
               'ecs:CreateService',
               'ecs:UpdateService',
               'ecs:DeleteService',
+              'ecs:DescribeServices',
             ],
             Resource: '*',
           },
