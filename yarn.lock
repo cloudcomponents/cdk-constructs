@@ -1862,7 +1862,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@jsii/spec@^1.7.0", "@jsii/spec@^1.8.0":
+"@jsii/spec@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.8.0.tgz#6860d3ca3461bfc6a568a7418b11d8fa52b98888"
   integrity sha512-c9pLt+vYCwHP/lXoVK10nE572ekNo1e1U9osMOlXODW188Ca/ytP12VLCReypt3H8OMqebyK7ea7QdcszR+19w==
@@ -3705,18 +3705,6 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.10.0.tgz#a17b3a8ea811060e74d47d306122400ad4497ae2"
   integrity sha512-3YDiu347mtVtjpyV3u5kVqQLP242c06zwDOgpeRnybmXlYYsLbtTrUBUm8i8srONt+FWobl5aibnU1030PeeuA==
 
-awslint@^1.49.1:
-  version "1.49.1"
-  resolved "https://registry.yarnpkg.com/awslint/-/awslint-1.49.1.tgz#17b0c2467e0fc5383f9a16829b40b639830c940d"
-  integrity sha512-/czFIE96XGnpqkRUxtDRHbBLdNynMtotGdixXqLw5zj66RJeg9lPOkfCo91Akzm/9NDhI8d+Xb4SV7MQm0xXYw==
-  dependencies:
-    "@jsii/spec" "^1.7.0"
-    camelcase "^6.0.0"
-    colors "^1.4.0"
-    fs-extra "^9.0.1"
-    jsii-reflect "^1.7.0"
-    yargs "^15.3.1"
-
 axios@^0.19.0, axios@^0.19.2:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
@@ -4286,15 +4274,14 @@ cdk-assets@1.48.0:
     glob "^7.1.6"
     yargs "^15.3.1"
 
-cdkdx@^0.0.50:
-  version "0.0.50"
-  resolved "https://registry.yarnpkg.com/cdkdx/-/cdkdx-0.0.50.tgz#aecc8ef3c5a6a397974c27ace91990da5c53f688"
-  integrity sha512-fKae/a02BqVVcVD7RWDOxJrLOj/Q0ZrmlCQbX9O3Ak7cgOWpO6grjeAVfuCyGCp+OsAaCLDL5010/rTr2Us3LA==
+cdkdx@^0.0.51:
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/cdkdx/-/cdkdx-0.0.51.tgz#b6bab35ca5ec7f5decca6173ad348bb266d8fe29"
+  integrity sha512-tSpU4s5PnnkcR+1sP6IctLdYXH3ssfrqvp8dpe+Qll7S1y1tPbnZ8CHbh38xngXNvf6XwTgFDrnTFG/9hx0kmg==
   dependencies:
     "@types/jest" "^26.0.0"
     "@typescript-eslint/eslint-plugin" "^3.5.0"
     "@typescript-eslint/parser" "^3.5.0"
-    awslint "^1.49.1"
     camelcase "^6.0.0"
     chalk "^4.1.0"
     clipanion "^2.4.2"
@@ -4302,7 +4289,7 @@ cdkdx@^0.0.50:
     dotenv "^8.2.0"
     enquirer "^2.3.6"
     eslint "^7.3.0"
-    eslint-config-cdk "^0.0.50"
+    eslint-config-cdk "^0.0.51"
     eslint-plugin-import "^2.21.2"
     eslint-plugin-jest "^23.17.1"
     execa "^4.0.2"
@@ -5992,10 +5979,10 @@ escodegen@~1.9.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-cdk@^0.0.50:
-  version "0.0.50"
-  resolved "https://registry.yarnpkg.com/eslint-config-cdk/-/eslint-config-cdk-0.0.50.tgz#ca94d41f2857a0076e13ef68315a37e822cf1685"
-  integrity sha512-+BSYG1d6XV1q4jR5yYzfXCBZk1uGtlOynzodhUI4OUr1NsS4+2kXiQ80p4R3IhlFFwm4TJC1y9qVQui+V9gfDw==
+eslint-config-cdk@^0.0.51:
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/eslint-config-cdk/-/eslint-config-cdk-0.0.51.tgz#28bb6c8c5a30a666f1f0a0bf25c164ded4720daa"
+  integrity sha512-BotrwLYo/wO7wHqFXklnA6iy6ISbIHJeYhvNqyvVW+jFvD7lMNjmu8o5iiV4RY2qNtuuqY1Cvx3FlLksk5rG4g==
 
 eslint-import-resolver-node@^0.3.3:
   version "0.3.4"
@@ -8351,7 +8338,7 @@ jsii-pacmak@^1.8.0:
     xmlbuilder "^15.1.1"
     yargs "^15.3.1"
 
-jsii-reflect@^1.7.0, jsii-reflect@^1.8.0:
+jsii-reflect@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/jsii-reflect/-/jsii-reflect-1.8.0.tgz#edea43fa83903b46c65c9f2d22b6246610460568"
   integrity sha512-M+ai0nQNE0I/osOW6n1UywRFMJWMv5NI49XZUfUknBoO6c6tlDTiKLRmqrxzpJx9f7yoaV2tbf0kAMYNRedwGw==
