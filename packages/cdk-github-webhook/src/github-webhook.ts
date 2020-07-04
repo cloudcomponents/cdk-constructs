@@ -3,15 +3,33 @@ import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
 
 export interface GithubWebhookProps {
-  githubApiToken: string;
-  githubRepoUrl: string;
-  payloadUrl: string;
-  events: string[]; // @see https://developer.github.com/v3/activity/events/types/
-  logLevel?: 'debug' | 'info' | 'warning' | 'error';
+  /**
+   * The OAuth access token
+   */
+  readonly githubApiToken: string;
+  
+  /**
+   * The Github repo url
+   */
+  readonly githubRepoUrl: string;
+  
+  /**
+   * The URL to which the payloads will be delivered.
+   */
+  readonly payloadUrl: string;
+  
+  /**
+   * Determines what events the hook is triggered for.
+   * @see https://developer.github.com/v3/activity/events/types/
+   */
+  readonly events: string[];
+
+  
+  readonly logLevel?: 'debug' | 'info' | 'warning' | 'error';
 }
 
 export class GithubWebhook extends Construct {
-  public constructor(parent: Construct, id: string, props: GithubWebhookProps) {
+  constructor(parent: Construct, id: string, props: GithubWebhookProps) {
     super(parent, id);
 
     const handler = new SingletonFunction(this, 'CustomResourceHandler', {

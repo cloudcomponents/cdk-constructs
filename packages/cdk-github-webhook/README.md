@@ -39,14 +39,17 @@ export class GithubWebhookStack extends Stack {
             githubApiToken,
             githubRepoUrl,
             payloadUrl: api.url,
-            events,
-            logLevel: 'debug',
+            events
         });
     }
 }
 
 ```
 
+## Example
+
+See more complete [examples](../../examples).
+
 ## License
 
-[MIT](../../LICENSE)
+[MIT](./LICENSE)
