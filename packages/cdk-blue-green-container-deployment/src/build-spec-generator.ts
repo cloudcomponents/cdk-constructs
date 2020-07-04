@@ -1,41 +1,41 @@
 export interface Env {
-  variables?: { [key: string]: string };
-  'parameter-store'?: { [key: string]: string };
+  readonly variables?: { [key: string]: string };
+  readonly 'parameter-store'?: { [key: string]: string };
 }
 
 export interface Phase {
-  'run-as'?: string;
-  commands: string[];
-  finally?: string[];
+  readonly 'run-as'?: string;
+  readonly commands: string[];
+  readonly finally?: string[];
 }
 
 export interface Artifacts {
-  files?: string[];
-  name?: string;
-  'base-directory'?: string;
-  'discard-paths'?: 'yes' | 'no';
+  readonly files?: string[];
+  readonly name?: string;
+  readonly 'base-directory'?: string;
+  readonly 'discard-paths'?: 'yes' | 'no';
 }
 
 export interface PrimaryArtifacts extends Artifacts {
-  'secondary-artifacts'?: { [key: string]: Artifacts };
+  readonly 'secondary-artifacts'?: { [key: string]: Artifacts };
 }
 
 export interface Cache {
-  paths: string[];
+  readonly paths: string[];
 }
 
 export interface BuildSpecStructure {
-  version: '0.2';
-  'run-as'?: string;
-  env?: Env;
-  phases?: { [key: string]: Phase };
-  artifacts?: PrimaryArtifacts;
-  cache?: Cache;
+  readonly version: '0.2';
+  readonly 'run-as'?: string;
+  readonly env?: Env;
+  readonly phases?: { [key: string]: Phase };
+  readonly artifacts?: PrimaryArtifacts;
+  readonly cache?: Cache;
 }
 
 export interface DefaultBuildSpecProps {
-  account: string;
-  region: string;
+  readonly account: string;
+  readonly region: string;
   //manifestArtifactName: string;
   //imageArtifactName: string;
 }

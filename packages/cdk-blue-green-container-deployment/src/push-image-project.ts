@@ -16,13 +16,13 @@ import { IDummyTaskDefinition } from './dummy-task-definition';
 import { BuildSpecGenerator } from './build-spec-generator';
 
 export interface PushImageProjectProps {
-  imageRepository: IRepository;
-  taskDefinition: IDummyTaskDefinition;
-  environmentVariables?: Record<string, BuildEnvironmentVariable>;
-  projectName?: string;
-  cache?: Cache;
-  buildSpec?: BuildSpec;
-  computeType?: ComputeType;
+  readonly imageRepository: IRepository;
+  readonly taskDefinition: IDummyTaskDefinition;
+  readonly environmentVariables?: Record<string, BuildEnvironmentVariable>;
+  readonly projectName?: string;
+  readonly cache?: Cache;
+  readonly buildSpec?: BuildSpec;
+  readonly computeType?: ComputeType;
 }
 
 export class PushImageProject extends PipelineProject {

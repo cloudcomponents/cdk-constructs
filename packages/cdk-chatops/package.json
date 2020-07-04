@@ -3,6 +3,13 @@
   "version": "1.0.15",
   "description": "Constructs for chattool integration: #slack / msteams",
   "license": "MIT",
+  "author": {
+    "name": "hupe1980",
+    "url": "https://github.com/hupe1980"
+  },
+  "awscdkio": {
+    "twitter": "hupe1980"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cloudcomponents/cdk-constructs",
@@ -20,11 +27,35 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    ".jsii"
   ],
   "scripts": {
     "build": "cdkdx build",
-    "test": "cdkdx test"
+    "watch": "cdkdx build -w",
+    "test": "cdkdx test",
+    "lint": "cdkdx lint",
+    "package": "cdkdx package"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "tsc": {
+      "outDir": "lib",
+      "rootDir": "src"
+    },
+    "excludeTypescript": [
+      "src/lambdas",
+      "src/**/__tests__"
+    ],
+    "targets": {}
+  },
+  "peerDependencies": {
+    "@aws-cdk/aws-chatbot": "^1.49.1",
+    "@aws-cdk/aws-iam": "^1.49.1",
+    "@aws-cdk/aws-lambda": "^1.49.1",
+    "@aws-cdk/aws-lambda-event-sources": "^1.49.1",
+    "@aws-cdk/aws-sns": "^1.49.1",
+    "@aws-cdk/core": "^1.49.1"
   },
   "dependencies": {
     "@aws-cdk/aws-chatbot": "^1.49.1",
@@ -43,8 +74,5 @@
   },
   "externals": [
     "aws-sdk"
-  ],
-  "publishConfig": {
-    "access": "public"
-  }
+  ]
 }

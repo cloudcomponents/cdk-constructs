@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "./lib",
+    "outDir": "lib",
+    "rootDir": "src",
     "alwaysStrict": true,
     "charset": "utf8",
     "declaration": true,
@@ -29,7 +30,7 @@
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
   "include": [
-    "**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",

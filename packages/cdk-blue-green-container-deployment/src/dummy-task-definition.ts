@@ -24,9 +24,11 @@ export interface IDummyTaskDefinition {
   readonly taskDefinitionArn: string;
 }
 export interface DummyTaskDefinitionProps {
-  family?: string;
-  image: string;
-  containerPort?: number;
+  readonly family?: string;
+  
+  readonly image: string;
+  
+  readonly containerPort?: number;
 }
 
 export class DummyTaskDefinition extends Construct

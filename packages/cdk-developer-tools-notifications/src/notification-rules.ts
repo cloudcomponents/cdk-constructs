@@ -18,22 +18,17 @@ export interface INotificationRule {
   readonly notificationRuleArn: string;
 }
 
-export interface NotificationProps {
+export interface CommonNotificationProps {
   /**
    * The name for the notification rule. Notification rule names
    * must be unique in your AWS account.
    */
-  name: string;
-
-  /**
-   * A list of events associated with this notification rule.
-   */
-  events: Events[];
+  readonly name: string;
 
   /**
    * SNS topics or AWS Chatbot clients to associate with the notification rule.
    */
-  targets?: INotificationTarget[];
+  readonly targets?: INotificationTarget[];
 
   /**
    * The level of detail to include in the notifications for this
@@ -45,7 +40,7 @@ export interface NotificationProps {
    *
    * @default FULL
    */
-  detailType?: DetailType;
+  readonly detailType?: DetailType;
 
   /**
    * The status of the notification rule. The default value is ENABLED.
@@ -54,15 +49,22 @@ export interface NotificationProps {
    *
    * @default ENABLED
    */
-  status?: Status;
+  readonly status?: Status;
+}
 
+export interface NotificationProps extends CommonNotificationProps {
+  /**
+   * A list of events associated with this notification rule.
+   */
+  readonly events: Events[];
+  
   /**
    * The Amazon Resource Name (ARN) of the resource to associate with
    * the notification rule. Supported resources include pipelines in
    * AWS CodePipeline, repositories in AWS CodeCommit, and build
    * projects in AWS CodeBuild.
    */
-  resource: string;
+  readonly resource: string;
 }
 
 export class NotificationRule extends Construct implements INotificationRule {
@@ -101,9 +103,9 @@ export class NotificationRule extends Construct implements INotificationRule {
 }
 
 export interface RepositoryNotificationRuleProps
-  extends Omit<NotificationProps, 'resource'> {
-  repository: IRepository;
-  events: RepositoryEvent[];
+  extends CommonNotificationProps {
+  readonly repository: IRepository;
+  readonly events: RepositoryEvent[];
 }
 
 export class RepositoryNotificationRule extends NotificationRule {
@@ -120,9 +122,9 @@ export class RepositoryNotificationRule extends NotificationRule {
 }
 
 export interface PipelineNotificationRuleProps
-  extends Omit<NotificationProps, 'resource'> {
-  pipeline: IPipeline;
-  events: PipelineEvent[];
+  extends CommonNotificationProps {
+  readonly pipeline: IPipeline;
+  readonly events: PipelineEvent[];
 }
 
 export class PipelineNotificationRule extends NotificationRule {
@@ -139,9 +141,9 @@ export class PipelineNotificationRule extends NotificationRule {
 }
 
 export interface ProjectNotificationRuleProps
-  extends Omit<NotificationProps, 'resource'> {
-  project: IProject;
-  events: ProjectEvent[];
+  extends CommonNotificationProps {
+  readonly project: IProject;
+  readonly events: ProjectEvent[];
 }
 
 export class ProjectNotificationRule extends NotificationRule {
@@ -158,9 +160,9 @@ export class ProjectNotificationRule extends NotificationRule {
 }
 
 export interface ApplicationNotificationRuleProps
-  extends Omit<NotificationProps, 'resource'> {
-  application: IServerApplication | ILambdaApplication | IEcsApplication;
-  events: ApplicationEvent[];
+  extends CommonNotificationProps {
+  readonly application: IServerApplication | ILambdaApplication | IEcsApplication;
+  readonly events: ApplicationEvent[];
 }
 
 export class ApplicationNotificationRule extends NotificationRule {

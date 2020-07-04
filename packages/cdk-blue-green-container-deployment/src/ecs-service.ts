@@ -20,20 +20,20 @@ import { Effect } from '@aws-cdk/aws-iam';
 import { DummyTaskDefinition } from './dummy-task-definition';
 
 export interface IEcsService {
-  clusterName: string;
-  serviceName: string;
+  readonly clusterName: string;
+  readonly serviceName: string;
 }
 
 export interface EcsServiceProps {
-  securityGroups?: SecurityGroup[];
-  cluster: ICluster;
-  serviceName: string;
-  launchType?: LaunchType;
-  platformVersion?: string;
-  desiredCount?: number;
-  containerPort?: number;
-  prodTargetGroup: ITargetGroup;
-  taskDefinition: DummyTaskDefinition;
+  readonly securityGroups?: SecurityGroup[];
+  readonly cluster: ICluster;
+  readonly serviceName: string;
+  readonly launchType?: LaunchType;
+  readonly platformVersion?: string;
+  readonly desiredCount?: number;
+  readonly containerPort?: number;
+  readonly prodTargetGroup: ITargetGroup;
+  readonly taskDefinition: DummyTaskDefinition;
 }
 
 export class EcsService extends Construct implements IConnectable, IEcsService {

@@ -10,8 +10,8 @@ import {
 import { INotificationRule } from './notification-rules';
 
 export interface NotificationTargetProperty {
-  targetType: TargetType.SNS | TargetType.AWSChatbotSlack;
-  targetAddress: string;
+  readonly targetType: TargetType.SNS | TargetType.AWS_CHATBOT_SLACK;
+  readonly targetAddress: string;
 }
 
 export interface INotificationTarget {
@@ -21,7 +21,7 @@ export interface INotificationTarget {
 export class SnsTopic implements INotificationTarget {
   constructor(private readonly topic: ITopic) {}
 
-  public bind(_scope: Construct): NotificationTargetProperty {
+  public bind(_scope: Construct, _rule: INotificationRule): NotificationTargetProperty {
     this.topic.grantPublish(
       new ServicePrincipal('codestar-notifications.amazonaws.com'),
     );
@@ -36,9 +36,9 @@ export class SnsTopic implements INotificationTarget {
 export class SlackChannel implements INotificationTarget {
   constructor(private readonly channel: ISlackChannelConfiguration) {}
 
-  public bind(_scope: Construct): NotificationTargetProperty {
+  public bind(_scope: Construct, _rule: INotificationRule): NotificationTargetProperty {
     return {
-      targetType: TargetType.AWSChatbotSlack,
+      targetType: TargetType.AWS_CHATBOT_SLACK,
       targetAddress: this.channel.configurationArn,
     };
   }
@@ -47,7 +47,7 @@ export class SlackChannel implements INotificationTarget {
 export class MSTeamsIncomingWebhook implements INotificationTarget {
   constructor(private readonly webhook: MSTeamsIncomingWebhookConfiguration) {}
 
-  public bind(scope: Construct): NotificationTargetProperty {
+  public bind(scope: Construct, _rule: INotificationRule): NotificationTargetProperty {
     const msTeamsTopic = new Topic(scope, `${scope.node.id}MSTeamsTopic`);
 
     msTeamsTopic.grantPublish(
@@ -65,5 +65,5 @@ export class MSTeamsIncomingWebhook implements INotificationTarget {
 
 export enum TargetType {
   SNS = 'SNS',
-  AWSChatbotSlack = 'AWSChatbotSlack',
+  AWS_CHATBOT_SLACK = 'AWSChatbotSlack',
 }
