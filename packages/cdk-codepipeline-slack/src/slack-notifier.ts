@@ -1,20 +1,20 @@
 import * as path from 'path';
 import { Construct } from '@aws-cdk/core';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { Pipeline } from '@aws-cdk/aws-codepipeline';
+import { IPipeline } from '@aws-cdk/aws-codepipeline';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { Rule } from '@aws-cdk/aws-events';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 
 export interface SlackNotifierProps {
-  slackBotToken: string;
-  slackSigningSecret: string;
-  slackChannel?: string;
-  slackChannelId?: string;
-  slackBotName?: string;
-  slackBotIcon?: string;
-  pipeline: Pipeline;
-  stageNames?: string[];
+  readonly slackBotToken: string;
+  readonly slackSigningSecret: string;
+  readonly slackChannel?: string;
+  readonly slackChannelId?: string;
+  readonly slackBotName?: string;
+  readonly slackBotIcon?: string;
+  readonly pipeline: IPipeline;
+  readonly stageNames?: string[];
 }
 
 export class SlackNotifier extends Construct {

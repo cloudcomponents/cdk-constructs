@@ -9,7 +9,7 @@ export interface DeletableBucketProps extends BucketProps {
    *
    * @default false
    */
-  forceDelete?: boolean;
+  readonly forceDelete?: boolean;
 }
 
 export class DeletableBucket extends Bucket {

@@ -85,6 +85,10 @@ const check = new CodeCommitDependencyCheck(this, 'CodeCommitDependencyCheck', {
 });
 ```
 
+## Example
+
+See more complete [examples](../../examples).
+
 ## License
 
-[MIT](../../LICENSE)
+[MIT](./LICENSE)

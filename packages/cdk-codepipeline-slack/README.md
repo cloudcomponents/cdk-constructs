@@ -114,6 +114,10 @@ Enter the url of your api from the AWS Api Gateway and append `/slack/actions`:
 
 ![Interactive Components](/packages/cdk-codepipeline-slack/assets/interactive_components.png?raw=true 'Interactive Components')
 
+## Example
+
+See more complete [examples](../../examples).
+
 ## License
 
-[MIT](../../LICENSE)
+[MIT](./LICENSE)

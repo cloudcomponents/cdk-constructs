@@ -14,7 +14,11 @@ import * as path from 'path';
 
 const LAMBDA_PATH = path.join(__dirname, '..', 'lambdas');
 
-export interface CodePipelineCheckParameterActionProps
+export interface RegExp {
+  readonly source: string;
+}
+
+export interface CommonCodePipelineCheckParameterActionProps
   extends CommonAwsActionProps {
   /**
    * The name of the parameter.
@@ -22,16 +26,19 @@ export interface CodePipelineCheckParameterActionProps
   readonly parameterName: string;
 
   /**
-   * Regular expression to validate the parameter.
-   */
-  readonly regExp?: RegExp;
-
-  /**
    * Parameter is logged after successful check
    *
    * @default false The parameter is not logged
    */
   readonly logParameter?: boolean;
+}
+
+export interface CodePipelineCheckParameterActionProps
+  extends CommonCodePipelineCheckParameterActionProps {
+  /**
+   * Regular expression to validate the parameter.
+   */
+  readonly regExp?: RegExp;
 }
 
 /**

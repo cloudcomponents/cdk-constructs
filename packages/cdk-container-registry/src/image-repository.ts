@@ -12,10 +12,6 @@ import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { ITopic } from '@aws-cdk/aws-sns';
 import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
 
-import { Severity } from './lambdas/severity-filter';
-
-export { Severity };
-
 export interface OnFindingOptions {
   readonly alarmTopic: ITopic;
 
@@ -36,7 +32,7 @@ export interface ImageRepositoryProps extends RepositoryProps {
    *
    * @default false
    */
-  forceDelete?: boolean;
+  readonly forceDelete?: boolean;
 }
 
 export class ImageRepository extends Repository {
@@ -106,4 +102,13 @@ export class ImageRepository extends Repository {
 
     return rule;
   }
+}
+
+export enum Severity {
+  CRITICAL = 'CRITICAL',
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW',
+  INFORMATIONAL = 'INFORMATIONAL',
+  UNDEFINED = 'UNDEFINED',
 }

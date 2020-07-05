@@ -79,7 +79,7 @@ export class EcsDeploymentGroup extends Resource
 
     if (terminationWaitTimeInMinutes > 2880) {
       throw new Error(
-        'Invalid TerminationWaitTimeInMinutes: The maximum setting is 2880 minutes (2 days).'
+        'Invalid TerminationWaitTimeInMinutes: The maximum setting is 2880 minutes (2 days).',
       );
     }
 
@@ -116,7 +116,7 @@ export class EcsDeploymentGroup extends Resource
             Resource: codeDeployEcsRole.roleArn,
           },
         ],
-      }
+      },
     );
 
     const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
@@ -141,14 +141,14 @@ export class EcsDeploymentGroup extends Resource
     this.deploymentGroupName = ecsDeploymentGroup.ref;
     this.deploymentGroupArn = this.arnForDeploymentGroup(
       this.application.applicationName,
-      this.deploymentGroupName
+      this.deploymentGroupName,
     );
     this.deploymentConfig = deploymentConfig || EcsDeploymentConfig.ALL_AT_ONCE;
   }
 
   private arnForDeploymentGroup(
     applicationName: string,
-    deploymentGroupName: string
+    deploymentGroupName: string,
   ): string {
     return `arn:${Aws.PARTITION}:codedeploy:${Aws.REGION}:${Aws.ACCOUNT_ID}:deploymentgroup:${applicationName}/${deploymentGroupName}`;
   }

@@ -3,6 +3,7 @@
 # @cloudcomponents/cdk-constructs
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
+[![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/search?q=%40cloudcomponents)
 
 > A collection of higher-level reusable [cdk constructs](https://github.com/awslabs/aws-cdk)
 

@@ -2,8 +2,7 @@ import { Stack } from '@aws-cdk/core';
 import { Topic } from '@aws-cdk/aws-sns';
 import 'jest-cdk-snapshot';
 
-import { ImageRepository } from '../image-repository';
-import { Severity } from '../lambdas/severity-filter';
+import { ImageRepository, Severity } from '../image-repository';
 
 test('default setup', (): void => {
   const stack = new Stack();

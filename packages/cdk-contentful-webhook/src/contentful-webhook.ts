@@ -3,12 +3,12 @@ import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
 
 export interface ContentfulWebhookProps {
-  accessToken: string;
-  spaceId: string;
-  name: string;
-  url: string;
-  topics: string[];
-  logLevel?: 'debug' | 'info' | 'warning' | 'error';
+  readonly accessToken: string;
+  readonly spaceId: string;
+  readonly name: string;
+  readonly url: string;
+  readonly topics: string[];
+  readonly logLevel?: 'debug' | 'info' | 'warning' | 'error';
 }
 
 export class ContentfulWebhook extends Construct {

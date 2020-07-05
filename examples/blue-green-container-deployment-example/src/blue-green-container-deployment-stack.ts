@@ -55,7 +55,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
         port: 80,
         targetType: TargetType.IP,
         vpc,
-      }
+      },
     );
 
     prodListener.addTargetGroups('AddProdTg', {
@@ -69,7 +69,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
         port: 8080,
         targetType: TargetType.IP,
         vpc,
-      }
+      },
     );
 
     testListener.addTargetGroups('AddTestTg', {
@@ -83,7 +83,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       {
         image: 'nginx',
         family: 'blue-green',
-      }
+      },
     );
 
     const ecsService = new EcsService(this, 'EcsService', {

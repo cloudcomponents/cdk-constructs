@@ -5,7 +5,7 @@ import { SingletonFunction, Code, Runtime } from '@aws-cdk/aws-lambda';
 import { Provider } from '@aws-cdk/custom-resources';
 
 export interface EmptyBucketProps {
-  bucket: IBucket;
+  readonly bucket: IBucket;
 }
 
 export class EmptyBucket extends Construct {

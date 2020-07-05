@@ -5,7 +5,7 @@ export const createWebhook = async (
   githubApiToken: string,
   githubRepoUrl: string,
   payloadUrl: string,
-  events: string[]
+  events: string[],
 ): Promise<RestEndpointMethodTypes['repos']['createWebhook']['response']> => {
   const octokit = new Octokit({
     auth: githubApiToken,
@@ -34,7 +34,7 @@ export const updateWebhook = async (
   githubRepoUrl: string,
   payloadUrl: string,
   events: string[],
-  hookId: number
+  hookId: number,
 ): Promise<RestEndpointMethodTypes['repos']['updateWebhook']['response']> => {
   const octokit = new Octokit({
     auth: githubApiToken,
@@ -61,7 +61,7 @@ export const updateWebhook = async (
 export const deleteWebhook = async (
   githubApiToken: string,
   githubRepoUrl: string,
-  hookId: number
+  hookId: number,
 ): Promise<RestEndpointMethodTypes['repos']['deleteWebhook']['response']> => {
   const octokit = new Octokit({
     auth: githubApiToken,

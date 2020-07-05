@@ -78,7 +78,7 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
   protected bound(
     scope: Construct,
     _stage: IStage,
-    options: ActionBindOptions
+    options: ActionBindOptions,
   ): ActionConfig {
     const buildImage = LinuxBuildImage.STANDARD_4_0;
 
@@ -128,7 +128,7 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
           'codebuild:StartBuild',
           'codebuild:StopBuild',
         ],
-      })
+      }),
     );
 
     // allow the Project access to the Pipeline's artifact Bucket

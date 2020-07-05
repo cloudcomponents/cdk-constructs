@@ -3,6 +3,13 @@
   "version": "1.0.66",
   "description": "Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes",
   "license": "MIT",
+  "author": {
+    "name": "hupe1980",
+    "url": "https://github.com/hupe1980"
+  },
+  "awscdkio": {
+    "twitter": "hupe1980"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cloudcomponents/cdk-constructs",
@@ -23,11 +30,41 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    ".jsii"
   ],
   "scripts": {
     "build": "cdkdx build",
-    "test": "cdkdx test"
+    "watch": "cdkdx build -w",
+    "test": "cdkdx test",
+    "lint": "cdkdx lint",
+    "package": "cdkdx package"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "tsc": {
+      "outDir": "lib",
+      "rootDir": "src"
+    },
+    "excludeTypescript": [
+      "src/lambdas",
+      "src/**/__tests__"
+    ],
+    "targets": {}
+  },
+  "peerDependencies": {
+    "@aws-cdk/aws-apigateway": "^1.49.1",
+    "@aws-cdk/aws-codebuild": "^1.49.1",
+    "@aws-cdk/aws-codepipeline": "^1.49.1",
+    "@aws-cdk/aws-codepipeline-actions": "^1.49.1",
+    "@aws-cdk/aws-events": "^1.49.1",
+    "@aws-cdk/aws-events-targets": "^1.49.1",
+    "@aws-cdk/aws-iam": "^1.49.1",
+    "@aws-cdk/aws-lambda": "^1.49.1",
+    "@aws-cdk/aws-s3": "^1.49.1",
+    "@aws-cdk/aws-sns": "^1.49.1",
+    "@aws-cdk/aws-sns-subscriptions": "^1.49.1",
+    "@aws-cdk/core": "^1.49.1"
   },
   "dependencies": {
     "@aws-cdk/aws-apigateway": "^1.49.1",
@@ -57,6 +94,5 @@
   },
   "externals": [
     "aws-sdk"
-  ],
-  "gitHead": "a0777f00456246755f974e2372f151efd66b003c"
+  ]
 }

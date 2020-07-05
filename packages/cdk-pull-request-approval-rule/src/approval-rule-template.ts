@@ -7,31 +7,31 @@ import {
 
 import { approvalRuleTemplateDir } from './directories';
 
-interface Approvers {
-  numberOfApprovalsNeeded: number;
-  approvalPoolMembers?: string;
+export interface Approvers {
+  readonly numberOfApprovalsNeeded: number;
+  readonly approvalPoolMembers?: string;
 }
 
-interface Template {
-  branches?: string[];
-  approvers: Approvers;
+export interface Template {
+  readonly branches?: string[];
+  readonly approvers: Approvers;
 }
 
 export interface ApprovalRuleTemplateProps {
   /**
    * The name of the approval rule template.
    */
-  approvalRuleTemplateName: string;
+  readonly approvalRuleTemplateName: string;
 
   /**
    * The description of the approval rule template
    */
-  approvalRuleTemplateDescription?: string;
+  readonly approvalRuleTemplateDescription?: string;
 
   /**
    * The content of the approval rule that is created on pull requests in associated repositories.
    */
-  template: Template;
+  readonly template: Template;
 }
 
 export class ApprovalRuleTemplate extends Construct {

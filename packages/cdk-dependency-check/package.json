@@ -3,6 +3,13 @@
   "version": "1.0.28",
   "description": "OWASP dependency-check for codecommit repositories",
   "license": "MIT",
+  "author": {
+    "name": "hupe1980",
+    "url": "https://github.com/hupe1980"
+  },
+  "awscdkio": {
+    "twitter": "hupe1980"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cloudcomponents/cdk-constructs",
@@ -19,11 +26,36 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    ".jsii"
   ],
   "scripts": {
     "build": "cdkdx build",
-    "test": "cdkdx test"
+    "watch": "cdkdx build -w",
+    "test": "cdkdx test",
+    "lint": "cdkdx lint",
+    "package": "cdkdx package"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "tsc": {
+      "outDir": "lib",
+      "rootDir": "src"
+    },
+    "excludeTypescript": [
+      "src/lambdas",
+      "src/**/__tests__"
+    ],
+    "targets": {}
+  },
+  "peerDependencies": {
+    "@aws-cdk/aws-codebuild": "^1.49.1",
+    "@aws-cdk/aws-codecommit": "^1.49.1",
+    "@aws-cdk/aws-events": "^1.49.1",
+    "@aws-cdk/aws-events-targets": "^1.49.1",
+    "@aws-cdk/aws-iam": "^1.49.1",
+    "@aws-cdk/aws-s3": "^1.49.1",
+    "@aws-cdk/core": "^1.49.1"
   },
   "dependencies": {
     "@aws-cdk/aws-codebuild": "^1.49.1",
@@ -38,8 +70,5 @@
     "@aws-cdk/assert": "^1.49.1",
     "@aws-cdk/aws-sns": "^1.49.1",
     "jest-cdk-snapshot": "^1.3.0"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

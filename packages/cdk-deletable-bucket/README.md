@@ -30,6 +30,10 @@ export class DeletableBucketStack extends Stack {
 }
 ```
 
+## Example
+
+See more complete [examples](../../examples).
+
 ## License
 
-[MIT](../../LICENSE)
+[MIT](./LICENSE)

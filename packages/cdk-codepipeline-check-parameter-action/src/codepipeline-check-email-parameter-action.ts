@@ -2,11 +2,11 @@ import * as emailRegex from 'email-regex';
 
 import {
   CodePipelineCheckParameterAction,
-  CodePipelineCheckParameterActionProps,
+  CommonCodePipelineCheckParameterActionProps,
 } from './codepipeline-check-parameter-action';
 
 export interface CodePipelineCheckEmailParameterActionProps
-  extends Omit<CodePipelineCheckParameterActionProps, 'regExp'> {
+  extends CommonCodePipelineCheckParameterActionProps {
   /**
    * Only match an exact string
    *

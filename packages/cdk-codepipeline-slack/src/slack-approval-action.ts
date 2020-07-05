@@ -15,14 +15,14 @@ import { RestApi, LambdaIntegration } from '@aws-cdk/aws-apigateway';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 
 export interface SlackApprovalActionProps extends CommonActionProps {
-  slackBotToken: string;
-  slackSigningSecret: string;
-  slackChannel?: string;
-  slackChannelId?: string;
-  slackBotName?: string;
-  slackBotIcon?: string;
-  additionalInformation?: string;
-  externalEntityLink?: string;
+  readonly slackBotToken: string;
+  readonly slackSigningSecret: string;
+  readonly slackChannel?: string;
+  readonly slackChannelId?: string;
+  readonly slackBotName?: string;
+  readonly slackBotIcon?: string;
+  readonly additionalInformation?: string;
+  readonly externalEntityLink?: string;
 }
 
 export class SlackApprovalAction extends Action {

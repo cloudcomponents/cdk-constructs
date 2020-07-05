@@ -7,7 +7,7 @@ import {
 } from '@aws-cdk/aws-s3';
 
 export interface BackupBucketProps extends BucketProps {
-  retentionPeriod?: Duration;
+  readonly retentionPeriod?: Duration;
 }
 
 export class BackupBucket extends Bucket {

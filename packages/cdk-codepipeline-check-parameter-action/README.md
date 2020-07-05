@@ -63,6 +63,10 @@ export class CodePipelineCheckParameterActionStack extends Stack {
 }
 ```
 
+## Example
+
+See more complete [examples](../../examples).
+
 ## License
 
-[MIT](../../LICENSE)
+[MIT](./LICENSE)

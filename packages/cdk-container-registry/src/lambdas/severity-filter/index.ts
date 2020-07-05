@@ -1,13 +1,6 @@
 import { SNS } from 'aws-sdk';
 
-export enum Severity {
-  CRITICAL = 'CRITICAL',
-  HIGH = 'HIGH',
-  MEDIUM = 'MEDIUM',
-  LOW = 'LOW',
-  INFORMATIONAL = 'INFORMATIONAL',
-  UNDEFINED = 'UNDEFINED',
-}
+import { Severity } from '../../image-repository';
 
 export interface FilterEvent {
   account: string;

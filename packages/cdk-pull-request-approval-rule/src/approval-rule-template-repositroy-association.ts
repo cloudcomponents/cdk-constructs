@@ -13,12 +13,12 @@ export interface ApprovalRuleTemplateRepositoryAssociationProps {
   /**
    * The name of the template you want to associate with one or more repositories.
    */
-  approvalRuleTemplateName: string;
+  readonly approvalRuleTemplateName: string;
 
   /**
    * The repository you want to associate with the template.
    */
-  repository: IRepository;
+  readonly repository: IRepository;
 }
 
 export class ApprovalRuleTemplateRepositoryAssociation extends Construct {

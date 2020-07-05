@@ -2,11 +2,11 @@ import * as urlRegex from 'url-regex';
 
 import {
   CodePipelineCheckParameterAction,
-  CodePipelineCheckParameterActionProps,
+  CommonCodePipelineCheckParameterActionProps,
 } from './codepipeline-check-parameter-action';
 
 export interface CodePipelineCheckUrlParameterActionProps
-  extends Omit<CodePipelineCheckParameterActionProps, 'regExp'> {
+  extends CommonCodePipelineCheckParameterActionProps {
   /**
    * Only match an exact string
    *

@@ -3,10 +3,10 @@ import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
 
 export interface StripeWebhookProps {
-  secretKey: string;
-  url: string;
-  events: string[];
-  logLevel?: 'debug' | 'info' | 'warning' | 'error';
+  readonly secretKey: string;
+  readonly url: string;
+  readonly events: string[];
+  readonly logLevel?: 'debug' | 'info' | 'warning' | 'error';
 }
 
 export class StripeWebhook extends Construct {
