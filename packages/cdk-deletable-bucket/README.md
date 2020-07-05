@@ -3,6 +3,7 @@
 # @cloudcomponents/cdk-deletable-bucket
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
+[![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-deletable-bucket)
 
 > Bucket with content cleanup to allow bucket deletion when the stack will be destroyed
 

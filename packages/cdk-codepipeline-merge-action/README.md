@@ -3,6 +3,7 @@
 # @cloudcomponents/cdk-codepipeline-merge-action
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
+[![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-codepipeline-merge-action)
 
 > Cdk component that automatically merge branches in codepipelines
 

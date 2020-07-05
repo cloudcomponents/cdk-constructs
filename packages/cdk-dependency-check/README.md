@@ -3,6 +3,7 @@
 # @cloudcomponents/cdk-dependency-check
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
+[![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-dependency-check)
 
 > [OWASP dependency-check](https://owasp.org/www-project-dependency-check/) for codecommit repositories
 

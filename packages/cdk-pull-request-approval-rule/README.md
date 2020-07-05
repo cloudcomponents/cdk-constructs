@@ -3,6 +3,7 @@
 # @cloudcomponents/cdk-pull-request-approval-rule
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
+[![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-pull-request-approval-rule)
 
 > CodeCommit pull request approval rules to enforcing your pull request workflow
 
