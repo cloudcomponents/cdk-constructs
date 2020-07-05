@@ -23,6 +23,14 @@ import {
 
 import { IEcsService } from './ecs-service';
 
+export interface TrafficListener {
+  /**
+   * ARN of the listener
+   * @attribute
+   */
+  readonly listenerArn: string;
+}
+
 export interface EcsDeploymentGroupProps {
   readonly applicationName?: string;
 
@@ -34,9 +42,9 @@ export interface EcsDeploymentGroupProps {
 
   readonly targetGroupNames: string[];
 
-  readonly prodTrafficListenerArn: string;
+  readonly prodTrafficListener: TrafficListener;
 
-  readonly testTrafficListenerArn: string;
+  readonly testTrafficListener: TrafficListener;
 
   /**
    * the number of minutes before deleting the original (blue) task set.
@@ -71,8 +79,8 @@ export class EcsDeploymentGroup extends Resource
       deploymentConfig,
       ecsServices,
       targetGroupNames,
-      prodTrafficListenerArn,
-      testTrafficListenerArn,
+      prodTrafficListener,
+      testTrafficListener,
       terminationWaitTimeInMinutes = 60,
       autoRollbackOnEvents,
     } = props;
@@ -131,8 +139,8 @@ export class EcsDeploymentGroup extends Resource
           ClusterName: service.clusterName,
           ServiceName: service.serviceName,
         })),
-        ProdTrafficListenerArn: prodTrafficListenerArn,
-        TestTrafficListenerArn: testTrafficListenerArn,
+        ProdTrafficListenerArn: prodTrafficListener.listenerArn,
+        TestTrafficListenerArn: testTrafficListener.listenerArn,
         TerminationWaitTimeInMinutes: terminationWaitTimeInMinutes,
         AutoRollbackOnEvents: autoRollbackOnEvents,
       },

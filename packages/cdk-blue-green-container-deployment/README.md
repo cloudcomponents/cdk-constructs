@@ -125,8 +125,8 @@ export class BlueGreenContainerDeploymentStack extends Stack {
         prodTargetGroup.targetGroupName,
         testTargetGroup.targetGroupName,
       ],
-      prodTrafficListenerArn: prodListener.listenerArn,
-      testTrafficListenerArn: testListener.listenerArn,
+      prodTrafficListener: prodListener,
+      testTrafficListener: testListener,
       terminationWaitTimeInMinutes: 100,
     });
 
