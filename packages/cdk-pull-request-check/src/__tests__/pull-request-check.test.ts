@@ -9,7 +9,7 @@ import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
-import { PullRequestCheck } from '../pull_request_check';
+import { PullRequestCheck } from '../pull-request-check';
 
 test('default setup', (): void => {
   // GIVEN

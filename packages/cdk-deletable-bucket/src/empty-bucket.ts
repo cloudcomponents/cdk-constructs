@@ -9,8 +9,8 @@ export interface EmptyBucketProps {
 }
 
 export class EmptyBucket extends Construct {
-  constructor(parent: Construct, id: string, props: EmptyBucketProps) {
-    super(parent, id);
+  constructor(scope: Construct, id: string, props: EmptyBucketProps) {
+    super(scope, id);
 
     const onEvent = new SingletonFunction(this, 'EmptyBucketFunction', {
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'empty-bucket')),

@@ -11,9 +11,7 @@ import {
   SecurityGroup,
   Port,
 } from '@aws-cdk/aws-ec2';
-import {
-  ITargetGroup,
-} from '@aws-cdk/aws-elasticloadbalancingv2';
+import { ITargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { ICluster, LaunchType } from '@aws-cdk/aws-ecs';
 import { Effect } from '@aws-cdk/aws-iam';
 
@@ -41,8 +39,8 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
   public readonly serviceName: string;
   public readonly connections: Connections;
 
-  constructor(parent: Construct, id: string, props: EcsServiceProps) {
-    super(parent, id);
+  constructor(scope: Construct, id: string, props: EcsServiceProps) {
+    super(scope, id);
 
     const {
       cluster,

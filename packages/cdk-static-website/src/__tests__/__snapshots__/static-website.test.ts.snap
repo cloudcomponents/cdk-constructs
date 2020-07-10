@@ -372,6 +372,8 @@ Object {
           "IPV6Enabled": true,
           "Origins": Array [
             Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
               "DomainName": Object {
                 "Fn::GetAtt": Array [
                   "StaticWebsiteBucketWebsiteBucket9EE4F45B",

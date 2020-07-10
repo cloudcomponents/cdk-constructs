@@ -24,12 +24,12 @@ export interface ApprovalRuleTemplateRepositoryAssociationProps {
 export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
   private repository: IRepository;
 
-  public constructor(
-    parent: Construct,
+  constructor(
+    scope: Construct,
     id: string,
     props: ApprovalRuleTemplateRepositoryAssociationProps,
   ) {
-    super(parent, id);
+    super(scope, id);
 
     this.repository = props.repository;
 

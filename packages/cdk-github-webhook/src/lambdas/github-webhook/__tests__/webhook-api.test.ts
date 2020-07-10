@@ -71,7 +71,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
   });
 
   test('should throw an exception if the githubUrl is not correct', async (): Promise<
-  void
+    void
   > => {
     const githubApiToken = 'secure';
     const githubRepoUrl = '*INCORRECT_URL*';
@@ -79,7 +79,7 @@ describe('cdk-github-webhook-lambda: webhook-api', (): void => {
     const events = ['*'];
 
     const call = (): Promise<
-    RestEndpointMethodTypes['repos']['createWebhook']['response']
+      RestEndpointMethodTypes['repos']['createWebhook']['response']
     > => createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
     await expect(call()).rejects.toThrow('GithubRepoUrl is not correct');

@@ -11,7 +11,7 @@ interface DialogPayload {
   trigger_id: string;
   original_message: Message;
   callback_id: string;
-  user: { id: string, name: string };
+  user: { id: string; name: string };
   submission: { comment: string };
 }
 
@@ -61,7 +61,9 @@ export const requestApproval = async (approval): Promise<void> => {
   }
 };
 
-export const handleButtonClicked = async (payload: DialogPayload): Promise<Message> => {
+export const handleButtonClicked = async (
+  payload: DialogPayload,
+): Promise<Message> => {
   try {
     const triggerId = payload.trigger_id;
     const dialog = buildDialog(payload);
@@ -91,7 +93,9 @@ export const handleButtonClicked = async (payload: DialogPayload): Promise<Messa
   }
 };
 
-const handleDialogSubmission = async (payload: DialogPayload): Promise<void> => {
+const handleDialogSubmission = async (
+  payload: DialogPayload,
+): Promise<void> => {
   const { user, state, callback_id, submission } = payload;
   const { comment } = submission;
   const { ts, approval } = JSON.parse(state);
@@ -125,7 +129,9 @@ const handleDialogSubmission = async (payload: DialogPayload): Promise<void> => 
   await bot.updateMessage(ts, messageBuilder.message);
 };
 
-const handleDialogCancellation = async (payload: DialogPayload): Promise<void> => {
+const handleDialogCancellation = async (
+  payload: DialogPayload,
+): Promise<void> => {
   const { state } = payload;
   const { ts, approval } = JSON.parse(state);
 

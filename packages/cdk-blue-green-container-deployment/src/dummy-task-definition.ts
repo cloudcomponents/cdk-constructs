@@ -25,9 +25,9 @@ export interface IDummyTaskDefinition {
 }
 export interface DummyTaskDefinitionProps {
   readonly family?: string;
-  
+
   readonly image: string;
-  
+
   readonly containerPort?: number;
 }
 
@@ -39,8 +39,8 @@ export class DummyTaskDefinition extends Construct
 
   public readonly taskDefinitionArn: string;
 
-  constructor(parent: Construct, id: string, props: DummyTaskDefinitionProps) {
-    super(parent, id);
+  constructor(scope: Construct, id: string, props: DummyTaskDefinitionProps) {
+    super(scope, id);
 
     this.executionRole = new Role(this, 'ExecutionRole', {
       assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),

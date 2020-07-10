@@ -7,30 +7,29 @@ export interface GithubWebhookProps {
    * The OAuth access token
    */
   readonly githubApiToken: string;
-  
+
   /**
    * The Github repo url
    */
   readonly githubRepoUrl: string;
-  
+
   /**
    * The URL to which the payloads will be delivered.
    */
   readonly payloadUrl: string;
-  
+
   /**
    * Determines what events the hook is triggered for.
    * @see https://developer.github.com/v3/activity/events/types/
    */
   readonly events: string[];
 
-  
   readonly logLevel?: 'debug' | 'info' | 'warning' | 'error';
 }
 
 export class GithubWebhook extends Construct {
-  constructor(parent: Construct, id: string, props: GithubWebhookProps) {
-    super(parent, id);
+  constructor(scope: Construct, id: string, props: GithubWebhookProps) {
+    super(scope, id);
 
     const handler = new SingletonFunction(this, 'CustomResourceHandler', {
       uuid: '83CBF3EB-7B62-44F2-8C67-8441E4C1232E',

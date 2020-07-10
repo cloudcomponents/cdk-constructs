@@ -183,7 +183,7 @@ export class CodeCommitDependencyCheck extends Construct {
             ],
             finally: [
               'echo "[===== Upload reports =====]"',
-              'dt=$(date -u \'+%Y_%m_%d_%H_%M\')',
+              "dt=$(date -u '+%Y_%m_%d_%H_%M')",
               reportsBucket
                 ? `aws s3 cp reports/dependency-check-report.html s3://${reportsBucket.bucketName}/${repositoryName}/\${dt}_UTC/`
                 : 'echo "No reportsBuckets"',

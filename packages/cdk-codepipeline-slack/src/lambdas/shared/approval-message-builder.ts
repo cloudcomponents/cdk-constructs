@@ -61,7 +61,6 @@ export class ApprovalMessageBuilder extends MessageBuilder {
   }
 
   public static fromApprovalRequest(approval): ApprovalMessageBuilder {
-
     const actions: AttachmentAction[] = [
       {
         name: 'reject',

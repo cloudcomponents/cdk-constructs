@@ -51,7 +51,10 @@ export class SlackBot {
     });
   }
 
-  public async updateMessage(ts: string, message: Message): Promise<WebAPICallResult> {
+  public async updateMessage(
+    ts: string,
+    message: Message,
+  ): Promise<WebAPICallResult> {
     await this.setChannelId();
 
     return this.bot.chat.update({
@@ -65,8 +68,8 @@ export class SlackBot {
 
   public async findChannel(channelName: string): Promise<Channel | undefined> {
     const response = (await this.bot.conversations.list()) as Record<
-    string,
-    Channel[]
+      string,
+      Channel[]
     >;
     return response.channels.find((channel) => channel.name === channelName);
   }
@@ -114,7 +117,10 @@ export class SlackBot {
     }
   }
 
-  public async openDialog(triggerId: string, dialog: Dialog): Promise<WebAPICallResult> {
+  public async openDialog(
+    triggerId: string,
+    dialog: Dialog,
+  ): Promise<WebAPICallResult> {
     return this.bot.dialog.open({ trigger_id: triggerId, dialog });
   }
 }

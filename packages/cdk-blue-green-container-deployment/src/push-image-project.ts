@@ -28,7 +28,7 @@ export interface PushImageProjectProps {
 export class PushImageProject extends PipelineProject {
   constructor(scope: Construct, id: string, props: PushImageProjectProps) {
     const { account, region } = Stack.of(scope);
-    
+
     super(scope, id, {
       projectName: props.projectName,
       cache:

@@ -19,10 +19,10 @@ export interface Association {
    * Specifies the event type that triggers a Lambda function invocation
    */
   readonly eventType:
-  | 'viewer-request'
-  | 'origin-request'
-  | 'origin-response'
-  | 'viewer-response';
+    | 'viewer-request'
+    | 'origin-request'
+    | 'origin-response'
+    | 'viewer-response';
 }
 
 export interface LambdaFunctionAssociationsProps {

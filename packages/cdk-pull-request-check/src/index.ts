@@ -1,1 +1,1 @@
-export * from './pull_request_check';
+export * from './pull-request-check';

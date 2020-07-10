@@ -18,7 +18,7 @@ export interface INotificationRule {
   readonly notificationRuleArn: string;
 }
 
-export interface CommonNotificationProps {
+export interface CommonNotificationRuleProps {
   /**
    * The name for the notification rule. Notification rule names
    * must be unique in your AWS account.
@@ -52,12 +52,12 @@ export interface CommonNotificationProps {
   readonly status?: Status;
 }
 
-export interface NotificationProps extends CommonNotificationProps {
+export interface NotificationRuleProps extends CommonNotificationRuleProps {
   /**
    * A list of events associated with this notification rule.
    */
   readonly events: Events[];
-  
+
   /**
    * The Amazon Resource Name (ARN) of the resource to associate with
    * the notification rule. Supported resources include pipelines in
@@ -71,7 +71,7 @@ export class NotificationRule extends Construct implements INotificationRule {
   public readonly notificationRuleArn: string;
   private readonly targets = new Array<NotificationTargetProperty>();
 
-  constructor(scope: Construct, id: string, props: NotificationProps) {
+  constructor(scope: Construct, id: string, props: NotificationRuleProps) {
     super(scope, id);
 
     for (const target of props.targets || []) {
@@ -103,7 +103,7 @@ export class NotificationRule extends Construct implements INotificationRule {
 }
 
 export interface RepositoryNotificationRuleProps
-  extends CommonNotificationProps {
+  extends CommonNotificationRuleProps {
   readonly repository: IRepository;
   readonly events: RepositoryEvent[];
 }
@@ -122,7 +122,7 @@ export class RepositoryNotificationRule extends NotificationRule {
 }
 
 export interface PipelineNotificationRuleProps
-  extends CommonNotificationProps {
+  extends CommonNotificationRuleProps {
   readonly pipeline: IPipeline;
   readonly events: PipelineEvent[];
 }
@@ -141,7 +141,7 @@ export class PipelineNotificationRule extends NotificationRule {
 }
 
 export interface ProjectNotificationRuleProps
-  extends CommonNotificationProps {
+  extends CommonNotificationRuleProps {
   readonly project: IProject;
   readonly events: ProjectEvent[];
 }
@@ -160,8 +160,11 @@ export class ProjectNotificationRule extends NotificationRule {
 }
 
 export interface ApplicationNotificationRuleProps
-  extends CommonNotificationProps {
-  readonly application: IServerApplication | ILambdaApplication | IEcsApplication;
+  extends CommonNotificationRuleProps {
+  readonly application:
+    | IServerApplication
+    | ILambdaApplication
+    | IEcsApplication;
   readonly events: ApplicationEvent[];
 }
 

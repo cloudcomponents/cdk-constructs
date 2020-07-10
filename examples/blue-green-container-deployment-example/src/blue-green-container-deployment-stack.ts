@@ -100,9 +100,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
     const deploymentGroup = new EcsDeploymentGroup(this, 'DeploymentGroup', {
       applicationName: 'blue-green-application',
       deploymentGroupName: 'blue-green-deployment-group',
-      ecsServices: [
-        ecsService,
-      ],
+      ecsServices: [ecsService],
       targetGroupNames: [
         prodTargetGroup.targetGroupName,
         testTargetGroup.targetGroupName,

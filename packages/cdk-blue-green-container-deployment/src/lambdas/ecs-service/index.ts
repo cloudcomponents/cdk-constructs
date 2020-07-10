@@ -146,10 +146,12 @@ const onDelete = async (
     })
     .promise();
 
-  await ecs.waitFor('servicesInactive', {
-    cluster,
-    services: [serviceName],
-  }).promise();
+  await ecs
+    .waitFor('servicesInactive', {
+      cluster,
+      services: [serviceName],
+    })
+    .promise();
 };
 
 export const handler = async (

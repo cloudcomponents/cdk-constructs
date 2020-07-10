@@ -37,12 +37,8 @@ export interface ApprovalRuleTemplateProps {
 export class ApprovalRuleTemplate extends Construct {
   public readonly approvalRuleTemplateName: string;
 
-  public constructor(
-    parent: Construct,
-    id: string,
-    props: ApprovalRuleTemplateProps,
-  ) {
-    super(parent, id);
+  constructor(scope: Construct, id: string, props: ApprovalRuleTemplateProps) {
+    super(scope, id);
 
     const {
       approvalRuleTemplateName,
