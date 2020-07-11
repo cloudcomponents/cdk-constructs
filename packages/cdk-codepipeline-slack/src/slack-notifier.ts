@@ -50,7 +50,7 @@ export class SlackNotifier extends Construct {
     }
 
     const notifier = new Function(scope, 'SlackNotifierFunction', {
-      runtime: Runtime.NODEJS_10_X,
+      runtime: Runtime.NODEJS_12_X,
       handler: 'index.handler',
       code: Code.asset(path.join(__dirname, 'lambdas', 'notifier')),
       environment: this.environment,

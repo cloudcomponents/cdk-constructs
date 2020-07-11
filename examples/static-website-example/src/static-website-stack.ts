@@ -1,11 +1,11 @@
-import { App, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
 import { SecurityPolicyProtocol } from '@aws-cdk/aws-cloudfront';
 
 export class StaticWebsiteStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const certificateArn = StringParameter.valueFromLookup(
       this,
@@ -26,8 +26,8 @@ export class StaticWebsiteStack extends Stack {
 }
 
 export class StaticWebsiteWithExistingSourcesAndSecurityPolicyStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const certificateArn = StringParameter.valueFromLookup(
       this,

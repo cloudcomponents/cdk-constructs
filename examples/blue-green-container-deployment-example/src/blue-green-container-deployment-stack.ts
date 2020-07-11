@@ -1,4 +1,4 @@
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { Vpc, Port } from '@aws-cdk/aws-ec2';
@@ -23,8 +23,8 @@ import {
 } from '@cloudcomponents/cdk-blue-green-container-deployment';
 
 export class BlueGreenContainerDeploymentStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const vpc = new Vpc(this, 'Vpc', {
       maxAzs: 2,

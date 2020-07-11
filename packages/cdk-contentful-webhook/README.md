@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-contentful-webhook
 
@@ -16,12 +16,12 @@ npm install --save @cloudcomponents/cdk-contentful-webhook
 ## How to use
 
 ```typescript
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { RestApi } from '@aws-cdk/aws-apigateway';
-import { App, Stack, StackProps } from '@aws-cdk/core';
 import { ContentfulWebhook } from '@cloudcomponents/cdk-contentful-webhook';
 
 export class ContentfulWebhookStack extends Stack {
-  public constructor(scope: App, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const api = new RestApi(this, 'Endpoint');
@@ -47,7 +47,7 @@ export class ContentfulWebhookStack extends Stack {
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

@@ -1,4 +1,4 @@
-import { App, Stack, StackProps, Duration } from '@aws-cdk/core';
+import { Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
@@ -10,7 +10,7 @@ import {
 } from '@cloudcomponents/cdk-codecommit-backup';
 
 export class CodeCommitBackupStack extends Stack {
-  public constructor(scope: App, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const repository = Repository.fromRepositoryName(

@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-static-website
 
@@ -17,44 +17,44 @@ npm install --save @cloudcomponents/cdk-static-website
 
 ### Example 1: With an existing certificate
 ```typescript
-import { App, Stack, StackProps, RemovalPolicy } from '@aws-cdk/core';
+import { Construct, Stack, StackProps, RemovalPolicy } from '@aws-cdk/core';
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
 
 export class StaticWebsiteStack extends Stack {
-    public constructor(parent: App, name: string, props?: StackProps) {
-        super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
-        const certificateArn = StringParameter.valueFromLookup(
-            this,
-            '/certificate/cloudcomponents.org',
-        );
+    const certificateArn = StringParameter.valueFromLookup(
+        this,
+        '/certificate/cloudcomponents.org',
+    );
 
-        new StaticWebsite(this, 'StaticWebsite', {
-            bucketConfiguration: {
-                removalPolicy: RemovalPolicy.DESTROY,
-            },
-            aliasConfiguration: {
-                domainName: 'cloudcomponents.org',
-                names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
-                acmCertRef: certificateArn,
-            },
-        });
-    }
+    new StaticWebsite(this, 'StaticWebsite', {
+        bucketConfiguration: {
+            removalPolicy: RemovalPolicy.DESTROY,
+        },
+        aliasConfiguration: {
+            domainName: 'cloudcomponents.org',
+            names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
+            acmCertRef: certificateArn,
+        },
+    });
+  }
 }
 ```
 
 ### Example 2: Cloudfront URL with existing sources and up to date Securitypolicy
 
 ```typescript
-import { App, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
 import { SecurityPolicyProtocol } from '@aws-cdk/aws-cloudfront';
 
 export class StaticWebsiteWithExistingSourcesAndSecurityPolicyStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const certificateArn = StringParameter.valueFromLookup(
       this,
@@ -89,7 +89,7 @@ website.addLambdaFunctionAssociation({
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

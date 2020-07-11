@@ -3068,10 +3068,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.14.tgz#24a0b5959f16ac141aeb0c5b3cd7a15b7c64cbce"
   integrity sha512-syUgf67ZQpaJj01/tRTknkMNoBBLWJOBODF0Zm4NrXmiSuxjymFrxnTu1QVYRubhVkRcZLYZG8STTwJRdVm/WQ==
 
-"@types/node@^10.17.26":
-  version "10.17.26"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.26.tgz#a8a119960bff16b823be4c617da028570779bcfd"
-  integrity sha512-myMwkO2Cr82kirHY8uknNRHEVtn0wV3DTQfkrjx17jmkstDRZ24gNUdl8AHXVyVclTYI/bNjgTPTAWvWLqXqkw==
+"@types/node@^10.17.27":
+  version "10.17.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.27.tgz#391cb391c75646c8ad2a7b6ed3bbcee52d1bdf19"
+  integrity sha512-J0oqm9ZfAXaPdwNXMMgAhylw5fhmXkToJd06vuDUSAgEDZ/n/69/69UmyBZbc+zT34UnShuDSBqvim3SPnozJg==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -4317,11 +4317,12 @@ cdk-assets@1.51.0:
     glob "^7.1.6"
     yargs "^15.3.1"
 
-cdkdx@^0.0.66:
-  version "0.0.66"
-  resolved "https://registry.yarnpkg.com/cdkdx/-/cdkdx-0.0.66.tgz#34e02cff6b2381ec0ceb0ec5a32c43d2a7cda0f8"
-  integrity sha512-NeS6LAOBt0pwH6CNxUIukayOZyM3lOjstk6fU+7fVf2uHVu9oQVlahY37GLzMr8RhcqrecIE2gsHC0debykRxg==
+cdkdx@^0.0.68:
+  version "0.0.68"
+  resolved "https://registry.yarnpkg.com/cdkdx/-/cdkdx-0.0.68.tgz#609d203ffbdbd31c795b3801a247371cc66031cc"
+  integrity sha512-b7J+beXljZ+s7VfaPk+eF+ew3FWUaTz3X/fH1pcEPTJ0B5w12xhp0oE6m1u+4VNWhES7UcBkBp+qKmEquGF+/w==
   dependencies:
+    "@types/aws-lambda" "^8.10.59"
     "@types/jest" "^26.0.4"
     "@typescript-eslint/eslint-plugin" "^3.6.0"
     "@typescript-eslint/parser" "^3.6.0"
@@ -4332,9 +4333,9 @@ cdkdx@^0.0.66:
     dotenv "^8.2.0"
     enquirer "^2.3.6"
     eslint "^7.4.0"
-    eslint-config-cdk "^0.0.66"
+    eslint-config-cdk "^0.0.68"
     eslint-config-prettier "^6.11.0"
-    eslint-plugin-cdk "^0.0.66"
+    eslint-plugin-cdk "^0.0.68"
     eslint-plugin-import "^2.21.2"
     eslint-plugin-jest "^23.18.0"
     eslint-plugin-prettier "^3.1.4"
@@ -6026,10 +6027,10 @@ escodegen@~1.9.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-cdk@^0.0.66:
-  version "0.0.66"
-  resolved "https://registry.yarnpkg.com/eslint-config-cdk/-/eslint-config-cdk-0.0.66.tgz#be44da7b316227dce51657c9476601b88fc67596"
-  integrity sha512-Kgd24E2n57NYDHe6kiWzyIWo/s7RGEdWf+XTRrMk/d7ldGr5pz0UVLmglIfMRpFw6nXq7FODH1/6hvaveKEesw==
+eslint-config-cdk@^0.0.68:
+  version "0.0.68"
+  resolved "https://registry.yarnpkg.com/eslint-config-cdk/-/eslint-config-cdk-0.0.68.tgz#9e9e65f292cd661f1d0ca8342c40cf562a8c9b01"
+  integrity sha512-aFUziGKTV1aa93xFLduy9EW0fNOcMUStKEr1hqmZXtpltdEsZLrVm7hauFNDeCI24wCONZPtXYgiRB9sK7yHew==
 
 eslint-config-prettier@^6.11.0:
   version "6.11.0"
@@ -6054,10 +6055,10 @@ eslint-module-utils@^2.6.0:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
-eslint-plugin-cdk@^0.0.66:
-  version "0.0.66"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-cdk/-/eslint-plugin-cdk-0.0.66.tgz#3fdfc3e644f55700d3a5c768ef21eadcf12b58d4"
-  integrity sha512-AtRO+YR4V44N0d52EDH9RDBRCNFmhDo58CPL4u0cRhq3vx/d3C5sQzJVDl0WlAMVbrb0HpEnZpcKg1uJFUTwig==
+eslint-plugin-cdk@^0.0.68:
+  version "0.0.68"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-cdk/-/eslint-plugin-cdk-0.0.68.tgz#cd5d7fc272228cf85499f35e16c64d94d857838e"
+  integrity sha512-gT2ea5xcmCSAd6z9H4vcoD8Q4EiYidQfWuLwFvd8LACrNMzLwYuAbVEBEhd1WL42hTr+M/zXaGhyaoSzK3P74Q==
   dependencies:
     "@typescript-eslint/experimental-utils" "^3.6.0"
 

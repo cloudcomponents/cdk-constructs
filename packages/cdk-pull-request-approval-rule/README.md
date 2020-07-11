@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-pull-request-approval-rule
 
@@ -16,7 +16,7 @@ npm i @cloudcomponents/cdk-pull-request-approval-rule
 ## How to use
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
@@ -25,20 +25,19 @@ import {
   ApprovalRuleTemplateRepositoryAssociation,
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
-export class CodePipelinePullRequestCheckStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+export class PullRequestStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
-      repositoryName: 'repository',
-      description: 'Some description.', // optional property
+      repositoryName: 'pr-check-repository',
     });
 
     const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
       this,
       'ApprovalRuleTemplate',
       {
-        approvalRuleTemplateName: 'Require 1 approver',
+        approvalRuleTemplateName: 'template-name',
         template: {
           approvers: {
             numberOfApprovalsNeeded: 1,
@@ -56,7 +55,6 @@ export class CodePipelinePullRequestCheckStack extends Stack {
       },
     );
 
-    // Approves the pull request
     new PullRequestCheck(this, 'PullRequestCheck', {
       repository,
       buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
@@ -68,65 +66,63 @@ export class CodePipelinePullRequestCheckStack extends Stack {
 ## ApprovalRuleOverridden notification
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
-import { Topic } from '@aws-cdk/aws-sns';
-import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 import {
-    ApprovalRuleTemplate,
-    ApprovalRuleTemplateRepositoryAssociation,
+  ApprovalRuleTemplate,
+  ApprovalRuleTemplateRepositoryAssociation,
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
-export class CodePipelinePullRequestCheckStack extends Stack {
-    public constructor(parent: App, name: string, props?: StackProps) {
-        super(parent, name, props);
+export class PullRequestStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
-        const repository = new Repository(this, 'Repository', {
-            repositoryName: 'repository',
-            description: 'Some description.', // optional property
-        });
+    const repository = new Repository(this, 'Repository', {
+      repositoryName: 'pr-check-repository',
+    });
 
-        const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
-            this,
-            'ApprovalRuleTemplate',
-            {
-                approvalRuleTemplateName: 'Require 1 approver',
-                template: {
-                    approvers: {
-                        numberOfApprovalsNeeded: 1,
-                    },
-                },
-            },
-        );
+    const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
+      this,
+      'ApprovalRuleTemplate',
+      {
+        approvalRuleTemplateName: 'template-name',
+        template: {
+          approvers: {
+            numberOfApprovalsNeeded: 1,
+          },
+        },
+      },
+    );
 
-        const ruleAsscociation = new ApprovalRuleTemplateRepositoryAssociation(
-            stack,
-            'ApprovalRuleTemplateRepositoryAssociation',
-            {
-                approvalRuleTemplateName: 'name',
-                repository,
-            },
-        );
+    const ruleAsscociation = new ApprovalRuleTemplateRepositoryAssociation(
+      stack,
+      'ApprovalRuleTemplateRepositoryAssociation',
+      {
+          approvalRuleTemplateName: 'name',
+          repository,
+      },
+    );
 
-        const topic = new Topic(stack, 'Topic');
+    const topic = new Topic(stack, 'Topic');
 
-        ruleAsscociation.onOverridden('overridden', {
-            target: new SnsTopic(topic),
-        });
+    ruleAsscociation.onOverridden('overridden', {
+        target: new SnsTopic(topic),
+    });
 
-        // Approves the pull request
-        new PullRequestCheck(this, 'PullRequestCheck', {
-            repository,
-            buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
-        });
-    }
+    // Approves the pull request
+    new PullRequestCheck(this, 'PullRequestCheck', {
+        repository,
+        buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
+    });
+  }
+}
 ```
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

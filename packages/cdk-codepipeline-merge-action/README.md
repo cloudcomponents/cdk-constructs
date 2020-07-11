@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-codepipeline-merge-action
 
@@ -16,17 +16,15 @@ npm i @cloudcomponents/cdk-codepipeline-merge-action
 ## How to use
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { CodePipelineMergeAction } from '@cloudcomponents/cdk-codepipeline-merge-action';
 
-const PIPELINE_BRANCH = 'next';
-
 export class CodePipelineMergeActionStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'MyRepositoryName',
@@ -38,13 +36,13 @@ export class CodePipelineMergeActionStack extends Stack {
       actionName: 'CodeCommit',
       repository,
       output: sourceArtifact,
-      branch: PIPELINE_BRANCH,
+      branch: 'next',
     });
 
     const mergeAction = new CodePipelineMergeAction({
-      actionName: 'MergeIntoMaster',
+      actionName: 'Merge',
       repository,
-      sourceCommitSpecifier: PIPELINE_BRANCH,
+      sourceCommitSpecifier: 'next',
       destinationCommitSpecifier: 'master',
     });
 
@@ -67,7 +65,7 @@ export class CodePipelineMergeActionStack extends Stack {
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

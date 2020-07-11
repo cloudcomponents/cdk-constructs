@@ -15,7 +15,7 @@ export class StripeWebhook extends Construct {
 
     const handler = new SingletonFunction(this, 'CustomResourceHandler', {
       uuid: 'e9db3870-d793-4cd2-96a9-efe2e318ebbc',
-      runtime: Runtime.NODEJS_10_X,
+      runtime: Runtime.NODEJS_12_X,
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-webhook')),
       handler: 'index.handler',
       lambdaPurpose: 'Custom::StripeWebhook',

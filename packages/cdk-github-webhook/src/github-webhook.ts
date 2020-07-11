@@ -33,7 +33,7 @@ export class GithubWebhook extends Construct {
 
     const handler = new SingletonFunction(this, 'CustomResourceHandler', {
       uuid: '83CBF3EB-7B62-44F2-8C67-8441E4C1232E',
-      runtime: Runtime.NODEJS_10_X,
+      runtime: Runtime.NODEJS_12_X,
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'github-webhook')),
       handler: 'index.handler',
       lambdaPurpose: 'Custom::GithubWebhook',

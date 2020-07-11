@@ -1,4 +1,4 @@
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
@@ -8,7 +8,7 @@ import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { CodeCommitDependencyCheck } from '@cloudcomponents/cdk-dependency-check';
 
 export class DependencyCheckStack extends Stack {
-  public constructor(scope: App, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const repository = Repository.fromRepositoryName(

@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-container-registry
 
@@ -16,7 +16,7 @@ npm i @cloudcomponents/cdk-container-registry
 ## How to use
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import {
@@ -24,9 +24,9 @@ import {
   Severity,
 } from '@cloudcomponents/cdk-container-registry';
 
-export class EcsBlueGreenDeploymentStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+export class ImageRepositoryStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const alarmTopic = new Topic(this, 'Topic');
 
@@ -49,7 +49,7 @@ export class EcsBlueGreenDeploymentStack extends Stack {
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-dependency-check
 
@@ -16,16 +16,17 @@ npm i @cloudcomponents/cdk-dependency-check
 ## How to use
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
+import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { CodeCommitDependencyCheck } from '@cloudcomponents/cdk-dependency-check';
 
 export class DependencyCheckStack extends Stack {
-  public constructor(scope: App, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const repository = Repository.fromRepositoryName(
@@ -34,12 +35,15 @@ export class DependencyCheckStack extends Stack {
       process.env.REPOSITORY_NAME as string,
     );
 
+    const reportsBucket = new Bucket(this, 'Bucket');
+
     // The following example runs a task every day at 4am
     const check = new CodeCommitDependencyCheck(
       this,
       'CodeCommitDependencyCheck',
       {
         repository,
+        reportsBucket,
         preCheckCommand: 'npm i',
         schedule: Schedule.cron({
           minute: '0',
@@ -88,7 +92,7 @@ const check = new CodeCommitDependencyCheck(this, 'CodeCommitDependencyCheck', {
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

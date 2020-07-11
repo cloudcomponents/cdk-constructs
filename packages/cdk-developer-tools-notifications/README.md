@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-developer-tools-notifications
 
@@ -23,7 +23,7 @@ npm i @cloudcomponents/cdk-developer-tools-notifications
 4. The dialog window will present a unique URL that will map to the channel. Make sure that you copy and save the URL—you will need to provide it to the outside service.
 5. Select the Done button. The webhook will be available in the team channel.
 
-![codepipeline message](assets/codepipeline-message.png?raw=true)
+![codepipeline message](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/packages/cdk-developer-tools-notifications/assets/codepipeline-message.png)
 
 ## #Slack
 
@@ -32,7 +32,7 @@ npm i @cloudcomponents/cdk-developer-tools-notifications
 ## How to use
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import {
@@ -54,8 +54,8 @@ import {
 } from '@cloudcomponents/cdk-chatops';
 
 export class NotificationsStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'notifications-repository',
@@ -145,7 +145,7 @@ export class NotificationsStack extends Stack {
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-codepipeline-slack
 
@@ -7,9 +7,9 @@
 
 > Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes
 
-![Approval Workflow](/packages/cdk-codepipeline-slack/assets/approval_workflow.png?raw=true 'Approval Workflow')
+![Approval Workflow](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/packages/cdk-codepipeline-slack/assets/approval_workflow.png)
 
-![Review Dialog](/packages/cdk-codepipeline-slack/assets/review_dialog.png?raw=true 'Review Dialog')
+![Review Dialog](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/packages/cdk-codepipeline-slack/assets/review_dialog.png)
 
 ## Install
 
@@ -20,20 +20,23 @@ npm install --save @cloudcomponents/cdk-codepipeline-slack
 ## How to use
 
 ```javascript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction, CodeBuildAction } from '@aws-cdk/aws-codepipeline-actions';
+import {
+  CodeCommitSourceAction,
+  CodeBuildAction,
+} from '@aws-cdk/aws-codepipeline-actions';
 import { PipelineProject } from '@aws-cdk/aws-codebuild';
 
 import {
-    SlackApprovalAction,
-    SlackNotifier,
+  SlackApprovalAction,
+  SlackNotifier,
 } from '@cloudcomponents/cdk-codepipeline-slack';
 
 export class CodePipelineSlackApprovalStack extends Stack {
-  constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'MyRepositoryName',
@@ -44,7 +47,7 @@ export class CodePipelineSlackApprovalStack extends Stack {
     const sourceAction = new CodeCommitSourceAction({
       actionName: 'CodeCommit',
       repository,
-      output: sourceArtifact
+      output: sourceArtifact,
     });
 
     const project = new PipelineProject(this, 'MyProject');
@@ -57,16 +60,16 @@ export class CodePipelineSlackApprovalStack extends Stack {
 
     const slackBotToken = process.env.SLACK_BOT_TOKEN as string;
     const slackSigningSecret = process.env.SLACK_SIGNING_SECRET as string;
-    const slackChannelId = process.env.SLACK_CHANNEL_ID as string;
+    const slackChannel = process.env.SLACK_CHANNEL_NAME as string;
 
     const approvalAction = new SlackApprovalAction({
       actionName: 'SlackApproval',
       slackBotToken,
       slackSigningSecret,
-      slackChannelId,
+      slackChannel,
       externalEntityLink: 'http://cloudcomponents.org',
       additionalInformation:
-        'Would you like to promote the build to production?'
+        'Would you like to promote the build to production?',
     });
 
     const pipeline = new Pipeline(this, 'MyPipeline', {
@@ -74,17 +77,17 @@ export class CodePipelineSlackApprovalStack extends Stack {
       stages: [
         {
           stageName: 'Source',
-          actions: [sourceAction]
+          actions: [sourceAction],
         },
         {
           stageName: 'Build',
-          actions: [buildAction]
+          actions: [buildAction],
         },
         {
           stageName: 'Approval',
-          actions: [approvalAction]
-        }
-      ]
+          actions: [approvalAction],
+        },
+      ],
     });
 
     new SlackNotifier(this, 'SlackNotifier', {
@@ -107,17 +110,17 @@ Grant the `channels::history`-Scope to the Bot in your app and Add the Bot to th
 
 Select Permission Scopes:
 
-![OAuth Scopes](/packages/cdk-codepipeline-slack/assets/oauth_scope.png?raw=true 'OAuth scopes')
+![OAuth Scopes](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/packages/cdk-codepipeline-slack/assets/oauth_scope.png)
 
 ### Interactive Components
 
 Enter the url of your api from the AWS Api Gateway and append `/slack/actions`:
 
-![Interactive Components](/packages/cdk-codepipeline-slack/assets/interactive_components.png?raw=true 'Interactive Components')
+![Interactive Components](https://github.com/cloudcomponents/cdk-constructs/blob/master/packages/cdk-codepipeline-slack/assets/interactive_components.png)
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

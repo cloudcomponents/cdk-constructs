@@ -1,4 +1,4 @@
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
@@ -8,12 +8,11 @@ import {
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
 export class PullRequestStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'pr-check-repository',
-      description: 'Some description.', // optional property
     });
 
     const { approvalRuleTemplateName } = new ApprovalRuleTemplate(

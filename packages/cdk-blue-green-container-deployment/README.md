@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-blue-green-container-deployment
 
@@ -16,7 +16,7 @@ npm i @cloudcomponents/cdk-blue-green-container-deployment
 ## How to use
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { Vpc, Port } from '@aws-cdk/aws-ec2';
@@ -41,8 +41,8 @@ import {
 } from '@cloudcomponents/cdk-blue-green-container-deployment';
 
 export class BlueGreenContainerDeploymentStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const vpc = new Vpc(this, 'Vpc', {
       maxAzs: 2,
@@ -73,7 +73,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
         port: 80,
         targetType: TargetType.IP,
         vpc,
-      }
+      },
     );
 
     prodListener.addTargetGroups('AddProdTg', {
@@ -87,7 +87,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
         port: 8080,
         targetType: TargetType.IP,
         vpc,
-      }
+      },
     );
 
     testListener.addTargetGroups('AddTestTg', {
@@ -101,7 +101,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       {
         image: 'nginx',
         family: 'blue-green',
-      }
+      },
     );
 
     const ecsService = new EcsService(this, 'EcsService', {
@@ -118,9 +118,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
     const deploymentGroup = new EcsDeploymentGroup(this, 'DeploymentGroup', {
       applicationName: 'blue-green-application',
       deploymentGroupName: 'blue-green-deployment-group',
-      ecsServices: [
-        ecsService,
-      ],
+      ecsServices: [ecsService],
       targetGroupNames: [
         prodTargetGroup.targetGroupName,
         testTargetGroup.targetGroupName,
@@ -130,7 +128,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       terminationWaitTimeInMinutes: 100,
     });
 
-    // @see files: ./blue-green-repository for example content
+    // @see https://github.com/cloudcomponents/cdk-constructs/tree/master/examples/blue-green-container-deployment-example/blue-green-repository
     const repository = new Repository(this, 'CodeRepository', {
       repositoryName: 'blue-green-repository',
     });
@@ -198,7 +196,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

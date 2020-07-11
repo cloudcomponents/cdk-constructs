@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-pull-request-check
 
@@ -16,14 +16,14 @@ npm install --save @cloudcomponents/cdk-pull-request-check
 ## How to use
 
 ```javascript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 
 export class CodePipelineStack extends Stack {
-  constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'MyRepositoryName',
@@ -42,7 +42,7 @@ export class CodePipelineStack extends Stack {
 ## Approval Template Rules
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
@@ -52,8 +52,8 @@ import {
 } from '@cloudcomponents/cdk-pull-request-approval-rule';
 
 export class CodePipelinePullRequestCheckStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'repository',
@@ -95,7 +95,7 @@ export class CodePipelinePullRequestCheckStack extends Stack {
 The component comments the pull request and sets the approval state by default. Custom notifications can be set up this way
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
@@ -104,8 +104,8 @@ import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
 
 export class CodePipelineStack extends Stack {
-  constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'MyRepositoryName',
@@ -142,7 +142,7 @@ export class CodePipelineStack extends Stack {
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

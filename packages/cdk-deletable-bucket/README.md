@@ -1,4 +1,4 @@
-![cloudcomponents Logo](/logo.png?raw=true)
+![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
 # @cloudcomponents/cdk-deletable-bucket
 
@@ -16,12 +16,12 @@ npm i @cloudcomponents/cdk-deletable-bucket
 ## How to use
 
 ```typescript
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 export class DeletableBucketStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     new DeletableBucket(this, 'DeletableBucket', {
       bucketName: 'bucket2delete',
@@ -33,7 +33,7 @@ export class DeletableBucketStack extends Stack {
 
 ## Example
 
-See more complete [examples](../../examples).
+See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/tree/master/examples).
 
 ## License
 

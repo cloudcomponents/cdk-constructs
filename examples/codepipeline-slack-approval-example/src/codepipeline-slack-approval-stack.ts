@@ -1,4 +1,4 @@
-import { App, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import {
@@ -13,12 +13,11 @@ import {
 } from '@cloudcomponents/cdk-codepipeline-slack';
 
 export class CodePipelineSlackApprovalStack extends Stack {
-  public constructor(parent: App, name: string, props?: StackProps) {
-    super(parent, name, props);
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
       repositoryName: 'MyRepositoryName',
-      description: 'Some description.', // optional property
     });
 
     const sourceArtifact = new Artifact();
