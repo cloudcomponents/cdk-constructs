@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { Construct } from '@aws-cdk/core';
 import {
   BuildSpec,
   ComputeType,
@@ -15,9 +16,8 @@ import {
   Rule,
 } from '@aws-cdk/aws-events';
 import { CodeBuildProject, LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
+import { PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { Construct } from '@aws-cdk/core';
 
 export interface PullRequestCheckProps {
   /**
@@ -77,6 +77,9 @@ export interface PullRequestCheckProps {
    * @default true
    */
   readonly postComment?: boolean;
+
+  /** The IAM service Role of the Project. */
+  readonly role?: IRole;
 }
 
 /**
@@ -101,6 +104,7 @@ export class PullRequestCheck extends Construct {
       updateApprovalState = true,
       postComment = true,
       projectName = `${repository.repositoryName}-pull-request`,
+      role,
     } = props;
 
     this.pullRequestProject = new Project(this, 'PullRequestProject', {
@@ -114,6 +118,7 @@ export class PullRequestCheck extends Construct {
         privileged,
       },
       buildSpec,
+      role,
     });
 
     if (updateApprovalState || postComment) {
@@ -211,5 +216,13 @@ export class PullRequestCheck extends Construct {
    */
   public onCheckSucceeded(id: string, options?: OnEventOptions): Rule {
     return this.pullRequestProject.onBuildSucceeded(id, options);
+  }
+
+  /**
+   * Add a permission only if there's a policy attached.
+   * @param statement The permissions statement to add
+   */
+  public addToRolePolicy(statement: PolicyStatement): void {
+    this.pullRequestProject.addToRolePolicy(statement);
   }
 }
