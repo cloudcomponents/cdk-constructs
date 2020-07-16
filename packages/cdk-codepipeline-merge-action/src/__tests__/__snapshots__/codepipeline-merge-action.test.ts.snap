@@ -3,16 +3,16 @@
 exports[`default setup 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersc36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91ArtifactHashA788A7BC": Object {
-      "Description": "Artifact hash for asset \\"c36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91\\"",
+    "AssetParameters312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87bArtifactHash5A27FC7C": Object {
+      "Description": "Artifact hash for asset \\"312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87b\\"",
       "Type": "String",
     },
-    "AssetParametersc36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91S3Bucket0C196A04": Object {
-      "Description": "S3 bucket for asset \\"c36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91\\"",
+    "AssetParameters312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87bS3BucketCC3013DE": Object {
+      "Description": "S3 bucket for asset \\"312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87b\\"",
       "Type": "String",
     },
-    "AssetParametersc36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91S3VersionKey059538AE": Object {
-      "Description": "S3 key for asset version \\"c36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91\\"",
+    "AssetParameters312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87bS3VersionKeyE913ADFC": Object {
+      "Description": "S3 key for asset version \\"312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87b\\"",
       "Type": "String",
     },
   },
@@ -388,7 +388,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersc36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91S3Bucket0C196A04",
+            "Ref": "AssetParameters312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87bS3BucketCC3013DE",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -401,7 +401,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91S3VersionKey059538AE",
+                          "Ref": "AssetParameters312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87bS3VersionKeyE913ADFC",
                         },
                       ],
                     },
@@ -414,7 +414,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc36229b370314bd5ab71cc11e054099eef627821fabc6297c1e144ef66b41f91S3VersionKey059538AE",
+                          "Ref": "AssetParameters312a4fd125abf8957ee946c3ff4f2c10a1b5401c92442aaa37d2d0313030f87bS3VersionKeyE913ADFC",
                         },
                       ],
                     },
@@ -424,14 +424,19 @@ Object {
             ],
           },
         },
-        "Handler": "merge_branches.lambda_handler",
+        "Environment": Object {
+          "Variables": Object {
+            "CODE_COMMIT_ROLE_ARN": "",
+          },
+        },
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
             "PipelineMergeMergeBranchesFunctionServiceRole6C0E2853",
             "Arn",
           ],
         },
-        "Runtime": "python3.7",
+        "Runtime": "nodejs12.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -471,14 +476,6 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "codepipeline:PutJobSuccessResult",
-                "codepipeline:PutJobFailureResult",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            Object {
               "Action": "codecommit:MergeBranchesByFastForward",
               "Effect": "Allow",
               "Resource": Object {
@@ -487,6 +484,14 @@ Object {
                   "Arn",
                 ],
               },
+            },
+            Object {
+              "Action": Array [
+                "codepipeline:PutJobSuccessResult",
+                "codepipeline:PutJobFailureResult",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
             },
           ],
           "Version": "2012-10-17",

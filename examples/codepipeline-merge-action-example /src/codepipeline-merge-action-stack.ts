@@ -9,7 +9,7 @@ export class CodePipelineMergeActionStack extends Stack {
     super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
-      repositoryName: 'MyRepositoryName',
+      repositoryName: 'merge-action-repository',
     });
 
     const sourceArtifact = new Artifact();
@@ -28,8 +28,8 @@ export class CodePipelineMergeActionStack extends Stack {
       destinationCommitSpecifier: 'master',
     });
 
-    new Pipeline(this, 'MyPipeline', {
-      pipelineName: 'MyPipeline',
+    new Pipeline(this, 'Pipeline', {
+      pipelineName: 'merge-action-pipeline',
       stages: [
         {
           stageName: 'Source',

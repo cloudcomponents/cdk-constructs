@@ -1,6 +1,5 @@
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { Construct, Stack } from '@aws-cdk/core';
+import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import {
   ActionCategory,
@@ -11,9 +10,7 @@ import {
 } from '@aws-cdk/aws-codepipeline';
 import { Action } from '@aws-cdk/aws-codepipeline-actions';
 
-import * as path from 'path';
-
-const LAMBDA_PATH = path.join(__dirname, '..', 'lambdas');
+import { MergeBranchesFunction } from './merge-branches-function';
 
 export interface CodePipelineMergeActionProps extends CommonAwsActionProps {
   /**
@@ -32,6 +29,8 @@ export interface CodePipelineMergeActionProps extends CommonAwsActionProps {
    * identify a commit (for example, a branch name or a full commit ID).
    */
   readonly destinationCommitSpecifier: string;
+
+  readonly codeCommitRole?: IRole;
 }
 
 /**
@@ -65,13 +64,17 @@ export class CodePipelineMergeAction extends Action {
       repository,
       sourceCommitSpecifier,
       destinationCommitSpecifier,
+      codeCommitRole,
     } = this.props;
 
-    const mergeBranchesFunction = new Function(scope, 'MergeBranchesFunction', {
-      runtime: Runtime.PYTHON_3_7,
-      code: Code.fromAsset(`${LAMBDA_PATH}/merge-branches`),
-      handler: 'merge_branches.lambda_handler',
-    });
+    const mergeBranchesFunction = new MergeBranchesFunction(
+      scope,
+      'MergeBranchesFunction',
+      {
+        repository,
+        codeCommitRole,
+      },
+    );
 
     // allow pipeline to list functions
     options.role.addToPolicy(
@@ -99,13 +102,6 @@ export class CodePipelineMergeAction extends Action {
           'codepipeline:PutJobSuccessResult',
           'codepipeline:PutJobFailureResult',
         ],
-      }),
-    );
-
-    mergeBranchesFunction.addToRolePolicy(
-      new PolicyStatement({
-        resources: [repository.repositoryArn],
-        actions: ['codecommit:MergeBranchesByFastForward'],
       }),
     );
 
