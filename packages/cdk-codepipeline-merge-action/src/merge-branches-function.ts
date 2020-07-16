@@ -24,7 +24,14 @@ export class MergeBranchesFunction extends Function {
       },
     });
 
-    if (!props.codeCommitRole) {
+    if (props.codeCommitRole) {
+      this.addToRolePolicy(
+        new PolicyStatement({
+          resources: [props.codeCommitRole.roleArn],
+          actions: ['sts:AssumeRole'],
+        }),
+      );
+    } else {
       this.addToRolePolicy(
         new PolicyStatement({
           resources: [props.repository.repositoryArn],
