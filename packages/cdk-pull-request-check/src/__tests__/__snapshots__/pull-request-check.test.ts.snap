@@ -403,7 +403,7 @@ Object {
       },
       "Type": "AWS::CodeCommit::Repository",
     },
-    "RepositoryPullRequestChangeRule71FDD004": Object {
+    "RepositoryPullRequestCheckRuleC082A997": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -878,7 +878,7 @@ Object {
       },
       "Type": "AWS::CodeCommit::Repository",
     },
-    "RepositoryPullRequestChangeRule71FDD004": Object {
+    "RepositoryPullRequestCheckRuleC082A997": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -1353,7 +1353,7 @@ Object {
       },
       "Type": "AWS::CodeCommit::Repository",
     },
-    "RepositoryPullRequestChangeRule71FDD004": Object {
+    "RepositoryPullRequestCheckRuleC082A997": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -1923,7 +1923,7 @@ Object {
       },
       "Type": "AWS::CodeCommit::Repository",
     },
-    "RepositoryPullRequestChangeRule71FDD004": Object {
+    "RepositoryPullRequestCheckRuleC082A997": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -2427,7 +2427,7 @@ Object {
       },
       "Type": "AWS::CodeCommit::Repository",
     },
-    "RepositoryPullRequestChangeRule71FDD004": Object {
+    "RepositoryPullRequestCheckRuleC082A997": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -2474,6 +2474,901 @@ Object {
             "RoleArn": Object {
               "Fn::GetAtt": Array [
                 "PullRequestCheckPullRequestProjectEventsRoleE5A7F0BC",
+                "Arn",
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+  },
+}
+`;
+
+exports[`randomizer 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7ArtifactHashEE413C1D": Object {
+      "Description": "Artifact hash for asset \\"e9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7\\"",
+      "Type": "String",
+    },
+    "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7S3Bucket536F6534": Object {
+      "Description": "S3 bucket for asset \\"e9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7\\"",
+      "Type": "String",
+    },
+    "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7S3VersionKeyD5B92A7A": Object {
+      "Description": "S3 key for asset version \\"e9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "PullRequestCheck1CodeBuildResultFunction92561847": Object {
+      "DependsOn": Array [
+        "PullRequestCheck1CodeBuildResultFunctionServiceRoleDefaultPolicy31D58607",
+        "PullRequestCheck1CodeBuildResultFunctionServiceRole56BD8BE4",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7S3Bucket536F6534",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7S3VersionKeyD5B92A7A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7S3VersionKeyD5B92A7A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "POST_COMMENT": "TRUE",
+            "UPDATE_APPROVAL_STATE": "TRUE",
+          },
+        },
+        "Handler": "code_build_result.lambda_handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck1CodeBuildResultFunctionServiceRole56BD8BE4",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.7",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PullRequestCheck1CodeBuildResultFunctionAllowEventRulePullRequestCheck1PullRequestProjectPullRequestValidationRule6C9148DF13FF0F51": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck1CodeBuildResultFunction92561847",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck1PullRequestProjectPullRequestValidationRule30536953",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "PullRequestCheck1CodeBuildResultFunctionServiceRole56BD8BE4": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PullRequestCheck1CodeBuildResultFunctionServiceRoleDefaultPolicy31D58607": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "codecommit:PostCommentForPullRequest",
+                "codecommit:UpdatePullRequestApprovalState",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "Repository22E53BBD",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PullRequestCheck1CodeBuildResultFunctionServiceRoleDefaultPolicy31D58607",
+        "Roles": Array [
+          Object {
+            "Ref": "PullRequestCheck1CodeBuildResultFunctionServiceRole56BD8BE4",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PullRequestCheck1PullRequestProject5F0F8D5E": Object {
+      "Properties": Object {
+        "Artifacts": Object {
+          "Type": "NO_ARTIFACTS",
+        },
+        "Environment": Object {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:4.0",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER",
+        },
+        "Name": "project1",
+        "ServiceRole": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck1PullRequestProjectRole59EA0837",
+            "Arn",
+          ],
+        },
+        "Source": Object {
+          "BuildSpec": "buildspecs/prcheck1.yml",
+          "Location": Object {
+            "Fn::GetAtt": Array [
+              "Repository22E53BBD",
+              "CloneUrlHttp",
+            ],
+          },
+          "Type": "CODECOMMIT",
+        },
+      },
+      "Type": "AWS::CodeBuild::Project",
+    },
+    "PullRequestCheck1PullRequestProjectEventsRole04092548": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PullRequestCheck1PullRequestProjectEventsRoleDefaultPolicy005514ED": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "codebuild:StartBuild",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "PullRequestCheck1PullRequestProject5F0F8D5E",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PullRequestCheck1PullRequestProjectEventsRoleDefaultPolicy005514ED",
+        "Roles": Array [
+          Object {
+            "Ref": "PullRequestCheck1PullRequestProjectEventsRole04092548",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PullRequestCheck1PullRequestProjectPullRequestValidationRule30536953": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "project-name": Array [
+              Object {
+                "Ref": "PullRequestCheck1PullRequestProject5F0F8D5E",
+              },
+            ],
+          },
+          "detail-type": Array [
+            "CodeBuild Build State Change",
+          ],
+          "source": Array [
+            "aws.codebuild",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "PullRequestCheck1CodeBuildResultFunction92561847",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "PullRequestCheck1PullRequestProjectRole59EA0837": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PullRequestCheck1PullRequestProjectRoleDefaultPolicy38AEE7C8": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "codecommit:GitPull",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "Repository22E53BBD",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "PullRequestCheck1PullRequestProject5F0F8D5E",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "PullRequestCheck1PullRequestProject5F0F8D5E",
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":codebuild:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":report-group/",
+                    Object {
+                      "Ref": "PullRequestCheck1PullRequestProject5F0F8D5E",
+                    },
+                    "-*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PullRequestCheck1PullRequestProjectRoleDefaultPolicy38AEE7C8",
+        "Roles": Array [
+          Object {
+            "Ref": "PullRequestCheck1PullRequestProjectRole59EA0837",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PullRequestCheck2CodeBuildResultFunctionAllowEventRulePullRequestCheck2PullRequestProjectPullRequestValidationRule39EF3219974774E8": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck2CodeBuildResultFunctionF377E6BC",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck2PullRequestProjectPullRequestValidationRuleC4FD66A7",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "PullRequestCheck2CodeBuildResultFunctionF377E6BC": Object {
+      "DependsOn": Array [
+        "PullRequestCheck2CodeBuildResultFunctionServiceRoleDefaultPolicy312EF539",
+        "PullRequestCheck2CodeBuildResultFunctionServiceRole5CE92E16",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7S3Bucket536F6534",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7S3VersionKeyD5B92A7A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameterse9e8a60ef00d3ba9d9ec7baa3288568ca65ff8f027bf684637b1bc8095dbacd7S3VersionKeyD5B92A7A",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "POST_COMMENT": "TRUE",
+            "UPDATE_APPROVAL_STATE": "TRUE",
+          },
+        },
+        "Handler": "code_build_result.lambda_handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck2CodeBuildResultFunctionServiceRole5CE92E16",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.7",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PullRequestCheck2CodeBuildResultFunctionServiceRole5CE92E16": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PullRequestCheck2CodeBuildResultFunctionServiceRoleDefaultPolicy312EF539": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "codecommit:PostCommentForPullRequest",
+                "codecommit:UpdatePullRequestApprovalState",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "Repository22E53BBD",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PullRequestCheck2CodeBuildResultFunctionServiceRoleDefaultPolicy312EF539",
+        "Roles": Array [
+          Object {
+            "Ref": "PullRequestCheck2CodeBuildResultFunctionServiceRole5CE92E16",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PullRequestCheck2PullRequestProjectB997FA72": Object {
+      "Properties": Object {
+        "Artifacts": Object {
+          "Type": "NO_ARTIFACTS",
+        },
+        "Environment": Object {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:4.0",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER",
+        },
+        "Name": "project2",
+        "ServiceRole": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck2PullRequestProjectRole6C2ED067",
+            "Arn",
+          ],
+        },
+        "Source": Object {
+          "BuildSpec": "buildspecs/prcheck2.yml",
+          "Location": Object {
+            "Fn::GetAtt": Array [
+              "Repository22E53BBD",
+              "CloneUrlHttp",
+            ],
+          },
+          "Type": "CODECOMMIT",
+        },
+      },
+      "Type": "AWS::CodeBuild::Project",
+    },
+    "PullRequestCheck2PullRequestProjectEventsRoleCF7CBD01": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PullRequestCheck2PullRequestProjectEventsRoleDefaultPolicy3B212C51": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "codebuild:StartBuild",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "PullRequestCheck2PullRequestProjectB997FA72",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PullRequestCheck2PullRequestProjectEventsRoleDefaultPolicy3B212C51",
+        "Roles": Array [
+          Object {
+            "Ref": "PullRequestCheck2PullRequestProjectEventsRoleCF7CBD01",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PullRequestCheck2PullRequestProjectPullRequestValidationRuleC4FD66A7": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "project-name": Array [
+              Object {
+                "Ref": "PullRequestCheck2PullRequestProjectB997FA72",
+              },
+            ],
+          },
+          "detail-type": Array [
+            "CodeBuild Build State Change",
+          ],
+          "source": Array [
+            "aws.codebuild",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "PullRequestCheck2CodeBuildResultFunctionF377E6BC",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "PullRequestCheck2PullRequestProjectRole6C2ED067": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "codebuild.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PullRequestCheck2PullRequestProjectRoleDefaultPolicyCF7F8846": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "codecommit:GitPull",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "Repository22E53BBD",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "PullRequestCheck2PullRequestProjectB997FA72",
+                      },
+                    ],
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":logs:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":log-group:/aws/codebuild/",
+                      Object {
+                        "Ref": "PullRequestCheck2PullRequestProjectB997FA72",
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            Object {
+              "Action": Array [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":codebuild:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":report-group/",
+                    Object {
+                      "Ref": "PullRequestCheck2PullRequestProjectB997FA72",
+                    },
+                    "-*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PullRequestCheck2PullRequestProjectRoleDefaultPolicyCF7F8846",
+        "Roles": Array [
+          Object {
+            "Ref": "PullRequestCheck2PullRequestProjectRole6C2ED067",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "Repository22E53BBD": Object {
+      "Properties": Object {
+        "RepositoryName": "MyRepositoryName",
+      },
+      "Type": "AWS::CodeCommit::Repository",
+    },
+    "RepositoryPullRequestCheck1Rule412E8AEF": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "event": Array [
+              "pullRequestSourceBranchUpdated",
+              "pullRequestCreated",
+            ],
+          },
+          "detail-type": Array [
+            "CodeCommit Pull Request State Change",
+          ],
+          "resources": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "Repository22E53BBD",
+                "Arn",
+              ],
+            },
+          ],
+          "source": Array [
+            "aws.codecommit",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "PullRequestCheck1PullRequestProject5F0F8D5E",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+            "InputTransformer": Object {
+              "InputPathsMap": Object {
+                "detail-destinationCommit": "$.detail.destinationCommit",
+                "detail-pullRequestId": "$.detail.pullRequestId",
+                "detail-repositoryNames-0-": "$.detail.repositoryNames[0]",
+                "detail-revisionId": "$.detail.revisionId",
+                "detail-sourceCommit": "$.detail.sourceCommit",
+              },
+              "InputTemplate": "{\\"sourceVersion\\":<detail-sourceCommit>,\\"artifactsOverride\\":{\\"type\\":\\"NO_ARTIFACTS\\"},\\"environmentVariablesOverride\\":[{\\"name\\":\\"pullRequestId\\",\\"value\\":<detail-pullRequestId>,\\"type\\":\\"PLAINTEXT\\"},{\\"name\\":\\"repositoryName\\",\\"value\\":<detail-repositoryNames-0->,\\"type\\":\\"PLAINTEXT\\"},{\\"name\\":\\"sourceCommit\\",\\"value\\":<detail-sourceCommit>,\\"type\\":\\"PLAINTEXT\\"},{\\"name\\":\\"destinationCommit\\",\\"value\\":<detail-destinationCommit>,\\"type\\":\\"PLAINTEXT\\"},{\\"name\\":\\"revisionId\\",\\"value\\":<detail-revisionId>,\\"type\\":\\"PLAINTEXT\\"}]}",
+            },
+            "RoleArn": Object {
+              "Fn::GetAtt": Array [
+                "PullRequestCheck1PullRequestProjectEventsRole04092548",
+                "Arn",
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "RepositoryPullRequestCheck2Rule2F0D18A9": Object {
+      "Properties": Object {
+        "EventPattern": Object {
+          "detail": Object {
+            "event": Array [
+              "pullRequestSourceBranchUpdated",
+              "pullRequestCreated",
+            ],
+          },
+          "detail-type": Array [
+            "CodeCommit Pull Request State Change",
+          ],
+          "resources": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "Repository22E53BBD",
+                "Arn",
+              ],
+            },
+          ],
+          "source": Array [
+            "aws.codecommit",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "PullRequestCheck2PullRequestProjectB997FA72",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+            "InputTransformer": Object {
+              "InputPathsMap": Object {
+                "detail-destinationCommit": "$.detail.destinationCommit",
+                "detail-pullRequestId": "$.detail.pullRequestId",
+                "detail-repositoryNames-0-": "$.detail.repositoryNames[0]",
+                "detail-revisionId": "$.detail.revisionId",
+                "detail-sourceCommit": "$.detail.sourceCommit",
+              },
+              "InputTemplate": "{\\"sourceVersion\\":<detail-sourceCommit>,\\"artifactsOverride\\":{\\"type\\":\\"NO_ARTIFACTS\\"},\\"environmentVariablesOverride\\":[{\\"name\\":\\"pullRequestId\\",\\"value\\":<detail-pullRequestId>,\\"type\\":\\"PLAINTEXT\\"},{\\"name\\":\\"repositoryName\\",\\"value\\":<detail-repositoryNames-0->,\\"type\\":\\"PLAINTEXT\\"},{\\"name\\":\\"sourceCommit\\",\\"value\\":<detail-sourceCommit>,\\"type\\":\\"PLAINTEXT\\"},{\\"name\\":\\"destinationCommit\\",\\"value\\":<detail-destinationCommit>,\\"type\\":\\"PLAINTEXT\\"},{\\"name\\":\\"revisionId\\",\\"value\\":<detail-revisionId>,\\"type\\":\\"PLAINTEXT\\"}]}",
+            },
+            "RoleArn": Object {
+              "Fn::GetAtt": Array [
+                "PullRequestCheck2PullRequestProjectEventsRoleCF7CBD01",
                 "Arn",
               ],
             },

@@ -152,13 +152,16 @@ export class PullRequestCheck extends Construct {
       });
     }
 
-    const rule = repository.onPullRequestStateChange('PullRequestChangeRule', {
-      eventPattern: {
-        detail: {
-          event: ['pullRequestSourceBranchUpdated', 'pullRequestCreated'],
+    const rule = repository.onPullRequestStateChange(
+      `${this.node.uniqueId}Rule`,
+      {
+        eventPattern: {
+          detail: {
+            event: ['pullRequestSourceBranchUpdated', 'pullRequestCreated'],
+          },
         },
       },
-    });
+    );
 
     rule.addTarget(
       new CodeBuildProject(this.pullRequestProject, {

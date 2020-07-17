@@ -116,3 +116,28 @@ test('events', (): void => {
   // THEN
   expect(stack).toMatchCdkSnapshot();
 });
+
+test('randomizer', (): void => {
+  // GIVEN
+  const stack = new Stack();
+
+  const repository = new Repository(stack, 'Repository', {
+    repositoryName: 'MyRepositoryName',
+  });
+
+  // WHEN
+  new PullRequestCheck(stack, 'PullRequestCheck1', {
+    repository,
+    projectName: 'project1',
+    buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck1.yml'),
+  });
+
+  new PullRequestCheck(stack, 'PullRequestCheck2', {
+    repository,
+    projectName: 'project2',
+    buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck2.yml'),
+  });
+
+  // THEN
+  expect(stack).toMatchCdkSnapshot();
+});
