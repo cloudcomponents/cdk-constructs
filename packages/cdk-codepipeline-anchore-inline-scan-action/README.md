@@ -4,13 +4,21 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-codepipeline-anchore-inline-scan-action)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-codepipeline-anchore-inline-scan-action/)
 
 > CodePipeline action to integrate [Anchore Engine](https://docs.anchore.com/current/) into your pipeline
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
 npm i @cloudcomponents/cdk-codepipeline-anchore-inline-scan-action
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-codepipeline-anchore-inline-scan-action
 ```
 
 ## How to use

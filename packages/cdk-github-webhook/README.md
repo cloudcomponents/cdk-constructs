@@ -4,13 +4,21 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-github-webhook)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-github-webhook/)
 
 > Create, update and delete github webhooks with your app deployment
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
-npm install --save @cloudcomponents/cdk-github-webhook
+npm i @cloudcomponents/cdk-github-webhook
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-github-webhook
 ```
 
 ## How to use

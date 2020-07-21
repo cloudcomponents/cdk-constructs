@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-codepipeline-slack)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-codepipeline-slack/)
 
 > Cdk component that provisions a #slack approval workflow and notification messages on codepipeline state changes
 
@@ -12,9 +13,16 @@
 ![Review Dialog](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/packages/cdk-codepipeline-slack/assets/review_dialog.png)
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
 npm install --save @cloudcomponents/cdk-codepipeline-slack
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-codepipeline-slack
 ```
 
 ## How to use

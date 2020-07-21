@@ -4,13 +4,21 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-pull-request-check)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-pull-request-check/)
 
 > Cdk component that automatically check pull requests
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
 npm install --save @cloudcomponents/cdk-pull-request-check
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-pull-request-check
 ```
 
 ## How to use

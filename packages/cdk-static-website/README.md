@@ -4,13 +4,21 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-static-website)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-static-website/)
 
 > Cdk component that creates a static website using S3, configures CloudFront (CDN) and maps a custom domain via Route53 (DNS)
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
-npm install --save @cloudcomponents/cdk-static-website
+npm i @cloudcomponents/cdk-static-website
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-static-website
 ```
 
 ## How to use

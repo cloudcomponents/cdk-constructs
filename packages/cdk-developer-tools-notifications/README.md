@@ -4,13 +4,21 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-developer-tools-notifications)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-developer-tools-notifications/)
 
 > #slack / msteams / email notifications for developer tools: CodeCommit, CodeBuild, CodeDeploy, CodePipeline
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
 npm i @cloudcomponents/cdk-developer-tools-notifications
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-developer-tools-notifications
 ```
 
 ## MSTeams

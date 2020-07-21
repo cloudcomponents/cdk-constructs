@@ -4,13 +4,21 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-codepipeline-dockerfile-linter-action)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-codepipeline-dockerfile-linter-action/)
 
 > CodePipeline action to lint dockerfiles with [hadolint](https://github.com/hadolint/hadolint)
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
 npm i @cloudcomponents/cdk-codepipeline-dockerfile-linter-action
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-codepipeline-dockerfile-linter-action
 ```
 
 ## How to use

@@ -10,7 +10,9 @@
     "upgrade:all": "yarn upgrade",
     "upgrade-interactive:all": "yarn upgrade-interactive --latest",
     "lint": "cdkdx lint --report-unused-disable-directives",
-    "lint:fix": "cdkdx lint --fix"
+    "lint:fix": "cdkdx lint --fix",
+    "release:npm": "lerna run release:npm --scope @cloudcomponents/*",
+    "release:pypi": "lerna run release:pypi --scope @cloudcomponents/*"
   },
   "workspaces": [
     "packages/*",
@@ -18,7 +20,7 @@
   ],
   "devDependencies": {
     "@types/node": "^10.17.27",
-    "cdkdx": "^0.0.69",
+    "cdkdx": "^0.0.70",
     "lerna": "^3.22.1"
   }
 }

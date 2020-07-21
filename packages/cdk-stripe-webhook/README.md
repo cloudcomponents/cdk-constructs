@@ -4,13 +4,21 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-stripe-webhook)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-stripe-webhook/)
 
 > Create, update and delete stripe webhooks with your app deployment
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
-npm install --save @cloudcomponents/cdk-stripe-webhook
+npm i @cloudcomponents/cdk-stripe-webhook
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-stripe-webhook
 ```
 
 ## How to use

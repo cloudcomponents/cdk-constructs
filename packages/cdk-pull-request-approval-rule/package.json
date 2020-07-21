@@ -12,9 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloudcomponents/cdk-constructs",
+    "url": "https://github.com/cloudcomponents/cdk-constructs.git",
     "directory": "packages/cdk-pull-request-approval-rule"
   },
+  "homepage": "https://github.com/cloudcomponents/cdk-constructs",
   "keywords": [
     "aws",
     "cdk",
@@ -36,7 +37,9 @@
     "watch": "cdkdx build -w",
     "test": "cdkdx test",
     "lint": "cdkdx lint",
-    "package": "cdkdx package"
+    "package": "cdkdx package",
+    "release:npm": "cdkdx release pypi",
+    "release:pypi": "cdkdx release pypi"
   },
   "jsii": {
     "outdir": "dist",
@@ -48,7 +51,12 @@
       "src/lambdas",
       "src/**/__tests__"
     ],
-    "targets": {}
+    "targets": {
+      "python": {
+        "distName": "cloudcomponents.cdk-pull-request-approval-rule",
+        "module": "cloudcomponents.cdk_pull_request_approval_rule"
+      }
+    }
   },
   "peerDependencies": {
     "@aws-cdk/aws-codecommit": "^1.53.0",

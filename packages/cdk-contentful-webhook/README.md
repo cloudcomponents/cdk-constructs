@@ -4,15 +4,22 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-contentful-webhook)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-contentful-webhook/)
 
 > Create, update and delete contentful webhooks with your app deployment
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
-npm install --save @cloudcomponents/cdk-contentful-webhook
+npm i @cloudcomponents/cdk-contentful-webhook
 ```
 
+Python:
+
+```bash
+pip install cloudcomponents.cdk-contentful-webhook
+```
 ## How to use
 
 ```typescript

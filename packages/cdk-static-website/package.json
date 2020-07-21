@@ -12,9 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloudcomponents/cdk-constructs",
+    "url": "https://github.com/cloudcomponents/cdk-constructs.git",
     "directory": "packages/cdk-static-website"
   },
+  "homepage": "https://github.com/cloudcomponents/cdk-constructs",
   "keywords": [
     "aws",
     "cdk",
@@ -36,7 +37,9 @@
     "watch": "cdkdx build -w",
     "test": "cdkdx test",
     "lint": "cdkdx lint",
-    "package": "cdkdx package"
+    "package": "cdkdx package",
+    "release:npm": "cdkdx release pypi",
+    "release:pypi": "cdkdx release pypi"
   },
   "jsii": {
     "outdir": "dist",
@@ -48,7 +51,12 @@
       "src/lambdas",
       "src/**/__tests__"
     ],
-    "targets": {}
+    "targets": {
+      "python": {
+        "distName": "cloudcomponents.cdk-static-website",
+        "module": "cloudcomponents.cdk_static_website"
+      }
+    }
   },
   "peerDependencies": {
     "@aws-cdk/aws-cloudfront": "^1.53.0",

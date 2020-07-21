@@ -12,9 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloudcomponents/cdk-constructs",
+    "url": "https://github.com/cloudcomponents/cdk-constructs.git",
     "directory": "packages/cdk-developer-tools-notifications"
   },
+  "homepage": "https://github.com/cloudcomponents/cdk-constructs",
   "keywords": [
     "aws ",
     "cdk",
@@ -38,7 +39,9 @@
     "watch": "cdkdx build -w",
     "test": "cdkdx test",
     "lint": "cdkdx lint",
-    "package": "cdkdx package"
+    "package": "cdkdx package",
+    "release:npm": "cdkdx release pypi",
+    "release:pypi": "cdkdx release pypi"
   },
   "jsii": {
     "outdir": "dist",
@@ -50,7 +53,12 @@
       "src/lambdas",
       "src/**/__tests__"
     ],
-    "targets": {}
+    "targets": {
+      "python": {
+        "distName": "cloudcomponents.cdk-developer-tools-notifications",
+        "module": "cloudcomponents.cdk_developer_tools_notifications"
+      }
+    }
   },
   "peerDependencies": {
     "@aws-cdk/aws-codebuild": "^1.53.0",

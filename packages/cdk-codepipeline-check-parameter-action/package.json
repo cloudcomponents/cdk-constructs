@@ -12,9 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloudcomponents/cdk-constructs",
+    "url": "https://github.com/cloudcomponents/cdk-constructs.git",
     "directory": "packages/cdk-codepipeline-check-parameter-action"
   },
+  "homepage": "https://github.com/cloudcomponents/cdk-constructs",
   "keywords": [
     "aws",
     "cdk",
@@ -34,7 +35,9 @@
     "watch": "cdkdx build -w",
     "test": "cdkdx test",
     "lint": "cdkdx lint",
-    "package": "cdkdx package"
+    "package": "cdkdx package",
+    "release:npm": "cdkdx release pypi",
+    "release:pypi": "cdkdx release pypi"
   },
   "jsii": {
     "outdir": "dist",
@@ -46,7 +49,12 @@
       "src/lambdas",
       "src/**/__tests__"
     ],
-    "targets": {}
+    "targets": {
+      "python": {
+        "distName": "cloudcomponents.cdk-codepipeline-check-parameter-action",
+        "module": "cloudcomponents.cdk_codepipeline_check_parameter_action"
+      }
+    }
   },
   "bundledDependencies": [
     "email-regex",
