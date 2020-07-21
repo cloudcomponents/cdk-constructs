@@ -23,7 +23,7 @@ pip install cloudcomponents.cdk-pull-request-check
 
 ## How to use
 
-```javascript
+```typescript
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { BuildSpec } from '@aws-cdk/aws-codebuild';

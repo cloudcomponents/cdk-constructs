@@ -87,7 +87,7 @@ export class StaticWebsiteWithExistingSourcesAndSecurityPolicyStack extends Stac
 
 ### Lambda@Edge function
 
-```javascript
+```typescript
 website.addLambdaFunctionAssociation({
   functionArn: 'arn:aws:lambda:...',
   functionVersion: '1',

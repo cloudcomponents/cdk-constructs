@@ -27,7 +27,7 @@ pip install cloudcomponents.cdk-codepipeline-slack
 
 ## How to use
 
-```javascript
+```typescript
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
