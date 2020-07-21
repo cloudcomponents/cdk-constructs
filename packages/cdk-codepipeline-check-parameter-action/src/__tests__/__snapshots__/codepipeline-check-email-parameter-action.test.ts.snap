@@ -3,16 +3,16 @@
 exports[`default setup 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParametersee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60ArtifactHashFA5CF776": Object {
-      "Description": "Artifact hash for asset \\"ee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60\\"",
+    "AssetParameters94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12ArtifactHashCE251812": Object {
+      "Description": "Artifact hash for asset \\"94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12\\"",
       "Type": "String",
     },
-    "AssetParametersee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60S3Bucket88291515": Object {
-      "Description": "S3 bucket for asset \\"ee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60\\"",
+    "AssetParameters94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12S3Bucket6D2C39C8": Object {
+      "Description": "S3 bucket for asset \\"94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12\\"",
       "Type": "String",
     },
-    "AssetParametersee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60S3VersionKey6C188AEE": Object {
-      "Description": "S3 key for asset version \\"ee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60\\"",
+    "AssetParameters94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12S3VersionKey97538A04": Object {
+      "Description": "S3 key for asset version \\"94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12\\"",
       "Type": "String",
     },
   },
@@ -251,7 +251,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60S3Bucket88291515",
+            "Ref": "AssetParameters94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12S3Bucket6D2C39C8",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -264,7 +264,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60S3VersionKey6C188AEE",
+                          "Ref": "AssetParameters94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12S3VersionKey97538A04",
                         },
                       ],
                     },
@@ -277,7 +277,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersee4b251f9cfcee744e3b1bce21b71f25a681a8f3343316a7ff9f82520d1bdb60S3VersionKey6C188AEE",
+                          "Ref": "AssetParameters94b37f824a3407389370de2b821cbb28a7d3b0632f87dc98f972568669650b12S3VersionKey97538A04",
                         },
                       ],
                     },
@@ -287,14 +287,14 @@ Object {
             ],
           },
         },
-        "Handler": "check_parameter.lambda_handler",
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
             "PipelineCheckParamterCheckParamterFunctionServiceRole236B99F5",
             "Arn",
           ],
         },
-        "Runtime": "python3.7",
+        "Runtime": "nodejs12.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -334,14 +334,6 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": Array [
-                "codepipeline:PutJobSuccessResult",
-                "codepipeline:PutJobFailureResult",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            Object {
               "Action": "ssm:GetParameter",
               "Effect": "Allow",
               "Resource": Object {
@@ -364,6 +356,14 @@ Object {
                   ],
                 ],
               },
+            },
+            Object {
+              "Action": Array [
+                "codepipeline:PutJobSuccessResult",
+                "codepipeline:PutJobFailureResult",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
             },
           ],
           "Version": "2012-10-17",

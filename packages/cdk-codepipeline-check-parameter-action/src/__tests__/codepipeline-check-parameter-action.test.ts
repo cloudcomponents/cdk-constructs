@@ -84,3 +84,45 @@ test('with regExp', (): void => {
 
   expect(stack).toMatchCdkSnapshot();
 });
+
+test('multiple', (): void => {
+  const stack = new Stack();
+
+  const repository = new Repository(stack, 'Repository', {
+    repositoryName: 'MyRepositoryName',
+  });
+
+  const sourceArtifact = new Artifact();
+
+  new Pipeline(stack, 'Pipeline', {
+    stages: [
+      {
+        stageName: 'Source',
+        actions: [
+          new CodeCommitSourceAction({
+            actionName: 'CodeCommit',
+            repository,
+            output: sourceArtifact,
+          }),
+        ],
+      },
+      {
+        stageName: 'CheckParamter',
+        actions: [
+          new CodePipelineCheckParameterAction({
+            actionName: 'CheckParamter1',
+            parameterName: '/test1',
+            regExp: /[0123456789]/,
+          }),
+          new CodePipelineCheckParameterAction({
+            actionName: 'CheckParamter2',
+            parameterName: '/test2',
+            regExp: /[0123456789]/,
+          }),
+        ],
+      },
+    ],
+  });
+
+  expect(stack).toMatchCdkSnapshot();
+});

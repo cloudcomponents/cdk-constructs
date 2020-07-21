@@ -1,6 +1,5 @@
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { Construct, Stack } from '@aws-cdk/core';
+import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
 import {
   ActionCategory,
   CommonAwsActionProps,
@@ -10,9 +9,7 @@ import {
 } from '@aws-cdk/aws-codepipeline';
 import { Action } from '@aws-cdk/aws-codepipeline-actions';
 
-import * as path from 'path';
-
-const LAMBDA_PATH = path.join(__dirname, '..', 'lambdas');
+import { CheckParameterFunction } from './check-parameter-function';
 
 export interface RegExp {
   readonly source: string;
@@ -31,6 +28,11 @@ export interface CommonCodePipelineCheckParameterActionProps
    * @default false The parameter is not logged
    */
   readonly logParameter?: boolean;
+
+  /**
+   * Role for crossAccount permission
+   */
+  readonly crossAccountRole?: IRole;
 }
 
 export interface CodePipelineCheckParameterActionProps
@@ -68,15 +70,19 @@ export class CodePipelineCheckParameterAction extends Action {
     _stage: IStage,
     options: ActionBindOptions,
   ): ActionConfig {
-    const { parameterName, regExp, logParameter = false } = this.props;
+    const {
+      parameterName,
+      regExp,
+      logParameter = false,
+      crossAccountRole,
+    } = this.props;
 
-    const checkParameterFunction = new Function(
+    const checkParameterFunction = new CheckParameterFunction(
       scope,
       'CheckParamterFunction',
       {
-        runtime: Runtime.PYTHON_3_7,
-        code: Code.fromAsset(`${LAMBDA_PATH}/check-parameter`),
-        handler: 'check_parameter.lambda_handler',
+        parameterName,
+        crossAccountRole,
       },
     );
 
@@ -109,20 +115,6 @@ export class CodePipelineCheckParameterAction extends Action {
       }),
     );
 
-    const parameterArn = Stack.of(scope).formatArn({
-      service: 'ssm',
-      resource: 'parameter',
-      sep: parameterName.startsWith('/') ? '' : '/',
-      resourceName: parameterName,
-    });
-
-    checkParameterFunction.addToRolePolicy(
-      new PolicyStatement({
-        resources: [parameterArn],
-        actions: ['ssm:GetParameter'],
-      }),
-    );
-
     return {
       configuration: {
         FunctionName: checkParameterFunction.functionName,
@@ -130,6 +122,7 @@ export class CodePipelineCheckParameterAction extends Action {
           parameterName,
           regExp: regExp ? regExp.source : undefined,
           logParameter,
+          crossAccountRole,
         }),
       },
     };

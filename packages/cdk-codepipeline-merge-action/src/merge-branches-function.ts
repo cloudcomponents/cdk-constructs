@@ -10,7 +10,10 @@ export interface MergeBranchesFunctionProps {
    */
   readonly repository: IRepository;
 
-  readonly codeCommitRole?: IRole;
+  /**
+   * Role for crossAccount permission
+   */
+  readonly crossAccountRole?: IRole;
 }
 
 export class MergeBranchesFunction extends Function {
@@ -19,15 +22,12 @@ export class MergeBranchesFunction extends Function {
       runtime: Runtime.NODEJS_12_X,
       handler: 'index.handler',
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'merge-branches')),
-      environment: {
-        CODE_COMMIT_ROLE_ARN: props.codeCommitRole?.roleArn ?? '',
-      },
     });
 
-    if (props.codeCommitRole) {
+    if (props.crossAccountRole) {
       this.addToRolePolicy(
         new PolicyStatement({
-          resources: [props.codeCommitRole.roleArn],
+          resources: [props.crossAccountRole.roleArn],
           actions: ['sts:AssumeRole'],
         }),
       );

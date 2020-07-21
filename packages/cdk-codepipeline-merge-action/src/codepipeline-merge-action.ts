@@ -30,7 +30,10 @@ export interface CodePipelineMergeActionProps extends CommonAwsActionProps {
    */
   readonly destinationCommitSpecifier: string;
 
-  readonly codeCommitRole?: IRole;
+  /**
+   * Role for crossAccount permission
+   */
+  readonly crossAccountRole?: IRole;
 }
 
 /**
@@ -64,7 +67,7 @@ export class CodePipelineMergeAction extends Action {
       repository,
       sourceCommitSpecifier,
       destinationCommitSpecifier,
-      codeCommitRole,
+      crossAccountRole,
     } = this.props;
 
     const mergeBranchesFunction = new MergeBranchesFunction(
@@ -72,7 +75,7 @@ export class CodePipelineMergeAction extends Action {
       'MergeBranchesFunction',
       {
         repository,
-        codeCommitRole,
+        crossAccountRole,
       },
     );
 
