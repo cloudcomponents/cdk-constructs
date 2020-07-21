@@ -4,13 +4,21 @@
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-codecommit-backup)
+[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-codecommit-backup/)
 
 > Backup CodeCommit repositories to S3
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
 npm i @cloudcomponents/cdk-codecommit-backup
+```
+
+Python:
+
+```bash
+pip install cloudcomponents.cdk-codecommit-backup
 ```
 
 ## How to use

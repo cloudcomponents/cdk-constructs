@@ -1,6 +1,6 @@
 ![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
 
-# @cloudcomponents/cdk-chatops
+# @cloudcomponents/cdk-chatops 
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-chatops)
@@ -9,6 +9,7 @@
 > Constructs for chattool integration: #slack / msteams
 
 ## Install
+TypeScript/JavaScript:
 
 ```bash
 npm i @cloudcomponents/cdk-chatops
