@@ -36,8 +36,8 @@ export interface ImageRepositoryProps extends RepositoryProps {
 }
 
 export class ImageRepository extends Repository {
-  constructor(scope: Construct, id: string, props: ImageRepositoryProps = {}) {
-    const { forceDelete = false, ...rest } = props;
+  constructor(scope: Construct, id: string, props?: ImageRepositoryProps) {
+    const { forceDelete = false, ...rest } = props ?? {};
 
     super(scope, id, {
       removalPolicy: forceDelete ? RemovalPolicy.DESTROY : undefined,

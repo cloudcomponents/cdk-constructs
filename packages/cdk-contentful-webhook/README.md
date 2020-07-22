@@ -1,4 +1,4 @@
-![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
+[![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)](https://github.com/cloudcomponents/cdk-constructs)
 
 # @cloudcomponents/cdk-contentful-webhook
 
@@ -51,6 +51,10 @@ export class ContentfulWebhookStack extends Stack {
   }
 }
 ```
+
+## API Reference
+
+See [API.md](./API.md).
 
 ## Example
 

@@ -1,4 +1,4 @@
-![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
+[![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)](https://github.com/cloudcomponents/cdk-constructs)
 
 # @cloudcomponents/cdk-chatops 
 
@@ -144,6 +144,10 @@ export class NotificationsStack extends Stack {
 3. Select the Configure button, provide a name, and, optionally, upload an image avatar for your webhook.
 4. The dialog window will present a unique URL that will map to the channel. Make sure that you copy and save the URL—you will need to provide it to the outside service.
 5. Select the Done button. The webhook will be available in the team channel.
+
+## API Reference
+
+See [API.md](./API.md).
 
 ## Example
 

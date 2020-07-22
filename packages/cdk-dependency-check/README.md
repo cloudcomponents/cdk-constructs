@@ -1,4 +1,4 @@
-![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
+[![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)](https://github.com/cloudcomponents/cdk-constructs)
 
 # @cloudcomponents/cdk-dependency-check
 
@@ -97,6 +97,10 @@ const check = new CodeCommitDependencyCheck(this, 'CodeCommitDependencyCheck', {
   }),
 });
 ```
+
+## API Reference
+
+See [API.md](./API.md).
 
 ## Example
 

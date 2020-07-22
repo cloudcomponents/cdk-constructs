@@ -1,4 +1,4 @@
-![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)
+[![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)](https://github.com/cloudcomponents/cdk-constructs)
 
 # @cloudcomponents/cdk-codepipeline-check-parameter-action
 
@@ -70,6 +70,10 @@ export class CodePipelineCheckParameterActionStack extends Stack {
   }
 }
 ```
+
+## API Reference
+
+See [API.md](./API.md).
 
 ## Example
 
