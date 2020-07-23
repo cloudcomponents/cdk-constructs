@@ -109,7 +109,7 @@ export class PullRequestStack extends Stack {
       stack,
       'ApprovalRuleTemplateRepositoryAssociation',
       {
-          approvalRuleTemplateName: 'name',
+          approvalRuleTemplateName,
           repository,
       },
     );
