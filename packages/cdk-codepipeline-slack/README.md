@@ -125,7 +125,7 @@ Select Permission Scopes:
 
 Enter the url of your api from the AWS Api Gateway and append `/slack/actions`:
 
-![Interactive Components](https://github.com/cloudcomponents/cdk-constructs/blob/master/packages/cdk-codepipeline-slack/assets/interactive_components.png)
+![Interactive Components](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/packages/cdk-codepipeline-slack/assets/interactive_components.png)
 
 ## API Reference
 
