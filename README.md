@@ -11,7 +11,7 @@
 
 ## Constructs
 
-This repository is a monorepo managed with [Lerna](https://github.com/lerna/lerna). [Several constructs](/packages) are published to npm from the same codebase.
+This repository is a monorepo managed with [Lerna](https://github.com/lerna/lerna). [Several constructs](/packages) are published to pypi and npm from the same codebase.
 
 | Constructs                                                                                           | Description                                                                                                 | Downloads                                                                                          |
 | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
