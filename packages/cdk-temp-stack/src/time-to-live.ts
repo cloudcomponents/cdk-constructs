@@ -54,4 +54,21 @@ export class TimeToLive extends Construct {
       }
     });
   }
+
+  protected validate(): string[] {
+    let count = 0;
+    Stack.of(this).node.children.forEach((c) => {
+      if (c instanceof TimeToLive) {
+        count++;
+      }
+    });
+
+    if (count > 1) {
+      return [
+        `Found ${count} instances of the TimeToLove construct in the stack. The construct may only be added once per stack.`,
+      ];
+    }
+
+    return [];
+  }
 }
