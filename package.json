@@ -12,6 +12,7 @@
     "lint": "cdkdx lint --report-unused-disable-directives",
     "lint:fix": "cdkdx lint --fix",
     "docgen": "lerna run docgen --scope @cloudcomponents/*",
+    "package": "lerna run package --scope @cloudcomponents/*",
     "release:npm": "lerna run release:npm --scope @cloudcomponents/*",
     "release:pypi": "lerna run release:pypi --scope @cloudcomponents/*"
   },
