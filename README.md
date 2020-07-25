@@ -33,7 +33,7 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 | [cdk-deletable-bucket](/packages/cdk-deletable-bucket)                                               | Bucket with content cleanup to allow bucket deletion when the stack will be destroyed                       | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-deletable-bucket)                        |
 | [cdk-codepipeline-dockerfile-linter-action](/packages/cdk-codepipeline-dockerfile-linter-action)     | CodePipeline action to lint dockerfiles with hadolint                                                       | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-codepipeline-dockerfile-linter-action)   |
 | [cdk-codepipeline-anchore-inline-scan-action](/packages/cdk-codepipeline-anchore-inline-scan-action) | CodePipeline action to integrate Anchore Engine into your pipeline                                          | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-codepipeline-anchore-inline-scan-action) |
-| [cdk-dynamodb-seeder](/packages/cdk-temp-stack) | A seeder for dynamodb tables       | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-dynamodb-seeder) |
+| [cdk-dynamodb-seeder](/packages/cdk-dynamodb-seeder) | A seeder for dynamodb tables       | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-dynamodb-seeder) |
 | [cdk-temp-stack](/packages/cdk-temp-stack) | A stack that destroys itself after a given time (ttl)        | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-temp-stack) |
 
 ## Contributing
