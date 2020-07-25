@@ -36,7 +36,7 @@
     "lint": "cdkdx lint",
     "package": "cdkdx package",
     "docgen": "cdkdx docgen",
-    "release:npm": "cdkdx release pypi",
+    "release:npm": "cdkdx release npm",
     "release:pypi": "cdkdx release pypi"
   },
   "jsii": {
@@ -66,7 +66,7 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.54.0",
-    "@octokit/rest": "^18.0.1",
+    "@octokit/rest": "^18.0.3",
     "@types/parse-github-url": "^1.0.0",
     "axios": "^0.19.2",
     "custom-resource-helper": "^1.0.11",

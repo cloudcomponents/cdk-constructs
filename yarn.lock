@@ -265,7 +265,7 @@
     "@aws-cdk/custom-resources" "1.54.0"
     constructs "^3.0.2"
 
-"@aws-cdk/aws-dynamodb@1.54.0":
+"@aws-cdk/aws-dynamodb@1.54.0", "@aws-cdk/aws-dynamodb@^1.54.0":
   version "1.54.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-dynamodb/-/aws-dynamodb-1.54.0.tgz#2d9fc2ef1f8362d165333d2a066434d3d184467f"
   integrity sha512-3BJf41r3Ncy0et1fyATVUnDnOHeOYaKAY/OOpo+5a9g59DCgUNp09XoTBFemXRwOKPOO1IDV8fX6CTmg8XXblA==
@@ -484,7 +484,7 @@
     "@aws-cdk/cx-api" "1.54.0"
     constructs "^3.0.2"
 
-"@aws-cdk/aws-logs@1.54.0":
+"@aws-cdk/aws-logs@1.54.0", "@aws-cdk/aws-logs@^1.54.0":
   version "1.54.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-logs/-/aws-logs-1.54.0.tgz#e6228650068d736d86fc3976913bef73439c44fd"
   integrity sha512-VjEzm0HD8rwOsH3qe4ZA37eMjQbO0ZxmyMgXtysET9hYs+i0Iwr5cZ/T/FHSY/OBc0BOHJXi/Qx7W8/WARH9eQ==
@@ -2660,12 +2660,12 @@
     "@octokit/types" "^2.0.1"
     deprecation "^2.3.1"
 
-"@octokit/plugin-rest-endpoint-methods@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@octokit/plugin-rest-endpoint-methods/-/plugin-rest-endpoint-methods-4.1.0.tgz#338c568177c4d4d753f9525af88b29cd0f091734"
-  integrity sha512-zbRTjm+xplSNlixotTVMvLJe8aRogUXS+r37wZK5EjLsNYH4j02K5XLMOWyYaSS4AJEZtPmzCcOcui4VzVGq+A==
+"@octokit/plugin-rest-endpoint-methods@4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@octokit/plugin-rest-endpoint-methods/-/plugin-rest-endpoint-methods-4.1.2.tgz#546a8f3e0b514f434a4ad4ef926005f1c81a5a5a"
+  integrity sha512-PTI7wpbGEZ2IR87TVh+TNWaLcgX/RsZQalFbQCq8XxYUrQ36RHyERrHSNXFy5gkWpspUAOYRSV707JJv6BhqJA==
   dependencies:
-    "@octokit/types" "^5.1.0"
+    "@octokit/types" "^5.1.1"
     deprecation "^2.3.1"
 
 "@octokit/request-error@^1.0.2":
@@ -2722,15 +2722,15 @@
     once "^1.4.0"
     universal-user-agent "^4.0.0"
 
-"@octokit/rest@^18.0.1":
-  version "18.0.1"
-  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-18.0.1.tgz#46ee234770c5ff4c646f7e18708c56b6d7fa3c66"
-  integrity sha512-KLlJpgsJx88OZ0VLBH3gvUK4sfcXjr/nE0Qzyoe76dNqMzDzkSmmvILF3f2XviGgrzuP6Ie0ay/QX478Vrpn9A==
+"@octokit/rest@^18.0.3":
+  version "18.0.3"
+  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-18.0.3.tgz#96a15ddb3a38dca5de9d75121378d6aa4a234fa5"
+  integrity sha512-GubgemnLvUJlkhouTM2BtX+g/voYT/Mqh0SASGwTnLvSkW1irjt14N911/ABb6m1Hru0TwScOgFgMFggp3igfQ==
   dependencies:
     "@octokit/core" "^3.0.0"
     "@octokit/plugin-paginate-rest" "^2.2.0"
     "@octokit/plugin-request-log" "^1.0.0"
-    "@octokit/plugin-rest-endpoint-methods" "4.1.0"
+    "@octokit/plugin-rest-endpoint-methods" "4.1.2"
 
 "@octokit/types@^2.0.0", "@octokit/types@^2.0.1":
   version "2.16.2"
@@ -2746,10 +2746,10 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@octokit/types@^5.1.0":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-5.1.1.tgz#f9f4fd5af0751ce9520a52c3a7353dbec155cc4f"
-  integrity sha512-8LDEbrxJrYiwzBrfZhoMFEq9+1o7Kg4ydiNgZt2DBU6n34iEd37qNqOkawrjJZZ6iUS5IXYf6EmGONn34YLgzw==
+"@octokit/types@^5.1.1":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-5.2.0.tgz#d075dc23bf293f540739250b6879e2c1be2fc20c"
+  integrity sha512-XjOk9y4m8xTLIKPe1NFxNWBdzA2/z3PFFA/bwf4EoH6oS8hM0Y46mEa4Cb+KCyj/tFDznJFahzQ0Aj3o1FYq4A==
   dependencies:
     "@types/node" ">= 8"
 
@@ -3039,6 +3039,13 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+
+"@types/lodash.chunk@^4.2.6":
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.chunk/-/lodash.chunk-4.2.6.tgz#9d35f05360b0298715d7f3d9efb34dd4f77e5d2a"
+  integrity sha512-SPlusB7jxXyGcTXYcUdWr7WmhArO/rmTq54VN88iKMxGUhyg79I4Q8n4riGn3kjaTjOJrVlHhxgX/d7woak5BQ==
+  dependencies:
+    "@types/lodash" "*"
 
 "@types/lodash.isfunction@^3.0.6":
   version "3.0.6"
@@ -3734,10 +3741,10 @@ aws-sdk@^2.715.0:
     uuid "3.3.2"
     xml2js "0.4.19"
 
-aws-sdk@^2.718.0:
-  version "2.718.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.718.0.tgz#f659e022602cd93c66f043364810d04e3cbb0241"
-  integrity sha512-YMWR1RJ3VuSbUOGeOfDw2QqRzwX51oa9TCm2G6SW+JywJUy0FTxi/Nj0VjVEQvKC0GqGu5QCgUTaarF7S0nQdw==
+aws-sdk@^2.720.0:
+  version "2.720.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.720.0.tgz#b834adc6b7458c41621f8e2169602c69c655f504"
+  integrity sha512-899YXs6iWae82GGJM95S5MFBPIG8pE9aq+GlSr47mz7te97hGX0OcjPs3GuGZWA6Nrp0MCR9eMqu6DwBlYGltA==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -4336,10 +4343,10 @@ cdk-assets@1.54.0:
     glob "^7.1.6"
     yargs "^15.3.1"
 
-cdkdx@^0.0.71:
-  version "0.0.71"
-  resolved "https://registry.yarnpkg.com/cdkdx/-/cdkdx-0.0.71.tgz#b9a1707b5fcb39c76b1871712a92447f9eb3e944"
-  integrity sha512-7zUUALWDXgUcPGfl/pU/te+2P+uZvm7geeKHiZ/QZsE1ad6TCG7oIBr+9S7rwVomZZKTDr2bU9Z2QBh50j19pA==
+cdkdx@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/cdkdx/-/cdkdx-0.0.72.tgz#960e2d594084ab4473979b14a9f347a67ab97e06"
+  integrity sha512-PqtXNjj3GsveFtyKCrUDuQokqVuRLMr5vsw4SNQvipAXMXoS2irEEpV5Rm0dWsB05PFHlN8Fgjo3k32MJmJhZQ==
   dependencies:
     "@types/aws-lambda" "^8.10.59"
     "@types/jest" "^26.0.5"
@@ -4352,9 +4359,9 @@ cdkdx@^0.0.71:
     dotenv "^8.2.0"
     enquirer "^2.3.6"
     eslint "^7.5.0"
-    eslint-config-cdk "^0.0.71"
+    eslint-config-cdk "^0.0.72"
     eslint-config-prettier "^6.11.0"
-    eslint-plugin-cdk "^0.0.71"
+    eslint-plugin-cdk "^0.0.72"
     eslint-plugin-import "^2.21.2"
     eslint-plugin-jest "^23.18.0"
     eslint-plugin-prettier "^3.1.4"
@@ -4374,6 +4381,8 @@ cdkdx@^0.0.71:
     standard-version "^8.0.2"
     ts-jest "^26.1.3"
     ts-node "^8.10.2"
+    typedoc "^0.17.8"
+    typedoc-plugin-markdown "^2.3.1"
     typescript "^3.9.7"
 
 chalk@^1.1.3:
@@ -6038,10 +6047,10 @@ escodegen@~1.9.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-cdk@^0.0.71:
-  version "0.0.71"
-  resolved "https://registry.yarnpkg.com/eslint-config-cdk/-/eslint-config-cdk-0.0.71.tgz#a7648e6fbb925126f420b624ad504486e03fb52d"
-  integrity sha512-3lHEWFRFHVtfxm57XDXzMlpngjEmd9oqlpOMHNV4I5YRlKXIi3WYaflnlX3kXzwfR8lJ7za9n4nsWDo9uGxE7Q==
+eslint-config-cdk@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/eslint-config-cdk/-/eslint-config-cdk-0.0.72.tgz#b24e264c47f4f8bc4fb0873705cfed65b2e3b5d4"
+  integrity sha512-lknfUV4QDDedA6wgWiIVuesWTEyC7GOGQ0UOPMM6iYVQQLAhIYMXAyIeX7rbSZyVyborriTTP4lXt9sHG5kQUw==
 
 eslint-config-prettier@^6.11.0:
   version "6.11.0"
@@ -6066,10 +6075,10 @@ eslint-module-utils@^2.6.0:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
-eslint-plugin-cdk@^0.0.71:
-  version "0.0.71"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-cdk/-/eslint-plugin-cdk-0.0.71.tgz#8249144d7e151781880e534744c6b705560c69c1"
-  integrity sha512-Gwlu2Z6G1KVe35Pm1XWrV43JEqkaQFnT4MHwqE3LUqk5ebrBl3ctZypmokM+Bhh/BvI6/SkOZ+Kgy3U8Sc+42w==
+eslint-plugin-cdk@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-cdk/-/eslint-plugin-cdk-0.0.72.tgz#4c1507c3d135643e6e76d49b4730970f9a10f441"
+  integrity sha512-9oyWW3Ul7f5LtQlYHH0eSqQIrIZB3MrvDPJIz8wvb2SbR07OzLE1f53RfABb7Xpq1yuBJb83ArAqJZ3q4Z/y5w==
   dependencies:
     "@typescript-eslint/experimental-utils" "^3.7.0"
 
@@ -7126,6 +7135,11 @@ hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
+
+highlight.js@^10.0.0:
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.1.2.tgz#c20db951ba1c22c055010648dfffd7b2a968e00c"
+  integrity sha512-Q39v/Mn5mfBlMff9r+zzA+gWxRsCRKwEMvYTiisLr/XUiFI/4puWt0Ojdko3R3JCNWGdOWaA5g/Yxqa23kC5AA==
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
@@ -8767,6 +8781,11 @@ lodash.camelcase@^4.3.0:
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
   integrity sha1-soqmKIorn8ZRA1x3EfZathkDMaY=
 
+lodash.chunk@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.chunk/-/lodash.chunk-4.2.0.tgz#66e5ce1f76ed27b4303d8c6512e8d1216e8106bc"
+  integrity sha1-ZuXOH3btJ7QwPYxlEujRIW6BBrw=
+
 lodash.clone@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clone/-/lodash.clone-4.5.0.tgz#195870450f5a13192478df4bc3d23d2dea1907b6"
@@ -8940,6 +8959,11 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+lunr@^2.3.8:
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/lunr/-/lunr-2.3.8.tgz#a8b89c31f30b5a044b97d2d28e2da191b6ba2072"
+  integrity sha512-oxMeX/Y35PNFuZoHp+jUj5OSEmLCaIH4KTFJh7a93cHBoFmpw2IoPs22VIz7vyO2YUnx2Tn9dzIwO2P/4quIRg==
+
 macos-release@^2.2.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/macos-release/-/macos-release-2.4.0.tgz#837b39fc01785c3584f103c5599e0f0c8068b49e"
@@ -9029,6 +9053,11 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+marked@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-1.0.0.tgz#d35784245a04871e5988a491e28867362e941693"
+  integrity sha512-Wo+L1pWTVibfrSr+TTtMuiMfNzmZWiOPeO7rZsQUY5bgsxpHesBEcIWJloWVTFnrMXnf/TL30eTFSGJddmQAng==
 
 md5.js@^1.3.4:
   version "1.3.5"
@@ -9227,7 +9256,7 @@ minimalistic-crypto-utils@^1.0.0, minimalistic-crypto-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
   integrity sha1-9sAMHAsIIkblxNmd+4x8CDsrWCo=
 
-minimatch@>=3.0, minimatch@^3.0.4:
+minimatch@>=3.0, minimatch@^3.0.0, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
@@ -10790,7 +10819,7 @@ process@^0.11.10:
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
 
-progress@^2.0.0:
+progress@^2.0.0, progress@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
@@ -11733,7 +11762,7 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shelljs@^0.8.3:
+shelljs@^0.8.3, shelljs@^0.8.4:
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.8.4.tgz#de7684feeb767f8716b326078a8a00875890e3c2"
   integrity sha512-7gk3UZ9kOfPLIAbslLzyWeGiEqx9e3rxwZM0KE6EL8GlGwjym9Mrlx5/p33bWTu9YG6vcS4MBxYZDHYr5lr8BQ==
@@ -12794,6 +12823,37 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typedoc-default-themes@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.10.2.tgz#743380a80afe62c5ef92ca1bd4abe2ac596be4d2"
+  integrity sha512-zo09yRj+xwLFE3hyhJeVHWRSPuKEIAsFK5r2u47KL/HBKqpwdUSanoaz5L34IKiSATFrjG5ywmIu98hPVMfxZg==
+  dependencies:
+    lunr "^2.3.8"
+
+typedoc-plugin-markdown@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-2.3.1.tgz#c4c6c3228f625b24875e87cc1622b9a259b914ce"
+  integrity sha512-7rlmg1tLjddYy11uznHCAlyoOpxdWnFXqGEZ7j2mJ4KJg2avwWgEpw6SFZVofgPCGn36zklpFS51lHxYSRTLVQ==
+  dependencies:
+    fs-extra "^9.0.0"
+    handlebars "^4.7.6"
+
+typedoc@^0.17.8:
+  version "0.17.8"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.17.8.tgz#96b67e9454aa7853bfc4dc9a55c8a07adfd5478e"
+  integrity sha512-/OyrHCJ8jtzu+QZ+771YaxQ9s4g5Z3XsQE3Ma7q+BL392xxBn4UMvvCdVnqKC2T/dz03/VXSLVKOP3lHmDdc/w==
+  dependencies:
+    fs-extra "^8.1.0"
+    handlebars "^4.7.6"
+    highlight.js "^10.0.0"
+    lodash "^4.17.15"
+    lunr "^2.3.8"
+    marked "1.0.0"
+    minimatch "^3.0.0"
+    progress "^2.0.3"
+    shelljs "^0.8.4"
+    typedoc-default-themes "^0.10.2"
 
 typescript@^3.9.7:
   version "3.9.7"

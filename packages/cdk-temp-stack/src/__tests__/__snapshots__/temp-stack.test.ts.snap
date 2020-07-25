@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default setup 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameterscecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735ArtifactHash69C1B160": Object {
+      "Description": "Artifact hash for asset \\"cecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735\\"",
+      "Type": "String",
+    },
+    "AssetParameterscecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735S3BucketE411DF3A": Object {
+      "Description": "S3 bucket for asset \\"cecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735\\"",
+      "Type": "String",
+    },
+    "AssetParameterscecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735S3VersionKey21FD5C56": Object {
+      "Description": "S3 key for asset version \\"cecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "TimeToLive7895C003": Object {
+      "Properties": Object {
+        "ScheduleExpression": "rate(10 minutes)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Fn::GetAtt": Array [
+                "TimeToLiveDeleteStack08274E9B",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+            "Input": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "{\\"stackId\\":\\"",
+                  Object {
+                    "Ref": "AWS::StackId",
+                  },
+                  "\\"}",
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "TimeToLiveDeleteStack08274E9B": Object {
+      "DependsOn": Array [
+        "TimeToLiveDeleteStackServiceRoleDefaultPolicy08F3148E",
+        "TimeToLiveDeleteStackServiceRole5597A6E0",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameterscecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735S3BucketE411DF3A",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameterscecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735S3VersionKey21FD5C56",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameterscecce40e09824e72938e9e845377beb0cec84535601ffd985a78c42195247735S3VersionKey21FD5C56",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "TimeToLiveDeleteStackServiceRole5597A6E0",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "TimeToLiveDeleteStackAllowEventRuleTestStackTimeToLive31C9BD4560673DC4": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "TimeToLiveDeleteStack08274E9B",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "TimeToLive7895C003",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "TimeToLiveDeleteStackServiceRole5597A6E0": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TimeToLiveDeleteStackServiceRoleDefaultPolicy08F3148E": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "*",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TimeToLiveDeleteStackServiceRoleDefaultPolicy08F3148E",
+        "Roles": Array [
+          Object {
+            "Ref": "TimeToLiveDeleteStackServiceRole5597A6E0",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+}
+`;
