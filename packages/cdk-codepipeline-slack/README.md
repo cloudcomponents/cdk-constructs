@@ -129,7 +129,7 @@ Enter the url of your api from the AWS Api Gateway and append `/slack/actions`:
 
 ## API Reference
 
-See [API.md](./API.md).
+See [API.md](https://github.com/cloudcomponents/cdk-constructs/tree/master/packages/cdk-codepipeline-slack/API.md).
 
 ## Example
 
@@ -137,4 +137,4 @@ See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/t
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](https://github.com/cloudcomponents/cdk-constructs/tree/master/packages/cdk-codepipeline-slack/LICENSE)

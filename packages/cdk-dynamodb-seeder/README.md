@@ -79,7 +79,7 @@ export class DynamoDBSeederStack extends Stack {
 
 ## API Reference
 
-See [API.md](./API.md).
+See [API.md](https://github.com/cloudcomponents/cdk-constructs/tree/master/packages/cdk-dynamodb-seeder/API.md).
 
 ## Example
 
@@ -87,4 +87,4 @@ See more complete [examples](https://github.com/cloudcomponents/cdk-constructs/t
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](https://github.com/cloudcomponents/cdk-constructs/tree/master/packages/cdk-dynamodb-seeder/LICENSE)
