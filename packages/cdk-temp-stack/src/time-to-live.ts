@@ -65,7 +65,7 @@ export class TimeToLive extends Construct {
 
     if (count > 1) {
       return [
-        `Found ${count} instances of the TimeToLove construct in the stack. The construct may only be added once per stack.`,
+        `Found ${count} instances of the TimeToLive construct in the stack. The construct may only be added once per stack.`,
       ];
     }
 

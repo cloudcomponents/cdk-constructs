@@ -32,7 +32,9 @@ test('multiple instances', () => {
   });
 
   // THEN
-  expect(() => SynthUtils.toCloudFormation(stack)).toThrowError();
+  expect(() => SynthUtils.toCloudFormation(stack)).toThrowError(
+    /Found 2 instances of the TimeToLive construct/,
+  );
 });
 
 test('one instance + temp stack', () => {
@@ -49,5 +51,7 @@ test('one instance + temp stack', () => {
   });
 
   // THEN
-  expect(() => SynthUtils.toCloudFormation(stack)).toThrowError();
+  expect(() => SynthUtils.toCloudFormation(stack)).toThrowError(
+    /Found 2 instances of the TimeToLive construct/,
+  );
 });
