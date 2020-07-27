@@ -1,13 +1,13 @@
 [![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)](https://github.com/cloudcomponents/cdk-constructs)
 
-# @cloudcomponents/cdk-temp-stack
+# @cloudcomponents/cdk-temp-stack 
 
 [![Build Status](https://travis-ci.org/cloudcomponents/cdk-constructs.svg?branch=master)](https://travis-ci.org/cloudcomponents/cdk-constructs)
 [![cdkdx](https://img.shields.io/badge/buildtool-cdkdx-blue.svg)](https://github.com/hupe1980/cdkdx)
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-temp-stack)
 [![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-temp-stack/)
 
-> A stack that destroys itself after a given time (ttl)
+> A stack that destroys itself after a given time (ttl) 
 
 ## Install
 TypeScript/JavaScript:
