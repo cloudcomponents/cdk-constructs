@@ -2,6 +2,18 @@
 
 exports[`default setup 1`] = `
 Object {
+  "Resources": Object {
+    "DeletableBucket57D73C39": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+  },
+}
+`;
+
+exports[`forceDelete 1`] = `
+Object {
   "Parameters": Object {
     "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14ArtifactHash47216AA1": Object {
       "Description": "Artifact hash for asset \\"812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14\\"",

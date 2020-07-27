@@ -90,32 +90,7 @@ Object {
 
 exports[`removalPolicy = DESTROY 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14ArtifactHash47216AA1": Object {
-      "Description": "Artifact hash for asset \\"812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14\\"",
-      "Type": "String",
-    },
-    "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14S3BucketE74F71F4": Object {
-      "Description": "S3 bucket for asset \\"812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14\\"",
-      "Type": "String",
-    },
-    "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14S3VersionKeyCDA54A41": Object {
-      "Description": "S3 key for asset version \\"812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14\\"",
-      "Type": "String",
-    },
-    "AssetParametersdbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248ArtifactHashB1C690CA": Object {
-      "Description": "Artifact hash for asset \\"dbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248\\"",
-      "Type": "String",
-    },
-    "AssetParametersdbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248S3Bucket322DAF0B": Object {
-      "Description": "S3 bucket for asset \\"dbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248\\"",
-      "Type": "String",
-    },
-    "AssetParametersdbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248S3VersionKeyD2E07CC1": Object {
-      "Description": "S3 key for asset version \\"dbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE": Object {
       "DependsOn": Array [
@@ -123,44 +98,7 @@ Object {
         "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersdbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248S3Bucket322DAF0B",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersdbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248S3VersionKeyD2E07CC1",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersdbddbf5e96aa640caf4d5469497483edf75855c5c0c86cc9b99dc207e889b248S3VersionKeyD2E07CC1",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
