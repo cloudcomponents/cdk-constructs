@@ -3,6 +3,7 @@ import { S3OriginConfig, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 import { Construct, RemovalPolicy } from '@aws-cdk/core';
+import { EmptyBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 export interface WebsiteBucketProps {
   /**
@@ -69,6 +70,12 @@ export class WebsiteBucket extends Construct {
       websiteIndexDocument: websiteIndexDocument || 'index.html',
       websiteErrorDocument: websiteErrorDocument || 'error.html',
     });
+
+    if (removalPolicy === RemovalPolicy.DESTROY) {
+      new EmptyBucket(this, 'EmptyBucket', {
+        bucket,
+      });
+    }
 
     const originAccessIdentity = new OriginAccessIdentity(
       this,
