@@ -2,14 +2,12 @@ import {
   AliasConfiguration,
   CloudFrontWebDistribution,
   CloudFrontWebDistributionProps,
+  LambdaFunctionAssociation,
+  CfnDistribution,
 } from '@aws-cdk/aws-cloudfront';
 import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
 import { Construct } from '@aws-cdk/core';
 
-import {
-  Association,
-  LambdaFunctionAssociations,
-} from './lambda-function-associations';
 import { WebsiteAliasRecord } from './website-alias-record';
 import { WebsiteBucket, WebsiteBucketProps } from './website-bucket';
 
@@ -97,17 +95,24 @@ export class StaticWebsite extends Construct {
   }
 
   public addLambdaFunctionAssociation(
-    assosiation: Association,
-  ): LambdaFunctionAssociations {
-    return this.addLambdaFunctionAssociations([assosiation]);
+    assosiation: LambdaFunctionAssociation,
+  ): void {
+    this.addLambdaFunctionAssociations([assosiation]);
   }
 
   public addLambdaFunctionAssociations(
-    assosiations: Association[],
-  ): LambdaFunctionAssociations {
-    return new LambdaFunctionAssociations(this, 'LambdaFunctionAssociation', {
-      distribution: this.distribution,
-      assosiations,
-    });
+    assosiations: LambdaFunctionAssociation[],
+  ): void {
+    const cfDist = this.distribution.node.findChild(
+      'CFDistribution',
+    ) as CfnDistribution;
+
+    cfDist.addOverride(
+      'Properties.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations',
+      assosiations.map((assosiation: LambdaFunctionAssociation) => ({
+        EventType: assosiation.eventType,
+        LambdaFunctionARN: assosiation.lambdaFunction.functionArn,
+      })),
+    );
   }
 }

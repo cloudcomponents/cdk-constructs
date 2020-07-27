@@ -90,9 +90,12 @@ export class StaticWebsiteWithExistingSourcesAndSecurityPolicyStack extends Stac
 
 ```typescript
 website.addLambdaFunctionAssociation({
-  functionArn: 'arn:aws:lambda:...',
-  functionVersion: '1',
-  eventType: 'origin-request',
+  eventType: LambdaEdgeEventType.ORIGIN_REQUEST,
+  lambdaFunction: Version.fromVersionArn(
+    stack,
+    'LambdaEdge',
+    'arn:aws:lambda:us-east-1:123456789012:function:my-function:1',
+  ),
 });
 ```
 

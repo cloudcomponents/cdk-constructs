@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "prepare": "yarn build",
+    "prepare": "lerna run build",
     "test": "cdkdx test",
     "build": "lerna run build",
     "outdated:all": "yarn outdated",
