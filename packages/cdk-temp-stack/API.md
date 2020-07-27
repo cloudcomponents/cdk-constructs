@@ -91,6 +91,21 @@ protected onPrepare(): void
 
 
 
+#### protected validate() <a id="cloudcomponents-cdk-temp-stack-timetolive-validate"></a>
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+```ts
+protected validate(): Array<string>
+```
+
+
+__Returns__:
+* <code>Array<string></code>
+
 
 
 ## struct TempStackProps  <a id="cloudcomponents-cdk-temp-stack-tempstackprops"></a>

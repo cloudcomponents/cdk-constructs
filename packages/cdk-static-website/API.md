@@ -4,7 +4,6 @@
 
 Name|Description
 ----|-----------
-[LambdaFunctionAssociations](#cloudcomponents-cdk-static-website-lambdafunctionassociations)|*No description*
 [StaticWebsite](#cloudcomponents-cdk-static-website-staticwebsite)|*No description*
 [WebsiteAliasRecord](#cloudcomponents-cdk-static-website-websitealiasrecord)|*No description*
 [WebsiteBucket](#cloudcomponents-cdk-static-website-websitebucket)|*No description*
@@ -15,36 +14,9 @@ Name|Description
 Name|Description
 ----|-----------
 [AliasProps](#cloudcomponents-cdk-static-website-aliasprops)|*No description*
-[Association](#cloudcomponents-cdk-static-website-association)|*No description*
-[LambdaFunctionAssociationsProps](#cloudcomponents-cdk-static-website-lambdafunctionassociationsprops)|*No description*
 [StaticWebsiteProps](#cloudcomponents-cdk-static-website-staticwebsiteprops)|*No description*
 [WebsiteAliasRecordProps](#cloudcomponents-cdk-static-website-websitealiasrecordprops)|*No description*
 [WebsiteBucketProps](#cloudcomponents-cdk-static-website-websitebucketprops)|*No description*
-
-
-
-## class LambdaFunctionAssociations  <a id="cloudcomponents-cdk-static-website-lambdafunctionassociations"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
-
-### Initializer
-
-
-
-
-```ts
-new LambdaFunctionAssociations(scope: Construct, id: string, props: LambdaFunctionAssociationsProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[LambdaFunctionAssociationsProps](#cloudcomponents-cdk-static-website-lambdafunctionassociationsprops)</code>)  *No description*
-  * **assosiations** (<code>Array<[Association](#cloudcomponents-cdk-static-website-association)></code>)  The Lambda function associations. 
-  * **distribution** (<code>[CloudFrontWebDistribution](#aws-cdk-aws-cloudfront-cloudfrontwebdistribution)</code>)  The CloudFront distribution. 
-
 
 
 
@@ -87,29 +59,28 @@ new StaticWebsite(scope: Construct, id: string, props?: StaticWebsiteProps)
 
 
 ```ts
-addLambdaFunctionAssociation(assosiation: Association): LambdaFunctionAssociations
+addLambdaFunctionAssociation(assosiation: LambdaFunctionAssociation): void
 ```
 
-* **assosiation** (<code>[Association](#cloudcomponents-cdk-static-website-association)</code>)  *No description*
-  * **eventType** (<code>string</code>)  Specifies the event type that triggers a Lambda function invocation. 
-  * **functionArn** (<code>string</code>)  The ARN of the Lambda function. 
-  * **functionVersion** (<code>string</code>)  The version of the Lambda function. 
+* **assosiation** (<code>[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)</code>)  *No description*
+  * **eventType** (<code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code>)  The lambda event type defines at which event the lambda is called during the request lifecycle. 
+  * **lambdaFunction** (<code>[IVersion](#aws-cdk-aws-lambda-iversion)</code>)  A version of the lambda to associate. 
 
-__Returns__:
-* <code>[LambdaFunctionAssociations](#cloudcomponents-cdk-static-website-lambdafunctionassociations)</code>
+
+
 
 #### addLambdaFunctionAssociations(assosiations) <a id="cloudcomponents-cdk-static-website-staticwebsite-addlambdafunctionassociations"></a>
 
 
 
 ```ts
-addLambdaFunctionAssociations(assosiations: Array<Association>): LambdaFunctionAssociations
+addLambdaFunctionAssociations(assosiations: Array<LambdaFunctionAssociation>): void
 ```
 
-* **assosiations** (<code>Array<[Association](#cloudcomponents-cdk-static-website-association)></code>)  *No description*
+* **assosiations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  *No description*
 
-__Returns__:
-* <code>[LambdaFunctionAssociations](#cloudcomponents-cdk-static-website-lambdafunctionassociations)</code>
+
+
 
 
 
@@ -191,35 +162,6 @@ Name | Type | Description
 **names**🔹 | <code>Array<string></code> | Domain names on the certificate.
 **securityPolicy**?🔹 | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SSLv3 if sslMethod VIP, TLSv1 if sslMethod SNI
 **sslMethod**?🔹 | <code>[SSLMethod](#aws-cdk-aws-cloudfront-sslmethod)</code> | How CloudFront should serve HTTPS requests.<br/>__*Default*__: SSLMethod.SNI
-
-
-
-## struct Association  <a id="cloudcomponents-cdk-static-website-association"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**eventType** | <code>string</code> | Specifies the event type that triggers a Lambda function invocation.
-**functionArn** | <code>string</code> | The ARN of the Lambda function.
-**functionVersion** | <code>string</code> | The version of the Lambda function.
-
-
-
-## struct LambdaFunctionAssociationsProps  <a id="cloudcomponents-cdk-static-website-lambdafunctionassociationsprops"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**assosiations** | <code>Array<[Association](#cloudcomponents-cdk-static-website-association)></code> | The Lambda function associations.
-**distribution** | <code>[CloudFrontWebDistribution](#aws-cdk-aws-cloudfront-cloudfrontwebdistribution)</code> | The CloudFront distribution.
 
 
 
