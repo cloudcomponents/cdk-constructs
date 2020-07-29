@@ -51,7 +51,7 @@ new EdgeFunction(scope: Construct, id: string, props: EdgeFunctionProps)
   * **parameterName** (<code>string</code>)  The name of the parameter. __*Optional*__
   * **role** (<code>[IRole](#aws-cdk-aws-iam-irole)</code>)  *No description* __*Optional*__
   * **code** (<code>[Code](#aws-cdk-aws-lambda-code)</code>)  *No description* 
-  * **name** (<code>string</code>)  *No description* __*Optional*__
+  * **name** (<code>string</code>)  *No description* 
 
 
 
@@ -187,8 +187,8 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **code** | <code>[Code](#aws-cdk-aws-lambda-code)</code> | <span></span>
+**name** | <code>string</code> | <span></span>
 **logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
-**name**? | <code>string</code> | __*Optional*__
 **parameterName**? | <code>string</code> | The name of the parameter.<br/>__*Optional*__
 **role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | __*Optional*__
 

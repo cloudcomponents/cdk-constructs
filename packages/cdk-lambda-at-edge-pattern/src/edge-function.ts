@@ -34,7 +34,7 @@ export interface CommonEdgeFunctionProps {
 
 export interface EdgeFunctionProps extends CommonEdgeFunctionProps {
   readonly code: Code;
-  readonly name?: string;
+  readonly name: string;
 }
 
 export class EdgeFunction extends Construct {
@@ -53,8 +53,8 @@ export class EdgeFunction extends Construct {
     const {
       role,
       code,
-      name = node.uniqueId,
-      parameterName = `/cloudcomponents/edge-lambda/${name}`,
+      name,
+      parameterName = `/cloudcomponents/edge-lambda/${node.uniqueId}/${name}`,
     } = props;
 
     const lambdaAtEdgeStack =

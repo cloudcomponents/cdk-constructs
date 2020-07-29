@@ -49,6 +49,7 @@ export class HttpHeaders extends Construct {
     });
 
     const edgeFunction = new EdgeFunction(this, 'EdgeFunction', {
+      name: 'http-headers',
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'http-headers')),
     });
 
