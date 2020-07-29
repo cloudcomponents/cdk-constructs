@@ -35,7 +35,7 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 | [cdk-codepipeline-anchore-inline-scan-action](/packages/cdk-codepipeline-anchore-inline-scan-action) | CodePipeline action to integrate Anchore Engine into your pipeline                                          | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-codepipeline-anchore-inline-scan-action) |
 | [cdk-dynamodb-seeder](/packages/cdk-dynamodb-seeder) | A seeder for dynamodb tables       | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-dynamodb-seeder) |
 | [cdk-temp-stack](/packages/cdk-temp-stack) | A stack that destroys itself after a given time (ttl)        | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-temp-stack) |
-| [cdk-lambda-at-edge-pattern](/packages/cdk-lambda-at-edge-pattern) | CDK Constructs for Lambda@Edge pattern     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-lambda-at-edge-pattern) |
+| [cdk-lambda-at-edge-pattern](/packages/cdk-lambda-at-edge-pattern) | CDK Constructs for Lambda@Edge pattern: HttpHeaders     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-lambda-at-edge-pattern) |
 
 ## Contributing
 

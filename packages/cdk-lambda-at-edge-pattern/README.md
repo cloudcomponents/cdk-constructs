@@ -7,7 +7,7 @@
 [![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/@cloudcomponents/cdk-lambda-at-edge-pattern)
 [![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cloudcomponents.cdk-lambda-at-edge-pattern/)
 
-> CDK Constructs for Lambda@Edge pattern
+> CDK Constructs for Lambda@Edge pattern: HttpHeaders
 
 ## Install
 TypeScript/JavaScript:
