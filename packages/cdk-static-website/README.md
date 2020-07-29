@@ -26,29 +26,48 @@ pip install cloudcomponents.cdk-static-website
 
 ### Example 1: With an existing certificate
 ```typescript
-import { Construct, Stack, StackProps, RemovalPolicy } from '@aws-cdk/core';
+import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
 import { StringParameter } from '@aws-cdk/aws-ssm';
+import { SecurityPolicyProtocol } from '@aws-cdk/aws-cloudfront';
 import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
+import { HttpHeaders } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
 
 export class StaticWebsiteStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
     const certificateArn = StringParameter.valueFromLookup(
-        this,
-        '/certificate/cloudcomponents.org',
+      this,
+      '/certificate/cloudcomponents.org',
     );
 
-    new StaticWebsite(this, 'StaticWebsite', {
-        bucketConfiguration: {
-            removalPolicy: RemovalPolicy.DESTROY,
-        },
-        aliasConfiguration: {
-            domainName: 'cloudcomponents.org',
-            names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
-            acmCertRef: certificateArn,
-        },
+    const website = new StaticWebsite(this, 'StaticWebsite', {
+      bucketConfiguration: {
+        removalPolicy: RemovalPolicy.DESTROY,
+      },
+      aliasConfiguration: {
+        domainName: 'cloudcomponents.org',
+        names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
+        acmCertRef: certificateArn,
+      },
     });
+
+    // A us-east-1 stack is generated under the hood
+    const httpHeaders = new HttpHeaders(this, 'HttpHeaders', {
+      httpHeaders: {
+        'Content-Security-Policy':
+          "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+        'Strict-Transport-Security':
+          'max-age=31536000; includeSubdomains; preload',
+        'Referrer-Policy': 'same-origin',
+        'X-XSS-Protection': '1; mode=block',
+        'X-Frame-Options': 'DENY',
+        'X-Content-Type-Options': 'nosniff',
+        'Cache-Control': 'no-cache',
+      },
+    });
+
+    website.addLambdaFunctionAssociation(httpHeaders);
   }
 }
 ```
