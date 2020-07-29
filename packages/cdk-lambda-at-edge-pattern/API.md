@@ -20,6 +20,13 @@ Name|Description
 [WithConfigurationProps](#cloudcomponents-cdk-lambda-at-edge-pattern-withconfigurationprops)|*No description*
 
 
+**Interfaces**
+
+Name|Description
+----|-----------
+[ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation)|*No description*
+
+
 **Enums**
 
 Name|Description
@@ -84,7 +91,7 @@ __Returns__:
 
 
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation)
 __Extends__: [Construct](#aws-cdk-core-construct)
 
 ### Initializer
@@ -207,6 +214,22 @@ Name | Type | Description
 **logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
 **parameterName**? | <code>string</code> | The name of the parameter.<br/>__*Optional*__
 **role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | __*Optional*__
+
+
+
+## interface ILambdaFunctionAssociation  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation"></a>
+
+__Implemented by__: [HttpHeaders](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders)
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
+**lambdaFunction** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
 
 
 
