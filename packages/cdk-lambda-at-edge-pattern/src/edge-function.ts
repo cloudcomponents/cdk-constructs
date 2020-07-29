@@ -102,7 +102,7 @@ export class EdgeFunction extends Construct {
     const app = this.node.root;
     if (!app || !App.isApp(app)) {
       throw new Error(
-        'Pipeline stack which uses cross-environment actions must be part of a CDK app',
+        'Stacks which uses edge functions must be part of a CDK app',
       );
     }
     return app;
