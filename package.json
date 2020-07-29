@@ -8,6 +8,7 @@
     "build": "lerna run build",
     "outdated:all": "yarn outdated",
     "upgrade:all": "yarn upgrade",
+    "upgrade:cdk": "lerna run upgrade:cdk && yarn",
     "upgrade-interactive:all": "yarn upgrade-interactive --latest",
     "lint": "cdkdx lint --report-unused-disable-directives",
     "lint:fix": "cdkdx lint --fix",
