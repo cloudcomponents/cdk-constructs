@@ -5,6 +5,7 @@ import { Code, IVersion } from '@aws-cdk/aws-lambda';
 
 import { EdgeFunction, CommonEdgeFunctionProps } from './edge-function';
 import { WithConfiguration, LogLevel } from './with-configuration';
+import { ILambdaFunctionAssociation } from './lambda-function-association';
 
 // Blacklisted headers aren't exposed and can't be added by Lambda@Edge functions:
 // https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-requirements-limits.html#lambda-blacklisted-headers
@@ -33,7 +34,8 @@ export interface HttpHeadersProps extends CommonEdgeFunctionProps {
   readonly httpHeaders: Record<string, string>;
 }
 
-export class HttpHeaders extends Construct {
+export class HttpHeaders extends Construct
+  implements ILambdaFunctionAssociation {
   public readonly eventType: LambdaEdgeEventType;
   public readonly lambdaFunction: IVersion;
 
