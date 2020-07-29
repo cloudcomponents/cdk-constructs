@@ -1,0 +1,935 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default setup: not us-east-1 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fArtifactHashFD5C204C": Object {
+      "Description": "Artifact hash for asset \\"4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891f\\"",
+      "Type": "String",
+    },
+    "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3BucketF01B0EC3": Object {
+      "Description": "S3 bucket for asset \\"4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891f\\"",
+      "Type": "String",
+    },
+    "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3VersionKey8F10D6F4": Object {
+      "Description": "S3 key for asset version \\"4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891f\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "LambdaAtEdgeExecutionRole82451DD6": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Array [
+                  "edgelambda.amazonaws.com",
+                  "lambda.amazonaws.com",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "StringParameter472EED0E": Object {
+      "Properties": Object {
+        "Description": "Parameter stored for cross region Lambda@Edge",
+        "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers",
+        "Type": "String",
+        "Value": Object {
+          "Fn::GetAtt": Array [
+            "httpheadersF1D65EB5",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SSM::Parameter",
+    },
+    "httpheadersF1D65EB5": Object {
+      "DependsOn": Array [
+        "LambdaAtEdgeExecutionRole82451DD6",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3BucketF01B0EC3",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3VersionKey8F10D6F4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3VersionKey8F10D6F4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LambdaAtEdgeExecutionRole82451DD6",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+  },
+}
+`;
+
+exports[`default setup: not us-east-1 2`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796ArtifactHash467BF57A": Object {
+      "Description": "Artifact hash for asset \\"51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796\\"",
+      "Type": "String",
+    },
+    "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3Bucket1D9D65E3": Object {
+      "Description": "S3 bucket for asset \\"51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796\\"",
+      "Type": "String",
+    },
+    "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3VersionKeyB48302A4": Object {
+      "Description": "S3 key for asset version \\"51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796\\"",
+      "Type": "String",
+    },
+    "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fArtifactHashC0FC33BC": Object {
+      "Description": "Artifact hash for asset \\"afe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942f\\"",
+      "Type": "String",
+    },
+    "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3BucketC0EBB250": Object {
+      "Description": "S3 bucket for asset \\"afe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942f\\"",
+      "Type": "String",
+    },
+    "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3VersionKey2A433453": Object {
+      "Description": "S3 key for asset version \\"afe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942f\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3BucketC0EBB250",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3VersionKey2A433453",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3VersionKey2A433453",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/http-headers",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B": Object {
+      "DependsOn": Array [
+        "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A",
+        "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3Bucket1D9D65E3",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3VersionKeyB48302A4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3VersionKeyB48302A4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "lambda:GetFunction",
+                "lambda:UpdateFunctionCode",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "HttpHeadersRetrieve931EEA50",
+                  "Parameter.Value",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A",
+        "Roles": Array [
+          Object {
+            "Ref": "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HttpHeadersRetrieve931EEA50": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Create": Object {
+          "action": "getParameter",
+          "parameters": Object {
+            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers",
+          },
+          "physicalResourceId": Any<Object>,
+          "region": "us-east-1",
+          "service": "SSM",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+        "Update": Object {
+          "action": "getParameter",
+          "parameters": Object {
+            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers",
+          },
+          "physicalResourceId": Any<Object>,
+          "region": "us-east-1",
+          "service": "SSM",
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "HttpHeadersWithConfiguration57EF9372": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Configuration": "{
+  \\"logLevel\\": \\"warn\\",
+  \\"httpHeaders\\": {
+    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
+    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
+    \\"Referrer-Policy\\": \\"same-origin\\",
+    \\"X-XSS-Protection\\": \\"1; mode=block\\",
+    \\"X-Frame-Options\\": \\"DENY\\",
+    \\"X-Content-Type-Options\\": \\"nosniff\\",
+    \\"Cache-Control\\": \\"no-cache\\"
+  }
+}",
+        "FunctionName": Object {
+          "Fn::Select": Array [
+            6,
+            Object {
+              "Fn::Split": Array [
+                ":",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "HttpHeadersRetrieve931EEA50",
+                    "Parameter.Value",
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        "Region": "us-east-1",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::WithConfiguration",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+}
+`;
+
+exports[`default setup: us-east-1 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fArtifactHashFD5C204C": Object {
+      "Description": "Artifact hash for asset \\"4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891f\\"",
+      "Type": "String",
+    },
+    "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3BucketF01B0EC3": Object {
+      "Description": "S3 bucket for asset \\"4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891f\\"",
+      "Type": "String",
+    },
+    "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3VersionKey8F10D6F4": Object {
+      "Description": "S3 key for asset version \\"4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891f\\"",
+      "Type": "String",
+    },
+    "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796ArtifactHash467BF57A": Object {
+      "Description": "Artifact hash for asset \\"51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796\\"",
+      "Type": "String",
+    },
+    "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3Bucket1D9D65E3": Object {
+      "Description": "S3 bucket for asset \\"51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796\\"",
+      "Type": "String",
+    },
+    "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3VersionKeyB48302A4": Object {
+      "Description": "S3 key for asset version \\"51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796\\"",
+      "Type": "String",
+    },
+    "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fArtifactHashC0FC33BC": Object {
+      "Description": "Artifact hash for asset \\"afe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942f\\"",
+      "Type": "String",
+    },
+    "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3BucketC0EBB250": Object {
+      "Description": "S3 bucket for asset \\"afe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942f\\"",
+      "Type": "String",
+    },
+    "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3VersionKey2A433453": Object {
+      "Description": "S3 key for asset version \\"afe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942f\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3BucketC0EBB250",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3VersionKey2A433453",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersafe12ee13b10f5531c1f6afc434951e2965d2ce674cd6131e0e18ce24003942fS3VersionKey2A433453",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter",
+                    Object {
+                      "Ref": "StringParameter472EED0E",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B": Object {
+      "DependsOn": Array [
+        "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A",
+        "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3Bucket1D9D65E3",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3VersionKeyB48302A4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters51de60e73d9c7be505068e87e84e53f1302ad971b2cc0949290f5deaa8be8796S3VersionKeyB48302A4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "lambda:GetFunction",
+                "lambda:UpdateFunctionCode",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "HttpHeadersRetrieve931EEA50",
+                  "Parameter.Value",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A",
+        "Roles": Array [
+          Object {
+            "Ref": "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HttpHeadersRetrieve931EEA50": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Create": Object {
+          "action": "getParameter",
+          "parameters": Object {
+            "Name": Object {
+              "Ref": "StringParameter472EED0E",
+            },
+          },
+          "physicalResourceId": Any<Object>,
+          "region": "us-east-1",
+          "service": "SSM",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+        "Update": Object {
+          "action": "getParameter",
+          "parameters": Object {
+            "Name": Object {
+              "Ref": "StringParameter472EED0E",
+            },
+          },
+          "physicalResourceId": Any<Object>,
+          "region": "us-east-1",
+          "service": "SSM",
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "HttpHeadersWithConfiguration57EF9372": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Configuration": "{
+  \\"logLevel\\": \\"warn\\",
+  \\"httpHeaders\\": {
+    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
+    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
+    \\"Referrer-Policy\\": \\"same-origin\\",
+    \\"X-XSS-Protection\\": \\"1; mode=block\\",
+    \\"X-Frame-Options\\": \\"DENY\\",
+    \\"X-Content-Type-Options\\": \\"nosniff\\",
+    \\"Cache-Control\\": \\"no-cache\\"
+  }
+}",
+        "FunctionName": Object {
+          "Fn::Select": Array [
+            6,
+            Object {
+              "Fn::Split": Array [
+                ":",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "HttpHeadersRetrieve931EEA50",
+                    "Parameter.Value",
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        "Region": "us-east-1",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::WithConfiguration",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "LambdaAtEdgeExecutionRole82451DD6": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Array [
+                  "edgelambda.amazonaws.com",
+                  "lambda.amazonaws.com",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "StringParameter472EED0E": Object {
+      "Properties": Object {
+        "Description": "Parameter stored for cross region Lambda@Edge",
+        "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers",
+        "Type": "String",
+        "Value": Object {
+          "Fn::GetAtt": Array [
+            "httpheadersF1D65EB5",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SSM::Parameter",
+    },
+    "httpheadersF1D65EB5": Object {
+      "DependsOn": Array [
+        "LambdaAtEdgeExecutionRole82451DD6",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3BucketF01B0EC3",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3VersionKey8F10D6F4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4b844aaadb6d31187aff62ef443339f3b21d4182ecb834f6aac72e8095cc891fS3VersionKey8F10D6F4",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LambdaAtEdgeExecutionRole82451DD6",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+  },
+}
+`;

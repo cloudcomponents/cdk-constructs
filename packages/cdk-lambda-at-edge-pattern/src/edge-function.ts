@@ -137,7 +137,7 @@ export class EdgeFunction extends Construct {
       // if we have the new synthesizer,
       // we need a bootstrapless copy of it,
       // because we don't want to require bootstrapping the environment
-      // of the pipeline account in this replication region
+      // of the account in this replication region
       return new BootstraplessSynthesizer({
         deployRoleArn: this.stack.synthesizer.deployRoleArn,
         cloudFormationExecutionRoleArn: this.stack.synthesizer
