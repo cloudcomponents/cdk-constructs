@@ -1,11 +1,10 @@
 import * as path from 'path';
 import { Construct } from '@aws-cdk/core';
 import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
-import { Code, IVersion } from '@aws-cdk/aws-lambda';
+import { Code } from '@aws-cdk/aws-lambda';
 
 import { EdgeFunction, CommonEdgeFunctionProps } from './edge-function';
-import { WithConfiguration, LogLevel } from './with-configuration';
-import { ILambdaFunctionAssociation } from './lambda-function-association';
+import { LogLevel } from './with-configuration';
 
 // Blacklisted headers aren't exposed and can't be added by Lambda@Edge functions:
 // https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-requirements-limits.html#lambda-blacklisted-headers
@@ -31,16 +30,21 @@ const BLACKLISTED_HEADERS = [
 ];
 
 export interface HttpHeadersProps extends CommonEdgeFunctionProps {
+  readonly logLevel?: LogLevel;
   readonly httpHeaders: Record<string, string>;
 }
 
-export class HttpHeaders extends Construct
-  implements ILambdaFunctionAssociation {
-  public readonly eventType: LambdaEdgeEventType;
-  public readonly lambdaFunction: IVersion;
-
+export class HttpHeaders extends EdgeFunction {
   constructor(scope: Construct, id: string, props: HttpHeadersProps) {
-    super(scope, id);
+    super(scope, id, {
+      name: 'http-headers',
+      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'http-headers')),
+      eventType: LambdaEdgeEventType.ORIGIN_RESPONSE,
+      configuration: {
+        logLevel: props.logLevel ?? LogLevel.WARN,
+        httpHeaders: props.httpHeaders,
+      },
+    });
 
     Object.keys(props.httpHeaders).forEach((header) => {
       if (BLACKLISTED_HEADERS.some((blheader) => blheader.test(header))) {
@@ -49,22 +53,5 @@ export class HttpHeaders extends Construct
         );
       }
     });
-
-    const edgeFunction = new EdgeFunction(this, 'EdgeFunction', {
-      name: 'http-headers',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'http-headers')),
-    });
-
-    const lambdaWithConfig = new WithConfiguration(this, 'WithConfiguration', {
-      function: edgeFunction.retrieveEdgeFunction(this),
-      configuration: {
-        logLevel: props.logLevel ?? LogLevel.WARN,
-        httpHeaders: props.httpHeaders,
-      },
-    });
-
-    this.eventType = LambdaEdgeEventType.ORIGIN_RESPONSE;
-
-    this.lambdaFunction = lambdaWithConfig.lambdaFunction;
   }
 }

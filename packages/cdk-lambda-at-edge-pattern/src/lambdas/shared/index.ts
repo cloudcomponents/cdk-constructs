@@ -12,7 +12,7 @@ class Logger {
   constructor(private logLevel: LogLevel) {}
 
   private jsonify(...args: unknown[]) {
-    return args.map((arg: unknown[]) => {
+    return args.map((arg: unknown) => {
       if (typeof arg === 'object') {
         try {
           return JSON.stringify(arg);

@@ -1,152 +1,82 @@
-import {
-  App,
-  BootstraplessSynthesizer,
-  Construct,
-  DefaultStackSynthesizer,
-  IStackSynthesizer,
-  Stack,
-} from '@aws-cdk/core';
-import { Code, Function, Runtime, IFunction } from '@aws-cdk/aws-lambda';
-import {
-  IRole,
-  CompositePrincipal,
-  ServicePrincipal,
-  ManagedPolicy,
-  Role,
-} from '@aws-cdk/aws-iam';
-import { StringParameter, IStringParameter } from '@aws-cdk/aws-ssm';
+import { Construct } from '@aws-cdk/core';
+import { Code, Function, Runtime, IVersion } from '@aws-cdk/aws-lambda';
+import { StringParameter } from '@aws-cdk/aws-ssm';
+import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
 
-import { LogLevel } from './with-configuration';
+import { BaseEdgeConstruct } from './base-edge-construct';
+import { Configuration, WithConfiguration } from './with-configuration';
 import { EdgeFunctionProvider } from './edge-function-provider';
+import { EdgeRole, IEdgeRole } from './edge-role';
+import { ILambdaFunctionAssociation } from './lambda-function-association';
+import { IEdgeLambda } from './edge-lambda';
 
 export interface CommonEdgeFunctionProps {
-  readonly role?: IRole;
-
-  readonly logLevel?: LogLevel;
-
   /**
    * The name of the parameter.
    */
   readonly parameterName?: string;
 
-  readonly [key: string]: unknown;
+  readonly edgeRole?: IEdgeRole;
 }
 
 export interface EdgeFunctionProps extends CommonEdgeFunctionProps {
+  readonly configuration: Configuration;
   readonly code: Code;
   readonly name: string;
+  readonly eventType: LambdaEdgeEventType;
 }
 
-export class EdgeFunction extends Construct {
-  public readonly role: IRole;
-
-  private readonly stack: Stack;
-  private readonly parameter: IStringParameter;
+export class EdgeFunction extends BaseEdgeConstruct
+  implements ILambdaFunctionAssociation, IEdgeLambda {
+  public readonly edgeRole: IEdgeRole;
+  public readonly eventType: LambdaEdgeEventType;
+  public readonly functionVersion: IVersion;
+  public readonly lambdaFunction: IVersion;
 
   constructor(scope: Construct, id: string, props: EdgeFunctionProps) {
     super(scope, id);
 
-    this.stack = Stack.of(this);
-
-    const { region, node } = this.stack;
-
     const {
-      role,
-      code,
       name,
-      parameterName = `/cloudcomponents/edge-lambda/${node.uniqueId}/${name}`,
+      parameterName = `/cloudcomponents/edge-lambda/${this.stack.node.uniqueId}/${name}`,
     } = props;
 
-    const lambdaAtEdgeStack =
-      region !== 'us-east-1'
-        ? this.getOrCreateCrossRegionSupportStack()
-        : this.stack;
+    this.edgeRole = props.edgeRole ?? new EdgeRole(this, `${name}Role`);
 
-    this.role =
-      role ??
-      new Role(lambdaAtEdgeStack, 'LambdaAtEdgeExecutionRole', {
-        assumedBy: new CompositePrincipal(
-          new ServicePrincipal('edgelambda.amazonaws.com'),
-          new ServicePrincipal('lambda.amazonaws.com'),
-        ),
-        managedPolicies: [
-          ManagedPolicy.fromAwsManagedPolicyName(
-            'service-role/AWSLambdaBasicExecutionRole',
-          ),
-        ],
-      });
+    this.eventType = props.eventType;
 
-    const lambdaFunction = new Function(lambdaAtEdgeStack, name, {
+    const edgeFunction = new Function(this.edgeStack, `${name}Function`, {
       runtime: Runtime.NODEJS_12_X,
       handler: 'index.handler',
-      code,
-      role: this.role,
+      code: props.code,
+      role: this.edgeRole.role,
     });
 
-    this.parameter = new StringParameter(lambdaAtEdgeStack, 'StringParameter', {
-      parameterName,
-      description: 'Parameter stored for cross region Lambda@Edge',
-      stringValue: lambdaFunction.functionArn,
+    const parameter = new StringParameter(
+      this.edgeStack,
+      `${name}StringParameter`,
+      {
+        parameterName,
+        description: 'Parameter stored for cross region Lambda@Edge',
+        stringValue: edgeFunction.functionArn,
+      },
+    );
+
+    const { edgeFunction: retrievedEdgeFunction } = new EdgeFunctionProvider(
+      scope,
+      `${name}Provider`,
+      {
+        parameter,
+      },
+    );
+
+    const lambdaWithConfig = new WithConfiguration(this, 'WithConfiguration', {
+      function: retrievedEdgeFunction,
+      configuration: props.configuration,
     });
-  }
 
-  public retrieveEdgeFunction(scope: Construct): IFunction {
-    const { lambdaFunction } = new EdgeFunctionProvider(scope, 'Retrieve', {
-      parameter: this.parameter,
-    });
+    this.functionVersion = lambdaWithConfig.functionVersion;
 
-    return lambdaFunction;
-  }
-
-  private requireApp(): App {
-    const app = this.node.root;
-    if (!app || !App.isApp(app)) {
-      throw new Error(
-        'Stacks which uses edge functions must be part of a CDK app',
-      );
-    }
-    return app;
-  }
-
-  private getOrCreateCrossRegionSupportStack(): Stack {
-    const { account, stackName } = this.stack;
-    const stackId = `lambda-at-edge-support-stack`;
-    const app = this.requireApp();
-
-    let supportStack = app.node.tryFindChild(stackId) as Stack;
-
-    if (!supportStack) {
-      supportStack = new Stack(app, stackId, {
-        stackName: `${stackName}-support-lambda-at-edge`,
-        env: {
-          account,
-          region: 'us-east-1',
-        },
-        synthesizer: this.getCrossRegionSupportSynthesizer(),
-      });
-
-      // the stack containing the edge lambdas must be deployed before
-      this.stack.addDependency(supportStack);
-    }
-
-    return supportStack;
-  }
-
-  private getCrossRegionSupportSynthesizer(): IStackSynthesizer | undefined {
-    if (this.stack.synthesizer instanceof DefaultStackSynthesizer) {
-      // if we have the new synthesizer,
-      // we need a bootstrapless copy of it,
-      // because we don't want to require bootstrapping the environment
-      // of the account in this replication region
-      return new BootstraplessSynthesizer({
-        deployRoleArn: this.stack.synthesizer.deployRoleArn,
-        cloudFormationExecutionRoleArn: this.stack.synthesizer
-          .cloudFormationExecutionRoleArn,
-      });
-    } else {
-      // any other synthesizer: just return undefined
-      // (ie., use the default based on the context settings)
-      return undefined;
-    }
+    this.lambdaFunction = this.functionVersion;
   }
 }

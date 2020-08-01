@@ -36,7 +36,7 @@ test('default setup: us-east-1', () => {
   expect(stack).toMatchCdkSnapshot({
     propertyMatchers: {
       Resources: {
-        HttpHeadersRetrieve931EEA50: {
+        httpheadersProvider158513BA: {
           Properties: {
             Create: {
               physicalResourceId: expect.any(Object),
@@ -84,7 +84,7 @@ test('default setup: not us-east-1', () => {
   expect(stack).toMatchCdkSnapshot({
     propertyMatchers: {
       Resources: {
-        HttpHeadersRetrieve931EEA50: {
+        httpheadersProvider158513BA: {
           Properties: {
             Create: {
               physicalResourceId: expect.any(Object),

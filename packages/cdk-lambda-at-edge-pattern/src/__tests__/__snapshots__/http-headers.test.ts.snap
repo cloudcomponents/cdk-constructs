@@ -17,57 +17,9 @@ Object {
     },
   },
   "Resources": Object {
-    "LambdaAtEdgeExecutionRole82451DD6": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": Array [
-                  "edgelambda.amazonaws.com",
-                  "lambda.amazonaws.com",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "StringParameter472EED0E": Object {
-      "Properties": Object {
-        "Description": "Parameter stored for cross region Lambda@Edge",
-        "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers",
-        "Type": "String",
-        "Value": Object {
-          "Fn::GetAtt": Array [
-            "httpheadersF1D65EB5",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::SSM::Parameter",
-    },
-    "httpheadersF1D65EB5": Object {
+    "httpheadersFunction1CD98582": Object {
       "DependsOn": Array [
-        "LambdaAtEdgeExecutionRole82451DD6",
+        "httpheadersRole15B70541",
       ],
       "Properties": Object {
         "Code": Object {
@@ -111,13 +63,61 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "LambdaAtEdgeExecutionRole82451DD6",
+            "httpheadersRole15B70541",
             "Arn",
           ],
         },
         "Runtime": "nodejs12.x",
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "httpheadersRole15B70541": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Array [
+                  "edgelambda.amazonaws.com",
+                  "lambda.amazonaws.com",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "httpheadersStringParameterE8E8A22A": Object {
+      "Properties": Object {
+        "Description": "Parameter stored for cross region Lambda@Edge",
+        "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers",
+        "Type": "String",
+        "Value": Object {
+          "Fn::GetAtt": Array [
+            "httpheadersFunction1CD98582",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SSM::Parameter",
     },
   },
 }
@@ -343,7 +343,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "HttpHeadersRetrieve931EEA50",
+                  "httpheadersProvider158513BA",
                   "Parameter.Value",
                 ],
               },
@@ -391,7 +391,49 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HttpHeadersRetrieve931EEA50": Object {
+    "HttpHeadersWithConfiguration57EF9372": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Configuration": "{
+  \\"logLevel\\": \\"warn\\",
+  \\"httpHeaders\\": {
+    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
+    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
+    \\"Referrer-Policy\\": \\"same-origin\\",
+    \\"X-XSS-Protection\\": \\"1; mode=block\\",
+    \\"X-Frame-Options\\": \\"DENY\\",
+    \\"X-Content-Type-Options\\": \\"nosniff\\",
+    \\"Cache-Control\\": \\"no-cache\\"
+  }
+}",
+        "FunctionName": Object {
+          "Fn::Select": Array [
+            6,
+            Object {
+              "Fn::Split": Array [
+                ":",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "httpheadersProvider158513BA",
+                    "Parameter.Value",
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        "Region": "us-east-1",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::WithConfiguration",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "httpheadersProvider158513BA": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "Create": Object {
@@ -420,48 +462,6 @@ Object {
         },
       },
       "Type": "Custom::AWS",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "HttpHeadersWithConfiguration57EF9372": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Configuration": "{
-  \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  }
-}",
-        "FunctionName": Object {
-          "Fn::Select": Array [
-            6,
-            Object {
-              "Fn::Split": Array [
-                ":",
-                Object {
-                  "Fn::GetAtt": Array [
-                    "HttpHeadersRetrieve931EEA50",
-                    "Parameter.Value",
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        "Region": "us-east-1",
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "Custom::WithConfiguration",
       "UpdateReplacePolicy": "Delete",
     },
   },
@@ -617,7 +617,7 @@ Object {
                     },
                     ":parameter",
                     Object {
-                      "Ref": "StringParameter472EED0E",
+                      "Ref": "httpheadersStringParameterE8E8A22A",
                     },
                   ],
                 ],
@@ -703,7 +703,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "HttpHeadersRetrieve931EEA50",
+                  "httpheadersProvider158513BA",
                   "Parameter.Value",
                 ],
               },
@@ -751,41 +751,6 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HttpHeadersRetrieve931EEA50": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": Object {
-              "Ref": "StringParameter472EED0E",
-            },
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
-            "Arn",
-          ],
-        },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": Object {
-              "Ref": "StringParameter472EED0E",
-            },
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
-      },
-      "Type": "Custom::AWS",
-      "UpdateReplacePolicy": "Delete",
-    },
     "HttpHeadersWithConfiguration57EF9372": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
@@ -809,7 +774,7 @@ Object {
                 ":",
                 Object {
                   "Fn::GetAtt": Array [
-                    "HttpHeadersRetrieve931EEA50",
+                    "httpheadersProvider158513BA",
                     "Parameter.Value",
                   ],
                 },
@@ -828,57 +793,9 @@ Object {
       "Type": "Custom::WithConfiguration",
       "UpdateReplacePolicy": "Delete",
     },
-    "LambdaAtEdgeExecutionRole82451DD6": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": Array [
-                  "edgelambda.amazonaws.com",
-                  "lambda.amazonaws.com",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "StringParameter472EED0E": Object {
-      "Properties": Object {
-        "Description": "Parameter stored for cross region Lambda@Edge",
-        "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers",
-        "Type": "String",
-        "Value": Object {
-          "Fn::GetAtt": Array [
-            "httpheadersF1D65EB5",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::SSM::Parameter",
-    },
-    "httpheadersF1D65EB5": Object {
+    "httpheadersFunction1CD98582": Object {
       "DependsOn": Array [
-        "LambdaAtEdgeExecutionRole82451DD6",
+        "httpheadersRole15B70541",
       ],
       "Properties": Object {
         "Code": Object {
@@ -922,13 +839,96 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "LambdaAtEdgeExecutionRole82451DD6",
+            "httpheadersRole15B70541",
             "Arn",
           ],
         },
         "Runtime": "nodejs12.x",
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "httpheadersProvider158513BA": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Create": Object {
+          "action": "getParameter",
+          "parameters": Object {
+            "Name": Object {
+              "Ref": "httpheadersStringParameterE8E8A22A",
+            },
+          },
+          "physicalResourceId": Any<Object>,
+          "region": "us-east-1",
+          "service": "SSM",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+        "Update": Object {
+          "action": "getParameter",
+          "parameters": Object {
+            "Name": Object {
+              "Ref": "httpheadersStringParameterE8E8A22A",
+            },
+          },
+          "physicalResourceId": Any<Object>,
+          "region": "us-east-1",
+          "service": "SSM",
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "httpheadersRole15B70541": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Array [
+                  "edgelambda.amazonaws.com",
+                  "lambda.amazonaws.com",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "httpheadersStringParameterE8E8A22A": Object {
+      "Properties": Object {
+        "Description": "Parameter stored for cross region Lambda@Edge",
+        "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers",
+        "Type": "String",
+        "Value": Object {
+          "Fn::GetAtt": Array [
+            "httpheadersFunction1CD98582",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SSM::Parameter",
     },
   },
 }

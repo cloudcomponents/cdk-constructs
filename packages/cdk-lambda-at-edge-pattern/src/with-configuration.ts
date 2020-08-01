@@ -29,7 +29,7 @@ export interface WithConfigurationProps {
 }
 
 export class WithConfiguration extends Construct {
-  public readonly lambdaFunction: IVersion;
+  public readonly functionVersion: IVersion;
 
   constructor(scope: Construct, id: string, props: WithConfigurationProps) {
     super(scope, id);
@@ -65,7 +65,7 @@ export class WithConfiguration extends Construct {
       },
     });
 
-    this.lambdaFunction = Version.fromVersionArn(
+    this.functionVersion = Version.fromVersionArn(
       this,
       'Version',
       cr.getAttString('FunctionArn'),

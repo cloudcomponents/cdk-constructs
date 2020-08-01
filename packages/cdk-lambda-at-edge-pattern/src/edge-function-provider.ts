@@ -12,7 +12,7 @@ export interface EdgeFunctionProviderProps {
 }
 
 export class EdgeFunctionProvider extends Construct {
-  public readonly lambdaFunction: IFunction;
+  public readonly edgeFunction: IFunction;
 
   constructor(scope: Construct, id: string, props: EdgeFunctionProviderProps) {
     super(scope, id);
@@ -32,7 +32,7 @@ export class EdgeFunctionProvider extends Construct {
       }),
     });
 
-    this.lambdaFunction = Function.fromFunctionArn(
+    this.edgeFunction = Function.fromFunctionArn(
       this,
       'Function',
       cr.getResponseField('Parameter.Value'),
