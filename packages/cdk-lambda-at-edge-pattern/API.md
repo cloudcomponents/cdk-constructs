@@ -4,7 +4,9 @@
 
 Name|Description
 ----|-----------
+[BaseEdgeConstruct](#cloudcomponents-cdk-lambda-at-edge-pattern-baseedgeconstruct)|*No description*
 [EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)|*No description*
+[EdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-edgerole)|*No description*
 [HttpHeaders](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders)|*No description*
 [WithConfiguration](#cloudcomponents-cdk-lambda-at-edge-pattern-withconfiguration)|*No description*
 
@@ -16,6 +18,7 @@ Name|Description
 [CommonEdgeFunctionProps](#cloudcomponents-cdk-lambda-at-edge-pattern-commonedgefunctionprops)|*No description*
 [Configuration](#cloudcomponents-cdk-lambda-at-edge-pattern-configuration)|*No description*
 [EdgeFunctionProps](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunctionprops)|*No description*
+[EdgeRoleProps](#cloudcomponents-cdk-lambda-at-edge-pattern-edgeroleprops)|*No description*
 [HttpHeadersProps](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheadersprops)|*No description*
 [WithConfigurationProps](#cloudcomponents-cdk-lambda-at-edge-pattern-withconfigurationprops)|*No description*
 
@@ -24,6 +27,8 @@ Name|Description
 
 Name|Description
 ----|-----------
+[IEdgeLambda](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgelambda)|*No description*
+[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)|*No description*
 [ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation)|*No description*
 
 
@@ -35,12 +40,43 @@ Name|Description
 
 
 
-## class EdgeFunction  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction"></a>
+## class BaseEdgeConstruct  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-baseedgeconstruct"></a>
 
 
 
 __Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
 __Extends__: [Construct](#aws-cdk-core-construct)
+
+### Initializer
+
+
+
+
+```ts
+new BaseEdgeConstruct(scope: Construct, id: string)
+```
+
+* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
+* **id** (<code>string</code>)  *No description*
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**edgeStack** | <code>[Stack](#aws-cdk-core-stack)</code> | <span></span>
+**stack** | <code>[Stack](#aws-cdk-core-stack)</code> | <span></span>
+
+
+
+## class EdgeFunction  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction"></a>
+
+
+
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation), [IEdgeLambda](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgelambda)
+__Extends__: [BaseEdgeConstruct](#cloudcomponents-cdk-lambda-at-edge-pattern-baseedgeconstruct)
 
 ### Initializer
 
@@ -54,11 +90,47 @@ new EdgeFunction(scope: Construct, id: string, props: EdgeFunctionProps)
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[EdgeFunctionProps](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunctionprops)</code>)  *No description*
-  * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
+  * **edgeRole** (<code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code>)  *No description* __*Optional*__
   * **parameterName** (<code>string</code>)  The name of the parameter. __*Optional*__
-  * **role** (<code>[IRole](#aws-cdk-aws-iam-irole)</code>)  *No description* __*Optional*__
   * **code** (<code>[Code](#aws-cdk-aws-lambda-code)</code>)  *No description* 
+  * **configuration** (<code>[Configuration](#cloudcomponents-cdk-lambda-at-edge-pattern-configuration)</code>)  *No description* 
+  * **eventType** (<code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code>)  *No description* 
   * **name** (<code>string</code>)  *No description* 
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**edgeRole** | <code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code> | <span></span>
+**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
+**functionVersion** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
+**lambdaFunction** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
+
+
+
+## class EdgeRole  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgerole"></a>
+
+
+
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)
+__Extends__: [BaseEdgeConstruct](#cloudcomponents-cdk-lambda-at-edge-pattern-baseedgeconstruct)
+
+### Initializer
+
+
+
+
+```ts
+new EdgeRole(scope: Construct, id: string, props?: EdgeRoleProps)
+```
+
+* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
+* **id** (<code>string</code>)  *No description*
+* **props** (<code>[EdgeRoleProps](#cloudcomponents-cdk-lambda-at-edge-pattern-edgeroleprops)</code>)  *No description*
+  * **roleName** (<code>string</code>)  *No description* __*Optional*__
 
 
 
@@ -72,18 +144,18 @@ Name | Type | Description
 ### Methods
 
 
-#### retrieveEdgeFunction(scope) <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction-retrieveedgefunction"></a>
+#### addToEdgeRolePolicy(statement) <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgerole-addtoedgerolepolicy"></a>
 
 
 
 ```ts
-retrieveEdgeFunction(scope: Construct): IFunction
+addToEdgeRolePolicy(statement: PolicyStatement): void
 ```
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
+* **statement** (<code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>)  *No description*
 
-__Returns__:
-* <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code>
+
+
 
 
 
@@ -91,8 +163,8 @@ __Returns__:
 
 
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation)
-__Extends__: [Construct](#aws-cdk-core-construct)
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation), [IEdgeLambda](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgelambda)
+__Extends__: [EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)
 
 ### Initializer
 
@@ -106,20 +178,11 @@ new HttpHeaders(scope: Construct, id: string, props: HttpHeadersProps)
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[HttpHeadersProps](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheadersprops)</code>)  *No description*
-  * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
+  * **edgeRole** (<code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code>)  *No description* __*Optional*__
   * **parameterName** (<code>string</code>)  The name of the parameter. __*Optional*__
-  * **role** (<code>[IRole](#aws-cdk-aws-iam-irole)</code>)  *No description* __*Optional*__
   * **httpHeaders** (<code>Map<string, string></code>)  *No description* 
+  * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
 
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
-**lambdaFunction** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
 
 
 
@@ -152,7 +215,7 @@ new WithConfiguration(scope: Construct, id: string, props: WithConfigurationProp
 
 Name | Type | Description 
 -----|------|-------------
-**lambdaFunction** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
+**functionVersion** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
 
 
 
@@ -165,9 +228,8 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
+**edgeRole**? | <code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code> | __*Optional*__
 **parameterName**? | <code>string</code> | The name of the parameter.<br/>__*Optional*__
-**role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | __*Optional*__
 
 
 
@@ -194,10 +256,24 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **code** | <code>[Code](#aws-cdk-aws-lambda-code)</code> | <span></span>
+**configuration** | <code>[Configuration](#cloudcomponents-cdk-lambda-at-edge-pattern-configuration)</code> | <span></span>
+**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
 **name** | <code>string</code> | <span></span>
-**logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
+**edgeRole**? | <code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code> | __*Optional*__
 **parameterName**? | <code>string</code> | The name of the parameter.<br/>__*Optional*__
-**role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | __*Optional*__
+
+
+
+## struct EdgeRoleProps  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgeroleprops"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**roleName**? | <code>string</code> | __*Optional*__
 
 
 
@@ -211,15 +287,62 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **httpHeaders** | <code>Map<string, string></code> | <span></span>
+**edgeRole**? | <code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code> | __*Optional*__
 **logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
 **parameterName**? | <code>string</code> | The name of the parameter.<br/>__*Optional*__
-**role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | __*Optional*__
+
+
+
+## interface IEdgeLambda  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-iedgelambda"></a>
+
+__Implemented by__: [EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction), [HttpHeaders](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders)
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
+**functionVersion** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
+
+
+
+## interface IEdgeRole  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole"></a>
+
+__Implemented by__: [EdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-edgerole)
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**role** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
+
+### Methods
+
+
+#### addToEdgeRolePolicy(statement) <a id="cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole-addtoedgerolepolicy"></a>
+
+
+
+```ts
+addToEdgeRolePolicy(statement: PolicyStatement): void
+```
+
+* **statement** (<code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>)  *No description*
+
+
+
 
 
 
 ## interface ILambdaFunctionAssociation  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation"></a>
 
-__Implemented by__: [HttpHeaders](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders)
+__Implemented by__: [EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction), [HttpHeaders](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders)
 
 
 
