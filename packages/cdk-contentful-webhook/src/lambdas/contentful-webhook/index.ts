@@ -1,4 +1,4 @@
-import { CloudFormationCustomResourceEvent } from 'aws-lambda';
+import type { CloudFormationCustomResourceEventCommon } from 'aws-lambda';
 import * as contentful from 'contentful-management';
 
 import {
@@ -8,6 +8,7 @@ import {
   OnDeleteHandler,
   ResourceHandler,
   ResourceHandlerReturn,
+  camelizeKeys,
 } from 'custom-resource-helper';
 
 export interface WebhookProps {
@@ -18,26 +19,6 @@ export interface WebhookProps {
   topics: string[];
 }
 
-const getProperties = (
-  event: CloudFormationCustomResourceEvent,
-): WebhookProps => {
-  const props = event.ResourceProperties;
-
-  const accessToken = props.AccessToken;
-  const spaceId = props.SpaceId;
-  const url = props.Url;
-  const name = props.Name;
-  const topics = props.Topics;
-
-  return {
-    accessToken,
-    spaceId,
-    url,
-    name,
-    topics,
-  };
-};
-
 const getSpace = async (accessToken: string, spaceId: string) => {
   const client = contentful.createClient({
     accessToken,
@@ -46,31 +27,29 @@ const getSpace = async (accessToken: string, spaceId: string) => {
   return client.getSpace(spaceId);
 };
 
-const handleCreate: OnCreateHandler = async (
-  event,
-  _,
-): Promise<ResourceHandlerReturn> => {
-  const { accessToken, spaceId, ...props } = getProperties(event);
+const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
+  const { accessToken, spaceId, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+    event.ResourceProperties,
+  );
 
   const space = await getSpace(accessToken, spaceId);
 
-  const responseData = await space.createWebhook({
+  const res = await space.createWebhook({
     ...props,
+    headers: [], // TODO
   });
 
-  const physicalResourceId = responseData.sys.id;
+  const physicalResourceId = res.sys.id;
 
   return {
     physicalResourceId,
-    responseData,
   };
 };
 
-const handleUpdate: OnUpdateHandler = async (
-  event,
-  _,
-): Promise<ResourceHandlerReturn> => {
-  const { accessToken, spaceId, ...props } = getProperties(event);
+const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
+  const { accessToken, spaceId, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+    event.ResourceProperties,
+  );
 
   const webhookId = event.PhysicalResourceId;
 
@@ -83,18 +62,19 @@ const handleUpdate: OnUpdateHandler = async (
     ...props,
   };
 
-  const responseData = await webhook.update();
+  const res = await webhook.update();
 
-  const physicalResourceId = responseData.sys.id;
+  const physicalResourceId = res.sys.id;
 
   return {
     physicalResourceId,
-    responseData,
   };
 };
 
-const handleDelete: OnDeleteHandler = async (event, _): Promise<void> => {
-  const { accessToken, spaceId } = getProperties(event);
+const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
+  const { accessToken, spaceId } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+    event.ResourceProperties,
+  );
 
   const webhookId = event.PhysicalResourceId;
 

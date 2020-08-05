@@ -9,9 +9,7 @@ export class RawMessage extends Message {
     super(snsMessage.source, snsMessage, options);
   }
 
-  protected async renderMessageCard(
-    messageCard: MessageCard,
-  ): Promise<MessageCard> {
+  protected renderMessageCard(messageCard: MessageCard): MessageCard {
     if (!isEmpty(this.snsMessage.detail)) {
       messageCard.addSection({
         title: 'Details',

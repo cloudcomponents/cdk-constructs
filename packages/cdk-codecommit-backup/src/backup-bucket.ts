@@ -1,10 +1,5 @@
+import { Bucket, BucketProps, BucketEncryption, BlockPublicAccess } from '@aws-cdk/aws-s3';
 import { Construct, RemovalPolicy, Duration } from '@aws-cdk/core';
-import {
-  Bucket,
-  BucketProps,
-  BucketEncryption,
-  BlockPublicAccess,
-} from '@aws-cdk/aws-s3';
 
 export interface BackupBucketProps extends BucketProps {
   readonly retentionPeriod?: Duration;

@@ -1,7 +1,7 @@
 import * as path from 'path';
-import { Construct, Stack } from '@aws-cdk/core';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
+import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Construct, Stack } from '@aws-cdk/core';
 
 export interface CheckParamterFunctionProps {
   /**

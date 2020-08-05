@@ -1,16 +1,11 @@
 import * as path from 'path';
-import { Construct } from '@aws-cdk/core';
-import {
-  BuildSpec,
-  LinuxBuildImage,
-  Project,
-  ComputeType,
-} from '@aws-cdk/aws-codebuild';
+import { BuildSpec, LinuxBuildImage, Project, ComputeType } from '@aws-cdk/aws-codebuild';
 import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
 import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
+import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Asset } from '@aws-cdk/aws-s3-assets';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Construct } from '@aws-cdk/core';
 
 const S3_BUCKET_ENV = 'SCRIPTS_BUCKET';
 const S3_KEY_ENV = 'SCRIPTS_BUCKET_KEY';
@@ -45,11 +40,7 @@ export interface FullRegionS3CodeCommitBackupProps {
 export class FullRegionS3CodeCommitBackup extends Construct {
   private readonly backupProject: Project;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    props: FullRegionS3CodeCommitBackupProps,
-  ) {
+  constructor(scope: Construct, id: string, props: FullRegionS3CodeCommitBackupProps) {
     super(scope, id);
 
     const { backupBucket, schedule, repositoryNames = [], computeType } = props;
@@ -89,10 +80,7 @@ export class FullRegionS3CodeCommitBackup extends Construct {
             ],
           },
           build: {
-            commands: [
-              'chmod +x backup_codecommit.sh',
-              './backup_codecommit.sh',
-            ],
+            commands: ['chmod +x backup_codecommit.sh', './backup_codecommit.sh'],
           },
         },
       }),
@@ -105,13 +93,7 @@ export class FullRegionS3CodeCommitBackup extends Construct {
     this.backupProject.addToRolePolicy(
       new PolicyStatement({
         resources: ['*'],
-        actions: [
-          'codecommit:BatchGet*',
-          'codecommit:Get*',
-          'codecommit:Describe*',
-          'codecommit:List*',
-          'codecommit:GitPull',
-        ],
+        actions: ['codecommit:BatchGet*', 'codecommit:Get*', 'codecommit:Describe*', 'codecommit:List*', 'codecommit:GitPull'],
       }),
     );
 

@@ -1,5 +1,5 @@
-import { SnsMessage } from '../sns-message';
 import { MessageCard } from '../message-card';
+import { SnsMessage } from '../sns-message';
 
 import { Account, AccountLabelMode } from './account';
 
@@ -9,20 +9,14 @@ export interface MessageOptions {
 }
 
 export abstract class Message {
-  constructor(
-    protected readonly title: string,
-    protected readonly snsMessage: SnsMessage,
-    private readonly options: MessageOptions,
-  ) {}
+  constructor(protected readonly title: string, protected readonly snsMessage: SnsMessage, private readonly options: MessageOptions) {}
 
   public async render(): Promise<MessageCard> {
     const { account: accountId, region } = this.snsMessage;
 
     const account = new Account(accountId);
 
-    const accountLabel = await account.renderLabel(
-      this.options.accountLabelMode,
-    );
+    const accountLabel = await account.renderLabel(this.options.accountLabelMode);
 
     const emoji = this.getEmoji();
 
@@ -35,9 +29,7 @@ export abstract class Message {
     return this.renderMessageCard(messageCard);
   }
 
-  protected abstract async renderMessageCard(
-    messageCard: MessageCard,
-  ): Promise<MessageCard>;
+  protected abstract renderMessageCard(messageCard: MessageCard): MessageCard;
 
   protected getText(): string {
     return this.snsMessage.detailType;

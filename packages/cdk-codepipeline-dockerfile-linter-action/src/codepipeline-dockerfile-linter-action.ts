@@ -1,25 +1,10 @@
-import { Construct } from '@aws-cdk/core';
-import {
-  BuildSpec,
-  Cache,
-  LocalCacheMode,
-  LinuxBuildImage,
-  PipelineProject,
-  ComputeType,
-} from '@aws-cdk/aws-codebuild';
-import {
-  ActionBindOptions,
-  ActionCategory,
-  ActionConfig,
-  Artifact,
-  CommonAwsActionProps,
-  IStage,
-} from '@aws-cdk/aws-codepipeline';
+import { BuildSpec, Cache, LocalCacheMode, LinuxBuildImage, PipelineProject, ComputeType } from '@aws-cdk/aws-codebuild';
+import { ActionBindOptions, ActionCategory, ActionConfig, Artifact, CommonAwsActionProps, IStage } from '@aws-cdk/aws-codepipeline';
 import { Action } from '@aws-cdk/aws-codepipeline-actions';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Construct } from '@aws-cdk/core';
 
-export interface CodePipelineDockerfileLinterActionProps
-  extends CommonAwsActionProps {
+export interface CodePipelineDockerfileLinterActionProps extends CommonAwsActionProps {
   /**
    * The source to use as input for this action.
    */
@@ -61,11 +46,7 @@ export class CodePipelineDockerfileLinterAction extends Action {
     this.props = props;
   }
 
-  protected bound(
-    scope: Construct,
-    _stage: IStage,
-    options: ActionBindOptions,
-  ): ActionConfig {
+  protected bound(scope: Construct, _stage: IStage, options: ActionBindOptions): ActionConfig {
     const buildImage = LinuxBuildImage.STANDARD_4_0;
 
     const version = this.props.version || 'v1.18.0';
@@ -81,23 +62,14 @@ export class CodePipelineDockerfileLinterAction extends Action {
         version: '0.2',
         phases: {
           pre_build: {
-            commands: [
-              'echo Pulling the hadolint docker image',
-              `docker pull hadolint/hadolint:${version}`,
-            ],
+            commands: ['echo Pulling the hadolint docker image', `docker pull hadolint/hadolint:${version}`],
           },
           build: {
             commands: [],
-            finally: [
-              'echo Scan started on `date`',
-              `result=$(docker run --rm -i hadolint/hadolint:${version} hadolint -f json - < Dockerfile)`,
-            ],
+            finally: ['echo Scan started on `date`', `result=$(docker run --rm -i hadolint/hadolint:${version} hadolint -f json - < Dockerfile)`],
           },
           post_build: {
-            commands: [
-              'if [ "$result" != "[]" ]; then echo $result | jq .; else echo "Awesome! No findings!"; fi',
-              'echo Scan completed on `date`',
-            ],
+            commands: ['if [ "$result" != "[]" ]; then echo $result | jq .; else echo "Awesome! No findings!"; fi', 'echo Scan completed on `date`'],
           },
         },
       }),
@@ -107,11 +79,7 @@ export class CodePipelineDockerfileLinterAction extends Action {
     options.role.addToPolicy(
       new PolicyStatement({
         resources: [project.projectArn],
-        actions: [
-          'codebuild:BatchGetBuilds',
-          'codebuild:StartBuild',
-          'codebuild:StopBuild',
-        ],
+        actions: ['codebuild:BatchGetBuilds', 'codebuild:StartBuild', 'codebuild:StopBuild'],
       }),
     );
 

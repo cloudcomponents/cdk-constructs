@@ -1,7 +1,7 @@
 import * as path from 'path';
-import { Construct, CustomResource, Duration } from '@aws-cdk/core';
-import { IBucket } from '@aws-cdk/aws-s3';
 import { SingletonFunction, Code, Runtime } from '@aws-cdk/aws-lambda';
+import { IBucket } from '@aws-cdk/aws-s3';
+import { Construct, CustomResource, Duration } from '@aws-cdk/core';
 import { Provider } from '@aws-cdk/custom-resources';
 
 export interface EmptyBucketProps {

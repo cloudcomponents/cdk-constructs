@@ -1,11 +1,4 @@
-import {
-  App,
-  BootstraplessSynthesizer,
-  Construct,
-  DefaultStackSynthesizer,
-  IStackSynthesizer,
-  Stack,
-} from '@aws-cdk/core';
+import { App, BootstraplessSynthesizer, Construct, DefaultStackSynthesizer, IStackSynthesizer, Stack } from '@aws-cdk/core';
 
 export class BaseEdgeConstruct extends Construct {
   protected readonly stack: Stack;
@@ -16,10 +9,7 @@ export class BaseEdgeConstruct extends Construct {
 
     this.stack = Stack.of(this);
 
-    this.edgeStack =
-      this.stack.region !== 'us-east-1'
-        ? this.getOrCreateCrossRegionSupportStack()
-        : this.stack;
+    this.edgeStack = this.stack.region !== 'us-east-1' ? this.getOrCreateCrossRegionSupportStack() : this.stack;
   }
 
   private getOrCreateCrossRegionSupportStack(): Stack {
@@ -49,9 +39,7 @@ export class BaseEdgeConstruct extends Construct {
   private requireApp(): App {
     const app = this.node.root;
     if (!app || !App.isApp(app)) {
-      throw new Error(
-        'Stacks which uses edge constructs must be part of a CDK app',
-      );
+      throw new Error('Stacks which uses edge constructs must be part of a CDK app');
     }
     return app;
   }
@@ -64,8 +52,7 @@ export class BaseEdgeConstruct extends Construct {
       // of the account in this replication region
       return new BootstraplessSynthesizer({
         deployRoleArn: this.stack.synthesizer.deployRoleArn,
-        cloudFormationExecutionRoleArn: this.stack.synthesizer
-          .cloudFormationExecutionRoleArn,
+        cloudFormationExecutionRoleArn: this.stack.synthesizer.cloudFormationExecutionRoleArn,
       });
     } else {
       // any other synthesizer: just return undefined

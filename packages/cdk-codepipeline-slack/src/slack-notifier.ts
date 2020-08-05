@@ -1,10 +1,10 @@
 import * as path from 'path';
-import { Construct } from '@aws-cdk/core';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { IPipeline } from '@aws-cdk/aws-codepipeline';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { Rule } from '@aws-cdk/aws-events';
+import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Construct } from '@aws-cdk/core';
 
 export interface SlackNotifierProps {
   readonly slackBotToken: string;
@@ -23,16 +23,7 @@ export class SlackNotifier extends Construct {
   constructor(scope: Construct, id: string, props: SlackNotifierProps) {
     super(scope, id);
 
-    const {
-      slackBotToken,
-      slackSigningSecret,
-      slackChannel,
-      slackChannelId,
-      slackBotName,
-      slackBotIcon,
-      pipeline,
-      stageNames,
-    } = props;
+    const { slackBotToken, slackSigningSecret, slackChannel, slackChannelId, slackBotName, slackBotIcon, pipeline, stageNames } = props;
 
     this.environment = {
       SLACK_BOT_TOKEN: slackBotToken,
@@ -58,10 +49,7 @@ export class SlackNotifier extends Construct {
     notifier.addToRolePolicy(
       new PolicyStatement({
         resources: [pipeline.pipelineArn],
-        actions: [
-          'codepipeline:GetPipelineState',
-          'codepipeline:GetPipelineExecution',
-        ],
+        actions: ['codepipeline:GetPipelineState', 'codepipeline:GetPipelineExecution'],
       }),
     );
 
@@ -90,14 +78,10 @@ export class SlackNotifier extends Construct {
 
   protected validate(this: SlackNotifier): string[] {
     if (this.environment.SLACK_CHANNEL && this.environment.SLACK_CHANNEL_ID) {
-      return [
-        'Redundant Configuration: Please configure slackChannel by id (prop slackChannelId) OR name (prop slackChannel)',
-      ];
+      return ['Redundant Configuration: Please configure slackChannel by id (prop slackChannelId) OR name (prop slackChannel)'];
     }
     if (!this.environment.SLACK_CHANNEL && !this.environment.SLACK_CHANNEL_ID) {
-      return [
-        'Missing Configuration: Please configure slackChannel by id (prop slackChannelId) or name (prop slackChannel)',
-      ];
+      return ['Missing Configuration: Please configure slackChannel by id (prop slackChannelId) or name (prop slackChannel)'];
     }
     return [];
   }

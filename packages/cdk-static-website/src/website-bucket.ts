@@ -55,14 +55,7 @@ export class WebsiteBucket extends Construct {
   constructor(scope: Construct, id: string, props: WebsiteBucketProps = {}) {
     super(scope, id);
 
-    const {
-      bucketName,
-      removalPolicy = RemovalPolicy.RETAIN,
-      disableUpload = false,
-      source,
-      websiteIndexDocument,
-      websiteErrorDocument,
-    } = props;
+    const { bucketName, removalPolicy = RemovalPolicy.RETAIN, disableUpload = false, source, websiteIndexDocument, websiteErrorDocument } = props;
 
     const bucket = new Bucket(this, 'WebsiteBucket', {
       bucketName,
@@ -77,13 +70,9 @@ export class WebsiteBucket extends Construct {
       });
     }
 
-    const originAccessIdentity = new OriginAccessIdentity(
-      this,
-      'OriginAccessIdentity',
-      {
-        comment: `CloudFront OriginAccessIdentity for ${bucket.bucketName}`,
-      },
-    );
+    const originAccessIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity', {
+      comment: `CloudFront OriginAccessIdentity for ${bucket.bucketName}`,
+    });
 
     bucket.grantRead(originAccessIdentity.grantPrincipal);
 

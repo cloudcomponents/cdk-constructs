@@ -1,9 +1,9 @@
 import * as path from 'path';
-import { Construct } from '@aws-cdk/core';
-import { Code, Function, IFunction, Runtime } from '@aws-cdk/aws-lambda';
-import { ITopic } from '@aws-cdk/aws-sns';
-import { SnsEventSource } from '@aws-cdk/aws-lambda-event-sources';
 import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
+import { Code, Function, IFunction, Runtime } from '@aws-cdk/aws-lambda';
+import { SnsEventSource } from '@aws-cdk/aws-lambda-event-sources';
+import { ITopic } from '@aws-cdk/aws-sns';
+import { Construct } from '@aws-cdk/core';
 
 export interface MSTeamsIncomingWebhookConfigurationProps {
   /**
@@ -32,24 +32,17 @@ export interface MSTeamsIncomingWebhookConfigurationProps {
 export class MSTeamsIncomingWebhookConfiguration extends Construct {
   private incomingWebhook: IFunction;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    props: MSTeamsIncomingWebhookConfigurationProps,
-  ) {
+  constructor(scope: Construct, id: string, props: MSTeamsIncomingWebhookConfigurationProps) {
     super(scope, id);
 
     this.incomingWebhook = new Function(this, 'Function', {
       runtime: Runtime.NODEJS_12_X,
-      code: Code.fromAsset(
-        path.join(__dirname, 'lambdas', 'msteams-incoming-webhook'),
-      ),
+      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'msteams-incoming-webhook')),
       handler: 'index.handler',
       environment: {
         URL: props.url,
         THEME_COLOR: props.themeColor || '#CEDB56',
-        ACCOUNT_LABEL_MODE:
-          props.accountLabelMode || AccountLabelMode.ID_AND_ALIAS,
+        ACCOUNT_LABEL_MODE: props.accountLabelMode || AccountLabelMode.ID_AND_ALIAS,
       },
     });
 

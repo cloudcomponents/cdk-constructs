@@ -1,4 +1,3 @@
-import { Construct, Stack } from '@aws-cdk/core';
 import {
   Cache,
   LocalCacheMode,
@@ -11,9 +10,10 @@ import {
 } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-ecr';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Construct, Stack } from '@aws-cdk/core';
 
-import { IDummyTaskDefinition } from './dummy-task-definition';
 import { BuildSpecGenerator } from './build-spec-generator';
+import { IDummyTaskDefinition } from './dummy-task-definition';
 
 export interface PushImageProjectProps {
   readonly imageRepository: IRepository;
@@ -31,14 +31,8 @@ export class PushImageProject extends PipelineProject {
 
     super(scope, id, {
       projectName: props.projectName,
-      cache:
-        props.cache ||
-        Cache.local(LocalCacheMode.DOCKER_LAYER, LocalCacheMode.CUSTOM),
-      buildSpec:
-        props.buildSpec ||
-        BuildSpec.fromObject(
-          BuildSpecGenerator.default({ account, region }).render(),
-        ),
+      cache: props.cache || Cache.local(LocalCacheMode.DOCKER_LAYER, LocalCacheMode.CUSTOM),
+      buildSpec: props.buildSpec || BuildSpec.fromObject(BuildSpecGenerator.default({ account, region }).render()),
       environment: {
         buildImage: LinuxBuildImage.STANDARD_4_0,
         computeType: props.computeType || ComputeType.SMALL,

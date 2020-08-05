@@ -1,9 +1,4 @@
-import {
-  Construct,
-  CustomResource,
-  CustomResourceProvider,
-  CustomResourceProviderRuntime,
-} from '@aws-cdk/core';
+import { Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
 
 import { approvalRuleTemplateDir } from './directories';
 
@@ -40,34 +35,26 @@ export class ApprovalRuleTemplate extends Construct {
   constructor(scope: Construct, id: string, props: ApprovalRuleTemplateProps) {
     super(scope, id);
 
-    const {
-      approvalRuleTemplateName,
-      approvalRuleTemplateDescription,
-      template,
-    } = props;
+    const { approvalRuleTemplateName, approvalRuleTemplateDescription, template } = props;
 
-    const serviceToken = CustomResourceProvider.getOrCreate(
-      this,
-      'Custom::ApprovalRuleTemplate',
-      {
-        codeDirectory: approvalRuleTemplateDir,
-        runtime: CustomResourceProviderRuntime.NODEJS_12,
-        policyStatements: [
-          {
-            Effect: 'Allow',
-            Action: [
-              'codecommit:CreateApprovalRuleTemplate',
-              'codecommit:DeleteApprovalRuleTemplate',
-              'codecommit:GetApprovalRuleTemplate',
-              'codecommit:UpdateApprovalRuleTemplateContent',
-              'codecommit:UpdateApprovalRuleTemplateDescription',
-              'codecommit:UpdateApprovalRuleTemplateName',
-            ],
-            Resource: '*',
-          },
-        ],
-      },
-    );
+    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::ApprovalRuleTemplate', {
+      codeDirectory: approvalRuleTemplateDir,
+      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      policyStatements: [
+        {
+          Effect: 'Allow',
+          Action: [
+            'codecommit:CreateApprovalRuleTemplate',
+            'codecommit:DeleteApprovalRuleTemplate',
+            'codecommit:GetApprovalRuleTemplate',
+            'codecommit:UpdateApprovalRuleTemplateContent',
+            'codecommit:UpdateApprovalRuleTemplateDescription',
+            'codecommit:UpdateApprovalRuleTemplateName',
+          ],
+          Resource: '*',
+        },
+      ],
+    });
 
     const resource = new CustomResource(this, 'CustomResource', {
       serviceToken,
@@ -76,9 +63,7 @@ export class ApprovalRuleTemplate extends Construct {
         ApprovalRuleTemplateName: approvalRuleTemplateName,
         ApprovalRuleTemplateDescription: approvalRuleTemplateDescription,
         Template: {
-          DestinationReferences: template.branches?.map(
-            (branch) => `refs/heads/${branch}`,
-          ),
+          DestinationReferences: template.branches?.map((branch) => `refs/heads/${branch}`),
           Approvers: {
             NumberOfApprovalsNeeded: template.approvers.numberOfApprovalsNeeded,
             ApprovalPoolMembers: template.approvers.approvalPoolMembers,
@@ -87,8 +72,6 @@ export class ApprovalRuleTemplate extends Construct {
       },
     });
 
-    this.approvalRuleTemplateName = resource.getAttString(
-      'ApprovalRuleTemplateName',
-    );
+    this.approvalRuleTemplateName = resource.getAttString('ApprovalRuleTemplateName');
   }
 }

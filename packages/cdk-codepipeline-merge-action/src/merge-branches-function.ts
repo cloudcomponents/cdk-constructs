@@ -1,8 +1,8 @@
 import * as path from 'path';
-import { Construct } from '@aws-cdk/core';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
+import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Construct } from '@aws-cdk/core';
 
 export interface MergeBranchesFunctionProps {
   /**

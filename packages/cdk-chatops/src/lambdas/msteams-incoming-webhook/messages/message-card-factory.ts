@@ -1,13 +1,9 @@
-import { SnsMessage } from '../sns-message';
 import { MessageCard } from '../message-card';
+import { SnsMessage } from '../sns-message';
 
+import { PipelineExecutionMessage, StageExecutionMessage, ActionExecutionMessage } from './developer-tools';
 import { MessageOptions } from './message';
 import { RawMessage } from './raw-message';
-import {
-  PipelineExecutionMessage,
-  StageExecutionMessage,
-  ActionExecutionMessage,
-} from './developer-tools';
 
 export enum MessageSource {
   'CODE_PIPELINE' = 'aws.codepipeline',
@@ -25,10 +21,7 @@ export interface MessageCardFactoryOptions extends MessageOptions {
 }
 
 export class MessageCardFactory {
-  public static async createNotificationCard(
-    snsMessage: SnsMessage,
-    options: MessageCardFactoryOptions,
-  ): Promise<MessageCard> {
+  public static async createNotificationCard(snsMessage: SnsMessage, options: MessageCardFactoryOptions): Promise<MessageCard> {
     const { showRawMessages = false, ...messageOptions } = options;
 
     const message = (() => {
@@ -55,10 +48,7 @@ export class MessageCardFactory {
     return message.render();
   }
 
-  public static createErrorCard(
-    error: Error,
-    options: MessageFactoryOptions,
-  ): void {
+  public static createErrorCard(error: Error, options: MessageCardFactoryOptions): void {
     console.log(error, options);
     return;
   }

@@ -1,6 +1,6 @@
 import * as path from 'path';
-import { Construct, Stack, StackProps, RemovalPolicy } from '@aws-cdk/core';
 import { Table, AttributeType } from '@aws-cdk/aws-dynamodb';
+import { Construct, Stack, StackProps, RemovalPolicy } from '@aws-cdk/core';
 //import { Bucket } from '@aws-cdk/aws-s3';
 import { DynamoDBSeeder, Seeds } from '@cloudcomponents/cdk-dynamodb-seeder';
 

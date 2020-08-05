@@ -1,18 +1,12 @@
 import * as path from 'path';
-import { Construct } from '@aws-cdk/core';
-import {
-  ActionCategory,
-  CommonActionProps,
-  IStage,
-  ActionBindOptions,
-  ActionConfig,
-} from '@aws-cdk/aws-codepipeline';
+import { RestApi, LambdaIntegration } from '@aws-cdk/aws-apigateway';
+import { ActionCategory, CommonActionProps, IStage, ActionBindOptions, ActionConfig } from '@aws-cdk/aws-codepipeline';
 import { Action } from '@aws-cdk/aws-codepipeline-actions';
+import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { Topic } from '@aws-cdk/aws-sns';
 import { LambdaSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { RestApi, LambdaIntegration } from '@aws-cdk/aws-apigateway';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Construct } from '@aws-cdk/core';
 
 export interface SlackApprovalActionProps extends CommonActionProps {
   readonly slackBotToken: string;
@@ -42,11 +36,7 @@ export class SlackApprovalAction extends Action {
     this.props = props;
   }
 
-  protected bound(
-    scope: Construct,
-    stage: IStage,
-    options: ActionBindOptions,
-  ): ActionConfig {
+  protected bound(scope: Construct, stage: IStage, options: ActionBindOptions): ActionConfig {
     const environment = {
       SLACK_BOT_TOKEN: this.props.slackBotToken,
       SLACK_SIGNING_SECRET: this.props.slackSigningSecret,
@@ -56,33 +46,23 @@ export class SlackApprovalAction extends Action {
       SLACK_BOT_ICON: this.props.slackBotIcon || ':robot_face:',
     };
 
-    const approvalRequester = new Function(
-      scope,
-      'SlackApprovalRequesterFunction',
-      {
-        runtime: Runtime.NODEJS_10_X,
-        handler: 'index.handler',
-        code: Code.asset(path.join(__dirname, 'lambdas', 'approval-requester')),
-        environment,
-      },
-    );
+    const approvalRequester = new Function(scope, 'SlackApprovalRequesterFunction', {
+      runtime: Runtime.NODEJS_10_X,
+      handler: 'index.handler',
+      code: Code.asset(path.join(__dirname, 'lambdas', 'approval-requester')),
+      environment,
+    });
 
     const topic = new Topic(scope, 'SlackApprovalTopic');
     topic.grantPublish(options.role);
     topic.addSubscription(new LambdaSubscription(approvalRequester));
 
-    const approvalHandler = new Function(
-      scope,
-      'SlackApprovalHandlerFunction',
-      {
-        runtime: Runtime.NODEJS_10_X,
-        handler: 'index.handler',
-        code: Code.fromAsset(
-          path.join(__dirname, 'lambdas', 'approval-handler'),
-        ),
-        environment,
-      },
-    );
+    const approvalHandler = new Function(scope, 'SlackApprovalHandlerFunction', {
+      runtime: Runtime.NODEJS_10_X,
+      handler: 'index.handler',
+      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'approval-handler')),
+      environment,
+    });
 
     const api = new RestApi(scope, 'SlackApprovalApi');
     api.root.addProxy({
@@ -92,9 +72,7 @@ export class SlackApprovalAction extends Action {
     approvalHandler.addToRolePolicy(
       new PolicyStatement({
         actions: ['codepipeline:PutApprovalResult'],
-        resources: [
-          `${stage.pipeline.pipelineArn}/${stage.stageName}/${this.props.actionName}`,
-        ],
+        resources: [`${stage.pipeline.pipelineArn}/${stage.stageName}/${this.props.actionName}`],
       }),
     );
 

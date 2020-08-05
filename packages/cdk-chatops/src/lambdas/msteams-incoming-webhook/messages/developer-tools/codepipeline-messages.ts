@@ -8,9 +8,7 @@ export class PipelineExecutionMessage extends Message {
     super('AWS CodePipeline Notification', snsMessage, options);
   }
 
-  protected async renderMessageCard(
-    messageCard: MessageCard,
-  ): Promise<MessageCard> {
+  protected renderMessageCard(messageCard: MessageCard): MessageCard {
     if (this.snsMessage.detail.state === 'FAILED') {
       const { failedActions } = this.snsMessage.additionalAttributes;
 
@@ -83,9 +81,7 @@ export class ActionExecutionMessage extends Message {
     super('AWS CodePipeline Notification', snsMessage, options);
   }
 
-  protected async renderMessageCard(
-    messageCard: MessageCard,
-  ): Promise<MessageCard> {
+  protected renderMessageCard(messageCard: MessageCard): MessageCard {
     if (this.snsMessage.detail.state === 'STARTED') {
       if (this.snsMessage.detail?.action === 'Approval') {
         messageCard.addSection({
@@ -108,8 +104,7 @@ export class ActionExecutionMessage extends Message {
             },
             {
               name: 'ExternalEntityLink',
-              value: this.snsMessage.additionalAttributes
-                .externalEntityLink as string,
+              value: this.snsMessage.additionalAttributes.externalEntityLink as string,
             },
           ],
         });
@@ -198,9 +193,7 @@ export class StageExecutionMessage extends Message {
     super('AWS CodePipeline Notification', snsMessage, options);
   }
 
-  protected async renderMessageCard(
-    messageCard: MessageCard,
-  ): Promise<MessageCard> {
+  protected renderMessageCard(messageCard: MessageCard): MessageCard {
     messageCard.addSection({
       facts: [
         {

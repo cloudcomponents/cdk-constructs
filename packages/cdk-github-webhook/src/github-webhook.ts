@@ -1,6 +1,6 @@
 import * as path from 'path';
-import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
+import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 
 export interface GithubWebhookProps {
   /**
@@ -40,13 +40,7 @@ export class GithubWebhook extends Construct {
       timeout: Duration.minutes(15),
     });
 
-    const {
-      githubApiToken,
-      githubRepoUrl,
-      payloadUrl,
-      events,
-      logLevel,
-    } = props;
+    const { githubApiToken, githubRepoUrl, payloadUrl, events, logLevel } = props;
 
     new CustomResource(this, 'CustomResource', {
       serviceToken: handler.functionArn,

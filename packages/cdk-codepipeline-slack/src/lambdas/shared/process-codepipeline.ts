@@ -1,15 +1,9 @@
-import { CodePipelineCloudWatchEvent } from 'aws-lambda';
+import type { CodePipelineCloudWatchEvent } from 'aws-lambda';
 import { CodePipeline } from 'aws-sdk';
 import { NotifierMessageBuilder } from './notifier-message-builder';
 import { SlackBot } from './slack-bot';
 
-const {
-  SLACK_BOT_TOKEN,
-  SLACK_CHANNEL,
-  SLACK_CHANNEL_ID,
-  SLACK_BOT_NAME,
-  SLACK_BOT_ICON,
-} = process.env;
+const { SLACK_BOT_TOKEN, SLACK_CHANNEL, SLACK_CHANNEL_ID, SLACK_BOT_NAME, SLACK_BOT_ICON } = process.env;
 
 const bot = new SlackBot({
   token: SLACK_BOT_TOKEN as string,
@@ -21,20 +15,15 @@ const bot = new SlackBot({
 
 const codePipeline = new CodePipeline({ apiVersion: '2015-07-09' });
 
-export const processCodePipeline = async (
-  event: CodePipelineCloudWatchEvent,
-): Promise<void> => {
+export const processCodePipeline = async (event: CodePipelineCloudWatchEvent): Promise<void> => {
   const executionId = event.detail['execution-id'];
-  const isStateChange =
-    event['detail-type'] === 'CodePipeline Stage Execution State Change';
+  const isStateChange = event['detail-type'] === 'CodePipeline Stage Execution State Change';
 
   if (!isStateChange) {
     return;
   }
 
-  const pipelineState = await codePipeline
-    .getPipelineState({ name: event.detail.pipeline })
-    .promise();
+  const pipelineState = await codePipeline.getPipelineState({ name: event.detail.pipeline }).promise();
 
   const { pipelineExecution } = await codePipeline
     .getPipelineExecution({
@@ -43,11 +32,7 @@ export const processCodePipeline = async (
     })
     .promise();
 
-  const notifierMessageBuilder = NotifierMessageBuilder.fromPipelineEventAndPipelineState(
-    event,
-    pipelineState,
-    pipelineExecution,
-  );
+  const notifierMessageBuilder = NotifierMessageBuilder.fromPipelineEventAndPipelineState(event, pipelineState, pipelineExecution);
 
   //  builder.updatePipelineEvent(event);
 
@@ -55,7 +40,7 @@ export const processCodePipeline = async (
 
   const { message } = notifierMessageBuilder;
 
-  if (existingMessage) {
+  if (existingMessage?.ts) {
     message.ts = existingMessage.ts;
     await bot.updateMessage(existingMessage.ts, message);
   } else {

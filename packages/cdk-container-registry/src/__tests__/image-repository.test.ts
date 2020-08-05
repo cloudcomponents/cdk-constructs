@@ -1,5 +1,5 @@
-import { Stack } from '@aws-cdk/core';
 import { Topic } from '@aws-cdk/aws-sns';
+import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
 import { ImageRepository, Severity } from '../image-repository';

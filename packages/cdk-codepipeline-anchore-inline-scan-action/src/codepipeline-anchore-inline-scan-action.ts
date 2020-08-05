@@ -1,25 +1,10 @@
-import { Construct } from '@aws-cdk/core';
-import {
-  BuildSpec,
-  Cache,
-  LocalCacheMode,
-  LinuxBuildImage,
-  PipelineProject,
-  ComputeType,
-} from '@aws-cdk/aws-codebuild';
-import {
-  ActionBindOptions,
-  ActionCategory,
-  ActionConfig,
-  Artifact,
-  CommonAwsActionProps,
-  IStage,
-} from '@aws-cdk/aws-codepipeline';
+import { BuildSpec, Cache, LocalCacheMode, LinuxBuildImage, PipelineProject, ComputeType } from '@aws-cdk/aws-codebuild';
+import { ActionBindOptions, ActionCategory, ActionConfig, Artifact, CommonAwsActionProps, IStage } from '@aws-cdk/aws-codepipeline';
 import { Action } from '@aws-cdk/aws-codepipeline-actions';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Construct } from '@aws-cdk/core';
 
-export interface CodePipelineAnchoreInlineScanActionProps
-  extends CommonAwsActionProps {
+export interface CodePipelineAnchoreInlineScanActionProps extends CommonAwsActionProps {
   /**
    * The source to use as input for this action.
    */
@@ -75,19 +60,14 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
     this.props = props;
   }
 
-  protected bound(
-    scope: Construct,
-    _stage: IStage,
-    options: ActionBindOptions,
-  ): ActionConfig {
+  protected bound(scope: Construct, _stage: IStage, options: ActionBindOptions): ActionConfig {
     const buildImage = LinuxBuildImage.STANDARD_4_0;
 
     const version = this.props.version ?? 'v0.7.2';
 
     const timeout = this.props.timeout ?? 300;
 
-    const policyBundlePath =
-      this.props.policyBundlePath ?? './policy_bundle.json';
+    const policyBundlePath = this.props.policyBundlePath ?? './policy_bundle.json';
 
     const url = `https://ci-tools.anchore.io/inline_scan-${version}`;
 
@@ -102,11 +82,7 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
         version: '0.2',
         phases: {
           pre_build: {
-            commands: [
-              'echo Build started on `date`',
-              'docker build -t image2scan:ci .',
-              'echo Build completed on `date`',
-            ],
+            commands: ['echo Build started on `date`', 'docker build -t image2scan:ci .', 'echo Build completed on `date`'],
           },
           build: {
             commands: [
@@ -123,11 +99,7 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
     options.role.addToPolicy(
       new PolicyStatement({
         resources: [project.projectArn],
-        actions: [
-          'codebuild:BatchGetBuilds',
-          'codebuild:StartBuild',
-          'codebuild:StopBuild',
-        ],
+        actions: ['codebuild:BatchGetBuilds', 'codebuild:StartBuild', 'codebuild:StopBuild'],
       }),
     );
 

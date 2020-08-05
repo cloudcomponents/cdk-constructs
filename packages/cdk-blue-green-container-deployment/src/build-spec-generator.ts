@@ -41,8 +41,6 @@ export interface DefaultBuildSpecProps {
 }
 
 export class BuildSpecGenerator {
-  private constructor(private readonly spec: BuildSpecStructure) {}
-
   public static empty(): BuildSpecGenerator {
     return new BuildSpecGenerator({ version: '0.2' });
   }
@@ -97,6 +95,8 @@ export class BuildSpecGenerator {
       },
     });
   }
+
+  private constructor(private readonly spec: BuildSpecStructure) {}
 
   public render(): BuildSpecStructure {
     return this.spec;

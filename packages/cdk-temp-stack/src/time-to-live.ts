@@ -1,9 +1,9 @@
 import * as path from 'path';
-import { Aws, Construct, Duration, Stack } from '@aws-cdk/core';
-import { Code, Runtime, Function } from '@aws-cdk/aws-lambda';
-import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Rule, Schedule, RuleTargetInput } from '@aws-cdk/aws-events';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
+import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
+import { Code, Runtime, Function } from '@aws-cdk/aws-lambda';
+import { Aws, Construct, Duration, Stack } from '@aws-cdk/core';
 
 export interface TimeToLiveProps {
   /**
@@ -16,9 +16,7 @@ export class TimeToLive extends Construct {
   constructor(scope: Construct, id: string, props: TimeToLiveProps) {
     super(scope, id);
 
-    Stack.of(this).node.addWarning(
-      `Warning! The stack destroys itself in ${props.ttl.toMinutes()} minutes.\n`,
-    );
+    Stack.of(this).node.addWarning(`Warning! The stack destroys itself in ${props.ttl.toMinutes()} minutes.\n`);
 
     const deleteStack = new Function(this, 'DeleteStack', {
       runtime: Runtime.NODEJS_12_X,
@@ -64,9 +62,7 @@ export class TimeToLive extends Construct {
     });
 
     if (count > 1) {
-      return [
-        `Found ${count} instances of the TimeToLive construct in the stack. The construct may only be added once per stack.`,
-      ];
+      return [`Found ${count} instances of the TimeToLive construct in the stack. The construct may only be added once per stack.`];
     }
 
     return [];

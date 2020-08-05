@@ -1,15 +1,8 @@
-import { Construct } from '@aws-cdk/core';
 import { CfnSlackChannelConfiguration } from '@aws-cdk/aws-chatbot';
-import {
-  IRole,
-  Role,
-  ServicePrincipal,
-  PolicyStatement,
-  Effect,
-  ManagedPolicy,
-} from '@aws-cdk/aws-iam';
-import { ITopic } from '@aws-cdk/aws-sns';
+import { IRole, Role, ServicePrincipal, PolicyStatement, Effect, ManagedPolicy } from '@aws-cdk/aws-iam';
 import { IFunction } from '@aws-cdk/aws-lambda';
+import { ITopic } from '@aws-cdk/aws-sns';
+import { Construct } from '@aws-cdk/core';
 
 export interface ISlackChannelConfiguration {
   readonly configurationArn: string;
@@ -70,11 +63,7 @@ export class SlackChannelConfiguration extends Construct {
   public readonly configurationArn: string;
   public readonly role: IRole;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    props: SlackChannelConfigurationProps,
-  ) {
+  constructor(scope: Construct, id: string, props: SlackChannelConfigurationProps) {
     super(scope, id);
 
     this.role =
@@ -83,20 +72,14 @@ export class SlackChannelConfiguration extends Construct {
         assumedBy: new ServicePrincipal('chatbot.amazonaws.com'),
       });
 
-    const configuration = new CfnSlackChannelConfiguration(
-      this,
-      'SlackChannelConfiguration',
-      {
-        configurationName: props.configurationName,
-        iamRoleArn: this.role.roleArn,
-        slackChannelId: props.slackChannelId,
-        slackWorkspaceId: props.slackWorkspaceId,
-        snsTopicArns: props.notificationTopics
-          ? props.notificationTopics.map((topic) => topic.topicArn)
-          : undefined,
-        loggingLevel: props.loggingLevel || LoggingLevel.NONE,
-      },
-    );
+    const configuration = new CfnSlackChannelConfiguration(this, 'SlackChannelConfiguration', {
+      configurationName: props.configurationName,
+      iamRoleArn: this.role.roleArn,
+      slackChannelId: props.slackChannelId,
+      slackWorkspaceId: props.slackWorkspaceId,
+      snsTopicArns: props.notificationTopics ? props.notificationTopics.map((topic) => topic.topicArn) : undefined,
+      loggingLevel: props.loggingLevel || LoggingLevel.NONE,
+    });
 
     this.configurationArn = configuration.ref;
   }
@@ -115,11 +98,7 @@ export class SlackChannelConfiguration extends Construct {
     this.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: [
-          'cloudwatch:Describe*',
-          'cloudwatch:Get*',
-          'cloudwatch:List*',
-        ],
+        actions: ['cloudwatch:Describe*', 'cloudwatch:Get*', 'cloudwatch:List*'],
         resources: ['*'],
       }),
     );
@@ -151,9 +130,7 @@ export class SlackChannelConfiguration extends Construct {
       }),
     );
 
-    this.role.addManagedPolicy(
-      ManagedPolicy.fromAwsManagedPolicyName('ReadOnlyAccess'),
-    );
+    this.role.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('ReadOnlyAccess'));
   }
 
   /**
@@ -173,9 +150,7 @@ export class SlackChannelConfiguration extends Construct {
    * Allows calling AWS Support APIs in supportzed clients
    */
   public addSupportCommandPermissions(): void {
-    this.role.addManagedPolicy(
-      ManagedPolicy.fromAwsManagedPolicyName('AWSSupportAccess'),
-    );
+    this.role.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('AWSSupportAccess'));
   }
 }
 

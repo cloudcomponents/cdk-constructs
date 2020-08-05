@@ -1,26 +1,13 @@
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
+import { CodeBuildAction, CodeCommitSourceAction, CodeDeployEcsDeployAction } from '@aws-cdk/aws-codepipeline-actions';
 import { Vpc, Port } from '@aws-cdk/aws-ec2';
 import { Cluster } from '@aws-cdk/aws-ecs';
-import {
-  ApplicationLoadBalancer,
-  ApplicationTargetGroup,
-  TargetType,
-} from '@aws-cdk/aws-elasticloadbalancingv2';
-import {
-  CodeBuildAction,
-  CodeCommitSourceAction,
-  CodeDeployEcsDeployAction,
-} from '@aws-cdk/aws-codepipeline-actions';
+import { ApplicationLoadBalancer, ApplicationTargetGroup, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 
+import { EcsService, DummyTaskDefinition, EcsDeploymentGroup, PushImageProject } from '@cloudcomponents/cdk-blue-green-container-deployment';
 import { ImageRepository } from '@cloudcomponents/cdk-container-registry';
-import {
-  EcsService,
-  DummyTaskDefinition,
-  EcsDeploymentGroup,
-  PushImageProject,
-} from '@cloudcomponents/cdk-blue-green-container-deployment';
 
 export class BlueGreenContainerDeploymentStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -48,43 +35,31 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       port: 8080,
     });
 
-    const prodTargetGroup = new ApplicationTargetGroup(
-      this,
-      'ProdTargetGroup',
-      {
-        port: 80,
-        targetType: TargetType.IP,
-        vpc,
-      },
-    );
+    const prodTargetGroup = new ApplicationTargetGroup(this, 'ProdTargetGroup', {
+      port: 80,
+      targetType: TargetType.IP,
+      vpc,
+    });
 
     prodListener.addTargetGroups('AddProdTg', {
       targetGroups: [prodTargetGroup],
     });
 
-    const testTargetGroup = new ApplicationTargetGroup(
-      this,
-      'TestTargetGroup',
-      {
-        port: 8080,
-        targetType: TargetType.IP,
-        vpc,
-      },
-    );
+    const testTargetGroup = new ApplicationTargetGroup(this, 'TestTargetGroup', {
+      port: 8080,
+      targetType: TargetType.IP,
+      vpc,
+    });
 
     testListener.addTargetGroups('AddTestTg', {
       targetGroups: [testTargetGroup],
     });
 
     // Will be replaced by CodeDeploy in CodePipeline
-    const taskDefinition = new DummyTaskDefinition(
-      this,
-      'DummyTaskDefinition',
-      {
-        image: 'nginx',
-        family: 'blue-green',
-      },
-    );
+    const taskDefinition = new DummyTaskDefinition(this, 'DummyTaskDefinition', {
+      image: 'nginx',
+      family: 'blue-green',
+    });
 
     const ecsService = new EcsService(this, 'EcsService', {
       cluster,
@@ -101,10 +76,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       applicationName: 'blue-green-application',
       deploymentGroupName: 'blue-green-deployment-group',
       ecsServices: [ecsService],
-      targetGroupNames: [
-        prodTargetGroup.targetGroupName,
-        testTargetGroup.targetGroupName,
-      ],
+      targetGroupNames: [prodTargetGroup.targetGroupName, testTargetGroup.targetGroupName],
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
       terminationWaitTimeInMinutes: 100,

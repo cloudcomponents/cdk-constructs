@@ -1,6 +1,6 @@
 import * as path from 'path';
-import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
+import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 
 export interface StripeWebhookProps {
   readonly secretKey: string;

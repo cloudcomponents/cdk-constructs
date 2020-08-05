@@ -1,19 +1,9 @@
 import * as path from 'path';
-import {
-  Construct,
-  CustomResource,
-  CustomResourceProvider,
-  CustomResourceProviderRuntime,
-} from '@aws-cdk/core';
-import {
-  IConnectable,
-  Connections,
-  SecurityGroup,
-  Port,
-} from '@aws-cdk/aws-ec2';
-import { ITargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
+import { IConnectable, Connections, SecurityGroup, Port } from '@aws-cdk/aws-ec2';
 import { ICluster, LaunchType } from '@aws-cdk/aws-ecs';
+import { ITargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { Effect } from '@aws-cdk/aws-iam';
+import { Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
 
 import { DummyTaskDefinition } from './dummy-task-definition';
 
@@ -62,31 +52,22 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
       }),
     ];
 
-    const serviceToken = CustomResourceProvider.getOrCreate(
-      this,
-      'Custom::BlueGreenService',
-      {
-        codeDirectory: path.join(__dirname, 'lambdas', 'ecs-service'),
-        runtime: CustomResourceProviderRuntime.NODEJS_12,
-        policyStatements: [
-          {
-            Effect: Effect.ALLOW,
-            Action: [
-              'ecs:CreateService',
-              'ecs:UpdateService',
-              'ecs:DeleteService',
-              'ecs:DescribeServices',
-            ],
-            Resource: '*',
-          },
-          {
-            Effect: Effect.ALLOW,
-            Action: ['iam:PassRole'],
-            Resource: taskDefinition.executionRole.roleArn,
-          },
-        ],
-      },
-    );
+    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::BlueGreenService', {
+      codeDirectory: path.join(__dirname, 'lambdas', 'ecs-service'),
+      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      policyStatements: [
+        {
+          Effect: Effect.ALLOW,
+          Action: ['ecs:CreateService', 'ecs:UpdateService', 'ecs:DeleteService', 'ecs:DescribeServices'],
+          Resource: '*',
+        },
+        {
+          Effect: Effect.ALLOW,
+          Action: ['iam:PassRole'],
+          Resource: taskDefinition.executionRole.roleArn,
+        },
+      ],
+    });
 
     const service = new CustomResource(this, 'CustomResource', {
       serviceToken,

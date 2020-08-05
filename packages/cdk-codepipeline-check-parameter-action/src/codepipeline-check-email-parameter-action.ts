@@ -1,12 +1,8 @@
 import * as emailRegex from 'email-regex';
 
-import {
-  CodePipelineCheckParameterAction,
-  CommonCodePipelineCheckParameterActionProps,
-} from './codepipeline-check-parameter-action';
+import { CodePipelineCheckParameterAction, CommonCodePipelineCheckParameterActionProps } from './codepipeline-check-parameter-action';
 
-export interface CodePipelineCheckEmailParameterActionProps
-  extends CommonCodePipelineCheckParameterActionProps {
+export interface CodePipelineCheckEmailParameterActionProps extends CommonCodePipelineCheckParameterActionProps {
   /**
    * Only match an exact string
    *

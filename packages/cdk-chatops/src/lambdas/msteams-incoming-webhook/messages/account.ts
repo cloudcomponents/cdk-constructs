@@ -5,20 +5,20 @@ let accountAlias = '';
 export class Account {
   constructor(private readonly accountId: string) {}
 
-  public async renderLabel(
-    accountLabelMode: AccountLabelMode,
-  ): Promise<string> {
+  public async renderLabel(accountLabelMode?: AccountLabelMode): Promise<string> {
     switch (accountLabelMode) {
       case AccountLabelMode.ID: {
         return `Account: ${this.accountId}`;
       }
-      case AccountLabelMode.ALIAS:
+      case AccountLabelMode.ALIAS: {
+        const alias = await this.getAccountAlias();
+        return `Account: ${alias}`;
+      }
+      case AccountLabelMode.ID_AND_ALIAS:
       default: {
         const alias = await this.getAccountAlias();
         // return 'Account: cloudcomponents (1234567890)';
-        return accountLabelMode === AccountLabelMode.ALIAS
-          ? `Account: ${alias} (${this.accountId})`
-          : `Account: ${alias} (${this.accountId})`;
+        return `Account: ${alias} (${this.accountId})`;
       }
     }
   }
@@ -31,9 +31,7 @@ export class Account {
     if (!accountAlias) {
       const iam = new IAM();
 
-      const {
-        AccountAliases: aliases,
-      } = await iam.listAccountAliases().promise();
+      const { AccountAliases: aliases } = await iam.listAccountAliases().promise();
 
       accountAlias = aliases[0];
     }

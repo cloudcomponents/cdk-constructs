@@ -1,8 +1,8 @@
-import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
-import { StringParameter } from '@aws-cdk/aws-ssm';
 import { SecurityPolicyProtocol } from '@aws-cdk/aws-cloudfront';
-import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
+import { StringParameter } from '@aws-cdk/aws-ssm';
+import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
 import { HttpHeaders } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
+import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
 
 export class StaticWebsiteStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
@@ -12,8 +12,7 @@ export class StaticWebsiteStack extends Stack {
       httpHeaders: {
         'Content-Security-Policy':
           "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
-        'Strict-Transport-Security':
-          'max-age=31536000; includeSubdomains; preload',
+        'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload',
         'Referrer-Policy': 'same-origin',
         'X-XSS-Protection': '1; mode=block',
         'X-Frame-Options': 'DENY',
@@ -22,10 +21,7 @@ export class StaticWebsiteStack extends Stack {
       },
     });
 
-    const certificateArn = StringParameter.valueFromLookup(
-      this,
-      '/certificate/cloudcomponents.org',
-    );
+    const certificateArn = StringParameter.valueFromLookup(this, '/certificate/cloudcomponents.org');
 
     const website = new StaticWebsite(this, 'StaticWebsite', {
       bucketConfiguration: {
@@ -46,10 +42,7 @@ export class StaticWebsiteWithExistingSourcesAndSecurityPolicyStack extends Stac
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const certificateArn = StringParameter.valueFromLookup(
-      this,
-      '/certificate/cloudcomponents.org',
-    );
+    const certificateArn = StringParameter.valueFromLookup(this, '/certificate/cloudcomponents.org');
 
     new StaticWebsite(this, 'StaticWebsite', {
       bucketConfiguration: {

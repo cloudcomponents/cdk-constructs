@@ -1,4 +1,4 @@
-import {
+import type {
   CloudFormationCustomResourceEvent,
   CloudFormationCustomResourceCreateEvent,
   CloudFormationCustomResourceUpdateEvent,
@@ -29,9 +29,7 @@ export interface BlueGreenServiceProps {
 
 const ecs = new ECS();
 
-const getProperties = (
-  props: CloudFormationCustomResourceEvent['ResourceProperties'],
-): BlueGreenServiceProps => ({
+const getProperties = (props: CloudFormationCustomResourceEvent['ResourceProperties']): BlueGreenServiceProps => ({
   cluster: props.Cluster,
   serviceName: props.ServiceName,
   taskDefinition: props.TaskDefinition,
@@ -45,9 +43,7 @@ const getProperties = (
   schedulingStrategy: props.SchedulingStrategy,
 });
 
-const onCreate = async (
-  event: CloudFormationCustomResourceCreateEvent,
-): Promise<HandlerReturn> => {
+const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
   const {
     cluster,
     serviceName,
@@ -108,12 +104,8 @@ const onCreate = async (
  * updated, a new AWS CodeDeploy deployment should be created.
  * For more information, see CreateDeployment in the AWS CodeDeploy API Reference.
  */
-const onUpdate = async (
-  event: CloudFormationCustomResourceUpdateEvent,
-): Promise<HandlerReturn> => {
-  const { cluster, serviceName, desiredCount } = getProperties(
-    event.ResourceProperties,
-  );
+const onUpdate = async (event: CloudFormationCustomResourceUpdateEvent): Promise<HandlerReturn> => {
+  const { cluster, serviceName, desiredCount } = getProperties(event.ResourceProperties);
 
   const { service } = await ecs
     .updateService({
@@ -133,9 +125,7 @@ const onUpdate = async (
   };
 };
 
-const onDelete = async (
-  event: CloudFormationCustomResourceDeleteEvent,
-): Promise<void> => {
+const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise<void> => {
   const { cluster, serviceName } = getProperties(event.ResourceProperties);
 
   await ecs
@@ -154,9 +144,7 @@ const onDelete = async (
     .promise();
 };
 
-export const handler = async (
-  event: CloudFormationCustomResourceEvent,
-): Promise<HandlerReturn | void> => {
+export const handler = async (event: CloudFormationCustomResourceEvent): Promise<HandlerReturn | void> => {
   const requestType = event.RequestType;
 
   switch (requestType) {

@@ -53,12 +53,7 @@ export class StaticWebsite extends Construct {
   constructor(scope: Construct, id: string, props: StaticWebsiteProps = {}) {
     super(scope, id);
 
-    const {
-      aliasConfiguration,
-      bucketConfiguration,
-      webACLId,
-      disableIPv6,
-    } = props;
+    const { aliasConfiguration, bucketConfiguration, webACLId, disableIPv6 } = props;
 
     const websiteBucket = new WebsiteBucket(this, 'Bucket', {
       ...bucketConfiguration,
@@ -78,11 +73,7 @@ export class StaticWebsite extends Construct {
       aliasConfiguration,
     };
 
-    this.distribution = new CloudFrontWebDistribution(
-      this,
-      'Distribution',
-      distibutionConfig,
-    );
+    this.distribution = new CloudFrontWebDistribution(this, 'Distribution', distibutionConfig);
 
     if (aliasConfiguration) {
       new WebsiteAliasRecord(this, 'AliasRecord', {
@@ -94,18 +85,12 @@ export class StaticWebsite extends Construct {
     }
   }
 
-  public addLambdaFunctionAssociation(
-    assosiation: LambdaFunctionAssociation,
-  ): void {
+  public addLambdaFunctionAssociation(assosiation: LambdaFunctionAssociation): void {
     this.addLambdaFunctionAssociations([assosiation]);
   }
 
-  public addLambdaFunctionAssociations(
-    assosiations: LambdaFunctionAssociation[],
-  ): void {
-    const cfDist = this.distribution.node.findChild(
-      'CFDistribution',
-    ) as CfnDistribution;
+  public addLambdaFunctionAssociations(assosiations: LambdaFunctionAssociation[]): void {
+    const cfDist = this.distribution.node.findChild('CFDistribution') as CfnDistribution;
 
     cfDist.addOverride(
       'Properties.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations',

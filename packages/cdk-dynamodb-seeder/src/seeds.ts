@@ -1,7 +1,7 @@
 import * as fs from 'fs';
-import { Construct } from '@aws-cdk/core';
 import { IBucket, Location } from '@aws-cdk/aws-s3';
 import { Asset, AssetOptions } from '@aws-cdk/aws-s3-assets';
+import { Construct } from '@aws-cdk/core';
 
 export abstract class Seeds {
   /**
@@ -10,11 +10,7 @@ export abstract class Seeds {
    * @param key The object key
    * @param objectVersion Optional S3 object version
    */
-  public static fromBucket(
-    bucket: IBucket,
-    key: string,
-    objectVersion?: string,
-  ): S3Seeds {
+  public static fromBucket(bucket: IBucket, key: string, objectVersion?: string): S3Seeds {
     return new S3Seeds(bucket, key, objectVersion);
   }
 
@@ -32,10 +28,7 @@ export abstract class Seeds {
    * @returns `JsonFileSeeds` associated with the specified S3 object.
    * @param path Path to json seeds file.
    */
-  public static fromJsonFile(
-    path: string,
-    options?: AssetOptions,
-  ): JsonFileSeeds {
+  public static fromJsonFile(path: string, options?: AssetOptions): JsonFileSeeds {
     return new JsonFileSeeds(path, options);
   }
 
@@ -66,11 +59,7 @@ export interface SeedsConfig {
 export class S3Seeds extends Seeds {
   private bucketName: string;
 
-  constructor(
-    bucket: IBucket,
-    private key: string,
-    private objectVersion?: string,
-  ) {
+  constructor(bucket: IBucket, private key: string, private objectVersion?: string) {
     super();
 
     if (!bucket.bucketName) {
@@ -103,9 +92,7 @@ export class InlineSeeds extends Seeds {
     }
 
     if (seeds.length > 4096) {
-      throw new Error(
-        'Inline seeds are too large, must be <= 4096 but is ' + seeds.length,
-      );
+      throw new Error(`Inline seeds are too large, must be <= 4096 but is ${seeds.length}`);
     }
   }
 
@@ -122,10 +109,7 @@ export class InlineSeeds extends Seeds {
 export class JsonFileSeeds extends Seeds {
   private asset?: Asset;
 
-  constructor(
-    public readonly path: string,
-    private readonly options: AssetOptions = {},
-  ) {
+  constructor(public readonly path: string, private readonly options: AssetOptions = {}) {
     super();
   }
 

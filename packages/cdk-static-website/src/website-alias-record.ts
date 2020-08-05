@@ -1,11 +1,5 @@
 import * as crypto from 'crypto';
-import {
-  ARecord,
-  AaaaRecord,
-  HostedZone,
-  IAliasRecordTarget,
-  RecordTarget,
-} from '@aws-cdk/aws-route53';
+import { ARecord, AaaaRecord, HostedZone, IAliasRecordTarget, RecordTarget } from '@aws-cdk/aws-route53';
 import { Construct } from '@aws-cdk/core';
 
 export interface WebsiteAliasRecordProps {
@@ -33,11 +27,7 @@ export class WebsiteAliasRecord extends Construct {
     });
 
     recordNames.forEach((recordName): void => {
-      const hash = crypto
-        .createHash('md5')
-        .update(recordName)
-        .digest('hex')
-        .substr(0, 6);
+      const hash = crypto.createHash('md5').update(recordName).digest('hex').substr(0, 6);
 
       new ARecord(this, `WebsiteAliasRecord${hash}`, {
         zone,

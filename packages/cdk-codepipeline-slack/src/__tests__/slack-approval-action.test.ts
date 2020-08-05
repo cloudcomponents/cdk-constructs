@@ -1,7 +1,7 @@
-import { Stack } from '@aws-cdk/core';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { S3SourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { Bucket } from '@aws-cdk/aws-s3';
+import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
 import { SlackApprovalAction } from '../slack-approval-action';

@@ -1,4 +1,4 @@
-import {
+import type {
   CloudFormationCustomResourceEvent,
   CloudFormationCustomResourceCreateEvent,
   CloudFormationCustomResourceUpdateEvent,
@@ -6,7 +6,11 @@ import {
 } from 'aws-lambda';
 import { CodeDeploy } from 'aws-sdk';
 
-import { RollbackEvent } from '../../ecs-deployment-group';
+enum RollbackEvent {
+  DEPLOYMENT_FAILURE = 'DEPLOYMENT_FAILURE',
+  DEPLOYMENT_STOP_ON_ALARM = 'DEPLOYMENT_STOP_ON_ALARM',
+  DEPLOYMENT_STOP_ON_REQUEST = 'DEPLOYMENT_STOP_ON_REQUEST',
+}
 
 interface HandlerReturn {
   PhysicalResourceId: string;
@@ -27,25 +31,15 @@ export interface EcsDeploymentGroupProps {
 const codeDeploy = new CodeDeploy();
 
 const getProperties = (
-  props:
-    | CloudFormationCustomResourceEvent['ResourceProperties']
-    | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
+  props: CloudFormationCustomResourceEvent['ResourceProperties'] | CloudFormationCustomResourceUpdateEvent['OldResourceProperties'],
 ): EcsDeploymentGroupProps => ({
   applicationName: props.ApplicationName,
   deploymentGroupName: props.DeploymentGroupName,
   serviceRoleArn: props.ServiceRoleArn,
-  ecsServices: props.EcsServices.map(
-    ({
-      ClusterName,
-      ServiceName,
-    }: {
-      ClusterName: string;
-      ServiceName: string;
-    }) => ({
-      clusterName: ClusterName,
-      serviceName: ServiceName,
-    }),
-  ),
+  ecsServices: props.EcsServices.map(({ ClusterName, ServiceName }: { ClusterName: string; ServiceName: string }) => ({
+    clusterName: ClusterName,
+    serviceName: ServiceName,
+  })),
   targetGroupNames: props.TargetGroupNames,
   prodTrafficListenerArn: props.ProdTrafficListenerArn,
   testTrafficListenerArn: props.TestTrafficListenerArn,
@@ -53,9 +47,7 @@ const getProperties = (
   autoRollbackOnEvents: props.AutoRollbackOnEvents,
 });
 
-const onCreate = async (
-  event: CloudFormationCustomResourceCreateEvent,
-): Promise<HandlerReturn> => {
+const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
   const {
     applicationName,
     deploymentGroupName,
@@ -114,9 +106,7 @@ const onCreate = async (
   };
 };
 
-const onUpdate = async (
-  event: CloudFormationCustomResourceUpdateEvent,
-): Promise<HandlerReturn> => {
+const onUpdate = async (event: CloudFormationCustomResourceUpdateEvent): Promise<HandlerReturn> => {
   const newProps = getProperties(event.ResourceProperties);
   const oldProps = getProperties(event.OldResourceProperties);
 
@@ -162,12 +152,8 @@ const onUpdate = async (
   };
 };
 
-const onDelete = async (
-  event: CloudFormationCustomResourceDeleteEvent,
-): Promise<void> => {
-  const { applicationName, deploymentGroupName } = getProperties(
-    event.ResourceProperties,
-  );
+const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise<void> => {
+  const { applicationName, deploymentGroupName } = getProperties(event.ResourceProperties);
 
   await codeDeploy
     .deleteDeploymentGroup({
@@ -177,9 +163,7 @@ const onDelete = async (
     .promise();
 };
 
-export const handler = async (
-  event: CloudFormationCustomResourceEvent,
-): Promise<HandlerReturn | void> => {
+export const handler = async (event: CloudFormationCustomResourceEvent): Promise<HandlerReturn | void> => {
   const requestType = event.RequestType;
 
   switch (requestType) {

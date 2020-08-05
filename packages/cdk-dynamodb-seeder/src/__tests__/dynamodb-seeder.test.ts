@@ -1,7 +1,7 @@
 import * as path from 'path';
-import { Stack } from '@aws-cdk/core';
-import { Bucket } from '@aws-cdk/aws-s3';
 import { AttributeType, Table } from '@aws-cdk/aws-dynamodb';
+import { Bucket } from '@aws-cdk/aws-s3';
+import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
 import { DynamoDBSeeder } from '../dynamodb-seeder';
@@ -101,9 +101,7 @@ test('json file: no json file', () => {
   };
 
   // THEN
-  expect(() => addSeeder()).toThrowError(
-    new Error('Could not convert file to JSON'),
-  );
+  expect(() => addSeeder()).toThrowError(new Error('Could not convert file to JSON'));
 });
 
 test('bucket', () => {
@@ -116,11 +114,7 @@ test('bucket', () => {
     },
   });
 
-  const seedsBucket = Bucket.fromBucketName(
-    stack,
-    'SeedsBucket',
-    'my-seeds-bucket',
-  );
+  const seedsBucket = Bucket.fromBucketName(stack, 'SeedsBucket', 'my-seeds-bucket');
 
   // WHEN
   new DynamoDBSeeder(stack, 'DynamoDBSeeder', {

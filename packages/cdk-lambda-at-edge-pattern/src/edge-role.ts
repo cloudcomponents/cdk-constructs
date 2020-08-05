@@ -1,12 +1,5 @@
+import { IRole, CompositePrincipal, ServicePrincipal, ManagedPolicy, Role, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Construct } from '@aws-cdk/core';
-import {
-  IRole,
-  CompositePrincipal,
-  ServicePrincipal,
-  ManagedPolicy,
-  Role,
-  PolicyStatement,
-} from '@aws-cdk/aws-iam';
 
 import { BaseEdgeConstruct } from './base-edge-construct';
 
@@ -27,15 +20,8 @@ export class EdgeRole extends BaseEdgeConstruct implements IEdgeRole {
     super(scope, id);
 
     this.role = new Role(this.edgeStack, id, {
-      assumedBy: new CompositePrincipal(
-        new ServicePrincipal('edgelambda.amazonaws.com'),
-        new ServicePrincipal('lambda.amazonaws.com'),
-      ),
-      managedPolicies: [
-        ManagedPolicy.fromAwsManagedPolicyName(
-          'service-role/AWSLambdaBasicExecutionRole',
-        ),
-      ],
+      assumedBy: new CompositePrincipal(new ServicePrincipal('edgelambda.amazonaws.com'), new ServicePrincipal('lambda.amazonaws.com')),
+      managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole')],
       ...props,
     });
   }

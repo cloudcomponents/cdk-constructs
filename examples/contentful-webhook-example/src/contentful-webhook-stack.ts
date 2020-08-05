@@ -1,5 +1,5 @@
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { RestApi } from '@aws-cdk/aws-apigateway';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { ContentfulWebhook } from '@cloudcomponents/cdk-contentful-webhook';
 
 export class ContentfulWebhookStack extends Stack {

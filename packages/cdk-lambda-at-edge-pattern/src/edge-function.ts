@@ -1,14 +1,14 @@
-import { Construct } from '@aws-cdk/core';
+import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
 import { Code, Function, Runtime, IVersion } from '@aws-cdk/aws-lambda';
 import { StringParameter } from '@aws-cdk/aws-ssm';
-import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
+import { Construct } from '@aws-cdk/core';
 
 import { BaseEdgeConstruct } from './base-edge-construct';
-import { Configuration, WithConfiguration } from './with-configuration';
 import { EdgeFunctionProvider } from './edge-function-provider';
+import { IEdgeLambda } from './edge-lambda';
 import { EdgeRole, IEdgeRole } from './edge-role';
 import { ILambdaFunctionAssociation } from './lambda-function-association';
-import { IEdgeLambda } from './edge-lambda';
+import { Configuration, WithConfiguration } from './with-configuration';
 
 export interface CommonEdgeFunctionProps {
   /**
@@ -26,8 +26,7 @@ export interface EdgeFunctionProps extends CommonEdgeFunctionProps {
   readonly eventType: LambdaEdgeEventType;
 }
 
-export class EdgeFunction extends BaseEdgeConstruct
-  implements ILambdaFunctionAssociation, IEdgeLambda {
+export class EdgeFunction extends BaseEdgeConstruct implements ILambdaFunctionAssociation, IEdgeLambda {
   public readonly edgeRole: IEdgeRole;
   public readonly eventType: LambdaEdgeEventType;
   public readonly functionVersion: IVersion;
@@ -36,10 +35,7 @@ export class EdgeFunction extends BaseEdgeConstruct
   constructor(scope: Construct, id: string, props: EdgeFunctionProps) {
     super(scope, id);
 
-    const {
-      name,
-      parameterName = `/cloudcomponents/edge-lambda/${this.stack.node.uniqueId}/${name}`,
-    } = props;
+    const { name, parameterName = `/cloudcomponents/edge-lambda/${this.stack.node.uniqueId}/${name}` } = props;
 
     this.edgeRole = props.edgeRole ?? new EdgeRole(this, `${name}Role`);
 
@@ -52,23 +48,15 @@ export class EdgeFunction extends BaseEdgeConstruct
       role: this.edgeRole.role,
     });
 
-    const parameter = new StringParameter(
-      this.edgeStack,
-      `${name}StringParameter`,
-      {
-        parameterName,
-        description: 'Parameter stored for cross region Lambda@Edge',
-        stringValue: edgeFunction.functionArn,
-      },
-    );
+    const parameter = new StringParameter(this.edgeStack, `${name}StringParameter`, {
+      parameterName,
+      description: 'Parameter stored for cross region Lambda@Edge',
+      stringValue: edgeFunction.functionArn,
+    });
 
-    const { edgeFunction: retrievedEdgeFunction } = new EdgeFunctionProvider(
-      scope,
-      `${name}Provider`,
-      {
-        parameter,
-      },
-    );
+    const { edgeFunction: retrievedEdgeFunction } = new EdgeFunctionProvider(scope, `${name}Provider`, {
+      parameter,
+    });
 
     const lambdaWithConfig = new WithConfiguration(this, 'WithConfiguration', {
       function: retrievedEdgeFunction,

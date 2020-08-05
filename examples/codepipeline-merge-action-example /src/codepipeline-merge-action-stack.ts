@@ -1,7 +1,7 @@
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { CodePipelineMergeAction } from '@cloudcomponents/cdk-codepipeline-merge-action';
 
 export class CodePipelineMergeActionStack extends Stack {

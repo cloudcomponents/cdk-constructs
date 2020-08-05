@@ -1,18 +1,11 @@
-import { Construct } from '@aws-cdk/core';
-import { IRepository } from '@aws-cdk/aws-codecommit';
-import { IPipeline } from '@aws-cdk/aws-codepipeline';
 import { IProject } from '@aws-cdk/aws-codebuild';
-import {
-  IServerApplication,
-  ILambdaApplication,
-  IEcsApplication,
-} from '@aws-cdk/aws-codedeploy';
+import { IRepository } from '@aws-cdk/aws-codecommit';
+import { IServerApplication, ILambdaApplication, IEcsApplication } from '@aws-cdk/aws-codedeploy';
+import { IPipeline } from '@aws-cdk/aws-codepipeline';
 import { CfnNotificationRule } from '@aws-cdk/aws-codestarnotifications';
+import { Construct } from '@aws-cdk/core';
 
-import {
-  NotificationTargetProperty,
-  INotificationTarget,
-} from './notification-targets';
+import { NotificationTargetProperty, INotificationTarget } from './notification-targets';
 
 export interface INotificationRule {
   readonly notificationRuleArn: string;
@@ -102,18 +95,13 @@ export class NotificationRule extends Construct implements INotificationRule {
   }
 }
 
-export interface RepositoryNotificationRuleProps
-  extends CommonNotificationRuleProps {
+export interface RepositoryNotificationRuleProps extends CommonNotificationRuleProps {
   readonly repository: IRepository;
   readonly events: RepositoryEvent[];
 }
 
 export class RepositoryNotificationRule extends NotificationRule {
-  constructor(
-    scope: Construct,
-    id: string,
-    props: RepositoryNotificationRuleProps,
-  ) {
+  constructor(scope: Construct, id: string, props: RepositoryNotificationRuleProps) {
     super(scope, id, {
       ...props,
       resource: props.repository.repositoryArn,
@@ -121,18 +109,13 @@ export class RepositoryNotificationRule extends NotificationRule {
   }
 }
 
-export interface PipelineNotificationRuleProps
-  extends CommonNotificationRuleProps {
+export interface PipelineNotificationRuleProps extends CommonNotificationRuleProps {
   readonly pipeline: IPipeline;
   readonly events: PipelineEvent[];
 }
 
 export class PipelineNotificationRule extends NotificationRule {
-  constructor(
-    scope: Construct,
-    id: string,
-    props: PipelineNotificationRuleProps,
-  ) {
+  constructor(scope: Construct, id: string, props: PipelineNotificationRuleProps) {
     super(scope, id, {
       ...props,
       resource: props.pipeline.pipelineArn,
@@ -140,18 +123,13 @@ export class PipelineNotificationRule extends NotificationRule {
   }
 }
 
-export interface ProjectNotificationRuleProps
-  extends CommonNotificationRuleProps {
+export interface ProjectNotificationRuleProps extends CommonNotificationRuleProps {
   readonly project: IProject;
   readonly events: ProjectEvent[];
 }
 
 export class ProjectNotificationRule extends NotificationRule {
-  constructor(
-    scope: Construct,
-    id: string,
-    props: ProjectNotificationRuleProps,
-  ) {
+  constructor(scope: Construct, id: string, props: ProjectNotificationRuleProps) {
     super(scope, id, {
       ...props,
       resource: props.project.projectArn,
@@ -159,21 +137,13 @@ export class ProjectNotificationRule extends NotificationRule {
   }
 }
 
-export interface ApplicationNotificationRuleProps
-  extends CommonNotificationRuleProps {
-  readonly application:
-    | IServerApplication
-    | ILambdaApplication
-    | IEcsApplication;
+export interface ApplicationNotificationRuleProps extends CommonNotificationRuleProps {
+  readonly application: IServerApplication | ILambdaApplication | IEcsApplication;
   readonly events: ApplicationEvent[];
 }
 
 export class ApplicationNotificationRule extends NotificationRule {
-  constructor(
-    scope: Construct,
-    id: string,
-    props: ApplicationNotificationRuleProps,
-  ) {
+  constructor(scope: Construct, id: string, props: ApplicationNotificationRuleProps) {
     super(scope, id, {
       ...props,
       resource: props.application.applicationArn,

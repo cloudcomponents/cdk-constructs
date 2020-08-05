@@ -1,11 +1,8 @@
-import { Construct } from '@aws-cdk/core';
-import { Topic, ITopic } from '@aws-cdk/aws-sns';
 import { ServicePrincipal } from '@aws-cdk/aws-iam';
 import { SnsEventSource } from '@aws-cdk/aws-lambda-event-sources';
-import {
-  ISlackChannelConfiguration,
-  MSTeamsIncomingWebhookConfiguration,
-} from '@cloudcomponents/cdk-chatops';
+import { Topic, ITopic } from '@aws-cdk/aws-sns';
+import { Construct } from '@aws-cdk/core';
+import { ISlackChannelConfiguration, MSTeamsIncomingWebhookConfiguration } from '@cloudcomponents/cdk-chatops';
 
 import { INotificationRule } from './notification-rules';
 
@@ -21,13 +18,8 @@ export interface INotificationTarget {
 export class SnsTopic implements INotificationTarget {
   constructor(private readonly topic: ITopic) {}
 
-  public bind(
-    _scope: Construct,
-    _rule: INotificationRule,
-  ): NotificationTargetProperty {
-    this.topic.grantPublish(
-      new ServicePrincipal('codestar-notifications.amazonaws.com'),
-    );
+  public bind(_scope: Construct, _rule: INotificationRule): NotificationTargetProperty {
+    this.topic.grantPublish(new ServicePrincipal('codestar-notifications.amazonaws.com'));
 
     return {
       targetType: TargetType.SNS,
@@ -39,10 +31,7 @@ export class SnsTopic implements INotificationTarget {
 export class SlackChannel implements INotificationTarget {
   constructor(private readonly channel: ISlackChannelConfiguration) {}
 
-  public bind(
-    _scope: Construct,
-    _rule: INotificationRule,
-  ): NotificationTargetProperty {
+  public bind(_scope: Construct, _rule: INotificationRule): NotificationTargetProperty {
     return {
       targetType: TargetType.AWS_CHATBOT_SLACK,
       targetAddress: this.channel.configurationArn,
@@ -53,15 +42,10 @@ export class SlackChannel implements INotificationTarget {
 export class MSTeamsIncomingWebhook implements INotificationTarget {
   constructor(private readonly webhook: MSTeamsIncomingWebhookConfiguration) {}
 
-  public bind(
-    scope: Construct,
-    _rule: INotificationRule,
-  ): NotificationTargetProperty {
+  public bind(scope: Construct, _rule: INotificationRule): NotificationTargetProperty {
     const msTeamsTopic = new Topic(scope, `${scope.node.id}MSTeamsTopic`);
 
-    msTeamsTopic.grantPublish(
-      new ServicePrincipal('codestar-notifications.amazonaws.com'),
-    );
+    msTeamsTopic.grantPublish(new ServicePrincipal('codestar-notifications.amazonaws.com'));
 
     this.webhook.addEventSource(new SnsEventSource(msTeamsTopic));
 

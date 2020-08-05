@@ -1,16 +1,10 @@
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import { PipelineProject } from '@aws-cdk/aws-codebuild';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import {
-  CodeCommitSourceAction,
-  CodeBuildAction,
-} from '@aws-cdk/aws-codepipeline-actions';
-import { PipelineProject } from '@aws-cdk/aws-codebuild';
+import { CodeCommitSourceAction, CodeBuildAction } from '@aws-cdk/aws-codepipeline-actions';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 
-import {
-  SlackApprovalAction,
-  SlackNotifier,
-} from '@cloudcomponents/cdk-codepipeline-slack';
+import { SlackApprovalAction, SlackNotifier } from '@cloudcomponents/cdk-codepipeline-slack';
 
 export class CodePipelineSlackApprovalStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -46,8 +40,7 @@ export class CodePipelineSlackApprovalStack extends Stack {
       slackSigningSecret,
       slackChannel,
       externalEntityLink: 'http://cloudcomponents.org',
-      additionalInformation:
-        'Would you like to promote the build to production?',
+      additionalInformation: 'Would you like to promote the build to production?',
     });
 
     const pipeline = new Pipeline(this, 'MyPipeline', {

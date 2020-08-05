@@ -1,4 +1,4 @@
-import { CodePipelineEvent } from 'aws-lambda';
+import type { CodePipelineEvent } from 'aws-lambda';
 import { CodeCommit, CodePipeline, STS } from 'aws-sdk';
 
 // default session
@@ -9,11 +9,7 @@ export const handler = async (event: CodePipelineEvent): Promise<string> => {
   const { id: jobId, data: jobData } = event['CodePipeline.job'];
 
   try {
-    const {
-      repositoryName,
-      sourceCommitSpecifier,
-      destinationCommitSpecifier,
-    } = getUserParams(jobData);
+    const { repositoryName, sourceCommitSpecifier, destinationCommitSpecifier } = getUserParams(jobData);
 
     const codeCommitRoleArn = process.env.CODE_COMMIT_ROLE_ARN;
 
@@ -28,6 +24,10 @@ export const handler = async (event: CodePipelineEvent): Promise<string> => {
           RoleSessionName: `Merge-${repositoryName}-${sourceCommitSpecifier}-${destinationCommitSpecifier}`,
         })
         .promise();
+
+      if (!credentials) {
+        throw new Error('Crossaccount role could not be assumed');
+      }
 
       return new CodeCommit({
         accessKeyId: credentials.AccessKeyId,
@@ -47,7 +47,7 @@ export const handler = async (event: CodePipelineEvent): Promise<string> => {
     await putJobSuccess(jobId, commitId);
   } catch (error) {
     console.log(error);
-    await putJobFailure(jobId, 'Function exception: ' + error.message);
+    await putJobFailure(jobId, `Function exception: ${error.message}`);
   }
 
   console.log('Function complete.');
@@ -66,32 +66,20 @@ const getUserParams = (
   sourceCommitSpecifier: string;
   destinationCommitSpecifier: string;
 } => {
-  const {
-    UserParameters: userParameters,
-  } = jobData.actionConfiguration.configuration;
+  const { UserParameters: userParameters } = jobData.actionConfiguration.configuration;
 
-  const {
-    repositoryName,
-    sourceCommitSpecifier,
-    destinationCommitSpecifier,
-  } = JSON.parse(userParameters);
+  const { repositoryName, sourceCommitSpecifier, destinationCommitSpecifier } = JSON.parse(userParameters);
 
   if (!repositoryName) {
-    throw new Error(
-      'Your UserParameters JSON must include the repository name',
-    );
+    throw new Error('Your UserParameters JSON must include the repository name');
   }
 
   if (!sourceCommitSpecifier) {
-    throw new Error(
-      'Your UserParameters JSON must include the sourceCommitSpecifier',
-    );
+    throw new Error('Your UserParameters JSON must include the sourceCommitSpecifier');
   }
 
   if (!destinationCommitSpecifier) {
-    throw new Error(
-      'Your UserParameters JSON must include the destinationCommitSpecifier',
-    );
+    throw new Error('Your UserParameters JSON must include the destinationCommitSpecifier');
   }
 
   return {
@@ -107,10 +95,7 @@ const getUserParams = (
  * @param jobId The CodePipeline job ID
  * @param message A message to be logged relating to the job status
  */
-const putJobSuccess = async (
-  jobId: string,
-  message?: string,
-): Promise<void> => {
+const putJobSuccess = async (jobId: string, message?: string): Promise<void> => {
   console.log('Putting job success');
 
   if (message) {

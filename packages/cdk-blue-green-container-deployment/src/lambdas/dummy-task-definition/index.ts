@@ -1,8 +1,4 @@
-import {
-  CloudFormationCustomResourceEvent,
-  CloudFormationCustomResourceCreateEvent,
-  CloudFormationCustomResourceDeleteEvent,
-} from 'aws-lambda';
+import type { CloudFormationCustomResourceEvent, CloudFormationCustomResourceCreateEvent, CloudFormationCustomResourceDeleteEvent } from 'aws-lambda';
 import { ECS } from 'aws-sdk';
 
 interface HandlerReturn {
@@ -18,21 +14,15 @@ export interface EcsTaskDefinitionProps {
 
 const ecs = new ECS();
 
-const getProperties = (
-  props: CloudFormationCustomResourceEvent['ResourceProperties'],
-): EcsTaskDefinitionProps => ({
-  family: props.Family,
-  image: props.Image,
-  executionRoleArn: props.ExecutionRoleArn,
-  networkMode: props.NetworkMode,
+const getProperties = (props: CloudFormationCustomResourceEvent['ResourceProperties']): EcsTaskDefinitionProps => ({
+  family: props.Family as string,
+  image: props.Image as string,
+  executionRoleArn: props.ExecutionRoleArn as string,
+  networkMode: props.NetworkMode as string,
 });
 
-const onCreate = async (
-  event: CloudFormationCustomResourceCreateEvent,
-): Promise<HandlerReturn> => {
-  const { family, image, executionRoleArn, networkMode } = getProperties(
-    event.ResourceProperties,
-  );
+const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
+  const { family, image, executionRoleArn, networkMode } = getProperties(event.ResourceProperties);
 
   const { taskDefinition } = await ecs
     .registerTaskDefinition({
@@ -65,9 +55,7 @@ const onCreate = async (
   };
 };
 
-const onDelete = async (
-  event: CloudFormationCustomResourceDeleteEvent,
-): Promise<void> => {
+const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise<void> => {
   const taskDefinition = event.PhysicalResourceId;
 
   await ecs
@@ -77,9 +65,7 @@ const onDelete = async (
     .promise();
 };
 
-export const handler = async (
-  event: CloudFormationCustomResourceEvent,
-): Promise<HandlerReturn | void> => {
+export const handler = async (event: CloudFormationCustomResourceEvent): Promise<HandlerReturn | void> => {
   const requestType = event.RequestType;
 
   switch (requestType) {

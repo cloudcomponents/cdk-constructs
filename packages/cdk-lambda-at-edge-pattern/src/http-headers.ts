@@ -1,7 +1,7 @@
 import * as path from 'path';
-import { Construct } from '@aws-cdk/core';
 import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
 import { Code } from '@aws-cdk/aws-lambda';
+import { Construct } from '@aws-cdk/core';
 
 import { EdgeFunction, CommonEdgeFunctionProps } from './edge-function';
 import { LogLevel } from './with-configuration';
@@ -48,9 +48,7 @@ export class HttpHeaders extends EdgeFunction {
 
     Object.keys(props.httpHeaders).forEach((header) => {
       if (BLACKLISTED_HEADERS.some((blheader) => blheader.test(header))) {
-        throw new Error(
-          `HttpHeader ${header} is blacklisted and can't be added by Lambda@Edge functions`,
-        );
+        throw new Error(`HttpHeader ${header} is blacklisted and can't be added by Lambda@Edge functions`);
       }
     });
   }
