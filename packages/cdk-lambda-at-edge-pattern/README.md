@@ -71,6 +71,34 @@ export class StaticWebsiteStack extends Stack {
 }
 ```
 
+### Cloudfront Distribution
+```typescript
+new cloudfront.Distribution(this, 'myDist', {
+  defaultBehavior: {
+    origin: new origins.S3Origin(myBucket),
+    edgeLambdas: [httpHeaders],
+  },
+});
+```
+
+### Cloudfront WebDistribution
+```typescript
+new cloudfront.CloudFrontWebDistribution(this, 'MyDistribution', {
+  originConfigs: [
+    {
+      s3OriginSource: {
+        s3BucketSource: sourceBucket
+      },
+      behaviors: [
+        {
+          isDefaultBehavior: true,
+          lambdaFunctionAssociations: [httpHeaders],
+        }
+      ]
+    }
+  ]
+ });
+
 ## API Reference
 
 See [API.md](https://github.com/cloudcomponents/cdk-constructs/tree/master/packages/cdk-lambda-at-edge-pattern/API.md).
