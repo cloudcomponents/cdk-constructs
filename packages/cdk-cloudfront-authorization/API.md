@@ -87,11 +87,11 @@ new AuthFlow(scope: Construct, id: string, props: AuthFlowProps)
 
 Name | Type | Description 
 -----|------|-------------
-**checkAuth** | <code>[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)</code> | <span></span>
-**httpHeaders** | <code>[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)</code> | <span></span>
-**parseAuth** | <code>[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)</code> | <span></span>
-**refreshAuth** | <code>[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)</code> | <span></span>
-**signOut** | <code>[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)</code> | <span></span>
+**checkAuth** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
+**httpHeaders** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
+**parseAuth** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
+**refreshAuth** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
+**signOut** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
 
 
 
@@ -116,6 +116,7 @@ new Authorization(scope: Construct, id: string, props: AuthorizationProps)
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[AuthorizationProps](#cloudcomponents-cdk-cloudfront-authorization-authorizationprops)</code>)  *No description*
   * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
+  * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
   * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
@@ -129,6 +130,7 @@ new Authorization(scope: Construct, id: string, props: AuthorizationProps)
 
 Name | Type | Description 
 -----|------|-------------
+**authFlow** | <code>[AuthFlow](#cloudcomponents-cdk-cloudfront-authorization-authflow)</code> | <span></span>
 **cognitoAuthDomain** | <code>string</code> | <span></span>
 **httpHeaders** | <code>Map<string, string></code> | <span></span>
 **nonceSigningSecret** | <code>string</code> | <span></span>
@@ -137,6 +139,7 @@ Name | Type | Description
 **signOutUrlPath** | <code>string</code> | <span></span>
 **userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
 **userPoolClient** | <code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code> | <span></span>
+**cookieSettings**? | <code>Map<string, string></code> | __*Optional*__
 
 ### Methods
 
@@ -166,6 +169,30 @@ createDefaultBehavior(origin: IOrigin): BehaviorOptions
 
 __Returns__:
 * <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
+
+#### createLegacyAdditionalBehaviors() <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createlegacyadditionalbehaviors"></a>
+
+
+
+```ts
+createLegacyAdditionalBehaviors(): Array<Behavior>
+```
+
+
+__Returns__:
+* <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
+
+#### createLegacyDefaultBehavior() <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createlegacydefaultbehavior"></a>
+
+
+
+```ts
+createLegacyDefaultBehavior(): Behavior
+```
+
+
+__Returns__:
+* <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>
 
 #### updateUserPoolClientCallbacks(redirects) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-updateuserpoolclientcallbacks"></a>
 
@@ -324,6 +351,7 @@ new SpaAuthorization(scope: Construct, id: string, props: AuthorizationProps)
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[AuthorizationProps](#cloudcomponents-cdk-cloudfront-authorization-authorizationprops)</code>)  *No description*
   * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
+  * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
   * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
@@ -418,6 +446,7 @@ new StaticSiteAuthorization(scope: Construct, id: string, props: AuthorizationPr
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[AuthorizationProps](#cloudcomponents-cdk-cloudfront-authorization-authorizationprops)</code>)  *No description*
   * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
+  * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
   * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
@@ -552,6 +581,7 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
+**cookieSettings**? | <code>Map<string, string></code> | __*Optional*__
 **httpHeaders**? | <code>Map<string, string></code> | __*Optional*__
 **logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
 **oauthScopes**? | <code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code> | __*Optional*__
@@ -637,6 +667,30 @@ createDefaultBehavior(origin: IOrigin): BehaviorOptions
 __Returns__:
 * <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
 
+#### createLegacyAdditionalBehaviors() <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createlegacyadditionalbehaviors"></a>
+
+
+
+```ts
+createLegacyAdditionalBehaviors(): Array<Behavior>
+```
+
+
+__Returns__:
+* <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
+
+#### createLegacyDefaultBehavior() <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createlegacydefaultbehavior"></a>
+
+
+
+```ts
+createLegacyDefaultBehavior(): Behavior
+```
+
+
+__Returns__:
+* <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>
+
 #### updateUserPoolClientCallbacks(redirects) <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-updateuserpoolclientcallbacks"></a>
 
 
@@ -698,6 +752,30 @@ createDefaultBehavior(origin: IOrigin): BehaviorOptions
 __Returns__:
 * <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
 
+#### createLegacyAdditionalBehaviors() <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createlegacyadditionalbehaviors"></a>
+
+
+
+```ts
+createLegacyAdditionalBehaviors(): Array<Behavior>
+```
+
+
+__Returns__:
+* <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
+
+#### createLegacyDefaultBehavior() <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createlegacydefaultbehavior"></a>
+
+
+
+```ts
+createLegacyDefaultBehavior(): Behavior
+```
+
+
+__Returns__:
+* <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>
+
 #### updateUserPoolClientCallbacks(redirects) <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-updateuserpoolclientcallbacks"></a>
 
 
@@ -758,6 +836,30 @@ createDefaultBehavior(origin: IOrigin): BehaviorOptions
 
 __Returns__:
 * <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
+
+#### createLegacyAdditionalBehaviors() <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createlegacyadditionalbehaviors"></a>
+
+
+
+```ts
+createLegacyAdditionalBehaviors(): Array<Behavior>
+```
+
+
+__Returns__:
+* <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
+
+#### createLegacyDefaultBehavior() <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createlegacydefaultbehavior"></a>
+
+
+
+```ts
+createLegacyDefaultBehavior(): Behavior
+```
+
+
+__Returns__:
+* <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>
 
 #### updateUserPoolClientCallbacks(redirects) <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-updateuserpoolclientcallbacks"></a>
 
