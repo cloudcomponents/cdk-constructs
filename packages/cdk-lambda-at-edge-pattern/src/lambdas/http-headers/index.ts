@@ -9,7 +9,7 @@ let CONFIG: HttpHeadersConfig;
 
 export const handler: CloudFrontResponseHandler = async (event) => {
   if (!CONFIG) {
-    CONFIG = await getConfig();
+    CONFIG = getConfig();
   }
 
   CONFIG.logger.debug(event);

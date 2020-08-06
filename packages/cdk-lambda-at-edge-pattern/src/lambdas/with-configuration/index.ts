@@ -1,3 +1,4 @@
+import { mkdtempSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import Zip from 'adm-zip';
 import type {
@@ -8,7 +9,6 @@ import type {
 import { Lambda } from 'aws-sdk';
 import axios from 'axios';
 import { camelizeKeys, customResourceHelper, OnCreateHandler, OnUpdateHandler, ResourceHandler, ResourceHandlerReturn } from 'custom-resource-helper';
-import fs from 'fs-extra';
 
 interface WithConfiguration {
   region: string;
@@ -43,11 +43,11 @@ const updateLambdaCode = async (
 
   const lambdaZip = new Zip(data);
 
-  const tempDir = fs.mkdtempSync('/tmp/lambda-package');
+  const tempDir = mkdtempSync('/tmp/lambda-package');
 
   lambdaZip.extractAllTo(tempDir, true);
 
-  fs.writeFileSync(resolve(tempDir, 'configuration.json'), Buffer.from(configuration));
+  writeFileSync(resolve(tempDir, 'configuration.json'), Buffer.from(configuration));
 
   const newLambdaZip = new Zip();
 

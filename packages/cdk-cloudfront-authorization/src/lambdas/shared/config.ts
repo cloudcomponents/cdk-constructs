@@ -1,7 +1,7 @@
 import { createHmac } from 'crypto';
+import { readFileSync } from 'fs';
 import type { CloudFrontHeaders } from 'aws-lambda';
 import { parse } from 'cookie';
-import fs from 'fs-extra';
 
 import { CookieSettings } from './cookie';
 import { Logger, LogLevel } from './logger';
@@ -44,8 +44,8 @@ export interface Config extends CommonConfig {
   nonceMaxAge: number;
 }
 
-export const getConfig = async (): Promise<Config> => {
-  const config = (await fs.readJSON(`${__dirname}/configuration.json`)) as ConfigFromDisk;
+export const getConfig = (): Config => {
+  const config = JSON.parse(readFileSync('./configuration.json', 'utf-8')) as ConfigFromDisk;
 
   // Derive the issuer and JWKS uri all JWT's will be signed with from the User Pool's ID and region:
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

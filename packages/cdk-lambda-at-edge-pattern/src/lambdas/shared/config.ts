@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import { readFileSync } from 'fs';
 
 import { Logger, LogLevel } from './logger';
 
@@ -11,8 +11,8 @@ export type Config<T> = T & {
   logger: Logger;
 };
 
-export async function getConfig<T>(): Promise<Config<T>> {
-  const config = (await fs.readJSON(`${__dirname}/configuration.json`)) as ConfigFromDisk<T>;
+export function getConfig<T>(): Config<T> {
+  const config = JSON.parse(readFileSync('./configuration.json', 'utf-8')) as ConfigFromDisk<T>;
 
   // Setup logger
   const logger = new Logger(LogLevel[config.logLevel]);

@@ -40,6 +40,7 @@ export class HttpHeaders extends EdgeFunction {
       name: 'http-headers',
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'http-headers')),
       eventType: LambdaEdgeEventType.ORIGIN_RESPONSE,
+      edgeRole: props.edgeRole,
       configuration: {
         logLevel: props.logLevel ?? LogLevel.WARN,
         httpHeaders: props.httpHeaders,

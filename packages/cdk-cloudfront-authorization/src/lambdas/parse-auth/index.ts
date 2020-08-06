@@ -17,7 +17,7 @@ let CONFIG: Config;
 
 export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFrontResponseResult> => {
   if (!CONFIG) {
-    CONFIG = await getConfig();
+    CONFIG = getConfig();
   }
 
   CONFIG.logger.debug(event);
