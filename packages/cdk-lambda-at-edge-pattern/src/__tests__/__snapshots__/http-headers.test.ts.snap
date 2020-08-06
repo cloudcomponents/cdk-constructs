@@ -206,44 +206,7 @@ Object {
         "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters1c2121acaa0fc3df50905c79bb4e631b35ebc4388f311aaf9c4a2e5f82063fdaS3Bucket0CFFAE8A",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters1c2121acaa0fc3df50905c79bb4e631b35ebc4388f311aaf9c4a2e5f82063fdaS3VersionKey35E5079B",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters1c2121acaa0fc3df50905c79bb4e631b35ebc4388f311aaf9c4a2e5f82063fdaS3VersionKey35E5079B",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -529,44 +492,7 @@ Object {
         "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters1c2121acaa0fc3df50905c79bb4e631b35ebc4388f311aaf9c4a2e5f82063fdaS3Bucket0CFFAE8A",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters1c2121acaa0fc3df50905c79bb4e631b35ebc4388f311aaf9c4a2e5f82063fdaS3VersionKey35E5079B",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters1c2121acaa0fc3df50905c79bb4e631b35ebc4388f311aaf9c4a2e5f82063fdaS3VersionKey35E5079B",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [

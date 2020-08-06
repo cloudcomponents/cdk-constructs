@@ -86,7 +86,7 @@ beforeEach(() => {
     tokenJwksUri,
   };
 
-  mocked(getConfig).mockResolvedValue(config);
+  mocked(getConfig).mockReturnValue(config);
 });
 
 afterEach(() => {

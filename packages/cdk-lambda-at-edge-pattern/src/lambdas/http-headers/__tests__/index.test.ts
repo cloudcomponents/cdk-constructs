@@ -20,7 +20,7 @@ test('with headers', async () => {
     },
   };
 
-  mocked(getConfig).mockResolvedValue(config);
+  mocked(getConfig).mockReturnValue(config);
 
   const originResponse = createEvent('cloudfront:OriginResponse');
 
@@ -39,7 +39,7 @@ test('no headers', async () => {
     httpHeaders: {},
   };
 
-  mocked(getConfig).mockResolvedValue(config);
+  mocked(getConfig).mockReturnValue(config);
 
   const originResponse = createEvent('cloudfront:OriginResponse');
 

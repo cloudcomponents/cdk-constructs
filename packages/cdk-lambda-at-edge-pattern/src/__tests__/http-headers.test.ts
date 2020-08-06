@@ -36,6 +36,11 @@ test('default setup: us-east-1', () => {
     propertyMatchers: {
       Parameters: expect.any(Object),
       Resources: {
+        CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B: {
+          Properties: {
+            Code: expect.any(Object),
+          },
+        },
         httpheadersFunction1CD98582: {
           Properties: {
             Code: expect.any(Object),
@@ -100,6 +105,11 @@ test('default setup: not us-east-1', () => {
     propertyMatchers: {
       Parameters: expect.any(Object),
       Resources: {
+        CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B: {
+          Properties: {
+            Code: expect.any(Object),
+          },
+        },
         httpheadersProvider158513BA: {
           Properties: {
             Create: {
