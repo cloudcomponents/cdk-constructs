@@ -1,16 +1,12 @@
 import * as path from 'path';
-import { Construct, RemovalPolicy } from '@aws-cdk/core';
-import {
-  AwsCustomResource,
-  AwsCustomResourcePolicy,
-  PhysicalResourceId,
-} from '@aws-cdk/custom-resources';
 import { Repository, RepositoryProps } from '@aws-cdk/aws-ecr';
 import { Rule, EventField, RuleTargetInput } from '@aws-cdk/aws-events';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
+import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { ITopic } from '@aws-cdk/aws-sns';
-import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
+import { Construct, RemovalPolicy } from '@aws-cdk/core';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '@aws-cdk/custom-resources';
 
 export interface OnFindingOptions {
   readonly alarmTopic: ITopic;
@@ -91,9 +87,7 @@ export class ImageRepository extends Repository {
           repositoryName: EventField.fromPath('$.detail.repository-name'),
           imageDigest: EventField.fromPath('$.detail.image-digest'),
           imageTags: EventField.fromPath('$.detail.image-tags'),
-          findingSeveriyCounts: EventField.fromPath(
-            '$.detail.finding-severity-counts',
-          ),
+          findingSeveriyCounts: EventField.fromPath('$.detail.finding-severity-counts'),
           severity: severity,
           alarmTopicArn: alarmTopic.topicArn,
         }),

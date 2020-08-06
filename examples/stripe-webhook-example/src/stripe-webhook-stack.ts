@@ -1,5 +1,5 @@
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { RestApi } from '@aws-cdk/aws-apigateway';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { StripeWebhook } from '@cloudcomponents/cdk-stripe-webhook';
 
 export class StripeWebhookStack extends Stack {

@@ -1,5 +1,5 @@
-import { App, Duration, Stack } from '@aws-cdk/core';
 import { SynthUtils } from '@aws-cdk/assert';
+import { App, Duration, Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
 import { TempStack } from '../temp-stack';
@@ -32,9 +32,7 @@ test('multiple instances', () => {
   });
 
   // THEN
-  expect(() => SynthUtils.toCloudFormation(stack)).toThrowError(
-    /Found 2 instances of the TimeToLive construct/,
-  );
+  expect(() => SynthUtils.toCloudFormation(stack)).toThrowError(/Found 2 instances of the TimeToLive construct/);
 });
 
 test('one instance + temp stack', () => {
@@ -51,7 +49,5 @@ test('one instance + temp stack', () => {
   });
 
   // THEN
-  expect(() => SynthUtils.toCloudFormation(stack)).toThrowError(
-    /Found 2 instances of the TimeToLive construct/,
-  );
+  expect(() => SynthUtils.toCloudFormation(stack)).toThrowError(/Found 2 instances of the TimeToLive construct/);
 });

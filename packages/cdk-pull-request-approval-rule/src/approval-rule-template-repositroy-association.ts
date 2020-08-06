@@ -1,11 +1,6 @@
-import {
-  Construct,
-  CustomResource,
-  CustomResourceProvider,
-  CustomResourceProviderRuntime,
-} from '@aws-cdk/core';
-import { OnEventOptions, Rule } from '@aws-cdk/aws-events';
 import { IRepository } from '@aws-cdk/aws-codecommit';
+import { OnEventOptions, Rule } from '@aws-cdk/aws-events';
+import { Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
 
 import { approvalRuleTemplateRepositoryAssociationDir } from './directories';
 
@@ -24,35 +19,24 @@ export interface ApprovalRuleTemplateRepositoryAssociationProps {
 export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
   private repository: IRepository;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    props: ApprovalRuleTemplateRepositoryAssociationProps,
-  ) {
+  constructor(scope: Construct, id: string, props: ApprovalRuleTemplateRepositoryAssociationProps) {
     super(scope, id);
 
     this.repository = props.repository;
 
     const resourceType = 'Custom::ApprovalRuleTemplateRepositoryAssociation';
 
-    const serviceToken = CustomResourceProvider.getOrCreate(
-      this,
-      resourceType,
-      {
-        codeDirectory: approvalRuleTemplateRepositoryAssociationDir,
-        runtime: CustomResourceProviderRuntime.NODEJS_12,
-        policyStatements: [
-          {
-            Effect: 'Allow',
-            Action: [
-              'codecommit:AssociateApprovalRuleTemplateWithRepository',
-              'codecommit:DisassociateApprovalRuleTemplateFromRepository',
-            ],
-            Resource: this.repository.repositoryArn,
-          },
-        ],
-      },
-    );
+    const serviceToken = CustomResourceProvider.getOrCreate(this, resourceType, {
+      codeDirectory: approvalRuleTemplateRepositoryAssociationDir,
+      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      policyStatements: [
+        {
+          Effect: 'Allow',
+          Action: ['codecommit:AssociateApprovalRuleTemplateWithRepository', 'codecommit:DisassociateApprovalRuleTemplateFromRepository'],
+          Resource: this.repository.repositoryArn,
+        },
+      ],
+    });
 
     new CustomResource(this, 'CustomResource', {
       serviceToken,

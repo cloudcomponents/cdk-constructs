@@ -1,14 +1,7 @@
 import * as path from 'path';
-import { Construct, CustomResource, Duration } from '@aws-cdk/core';
 import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import {
-  SingletonFunction,
-  Runtime,
-  Code,
-  IFunction,
-  IVersion,
-  Version,
-} from '@aws-cdk/aws-lambda';
+import { SingletonFunction, Runtime, Code, IFunction, IVersion, Version } from '@aws-cdk/aws-lambda';
+import { Construct, CustomResource, Duration } from '@aws-cdk/core';
 
 export enum LogLevel {
   NONE = 'none',
@@ -39,9 +32,7 @@ export class WithConfiguration extends Construct {
     const handler = new SingletonFunction(this, 'Handler', {
       uuid: 'cloudcomponents-cdk-lambda-at-edge-pattern-with-configuration',
       runtime: Runtime.NODEJS_12_X,
-      code: Code.fromAsset(
-        path.join(__dirname, 'lambdas', 'with-configuration'),
-      ),
+      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'with-configuration')),
       handler: 'index.handler',
       lambdaPurpose: resourceType,
       timeout: Duration.minutes(5),
@@ -65,10 +56,6 @@ export class WithConfiguration extends Construct {
       },
     });
 
-    this.functionVersion = Version.fromVersionArn(
-      this,
-      'Version',
-      cr.getAttString('FunctionArn'),
-    );
+    this.functionVersion = Version.fromVersionArn(this, 'Version', cr.getAttString('FunctionArn'));
   }
 }

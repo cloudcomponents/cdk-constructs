@@ -1,13 +1,10 @@
 import { Server } from 'http';
-import express from 'express';
-import { createServer, proxy } from 'aws-serverless-express';
-import { APIGatewayEvent, Context } from 'aws-lambda';
 import { createMessageAdapter } from '@slack/interactive-messages';
+import type { APIGatewayEvent, Context } from 'aws-lambda';
+import { createServer, proxy } from 'aws-serverless-express';
+import express from 'express';
 
-import {
-  handleButtonClicked,
-  handleDialog,
-} from '../shared/approval-interactions';
+import { handleButtonClicked, handleDialog } from '../shared/approval-interactions';
 
 const SLACK_SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET as string;
 

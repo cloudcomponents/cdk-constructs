@@ -1,5 +1,5 @@
-import { Construct, RemovalPolicy } from '@aws-cdk/core';
 import { Bucket, BucketProps } from '@aws-cdk/aws-s3';
+import { Construct, RemovalPolicy } from '@aws-cdk/core';
 
 import { EmptyBucket } from './empty-bucket';
 

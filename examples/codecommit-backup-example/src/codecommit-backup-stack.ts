@@ -1,23 +1,16 @@
-import { Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Schedule } from '@aws-cdk/aws-events';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Topic } from '@aws-cdk/aws-sns';
 import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import {
-  BackupBucket,
-  S3CodeCommitBackup,
-} from '@cloudcomponents/cdk-codecommit-backup';
+import { Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
+import { BackupBucket, S3CodeCommitBackup } from '@cloudcomponents/cdk-codecommit-backup';
 
 export class CodeCommitBackupStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const repository = Repository.fromRepositoryName(
-      this,
-      'Repository',
-      process.env.REPOSITORY_NAME as string,
-    );
+    const repository = Repository.fromRepositoryName(this, 'Repository', process.env.REPOSITORY_NAME as string);
 
     const backupBucket = new BackupBucket(this, 'BackupBuckt', {
       retentionPeriod: Duration.days(90),
@@ -35,9 +28,7 @@ export class CodeCommitBackupStack extends Stack {
 
     const backupTopic = new Topic(this, 'BackupTopic');
 
-    backupTopic.addSubscription(
-      new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
-    );
+    backupTopic.addSubscription(new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string));
 
     backup.onBackupStarted('started', {
       target: new SnsTopic(backupTopic),

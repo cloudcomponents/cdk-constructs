@@ -1,17 +1,10 @@
-import { Construct } from '@aws-cdk/core';
-import {
-  BuildSpec,
-  LinuxBuildImage,
-  Project,
-  ComputeType,
-  Cache,
-  LocalCacheMode,
-} from '@aws-cdk/aws-codebuild';
+import { BuildSpec, LinuxBuildImage, Project, ComputeType, Cache, LocalCacheMode } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
 import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { Bucket } from '@aws-cdk/aws-s3';
+import { Construct } from '@aws-cdk/core';
 
 import { Cli, ScanProps } from './cli';
 
@@ -95,11 +88,7 @@ export interface CodeCommitDependencyCheckProps {
 export class CodeCommitDependencyCheck extends Construct {
   private readonly checkProject: Project;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    props: CodeCommitDependencyCheckProps,
-  ) {
+  constructor(scope: Construct, id: string, props: CodeCommitDependencyCheckProps) {
     super(scope, id);
 
     const {
@@ -117,11 +106,7 @@ export class CodeCommitDependencyCheck extends Construct {
       reportsBucket,
     } = props;
 
-    const {
-      repositoryName,
-      repositoryCloneUrlHttp,
-      repositoryArn,
-    } = repository;
+    const { repositoryName, repositoryCloneUrlHttp, repositoryArn } = repository;
 
     const buildImage = LinuxBuildImage.STANDARD_2_0;
 
@@ -204,13 +189,7 @@ export class CodeCommitDependencyCheck extends Construct {
     this.checkProject.addToRolePolicy(
       new PolicyStatement({
         resources: [repositoryArn],
-        actions: [
-          'codecommit:BatchGet*',
-          'codecommit:Get*',
-          'codecommit:Describe*',
-          'codecommit:List*',
-          'codecommit:GitPull',
-        ],
+        actions: ['codecommit:BatchGet*', 'codecommit:Get*', 'codecommit:Describe*', 'codecommit:List*', 'codecommit:GitPull'],
       }),
     );
 

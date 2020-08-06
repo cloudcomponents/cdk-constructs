@@ -1,4 +1,4 @@
-import { CodePipelineEvent } from 'aws-lambda';
+import type { CodePipelineEvent } from 'aws-lambda';
 import { SSM, CodePipeline, STS } from 'aws-sdk';
 
 // default session
@@ -9,12 +9,7 @@ export const handler = async (event: CodePipelineEvent): Promise<void> => {
   const { id: jobId, data: jobData } = event['CodePipeline.job'];
 
   try {
-    const {
-      parameterName,
-      logParameter,
-      regExp,
-      crossAccountRoleArn,
-    } = getUserParams(jobData);
+    const { parameterName, logParameter, regExp, crossAccountRoleArn } = getUserParams(jobData);
 
     const ssm = await (async () => {
       if (!crossAccountRoleArn) {
@@ -27,6 +22,10 @@ export const handler = async (event: CodePipelineEvent): Promise<void> => {
           RoleSessionName: `CheckParameter-${parameterName}`,
         })
         .promise();
+
+      if (!credentials) {
+        throw new Error('Crossaccount role could not be assumed');
+      }
 
       return new SSM({
         accessKeyId: credentials.AccessKeyId,
@@ -42,23 +41,21 @@ export const handler = async (event: CodePipelineEvent): Promise<void> => {
       })
       .promise();
 
+    if (!parameter?.Value) {
+      throw new Error('No parameter value');
+    }
+
     if (regExp) {
       if (!new RegExp(regExp).test(parameter.Value)) {
-        await putJobFailure(
-          jobId,
-          `Value does not match the regular expression: ${regExp}`,
-        );
+        await putJobFailure(jobId, `Value does not match the regular expression: ${regExp}`);
         return;
       }
     }
 
-    await putJobSuccess(
-      jobId,
-      logParameter ? JSON.stringify(parameter) : 'Logging is off',
-    );
+    await putJobSuccess(jobId, logParameter ? JSON.stringify(parameter) : 'Logging is off');
   } catch (error) {
     console.log(error);
-    await putJobFailure(jobId, 'Function exception: ' + error.message);
+    await putJobFailure(jobId, `Function exception: ${error.message as string}`);
   }
 };
 
@@ -75,16 +72,9 @@ const getUserParams = (
   regExp?: string;
   crossAccountRoleArn?: string;
 } => {
-  const {
-    UserParameters: userParameters,
-  } = jobData.actionConfiguration.configuration;
+  const { UserParameters: userParameters } = jobData.actionConfiguration.configuration;
 
-  const {
-    parameterName,
-    logParameter,
-    regExp,
-    crossAccountRoleArn,
-  } = JSON.parse(userParameters);
+  const { parameterName, logParameter, regExp, crossAccountRoleArn } = JSON.parse(userParameters);
 
   if (!parameterName) {
     throw new Error('Your UserParameters JSON must include the parameter name');
@@ -108,10 +98,7 @@ const getUserParams = (
  * @param jobId The CodePipeline job ID
  * @param message A message to be logged relating to the job status
  */
-const putJobSuccess = async (
-  jobId: string,
-  message?: string,
-): Promise<void> => {
+const putJobSuccess = async (jobId: string, message?: string): Promise<void> => {
   console.log('Putting job success');
 
   if (message) {

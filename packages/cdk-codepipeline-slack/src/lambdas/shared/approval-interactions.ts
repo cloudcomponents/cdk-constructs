@@ -1,11 +1,13 @@
+import { AttachmentAction, Dialog } from '@slack/web-api';
 import { CodePipeline } from 'aws-sdk';
-import { Dialog } from '@slack/web-api';
 
+import { ApprovalMessageBuilder, Approval } from './approval-message-builder';
 import { Message } from './message';
 import { SlackBot } from './slack-bot';
-import { ApprovalMessageBuilder } from './approval-message-builder';
 
 interface DialogPayload {
+  message_ts: string;
+  actions: AttachmentAction[];
   type: string;
   state: string;
   trigger_id: string;
@@ -15,13 +17,12 @@ interface DialogPayload {
   submission: { comment: string };
 }
 
-const {
-  SLACK_BOT_TOKEN,
-  SLACK_CHANNEL,
-  SLACK_CHANNEL_ID,
-  SLACK_BOT_NAME,
-  SLACK_BOT_ICON,
-} = process.env;
+interface ApprovalDialogState {
+  ts: string;
+  approval: Approval;
+}
+
+const { SLACK_BOT_TOKEN, SLACK_CHANNEL, SLACK_CHANNEL_ID, SLACK_BOT_NAME, SLACK_BOT_ICON } = process.env;
 
 const pipeline = new CodePipeline();
 
@@ -33,7 +34,7 @@ const bot = new SlackBot({
   icon: SLACK_BOT_ICON,
 });
 
-const buildDialog = (payload): Dialog => {
+const buildDialog = (payload: DialogPayload): Dialog => {
   const ts = payload.message_ts;
   const { name, value } = payload.actions[0];
 
@@ -43,14 +44,14 @@ const buildDialog = (payload): Dialog => {
     elements: [{ type: 'textarea', name: 'comment', label: 'Comment' }],
     state: JSON.stringify({
       ts,
-      ...JSON.parse(value),
+      ...JSON.parse(value ?? ''),
     }),
     submit_label: name === 'approve' ? 'Approve' : 'Reject',
     notify_on_cancel: true,
   };
 };
 
-export const requestApproval = async (approval): Promise<void> => {
+export const requestApproval = async (approval: Approval): Promise<void> => {
   try {
     const messageBuilder = ApprovalMessageBuilder.fromApprovalRequest(approval);
 
@@ -61,18 +62,14 @@ export const requestApproval = async (approval): Promise<void> => {
   }
 };
 
-export const handleButtonClicked = async (
-  payload: DialogPayload,
-): Promise<Message> => {
+export const handleButtonClicked = async (payload: DialogPayload): Promise<Message> => {
   try {
     const triggerId = payload.trigger_id;
     const dialog = buildDialog(payload);
 
     await bot.openDialog(triggerId, dialog);
 
-    const messageBuilder = ApprovalMessageBuilder.fromMessage(
-      payload.original_message,
-    );
+    const messageBuilder = ApprovalMessageBuilder.fromMessage(payload.original_message);
 
     // Disabled for now cause there is no Event on Slack Dialog Cancelation.
     // If the Actions are removed it is not possible to Approve/Reject a approval
@@ -93,12 +90,10 @@ export const handleButtonClicked = async (
   }
 };
 
-const handleDialogSubmission = async (
-  payload: DialogPayload,
-): Promise<void> => {
+const handleDialogSubmission = async (payload: DialogPayload): Promise<void> => {
   const { user, state, callback_id, submission } = payload;
   const { comment } = submission;
-  const { ts, approval } = JSON.parse(state);
+  const { ts, approval } = JSON.parse(state) as ApprovalDialogState;
   const { token, pipelineName, stageName, actionName } = approval;
 
   await pipeline
@@ -118,22 +113,16 @@ const handleDialogSubmission = async (
 
   messageBuilder.removeActions();
 
-  messageBuilder.updateStatus(
-    callback_id === 'approve_dialog'
-      ? `:white_check_mark: Approved by ${user.name}`
-      : `:x: Rejected by ${user.name}`,
-  );
+  messageBuilder.updateStatus(callback_id === 'approve_dialog' ? `:white_check_mark: Approved by ${user.name}` : `:x: Rejected by ${user.name}`);
 
   messageBuilder.attachComment(comment);
 
   await bot.updateMessage(ts, messageBuilder.message);
 };
 
-const handleDialogCancellation = async (
-  payload: DialogPayload,
-): Promise<void> => {
+const handleDialogCancellation = async (payload: DialogPayload): Promise<void> => {
   const { state } = payload;
-  const { ts, approval } = JSON.parse(state);
+  const { ts, approval } = JSON.parse(state) as ApprovalDialogState;
 
   const messageBuilder = ApprovalMessageBuilder.fromApprovalRequest(approval);
 

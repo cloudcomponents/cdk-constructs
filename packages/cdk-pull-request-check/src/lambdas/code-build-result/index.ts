@@ -1,25 +1,16 @@
-import { CodeBuildCloudWatchStateEvent } from 'aws-lambda';
+import type { CodeBuildCloudWatchStateEvent } from 'aws-lambda';
 import { CodeCommit } from 'aws-sdk';
 
 const codeCommit = new CodeCommit();
 
-export const handler = async (
-  event: CodeBuildCloudWatchStateEvent,
-): Promise<void> => {
+export const handler = async (event: CodeBuildCloudWatchStateEvent): Promise<void> => {
   const { region, detail } = event;
 
-  const shouldUpdateApprovalState =
-    process.env.UPDATE_APPROVAL_STATE === 'TRUE';
+  const shouldUpdateApprovalState = process.env.UPDATE_APPROVAL_STATE === 'TRUE';
 
   const shouldPostComment = process.env.POST_COMMENT === 'TRUE';
 
-  const {
-    pullRequestId,
-    revisionId,
-    repositoryName,
-    beforeCommitId,
-    afterCommitId,
-  } = getPullRequestProps(detail);
+  const { pullRequestId, revisionId, repositoryName, beforeCommitId, afterCommitId } = getPullRequestProps(detail);
 
   const s3Prefix = region === 'us-east-1' ? 's3' : `s3-${region}`;
 
@@ -111,38 +102,34 @@ interface PullrequestProps {
   revisionId: string;
 }
 
-const getPullRequestProps = (
-  detail: CodeBuildCloudWatchStateEvent['detail'],
-): PullrequestProps => {
-  let repositoryName: string;
-  let pullRequestId: string;
-  let beforeCommitId: string;
-  let afterCommitId: string;
-  let revisionId: string;
+const getPullRequestProps = (detail: CodeBuildCloudWatchStateEvent['detail']): PullrequestProps => {
+  let repositoryName = '';
+  let pullRequestId = '';
+  let beforeCommitId = '';
+  let afterCommitId = '';
+  let revisionId = '';
 
-  detail['additional-information'].environment['environment-variables'].forEach(
-    ({ name, value }) => {
-      switch (name) {
-        case 'pullRequestId':
-          pullRequestId = value;
-          break;
-        case 'repositoryName':
-          repositoryName = value;
-          break;
-        case 'sourceCommit':
-          beforeCommitId = value;
-          break;
-        case 'destinationCommit':
-          afterCommitId = value;
-          break;
-        case 'revisionId':
-          revisionId = value;
-          break;
-        default:
-          throw new Error(`Unknown environment variable: ${name}`);
-      }
-    },
-  );
+  detail['additional-information'].environment['environment-variables'].forEach(({ name, value }) => {
+    switch (name) {
+      case 'pullRequestId':
+        pullRequestId = value;
+        break;
+      case 'repositoryName':
+        repositoryName = value;
+        break;
+      case 'sourceCommit':
+        beforeCommitId = value;
+        break;
+      case 'destinationCommit':
+        afterCommitId = value;
+        break;
+      case 'revisionId':
+        revisionId = value;
+        break;
+      default:
+        throw new Error(`Unknown environment variable: ${name}`);
+    }
+  });
 
   return {
     repositoryName,

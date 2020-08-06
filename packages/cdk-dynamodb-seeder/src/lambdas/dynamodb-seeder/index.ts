@@ -1,7 +1,4 @@
-import {
-  CloudFormationCustomResourceEvent,
-  CloudFormationCustomResourceCreateEvent,
-} from 'aws-lambda';
+import type { CloudFormationCustomResourceEvent, CloudFormationCustomResourceCreateEvent } from 'aws-lambda';
 import { DynamoDB, S3 } from 'aws-sdk';
 import chunk from 'lodash.chunk';
 
@@ -24,9 +21,7 @@ type Seeds = Record<string, unknown>[];
 const dynamodb = new DynamoDB.DocumentClient();
 const s3 = new S3();
 
-const getProperties = (
-  props: CloudFormationCustomResourceEvent['ResourceProperties'],
-): DynamoDBSeederProps => ({
+const getProperties = (props: CloudFormationCustomResourceEvent['ResourceProperties']): DynamoDBSeederProps => ({
   tableName: props.TableName,
   seeds: {
     inlineSeeds: props.Seeds.InlineSeeds,
@@ -36,27 +31,19 @@ const getProperties = (
   },
 });
 
-const onCreate = async (
-  event: CloudFormationCustomResourceCreateEvent,
-): Promise<void> => {
+const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<void> => {
   const props = getProperties(event.ResourceProperties);
 
   const { inlineSeeds, ...s3Location } = props.seeds;
 
-  const seeds = inlineSeeds
-    ? JSON.parse(inlineSeeds)
-    : await getSeedsFromS3(s3Location);
+  const seeds = inlineSeeds ? (JSON.parse(inlineSeeds) as Seeds) : await getSeedsFromS3(s3Location);
 
   await writeSeeds(props.tableName, seeds);
 
   console.log(`Seed running complete for table ${props.tableName}`);
 };
 
-const getSeedsFromS3 = async (s3Location: {
-  s3Bucket?: string;
-  s3Key?: string;
-  s3ObjectVersion?: string;
-}): Promise<Seeds> => {
+const getSeedsFromS3 = async (s3Location: { s3Bucket?: string; s3Key?: string; s3ObjectVersion?: string }): Promise<Seeds> => {
   const { s3Bucket, s3Key, s3ObjectVersion } = s3Location;
 
   if (!s3Bucket || !s3Key) {
@@ -70,6 +57,10 @@ const getSeedsFromS3 = async (s3Location: {
       VersionId: s3ObjectVersion,
     })
     .promise();
+
+  if (!body) {
+    throw new Error(`Cannot load seeds from bucket ${s3Bucket} with key ${s3Key}`);
+  }
 
   return JSON.parse(body.toString()) as Seeds;
 };
@@ -98,9 +89,7 @@ const writeSeeds = async (tableName: string, seeds: Seeds): Promise<void> => {
   );
 };
 
-export const handler = async (
-  event: CloudFormationCustomResourceEvent,
-): Promise<void> => {
+export const handler = async (event: CloudFormationCustomResourceEvent): Promise<void> => {
   const requestType = event.RequestType;
 
   switch (requestType) {

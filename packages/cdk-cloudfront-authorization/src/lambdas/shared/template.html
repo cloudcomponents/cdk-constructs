@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <title>CloudFront-Authorization</title>
+    <style>
+      html {
+        padding: 0px;
+      }
+
+      body {
+        display: flex;
+        min-height: 100%;
+        margin: 0px;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .message-card {
+        flex-grow: 1;
+        max-width: 600px;
+        margin-top: 2%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card message-card">
+      <h5 class="card-header">
+        CloudFront-Authorization
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title">${title}</h5>
+        <p>
+          ${message}
+          <a
+            class="card-link"
+            data-toggle="collapse"
+            href="#details"
+            role="button"
+            aria-expanded="false"
+            aria-controls="details"
+          >
+            ${expandText}
+          </a>
+        </p>
+        <p class="collapse blockquote-footer" id="details">
+          ${details} [log region: ${region}]
+        </p>
+        <a href="${linkUri}" class="btn btn-primary" role="button">${linkText}</a>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

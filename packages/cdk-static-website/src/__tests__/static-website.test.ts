@@ -1,6 +1,6 @@
-import { Stack } from '@aws-cdk/core';
 import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
 import { Version } from '@aws-cdk/aws-lambda';
+import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
 import { StaticWebsite } from '../static-website';
@@ -24,11 +24,7 @@ test('lambda at edge', (): void => {
 
   staticWebsite.addLambdaFunctionAssociation({
     eventType: LambdaEdgeEventType.ORIGIN_REQUEST,
-    lambdaFunction: Version.fromVersionArn(
-      stack,
-      'LambdaEdge',
-      'arn:aws:lambda:us-east-1:123456789012:function:my-function:1',
-    ),
+    lambdaFunction: Version.fromVersionArn(stack, 'LambdaEdge', 'arn:aws:lambda:us-east-1:123456789012:function:my-function:1'),
   });
 
   expect(stack).toMatchCdkSnapshot();

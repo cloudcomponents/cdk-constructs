@@ -18,8 +18,7 @@ test('default setup: us-east-1', () => {
     httpHeaders: {
       'Content-Security-Policy':
         "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
-      'Strict-Transport-Security':
-        'max-age=31536000; includeSubdomains; preload',
+      'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload',
       'Referrer-Policy': 'same-origin',
       'X-XSS-Protection': '1; mode=block',
       'X-Frame-Options': 'DENY',
@@ -35,7 +34,18 @@ test('default setup: us-east-1', () => {
 
   expect(stack).toMatchCdkSnapshot({
     propertyMatchers: {
+      Parameters: expect.any(Object),
       Resources: {
+        CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B: {
+          Properties: {
+            Code: expect.any(Object),
+          },
+        },
+        httpheadersFunction1CD98582: {
+          Properties: {
+            Code: expect.any(Object),
+          },
+        },
         httpheadersProvider158513BA: {
           Properties: {
             Create: {
@@ -66,8 +76,7 @@ test('default setup: not us-east-1', () => {
     httpHeaders: {
       'Content-Security-Policy':
         "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
-      'Strict-Transport-Security':
-        'max-age=31536000; includeSubdomains; preload',
+      'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload',
       'Referrer-Policy': 'same-origin',
       'X-XSS-Protection': '1; mode=block',
       'X-Frame-Options': 'DENY',
@@ -79,11 +88,28 @@ test('default setup: not us-east-1', () => {
   // THEN
   const supportStack = app.node.tryFindChild(`lambda-at-edge-support-stack`);
 
-  expect(supportStack).toMatchCdkSnapshot();
+  expect(supportStack).toMatchCdkSnapshot({
+    propertyMatchers: {
+      Parameters: expect.any(Object),
+      Resources: {
+        httpheadersFunction1CD98582: {
+          Properties: {
+            Code: expect.any(Object),
+          },
+        },
+      },
+    },
+  });
 
   expect(stack).toMatchCdkSnapshot({
     propertyMatchers: {
+      Parameters: expect.any(Object),
       Resources: {
+        CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B: {
+          Properties: {
+            Code: expect.any(Object),
+          },
+        },
         httpheadersProvider158513BA: {
           Properties: {
             Create: {
@@ -115,7 +141,5 @@ test('blacklist', () => {
   };
 
   // THEN
-  expect(() => addHttpHeader()).toThrowError(
-    /HttpHeader connection is blacklisted and can't be added by Lambda@Edge functions/,
-  );
+  expect(() => addHttpHeader()).toThrowError(/HttpHeader connection is blacklisted and can't be added by Lambda@Edge functions/);
 });

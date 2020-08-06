@@ -1,11 +1,7 @@
-import {
-  BuildSpec,
-  ComputeType,
-  LinuxBuildImage,
-} from '@aws-cdk/aws-codebuild';
+import { BuildSpec, ComputeType, LinuxBuildImage } from '@aws-cdk/aws-codebuild';
 import { Repository } from '@aws-cdk/aws-codecommit';
-import { Topic } from '@aws-cdk/aws-sns';
 import { SnsTopic } from '@aws-cdk/aws-events-targets';
+import { Topic } from '@aws-cdk/aws-sns';
 import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 

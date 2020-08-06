@@ -1,23 +1,11 @@
 import * as path from 'path';
-import { Construct } from '@aws-cdk/core';
-import {
-  BuildSpec,
-  ComputeType,
-  IBuildImage,
-  LinuxBuildImage,
-  Project,
-  Source,
-} from '@aws-cdk/aws-codebuild';
+import { BuildSpec, ComputeType, IBuildImage, LinuxBuildImage, Project, Source } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
-import {
-  EventField,
-  RuleTargetInput,
-  OnEventOptions,
-  Rule,
-} from '@aws-cdk/aws-events';
+import { EventField, RuleTargetInput, OnEventOptions, Rule } from '@aws-cdk/aws-events';
 import { CodeBuildProject, LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Construct } from '@aws-cdk/core';
 
 export interface PullRequestCheckProps {
   /**
@@ -88,11 +76,7 @@ export interface PullRequestCheckProps {
 export class PullRequestCheck extends Construct {
   private pullRequestProject: Project;
 
-  public constructor(
-    scope: Construct,
-    id: string,
-    props: PullRequestCheckProps,
-  ) {
+  public constructor(scope: Construct, id: string, props: PullRequestCheckProps) {
     super(scope, id);
 
     const {
@@ -122,30 +106,21 @@ export class PullRequestCheck extends Construct {
     });
 
     if (updateApprovalState || postComment) {
-      const codeBuildResultFunction = new Function(
-        this,
-        'CodeBuildResultFunction',
-        {
-          runtime: Runtime.NODEJS_12_X,
-          code: Code.asset(
-            path.join(__dirname, 'lambdas', 'code-build-result'),
-          ),
-          handler: 'index.handler',
-          environment: {
-            UPDATE_APPROVAL_STATE: updateApprovalState ? 'TRUE' : 'FALSE',
-            POST_COMMENT: postComment ? 'TRUE' : 'FALSE',
-          },
+      const codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
+        runtime: Runtime.NODEJS_12_X,
+        code: Code.asset(path.join(__dirname, 'lambdas', 'code-build-result')),
+        handler: 'index.handler',
+        environment: {
+          UPDATE_APPROVAL_STATE: updateApprovalState ? 'TRUE' : 'FALSE',
+          POST_COMMENT: postComment ? 'TRUE' : 'FALSE',
         },
-      );
+      });
 
       codeBuildResultFunction.addToRolePolicy(
         new PolicyStatement({
           effect: Effect.ALLOW,
           resources: [repository.repositoryArn],
-          actions: [
-            'codecommit:PostCommentForPullRequest',
-            'codecommit:UpdatePullRequestApprovalState',
-          ],
+          actions: ['codecommit:PostCommentForPullRequest', 'codecommit:UpdatePullRequestApprovalState'],
         }),
       );
 
@@ -154,16 +129,13 @@ export class PullRequestCheck extends Construct {
       });
     }
 
-    const rule = repository.onPullRequestStateChange(
-      `${this.node.uniqueId}Rule`,
-      {
-        eventPattern: {
-          detail: {
-            event: ['pullRequestSourceBranchUpdated', 'pullRequestCreated'],
-          },
+    const rule = repository.onPullRequestStateChange(`${this.node.uniqueId}Rule`, {
+      eventPattern: {
+        detail: {
+          event: ['pullRequestSourceBranchUpdated', 'pullRequestCreated'],
         },
       },
-    );
+    });
 
     rule.addTarget(
       new CodeBuildProject(this.pullRequestProject, {

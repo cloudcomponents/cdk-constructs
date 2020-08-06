@@ -1,15 +1,10 @@
-import { Construct } from '@aws-cdk/core';
-import {
-  BuildSpec,
-  LinuxBuildImage,
-  Project,
-  ComputeType,
-} from '@aws-cdk/aws-codebuild';
+import { BuildSpec, LinuxBuildImage, Project, ComputeType } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
 import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
-import { Bucket } from '@aws-cdk/aws-s3';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import { Bucket } from '@aws-cdk/aws-s3';
+import { Construct } from '@aws-cdk/core';
 
 export interface S3CodeCommitBackupProps {
   /**
@@ -44,11 +39,7 @@ export class S3CodeCommitBackup extends Construct {
 
     const { backupBucket, schedule, computeType, repository } = props;
 
-    const {
-      repositoryName,
-      repositoryCloneUrlHttp,
-      repositoryArn,
-    } = repository;
+    const { repositoryName, repositoryCloneUrlHttp, repositoryArn } = repository;
 
     const buildImage = LinuxBuildImage.STANDARD_2_0;
 
@@ -64,10 +55,7 @@ export class S3CodeCommitBackup extends Construct {
         },
         phases: {
           pre_build: {
-            commands: [
-              `echo "[===== Clone repository: ${repositoryName} =====]"`,
-              `git clone "${repositoryCloneUrlHttp}"`,
-            ],
+            commands: [`echo "[===== Clone repository: ${repositoryName} =====]"`, `git clone "${repositoryCloneUrlHttp}"`],
           },
           build: {
             commands: [
@@ -87,13 +75,7 @@ export class S3CodeCommitBackup extends Construct {
     this.backupProject.addToRolePolicy(
       new PolicyStatement({
         resources: [repositoryArn],
-        actions: [
-          'codecommit:BatchGet*',
-          'codecommit:Get*',
-          'codecommit:Describe*',
-          'codecommit:List*',
-          'codecommit:GitPull',
-        ],
+        actions: ['codecommit:BatchGet*', 'codecommit:Get*', 'codecommit:Describe*', 'codecommit:List*', 'codecommit:GitPull'],
       }),
     );
 

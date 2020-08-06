@@ -20,7 +20,7 @@ export class SlackBot {
 
   private channelName?: string;
 
-  private channelId: string;
+  private channelId?: string;
 
   private name: string;
 
@@ -41,24 +41,21 @@ export class SlackBot {
   }
 
   public async postMessage(message: Message): Promise<WebAPICallResult> {
-    await this.setChannelId();
+    const channelId = await this.getChannelId();
 
     return this.bot.chat.postMessage({
-      channel: this.channelId,
+      channel: channelId,
       icon_emoji: this.icon,
       username: this.name,
       ...message,
     });
   }
 
-  public async updateMessage(
-    ts: string,
-    message: Message,
-  ): Promise<WebAPICallResult> {
-    await this.setChannelId();
+  public async updateMessage(ts: string, message: Message): Promise<WebAPICallResult> {
+    const channelId = await this.getChannelId();
 
     return this.bot.chat.update({
-      channel: this.channelId,
+      channel: channelId,
       icon_emoji: this.icon,
       username: this.name,
       ts,
@@ -67,16 +64,11 @@ export class SlackBot {
   }
 
   public async findChannel(channelName: string): Promise<Channel | undefined> {
-    const response = (await this.bot.conversations.list()) as Record<
-      string,
-      Channel[]
-    >;
+    const response = (await this.bot.conversations.list()) as Record<string, Channel[]>;
     return response.channels.find((channel) => channel.name === channelName);
   }
 
-  protected async findMessages(
-    channelId: string,
-  ): Promise<Message[] | undefined> {
+  protected async findMessages(channelId: string): Promise<Message[] | undefined> {
     const response = (await this.bot.conversations.history({
       channel: channelId,
       // oldest: Date.now() - 7 Days
@@ -85,12 +77,10 @@ export class SlackBot {
     return response.messages;
   }
 
-  public async findMessageForExecutionId(
-    this: SlackBot,
-    executionId: string,
-  ): Promise<Message | undefined> {
-    this.setChannelId();
-    const messages = await this.findMessages(this.channelId);
+  public async findMessageForExecutionId(this: SlackBot, executionId: string): Promise<Message | undefined> {
+    const channelId = await this.getChannelId();
+
+    const messages = await this.findMessages(channelId);
 
     if (!messages) {
       return undefined;
@@ -108,19 +98,25 @@ export class SlackBot {
     return foundMessage;
   }
 
-  public async setChannelId(): Promise<void> {
+  public async getChannelId(): Promise<string> {
+    if (this.channelId) return this.channelId;
+
     if (this.channelName) {
       const response = await this.bot.conversations.list();
-      this.channelId = (response.channels as Channel[]).find(
-        (channel) => channel.name === this.channelName,
-      ).id as string;
+
+      const channel = (response.channels as Channel[]).find((channel) => channel.name === this.channelName);
+
+      if (!channel) {
+        throw new Error(`Channel ${this.channelName} not found`);
+      }
+      this.channelId = channel.id;
+
+      return this.channelId;
     }
+    throw new Error('Either channelName or channelId must be specified');
   }
 
-  public async openDialog(
-    triggerId: string,
-    dialog: Dialog,
-  ): Promise<WebAPICallResult> {
+  public async openDialog(triggerId: string, dialog: Dialog): Promise<WebAPICallResult> {
     return this.bot.dialog.open({ trigger_id: triggerId, dialog });
   }
 }

@@ -3,52 +3,18 @@ import { AttachmentAction } from '@slack/web-api';
 import { Message } from './message';
 import { MessageBuilder, Field } from './message-builder';
 
+export interface Approval {
+  token: string;
+  pipelineName: string;
+  stageName: string;
+  actionName: string;
+  region: string;
+  customData?: string;
+  expires: string;
+  externalEntityLink?: string;
+}
+
 export class ApprovalMessageBuilder extends MessageBuilder {
-  public removeActions(): void {
-    this.actions = [];
-  }
-
-  public updateStatus(status: string): void {
-    this.fields.forEach((field) => {
-      if (field.title === 'Status') {
-        field.value = status;
-      }
-    });
-  }
-
-  public attachComment(comment: string): void {
-    this.fields.push({
-      title: 'Comment',
-      value: comment,
-      short: false,
-    });
-  }
-
-  public get message(): Message {
-    const title = 'APPROVAL NEEDED';
-    const text = 'The following Approval action is waiting for your response:';
-    const callbackId = 'slack_approval';
-    const message: Message = {
-      text: '',
-      attachments: [
-        {
-          title,
-          text,
-          callback_id: callbackId,
-          fields: this.fields,
-          footer: this.footer,
-          actions: this.actions,
-        },
-      ],
-    };
-
-    if (this.ts) {
-      message.ts = this.ts;
-    }
-
-    return message;
-  }
-
   public static fromMessage(message: Message): ApprovalMessageBuilder {
     const attachment = message.attachments[0];
 
@@ -60,7 +26,7 @@ export class ApprovalMessageBuilder extends MessageBuilder {
     });
   }
 
-  public static fromApprovalRequest(approval): ApprovalMessageBuilder {
+  public static fromApprovalRequest(approval: Approval): ApprovalMessageBuilder {
     const actions: AttachmentAction[] = [
       {
         name: 'reject',
@@ -130,10 +96,53 @@ export class ApprovalMessageBuilder extends MessageBuilder {
       short: false,
     });
 
-    const footer = `This review request will expire on ${new Date(
-      approval.expires,
-    ).toDateString()}`;
+    const footer = `This review request will expire on ${new Date(approval.expires).toDateString()}`;
 
     return new ApprovalMessageBuilder({ actions, fields, footer });
+  }
+
+  public removeActions(): void {
+    this.actions = [];
+  }
+
+  public updateStatus(status: string): void {
+    this.fields?.forEach((field) => {
+      if (field.title === 'Status') {
+        field.value = status;
+      }
+    });
+  }
+
+  public attachComment(comment: string): void {
+    this.fields?.push({
+      title: 'Comment',
+      value: comment,
+      short: false,
+    });
+  }
+
+  public get message(): Message {
+    const title = 'APPROVAL NEEDED';
+    const text = 'The following Approval action is waiting for your response:';
+    const callbackId = 'slack_approval';
+    const message: Message = {
+      text: '',
+      attachments: [
+        {
+          title,
+          text,
+          callback_id: callbackId,
+          fields: this.fields,
+          footer: this.footer,
+          actions: this.actions,
+        },
+      ],
+    };
+
+    if (this.ts) {
+      message.ts = this.ts;
+    }
+
+    return message;
   }
 }

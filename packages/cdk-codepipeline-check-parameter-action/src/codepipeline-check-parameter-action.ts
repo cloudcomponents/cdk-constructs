@@ -1,13 +1,7 @@
-import { Construct, Stack } from '@aws-cdk/core';
-import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
-import {
-  ActionCategory,
-  CommonAwsActionProps,
-  IStage,
-  ActionBindOptions,
-  ActionConfig,
-} from '@aws-cdk/aws-codepipeline';
+import { ActionCategory, CommonAwsActionProps, IStage, ActionBindOptions, ActionConfig } from '@aws-cdk/aws-codepipeline';
 import { Action } from '@aws-cdk/aws-codepipeline-actions';
+import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
+import { Construct, Stack } from '@aws-cdk/core';
 
 import { CheckParameterFunction } from './check-parameter-function';
 
@@ -15,8 +9,7 @@ export interface RegExp {
   readonly source: string;
 }
 
-export interface CommonCodePipelineCheckParameterActionProps
-  extends CommonAwsActionProps {
+export interface CommonCodePipelineCheckParameterActionProps extends CommonAwsActionProps {
   /**
    * The name of the parameter.
    */
@@ -35,8 +28,7 @@ export interface CommonCodePipelineCheckParameterActionProps
   readonly crossAccountRole?: IRole;
 }
 
-export interface CodePipelineCheckParameterActionProps
-  extends CommonCodePipelineCheckParameterActionProps {
+export interface CodePipelineCheckParameterActionProps extends CommonCodePipelineCheckParameterActionProps {
   /**
    * Regular expression to validate the parameter.
    */
@@ -65,26 +57,13 @@ export class CodePipelineCheckParameterAction extends Action {
     this.props = props;
   }
 
-  protected bound(
-    scope: Construct,
-    _stage: IStage,
-    options: ActionBindOptions,
-  ): ActionConfig {
-    const {
-      parameterName,
-      regExp,
-      logParameter = false,
-      crossAccountRole,
-    } = this.props;
+  protected bound(scope: Construct, _stage: IStage, options: ActionBindOptions): ActionConfig {
+    const { parameterName, regExp, logParameter = false, crossAccountRole } = this.props;
 
-    const checkParameterFunction = new CheckParameterFunction(
-      scope,
-      'CheckParamterFunction',
-      {
-        parameterName,
-        crossAccountRole,
-      },
-    );
+    const checkParameterFunction = new CheckParameterFunction(scope, 'CheckParamterFunction', {
+      parameterName,
+      crossAccountRole,
+    });
 
     // allow pipeline to list functions
     options.role.addToPolicy(
@@ -108,10 +87,7 @@ export class CodePipelineCheckParameterAction extends Action {
     checkParameterFunction.addToRolePolicy(
       new PolicyStatement({
         resources: ['*'],
-        actions: [
-          'codepipeline:PutJobSuccessResult',
-          'codepipeline:PutJobFailureResult',
-        ],
+        actions: ['codepipeline:PutJobSuccessResult', 'codepipeline:PutJobFailureResult'],
       }),
     );
 

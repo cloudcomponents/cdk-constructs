@@ -1,12 +1,8 @@
 import * as urlRegex from 'url-regex';
 
-import {
-  CodePipelineCheckParameterAction,
-  CommonCodePipelineCheckParameterActionProps,
-} from './codepipeline-check-parameter-action';
+import { CodePipelineCheckParameterAction, CommonCodePipelineCheckParameterActionProps } from './codepipeline-check-parameter-action';
 
-export interface CodePipelineCheckUrlParameterActionProps
-  extends CommonCodePipelineCheckParameterActionProps {
+export interface CodePipelineCheckUrlParameterActionProps extends CommonCodePipelineCheckParameterActionProps {
   /**
    * Only match an exact string
    *

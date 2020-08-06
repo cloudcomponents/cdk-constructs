@@ -1,16 +1,10 @@
-import {
-  Construct,
-  CustomResource,
-  CustomResourceProvider,
-  CustomResourceProviderRuntime,
-  Duration,
-} from '@aws-cdk/core';
 import { ITable } from '@aws-cdk/aws-dynamodb';
 import { Effect } from '@aws-cdk/aws-iam';
 import { Bucket } from '@aws-cdk/aws-s3';
+import { Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime, Duration } from '@aws-cdk/core';
 
-import { Seeds } from './seeds';
 import { dynamodbSeederDir } from './directories';
+import { Seeds } from './seeds';
 
 export interface DynamoDBSeederProps {
   readonly table: ITable;
@@ -32,35 +26,27 @@ export class DynamoDBSeeder extends Construct {
 
     const seeds = props.seeds.bind(this);
 
-    const seedsBucket = seeds.s3Location?.bucketName
-      ? Bucket.fromBucketName(this, 'SeedsBucket', seeds.s3Location.bucketName)
-      : undefined;
+    const seedsBucket = seeds.s3Location?.bucketName ? Bucket.fromBucketName(this, 'SeedsBucket', seeds.s3Location.bucketName) : undefined;
 
-    const serviceToken = CustomResourceProvider.getOrCreate(
-      this,
-      'Custom::DynamodbSeeder',
-      {
-        codeDirectory: dynamodbSeederDir,
-        runtime: CustomResourceProviderRuntime.NODEJS_12,
-        timeout: props.timeout ?? Duration.minutes(15),
-        policyStatements: [
-          {
-            Effect: Effect.ALLOW,
-            Action: ['dynamodb:BatchWriteItem'],
-            Resource: props.table.tableArn,
-          },
-          seedsBucket
-            ? {
-                Effect: Effect.ALLOW,
-                Action: ['s3:GetObject'],
-                Resource: `${seedsBucket.bucketArn}/${
-                  seeds.s3Location?.objectKey ?? '*'
-                }`,
-              }
-            : undefined,
-        ],
-      },
-    );
+    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::DynamodbSeeder', {
+      codeDirectory: dynamodbSeederDir,
+      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      timeout: props.timeout ?? Duration.minutes(15),
+      policyStatements: [
+        {
+          Effect: Effect.ALLOW,
+          Action: ['dynamodb:BatchWriteItem'],
+          Resource: props.table.tableArn,
+        },
+        seedsBucket
+          ? {
+              Effect: Effect.ALLOW,
+              Action: ['s3:GetObject'],
+              Resource: `${seedsBucket.bucketArn}/${seeds.s3Location?.objectKey ?? '*'}`,
+            }
+          : undefined,
+      ],
+    });
 
     new CustomResource(this, 'CustomResource', {
       serviceToken,

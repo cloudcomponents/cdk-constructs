@@ -1,5 +1,4 @@
-import { CloudFormationCustomResourceEvent } from 'aws-lambda';
-
+import type { CloudFormationCustomResourceEventCommon } from 'aws-lambda';
 import {
   customResourceHelper,
   OnCreateHandler,
@@ -7,6 +6,7 @@ import {
   OnDeleteHandler,
   ResourceHandler,
   ResourceHandlerReturn,
+  camelizeKeys,
 } from 'custom-resource-helper';
 
 import { createWebhook, updateWebhook, deleteWebhook } from './webhook-api';
@@ -18,74 +18,49 @@ export interface WebhookProps {
   events: string[];
 }
 
-const getProperties = (
-  event: CloudFormationCustomResourceEvent,
-): WebhookProps => {
-  const props = event.ResourceProperties;
+const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
+  const { githubApiToken, githubRepoUrl, payloadUrl, events } = camelizeKeys<
+    WebhookProps,
+    CloudFormationCustomResourceEventCommon['ResourceProperties']
+  >(event.ResourceProperties);
 
-  const githubApiToken = props.GithubApiToken;
-  const githubRepoUrl = props.GithubRepoUrl;
-  const payloadUrl = props.PayloadUrl;
-  const events = props.Events;
+  const { data } = await createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
-  return {
-    githubApiToken,
-    githubRepoUrl,
-    payloadUrl,
-    events,
-  };
-};
-
-const handleCreate: OnCreateHandler = async (
-  event,
-  _,
-): Promise<ResourceHandlerReturn> => {
-  const { githubApiToken, githubRepoUrl, payloadUrl, events } = getProperties(
-    event,
-  );
-
-  const { data: responseData } = await createWebhook(
-    githubApiToken,
-    githubRepoUrl,
-    payloadUrl,
-    events,
-  );
-
-  const physicalResourceId = responseData.id.toString();
+  const physicalResourceId = data.id.toString();
 
   return {
     physicalResourceId,
-    responseData,
+    responseData: {
+      ...data,
+    },
   };
 };
 
-const handleUpdate: OnUpdateHandler = async (
-  event,
-  _,
-): Promise<ResourceHandlerReturn> => {
-  const { githubApiToken, githubRepoUrl, payloadUrl, events } = getProperties(
-    event,
-  );
+const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
+  const { githubApiToken, githubRepoUrl, payloadUrl, events } = camelizeKeys<
+    WebhookProps,
+    CloudFormationCustomResourceEventCommon['ResourceProperties']
+  >(event.ResourceProperties);
+
   const hookId = event.PhysicalResourceId;
 
-  const { data: responseData } = await updateWebhook(
-    githubApiToken,
-    githubRepoUrl,
-    payloadUrl,
-    events,
-    parseInt(hookId, 10),
-  );
+  const { data } = await updateWebhook(githubApiToken, githubRepoUrl, payloadUrl, events, parseInt(hookId, 10));
 
-  const physicalResourceId = responseData.id.toString();
+  const physicalResourceId = data.id.toString();
 
   return {
     physicalResourceId,
-    responseData,
+    responseData: {
+      ...data,
+    },
   };
 };
 
-const handleDelete: OnDeleteHandler = async (event, _): Promise<void> => {
-  const { githubApiToken, githubRepoUrl } = getProperties(event);
+const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
+  const { githubApiToken, githubRepoUrl } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+    event.ResourceProperties,
+  );
+
   const hookId = event.PhysicalResourceId;
 
   await deleteWebhook(githubApiToken, githubRepoUrl, parseInt(hookId, 10));

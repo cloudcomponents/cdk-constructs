@@ -7,13 +7,9 @@ import { BlueGreenContainerDeploymentStack } from './blue-green-container-deploy
 
 const app = new App();
 
-new BlueGreenContainerDeploymentStack(
-  app,
-  'BlueGreenContainerDeploymentStack',
-  {
-    env: {
-      region: process.env.DEFAULT_REGION,
-      account: process.env.CDK_DEFAULT_ACCOUNT,
-    },
+new BlueGreenContainerDeploymentStack(app, 'BlueGreenContainerDeploymentStack', {
+  env: {
+    region: process.env.DEFAULT_REGION,
+    account: process.env.CDK_DEFAULT_ACCOUNT,
   },
-);
+});

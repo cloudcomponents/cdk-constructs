@@ -1,0 +1,24 @@
+{
+  "name": "cloudfront-authorization-example",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "cdkdx build",
+    "upgrade:cdk": "cdkdx upgrade-cdk",
+    "cdk": "cdk"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-cloudfront": "^1.56.0",
+    "@aws-cdk/aws-cognito": "^1.56.0",
+    "@aws-cdk/aws-s3": "^1.56.0",
+    "@aws-cdk/core": "^1.56.0",
+    "@cloudcomponents/cdk-cloudfront-authorization": "^1.0.0",
+    "@cloudcomponents/cdk-deletable-bucket": "^1.0.20",
+    "source-map-support": "^0.5.19"
+  },
+  "devDependencies": {
+    "@types/source-map-support": "^0.5.2",
+    "aws-cdk": "^1.56.0"
+  }
+}

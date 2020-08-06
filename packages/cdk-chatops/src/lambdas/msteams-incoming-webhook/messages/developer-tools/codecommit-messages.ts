@@ -8,9 +8,7 @@ export class CodeCommitMessage extends Message {
     super('AWS CodeCommit Notification', snsMessage, options);
   }
 
-  protected async renderMessageCard(
-    messageCard: MessageCard,
-  ): Promise<MessageCard> {
+  protected renderMessageCard(messageCard: MessageCard): MessageCard {
     messageCard.addSection({
       facts: [
         {
@@ -32,10 +30,7 @@ export class CodeCommitMessage extends Message {
   protected getText(): string {
     switch (this.snsMessage.detail.event) {
       case 'commentOnCommitCreated': {
-        return `Comment published on commit ${this.snsMessage.detail.afterCommitId.substring(
-          0,
-          7,
-        )}:`;
+        return `Comment published on commit ${this.snsMessage.detail.afterCommitId.substring(0, 7)}:`;
       }
       default:
         return this.snsMessage.detailType;

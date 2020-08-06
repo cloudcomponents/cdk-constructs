@@ -1,7 +1,13 @@
 import { SNS } from 'aws-sdk';
 
-import { Severity } from '../../image-repository';
-
+enum Severity {
+  CRITICAL = 'CRITICAL',
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW',
+  INFORMATIONAL = 'INFORMATIONAL',
+  UNDEFINED = 'UNDEFINED',
+}
 export interface FilterEvent {
   account: string;
   region: string;
@@ -17,13 +23,7 @@ export interface FilterEvent {
 const sns = new SNS();
 
 export const handler = async (event: FilterEvent): Promise<void> => {
-  const {
-    alarmTopicArn,
-    severity,
-    repositoryName,
-    findingSeveriyCounts,
-    ...messageProps
-  } = event;
+  const { alarmTopicArn, severity, repositoryName, findingSeveriyCounts, ...messageProps } = event;
 
   const alarmMessage = {
     message: `${severity} finding in repository ${repositoryName}`,

@@ -1,5 +1,5 @@
 import { Octokit, RestEndpointMethodTypes } from '@octokit/rest';
-import * as parseGithubUrl from 'parse-github-url';
+import parseGithubUrl from 'parse-github-url';
 
 export const createWebhook = async (
   githubApiToken: string,

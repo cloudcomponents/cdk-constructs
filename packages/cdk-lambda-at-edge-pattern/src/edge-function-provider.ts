@@ -1,11 +1,7 @@
-import { Construct } from '@aws-cdk/core';
-import {
-  AwsCustomResource,
-  AwsCustomResourcePolicy,
-  PhysicalResourceId,
-} from '@aws-cdk/custom-resources';
-import { IStringParameter } from '@aws-cdk/aws-ssm';
 import { IFunction, Function } from '@aws-cdk/aws-lambda';
+import { IStringParameter } from '@aws-cdk/aws-ssm';
+import { Construct } from '@aws-cdk/core';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '@aws-cdk/custom-resources';
 
 export interface EdgeFunctionProviderProps {
   readonly parameter: IStringParameter;
@@ -32,10 +28,6 @@ export class EdgeFunctionProvider extends Construct {
       }),
     });
 
-    this.edgeFunction = Function.fromFunctionArn(
-      this,
-      'Function',
-      cr.getResponseField('Parameter.Value'),
-    );
+    this.edgeFunction = Function.fromFunctionArn(this, 'Function', cr.getResponseField('Parameter.Value'));
   }
 }

@@ -1,20 +1,8 @@
 import * as path from 'path';
-import {
-  Construct,
-  CustomResource,
-  CustomResourceProvider,
-  CustomResourceProviderRuntime,
-} from '@aws-cdk/core';
 
 import { NetworkMode } from '@aws-cdk/aws-ecs';
-import {
-  Role,
-  ServicePrincipal,
-  ManagedPolicy,
-  PolicyStatement,
-  Effect,
-  IRole,
-} from '@aws-cdk/aws-iam';
+import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
+import { Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
 
 export interface IDummyTaskDefinition {
   readonly executionRole: IRole;
@@ -31,8 +19,7 @@ export interface DummyTaskDefinitionProps {
   readonly containerPort?: number;
 }
 
-export class DummyTaskDefinition extends Construct
-  implements IDummyTaskDefinition {
+export class DummyTaskDefinition extends Construct implements IDummyTaskDefinition {
   public readonly executionRole: IRole;
 
   public readonly family: string;
@@ -44,36 +31,25 @@ export class DummyTaskDefinition extends Construct
 
     this.executionRole = new Role(this, 'ExecutionRole', {
       assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),
-      managedPolicies: [
-        ManagedPolicy.fromAwsManagedPolicyName(
-          'service-role/AmazonECSTaskExecutionRolePolicy',
-        ),
-      ],
+      managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
     });
 
-    const serviceToken = CustomResourceProvider.getOrCreate(
-      this,
-      'Custom::DummyTaskDefinition',
-      {
-        codeDirectory: path.join(__dirname, 'lambdas', 'dummy-task-definition'),
-        runtime: CustomResourceProviderRuntime.NODEJS_12,
-        policyStatements: [
-          {
-            Effect: Effect.ALLOW,
-            Action: [
-              'ecs:RegisterTaskDefinition',
-              'ecs:DeregisterTaskDefinition',
-            ],
-            Resource: '*',
-          },
-          {
-            Effect: Effect.ALLOW,
-            Action: ['iam:PassRole'],
-            Resource: this.executionRole.roleArn,
-          },
-        ],
-      },
-    );
+    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::DummyTaskDefinition', {
+      codeDirectory: path.join(__dirname, 'lambdas', 'dummy-task-definition'),
+      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      policyStatements: [
+        {
+          Effect: Effect.ALLOW,
+          Action: ['ecs:RegisterTaskDefinition', 'ecs:DeregisterTaskDefinition'],
+          Resource: '*',
+        },
+        {
+          Effect: Effect.ALLOW,
+          Action: ['iam:PassRole'],
+          Resource: this.executionRole.roleArn,
+        },
+      ],
+    });
 
     this.family = props.family || this.node.uniqueId;
 

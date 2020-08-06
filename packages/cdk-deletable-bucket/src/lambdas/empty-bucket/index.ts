@@ -1,7 +1,4 @@
-import {
-  CloudFormationCustomResourceEvent,
-  CloudFormationCustomResourceDeleteEvent,
-} from 'aws-lambda';
+import type { CloudFormationCustomResourceEvent, CloudFormationCustomResourceDeleteEvent } from 'aws-lambda';
 import { S3 } from 'aws-sdk';
 
 export interface EcsTaskDefinitionProps {
@@ -10,9 +7,7 @@ export interface EcsTaskDefinitionProps {
 
 const s3 = new S3();
 
-const getProperties = (
-  props: CloudFormationCustomResourceDeleteEvent['ResourceProperties'],
-): EcsTaskDefinitionProps => ({
+const getProperties = (props: CloudFormationCustomResourceDeleteEvent['ResourceProperties']): EcsTaskDefinitionProps => ({
   bucketName: props.BucketName,
 });
 
@@ -51,17 +46,13 @@ const emptyBucket = async (bucketName: string): Promise<void> => {
   if (listedObjects.IsTruncated) await emptyBucket(bucketName);
 };
 
-const onDelete = async (
-  event: CloudFormationCustomResourceDeleteEvent,
-): Promise<void> => {
+const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise<void> => {
   const { bucketName } = getProperties(event.ResourceProperties);
 
   await emptyBucket(bucketName);
 };
 
-export const handler = async (
-  event: CloudFormationCustomResourceEvent,
-): Promise<void> => {
+export const handler = async (event: CloudFormationCustomResourceEvent): Promise<void> => {
   const requestType = event.RequestType;
 
   if (requestType === 'Delete') {

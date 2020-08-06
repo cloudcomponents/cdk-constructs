@@ -5,11 +5,7 @@ import 'jest-cdk-snapshot';
 import { ApprovalRuleTemplate } from '../approval-rule-template';
 
 jest.mock('../directories', () => ({
-  approvalRuleTemplateDir: path.join(
-    __dirname,
-    'mocks',
-    'approval-rule-template',
-  ),
+  approvalRuleTemplateDir: path.join(__dirname, 'mocks', 'approval-rule-template'),
 }));
 
 test('default setup', (): void => {
