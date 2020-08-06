@@ -1,13 +1,15 @@
-import { CloudFrontResponseResult } from 'aws-lambda';
+import { stringify, parse } from 'querystring';
 import { invokeLambda, createEvent } from 'aws-local-testing-library';
 import { mocked } from 'ts-jest/utils';
 
 import { handler } from '..';
-import { getConfig, extractAndParseCookies, decodeIdToken, validate, Logger, LogLevel } from '../../shared';
+import { getConfig, Logger, LogLevel, httpPostWithRetry, extractAndParseCookies, generateCookieHeaders } from '../../shared';
 
+jest.mock('querystring');
 jest.mock('../../shared/config');
 jest.mock('../../shared/cookie');
 jest.mock('../../shared/jwt');
+jest.mock('../../shared/request');
 
 beforeEach(() => {
   const logger = new Logger(LogLevel.warn);
@@ -95,26 +97,15 @@ afterEach(() => {
   jest.resetAllMocks();
 });
 
-test('redirect to sign-in when no idToken exists', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
-    tokenUserName: 'tokenUserName',
-    scopes: 'scopes',
-    nonce: '10Test',
-    pkce: 'pkce',
-    nonceHmac: 'original_nonceHmac',
-  }));
+test('redirect to requestedUri', async () => {
+  mocked(stringify).mockImplementation(() => {
+    return 'grant_type=refresh_token&client_id=client_id&refresh_token=refreshToken';
+  });
 
-  expect.assertions(2);
+  mocked(parse).mockImplementation(() => {
+    return { requestedUri: '/requestedUri', nonce: '10Test' };
+  });
 
-  const viewRequest = createEvent('cloudfront:ViewerRequest');
-
-  const response = (await invokeLambda(handler, viewRequest)) as CloudFrontResponseResult;
-
-  expect(response?.status).toBe('307');
-  expect(response?.headers?.location[0].value).toMatch('https://auth.us-east-1.demo.aws.com/oauth2');
-});
-
-test('redirect to refreshauth when idToken expires and refresh token exists', async () => {
   mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
@@ -123,29 +114,39 @@ test('redirect to refreshauth when idToken expires and refresh token exists', as
     scopes: 'scopes',
     nonce: '10Test',
     pkce: 'pkce',
-    nonceHmac: 'original_nonceHmac',
   }));
 
-  mocked(decodeIdToken).mockImplementation(() => ({
-    sub: 'sub',
-    aud: 'aud',
-    token_use: 'id',
-    auth_time: 4711,
-    iat: 42,
-    exp: Date.now() / 1000 - 60 * 20, //expire
-  }));
-
-  expect.assertions(2);
+  mocked(httpPostWithRetry).mockResolvedValue({
+    status: 200,
+    statusText: 'OK',
+    config: {},
+    headers: 'headers',
+    data: {
+      id_token: 'idToken',
+      access_token: 'accessToken',
+      refresh_token: 'refreshToken',
+    },
+  });
 
   const viewRequest = createEvent('cloudfront:ViewerRequest');
 
-  const response = (await invokeLambda(handler, viewRequest)) as CloudFrontResponseResult;
+  expect.assertions(2);
+
+  const response = await invokeLambda(handler, viewRequest);
 
   expect(response?.status).toBe('307');
-  expect(response?.headers?.location[0].value).toMatch('https://d111111abcdef8.cloudfront.net/refreshauth');
+  expect(response?.headers?.location[0].value).toMatch('https://d111111abcdef8.cloudfront.net/requestedUri');
 });
 
-test('return unchanged request to forward request to origin', async () => {
+test('redirect to domain when post request fails', async () => {
+  mocked(stringify).mockImplementation(() => {
+    return 'grant_type=refresh_token&client_id=client_id&refresh_token=refreshToken';
+  });
+
+  mocked(parse).mockImplementation(() => {
+    return { requestedUri: '/requestedUri', nonce: '10Test' };
+  });
+
   mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
@@ -154,58 +155,47 @@ test('return unchanged request to forward request to origin', async () => {
     scopes: 'scopes',
     nonce: '10Test',
     pkce: 'pkce',
-    nonceHmac: 'original_nonceHmac',
   }));
 
-  mocked(decodeIdToken).mockImplementation(() => ({
-    sub: 'sub',
-    aud: 'aud',
-    token_use: 'id',
-    auth_time: 4711,
-    iat: 42,
-    exp: Date.now() / 1000 + 60 * 20,
+  mocked(httpPostWithRetry).mockRejectedValue('HTTP POST to url failed');
+
+  const mock = mocked(generateCookieHeaders).refreshFailed.mockImplementation(jest.fn());
+
+  const viewRequest = createEvent('cloudfront:ViewerRequest');
+
+  expect.assertions(3);
+
+  const response = await invokeLambda(handler, viewRequest);
+
+  expect(mock).toBeCalled();
+  expect(response?.status).toBe('307');
+  expect(response?.headers?.location[0].value).toMatch('https://d111111abcdef8.cloudfront.net/requestedUri');
+});
+
+test('show error page when nonce not match', async () => {
+  mocked(stringify).mockImplementation(() => {
+    return 'grant_type=refresh_token&client_id=client_id&refresh_token=refreshToken';
+  });
+
+  mocked(parse).mockImplementation(() => {
+    return { requestedUri: '/requestedUri', nonce: 'wrong' };
+  });
+
+  mocked(extractAndParseCookies).mockImplementation(() => ({
+    tokenUserName: 'tokenUserName',
+    idToken: 'idToken',
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
+    scopes: 'scopes',
+    nonce: '10Test',
+    pkce: 'pkce',
   }));
+
+  const viewRequest = createEvent('cloudfront:ViewerRequest');
 
   expect.assertions(1);
 
-  const viewRequest = createEvent('cloudfront:ViewerRequest');
+  const response = await invokeLambda(handler, viewRequest);
 
-  const result = await invokeLambda(handler, viewRequest);
-
-  expect(result).toBe(viewRequest.Records[0].cf.request);
-});
-
-test('redirect to sign-in when jwt is invalid', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
-    tokenUserName: 'tokenUserName',
-    idToken: 'idToken',
-    accessToken: 'accessToken',
-    refreshToken: 'refreshToken',
-    scopes: 'scopes',
-    nonce: '10Test',
-    pkce: 'pkce',
-    nonceHmac: 'original_nonceHmac',
-  }));
-
-  mocked(decodeIdToken).mockImplementation(() => ({
-    sub: 'sub',
-    aud: 'aud',
-    token_use: 'id',
-    auth_time: 4711,
-    iat: 42,
-    exp: Date.now() / 1000 + 60 * 20,
-  }));
-
-  mocked(validate).mockImplementation(() => {
-    throw new Error('Cannot parse JWT token');
-  });
-
-  expect.assertions(2);
-
-  const viewRequest = createEvent('cloudfront:ViewerRequest');
-
-  const response = (await invokeLambda(handler, viewRequest)) as CloudFrontResponseResult;
-
-  expect(response?.status).toBe('307');
-  expect(response?.headers?.location[0].value).toMatch('https://auth.us-east-1.demo.aws.com/oauth2');
+  expect(response?.status).toBe('200');
 });

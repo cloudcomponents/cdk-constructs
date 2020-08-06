@@ -1,13 +1,15 @@
-import { CloudFrontResponseResult } from 'aws-lambda';
+import { stringify, parse } from 'querystring';
 import { invokeLambda, createEvent } from 'aws-local-testing-library';
 import { mocked } from 'ts-jest/utils';
 
 import { handler } from '..';
-import { getConfig, extractAndParseCookies, decodeIdToken, validate, Logger, LogLevel } from '../../shared';
+import { getConfig, Logger, LogLevel, httpPostWithRetry, extractAndParseCookies, sign, generateCookieHeaders, urlSafe, validate } from '../../shared';
 
+jest.mock('querystring');
 jest.mock('../../shared/config');
 jest.mock('../../shared/cookie');
 jest.mock('../../shared/jwt');
+jest.mock('../../shared/request');
 
 beforeEach(() => {
   const logger = new Logger(LogLevel.warn);
@@ -95,26 +97,62 @@ afterEach(() => {
   jest.resetAllMocks();
 });
 
-test('redirect to sign-in when no idToken exists', async () => {
+test('redirect to requestedUri', async () => {
+  mocked(stringify).mockImplementation(() => {
+    return 'grant_type=authorization_code&client_id=clientId&redirect_uri=https%3A%2F%2FdomainName%2FredirectPathSignIn&code=code&code_verifier=pkce';
+  });
+
+  mocked(parse).mockImplementation(() => {
+    return { code: 'code', state: 'state' };
+  });
+
   mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
+    idToken: 'idToken',
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
     scopes: 'scopes',
     nonce: '10Test',
     pkce: 'pkce',
     nonceHmac: 'original_nonceHmac',
   }));
+
+  mocked(httpPostWithRetry).mockResolvedValue({
+    status: 200,
+    statusText: 'OK',
+    config: {},
+    headers: 'headers',
+    data: {
+      id_token: 'idToken',
+      access_token: 'accessToken',
+      refresh_token: 'refreshToken',
+    },
+  });
+
+  mocked(urlSafe).parse.mockImplementation(() =>
+    Buffer.from(
+      JSON.stringify({
+        requestedUri: '/requestedUri',
+        nonce: '10Test',
+      }),
+    ).toString('base64'),
+  );
+
+  mocked(sign).mockImplementation(() => 'original_nonceHmac');
+
+  mocked(generateCookieHeaders).newTokens.mockReturnValue([]);
+
+  const viewRequest = createEvent('cloudfront:ViewerRequest');
 
   expect.assertions(2);
 
-  const viewRequest = createEvent('cloudfront:ViewerRequest');
-
-  const response = (await invokeLambda(handler, viewRequest)) as CloudFrontResponseResult;
+  const response = await invokeLambda(handler, viewRequest);
 
   expect(response?.status).toBe('307');
-  expect(response?.headers?.location[0].value).toMatch('https://auth.us-east-1.demo.aws.com/oauth2');
+  expect(response?.headers?.location[0].value).toMatch('https://d111111abcdef8.cloudfront.net/requestedUri');
 });
 
-test('redirect to refreshauth when idToken expires and refresh token exists', async () => {
+test('redirect to domain when already signed in (idToken)', async () => {
   mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
@@ -126,26 +164,24 @@ test('redirect to refreshauth when idToken expires and refresh token exists', as
     nonceHmac: 'original_nonceHmac',
   }));
 
-  mocked(decodeIdToken).mockImplementation(() => ({
-    sub: 'sub',
-    aud: 'aud',
-    token_use: 'id',
-    auth_time: 4711,
-    iat: 42,
-    exp: Date.now() / 1000 - 60 * 20, //expire
-  }));
-
-  expect.assertions(2);
+  const mock = mocked(validate).mockImplementation(jest.fn());
 
   const viewRequest = createEvent('cloudfront:ViewerRequest');
 
-  const response = (await invokeLambda(handler, viewRequest)) as CloudFrontResponseResult;
+  console.error = jest.fn();
+
+  expect.assertions(4);
+
+  const response = await invokeLambda(handler, viewRequest);
+
+  expect(console.error).toHaveBeenCalled();
+  expect(mock).toHaveBeenCalled();
 
   expect(response?.status).toBe('307');
-  expect(response?.headers?.location[0].value).toMatch('https://d111111abcdef8.cloudfront.net/refreshauth');
+  expect(response?.headers?.location[0].value).toMatch('https://d111111abcdef8.cloudfront.net');
 });
 
-test('return unchanged request to forward request to origin', async () => {
+test('show error page when token validation fails', async () => {
   mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
@@ -155,57 +191,43 @@ test('return unchanged request to forward request to origin', async () => {
     nonce: '10Test',
     pkce: 'pkce',
     nonceHmac: 'original_nonceHmac',
-  }));
-
-  mocked(decodeIdToken).mockImplementation(() => ({
-    sub: 'sub',
-    aud: 'aud',
-    token_use: 'id',
-    auth_time: 4711,
-    iat: 42,
-    exp: Date.now() / 1000 + 60 * 20,
-  }));
-
-  expect.assertions(1);
-
-  const viewRequest = createEvent('cloudfront:ViewerRequest');
-
-  const result = await invokeLambda(handler, viewRequest);
-
-  expect(result).toBe(viewRequest.Records[0].cf.request);
-});
-
-test('redirect to sign-in when jwt is invalid', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
-    tokenUserName: 'tokenUserName',
-    idToken: 'idToken',
-    accessToken: 'accessToken',
-    refreshToken: 'refreshToken',
-    scopes: 'scopes',
-    nonce: '10Test',
-    pkce: 'pkce',
-    nonceHmac: 'original_nonceHmac',
-  }));
-
-  mocked(decodeIdToken).mockImplementation(() => ({
-    sub: 'sub',
-    aud: 'aud',
-    token_use: 'id',
-    auth_time: 4711,
-    iat: 42,
-    exp: Date.now() / 1000 + 60 * 20,
   }));
 
   mocked(validate).mockImplementation(() => {
-    throw new Error('Cannot parse JWT token');
+    throw new Error('Token validation fails');
   });
-
-  expect.assertions(2);
 
   const viewRequest = createEvent('cloudfront:ViewerRequest');
 
-  const response = (await invokeLambda(handler, viewRequest)) as CloudFrontResponseResult;
+  console.error = jest.fn();
 
-  expect(response?.status).toBe('307');
-  expect(response?.headers?.location[0].value).toMatch('https://auth.us-east-1.demo.aws.com/oauth2');
+  expect.assertions(2);
+
+  const response = await invokeLambda(handler, viewRequest);
+
+  expect(console.error).toHaveBeenCalled();
+
+  expect(response?.status).toBe('200');
+});
+
+test('show error page in case of cognito error', async () => {
+  const mock = mocked(extractAndParseCookies).mockImplementation(jest.fn());
+
+  mocked(parse).mockImplementation(() => {
+    return { error: 'Error message description' };
+  });
+
+  const viewRequest = createEvent('cloudfront:ViewerRequest');
+
+  console.error = jest.fn();
+
+  expect.assertions(3);
+
+  const response = await invokeLambda(handler, viewRequest);
+
+  expect(mock).toHaveBeenCalled();
+
+  expect(console.error).toHaveBeenCalled();
+
+  expect(response?.status).toBe('200');
 });

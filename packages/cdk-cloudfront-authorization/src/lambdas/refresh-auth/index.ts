@@ -1,12 +1,12 @@
 import { parse as parseQueryString, stringify as stringifyQueryString } from 'querystring';
-import type { CloudFrontRequestHandler } from 'aws-lambda';
+import type { CloudFrontResponseResult, CloudFrontRequestEvent } from 'aws-lambda';
 import { Config, getConfig, createErrorHtml } from '../shared/config';
 import { extractAndParseCookies, generateCookieHeaders } from '../shared/cookie';
 import { httpPostWithRetry } from '../shared/request';
 
 let CONFIG: Config;
 
-export const handler: CloudFrontRequestHandler = async (event) => {
+export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFrontResponseResult> => {
   if (!CONFIG) {
     CONFIG = await getConfig();
   }
@@ -79,7 +79,9 @@ export const handler: CloudFrontRequestHandler = async (event) => {
         ...CONFIG.cloudFrontHeaders,
       },
     };
+
     CONFIG.logger.debug('Returning response:\n', response);
+
     return response;
   } catch (err) {
     const response = {
@@ -102,7 +104,9 @@ export const handler: CloudFrontRequestHandler = async (event) => {
         ],
       },
     };
+
     CONFIG.logger.debug('Returning response:\n', response);
+
     return response;
   }
 };
