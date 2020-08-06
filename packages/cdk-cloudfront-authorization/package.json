@@ -1,6 +1,6 @@
 {
   "name": "@cloudcomponents/cdk-cloudfront-authorization",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CloudFront with Cognito authentication using Lambda@Edge",
   "license": "MIT",
   "author": {
@@ -78,15 +78,15 @@
     "@aws-cdk/aws-s3": "^1.55.0",
     "@aws-cdk/core": "^1.55.0",
     "@aws-cdk/custom-resources": "^1.55.0",
-    "@cloudcomponents/cdk-deletable-bucket": "^1.0.19",
-    "@cloudcomponents/cdk-lambda-at-edge-pattern": "^1.0.2"
+    "@cloudcomponents/cdk-deletable-bucket": "^1.0.21",
+    "@cloudcomponents/cdk-lambda-at-edge-pattern": "^1.0.4"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.55.0",
     "@types/cookie": "^0.4.0",
     "@types/jsonwebtoken": "^8.3.9",
-    "aws-sdk": "^2.726.0",
     "aws-local-testing-library": "^0.0.7",
+    "aws-sdk": "^2.726.0",
     "axios": "^0.19.2",
     "axios-retry": "^3.1.8",
     "cookie": "^0.4.1",
