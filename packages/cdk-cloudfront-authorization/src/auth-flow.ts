@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { LambdaEdgeEventType, EdgeLambda } from '@aws-cdk/aws-cloudfront';
+import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
 import { IUserPool, IUserPoolClient, OAuthScope } from '@aws-cdk/aws-cognito';
 import { Code } from '@aws-cdk/aws-lambda';
 import { Construct } from '@aws-cdk/core';
@@ -25,11 +25,11 @@ export interface AuthFlowProps {
 }
 
 export class AuthFlow extends Construct {
-  public readonly checkAuth: EdgeLambda;
-  public readonly parseAuth: EdgeLambda;
-  public readonly refreshAuth: EdgeLambda;
-  public readonly signOut: EdgeLambda;
-  public readonly httpHeaders: EdgeLambda;
+  public readonly checkAuth: EdgeFunction;
+  public readonly parseAuth: EdgeFunction;
+  public readonly refreshAuth: EdgeFunction;
+  public readonly signOut: EdgeFunction;
+  public readonly httpHeaders: EdgeFunction;
 
   constructor(scope: Construct, id: string, props: AuthFlowProps) {
     super(scope, id);

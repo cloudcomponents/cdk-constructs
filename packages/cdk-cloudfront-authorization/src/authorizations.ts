@@ -1,4 +1,4 @@
-import { IOrigin, BehaviorOptions } from '@aws-cdk/aws-cloudfront';
+import { IOrigin, Behavior, BehaviorOptions } from '@aws-cdk/aws-cloudfront';
 import { OAuthScope, UserPoolClientIdentityProvider, IUserPool, IUserPoolClient } from '@aws-cdk/aws-cognito';
 import { Construct } from '@aws-cdk/core';
 import { LogLevel } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
@@ -27,6 +27,8 @@ export interface IAuthorization {
   updateUserPoolClientCallbacks(redirects: UserPoolClientCallbackUrls): void;
   createDefaultBehavior(origin: IOrigin): BehaviorOptions;
   createAdditionalBehaviors(origin: IOrigin): Record<string, BehaviorOptions>;
+  createLegacyDefaultBehavior(): Behavior;
+  createLegacyAdditionalBehaviors(): Behavior[];
 }
 
 export interface AuthorizationProps {
@@ -36,20 +38,21 @@ export interface AuthorizationProps {
   readonly httpHeaders?: Record<string, string>;
   readonly logLevel?: LogLevel;
   readonly oauthScopes?: OAuthScope[];
+  readonly cookieSettings?: Record<string, string>;
 }
 
 export abstract class Authorization extends Construct {
   public readonly redirectPaths: RedirectPaths;
   public readonly signOutUrlPath: string;
+  public readonly authFlow: AuthFlow;
 
   protected readonly userPool: IUserPool;
   protected readonly userPoolClient: IUserPoolClient;
   protected readonly oauthScopes: OAuthScope[];
+  protected readonly cookieSettings: Record<string, string> | undefined;
   protected readonly httpHeaders: Record<string, string>;
   protected readonly nonceSigningSecret: string;
   protected readonly cognitoAuthDomain: string;
-
-  private readonly authFlow: AuthFlow;
 
   constructor(scope: Construct, id: string, props: AuthorizationProps) {
     super(scope, id);
@@ -76,6 +79,8 @@ export abstract class Authorization extends Construct {
     };
 
     this.oauthScopes = props.oauthScopes ?? [OAuthScope.PHONE, OAuthScope.EMAIL, OAuthScope.PROFILE, OAuthScope.OPENID, OAuthScope.COGNITO_ADMIN];
+
+    this.cookieSettings = props.cookieSettings;
 
     this.userPoolClient = this.createUserPoolClient();
 
@@ -110,6 +115,13 @@ export abstract class Authorization extends Construct {
     };
   }
 
+  public createLegacyDefaultBehavior(): Behavior {
+    return {
+      isDefaultBehavior: true,
+      lambdaFunctionAssociations: [this.authFlow.checkAuth, this.authFlow.httpHeaders],
+    };
+  }
+
   public createAdditionalBehaviors(origin: IOrigin): Record<string, BehaviorOptions> {
     return {
       [this.redirectPaths.signIn]: {
@@ -128,6 +140,32 @@ export abstract class Authorization extends Construct {
         edgeLambdas: [this.authFlow.signOut],
       },
     };
+  }
+
+  public createLegacyAdditionalBehaviors(): Behavior[] {
+    return [
+      {
+        pathPattern: this.redirectPaths.signIn,
+        forwardedValues: {
+          queryString: true,
+        },
+        lambdaFunctionAssociations: [this.authFlow.parseAuth],
+      },
+      {
+        pathPattern: this.redirectPaths.authRefresh,
+        forwardedValues: {
+          queryString: true,
+        },
+        lambdaFunctionAssociations: [this.authFlow.refreshAuth],
+      },
+      {
+        pathPattern: this.signOutUrlPath,
+        forwardedValues: {
+          queryString: true,
+        },
+        lambdaFunctionAssociations: [this.authFlow.signOut],
+      },
+    ];
   }
 
   private generateNonceSigningSecret(): string {
@@ -181,7 +219,7 @@ export class SpaAuthorization extends Authorization implements ISpaAuthorization
       redirectPaths: this.redirectPaths,
       nonceSigningSecret: this.nonceSigningSecret,
       cognitoAuthDomain: this.cognitoAuthDomain,
-      cookieSettings: {
+      cookieSettings: this.cookieSettings ?? {
         idToken: 'Path=/; Secure; SameSite=Lax',
         accessToken: 'Path=/; Secure; SameSite=Lax',
         refreshToken: 'Path=/; Secure; SameSite=Lax',
@@ -231,7 +269,7 @@ export class StaticSiteAuthorization extends Authorization implements IStaticSit
       nonceSigningSecret: this.nonceSigningSecret,
       cognitoAuthDomain: this.cognitoAuthDomain,
       clientSecret,
-      cookieSettings: {
+      cookieSettings: this.cookieSettings ?? {
         idToken: 'Path=/; Secure; HttpOnly; SameSite=Lax',
         accessToken: 'Path=/; Secure; HttpOnly; SameSite=Lax',
         refreshToken: 'Path=/; Secure; HttpOnly; SameSite=Lax',

@@ -100,6 +100,70 @@ export class CloudFrontAuthorizationStack extends Stack {
 
 ```
 
+## Legacy CloudFrontWebDistribution
+
+```typescript
+import { CloudFrontWebDistribution, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
+import { UserPool } from '@aws-cdk/aws-cognito';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import { SpaAuthorization } from '@cloudcomponents/cdk-cloudfront-authorization';
+import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
+
+export class CloudFrontAuthorizationStack extends Stack {
+  constructor(scope: Construct, id: string, props: StackProps) {
+    super(scope, id, props);
+
+    const userPool = new UserPool(this, 'UserPool', {
+      selfSignUpEnabled: false,
+      userPoolName: 'cloudfront-authorization-userpool',
+    });
+
+    userPool.addDomain('Domain', {
+      cognitoDomain: {
+        domainPrefix: 'cloudcomponents',
+      },
+    });
+
+    const authorization = new SpaAuthorization(this, 'Authorization', {
+      userPool,
+    });
+
+    const bucket = new DeletableBucket(this, 'Bucket', {
+      forceDelete: true,
+    });
+
+    const originAccessIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity', {
+      comment: `CloudFront OriginAccessIdentity for ${bucket.bucketName}`,
+    });
+
+    new CloudFrontWebDistribution(this, 'Distribution', {
+      originConfigs: [
+        {
+          s3OriginSource: {
+            s3BucketSource: bucket,
+            originAccessIdentity,
+          },
+          behaviors: [authorization.createLegacyDefaultBehavior(), ...authorization.createLegacyAdditionalBehaviors()],
+        },
+      ],
+    });
+  }
+}
+
+```
+
+## SPA mode vs. Static Site mode
+
+### SPA
+- User Pool client does not use a client secret
+- The cookies with JWT's are not "http only", so that they can be read and used by the SPA (e.g. to display the user name, or to refresh tokens)
+- 404's (page not found on S3) will return index.html, to enable SPA-routing
+
+### Static Site
+- Enforce use of a client secret
+- Set cookies to be http only by default (unless you've provided other cookie settings explicitly)
+- No special error handling
+
 ## API Reference
 
 See [API.md](https://github.com/cloudcomponents/cdk-constructs/tree/master/packages/cdk-cloudfront-authorization/API.md).

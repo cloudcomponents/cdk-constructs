@@ -80,12 +80,6 @@ export class SpaDistribution extends BaseDistribution {
       ...props,
       errorResponses: [
         {
-          httpStatus: 403,
-          responseHttpStatus: 200,
-          ttl: props.ttl ?? Duration.seconds(300),
-          responsePagePath: '/index.html',
-        },
-        {
           httpStatus: 404,
           responseHttpStatus: 200,
           ttl: props.ttl ?? Duration.seconds(300),
