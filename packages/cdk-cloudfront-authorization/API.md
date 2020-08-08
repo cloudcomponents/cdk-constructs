@@ -144,52 +144,94 @@ Name | Type | Description
 ### Methods
 
 
-#### createAdditionalBehaviors(origin) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createadditionalbehaviors"></a>
+#### createAdditionalBehaviors(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createadditionalbehaviors"></a>
 
 
 
 ```ts
-createAdditionalBehaviors(origin: IOrigin): Map<string, BehaviorOptions>
+createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<string, BehaviorOptions>
 ```
 
 * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
+  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
+  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: false
+  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **forwardQueryString** (<code>boolean</code>)  Whether CloudFront will forward query strings to the origin. __*Default*__: false
+  * **forwardQueryStringCacheKeys** (<code>Array<string></code>)  A set of query string parameter names to use for caching if `forwardQueryString` is set to true. __*Default*__: []
+  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
 * <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
 
-#### createDefaultBehavior(origin) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createdefaultbehavior"></a>
+#### createDefaultBehavior(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createdefaultbehavior"></a>
 
 
 
 ```ts
-createDefaultBehavior(origin: IOrigin): BehaviorOptions
+createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions
 ```
 
 * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
+  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
+  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: false
+  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **forwardQueryString** (<code>boolean</code>)  Whether CloudFront will forward query strings to the origin. __*Default*__: false
+  * **forwardQueryStringCacheKeys** (<code>Array<string></code>)  A set of query string parameter names to use for caching if `forwardQueryString` is set to true. __*Default*__: []
+  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
 * <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
 
-#### createLegacyAdditionalBehaviors() <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createlegacyadditionalbehaviors"></a>
+#### createLegacyAdditionalBehaviors(options?) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createlegacyadditionalbehaviors"></a>
 
 
 
 ```ts
-createLegacyAdditionalBehaviors(): Array<Behavior>
+createLegacyAdditionalBehaviors(options?: Behavior): Array<Behavior>
 ```
 
+* **options** (<code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>)  *No description*
+  * **allowedMethods** (<code>[CloudFrontAllowedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedmethods)</code>)  The method this CloudFront distribution responds do. __*Default*__: GET_HEAD
+  * **cachedMethods** (<code>[CloudFrontAllowedCachedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedcachedmethods)</code>)  Which methods are cached by CloudFront by default. __*Default*__: GET_HEAD
+  * **compress** (<code>boolean</code>)  If CloudFront should automatically compress some content types. __*Default*__: true
+  * **defaultTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The default amount of time CloudFront will cache an object. __*Default*__: 86400 (1 day)
+  * **forwardedValues** (<code>[ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
+  * **isDefaultBehavior** (<code>boolean</code>)  If this behavior is the default behavior for the distribution. __*Optional*__
+  * **lambdaFunctionAssociations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  Declares associated lambda@edge functions for this distribution behaviour. __*Default*__: No lambda function associated
+  * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
+  * **minTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time that you want objects to stay in the cache before CloudFront queries your origin. __*Optional*__
+  * **pathPattern** (<code>string</code>)  The path this behavior responds to. __*Optional*__
+  * **trustedSigners** (<code>Array<string></code>)  Trusted signers is how CloudFront allows you to serve private content. __*Optional*__
 
 __Returns__:
 * <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
 
-#### createLegacyDefaultBehavior() <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createlegacydefaultbehavior"></a>
+#### createLegacyDefaultBehavior(options?) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createlegacydefaultbehavior"></a>
 
 
 
 ```ts
-createLegacyDefaultBehavior(): Behavior
+createLegacyDefaultBehavior(options?: Behavior): Behavior
 ```
 
+* **options** (<code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>)  *No description*
+  * **allowedMethods** (<code>[CloudFrontAllowedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedmethods)</code>)  The method this CloudFront distribution responds do. __*Default*__: GET_HEAD
+  * **cachedMethods** (<code>[CloudFrontAllowedCachedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedcachedmethods)</code>)  Which methods are cached by CloudFront by default. __*Default*__: GET_HEAD
+  * **compress** (<code>boolean</code>)  If CloudFront should automatically compress some content types. __*Default*__: true
+  * **defaultTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The default amount of time CloudFront will cache an object. __*Default*__: 86400 (1 day)
+  * **forwardedValues** (<code>[ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
+  * **isDefaultBehavior** (<code>boolean</code>)  If this behavior is the default behavior for the distribution. __*Optional*__
+  * **lambdaFunctionAssociations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  Declares associated lambda@edge functions for this distribution behaviour. __*Default*__: No lambda function associated
+  * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
+  * **minTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time that you want objects to stay in the cache before CloudFront queries your origin. __*Optional*__
+  * **pathPattern** (<code>string</code>)  The path this behavior responds to. __*Optional*__
+  * **trustedSigners** (<code>Array<string></code>)  Trusted signers is how CloudFront allows you to serve private content. __*Optional*__
 
 __Returns__:
 * <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>

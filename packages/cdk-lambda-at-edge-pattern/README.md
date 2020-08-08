@@ -98,6 +98,7 @@ new cloudfront.CloudFrontWebDistribution(this, 'MyDistribution', {
     }
   ]
  });
+```
 
 ## API Reference
 

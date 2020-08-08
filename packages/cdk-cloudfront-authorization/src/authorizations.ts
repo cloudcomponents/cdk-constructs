@@ -1,4 +1,4 @@
-import { IOrigin, Behavior, BehaviorOptions } from '@aws-cdk/aws-cloudfront';
+import { IOrigin, Behavior, BehaviorOptions, AddBehaviorOptions, ViewerProtocolPolicy } from '@aws-cdk/aws-cloudfront';
 import { OAuthScope, UserPoolClientIdentityProvider, IUserPool, IUserPoolClient } from '@aws-cdk/aws-cognito';
 import { Construct } from '@aws-cdk/core';
 import { LogLevel } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
@@ -107,42 +107,59 @@ export abstract class Authorization extends Construct {
     });
   }
 
-  public createDefaultBehavior(origin: IOrigin): BehaviorOptions {
+  public createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions {
     return {
       origin,
       forwardQueryString: true,
+      compress: true,
+      viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       edgeLambdas: [this.authFlow.checkAuth, this.authFlow.httpHeaders],
+      ...options,
     };
   }
 
-  public createLegacyDefaultBehavior(): Behavior {
+  public createLegacyDefaultBehavior(options?: Behavior): Behavior {
     return {
       isDefaultBehavior: true,
+      forwardedValues: {
+        queryString: true,
+      },
+      compress: true,
       lambdaFunctionAssociations: [this.authFlow.checkAuth, this.authFlow.httpHeaders],
+      ...options,
     };
   }
 
-  public createAdditionalBehaviors(origin: IOrigin): Record<string, BehaviorOptions> {
+  public createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Record<string, BehaviorOptions> {
     return {
       [this.redirectPaths.signIn]: {
         origin,
         forwardQueryString: true,
+        compress: true,
+        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.parseAuth],
+        ...options,
       },
       [this.redirectPaths.authRefresh]: {
         origin,
         forwardQueryString: true,
+        compress: true,
+        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.refreshAuth],
+        ...options,
       },
       [this.signOutUrlPath]: {
         origin,
         forwardQueryString: true,
+        compress: true,
+        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.signOut],
+        ...options,
       },
     };
   }
 
-  public createLegacyAdditionalBehaviors(): Behavior[] {
+  public createLegacyAdditionalBehaviors(options?: Behavior): Behavior[] {
     return [
       {
         pathPattern: this.redirectPaths.signIn,
@@ -150,6 +167,7 @@ export abstract class Authorization extends Construct {
           queryString: true,
         },
         lambdaFunctionAssociations: [this.authFlow.parseAuth],
+        ...options,
       },
       {
         pathPattern: this.redirectPaths.authRefresh,
@@ -157,6 +175,7 @@ export abstract class Authorization extends Construct {
           queryString: true,
         },
         lambdaFunctionAssociations: [this.authFlow.refreshAuth],
+        ...options,
       },
       {
         pathPattern: this.signOutUrlPath,
@@ -164,6 +183,7 @@ export abstract class Authorization extends Construct {
           queryString: true,
         },
         lambdaFunctionAssociations: [this.authFlow.signOut],
+        ...options,
       },
     ];
   }
