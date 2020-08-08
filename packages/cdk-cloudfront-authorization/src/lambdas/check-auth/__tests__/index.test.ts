@@ -1,4 +1,4 @@
-import { CloudFrontResponseResult } from 'aws-lambda';
+import type { CloudFrontResponseResult } from 'aws-lambda';
 import { invokeLambda, createEvent } from 'aws-local-testing-library';
 import { mocked } from 'ts-jest/utils';
 
