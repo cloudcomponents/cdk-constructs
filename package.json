@@ -3,19 +3,19 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "prepare": "lerna run build",
+    "prepare": "FORCE_COLOR=1 lerna run build",
     "test": "cdkdx test",
-    "build": "lerna run build",
+    "build": "FORCE_COLOR=1 lerna run build",
     "outdated:all": "yarn outdated",
     "upgrade:all": "yarn upgrade",
-    "upgrade:cdk": "lerna run upgrade:cdk && yarn",
+    "upgrade:cdk": "FORCE_COLOR=1 lerna run upgrade:cdk && yarn",
     "upgrade-interactive:all": "yarn upgrade-interactive --latest",
     "lint": "cdkdx lint --report-unused-disable-directives",
     "lint:fix": "cdkdx lint --fix",
-    "docgen": "lerna run docgen --scope @cloudcomponents/*",
-    "package": "lerna run package --scope @cloudcomponents/*",
-    "release:npm": "lerna run release:npm --scope @cloudcomponents/*",
-    "release:pypi": "lerna run release:pypi --scope @cloudcomponents/*"
+    "docgen": "FORCE_COLOR=1 lerna run docgen --scope @cloudcomponents/*",
+    "package": "FORCE_COLOR=1 lerna run package --scope @cloudcomponents/*",
+    "release:npm": "FORCE_COLOR=1 lerna run release:npm --scope @cloudcomponents/*",
+    "release:pypi": "FORCE_COLOR=1 lerna run release:pypi --scope @cloudcomponents/*"
   },
   "workspaces": [
     "packages/*",
@@ -23,7 +23,7 @@
   ],
   "devDependencies": {
     "@types/node": "^10.17.27",
-    "cdkdx": "^0.2.1",
+    "cdkdx": "^0.4.1",
     "lerna": "^3.22.1"
   }
 }
