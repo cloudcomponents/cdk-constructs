@@ -30,7 +30,8 @@
   "files": [
     "lib",
     "website",
-    ".jsii"
+    ".jsii",
+    "!.DS_Store"
   ],
   "scripts": {
     "build": "cdkdx build",
@@ -68,7 +69,7 @@
     "@aws-cdk/aws-s3": "^1.57.0",
     "@aws-cdk/aws-s3-deployment": "^1.57.0",
     "@aws-cdk/core": "^1.57.0",
-    "@cloudcomponents/cdk-deletable-bucket": "^1.0.22",
+    "@cloudcomponents/cdk-deletable-bucket": "^1.0.23",
     "constructs": "^3.0.4"
   },
   "dependencies": {

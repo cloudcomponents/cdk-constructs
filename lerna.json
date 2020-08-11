@@ -3,7 +3,9 @@
   "useWorkspaces": true,
   "packages": ["packages/*", "examples/*"],
   "version": "independent",
-  "publishConfig": {
-    "access": "public"
+  "command": {
+    "publish": {
+      "allowBranch": "master"
+    }
   }
 }
