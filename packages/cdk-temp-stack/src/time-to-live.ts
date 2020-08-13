@@ -16,7 +16,7 @@ export class TimeToLive extends Construct {
   constructor(scope: Construct, id: string, props: TimeToLiveProps) {
     super(scope, id);
 
-    Stack.of(this).node.addWarning(`Warning! The stack destroys itself in ${props.ttl.toMinutes()} minutes.\n`);
+    Stack.of(this).node.addInfo(`Warning! The stack destroys itself in ${props.ttl.toMinutes()} minutes.\n`);
 
     const deleteStack = new Function(this, 'DeleteStack', {
       runtime: Runtime.NODEJS_12_X,
