@@ -1196,7 +1196,7 @@ Object {
                     "https://",
                     Object {
                       "Fn::GetAtt": Array [
-                        "SpaDistributionCFDistribution5B6BC56E",
+                        "SpaDistribution7A57F996",
                         "DomainName",
                       ],
                     },
@@ -1216,7 +1216,7 @@ Object {
                     "https://",
                     Object {
                       "Fn::GetAtt": Array [
-                        "SpaDistributionCFDistribution5B6BC56E",
+                        "SpaDistribution7A57F996",
                         "DomainName",
                       ],
                     },
@@ -1279,7 +1279,7 @@ Object {
                     "https://",
                     Object {
                       "Fn::GetAtt": Array [
-                        "SpaDistributionCFDistribution5B6BC56E",
+                        "SpaDistribution7A57F996",
                         "DomainName",
                       ],
                     },
@@ -1299,7 +1299,7 @@ Object {
                     "https://",
                     Object {
                       "Fn::GetAtt": Array [
-                        "SpaDistributionCFDistribution5B6BC56E",
+                        "SpaDistribution7A57F996",
                         "DomainName",
                       ],
                     },
@@ -1354,7 +1354,7 @@ Object {
       "Type": "Custom::UserPoolDomain",
       "UpdateReplacePolicy": "Delete",
     },
-    "SpaDistributionCFDistribution5B6BC56E": Object {
+    "SpaDistribution7A57F996": Object {
       "Properties": Object {
         "DistributionConfig": Object {
           "CacheBehaviors": Array [
@@ -1457,6 +1457,8 @@ Object {
           },
           "DefaultRootObject": "index.html",
           "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
           "Origins": Array [
             Object {
               "DomainName": Object {
@@ -3069,7 +3071,7 @@ Object {
                     "https://",
                     Object {
                       "Fn::GetAtt": Array [
-                        "StaticSiteDistributionCFDistribution07B3D08D",
+                        "StaticSiteDistribution48DA0944",
                         "DomainName",
                       ],
                     },
@@ -3089,7 +3091,7 @@ Object {
                     "https://",
                     Object {
                       "Fn::GetAtt": Array [
-                        "StaticSiteDistributionCFDistribution07B3D08D",
+                        "StaticSiteDistribution48DA0944",
                         "DomainName",
                       ],
                     },
@@ -3152,7 +3154,7 @@ Object {
                     "https://",
                     Object {
                       "Fn::GetAtt": Array [
-                        "StaticSiteDistributionCFDistribution07B3D08D",
+                        "StaticSiteDistribution48DA0944",
                         "DomainName",
                       ],
                     },
@@ -3172,7 +3174,7 @@ Object {
                     "https://",
                     Object {
                       "Fn::GetAtt": Array [
-                        "StaticSiteDistributionCFDistribution07B3D08D",
+                        "StaticSiteDistribution48DA0944",
                         "DomainName",
                       ],
                     },
@@ -3227,7 +3229,7 @@ Object {
       "Type": "Custom::UserPoolDomain",
       "UpdateReplacePolicy": "Delete",
     },
-    "StaticSiteDistributionCFDistribution07B3D08D": Object {
+    "StaticSiteDistribution48DA0944": Object {
       "Properties": Object {
         "DistributionConfig": Object {
           "CacheBehaviors": Array [
@@ -3322,6 +3324,8 @@ Object {
           },
           "DefaultRootObject": "index.html",
           "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
           "Origins": Array [
             Object {
               "DomainName": Object {
