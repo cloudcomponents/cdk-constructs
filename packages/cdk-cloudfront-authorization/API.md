@@ -297,10 +297,16 @@ new BaseDistribution(scope: Construct, id: string, props: BaseDistributionProps)
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[BaseDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-basedistributionprops)</code>)  *No description*
-  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  *No description* __*Optional*__
-  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description* __*Optional*__
-  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  *No description* __*Optional*__
+  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  A certificate to associate with the distribution. __*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+  * **comment** (<code>string</code>)  Any comments you want to include about the distribution. __*Default*__: no comment
+  * **defaultRootObject** (<code>string</code>)  The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/). __*Default*__: index.html
+  * **enabled** (<code>boolean</code>)  Enable or disable the distribution. __*Default*__: true
+  * **enableIpv6** (<code>boolean</code>)  Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address. __*Default*__: true
+  * **httpVersion** (<code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code>)  Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. __*Default*__: HttpVersion.HTTP2
+  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
+  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
   * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
+  * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
   * **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description* 
   * **errorResponses** (<code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code>)  *No description* __*Optional*__
 
@@ -458,10 +464,16 @@ new SpaDistribution(scope: Construct, id: string, props: SpaDistributionProps)
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[SpaDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-spadistributionprops)</code>)  *No description*
-  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  *No description* __*Optional*__
-  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description* __*Optional*__
-  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  *No description* __*Optional*__
+  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  A certificate to associate with the distribution. __*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+  * **comment** (<code>string</code>)  Any comments you want to include about the distribution. __*Default*__: no comment
+  * **defaultRootObject** (<code>string</code>)  The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/). __*Default*__: index.html
+  * **enabled** (<code>boolean</code>)  Enable or disable the distribution. __*Default*__: true
+  * **enableIpv6** (<code>boolean</code>)  Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address. __*Default*__: true
+  * **httpVersion** (<code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code>)  Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. __*Default*__: HttpVersion.HTTP2
+  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
+  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
   * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
+  * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
   * **authorization** (<code>[ISpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-ispaauthorization)</code>)  *No description* 
   * **ttl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time, in seconds, that you want CloudFront to cache the HTTP status code specified in ErrorCode. __*Default*__: 300 seconds
 
@@ -553,10 +565,16 @@ new StaticSiteDistribution(scope: Construct, id: string, props: StaticSiteDistri
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[StaticSiteDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-staticsitedistributionprops)</code>)  *No description*
-  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  *No description* __*Optional*__
-  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description* __*Optional*__
-  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  *No description* __*Optional*__
+  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  A certificate to associate with the distribution. __*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+  * **comment** (<code>string</code>)  Any comments you want to include about the distribution. __*Default*__: no comment
+  * **defaultRootObject** (<code>string</code>)  The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/). __*Default*__: index.html
+  * **enabled** (<code>boolean</code>)  Enable or disable the distribution. __*Default*__: true
+  * **enableIpv6** (<code>boolean</code>)  Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address. __*Default*__: true
+  * **httpVersion** (<code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code>)  Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. __*Default*__: HttpVersion.HTTP2
+  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
+  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
   * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
+  * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
   * **authorization** (<code>[IStaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization)</code>)  *No description* 
   * **errorResponses** (<code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code>)  *No description* __*Optional*__
 
@@ -642,11 +660,17 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **authorization** | <code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code> | <span></span>
-**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | __*Optional*__
+**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | A certificate to associate with the distribution.<br/>__*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+**comment**? | <code>string</code> | Any comments you want to include about the distribution.<br/>__*Default*__: no comment
+**defaultRootObject**? | <code>string</code> | The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/).<br/>__*Default*__: index.html
+**enableIpv6**? | <code>boolean</code> | Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.<br/>__*Default*__: true
+**enabled**? | <code>boolean</code> | Enable or disable the distribution.<br/>__*Default*__: true
 **errorResponses**? | <code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code> | __*Optional*__
-**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | __*Optional*__
-**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | __*Optional*__
+**httpVersion**? | <code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code> | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.<br/>__*Default*__: HttpVersion.HTTP2
+**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
+**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
 **removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+**webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
 
 
 
@@ -659,10 +683,16 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | __*Optional*__
-**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | __*Optional*__
-**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | __*Optional*__
+**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | A certificate to associate with the distribution.<br/>__*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+**comment**? | <code>string</code> | Any comments you want to include about the distribution.<br/>__*Default*__: no comment
+**defaultRootObject**? | <code>string</code> | The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/).<br/>__*Default*__: index.html
+**enableIpv6**? | <code>boolean</code> | Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.<br/>__*Default*__: true
+**enabled**? | <code>boolean</code> | Enable or disable the distribution.<br/>__*Default*__: true
+**httpVersion**? | <code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code> | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.<br/>__*Default*__: HttpVersion.HTTP2
+**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
+**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
 **removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+**webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
 
 
 
@@ -973,11 +1003,17 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **authorization** | <code>[ISpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-ispaauthorization)</code> | <span></span>
-**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | __*Optional*__
-**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | __*Optional*__
-**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | __*Optional*__
+**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | A certificate to associate with the distribution.<br/>__*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+**comment**? | <code>string</code> | Any comments you want to include about the distribution.<br/>__*Default*__: no comment
+**defaultRootObject**? | <code>string</code> | The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/).<br/>__*Default*__: index.html
+**enableIpv6**? | <code>boolean</code> | Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.<br/>__*Default*__: true
+**enabled**? | <code>boolean</code> | Enable or disable the distribution.<br/>__*Default*__: true
+**httpVersion**? | <code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code> | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.<br/>__*Default*__: HttpVersion.HTTP2
+**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
+**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
 **removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
 **ttl**? | <code>[Duration](#aws-cdk-core-duration)</code> | The minimum amount of time, in seconds, that you want CloudFront to cache the HTTP status code specified in ErrorCode.<br/>__*Default*__: 300 seconds
+**webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
 
 
 
@@ -991,11 +1027,17 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **authorization** | <code>[IStaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization)</code> | <span></span>
-**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | __*Optional*__
+**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | A certificate to associate with the distribution.<br/>__*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+**comment**? | <code>string</code> | Any comments you want to include about the distribution.<br/>__*Default*__: no comment
+**defaultRootObject**? | <code>string</code> | The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/).<br/>__*Default*__: index.html
+**enableIpv6**? | <code>boolean</code> | Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.<br/>__*Default*__: true
+**enabled**? | <code>boolean</code> | Enable or disable the distribution.<br/>__*Default*__: true
 **errorResponses**? | <code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code> | __*Optional*__
-**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | __*Optional*__
-**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | __*Optional*__
+**httpVersion**? | <code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code> | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.<br/>__*Default*__: HttpVersion.HTTP2
+**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
+**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
 **removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+**webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
 
 
 
