@@ -30,24 +30,9 @@ test('default spa setup', (): void => {
   });
 
   expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
     propertyMatchers: {
-      Parameters: expect.any(Object),
       Resources: {
-        AWS679f53fac002430cb0da5b7982bd22872D164C4C: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
-        CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
-        SingletonLambdacloudcomponentscdkcloudfrontauthorizationuserpooldomain78ACEC1A: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
         SpaAuthorizationAuthFlowcheckauthProviderAD2E39F4: {
           Properties: {
             Create: {
@@ -129,24 +114,9 @@ test('default static-site setup', (): void => {
   });
 
   expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
     propertyMatchers: {
-      Parameters: expect.any(Object),
       Resources: {
-        AWS679f53fac002430cb0da5b7982bd22872D164C4C: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
-        CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
-        SingletonLambdacloudcomponentscdkcloudfrontauthorizationuserpooldomain78ACEC1A: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
         StaticSiteAuthorizationAuthFlowcheckauthProviderA6235A8D: {
           Properties: {
             Create: {

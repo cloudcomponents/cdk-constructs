@@ -317,44 +317,7 @@ Object {
         "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters3c401e72ea16f4d9e87e74ee10991f1bb706f7689a13c63210555ee59affb287S3Bucket14EC4C64",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters3c401e72ea16f4d9e87e74ee10991f1bb706f7689a13c63210555ee59affb287S3VersionKey0C65526F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters3c401e72ea16f4d9e87e74ee10991f1bb706f7689a13c63210555ee59affb287S3VersionKey0C65526F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -452,44 +415,7 @@ Object {
         "SingletonLambdacloudcomponentscdkcloudfrontauthorizationsecretgeneratorServiceRoleB3E3AD6F",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters5bfcd31fb4faac4abb2814abfacca7ee70a1e07cdeedb901e1826cd19a29e946S3BucketB9C0E6CF",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters5bfcd31fb4faac4abb2814abfacca7ee70a1e07cdeedb901e1826cd19a29e946S3VersionKey7FFF1EC8",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters5bfcd31fb4faac4abb2814abfacca7ee70a1e07cdeedb901e1826cd19a29e946S3VersionKey7FFF1EC8",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -1515,44 +1441,7 @@ Object {
         "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole29484800",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14S3BucketE74F71F4",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14S3VersionKeyCDA54A41",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14S3VersionKeyCDA54A41",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Description": "AWS CDK resource provider framework - onEvent (Dummy/SpaDistribution/DeletableBucket/EmptyBucket/EmptyBucketProvider)",
         "Environment": Object {
           "Variables": Object {
@@ -2089,44 +1978,7 @@ Object {
         "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters3c401e72ea16f4d9e87e74ee10991f1bb706f7689a13c63210555ee59affb287S3Bucket14EC4C64",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters3c401e72ea16f4d9e87e74ee10991f1bb706f7689a13c63210555ee59affb287S3VersionKey0C65526F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters3c401e72ea16f4d9e87e74ee10991f1bb706f7689a13c63210555ee59affb287S3VersionKey0C65526F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -2224,44 +2076,7 @@ Object {
         "SingletonLambdacloudcomponentscdkcloudfrontauthorizationsecretgeneratorServiceRoleB3E3AD6F",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters5bfcd31fb4faac4abb2814abfacca7ee70a1e07cdeedb901e1826cd19a29e946S3BucketB9C0E6CF",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters5bfcd31fb4faac4abb2814abfacca7ee70a1e07cdeedb901e1826cd19a29e946S3VersionKey7FFF1EC8",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters5bfcd31fb4faac4abb2814abfacca7ee70a1e07cdeedb901e1826cd19a29e946S3VersionKey7FFF1EC8",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
@@ -3382,44 +3197,7 @@ Object {
         "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole5D5B383A",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14S3BucketE74F71F4",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14S3VersionKeyCDA54A41",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters812fb1ad6d57643790c0c720ff7b1226e49679db821db771446a9a950a477b14S3VersionKeyCDA54A41",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Description": "AWS CDK resource provider framework - onEvent (Dummy/StaticSiteDistribution/DeletableBucket/EmptyBucket/EmptyBucketProvider)",
         "Environment": Object {
           "Variables": Object {
