@@ -7,5 +7,9 @@
     "publish": {
       "allowBranch": "master"
     }
-  }
+  },
+  "ignoreChanges": [
+    "**/__fixtures__/**",
+    "**/__tests__/**"
+  ]
 }
