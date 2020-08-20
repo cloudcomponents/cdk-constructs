@@ -1,6 +1,7 @@
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
-import { IOrigin, Distribution, ErrorResponse, PriceClass, HttpVersion } from '@aws-cdk/aws-cloudfront';
+import { IOrigin, Distribution, ErrorResponse, PriceClass, HttpVersion, GeoRestriction } from '@aws-cdk/aws-cloudfront';
 import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
+import { IBucket } from '@aws-cdk/aws-s3';
 import { Construct, Duration, RemovalPolicy } from '@aws-cdk/core';
 import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
@@ -20,6 +21,17 @@ export interface CommonDistributionProps {
    * @default PriceClass.PRICE_CLASS_100
    */
   readonly priceClass?: PriceClass;
+
+  /**
+   * Alternative domain names for this distribution.
+   *
+   * If you want to use your own domain name, such as www.example.com, instead of the cloudfront.net domain name,
+   * you can add an alternate domain name to your distribution. If you attach a certificate to the distribution,
+   * you must add (at least one of) the domain names of the certificate to this list.
+   *
+   * @default - The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
+   */
+  readonly domainNames?: string[];
 
   /**
    * A certificate to associate with the distribution. The certificate must be located in N. Virginia (us-east-1).
@@ -60,6 +72,41 @@ export interface CommonDistributionProps {
    * @default true
    */
   readonly enableIpv6?: boolean;
+
+  /**
+   * Enable access logging for the distribution.
+   *
+   * @default - false, unless `logBucket` is specified.
+   */
+  readonly enableLogging?: boolean;
+
+  /**
+   * The Amazon S3 bucket to store the access logs in.
+   *
+   * @default - A bucket is created if `enableLogging` is true
+   */
+  readonly logBucket?: IBucket;
+
+  /**
+   * Specifies whether you want CloudFront to include cookies in access logs
+   *
+   * @default false
+   */
+  readonly logIncludesCookies?: boolean;
+
+  /**
+   * An optional string that you want CloudFront to prefix to the access log filenames for this distribution.
+   *
+   * @default - no prefix
+   */
+  readonly logFilePrefix?: string;
+
+  /**
+   * Controls the countries in which your content is distributed.
+   *
+   * @default - No geographic restrictions
+   */
+  readonly geoRestriction?: GeoRestriction;
 
   /**
    * Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
@@ -104,10 +151,16 @@ export class BaseDistribution extends Construct {
       enabled: props.enabled ?? true,
       enableIpv6: props.enableIpv6 ?? true,
       comment: props.comment,
+      enableLogging: props.enableLogging,
+      logBucket: props.logBucket,
+      logIncludesCookies: props.logIncludesCookies,
+      logFilePrefix: props.logFilePrefix,
       priceClass: props.priceClass ?? PriceClass.PRICE_CLASS_100,
+      geoRestriction: props.geoRestriction,
       httpVersion: props.httpVersion ?? HttpVersion.HTTP2,
       webAclId: props.webAclId,
       errorResponses: props.errorResponses,
+      domainNames: props.domainNames,
       certificate: props.certificate,
       defaultBehavior: props.authorization.createDefaultBehavior(origin),
       additionalBehaviors: props.authorization.createAdditionalBehaviors(origin),

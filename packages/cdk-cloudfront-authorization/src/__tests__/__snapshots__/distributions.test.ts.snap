@@ -939,6 +939,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -970,6 +971,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -1001,6 +1003,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -1032,6 +1035,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -1063,6 +1067,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -1177,6 +1182,7 @@ Object {
           },
           "service": "CognitoIdentityServiceProvider",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -1576,7 +1582,7 @@ Object {
     "SpaDistributionOrigin1S3OriginA9DE724C": Object {
       "Properties": Object {
         "CloudFrontOriginAccessIdentityConfig": Object {
-          "Comment": "Allows CloudFront to reach the bucket",
+          "Comment": "Access identity for DummySpaDistributionOrigin15701F2BC",
         },
       },
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
@@ -2632,6 +2638,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -2663,6 +2670,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -2694,6 +2702,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -2725,6 +2734,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -2756,6 +2766,7 @@ Object {
           "region": "us-east-1",
           "service": "SSM",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -2807,6 +2818,7 @@ Object {
           },
           "service": "CognitoIdentityServiceProvider",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -2941,6 +2953,7 @@ Object {
           },
           "service": "CognitoIdentityServiceProvider",
         },
+        "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
             "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
@@ -3332,7 +3345,7 @@ Object {
     "StaticSiteDistributionOrigin1S3Origin38E399A6": Object {
       "Properties": Object {
         "CloudFrontOriginAccessIdentityConfig": Object {
-          "Comment": "Allows CloudFront to reach the bucket",
+          "Comment": "Access identity for DummyStaticSiteDistributionOrigin1E43F32F4",
         },
       },
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",

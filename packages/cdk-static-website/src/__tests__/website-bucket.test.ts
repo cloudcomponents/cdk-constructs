@@ -24,15 +24,6 @@ test('removalPolicy = DESTROY', (): void => {
   });
 
   expect(stack).toMatchCdkSnapshot({
-    propertyMatchers: {
-      Parameters: expect.any(Object),
-      Resources: {
-        SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
-      },
-    },
+    ignoreAssets: true,
   });
 });

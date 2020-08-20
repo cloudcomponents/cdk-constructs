@@ -19,7 +19,9 @@ test('forceDelete', (): void => {
     forceDelete: true,
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('onFinding', (): void => {
@@ -36,5 +38,7 @@ test('onFinding', (): void => {
     alarmTopic,
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });

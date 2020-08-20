@@ -33,19 +33,9 @@ test('default setup: us-east-1', () => {
   expect(supportStack).toBeUndefined();
 
   expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
     propertyMatchers: {
-      Parameters: expect.any(Object),
       Resources: {
-        CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
-        httpheadersFunction1CD98582: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
         httpheadersProvider158513BA: {
           Properties: {
             Create: {
@@ -89,27 +79,13 @@ test('default setup: not us-east-1', () => {
   const supportStack = app.node.tryFindChild(`lambda-at-edge-support-stack`);
 
   expect(supportStack).toMatchCdkSnapshot({
-    propertyMatchers: {
-      Parameters: expect.any(Object),
-      Resources: {
-        httpheadersFunction1CD98582: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
-      },
-    },
+    ignoreAssets: true,
   });
 
   expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
     propertyMatchers: {
-      Parameters: expect.any(Object),
       Resources: {
-        CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B: {
-          Properties: {
-            Code: expect.any(Object),
-          },
-        },
         httpheadersProvider158513BA: {
           Properties: {
             Create: {

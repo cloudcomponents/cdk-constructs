@@ -8,7 +8,9 @@ test('default setup', (): void => {
 
   new DeletableBucket(stack, 'DeletableBucket');
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('forceDelete', (): void => {
@@ -18,5 +20,7 @@ test('forceDelete', (): void => {
     forceDelete: true,
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
