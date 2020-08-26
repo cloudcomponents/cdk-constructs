@@ -19,7 +19,7 @@ jobs:
         run: yarn lint
       - name: Testing
         run: yarn test
-      - name: Anti-tamper check
-        run: git diff --exit-code
+      #- name: Anti-tamper check
+      #  run: git diff --exit-code
     container:
       image: jsii/superchain
