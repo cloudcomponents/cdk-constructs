@@ -1,7 +1,6 @@
-import { PipelineProject } from '@aws-cdk/aws-codebuild';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction, CodeBuildAction } from '@aws-cdk/aws-codepipeline-actions';
+import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
 
 import { SlackApprovalAction, SlackNotifier } from '@cloudcomponents/cdk-codepipeline-slack';
@@ -20,14 +19,6 @@ export class CodePipelineSlackApprovalStack extends Stack {
       actionName: 'CodeCommit',
       repository,
       output: sourceArtifact,
-    });
-
-    const project = new PipelineProject(this, 'MyProject');
-
-    const buildAction = new CodeBuildAction({
-      actionName: 'CodeBuild',
-      project,
-      input: sourceArtifact,
     });
 
     const slackBotToken = process.env.SLACK_BOT_TOKEN as string;
@@ -49,10 +40,6 @@ export class CodePipelineSlackApprovalStack extends Stack {
         {
           stageName: 'Source',
           actions: [sourceAction],
-        },
-        {
-          stageName: 'Build',
-          actions: [buildAction],
         },
         {
           stageName: 'Approval',

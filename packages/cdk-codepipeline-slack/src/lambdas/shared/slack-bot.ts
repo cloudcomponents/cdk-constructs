@@ -6,6 +6,7 @@ export interface SlackBotProps {
   token: string;
   channelName: string;
   channelId?: string;
+  channelTypes: string;
   name?: string;
   icon?: string;
 }
@@ -22,12 +23,14 @@ export class SlackBot {
 
   private channelId?: string;
 
+  private channelTypes: string;
+
   private name: string;
 
   private icon: string;
 
   public constructor(props: SlackBotProps) {
-    const { token, channelName, channelId, name, icon } = props;
+    const { token, channelName, channelId, channelTypes, name, icon } = props;
     this.bot = new WebClient(token);
     if (channelName) {
       this.channelName = channelName;
@@ -35,6 +38,7 @@ export class SlackBot {
     if (channelId) {
       this.channelId = channelId;
     }
+    this.channelTypes = channelTypes;
     this.name = name || 'Pipeline Bot';
     this.icon = icon || ':robot_face:';
     // this.messageCache = {};
@@ -64,7 +68,10 @@ export class SlackBot {
   }
 
   public async findChannel(channelName: string): Promise<Channel | undefined> {
-    const response = (await this.bot.conversations.list()) as Record<string, Channel[]>;
+    const response = (await this.bot.conversations.list({
+      types: this.channelTypes,
+    })) as Record<string, Channel[]>;
+
     return response.channels.find((channel) => channel.name === channelName);
   }
 
@@ -102,7 +109,9 @@ export class SlackBot {
     if (this.channelId) return this.channelId;
 
     if (this.channelName) {
-      const response = await this.bot.conversations.list();
+      const response = await this.bot.conversations.list({
+        types: this.channelTypes,
+      });
 
       const channel = (response.channels as Channel[]).find((channel) => channel.name === this.channelName);
 
