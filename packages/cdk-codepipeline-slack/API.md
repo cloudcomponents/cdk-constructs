@@ -16,6 +16,13 @@ Name|Description
 [SlackNotifierProps](#cloudcomponents-cdk-codepipeline-slack-slacknotifierprops)|*No description*
 
 
+**Enums**
+
+Name|Description
+----|-----------
+[ChannelTypes](#cloudcomponents-cdk-codepipeline-slack-channeltypes)|*No description*
+
+
 
 ## class SlackApprovalAction  <a id="cloudcomponents-cdk-codepipeline-slack-slackapprovalaction"></a>
 
@@ -45,6 +52,7 @@ new SlackApprovalAction(props: SlackApprovalActionProps)
   * **slackBotName** (<code>string</code>)  *No description* __*Optional*__
   * **slackChannel** (<code>string</code>)  *No description* __*Optional*__
   * **slackChannelId** (<code>string</code>)  *No description* __*Optional*__
+  * **slackChannelTypes** (<code>Array<[ChannelTypes](#cloudcomponents-cdk-codepipeline-slack-channeltypes)></code>)  *No description* __*Optional*__
 
 
 ### Methods
@@ -97,6 +105,7 @@ new SlackNotifier(scope: Construct, id: string, props: SlackNotifierProps)
   * **slackBotName** (<code>string</code>)  *No description* __*Optional*__
   * **slackChannel** (<code>string</code>)  *No description* __*Optional*__
   * **slackChannelId** (<code>string</code>)  *No description* __*Optional*__
+  * **slackChannelTypes** (<code>Array<[ChannelTypes](#cloudcomponents-cdk-codepipeline-slack-channeltypes)></code>)  *No description* __*Optional*__
   * **stageNames** (<code>Array<string></code>)  *No description* __*Optional*__
 
 
@@ -147,6 +156,7 @@ Name | Type | Description
 **slackBotName**? | <code>string</code> | __*Optional*__
 **slackChannel**? | <code>string</code> | __*Optional*__
 **slackChannelId**? | <code>string</code> | __*Optional*__
+**slackChannelTypes**? | <code>Array<[ChannelTypes](#cloudcomponents-cdk-codepipeline-slack-channeltypes)></code> | __*Optional*__
 **variablesNamespace**? | <code>string</code> | The name of the namespace to use for variables emitted by this action.<br/>__*Default*__: a name will be generated, based on the stage and action names, if any of the action's variables were referenced - otherwise, no namespace will be set
 
 
@@ -167,7 +177,18 @@ Name | Type | Description
 **slackBotName**? | <code>string</code> | __*Optional*__
 **slackChannel**? | <code>string</code> | __*Optional*__
 **slackChannelId**? | <code>string</code> | __*Optional*__
+**slackChannelTypes**? | <code>Array<[ChannelTypes](#cloudcomponents-cdk-codepipeline-slack-channeltypes)></code> | __*Optional*__
 **stageNames**? | <code>Array<string></code> | __*Optional*__
 
+
+
+## enum ChannelTypes  <a id="cloudcomponents-cdk-codepipeline-slack-channeltypes"></a>
+
+
+
+Name | Description
+-----|-----
+**PUBLIC** |
+**PRIVATE** |
 
 
