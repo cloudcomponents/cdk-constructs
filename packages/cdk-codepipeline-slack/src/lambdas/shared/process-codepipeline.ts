@@ -3,12 +3,13 @@ import { CodePipeline } from 'aws-sdk';
 import { NotifierMessageBuilder } from './notifier-message-builder';
 import { SlackBot } from './slack-bot';
 
-const { SLACK_BOT_TOKEN, SLACK_CHANNEL, SLACK_CHANNEL_ID, SLACK_BOT_NAME, SLACK_BOT_ICON } = process.env;
+const { SLACK_BOT_TOKEN, SLACK_CHANNEL, SLACK_CHANNEL_ID, SLACK_CHANNEL_TYPES, SLACK_BOT_NAME, SLACK_BOT_ICON } = process.env;
 
 const bot = new SlackBot({
   token: SLACK_BOT_TOKEN as string,
   channelName: SLACK_CHANNEL as string,
   channelId: SLACK_CHANNEL_ID,
+  channelTypes: SLACK_CHANNEL_TYPES as string,
   name: SLACK_BOT_NAME,
   icon: SLACK_BOT_ICON,
 });

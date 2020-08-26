@@ -8,11 +8,14 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { LambdaSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { Construct } from '@aws-cdk/core';
 
+import { ChannelTypes } from './channel-types';
+
 export interface SlackApprovalActionProps extends CommonActionProps {
   readonly slackBotToken: string;
   readonly slackSigningSecret: string;
   readonly slackChannel?: string;
   readonly slackChannelId?: string;
+  readonly slackChannelTypes?: ChannelTypes[];
   readonly slackBotName?: string;
   readonly slackBotIcon?: string;
   readonly additionalInformation?: string;
@@ -42,6 +45,7 @@ export class SlackApprovalAction extends Action {
       SLACK_SIGNING_SECRET: this.props.slackSigningSecret,
       SLACK_CHANNEL: this.props.slackChannel as string,
       SLACK_CHANNEL_ID: this.props.slackChannelId as string,
+      SLACK_CHANNEL_TYPES: (this.props.slackChannelTypes || [ChannelTypes.PUBLIC]).join(','),
       SLACK_BOT_NAME: this.props.slackBotName || 'buildbot',
       SLACK_BOT_ICON: this.props.slackBotIcon || ':robot_face:',
     };

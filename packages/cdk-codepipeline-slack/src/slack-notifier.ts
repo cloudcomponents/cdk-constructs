@@ -6,11 +6,14 @@ import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
 import { Construct } from '@aws-cdk/core';
 
+import { ChannelTypes } from './channel-types';
+
 export interface SlackNotifierProps {
   readonly slackBotToken: string;
   readonly slackSigningSecret: string;
   readonly slackChannel?: string;
   readonly slackChannelId?: string;
+  readonly slackChannelTypes?: ChannelTypes[];
   readonly slackBotName?: string;
   readonly slackBotIcon?: string;
   readonly pipeline: IPipeline;
@@ -23,13 +26,24 @@ export class SlackNotifier extends Construct {
   constructor(scope: Construct, id: string, props: SlackNotifierProps) {
     super(scope, id);
 
-    const { slackBotToken, slackSigningSecret, slackChannel, slackChannelId, slackBotName, slackBotIcon, pipeline, stageNames } = props;
+    const {
+      slackBotToken,
+      slackSigningSecret,
+      slackChannel,
+      slackChannelId,
+      slackChannelTypes,
+      slackBotName,
+      slackBotIcon,
+      pipeline,
+      stageNames,
+    } = props;
 
     this.environment = {
       SLACK_BOT_TOKEN: slackBotToken,
       SLACK_SIGNING_SECRET: slackSigningSecret,
       SLACK_CHANNEL: slackChannel || '',
       SLACK_CHANNEL_ID: slackChannelId || '',
+      SLACK_CHANNEL_TYPES: (slackChannelTypes || [ChannelTypes.PUBLIC]).join(','),
     };
 
     if (slackBotName) {
