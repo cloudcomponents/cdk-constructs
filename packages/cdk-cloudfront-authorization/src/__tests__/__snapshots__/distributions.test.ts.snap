@@ -6,7 +6,6 @@ Object {
   "Resources": Object {
     "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
       "DependsOn": Array [
-        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
         "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
       ],
       "Properties": Object {
@@ -53,132 +52,6 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
-    },
-    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/check-auth",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/parse-auth",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/refresh-auth",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/sign-out",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/http-headers",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "cognito-idp:UpdateUserPoolClient",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "UserPool6BA7E5F2",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
-        "Roles": Array [
-          Object {
-            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
     },
     "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B": Object {
       "DependsOn": Array [
@@ -929,6 +802,9 @@ Object {
     },
     "SpaAuthorizationAuthFlowcheckauthProviderAD2E39F4": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "SpaAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyEB70BE7B",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -958,9 +834,48 @@ Object {
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
+    },
+    "SpaAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyEB70BE7B": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/check-auth",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SpaAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyEB70BE7B",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "SpaAuthorizationAuthFlowhttpheadersProviderCAB23200": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "SpaAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy62224D55",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -991,8 +906,83 @@ Object {
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
     },
+    "SpaAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy62224D55": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/http-headers",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SpaAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy62224D55",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SpaAuthorizationAuthFlowparseauthProviderCustomResourcePolicy730B5E35": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/parse-auth",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SpaAuthorizationAuthFlowparseauthProviderCustomResourcePolicy730B5E35",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
     "SpaAuthorizationAuthFlowparseauthProviderFAD7CF01": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "SpaAuthorizationAuthFlowparseauthProviderCustomResourcePolicy730B5E35",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -1025,6 +1015,9 @@ Object {
     },
     "SpaAuthorizationAuthFlowrefreshauthProvider2F233848": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "SpaAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicyA9156390",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -1055,8 +1048,47 @@ Object {
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
     },
+    "SpaAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicyA9156390": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/refresh-auth",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SpaAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicyA9156390",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
     "SpaAuthorizationAuthFlowsignoutProvider0444513A": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "SpaAuthorizationAuthFlowsignoutProviderCustomResourcePolicyB477C3F8",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -1086,6 +1118,42 @@ Object {
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
+    },
+    "SpaAuthorizationAuthFlowsignoutProviderCustomResourcePolicyB477C3F8": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/sign-out",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SpaAuthorizationAuthFlowsignoutProviderCustomResourcePolicyB477C3F8",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "SpaAuthorizationSecretGeneratorCustomResource7B87C244": Object {
       "DeletionPolicy": "Delete",
@@ -1104,6 +1172,9 @@ Object {
     },
     "SpaAuthorizationUserPoolClientRedirectsC3870E8C": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "SpaAuthorizationUserPoolClientRedirectsCustomResourcePolicy51508B15",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "updateUserPoolClient",
@@ -1269,6 +1340,32 @@ Object {
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
+    },
+    "SpaAuthorizationUserPoolClientRedirectsCustomResourcePolicy51508B15": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "cognito-idp:UpdateUserPoolClient",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "UserPool6BA7E5F2",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SpaAuthorizationUserPoolClientRedirectsCustomResourcePolicy51508B15",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "SpaAuthorizationUserPoolDomainCustomResourceE3CE9592": Object {
       "DeletionPolicy": "Delete",
@@ -1582,7 +1679,7 @@ Object {
     "SpaDistributionOrigin1S3OriginA9DE724C": Object {
       "Properties": Object {
         "CloudFrontOriginAccessIdentityConfig": Object {
-          "Comment": "Access identity for DummySpaDistributionOrigin15701F2BC",
+          "Comment": "Identity for DummySpaDistributionOrigin15701F2BC",
         },
       },
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
@@ -1663,7 +1760,6 @@ Object {
   "Resources": Object {
     "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
       "DependsOn": Array [
-        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
         "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
       ],
       "Properties": Object {
@@ -1710,142 +1806,6 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
-    },
-    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "cognito-idp:DescribeUserPoolClient",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "UserPool6BA7E5F2",
-                  "Arn",
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/check-auth",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/parse-auth",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/refresh-auth",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/sign-out",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/http-headers",
-                  ],
-                ],
-              },
-            },
-            Object {
-              "Action": "cognito-idp:UpdateUserPoolClient",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "UserPool6BA7E5F2",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
-        "Roles": Array [
-          Object {
-            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
     },
     "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B": Object {
       "DependsOn": Array [
@@ -2628,6 +2588,9 @@ Object {
     },
     "StaticSiteAuthorizationAuthFlowcheckauthProviderA6235A8D": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticSiteAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyA7CBA911",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -2657,9 +2620,48 @@ Object {
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
+    },
+    "StaticSiteAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyA7CBA911": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/check-auth",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "StaticSiteAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyA7CBA911",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "StaticSiteAuthorizationAuthFlowhttpheadersProvider1776DA6C": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticSiteAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy0BFA9A4D",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -2689,9 +2691,48 @@ Object {
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
+    },
+    "StaticSiteAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy0BFA9A4D": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/http-headers",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "StaticSiteAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy0BFA9A4D",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "StaticSiteAuthorizationAuthFlowparseauthProvider72D5CD13": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticSiteAuthorizationAuthFlowparseauthProviderCustomResourcePolicyDAB54E6F",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -2721,9 +2762,48 @@ Object {
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
+    },
+    "StaticSiteAuthorizationAuthFlowparseauthProviderCustomResourcePolicyDAB54E6F": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/parse-auth",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "StaticSiteAuthorizationAuthFlowparseauthProviderCustomResourcePolicyDAB54E6F",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "StaticSiteAuthorizationAuthFlowrefreshauthProvider4DB598E9": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticSiteAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicy2F46934C",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -2753,9 +2833,48 @@ Object {
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
+    },
+    "StaticSiteAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicy2F46934C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/refresh-auth",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "StaticSiteAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicy2F46934C",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "StaticSiteAuthorizationAuthFlowsignoutProvider710213B2": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticSiteAuthorizationAuthFlowsignoutProviderCustomResourcePolicy9C7C883B",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "getParameter",
@@ -2786,8 +2905,47 @@ Object {
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
     },
+    "StaticSiteAuthorizationAuthFlowsignoutProviderCustomResourcePolicy9C7C883B": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/cloudcomponents/edge-lambda/Dummy/sign-out",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "StaticSiteAuthorizationAuthFlowsignoutProviderCustomResourcePolicy9C7C883B",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
     "StaticSiteAuthorizationRetrieveUserPoolClientSecret4CD67128": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticSiteAuthorizationRetrieveUserPoolClientSecretCustomResourcePolicy75949B85",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "describeUserPoolClient",
@@ -2857,6 +3015,32 @@ Object {
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
+    },
+    "StaticSiteAuthorizationRetrieveUserPoolClientSecretCustomResourcePolicy75949B85": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "cognito-idp:DescribeUserPoolClient",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "UserPool6BA7E5F2",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "StaticSiteAuthorizationRetrieveUserPoolClientSecretCustomResourcePolicy75949B85",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "StaticSiteAuthorizationSecretGeneratorCustomResource19F2EE49": Object {
       "DeletionPolicy": "Delete",
@@ -2873,8 +3057,37 @@ Object {
       "Type": "Custom::GenerateSecret",
       "UpdateReplacePolicy": "Delete",
     },
+    "StaticSiteAuthorizationUserPoolClientRedirectsCustomResourcePolicy5448F98F": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "cognito-idp:UpdateUserPoolClient",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "UserPool6BA7E5F2",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "StaticSiteAuthorizationUserPoolClientRedirectsCustomResourcePolicy5448F98F",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
     "StaticSiteAuthorizationUserPoolClientRedirectsF7CBC0D2": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticSiteAuthorizationUserPoolClientRedirectsCustomResourcePolicy5448F98F",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "updateUserPoolClient",
@@ -3345,7 +3558,7 @@ Object {
     "StaticSiteDistributionOrigin1S3Origin38E399A6": Object {
       "Properties": Object {
         "CloudFrontOriginAccessIdentityConfig": Object {
-          "Comment": "Access identity for DummyStaticSiteDistributionOrigin1E43F32F4",
+          "Comment": "Identity for DummyStaticSiteDistributionOrigin1E43F32F4",
         },
       },
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",

@@ -18,7 +18,6 @@ Object {
   "Resources": Object {
     "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
       "DependsOn": Array [
-        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
         "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
       ],
       "Properties": Object {
@@ -66,32 +65,6 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "ecr:DeleteRepository",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "ImageRepositoryBBCBC9DF",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
-        "Roles": Array [
-          Object {
-            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "ImageRepositoryBBCBC9DF": Object {
       "DeletionPolicy": "Delete",
       "Type": "AWS::ECR::Repository",
@@ -99,6 +72,9 @@ Object {
     },
     "ImageRepositoryForceImageRepositoryDeletion90140ED1": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ImageRepositoryForceImageRepositoryDeletionCustomResourcePolicy1A1933F8",
+      ],
       "Properties": Object {
         "Delete": Object {
           "action": "deleteRepository",
@@ -129,6 +105,32 @@ Object {
       "Type": "Custom::ECRForceImageRepositoryDeletion",
       "UpdateReplacePolicy": "Delete",
     },
+    "ImageRepositoryForceImageRepositoryDeletionCustomResourcePolicy1A1933F8": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ecr:DeleteRepository",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ImageRepositoryBBCBC9DF",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ImageRepositoryForceImageRepositoryDeletionCustomResourcePolicy1A1933F8",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
   },
 }
 `;
@@ -139,7 +141,6 @@ Object {
   "Resources": Object {
     "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
       "DependsOn": Array [
-        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
         "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
       ],
       "Properties": Object {
@@ -187,32 +188,6 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "ecr:PutImageScanningConfiguration",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "ImageRepositoryBBCBC9DF",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
-        "Roles": Array [
-          Object {
-            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
     "AlarmTopicD01E77F9": Object {
       "Type": "AWS::SNS::Topic",
     },
@@ -223,6 +198,9 @@ Object {
     },
     "ImageRepositoryImageScanOnPush3D23220F": Object {
       "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "ImageRepositoryImageScanOnPushCustomResourcePolicy493CBBFE",
+      ],
       "Properties": Object {
         "Create": Object {
           "action": "putImageScanningConfiguration",
@@ -294,6 +272,32 @@ Object {
       },
       "Type": "Custom::ECRImageScanOnPush",
       "UpdateReplacePolicy": "Delete",
+    },
+    "ImageRepositoryImageScanOnPushCustomResourcePolicy493CBBFE": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ecr:PutImageScanningConfiguration",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ImageRepositoryBBCBC9DF",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ImageRepositoryImageScanOnPushCustomResourcePolicy493CBBFE",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "ImageRepositorySevierityFilterAllowEventRuleImageRepositoryfinding6652C3FBAADA6A95": Object {
       "Properties": Object {
