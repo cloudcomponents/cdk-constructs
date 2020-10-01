@@ -36,6 +36,7 @@ new TempStack(scope: Construct, id: string, props: TempStackProps)
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[TempStackProps](#cloudcomponents-cdk-temp-stack-tempstackprops)</code>)  *No description*
+  * **analyticsReporting** (<code>boolean</code>)  Include runtime versioning information in this Stack. __*Default*__: `analyticsReporting` setting of containing `App`, or value of 'aws:cdk:version-reporting' context key
   * **description** (<code>string</code>)  A description of the stack. __*Default*__: No description.
   * **env** (<code>[Environment](#aws-cdk-core-environment)</code>)  The AWS environment (account/region) where this stack will be deployed. __*Default*__: The environment of the containing `Stage` if available, otherwise create the stack will be environment-agnostic.
   * **stackName** (<code>string</code>)  Name to deploy the stack with. __*Default*__: Derived from construct path.
@@ -118,6 +119,7 @@ __Returns__:
 Name | Type | Description 
 -----|------|-------------
 **ttl** | <code>[Duration](#aws-cdk-core-duration)</code> | Specifies the Time to Live (TTL) settings for the stack.
+**analyticsReporting**? | <code>boolean</code> | Include runtime versioning information in this Stack.<br/>__*Default*__: `analyticsReporting` setting of containing `App`, or value of 'aws:cdk:version-reporting' context key
 **description**? | <code>string</code> | A description of the stack.<br/>__*Default*__: No description.
 **env**? | <code>[Environment](#aws-cdk-core-environment)</code> | The AWS environment (account/region) where this stack will be deployed.<br/>__*Default*__: The environment of the containing `Stage` if available, otherwise create the stack will be environment-agnostic.
 **stackName**? | <code>string</code> | Name to deploy the stack with.<br/>__*Default*__: Derived from construct path.
