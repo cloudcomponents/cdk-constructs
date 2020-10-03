@@ -49,7 +49,7 @@ new CodePipelineMergeAction(props: CodePipelineMergeActionProps)
 
 #### protected bound(scope, _stage, options) <a id="cloudcomponents-cdk-codepipeline-merge-action-codepipelinemergeaction-bound"></a>
 
-The method called when an Action is attached to a Pipeline.
+(experimental) The method called when an Action is attached to a Pipeline.
 
 This method is guaranteed to be called only once for each Action instance.
 

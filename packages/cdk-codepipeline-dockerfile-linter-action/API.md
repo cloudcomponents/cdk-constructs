@@ -46,7 +46,7 @@ new CodePipelineDockerfileLinterAction(props: CodePipelineDockerfileLinterAction
 
 #### protected bound(scope, _stage, options) <a id="cloudcomponents-cdk-codepipeline-dockerfile-linter-action-codepipelinedockerfilelinteraction-bound"></a>
 
-The method called when an Action is attached to a Pipeline.
+(experimental) The method called when an Action is attached to a Pipeline.
 
 This method is guaranteed to be called only once for each Action instance.
 

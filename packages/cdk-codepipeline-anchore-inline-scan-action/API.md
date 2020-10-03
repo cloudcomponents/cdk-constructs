@@ -48,7 +48,7 @@ new CodePipelineAnchoreInlineScanAction(props: CodePipelineAnchoreInlineScanActi
 
 #### protected bound(scope, _stage, options) <a id="cloudcomponents-cdk-codepipeline-anchore-inline-scan-action-codepipelineanchoreinlinescanaction-bound"></a>
 
-The method called when an Action is attached to a Pipeline.
+(experimental) The method called when an Action is attached to a Pipeline.
 
 This method is guaranteed to be called only once for each Action instance.
 
