@@ -7,7 +7,7 @@ declare -a repos
 if [ -z ${REPOSITORY_NAMES} ]; then
     repos=(`aws codecommit list-repositories --query 'repositories[].repositoryName' --output text --region $AWS_DEFAULT_REGION`)
 else
-    repos="${REPOSITORY_NAMES}"
+    repos=($(echo ${REPOSITORY_NAMES}))
 fi 
 
 for codecommitrepo in "${repos[@]}"; do  
