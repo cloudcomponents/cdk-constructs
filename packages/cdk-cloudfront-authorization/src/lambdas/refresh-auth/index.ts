@@ -29,7 +29,7 @@ export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFront
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
-    if (CONFIG.clientSecret !== '' && CONFIG.clientSecret !== undefined) {
+    if (CONFIG.clientSecret) {
       const encodedSecret = Buffer.from(`${CONFIG.clientId}:${CONFIG.clientSecret}`).toString('base64');
       headers['Authorization'] = `Basic ${encodedSecret}`;
     }
