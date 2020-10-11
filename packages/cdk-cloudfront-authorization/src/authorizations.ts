@@ -39,20 +39,22 @@ export interface AuthorizationProps {
   readonly logLevel?: LogLevel;
   readonly oauthScopes?: OAuthScope[];
   readonly cookieSettings?: Record<string, string>;
+  readonly identityProviders?: UserPoolClientIdentityProvider[];
 }
 
 export abstract class Authorization extends Construct {
   public readonly redirectPaths: RedirectPaths;
   public readonly signOutUrlPath: string;
   public readonly authFlow: AuthFlow;
+  public readonly userPoolClient: IUserPoolClient;
 
   protected readonly userPool: IUserPool;
-  protected readonly userPoolClient: IUserPoolClient;
   protected readonly oauthScopes: OAuthScope[];
   protected readonly cookieSettings: Record<string, string> | undefined;
   protected readonly httpHeaders: Record<string, string>;
   protected readonly nonceSigningSecret: string;
   protected readonly cognitoAuthDomain: string;
+  protected readonly identityProviders: UserPoolClientIdentityProvider[];
 
   constructor(scope: Construct, id: string, props: AuthorizationProps) {
     super(scope, id);
@@ -82,6 +84,8 @@ export abstract class Authorization extends Construct {
 
     this.cookieSettings = props.cookieSettings;
 
+    this.identityProviders = props.identityProviders ?? [UserPoolClientIdentityProvider.COGNITO];
+
     this.userPoolClient = this.createUserPoolClient();
 
     this.nonceSigningSecret = this.generateNonceSigningSecret();
@@ -104,6 +108,7 @@ export abstract class Authorization extends Construct {
       oauthScopes: this.oauthScopes,
       callbackUrls,
       logoutUrls,
+      identityProviders: this.identityProviders,
     });
   }
 
@@ -224,7 +229,7 @@ export class SpaAuthorization extends Authorization implements ISpaAuthorization
         },
         scopes: this.oauthScopes,
       },
-      supportedIdentityProviders: [UserPoolClientIdentityProvider.COGNITO],
+      supportedIdentityProviders: this.identityProviders,
       preventUserExistenceErrors: true,
     });
   }
@@ -271,7 +276,7 @@ export class StaticSiteAuthorization extends Authorization implements IStaticSit
         },
         scopes: this.oauthScopes,
       },
-      supportedIdentityProviders: [UserPoolClientIdentityProvider.COGNITO],
+      supportedIdentityProviders: this.identityProviders,
       preventUserExistenceErrors: true,
     });
   }

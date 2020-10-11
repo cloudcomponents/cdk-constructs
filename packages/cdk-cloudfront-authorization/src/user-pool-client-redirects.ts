@@ -1,4 +1,4 @@
-import { IUserPoolClient, IUserPool, OAuthScope } from '@aws-cdk/aws-cognito';
+import { IUserPoolClient, IUserPool, OAuthScope, UserPoolClientIdentityProvider } from '@aws-cdk/aws-cognito';
 import { Construct } from '@aws-cdk/core';
 import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '@aws-cdk/custom-resources';
 
@@ -8,6 +8,7 @@ export interface UserPoolClientRedirectsProps {
   readonly callbackUrls: string[];
   readonly logoutUrls: string[];
   readonly oauthScopes: OAuthScope[];
+  readonly identityProviders: UserPoolClientIdentityProvider[];
 }
 
 export class UserPoolClientRedirects extends Construct {
@@ -23,7 +24,7 @@ export class UserPoolClientRedirects extends Construct {
           ClientId: props.userPoolClient.userPoolClientId,
           AllowedOAuthFlows: ['code'],
           AllowedOAuthFlowsUserPoolClient: true,
-          SupportedIdentityProviders: ['COGNITO'],
+          SupportedIdentityProviders: props.identityProviders.map((provider) => provider.name),
           AllowedOAuthScopes: props.oauthScopes.map((scope) => scope.scopeName),
           CallbackURLs: props.callbackUrls,
           LogoutURLs: props.logoutUrls,
