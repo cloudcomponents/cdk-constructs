@@ -152,6 +152,20 @@ export class CloudFrontAuthorizationStack extends Stack {
 
 ```
 
+## Identity Providers
+Identity providers can be specified in the authorization object. To make sure that the user pool client is created after the identity provider, please specify a dependency using "addDependency".
+
+```typescript
+const identityProvider = UserPoolIdentityProviderAmazon(this, "IdentityProvider", {
+  // ...
+})
+const authorization = new SpaAuthorization(this, 'Authorization_SPA', {
+  // ...
+  identityProviders: [cognito.UserPoolClientIdentityProvider.AMAZON],
+};
+authorization.userPoolClient.node.addDependency(identityProvider);
+```
+
 ## SPA mode vs. Static Site mode
 
 ### SPA
