@@ -118,6 +118,7 @@ new Authorization(scope: Construct, id: string, props: AuthorizationProps)
   * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
   * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
+  * **identityProviders** (<code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code>)  *No description* __*Optional*__
   * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
   * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
   * **redirectPaths** (<code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code>)  *No description* __*Optional*__
@@ -133,6 +134,7 @@ Name | Type | Description
 **authFlow** | <code>[AuthFlow](#cloudcomponents-cdk-cloudfront-authorization-authflow)</code> | <span></span>
 **cognitoAuthDomain** | <code>string</code> | <span></span>
 **httpHeaders** | <code>Map<string, string></code> | <span></span>
+**identityProviders** | <code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code> | <span></span>
 **nonceSigningSecret** | <code>string</code> | <span></span>
 **oauthScopes** | <code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code> | <span></span>
 **redirectPaths** | <code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code> | <span></span>
@@ -407,6 +409,7 @@ new SpaAuthorization(scope: Construct, id: string, props: AuthorizationProps)
   * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
   * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
+  * **identityProviders** (<code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code>)  *No description* __*Optional*__
   * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
   * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
   * **redirectPaths** (<code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code>)  *No description* __*Optional*__
@@ -514,6 +517,7 @@ new StaticSiteAuthorization(scope: Construct, id: string, props: AuthorizationPr
   * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
   * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
   * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
+  * **identityProviders** (<code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code>)  *No description* __*Optional*__
   * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
   * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
   * **redirectPaths** (<code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code>)  *No description* __*Optional*__
@@ -619,6 +623,7 @@ new UserPoolClientRedirects(scope: Construct, id: string, props: UserPoolClientR
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[UserPoolClientRedirectsProps](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientredirectsprops)</code>)  *No description*
   * **callbackUrls** (<code>Array<string></code>)  *No description* 
+  * **identityProviders** (<code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code>)  *No description* 
   * **logoutUrls** (<code>Array<string></code>)  *No description* 
   * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* 
   * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
@@ -661,6 +666,7 @@ Name | Type | Description
 **userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
 **cookieSettings**? | <code>Map<string, string></code> | __*Optional*__
 **httpHeaders**? | <code>Map<string, string></code> | __*Optional*__
+**identityProviders**? | <code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code> | __*Optional*__
 **logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
 **oauthScopes**? | <code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code> | __*Optional*__
 **redirectPaths**? | <code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code> | __*Optional*__
@@ -1107,6 +1113,7 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **callbackUrls** | <code>Array<string></code> | <span></span>
+**identityProviders** | <code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code> | <span></span>
 **logoutUrls** | <code>Array<string></code> | <span></span>
 **oauthScopes** | <code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code> | <span></span>
 **userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
