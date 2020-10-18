@@ -158,10 +158,10 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
 * **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
   * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
   * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: false
+  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **forwardQueryString** (<code>boolean</code>)  Whether CloudFront will forward query strings to the origin. __*Default*__: false
-  * **forwardQueryStringCacheKeys** (<code>Array<string></code>)  A set of query string parameter names to use for caching if `forwardQueryString` is set to true. __*Default*__: []
+  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
@@ -180,10 +180,10 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
 * **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
   * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
   * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: false
+  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **forwardQueryString** (<code>boolean</code>)  Whether CloudFront will forward query strings to the origin. __*Default*__: false
-  * **forwardQueryStringCacheKeys** (<code>Array<string></code>)  A set of query string parameter names to use for caching if `forwardQueryString` is set to true. __*Default*__: []
+  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
@@ -318,6 +318,37 @@ new BaseDistribution(scope: Construct, id: string, props: BaseDistributionProps)
   * **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description* 
   * **errorResponses** (<code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code>)  *No description* __*Optional*__
 
+
+### Methods
+
+
+#### protected renderAdditionalBehaviors(origin, authorization) <a id="cloudcomponents-cdk-cloudfront-authorization-basedistribution-renderadditionalbehaviors"></a>
+
+
+
+```ts
+protected renderAdditionalBehaviors(origin: IOrigin, authorization: IAuthorization): Map<string, BehaviorOptions>
+```
+
+* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description*
+
+__Returns__:
+* <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
+
+#### protected renderDefaultBehaviour(origin, authorization) <a id="cloudcomponents-cdk-cloudfront-authorization-basedistribution-renderdefaultbehaviour"></a>
+
+
+
+```ts
+protected renderDefaultBehaviour(origin: IOrigin, authorization: IAuthorization): BehaviorOptions
+```
+
+* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description*
+
+__Returns__:
+* <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
 
 
 
@@ -749,28 +780,46 @@ Name | Type | Description
 ### Methods
 
 
-#### createAdditionalBehaviors(origin) <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createadditionalbehaviors"></a>
+#### createAdditionalBehaviors(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createadditionalbehaviors"></a>
 
 
 
 ```ts
-createAdditionalBehaviors(origin: IOrigin): Map<string, BehaviorOptions>
+createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<string, BehaviorOptions>
 ```
 
 * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
+  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
+  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
+  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
+  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
+  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
 * <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
 
-#### createDefaultBehavior(origin) <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createdefaultbehavior"></a>
+#### createDefaultBehavior(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createdefaultbehavior"></a>
 
 
 
 ```ts
-createDefaultBehavior(origin: IOrigin): BehaviorOptions
+createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions
 ```
 
 * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
+  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
+  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
+  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
+  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
+  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
 * <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
@@ -834,28 +883,46 @@ Name | Type | Description
 ### Methods
 
 
-#### createAdditionalBehaviors(origin) <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createadditionalbehaviors"></a>
+#### createAdditionalBehaviors(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createadditionalbehaviors"></a>
 
 
 
 ```ts
-createAdditionalBehaviors(origin: IOrigin): Map<string, BehaviorOptions>
+createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<string, BehaviorOptions>
 ```
 
 * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
+  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
+  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
+  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
+  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
+  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
 * <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
 
-#### createDefaultBehavior(origin) <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createdefaultbehavior"></a>
+#### createDefaultBehavior(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createdefaultbehavior"></a>
 
 
 
 ```ts
-createDefaultBehavior(origin: IOrigin): BehaviorOptions
+createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions
 ```
 
 * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
+  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
+  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
+  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
+  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
+  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
 * <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
@@ -919,28 +986,46 @@ Name | Type | Description
 ### Methods
 
 
-#### createAdditionalBehaviors(origin) <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createadditionalbehaviors"></a>
+#### createAdditionalBehaviors(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createadditionalbehaviors"></a>
 
 
 
 ```ts
-createAdditionalBehaviors(origin: IOrigin): Map<string, BehaviorOptions>
+createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<string, BehaviorOptions>
 ```
 
 * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
+  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
+  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
+  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
+  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
+  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
 * <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
 
-#### createDefaultBehavior(origin) <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createdefaultbehavior"></a>
+#### createDefaultBehavior(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createdefaultbehavior"></a>
 
 
 
 ```ts
-createDefaultBehavior(origin: IOrigin): BehaviorOptions
+createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions
 ```
 
 * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
+* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
+  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
+  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
+  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
+  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
+  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
+  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
 * <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>

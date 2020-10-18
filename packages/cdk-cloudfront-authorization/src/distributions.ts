@@ -1,5 +1,5 @@
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
-import { IOrigin, Distribution, ErrorResponse, PriceClass, HttpVersion, GeoRestriction } from '@aws-cdk/aws-cloudfront';
+import { IOrigin, Distribution, ErrorResponse, PriceClass, HttpVersion, GeoRestriction, BehaviorOptions, CachePolicy } from '@aws-cdk/aws-cloudfront';
 import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
 import { IBucket } from '@aws-cdk/aws-s3';
 import { Construct, Duration, RemovalPolicy } from '@aws-cdk/core';
@@ -162,14 +162,28 @@ export class BaseDistribution extends Construct {
       errorResponses: props.errorResponses,
       domainNames: props.domainNames,
       certificate: props.certificate,
-      defaultBehavior: props.authorization.createDefaultBehavior(origin),
-      additionalBehaviors: props.authorization.createAdditionalBehaviors(origin),
+      defaultBehavior: this.renderDefaultBehaviour(origin, props.authorization),
+      additionalBehaviors: this.renderAdditionalBehaviors(origin, props.authorization),
       defaultRootObject: props.defaultRootObject ?? 'index.html',
     });
 
     props.authorization.updateUserPoolClientCallbacks({
       callbackUrls: [`https://${distribution.distributionDomainName}${props.authorization.redirectPaths.signIn}`],
       logoutUrls: [`https://${distribution.distributionDomainName}${props.authorization.redirectPaths.signOut}`],
+    });
+  }
+
+  protected renderDefaultBehaviour(origin: IOrigin, authorization: IAuthorization): BehaviorOptions {
+    return authorization.createDefaultBehavior(origin, {
+      originRequestPolicy: undefined,
+      cachePolicy: CachePolicy.CACHING_DISABLED,
+    });
+  }
+
+  protected renderAdditionalBehaviors(origin: IOrigin, authorization: IAuthorization): Record<string, BehaviorOptions> {
+    return authorization.createAdditionalBehaviors(origin, {
+      originRequestPolicy: undefined,
+      cachePolicy: CachePolicy.CACHING_DISABLED,
     });
   }
 

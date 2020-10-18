@@ -1,4 +1,4 @@
-import { IOrigin, Behavior, BehaviorOptions, AddBehaviorOptions, ViewerProtocolPolicy } from '@aws-cdk/aws-cloudfront';
+import { IOrigin, Behavior, BehaviorOptions, AddBehaviorOptions, ViewerProtocolPolicy, OriginRequestPolicy } from '@aws-cdk/aws-cloudfront';
 import { OAuthScope, UserPoolClientIdentityProvider, IUserPool, IUserPoolClient } from '@aws-cdk/aws-cognito';
 import { Construct } from '@aws-cdk/core';
 import { LogLevel } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
@@ -25,8 +25,8 @@ export interface IAuthorization {
   readonly redirectPaths: RedirectPaths;
   readonly signOutUrlPath: string;
   updateUserPoolClientCallbacks(redirects: UserPoolClientCallbackUrls): void;
-  createDefaultBehavior(origin: IOrigin): BehaviorOptions;
-  createAdditionalBehaviors(origin: IOrigin): Record<string, BehaviorOptions>;
+  createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions;
+  createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Record<string, BehaviorOptions>;
   createLegacyDefaultBehavior(): Behavior;
   createLegacyAdditionalBehaviors(): Behavior[];
 }
@@ -115,8 +115,8 @@ export abstract class Authorization extends Construct {
   public createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions {
     return {
       origin,
-      forwardQueryString: true,
       compress: true,
+      originRequestPolicy: OriginRequestPolicy.ALL_VIEWER,
       viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       edgeLambdas: [this.authFlow.checkAuth, this.authFlow.httpHeaders],
       ...options,
@@ -139,15 +139,14 @@ export abstract class Authorization extends Construct {
     return {
       [this.redirectPaths.signIn]: {
         origin,
-        forwardQueryString: true,
         compress: true,
+        originRequestPolicy: OriginRequestPolicy.ALL_VIEWER,
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.parseAuth],
         ...options,
       },
       [this.redirectPaths.authRefresh]: {
         origin,
-        forwardQueryString: true,
         compress: true,
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.refreshAuth],
@@ -155,8 +154,8 @@ export abstract class Authorization extends Construct {
       },
       [this.signOutUrlPath]: {
         origin,
-        forwardQueryString: true,
         compress: true,
+        originRequestPolicy: OriginRequestPolicy.ALL_VIEWER,
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.signOut],
         ...options,
