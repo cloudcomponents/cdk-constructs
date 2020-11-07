@@ -17,25 +17,6 @@ Object {
     },
   },
   "Resources": Object {
-    "PullRequestCheckCodeBuildResultFunctionAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4A9DED08EE": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckCodeBuildResultFunctionE246172A",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
         "PullRequestCheckCodeBuildResultFunctionServiceRoleDefaultPolicy1A7E6FA2",
@@ -209,6 +190,7 @@ Object {
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
@@ -263,6 +245,25 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "PullRequestCheckPullRequestProjectPullRequestValidationRuleAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4AF13D211D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckCodeBuildResultFunctionE246172A",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "PullRequestCheckPullRequestProjectRole63741937": Object {
       "Properties": Object {
@@ -481,25 +482,6 @@ Object {
     },
   },
   "Resources": Object {
-    "PullRequestCheckCodeBuildResultFunctionAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4A9DED08EE": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckCodeBuildResultFunctionE246172A",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
         "PullRequestCheckCodeBuildResultFunctionServiceRoleDefaultPolicy1A7E6FA2",
@@ -673,6 +655,7 @@ Object {
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_LARGE",
           "Image": "aws/codebuild/python:3.7.1",
+          "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
@@ -740,6 +723,25 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "PullRequestCheckPullRequestProjectPullRequestValidationRuleAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4AF13D211D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckCodeBuildResultFunctionE246172A",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "PullRequestCheckPullRequestProjectRole63741937": Object {
       "Properties": Object {
@@ -958,25 +960,6 @@ Object {
     },
   },
   "Resources": Object {
-    "PullRequestCheckCodeBuildResultFunctionAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4A9DED08EE": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckCodeBuildResultFunctionE246172A",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
         "PullRequestCheckCodeBuildResultFunctionServiceRoleDefaultPolicy1A7E6FA2",
@@ -1150,6 +1133,7 @@ Object {
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
@@ -1217,6 +1201,25 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "PullRequestCheckPullRequestProjectPullRequestValidationRuleAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4AF13D211D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckCodeBuildResultFunctionE246172A",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "PullRequestCheckPullRequestProjectRole63741937": Object {
       "Properties": Object {
@@ -1435,25 +1438,6 @@ Object {
     },
   },
   "Resources": Object {
-    "PullRequestCheckCodeBuildResultFunctionAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4A9DED08EE": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckCodeBuildResultFunctionE246172A",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
         "PullRequestCheckCodeBuildResultFunctionServiceRoleDefaultPolicy1A7E6FA2",
@@ -1627,6 +1611,7 @@ Object {
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
@@ -1694,6 +1679,25 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "PullRequestCheckPullRequestProjectPullRequestValidationRuleAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4AF13D211D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckCodeBuildResultFunctionE246172A",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "PullRequestCheckPullRequestProjectRole63741937": Object {
       "Properties": Object {
@@ -2036,25 +2040,6 @@ Object {
     },
   },
   "Resources": Object {
-    "PullRequestCheckCodeBuildResultFunctionAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4A9DED08EE": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckCodeBuildResultFunctionE246172A",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
         "PullRequestCheckCodeBuildResultFunctionServiceRoleDefaultPolicy1A7E6FA2",
@@ -2228,6 +2213,7 @@ Object {
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": true,
           "Type": "LINUX_CONTAINER",
         },
@@ -2295,6 +2281,25 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "PullRequestCheckPullRequestProjectPullRequestValidationRuleAllowEventRulePullRequestCheckPullRequestProjectPullRequestValidationRuleF9D9EF4AF13D211D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckCodeBuildResultFunctionE246172A",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheckPullRequestProjectPullRequestValidationRule16A1C1AC",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "PullRequestCheckPullRequestProjectRole63741937": Object {
       "Properties": Object {
@@ -2574,25 +2579,6 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "PullRequestCheck1CodeBuildResultFunctionAllowEventRulePullRequestCheck1PullRequestProjectPullRequestValidationRule6C9148DF13FF0F51": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheck1CodeBuildResultFunction92561847",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheck1PullRequestProjectPullRequestValidationRule30536953",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "PullRequestCheck1CodeBuildResultFunctionServiceRole56BD8BE4": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
@@ -2662,6 +2648,7 @@ Object {
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
@@ -2759,6 +2746,25 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "PullRequestCheck1PullRequestProjectPullRequestValidationRuleAllowEventRulePullRequestCheck1PullRequestProjectPullRequestValidationRule6C9148DFFA4E8347": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck1CodeBuildResultFunction92561847",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck1PullRequestProjectPullRequestValidationRule30536953",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "PullRequestCheck1PullRequestProjectRole59EA0837": Object {
       "Properties": Object {
@@ -2894,25 +2900,6 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "PullRequestCheck2CodeBuildResultFunctionAllowEventRulePullRequestCheck2PullRequestProjectPullRequestValidationRule39EF3219974774E8": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheck2CodeBuildResultFunctionF377E6BC",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "PullRequestCheck2PullRequestProjectPullRequestValidationRuleC4FD66A7",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "PullRequestCheck2CodeBuildResultFunctionF377E6BC": Object {
       "DependsOn": Array [
         "PullRequestCheck2CodeBuildResultFunctionServiceRoleDefaultPolicy312EF539",
@@ -3043,6 +3030,7 @@ Object {
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:4.0",
+          "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
@@ -3108,6 +3096,25 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "PullRequestCheck2PullRequestProjectPullRequestValidationRuleAllowEventRulePullRequestCheck2PullRequestProjectPullRequestValidationRule39EF3219FAA7F40C": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck2CodeBuildResultFunctionF377E6BC",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PullRequestCheck2PullRequestProjectPullRequestValidationRuleC4FD66A7",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "PullRequestCheck2PullRequestProjectPullRequestValidationRuleC4FD66A7": Object {
       "Properties": Object {

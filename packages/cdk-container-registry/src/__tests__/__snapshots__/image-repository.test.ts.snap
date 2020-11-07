@@ -299,25 +299,6 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "ImageRepositorySevierityFilterAllowEventRuleImageRepositoryfinding6652C3FBAADA6A95": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "ImageRepositorySevierityFilterF442A020",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "ImageRepositoryfinding97FFACE3",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
     "ImageRepositorySevierityFilterF442A020": Object {
       "DependsOn": Array [
         "ImageRepositorySevierityFilterServiceRoleDefaultPolicyAFA4D8E3",
@@ -447,6 +428,25 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "ImageRepositoryfindingAllowEventRuleImageRepositoryfinding6652C3FBCC83388D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "ImageRepositorySevierityFilterF442A020",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "ImageRepositoryfinding97FFACE3",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
   },
 }

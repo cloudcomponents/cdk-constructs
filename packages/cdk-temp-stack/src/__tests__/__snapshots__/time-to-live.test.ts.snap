@@ -47,6 +47,25 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
+    "TimeToLiveAllowEventRuleTimeToLive145477EA788D5E11": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "TimeToLiveDeleteStack08274E9B",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "TimeToLive7895C003",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
     "TimeToLiveDeleteStack08274E9B": Object {
       "DependsOn": Array [
         "TimeToLiveDeleteStackServiceRoleDefaultPolicy08F3148E",
@@ -101,25 +120,6 @@ Object {
         "Runtime": "nodejs12.x",
       },
       "Type": "AWS::Lambda::Function",
-    },
-    "TimeToLiveDeleteStackAllowEventRuleTimeToLive145477EA4C85838F": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "TimeToLiveDeleteStack08274E9B",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "TimeToLive7895C003",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
     },
     "TimeToLiveDeleteStackServiceRole5597A6E0": Object {
       "Properties": Object {
