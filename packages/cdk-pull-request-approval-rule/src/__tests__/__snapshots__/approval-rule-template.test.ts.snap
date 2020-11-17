@@ -139,3 +139,147 @@ Object {
   },
 }
 `;
+
+exports[`list of approvalPoolMembers 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427ArtifactHash4E4E463E": Object {
+      "Description": "Artifact hash for asset \\"549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427\\"",
+      "Type": "String",
+    },
+    "AssetParameters549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427S3Bucket3C21ED75": Object {
+      "Description": "S3 bucket for asset \\"549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427\\"",
+      "Type": "String",
+    },
+    "AssetParameters549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427S3VersionKeyCF6A416F": Object {
+      "Description": "S3 key for asset version \\"549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "ApprovalRuleTemplateCustomResource80C1F447": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "ApprovalRuleTemplateName": "name",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomApprovalRuleTemplateCustomResourceProviderHandlerF71B1878",
+            "Arn",
+          ],
+        },
+        "Template": Object {
+          "Approvers": Object {
+            "ApprovalPoolMembers": Array [
+              "arn:aws:sts::123456789012:assumed-role/CodeCommitReview/*",
+              "arn:aws:sts::123456789012:assumed-role/LeadDeveloper/*",
+            ],
+            "NumberOfApprovalsNeeded": 2,
+          },
+        },
+      },
+      "Type": "Custom::ApprovalRuleTemplate",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CustomApprovalRuleTemplateCustomResourceProviderHandlerF71B1878": Object {
+      "DependsOn": Array [
+        "CustomApprovalRuleTemplateCustomResourceProviderRoleBFA17D2F",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427S3Bucket3C21ED75",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427S3VersionKeyCF6A416F",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters549cbe0d60ad3c227c98ac490f962a33454b5377a7666d9088d23793faa2f427S3VersionKeyCF6A416F",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomApprovalRuleTemplateCustomResourceProviderRoleBFA17D2F",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomApprovalRuleTemplateCustomResourceProviderRoleBFA17D2F": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "codecommit:CreateApprovalRuleTemplate",
+                    "codecommit:DeleteApprovalRuleTemplate",
+                    "codecommit:GetApprovalRuleTemplate",
+                    "codecommit:UpdateApprovalRuleTemplateContent",
+                    "codecommit:UpdateApprovalRuleTemplateDescription",
+                    "codecommit:UpdateApprovalRuleTemplateName",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "Inline",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;

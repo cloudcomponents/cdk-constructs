@@ -4,7 +4,7 @@ import { approvalRuleTemplateDir } from './directories';
 
 export interface Approvers {
   readonly numberOfApprovalsNeeded: number;
-  readonly approvalPoolMembers?: string;
+  readonly approvalPoolMembers?: string[];
 }
 
 export interface Template {
