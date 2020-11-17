@@ -22,3 +22,19 @@ test('default setup', (): void => {
 
   expect(stack).toMatchCdkSnapshot();
 });
+
+test('list of approvalPoolMembers', (): void => {
+  const stack = new Stack();
+
+  new ApprovalRuleTemplate(stack, 'ApprovalRuleTemplate', {
+    approvalRuleTemplateName: 'name',
+    template: {
+      approvers: {
+        numberOfApprovalsNeeded: 2,
+        approvalPoolMembers: ['arn:aws:sts::123456789012:assumed-role/CodeCommitReview/*', 'arn:aws:sts::123456789012:assumed-role/LeadDeveloper/*'],
+      },
+    },
+  });
+
+  expect(stack).toMatchCdkSnapshot();
+});
