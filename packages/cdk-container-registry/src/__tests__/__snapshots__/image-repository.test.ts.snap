@@ -139,165 +139,18 @@ exports[`onFinding 1`] = `
 Object {
   "Parameters": Any<Object>,
   "Resources": Object {
-    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
-      "DependsOn": Array [
-        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-      ],
-      "Properties": Object {
-        "Code": Any<Object>,
-        "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs12.x",
-        "Timeout": 120,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
     "AlarmTopicD01E77F9": Object {
       "Type": "AWS::SNS::Topic",
     },
     "ImageRepositoryBBCBC9DF": Object {
       "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "ImageScanningConfiguration": Object {
+          "scanOnPush": true,
+        },
+      },
       "Type": "AWS::ECR::Repository",
       "UpdateReplacePolicy": "Retain",
-    },
-    "ImageRepositoryImageScanOnPush3D23220F": Object {
-      "DeletionPolicy": "Delete",
-      "DependsOn": Array [
-        "ImageRepositoryImageScanOnPushCustomResourcePolicy493CBBFE",
-      ],
-      "Properties": Object {
-        "Create": Object {
-          "action": "putImageScanningConfiguration",
-          "parameters": Object {
-            "imageScanningConfiguration": Object {
-              "scanOnPush": "TRUE:BOOLEAN",
-            },
-            "repositoryName": Object {
-              "Ref": "ImageRepositoryBBCBC9DF",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::GetAtt": Array [
-                "ImageRepositoryBBCBC9DF",
-                "Arn",
-              ],
-            },
-          },
-          "service": "ECR",
-        },
-        "Delete": Object {
-          "action": "putImageScanningConfiguration",
-          "parameters": Object {
-            "imageScanningConfiguration": Object {
-              "scanOnPush": "FALSE:BOOLEAN",
-            },
-            "repositoryName": Object {
-              "Ref": "ImageRepositoryBBCBC9DF",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::GetAtt": Array [
-                "ImageRepositoryBBCBC9DF",
-                "Arn",
-              ],
-            },
-          },
-          "service": "ECR",
-        },
-        "InstallLatestAwsSdk": true,
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
-            "Arn",
-          ],
-        },
-        "Update": Object {
-          "action": "putImageScanningConfiguration",
-          "parameters": Object {
-            "imageScanningConfiguration": Object {
-              "scanOnPush": "TRUE:BOOLEAN",
-            },
-            "repositoryName": Object {
-              "Ref": "ImageRepositoryBBCBC9DF",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::GetAtt": Array [
-                "ImageRepositoryBBCBC9DF",
-                "Arn",
-              ],
-            },
-          },
-          "service": "ECR",
-        },
-      },
-      "Type": "Custom::ECRImageScanOnPush",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "ImageRepositoryImageScanOnPushCustomResourcePolicy493CBBFE": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "ecr:PutImageScanningConfiguration",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "ImageRepositoryBBCBC9DF",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "ImageRepositoryImageScanOnPushCustomResourcePolicy493CBBFE",
-        "Roles": Array [
-          Object {
-            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
     },
     "ImageRepositorySevierityFilterF442A020": Object {
       "DependsOn": Array [
