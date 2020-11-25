@@ -5,12 +5,15 @@ import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 export interface StripeWebhookProps {
   readonly secretKey: string;
   readonly url: string;
+  readonly description?: string;
   readonly events: string[];
   readonly logLevel?: 'debug' | 'info' | 'warning' | 'error';
 }
 
 export class StripeWebhook extends Construct {
-  public constructor(scope: Construct, id: string, props: StripeWebhookProps) {
+  public readonly id: string;
+
+  constructor(scope: Construct, id: string, props: StripeWebhookProps) {
     super(scope, id);
 
     const handler = new SingletonFunction(this, 'CustomResourceHandler', {
@@ -22,7 +25,7 @@ export class StripeWebhook extends Construct {
       timeout: Duration.minutes(15),
     });
 
-    new CustomResource(this, 'CustomResource', {
+    const cr = new CustomResource(this, 'CustomResource', {
       serviceToken: handler.functionArn,
       resourceType: 'Custom::StripeWebhook',
       pascalCaseProperties: true,
@@ -30,5 +33,7 @@ export class StripeWebhook extends Construct {
         ...props,
       },
     });
+
+    this.id = cr.ref;
   }
 }

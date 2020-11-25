@@ -41,6 +41,15 @@ new StripeWebhook(scope: Construct, id: string, props: StripeWebhookProps)
 
 
 
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**id** | <code>string</code> | <span></span>
+**secret** | <code>string</code> | <span></span>
+
+
 
 ## struct StripeWebhookProps  <a id="cloudcomponents-cdk-stripe-webhook-stripewebhookprops"></a>
 

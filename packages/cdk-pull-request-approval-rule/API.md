@@ -138,7 +138,7 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **numberOfApprovalsNeeded** | <code>number</code> | <span></span>
-**approvalPoolMembers**? | <code>string</code> | __*Optional*__
+**approvalPoolMembers**? | <code>Array<string></code> | __*Optional*__
 
 
 
