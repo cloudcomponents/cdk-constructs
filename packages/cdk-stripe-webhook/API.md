@@ -37,6 +37,7 @@ new StripeWebhook(scope: Construct, id: string, props: StripeWebhookProps)
   * **events** (<code>Array<string></code>)  *No description* 
   * **secretKey** (<code>string</code>)  *No description* 
   * **url** (<code>string</code>)  *No description* 
+  * **description** (<code>string</code>)  *No description* __*Optional*__
   * **logLevel** (<code>string</code>)  *No description* __*Optional*__
 
 
@@ -47,7 +48,6 @@ new StripeWebhook(scope: Construct, id: string, props: StripeWebhookProps)
 Name | Type | Description 
 -----|------|-------------
 **id** | <code>string</code> | <span></span>
-**secret** | <code>string</code> | <span></span>
 
 
 
@@ -63,6 +63,7 @@ Name | Type | Description
 **events** | <code>Array<string></code> | <span></span>
 **secretKey** | <code>string</code> | <span></span>
 **url** | <code>string</code> | <span></span>
+**description**? | <code>string</code> | __*Optional*__
 **logLevel**? | <code>string</code> | __*Optional*__
 
 

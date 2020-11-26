@@ -38,7 +38,7 @@ new CodePipelineDockerfileLinterAction(props: CodePipelineDockerfileLinterAction
   * **role** (<code>[IRole](#aws-cdk-aws-iam-irole)</code>)  The Role in which context's this Action will be executing in. __*Default*__: a new Role will be generated
   * **input** (<code>[Artifact](#aws-cdk-aws-codepipeline-artifact)</code>)  The source to use as input for this action. 
   * **computeType** (<code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code>)  The type of compute to use for backup the repositories. __*Default*__: taken from {@link LinuxBuildImage.STANDARD_4_0#defaultComputeType}
-  * **version** (<code>string</code>)  Version of hadolint. __*Default*__: v1.18.0
+  * **version** (<code>string</code>)  Version of hadolint. __*Default*__: v1.19.0
 
 
 ### Methods
@@ -80,7 +80,7 @@ Name | Type | Description
 **role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | The Role in which context's this Action will be executing in.<br/>__*Default*__: a new Role will be generated
 **runOrder**? | <code>number</code> | The runOrder property for this Action.<br/>__*Default*__: 1
 **variablesNamespace**? | <code>string</code> | The name of the namespace to use for variables emitted by this action.<br/>__*Default*__: a name will be generated, based on the stage and action names, if any of the action's variables were referenced - otherwise, no namespace will be set
-**version**? | <code>string</code> | Version of hadolint.<br/>__*Default*__: v1.18.0
+**version**? | <code>string</code> | Version of hadolint.<br/>__*Default*__: v1.19.0
 
 
 
