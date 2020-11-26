@@ -217,18 +217,12 @@ Object {
         "Artifacts": Object {
           "Type": "CODEPIPELINE",
         },
-        "Cache": Object {
-          "Modes": Array [
-            "LOCAL_DOCKER_LAYER_CACHE",
-          ],
-          "Type": "LOCAL",
-        },
         "EncryptionKey": "alias/aws/s3",
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:4.0",
           "ImagePullCredentialsType": "CODEBUILD",
-          "PrivilegedMode": true,
+          "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
         "ServiceRole": Object {
@@ -243,15 +237,15 @@ Object {
   \\"phases\\": {
     \\"pre_build\\": {
       \\"commands\\": [
-        \\"echo Pulling the hadolint docker image\\",
-        \\"docker pull hadolint/hadolint:v1.18.0\\"
+        \\"echo Installing hadolint\\",
+        \\"wget -O /opt/hadolint \\\\\\"https://github.com/hadolint/hadolint/releases/download/v1.19.0/hadolint-$(uname -s)-$(uname -m)\\\\\\"\\",
+        \\"chmod +x /opt/hadolint\\"
       ]
     },
     \\"build\\": {
-      \\"commands\\": [],
-      \\"finally\\": [
+      \\"commands\\": [
         \\"echo Scan started on \`date\`\\",
-        \\"result=$(docker run --rm -i hadolint/hadolint:v1.18.0 hadolint -f json - < Dockerfile)\\"
+        \\"result=$(/opt/hadolint -f json Dockerfile)\\"
       ]
     },
     \\"post_build\\": {

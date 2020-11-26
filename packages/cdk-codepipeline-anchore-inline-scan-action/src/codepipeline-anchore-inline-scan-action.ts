@@ -1,8 +1,8 @@
 import { BuildSpec, Cache, LocalCacheMode, LinuxBuildImage, PipelineProject, ComputeType } from '@aws-cdk/aws-codebuild';
 import { ActionBindOptions, ActionCategory, ActionConfig, Artifact, CommonAwsActionProps, IStage } from '@aws-cdk/aws-codepipeline';
 import { Action } from '@aws-cdk/aws-codepipeline-actions';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Construct } from '@aws-cdk/core';
+import { IRole, PolicyStatement } from '@aws-cdk/aws-iam';
+import { Construct, Stack } from '@aws-cdk/core';
 
 export interface CodePipelineAnchoreInlineScanActionProps extends CommonAwsActionProps {
   /**
@@ -13,7 +13,7 @@ export interface CodePipelineAnchoreInlineScanActionProps extends CommonAwsActio
   /**
    * Version of anchore ci-tools
    *
-   * @default v0.7.2
+   * @default v0.8.2
    */
   readonly version?: string;
 
@@ -38,6 +38,18 @@ export interface CodePipelineAnchoreInlineScanActionProps extends CommonAwsActio
    * @default taken from {@link LinuxBuildImage.STANDARD_4_0#defaultComputeType}
    */
   readonly computeType?: ComputeType;
+
+  /**
+   * This will override the image name from Dockerhub
+   */
+  readonly customAnchoreImage?: string;
+
+  readonly projectRole?: IRole;
+
+  /**
+   * @default false
+   */
+  readonly ecrLogin?: boolean;
 }
 
 export class CodePipelineAnchoreInlineScanAction extends Action {
@@ -61,9 +73,11 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
   }
 
   protected bound(scope: Construct, _stage: IStage, options: ActionBindOptions): ActionConfig {
+    const { account, region } = Stack.of(scope);
+
     const buildImage = LinuxBuildImage.STANDARD_4_0;
 
-    const version = this.props.version ?? 'v0.7.2';
+    const version = this.props.version ?? 'v0.8.2';
 
     const timeout = this.props.timeout ?? 300;
 
@@ -73,16 +87,30 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
 
     const project = new PipelineProject(scope, 'VulnScanProject', {
       cache: Cache.local(LocalCacheMode.DOCKER_LAYER),
+      role: this.props.projectRole,
       environment: {
         buildImage,
         computeType: this.props.computeType || buildImage.defaultComputeType,
         privileged: true,
       },
+      environmentVariables: this.props.customAnchoreImage
+        ? {
+            ANCHORE_CI_IMAGE: {
+              value: this.props.customAnchoreImage,
+            },
+          }
+        : undefined,
       buildSpec: BuildSpec.fromObject({
         version: '0.2',
         phases: {
           pre_build: {
-            commands: ['echo Build started on `date`', 'docker build -t image2scan:ci .', 'echo Build completed on `date`'],
+            commands: [
+              'echo Build started on `date`',
+              'docker build -t image2scan:ci .',
+              'echo Build completed on `date`',
+              this.props.ecrLogin &&
+                `aws ecr get-login-password | docker login --username AWS --password-stdin ${account}.dkr.ecr.${region}.amazonaws.com`,
+            ],
           },
           build: {
             commands: [
@@ -96,7 +124,7 @@ export class CodePipelineAnchoreInlineScanAction extends Action {
     });
 
     // grant the Pipeline role the required permissions to this Project
-    options.role.addToPolicy(
+    options.role.addToPrincipalPolicy(
       new PolicyStatement({
         resources: [project.projectArn],
         actions: ['codebuild:BatchGetBuilds', 'codebuild:StartBuild', 'codebuild:StopBuild'],

@@ -1,4 +1,4 @@
-import { BuildSpec, Cache, LocalCacheMode, LinuxBuildImage, PipelineProject, ComputeType } from '@aws-cdk/aws-codebuild';
+import { BuildSpec, LinuxBuildImage, PipelineProject, ComputeType } from '@aws-cdk/aws-codebuild';
 import { ActionBindOptions, ActionCategory, ActionConfig, Artifact, CommonAwsActionProps, IStage } from '@aws-cdk/aws-codepipeline';
 import { Action } from '@aws-cdk/aws-codepipeline-actions';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
@@ -13,7 +13,7 @@ export interface CodePipelineDockerfileLinterActionProps extends CommonAwsAction
   /**
    * Version of hadolint
    *
-   * @default v1.18.0
+   * @default v1.19.0
    */
   readonly version?: string;
 
@@ -49,24 +49,27 @@ export class CodePipelineDockerfileLinterAction extends Action {
   protected bound(scope: Construct, _stage: IStage, options: ActionBindOptions): ActionConfig {
     const buildImage = LinuxBuildImage.STANDARD_4_0;
 
-    const version = this.props.version || 'v1.18.0';
+    const version = this.props.version ?? 'v1.19.0';
+
+    const hadolint = '/opt/hadolint';
 
     const project = new PipelineProject(scope, 'LinterProject', {
-      cache: Cache.local(LocalCacheMode.DOCKER_LAYER),
       environment: {
         buildImage,
         computeType: this.props.computeType || buildImage.defaultComputeType,
-        privileged: true,
       },
       buildSpec: BuildSpec.fromObject({
         version: '0.2',
         phases: {
           pre_build: {
-            commands: ['echo Pulling the hadolint docker image', `docker pull hadolint/hadolint:${version}`],
+            commands: [
+              'echo Installing hadolint',
+              `wget -O ${hadolint} "https://github.com/hadolint/hadolint/releases/download/${version}/hadolint-$(uname -s)-$(uname -m)"`,
+              `chmod +x ${hadolint}`,
+            ],
           },
           build: {
-            commands: [],
-            finally: ['echo Scan started on `date`', `result=$(docker run --rm -i hadolint/hadolint:${version} hadolint -f json - < Dockerfile)`],
+            commands: ['echo Scan started on `date`', `result=$(${hadolint} -f json Dockerfile)`],
           },
           post_build: {
             commands: ['if [ "$result" != "[]" ]; then echo $result | jq .; else echo "Awesome! No findings!"; fi', 'echo Scan completed on `date`'],
@@ -76,7 +79,7 @@ export class CodePipelineDockerfileLinterAction extends Action {
     });
 
     // grant the Pipeline role the required permissions to this Project
-    options.role.addToPolicy(
+    options.role.addToPrincipalPolicy(
       new PolicyStatement({
         resources: [project.projectArn],
         actions: ['codebuild:BatchGetBuilds', 'codebuild:StartBuild', 'codebuild:StopBuild'],
