@@ -24,6 +24,8 @@ jobs:
         run: yarn lint
       - name: Testing
         run: yarn test
+        env:
+          NODE_OPTIONS=--max_old_space_size=4096
       #- name: Anti-tamper check
       #  run: git diff --exit-code
     container:
