@@ -45,6 +45,7 @@ new DeletableBucket(scope: Construct, id: string, props?: DeletableBucketProps)
   * **inventories** (<code>Array<[Inventory](#aws-cdk-aws-s3-inventory)></code>)  The inventory configuration of the bucket. __*Default*__: No inventory configuration
   * **lifecycleRules** (<code>Array<[LifecycleRule](#aws-cdk-aws-s3-lifecyclerule)></code>)  Rules that define how Amazon S3 manages objects during their lifetime. __*Default*__: No lifecycle rules.
   * **metrics** (<code>Array<[BucketMetrics](#aws-cdk-aws-s3-bucketmetrics)></code>)  The metrics configuration of this bucket. __*Default*__: No metrics configuration.
+  * **objectOwnership** (<code>[ObjectOwnership](#aws-cdk-aws-s3-objectownership)</code>)  The objectOwnership of the bucket. __*Default*__: No ObjectOwnership configuration, uploading account will own the object.
   * **publicReadAccess** (<code>boolean</code>)  Grants public read access to all objects in the bucket. __*Default*__: false
   * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  Policy to apply when the bucket is removed from this stack. __*Default*__: The bucket will be orphaned.
   * **serverAccessLogsBucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  Destination bucket for the server access logs. __*Default*__: If "serverAccessLogsPrefix" undefined - access logs disabled, otherwise - log to current bucket.
@@ -102,6 +103,7 @@ Name | Type | Description
 **inventories**? | <code>Array<[Inventory](#aws-cdk-aws-s3-inventory)></code> | The inventory configuration of the bucket.<br/>__*Default*__: No inventory configuration
 **lifecycleRules**? | <code>Array<[LifecycleRule](#aws-cdk-aws-s3-lifecyclerule)></code> | Rules that define how Amazon S3 manages objects during their lifetime.<br/>__*Default*__: No lifecycle rules.
 **metrics**? | <code>Array<[BucketMetrics](#aws-cdk-aws-s3-bucketmetrics)></code> | The metrics configuration of this bucket.<br/>__*Default*__: No metrics configuration.
+**objectOwnership**? | <code>[ObjectOwnership](#aws-cdk-aws-s3-objectownership)</code> | The objectOwnership of the bucket.<br/>__*Default*__: No ObjectOwnership configuration, uploading account will own the object.
 **publicReadAccess**? | <code>boolean</code> | Grants public read access to all objects in the bucket.<br/>__*Default*__: false
 **removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | Policy to apply when the bucket is removed from this stack.<br/>__*Default*__: The bucket will be orphaned.
 **serverAccessLogsBucket**? | <code>[IBucket](#aws-cdk-aws-s3-ibucket)</code> | Destination bucket for the server access logs.<br/>__*Default*__: If "serverAccessLogsPrefix" undefined - access logs disabled, otherwise - log to current bucket.

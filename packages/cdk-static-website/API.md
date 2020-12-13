@@ -158,11 +158,11 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**acmCertRef**🔹 | <code>string</code> | ARN of an AWS Certificate Manager (ACM) certificate.
+**acmCertRef** | <code>string</code> | ARN of an AWS Certificate Manager (ACM) certificate.
 **domainName** | <code>string</code> | The domain name for the site like 'example.com'.
-**names**🔹 | <code>Array<string></code> | Domain names on the certificate.
-**securityPolicy**?🔹 | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SSLv3 if sslMethod VIP, TLSv1 if sslMethod SNI
-**sslMethod**?🔹 | <code>[SSLMethod](#aws-cdk-aws-cloudfront-sslmethod)</code> | How CloudFront should serve HTTPS requests.<br/>__*Default*__: SSLMethod.SNI
+**names** | <code>Array<string></code> | Domain names on the certificate.
+**securityPolicy**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SSLv3 if sslMethod VIP, TLSv1 if sslMethod SNI
+**sslMethod**? | <code>[SSLMethod](#aws-cdk-aws-cloudfront-sslmethod)</code> | How CloudFront should serve HTTPS requests.<br/>__*Default*__: SSLMethod.SNI
 
 
 
