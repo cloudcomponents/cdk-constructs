@@ -203,7 +203,7 @@ createLegacyAdditionalBehaviors(options?: Behavior): Array<Behavior>
   * **cachedMethods** (<code>[CloudFrontAllowedCachedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedcachedmethods)</code>)  Which methods are cached by CloudFront by default. __*Default*__: GET_HEAD
   * **compress** (<code>boolean</code>)  If CloudFront should automatically compress some content types. __*Default*__: true
   * **defaultTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The default amount of time CloudFront will cache an object. __*Default*__: 86400 (1 day)
-  * **forwardedValues** (<code>[ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
+  * **forwardedValues** (<code>[CfnDistribution.ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
   * **isDefaultBehavior** (<code>boolean</code>)  If this behavior is the default behavior for the distribution. __*Optional*__
   * **lambdaFunctionAssociations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  Declares associated lambda@edge functions for this distribution behaviour. __*Default*__: No lambda function associated
   * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
@@ -227,7 +227,7 @@ createLegacyDefaultBehavior(options?: Behavior): Behavior
   * **cachedMethods** (<code>[CloudFrontAllowedCachedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedcachedmethods)</code>)  Which methods are cached by CloudFront by default. __*Default*__: GET_HEAD
   * **compress** (<code>boolean</code>)  If CloudFront should automatically compress some content types. __*Default*__: true
   * **defaultTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The default amount of time CloudFront will cache an object. __*Default*__: 86400 (1 day)
-  * **forwardedValues** (<code>[ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
+  * **forwardedValues** (<code>[CfnDistribution.ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
   * **isDefaultBehavior** (<code>boolean</code>)  If this behavior is the default behavior for the distribution. __*Optional*__
   * **lambdaFunctionAssociations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  Declares associated lambda@edge functions for this distribution behaviour. __*Default*__: No lambda function associated
   * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
