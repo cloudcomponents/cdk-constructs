@@ -167,9 +167,12 @@ export class BaseDistribution extends Construct {
       defaultRootObject: props.defaultRootObject ?? 'index.html',
     });
 
+    const callbackUrls = props.domainNames?.map((name) => `https://${name}${props.authorization.redirectPaths.signIn}`) ?? [];
+    const logoutUrls = props.domainNames?.map((name) => `https://${name}${props.authorization.redirectPaths.signOut}`) ?? [];
+
     props.authorization.updateUserPoolClientCallbacks({
-      callbackUrls: [`https://${distribution.distributionDomainName}${props.authorization.redirectPaths.signIn}`],
-      logoutUrls: [`https://${distribution.distributionDomainName}${props.authorization.redirectPaths.signOut}`],
+      callbackUrls: [`https://${distribution.distributionDomainName}${props.authorization.redirectPaths.signIn}`, ...callbackUrls],
+      logoutUrls: [`https://${distribution.distributionDomainName}${props.authorization.redirectPaths.signOut}`, ...logoutUrls],
     });
   }
 
