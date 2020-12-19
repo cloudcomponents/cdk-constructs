@@ -1,8 +1,18 @@
 import { ICertificate } from '@aws-cdk/aws-certificatemanager';
-import { IOrigin, Distribution, ErrorResponse, PriceClass, HttpVersion, GeoRestriction, BehaviorOptions, CachePolicy } from '@aws-cdk/aws-cloudfront';
+import {
+  IOrigin,
+  IDistribution,
+  Distribution,
+  ErrorResponse,
+  PriceClass,
+  HttpVersion,
+  GeoRestriction,
+  BehaviorOptions,
+  CachePolicy,
+} from '@aws-cdk/aws-cloudfront';
 import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
 import { IBucket } from '@aws-cdk/aws-s3';
-import { Construct, Duration, RemovalPolicy } from '@aws-cdk/core';
+import { Construct, Duration, RemovalPolicy, Stack, ResourceEnvironment } from '@aws-cdk/core';
 import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 import { IAuthorization, IStaticSiteAuthorization, ISpaAuthorization } from './authorizations';
@@ -139,12 +149,17 @@ export interface BaseDistributionProps extends CommonDistributionProps {
   readonly errorResponses?: ErrorResponse[];
 }
 
-export class BaseDistribution extends Construct {
+export class BaseDistribution extends Construct implements IDistribution {
+  public readonly domainName: string;
+  public readonly distributionDomainName: string;
+  public readonly distributionId: string;
+  public readonly stack: Stack;
+  public readonly env: ResourceEnvironment;
+
   constructor(scope: Construct, id: string, props: BaseDistributionProps) {
     super(scope, id);
 
     const removalPolicy = props.removalPolicy ?? RemovalPolicy.DESTROY;
-
     const origin = props.origin ?? this.defaultOrigin(removalPolicy === RemovalPolicy.DESTROY);
 
     const distribution = new Distribution(this, 'Distribution', {
@@ -174,6 +189,16 @@ export class BaseDistribution extends Construct {
       callbackUrls: [`https://${distribution.distributionDomainName}${props.authorization.redirectPaths.signIn}`, ...callbackUrls],
       logoutUrls: [`https://${distribution.distributionDomainName}${props.authorization.redirectPaths.signOut}`, ...logoutUrls],
     });
+
+    this.domainName = distribution.domainName;
+    this.distributionDomainName = distribution.distributionDomainName;
+    this.distributionId = distribution.distributionId;
+
+    this.stack = Stack.of(this);
+    this.env = {
+      account: this.stack.account,
+      region: this.stack.region,
+    };
   }
 
   protected renderDefaultBehaviour(origin: IOrigin, authorization: IAuthorization): BehaviorOptions {

@@ -284,7 +284,7 @@ __Returns__:
 
 
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IDistribution](#aws-cdk-aws-cloudfront-idistribution), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
 __Extends__: [Construct](#aws-cdk-core-construct)
 
 ### Initializer
@@ -318,6 +318,18 @@ new BaseDistribution(scope: Construct, id: string, props: BaseDistributionProps)
   * **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description* 
   * **errorResponses** (<code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code>)  *No description* __*Optional*__
 
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**distributionDomainName** | <code>string</code> | The domain name of the Distribution, such as d111111abcdef8.cloudfront.net.
+**distributionId** | <code>string</code> | The distribution ID for this distribution.
+**domainName** | <code>string</code> | (deprecated) The domain name of the Distribution, such as d111111abcdef8.cloudfront.net.
+**env** | <code>[ResourceEnvironment](#aws-cdk-core-resourceenvironment)</code> | The environment this resource belongs to.
+**stack** | <code>[Stack](#aws-cdk-core-stack)</code> | The stack in which this resource is defined.
 
 ### Methods
 
@@ -489,7 +501,7 @@ __Returns__:
 
 
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IDistribution](#aws-cdk-aws-cloudfront-idistribution), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
 __Extends__: [BaseDistribution](#cloudcomponents-cdk-cloudfront-authorization-basedistribution)
 
 ### Initializer
@@ -597,7 +609,7 @@ __Returns__:
 
 
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IDistribution](#aws-cdk-aws-cloudfront-idistribution), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
 __Extends__: [BaseDistribution](#cloudcomponents-cdk-cloudfront-authorization-basedistribution)
 
 ### Initializer
