@@ -1,6 +1,6 @@
 import { Server } from 'http';
 import { createMessageAdapter } from '@slack/interactive-messages';
-import type { APIGatewayEvent, Context } from 'aws-lambda';
+import type { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import { createServer, proxy } from 'aws-serverless-express';
 import express from 'express';
 
@@ -20,6 +20,6 @@ slackInteractions.action(/(\w+)_dialog/, handleDialog);
 
 const server = createServer(app);
 
-export const handler = (event: APIGatewayEvent, context: Context): Server => {
+export const handler = (event: APIGatewayProxyEvent, context: Context): Server => {
   return proxy(server, event, context);
 };
