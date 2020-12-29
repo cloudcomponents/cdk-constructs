@@ -26,6 +26,8 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
 
   public readonly taskDefinitionArn: string;
 
+  public readonly containerPort: number;
+
   constructor(scope: Construct, id: string, props: DummyTaskDefinitionProps) {
     super(scope, id);
 
@@ -52,6 +54,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
     });
 
     this.family = props.family || this.node.uniqueId;
+    this.containerPort = props.containerPort || 80;
 
     const taskDefinition = new CustomResource(this, 'CustomResource', {
       serviceToken,
@@ -61,6 +64,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
         Image: props.image,
         ExecutionRoleArn: this.executionRole.roleArn,
         NetworkMode: NetworkMode.AWS_VPC,
+        ContainerPort: this.containerPort,
       },
     });
 

@@ -10,6 +10,7 @@ export interface EcsTaskDefinitionProps {
   image: string;
   executionRoleArn: string;
   networkMode: string;
+  containerPort: number;
 }
 
 const ecs = new ECS();
@@ -19,10 +20,11 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   image: props.Image as string,
   executionRoleArn: props.ExecutionRoleArn as string,
   networkMode: props.NetworkMode as string,
+  containerPort: props.ContainerPort as number,
 });
 
 const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
-  const { family, image, executionRoleArn, networkMode } = getProperties(event.ResourceProperties);
+  const { family, image, executionRoleArn, networkMode, containerPort } = getProperties(event.ResourceProperties);
 
   const { taskDefinition } = await ecs
     .registerTaskDefinition({
@@ -38,9 +40,9 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
           image,
           portMappings: [
             {
-              hostPort: 80,
+              hostPort: containerPort,
               protocol: 'tcp',
-              containerPort: 80,
+              containerPort: containerPort,
             },
           ],
         },
