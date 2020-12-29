@@ -48,6 +48,7 @@ new StaticWebsite(scope: Construct, id: string, props?: StaticWebsiteProps)
   * **aliasConfiguration** (<code>[AliasProps](#cloudcomponents-cdk-static-website-aliasprops)</code>)  AliasConfiguration is used to configured CloudFront to respond to requests on custom domain names. __*Default*__: No custom domain names are set up
   * **bucketConfiguration** (<code>[WebsiteBucketProps](#cloudcomponents-cdk-static-website-websitebucketprops)</code>)  BucketConfiguration is used to configured the S3 website bucket. __*Default*__: The website bucket is provided with default values
   * **disableIPv6** (<code>boolean</code>)  An override flag that allows you to turn off support for IPv6 if required. __*Default*__: Cloudfront IPv6 support is enabled and if you've supplied an aliasConfiguration, an AAAA record will be created for your service, set this to true to switch this off.
+  * **errorConfigurations** (<code>Array<[CfnDistribution.CustomErrorResponseProperty](#aws-cdk-aws-cloudfront-cfndistribution-customerrorresponseproperty)></code>)  How CloudFront should handle requests that are not successful (e.g., PageNotFound). __*Default*__: No custom error responses.
   * **webACLId** (<code>string</code>)  AWS WAF WebACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL)
 
 
@@ -180,6 +181,7 @@ Name | Type | Description
 **bucketName**? | <code>string</code> | Name of the bucket.<br/>__*Default*__: Assigned by CloudFormation (recommended).
 **disableIPv6**? | <code>boolean</code> | An override flag that allows you to turn off support for IPv6 if required.<br/>__*Default*__: Cloudfront IPv6 support is enabled and if you've supplied an aliasConfiguration, an AAAA record will be created for your service, set this to true to switch this off.
 **disableUpload**? | <code>boolean</code> | Disable website deployment.<br/>__*Default*__: false
+**errorConfigurations**? | <code>Array<[CfnDistribution.CustomErrorResponseProperty](#aws-cdk-aws-cloudfront-cfndistribution-customerrorresponseproperty)></code> | How CloudFront should handle requests that are not successful (e.g., PageNotFound).<br/>__*Default*__: No custom error responses.
 **removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | Policy to apply when the bucket is removed from this stack.<br/>__*Default*__: The bucket will be orphaned.
 **source**? | <code>string</code> | The source from which to deploy the website.<br/>__*Default*__: Dummy placeholder
 **webACLId**? | <code>string</code> | AWS WAF WebACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL)

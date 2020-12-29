@@ -29,3 +29,21 @@ test('lambda at edge', (): void => {
 
   expect(stack).toMatchCdkSnapshot();
 });
+
+test('test sertting errorConfigurations', (): void => {
+  const stack = new Stack();
+
+  new StaticWebsite(stack, 'StaticWebsite', {
+    disableUpload: true,
+    errorConfigurations: [
+      {
+        errorCode: 404,
+        errorCachingMinTtl: 3,
+        responseCode: 200,
+        responsePagePath: '/index.html',
+      },
+    ],
+  });
+
+  expect(stack).toMatchCdkSnapshot();
+});

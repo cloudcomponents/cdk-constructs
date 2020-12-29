@@ -45,6 +45,13 @@ export interface StaticWebsiteProps extends WebsiteBucketProps {
    * AAAA record will be created for your service, set this to true to switch this off.
    */
   readonly disableIPv6?: boolean;
+
+  /**
+   * How CloudFront should handle requests that are not successful (e.g., PageNotFound).
+   *
+   * @default - No custom error responses.
+   */
+  readonly errorConfigurations?: CfnDistribution.CustomErrorResponseProperty[];
 }
 
 export class StaticWebsite extends Construct {
@@ -53,7 +60,7 @@ export class StaticWebsite extends Construct {
   constructor(scope: Construct, id: string, props: StaticWebsiteProps = {}) {
     super(scope, id);
 
-    const { aliasConfiguration, bucketConfiguration, webACLId, disableIPv6 } = props;
+    const { aliasConfiguration, bucketConfiguration, webACLId, disableIPv6, errorConfigurations } = props;
 
     const websiteBucket = new WebsiteBucket(this, 'Bucket', {
       ...bucketConfiguration,
@@ -71,6 +78,7 @@ export class StaticWebsite extends Construct {
         },
       ],
       aliasConfiguration,
+      errorConfigurations,
     };
 
     this.distribution = new CloudFrontWebDistribution(this, 'Distribution', distibutionConfig);
