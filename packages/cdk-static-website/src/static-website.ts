@@ -14,6 +14,22 @@ import { WebsiteBucket, WebsiteBucketProps } from './website-bucket';
 export interface AliasProps extends AliasConfiguration {
   /** The domain name for the site like 'example.com' */
   readonly domainName: string;
+
+  /** 
+   * Allow searching a private hosted zone.
+   * @default false
+   */
+  readonly privateZone?: boolean;
+
+  /**
+   * Specifies the ID of the VPC associated with a private hosted zone.
+   *
+   * If a VPC ID is provided and privateZone is false, no results will be returned
+   * and an error will be raised
+   *
+   * @default - No VPC ID
+   */
+  readonly vpcId?: string;
 }
 
 export interface StaticWebsiteProps extends WebsiteBucketProps {
@@ -81,6 +97,8 @@ export class StaticWebsite extends Construct {
         recordNames: aliasConfiguration.names,
         target: new CloudFrontTarget(this.distribution),
         disableIPv6,
+        privateZone: aliasConfiguration.privateZone,
+        vpcId: aliasConfiguration.vpcId
       });
     }
   }
