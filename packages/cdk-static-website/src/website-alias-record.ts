@@ -15,7 +15,7 @@ export interface WebsiteAliasRecordProps {
   /** We support IPv6 and add an AAAA record by default, but you can turn it off */
   readonly disableIPv6?: boolean;
 
-  /** 
+  /**
    * Allow searching a private hosted zone.
    * @default false
    */
@@ -41,7 +41,7 @@ export class WebsiteAliasRecord extends Construct {
     const zone = HostedZone.fromLookup(this, 'Zone', {
       domainName,
       privateZone,
-      vpcId
+      vpcId,
     });
 
     recordNames.forEach((recordName): void => {

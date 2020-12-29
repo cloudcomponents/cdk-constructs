@@ -15,7 +15,7 @@ export interface AliasProps extends AliasConfiguration {
   /** The domain name for the site like 'example.com' */
   readonly domainName: string;
 
-  /** 
+  /**
    * Allow searching a private hosted zone.
    * @default false
    */
@@ -98,7 +98,7 @@ export class StaticWebsite extends Construct {
         target: new CloudFrontTarget(this.distribution),
         disableIPv6,
         privateZone: aliasConfiguration.privateZone,
-        vpcId: aliasConfiguration.vpcId
+        vpcId: aliasConfiguration.vpcId,
       });
     }
   }
