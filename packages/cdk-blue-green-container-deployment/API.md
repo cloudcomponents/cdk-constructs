@@ -68,6 +68,7 @@ new DummyTaskDefinition(scope: Construct, id: string, props: DummyTaskDefinition
 
 Name | Type | Description 
 -----|------|-------------
+**containerPort** | <code>number</code> | <span></span>
 **executionRole** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
 **family** | <code>string</code> | <span></span>
 **taskDefinitionArn** | <code>string</code> | <span></span>

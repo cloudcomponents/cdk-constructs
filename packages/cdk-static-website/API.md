@@ -109,6 +109,8 @@ new WebsiteAliasRecord(scope: Construct, id: string, props: WebsiteAliasRecordPr
   * **recordNames** (<code>Array<string></code>)  Names for the records. 
   * **target** (<code>[IAliasRecordTarget](#aws-cdk-aws-route53-ialiasrecordtarget)</code>)  Target for the alias record. 
   * **disableIPv6** (<code>boolean</code>)  We support IPv6 and add an AAAA record by default, but you can turn it off. __*Optional*__
+  * **privateZone** (<code>boolean</code>)  Allow searching a private hosted zone. __*Default*__: false
+  * **vpcId** (<code>string</code>)  Specifies the ID of the VPC associated with a private hosted zone. __*Default*__: No VPC ID
 
 
 
@@ -162,8 +164,10 @@ Name | Type | Description
 **acmCertRef** | <code>string</code> | ARN of an AWS Certificate Manager (ACM) certificate.
 **domainName** | <code>string</code> | The domain name for the site like 'example.com'.
 **names** | <code>Array<string></code> | Domain names on the certificate.
+**privateZone**? | <code>boolean</code> | Allow searching a private hosted zone.<br/>__*Default*__: false
 **securityPolicy**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SSLv3 if sslMethod VIP, TLSv1 if sslMethod SNI
 **sslMethod**? | <code>[SSLMethod](#aws-cdk-aws-cloudfront-sslmethod)</code> | How CloudFront should serve HTTPS requests.<br/>__*Default*__: SSLMethod.SNI
+**vpcId**? | <code>string</code> | Specifies the ID of the VPC associated with a private hosted zone.<br/>__*Default*__: No VPC ID
 
 
 
@@ -203,6 +207,8 @@ Name | Type | Description
 **recordNames** | <code>Array<string></code> | Names for the records.
 **target** | <code>[IAliasRecordTarget](#aws-cdk-aws-route53-ialiasrecordtarget)</code> | Target for the alias record.
 **disableIPv6**? | <code>boolean</code> | We support IPv6 and add an AAAA record by default, but you can turn it off.<br/>__*Optional*__
+**privateZone**? | <code>boolean</code> | Allow searching a private hosted zone.<br/>__*Default*__: false
+**vpcId**? | <code>string</code> | Specifies the ID of the VPC associated with a private hosted zone.<br/>__*Default*__: No VPC ID
 
 
 
