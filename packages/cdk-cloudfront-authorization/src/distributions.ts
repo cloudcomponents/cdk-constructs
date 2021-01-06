@@ -9,6 +9,7 @@ import {
   GeoRestriction,
   BehaviorOptions,
   CachePolicy,
+  SecurityPolicyProtocol,
 } from '@aws-cdk/aws-cloudfront';
 import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
 import { IBucket } from '@aws-cdk/aws-s3';
@@ -141,6 +142,16 @@ export interface CommonDistributionProps {
    */
   readonly webAclId?: string;
 
+  /**
+   * The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.
+   *
+   * CloudFront serves your objects only to browsers or devices that support at
+   * least the SSL version that you specify.
+   *
+   * @default SecurityPolicyProtocol.TLS_V1_2_2019
+   */
+  readonly minimumProtocolVersion?: SecurityPolicyProtocol;
+
   readonly removalPolicy?: RemovalPolicy;
 }
 
@@ -174,6 +185,7 @@ export class BaseDistribution extends Construct implements IDistribution {
       geoRestriction: props.geoRestriction,
       httpVersion: props.httpVersion ?? HttpVersion.HTTP2,
       webAclId: props.webAclId,
+      minimumProtocolVersion: props.minimumProtocolVersion,
       errorResponses: props.errorResponses,
       domainNames: props.domainNames,
       certificate: props.certificate,
