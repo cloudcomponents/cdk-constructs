@@ -53,7 +53,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
       ],
     });
 
-    this.family = props.family || this.node.uniqueId;
+    this.family = props.family || this.node.addr;
     this.containerPort = props.containerPort || 80;
 
     const taskDefinition = new CustomResource(this, 'CustomResource', {

@@ -129,7 +129,7 @@ export class PullRequestCheck extends Construct {
       });
     }
 
-    const rule = repository.onPullRequestStateChange(`${this.node.uniqueId}Rule`, {
+    const rule = repository.onPullRequestStateChange(`${this.node.addr}Rule`, {
       eventPattern: {
         detail: {
           event: ['pullRequestSourceBranchUpdated', 'pullRequestCreated'],
