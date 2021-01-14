@@ -11,7 +11,9 @@ test('default setup', (): void => {
     disableUpload: true,
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('removalPolicy = DESTROY', (): void => {

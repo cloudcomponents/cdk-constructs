@@ -12,7 +12,9 @@ test('default setup', (): void => {
     disableUpload: true,
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('lambda at edge', (): void => {
@@ -27,7 +29,9 @@ test('lambda at edge', (): void => {
     lambdaFunction: Version.fromVersionArn(stack, 'LambdaEdge', 'arn:aws:lambda:us-east-1:123456789012:function:my-function:1'),
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('test sertting errorConfigurations', (): void => {
@@ -45,5 +49,7 @@ test('test sertting errorConfigurations', (): void => {
     ],
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
