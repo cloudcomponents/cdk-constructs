@@ -13,7 +13,8 @@ export class BaseEdgeConstruct extends Construct {
   }
 
   private getOrCreateCrossRegionSupportStack(): Stack {
-    const { account, stackName } = this.stack;
+    const stack = this.stack.nestedStackParent ?? this.stack;
+    const { account, stackName } = stack;
     const stackId = `lambda-at-edge-support-stack`;
     const app = this.requireApp();
 
