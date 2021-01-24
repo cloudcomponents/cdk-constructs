@@ -34,8 +34,9 @@ export class EdgeFunction extends BaseEdgeConstruct implements ILambdaFunctionAs
 
   constructor(scope: Construct, id: string, props: EdgeFunctionProps) {
     super(scope, id);
+    const stack = this.stack.nestedStackParent ?? this.stack;
 
-    const { name, parameterName = `/cloudcomponents/edge-lambda/${this.stack.stackName}/${name}/${this.stack.node.addr}` } = props;
+    const { name, parameterName = `/cloudcomponents/edge-lambda/${stack.stackName}/${name}/${this.stack.node.addr}` } = props;
 
     this.edgeRole = props.edgeRole ?? new EdgeRole(this, `${name}Role`);
 
