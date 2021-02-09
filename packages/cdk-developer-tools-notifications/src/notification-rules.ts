@@ -170,7 +170,7 @@ export enum ProjectEvent {
   BUILD_STATE_SUCCEEDED = 'codebuild-project-build-state-succeeded',
   BUILD_STATE_IN_PROGRESS = 'codebuild-project-build-state-in-progress',
   BUILD_STATE_STOPPED = 'codebuild-project-build-state-stopped',
-  BUILD_PHASE_FAILRE = 'codebuild-project-build-phase-failure',
+  BUILD_PHASE_FAILURE = 'codebuild-project-build-phase-failure',
   BUILD_PHASE_SUCCESS = 'codebuild-project-build-phase-success',
 }
 
