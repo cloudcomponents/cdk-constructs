@@ -163,6 +163,7 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
@@ -185,6 +186,7 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
@@ -209,6 +211,7 @@ createLegacyAdditionalBehaviors(options?: Behavior): Array<Behavior>
   * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
   * **minTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time that you want objects to stay in the cache before CloudFront queries your origin. __*Optional*__
   * **pathPattern** (<code>string</code>)  The path this behavior responds to. __*Optional*__
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **trustedSigners** (<code>Array<string></code>)  Trusted signers is how CloudFront allows you to serve private content. __*Optional*__
 
 __Returns__:
@@ -233,6 +236,7 @@ createLegacyDefaultBehavior(options?: Behavior): Behavior
   * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
   * **minTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time that you want objects to stay in the cache before CloudFront queries your origin. __*Optional*__
   * **pathPattern** (<code>string</code>)  The path this behavior responds to. __*Optional*__
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **trustedSigners** (<code>Array<string></code>)  Trusted signers is how CloudFront allows you to serve private content. __*Optional*__
 
 __Returns__:
@@ -814,6 +818,7 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
@@ -836,6 +841,7 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
@@ -917,6 +923,7 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
@@ -939,6 +946,7 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
@@ -1020,6 +1028,7 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
@@ -1042,6 +1051,7 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
+  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
 
 __Returns__:
