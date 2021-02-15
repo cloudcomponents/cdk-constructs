@@ -17,9 +17,9 @@ Object {
     },
   },
   "Resources": Object {
-    "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4": Object {
+    "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderHandlerF78DF60D": Object {
       "DependsOn": Array [
-        "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+        "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6",
       ],
       "Properties": Object {
         "Code": Object {
@@ -64,7 +64,7 @@ Object {
         "MemorySize": 128,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+            "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6",
             "Arn",
           ],
         },
@@ -73,7 +73,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2": Object {
+    "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -144,7 +144,7 @@ Object {
         },
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4",
+            "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderHandlerF78DF60D",
             "Arn",
           ],
         },
@@ -199,9 +199,9 @@ Object {
     },
   },
   "Resources": Object {
-    "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4": Object {
+    "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderHandlerF78DF60D": Object {
       "DependsOn": Array [
-        "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+        "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6",
       ],
       "Properties": Object {
         "Code": Object {
@@ -246,7 +246,7 @@ Object {
         "MemorySize": 128,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+            "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6",
             "Arn",
           ],
         },
@@ -255,7 +255,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2": Object {
+    "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -307,7 +307,7 @@ Object {
         },
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4",
+            "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderHandlerF78DF60D",
             "Arn",
           ],
         },
@@ -374,9 +374,9 @@ Object {
     },
   },
   "Resources": Object {
-    "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4": Object {
+    "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderHandlerF78DF60D": Object {
       "DependsOn": Array [
-        "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+        "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6",
       ],
       "Properties": Object {
         "Code": Object {
@@ -421,7 +421,7 @@ Object {
         "MemorySize": 128,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+            "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6",
             "Arn",
           ],
         },
@@ -430,7 +430,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2": Object {
+    "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderRoleD3CF15B6": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -565,7 +565,7 @@ Object {
         },
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4",
+            "CustomDynamodbSeederDynamoDBSeederCustomResourceProviderHandlerF78DF60D",
             "Arn",
           ],
         },

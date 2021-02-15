@@ -28,7 +28,7 @@ export class DynamoDBSeeder extends Construct {
 
     const seedsBucket = seeds.s3Location?.bucketName ? Bucket.fromBucketName(this, 'SeedsBucket', seeds.s3Location.bucketName) : undefined;
 
-    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::DynamodbSeeder', {
+    const serviceToken = CustomResourceProvider.getOrCreate(this, `Custom::DynamodbSeeder::${id}`, {
       codeDirectory: dynamodbSeederDir,
       runtime: CustomResourceProviderRuntime.NODEJS_12,
       timeout: props.timeout ?? Duration.minutes(15),
