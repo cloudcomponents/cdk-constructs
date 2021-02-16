@@ -30,7 +30,7 @@ export interface MSTeamsIncomingWebhookConfigurationProps {
 }
 
 export class MSTeamsIncomingWebhookConfiguration extends Construct {
-  private incomingWebhook: IFunction;
+  public readonly incomingWebhook: IFunction;
 
   constructor(scope: Construct, id: string, props: MSTeamsIncomingWebhookConfigurationProps) {
     super(scope, id);

@@ -57,6 +57,14 @@ new MSTeamsIncomingWebhookConfiguration(scope: Construct, id: string, props: MST
   * **themeColor** (<code>string</code>)  Specifies a custom brand color for the card. __*Default*__: `#CEDB56`
 
 
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**incomingWebhook** | <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code> | <span></span>
+
 ### Methods
 
 
