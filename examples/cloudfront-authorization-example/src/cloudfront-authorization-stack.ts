@@ -1,8 +1,8 @@
 import { CloudFrontWebDistribution, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
 import { UserPool } from '@aws-cdk/aws-cognito';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import { Bucket } from '@aws-cdk/aws-s3';
+import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
 import { SpaAuthorization, SpaDistribution } from '@cloudcomponents/cdk-cloudfront-authorization';
-import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 export class CloudFrontAuthorizationStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
@@ -48,8 +48,9 @@ export class CloudFrontAuthorizationStack2 extends Stack {
       userPool,
     });
 
-    const bucket = new DeletableBucket(this, 'Bucket', {
-      forceDelete: true,
+    const bucket = new Bucket(this, 'Bucket', {
+      autoDeleteObjects: true,
+      removalPolicy: RemovalPolicy.DESTROY,
     });
 
     const originAccessIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity', {

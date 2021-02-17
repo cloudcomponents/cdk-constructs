@@ -53,6 +53,47 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": Object {
+      "DependsOn": Array [
+        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
     "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B": Object {
       "DependsOn": Array [
         "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A",
@@ -154,105 +195,6 @@ Object {
       "Type": "AWS::IAM::Policy",
     },
     "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE": Object {
-      "DependsOn": Array [
-        "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909",
-        "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
-      ],
-      "Properties": Object {
-        "Code": Any<Object>,
-        "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs12.x",
-        "Timeout": 900,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-                "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "SpaDistributionDeletableBucket4F24F042",
-                    "Arn",
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "SpaDistributionDeletableBucket4F24F042",
-                          "Arn",
-                        ],
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909",
-        "Roles": Array [
-          Object {
-            "Ref": "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1484,7 +1426,7 @@ Object {
             Object {
               "DomainName": Object {
                 "Fn::GetAtt": Array [
-                  "SpaDistributionDeletableBucket4F24F042",
+                  "SpaDistributionBucketB5F270D6",
                   "RegionalDomainName",
                 ],
               },
@@ -1509,121 +1451,76 @@ Object {
       },
       "Type": "AWS::CloudFront::Distribution",
     },
-    "SpaDistributionDeletableBucket4F24F042": Object {
+    "SpaDistributionBucketAutoDeleteObjectsCustomResourceA082BC08": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "SpaDistributionBucketPolicyC76A0D28",
+      ],
+      "Properties": Object {
+        "BucketName": Object {
+          "Ref": "SpaDistributionBucketB5F270D6",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "SpaDistributionBucketB5F270D6": Object {
       "DeletionPolicy": "Delete",
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Delete",
     },
-    "SpaDistributionDeletableBucketEmptyBucketCustomResource7F2FA432": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "BucketName": Object {
-          "Ref": "SpaDistributionDeletableBucket4F24F042",
-        },
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEvent6CBC854F",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "Custom::EmptyBucket",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEvent6CBC854F": Object {
-      "DependsOn": Array [
-        "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicyD5481092",
-        "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole29484800",
-      ],
-      "Properties": Object {
-        "Code": Any<Object>,
-        "Description": "AWS CDK resource provider framework - onEvent (Dummy/SpaDistribution/DeletableBucket/EmptyBucket/EmptyBucketProvider)",
-        "Environment": Object {
-          "Variables": Object {
-            "USER_ON_EVENT_FUNCTION_ARN": Object {
-              "Fn::GetAtt": Array [
-                "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE",
-                "Arn",
-              ],
-            },
-          },
-        },
-        "Handler": "framework.onEvent",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole29484800",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs10.x",
-        "Timeout": 900,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole29484800": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicyD5481092": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "lambda:InvokeFunction",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicyD5481092",
-        "Roles": Array [
-          Object {
-            "Ref": "SpaDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole29484800",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "SpaDistributionDeletableBucketPolicyF98D0F74": Object {
+    "SpaDistributionBucketPolicyC76A0D28": Object {
       "Properties": Object {
         "Bucket": Object {
-          "Ref": "SpaDistributionDeletableBucket4F24F042",
+          "Ref": "SpaDistributionBucketB5F270D6",
         },
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::GetAtt": Array [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "SpaDistributionBucketB5F270D6",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "SpaDistributionBucketB5F270D6",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
             Object {
               "Action": Array [
                 "s3:GetObject*",
@@ -1642,7 +1539,7 @@ Object {
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "SpaDistributionDeletableBucket4F24F042",
+                    "SpaDistributionBucketB5F270D6",
                     "Arn",
                   ],
                 },
@@ -1652,7 +1549,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "SpaDistributionDeletableBucket4F24F042",
+                          "SpaDistributionBucketB5F270D6",
                           "Arn",
                         ],
                       },
@@ -1799,6 +1696,47 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": Object {
+      "DependsOn": Array [
+        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
     "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B": Object {
       "DependsOn": Array [
         "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A",
@@ -1900,105 +1838,6 @@ Object {
       "Type": "AWS::IAM::Policy",
     },
     "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE": Object {
-      "DependsOn": Array [
-        "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909",
-        "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
-      ],
-      "Properties": Object {
-        "Code": Any<Object>,
-        "Handler": "index.handler",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs12.x",
-        "Timeout": 900,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-                "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "StaticSiteDistributionDeletableBucketA21560FD",
-                    "Arn",
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "StaticSiteDistributionDeletableBucketA21560FD",
-                          "Arn",
-                        ],
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleDefaultPolicyFA08A909",
-        "Roles": Array [
-          Object {
-            "Ref": "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "SingletonLambdaCloudcomponentsEmptyBucketCustomResourceServiceRoleEE758E51": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -3355,7 +3194,7 @@ Object {
             Object {
               "DomainName": Object {
                 "Fn::GetAtt": Array [
-                  "StaticSiteDistributionDeletableBucketA21560FD",
+                  "StaticSiteDistributionBucketC2B24E1A",
                   "RegionalDomainName",
                 ],
               },
@@ -3380,121 +3219,76 @@ Object {
       },
       "Type": "AWS::CloudFront::Distribution",
     },
-    "StaticSiteDistributionDeletableBucketA21560FD": Object {
+    "StaticSiteDistributionBucketAutoDeleteObjectsCustomResource07609ACB": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticSiteDistributionBucketPolicy5DCB88DB",
+      ],
+      "Properties": Object {
+        "BucketName": Object {
+          "Ref": "StaticSiteDistributionBucketC2B24E1A",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "StaticSiteDistributionBucketC2B24E1A": Object {
       "DeletionPolicy": "Delete",
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Delete",
     },
-    "StaticSiteDistributionDeletableBucketEmptyBucketCustomResourceF142D625": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "BucketName": Object {
-          "Ref": "StaticSiteDistributionDeletableBucketA21560FD",
-        },
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEvent8DCE024D",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "Custom::EmptyBucket",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEvent8DCE024D": Object {
-      "DependsOn": Array [
-        "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicyD3565EEF",
-        "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole5D5B383A",
-      ],
-      "Properties": Object {
-        "Code": Any<Object>,
-        "Description": "AWS CDK resource provider framework - onEvent (Dummy/StaticSiteDistribution/DeletableBucket/EmptyBucket/EmptyBucketProvider)",
-        "Environment": Object {
-          "Variables": Object {
-            "USER_ON_EVENT_FUNCTION_ARN": Object {
-              "Fn::GetAtt": Array [
-                "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE",
-                "Arn",
-              ],
-            },
-          },
-        },
-        "Handler": "framework.onEvent",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole5D5B383A",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs10.x",
-        "Timeout": 900,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole5D5B383A": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicyD3565EEF": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "lambda:InvokeFunction",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "SingletonLambdaCloudcomponentsEmptyBucketCustomResource09B44FFE",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRoleDefaultPolicyD3565EEF",
-        "Roles": Array [
-          Object {
-            "Ref": "StaticSiteDistributionDeletableBucketEmptyBucketEmptyBucketProviderframeworkonEventServiceRole5D5B383A",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "StaticSiteDistributionDeletableBucketPolicy46F8CB86": Object {
+    "StaticSiteDistributionBucketPolicy5DCB88DB": Object {
       "Properties": Object {
         "Bucket": Object {
-          "Ref": "StaticSiteDistributionDeletableBucketA21560FD",
+          "Ref": "StaticSiteDistributionBucketC2B24E1A",
         },
         "PolicyDocument": Object {
           "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+              ],
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::GetAtt": Array [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "StaticSiteDistributionBucketC2B24E1A",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "StaticSiteDistributionBucketC2B24E1A",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
             Object {
               "Action": Array [
                 "s3:GetObject*",
@@ -3513,7 +3307,7 @@ Object {
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "StaticSiteDistributionDeletableBucketA21560FD",
+                    "StaticSiteDistributionBucketC2B24E1A",
                     "Arn",
                   ],
                 },
@@ -3523,7 +3317,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "StaticSiteDistributionDeletableBucketA21560FD",
+                          "StaticSiteDistributionBucketC2B24E1A",
                           "Arn",
                         ],
                       },
