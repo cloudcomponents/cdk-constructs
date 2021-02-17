@@ -318,7 +318,7 @@ new BaseDistribution(scope: Construct, id: string, props: BaseDistributionProps)
   * **minimumProtocolVersion** (<code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code>)  The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. __*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
   * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
   * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
+  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Default*__: Destroy
   * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
   * **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description* 
   * **errorResponses** (<code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code>)  *No description* __*Optional*__
@@ -536,7 +536,7 @@ new SpaDistribution(scope: Construct, id: string, props: SpaDistributionProps)
   * **minimumProtocolVersion** (<code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code>)  The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. __*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
   * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
   * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
+  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Default*__: Destroy
   * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
   * **authorization** (<code>[ISpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-ispaauthorization)</code>)  *No description* 
   * **ttl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time, in seconds, that you want CloudFront to cache the HTTP status code specified in ErrorCode. __*Default*__: 300 seconds
@@ -645,7 +645,7 @@ new StaticSiteDistribution(scope: Construct, id: string, props: StaticSiteDistri
   * **minimumProtocolVersion** (<code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code>)  The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. __*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
   * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
   * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
+  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Default*__: Destroy
   * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
   * **authorization** (<code>[IStaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization)</code>)  *No description* 
   * **errorResponses** (<code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code>)  *No description* __*Optional*__
@@ -750,7 +750,7 @@ Name | Type | Description
 **minimumProtocolVersion**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
 **origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
 **priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Default*__: Destroy
 **webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
 
 
@@ -779,7 +779,7 @@ Name | Type | Description
 **minimumProtocolVersion**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
 **origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
 **priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Default*__: Destroy
 **webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
 
 
@@ -1166,7 +1166,7 @@ Name | Type | Description
 **minimumProtocolVersion**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
 **origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
 **priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Default*__: Destroy
 **ttl**? | <code>[Duration](#aws-cdk-core-duration)</code> | The minimum amount of time, in seconds, that you want CloudFront to cache the HTTP status code specified in ErrorCode.<br/>__*Default*__: 300 seconds
 **webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
 
@@ -1198,7 +1198,7 @@ Name | Type | Description
 **minimumProtocolVersion**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
 **origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
 **priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Default*__: Destroy
 **webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
 
 

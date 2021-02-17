@@ -12,9 +12,8 @@ import {
   SecurityPolicyProtocol,
 } from '@aws-cdk/aws-cloudfront';
 import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
-import { IBucket } from '@aws-cdk/aws-s3';
+import { Bucket, IBucket } from '@aws-cdk/aws-s3';
 import { Construct, Duration, RemovalPolicy, Stack, ResourceEnvironment } from '@aws-cdk/core';
-import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
 
 import { IAuthorization, IStaticSiteAuthorization, ISpaAuthorization } from './authorizations';
 
@@ -152,6 +151,9 @@ export interface CommonDistributionProps {
    */
   readonly minimumProtocolVersion?: SecurityPolicyProtocol;
 
+  /**
+   * @default Destroy
+   */
   readonly removalPolicy?: RemovalPolicy;
 }
 
@@ -171,7 +173,7 @@ export class BaseDistribution extends Construct implements IDistribution {
     super(scope, id);
 
     const removalPolicy = props.removalPolicy ?? RemovalPolicy.DESTROY;
-    const origin = props.origin ?? this.defaultOrigin(removalPolicy === RemovalPolicy.DESTROY);
+    const origin = props.origin ?? this.defaultOrigin(removalPolicy);
 
     const distribution = new Distribution(this, 'Distribution', {
       enabled: props.enabled ?? true,
@@ -227,9 +229,10 @@ export class BaseDistribution extends Construct implements IDistribution {
     });
   }
 
-  private defaultOrigin(forceDelete: boolean): IOrigin {
-    const bucket = new DeletableBucket(this, 'DeletableBucket', {
-      forceDelete,
+  private defaultOrigin(removalPolicy: RemovalPolicy): IOrigin {
+    const bucket = new Bucket(this, 'Bucket', {
+      autoDeleteObjects: removalPolicy === RemovalPolicy.DESTROY,
+      removalPolicy,
     });
 
     return new S3Origin(bucket);
