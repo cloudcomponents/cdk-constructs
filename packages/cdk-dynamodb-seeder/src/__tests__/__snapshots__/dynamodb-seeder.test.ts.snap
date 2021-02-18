@@ -3,28 +3,29 @@
 exports[`bucket 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0ArtifactHashD7FD838A": Object {
-      "Description": "Artifact hash for asset \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eArtifactHash79A71AFC": Object {
+      "Description": "Artifact hash for asset \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3Bucket7A9635D5": Object {
-      "Description": "S3 bucket for asset \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3Bucket77314CEE": Object {
+      "Description": "S3 bucket for asset \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8": Object {
-      "Description": "S3 key for asset version \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358": Object {
+      "Description": "S3 key for asset version \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4": Object {
+    "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10": Object {
       "DependsOn": Array [
-        "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+        "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C",
+        "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3Bucket7A9635D5",
+            "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3Bucket77314CEE",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -37,7 +38,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8",
+                          "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358",
                         },
                       ],
                     },
@@ -50,7 +51,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8",
+                          "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358",
                         },
                       ],
                     },
@@ -60,11 +61,10 @@ Object {
             ],
           },
         },
-        "Handler": "__entrypoint__.handler",
-        "MemorySize": 128,
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+            "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
             "Arn",
           ],
         },
@@ -73,7 +73,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2": Object {
+    "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -89,51 +89,62 @@ Object {
         },
         "ManagedPolicyArns": Array [
           Object {
-            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-          },
-        ],
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
                 Object {
-                  "Action": Array [
-                    "dynamodb:BatchWriteItem",
-                  ],
-                  "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::GetAtt": Array [
-                      "TableCD117FA1",
-                      "Arn",
-                    ],
-                  },
+                  "Ref": "AWS::Partition",
                 },
-                Object {
-                  "Action": Array [
-                    "s3:GetObject",
-                  ],
-                  "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
-                      "",
-                      Array [
-                        "arn:",
-                        Object {
-                          "Ref": "AWS::Partition",
-                        },
-                        ":s3:::my-seeds-bucket/seeds.json",
-                      ],
-                    ],
-                  },
-                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
               ],
-              "Version": "2012-10-17",
-            },
-            "PolicyName": "Inline",
+            ],
           },
         ],
       },
       "Type": "AWS::IAM::Role",
+    },
+    "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "dynamodb:BatchWriteItem",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TableCD117FA1",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":s3:::my-seeds-bucket/seeds.json",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C",
+        "Roles": Array [
+          Object {
+            "Ref": "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "DynamoDBSeederCustomResourceEF4D5C60": Object {
       "DeletionPolicy": "Delete",
@@ -144,7 +155,7 @@ Object {
         },
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4",
+            "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10",
             "Arn",
           ],
         },
@@ -185,28 +196,29 @@ Object {
 exports[`inline 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0ArtifactHashD7FD838A": Object {
-      "Description": "Artifact hash for asset \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eArtifactHash79A71AFC": Object {
+      "Description": "Artifact hash for asset \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3Bucket7A9635D5": Object {
-      "Description": "S3 bucket for asset \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3Bucket77314CEE": Object {
+      "Description": "S3 bucket for asset \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8": Object {
-      "Description": "S3 key for asset version \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358": Object {
+      "Description": "S3 key for asset version \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4": Object {
+    "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10": Object {
       "DependsOn": Array [
-        "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+        "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C",
+        "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3Bucket7A9635D5",
+            "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3Bucket77314CEE",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -219,7 +231,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8",
+                          "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358",
                         },
                       ],
                     },
@@ -232,7 +244,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8",
+                          "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358",
                         },
                       ],
                     },
@@ -242,11 +254,10 @@ Object {
             ],
           },
         },
-        "Handler": "__entrypoint__.handler",
-        "MemorySize": 128,
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+            "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
             "Arn",
           ],
         },
@@ -255,7 +266,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2": Object {
+    "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -271,33 +282,46 @@ Object {
         },
         "ManagedPolicyArns": Array [
           Object {
-            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-          },
-        ],
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
                 Object {
-                  "Action": Array [
-                    "dynamodb:BatchWriteItem",
-                  ],
-                  "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::GetAtt": Array [
-                      "TableCD117FA1",
-                      "Arn",
-                    ],
-                  },
+                  "Ref": "AWS::Partition",
                 },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
               ],
-              "Version": "2012-10-17",
-            },
-            "PolicyName": "Inline",
+            ],
           },
         ],
       },
       "Type": "AWS::IAM::Role",
+    },
+    "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "dynamodb:BatchWriteItem",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TableCD117FA1",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C",
+        "Roles": Array [
+          Object {
+            "Ref": "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "DynamoDBSeederCustomResourceEF4D5C60": Object {
       "DeletionPolicy": "Delete",
@@ -307,7 +331,7 @@ Object {
         },
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4",
+            "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10",
             "Arn",
           ],
         },
@@ -348,16 +372,16 @@ Object {
 exports[`json file 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0ArtifactHashD7FD838A": Object {
-      "Description": "Artifact hash for asset \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eArtifactHash79A71AFC": Object {
+      "Description": "Artifact hash for asset \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3Bucket7A9635D5": Object {
-      "Description": "S3 bucket for asset \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3Bucket77314CEE": Object {
+      "Description": "S3 bucket for asset \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
-    "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8": Object {
-      "Description": "S3 key for asset version \\"4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0\\"",
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358": Object {
+      "Description": "S3 key for asset version \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
       "Type": "String",
     },
     "AssetParametersd030fc4499f9b92060beabbe94d500033cde3dd8a61a1668fdfcee96b2019ffdArtifactHash584F00C3": Object {
@@ -374,14 +398,15 @@ Object {
     },
   },
   "Resources": Object {
-    "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4": Object {
+    "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10": Object {
       "DependsOn": Array [
-        "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+        "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C",
+        "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3Bucket7A9635D5",
+            "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3Bucket77314CEE",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -394,7 +419,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8",
+                          "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358",
                         },
                       ],
                     },
@@ -407,7 +432,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4c20502c8ee54d52fa9b2e8f0251e77c489e44933dcde320ab40ffdf3a0ad8b0S3VersionKeyD76530F8",
+                          "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358",
                         },
                       ],
                     },
@@ -417,11 +442,10 @@ Object {
             ],
           },
         },
-        "Handler": "__entrypoint__.handler",
-        "MemorySize": 128,
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2",
+            "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
             "Arn",
           ],
         },
@@ -430,7 +454,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomDynamodbSeederCustomResourceProviderRoleB3FCC5E2": Object {
+    "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -446,81 +470,92 @@ Object {
         },
         "ManagedPolicyArns": Array [
           Object {
-            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-          },
-        ],
-        "Policies": Array [
-          Object {
-            "PolicyDocument": Object {
-              "Statement": Array [
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
                 Object {
-                  "Action": Array [
-                    "dynamodb:BatchWriteItem",
-                  ],
-                  "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::GetAtt": Array [
-                      "TableCD117FA1",
-                      "Arn",
-                    ],
-                  },
+                  "Ref": "AWS::Partition",
                 },
-                Object {
-                  "Action": Array [
-                    "s3:GetObject",
-                  ],
-                  "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::Join": Array [
-                      "",
-                      Array [
-                        "arn:",
-                        Object {
-                          "Ref": "AWS::Partition",
-                        },
-                        ":s3:::",
-                        Object {
-                          "Ref": "AssetParametersd030fc4499f9b92060beabbe94d500033cde3dd8a61a1668fdfcee96b2019ffdS3Bucket8B717ACC",
-                        },
-                        "/",
-                        Object {
-                          "Fn::Select": Array [
-                            0,
-                            Object {
-                              "Fn::Split": Array [
-                                "||",
-                                Object {
-                                  "Ref": "AssetParametersd030fc4499f9b92060beabbe94d500033cde3dd8a61a1668fdfcee96b2019ffdS3VersionKey88E97CF1",
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        Object {
-                          "Fn::Select": Array [
-                            1,
-                            Object {
-                              "Fn::Split": Array [
-                                "||",
-                                Object {
-                                  "Ref": "AssetParametersd030fc4499f9b92060beabbe94d500033cde3dd8a61a1668fdfcee96b2019ffdS3VersionKey88E97CF1",
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      ],
-                    ],
-                  },
-                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
               ],
-              "Version": "2012-10-17",
-            },
-            "PolicyName": "Inline",
+            ],
           },
         ],
       },
       "Type": "AWS::IAM::Role",
+    },
+    "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "dynamodb:BatchWriteItem",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TableCD117FA1",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":s3:::",
+                    Object {
+                      "Ref": "AssetParametersd030fc4499f9b92060beabbe94d500033cde3dd8a61a1668fdfcee96b2019ffdS3Bucket8B717ACC",
+                    },
+                    "/",
+                    Object {
+                      "Fn::Select": Array [
+                        0,
+                        Object {
+                          "Fn::Split": Array [
+                            "||",
+                            Object {
+                              "Ref": "AssetParametersd030fc4499f9b92060beabbe94d500033cde3dd8a61a1668fdfcee96b2019ffdS3VersionKey88E97CF1",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    Object {
+                      "Fn::Select": Array [
+                        1,
+                        Object {
+                          "Fn::Split": Array [
+                            "||",
+                            Object {
+                              "Ref": "AssetParametersd030fc4499f9b92060beabbe94d500033cde3dd8a61a1668fdfcee96b2019ffdS3VersionKey88E97CF1",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C",
+        "Roles": Array [
+          Object {
+            "Ref": "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "DynamoDBSeederCustomResourceEF4D5C60": Object {
       "DeletionPolicy": "Delete",
@@ -565,7 +600,236 @@ Object {
         },
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "CustomDynamodbSeederCustomResourceProviderHandler904BFFD4",
+            "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10",
+            "Arn",
+          ],
+        },
+        "TableName": Object {
+          "Ref": "TableCD117FA1",
+        },
+      },
+      "Type": "Custom::DynamodbSeeder",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "TableCD117FA1": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "AttributeDefinitions": Array [
+          Object {
+            "AttributeName": "id",
+            "AttributeType": "N",
+          },
+        ],
+        "KeySchema": Array [
+          Object {
+            "AttributeName": "id",
+            "KeyType": "HASH",
+          },
+        ],
+        "ProvisionedThroughput": Object {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5,
+        },
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Retain",
+    },
+  },
+}
+`;
+
+exports[`multiple seeders 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eArtifactHash79A71AFC": Object {
+      "Description": "Artifact hash for asset \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
+      "Type": "String",
+    },
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3Bucket77314CEE": Object {
+      "Description": "S3 bucket for asset \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
+      "Type": "String",
+    },
+    "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358": Object {
+      "Description": "S3 key for asset version \\"9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4e\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10": Object {
+      "DependsOn": Array [
+        "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C",
+        "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3Bucket77314CEE",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9aef665652bde9e695d1b39b9e6e66f873d205e83ceea61d4dd36edbf4716c4eS3VersionKey6DBEC358",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "dynamodb:BatchWriteItem",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "TableCD117FA1",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":s3:::seeds-bucket-one/seeds-one.json",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":s3:::seeds-bucket-two/seeds-two.json",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomDynamodbSeederCustomDynamodbSeederServiceRoleDefaultPolicy6C04255C",
+        "Roles": Array [
+          Object {
+            "Ref": "CustomDynamodbSeederCustomDynamodbSeederServiceRole5FC6AEF8",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "DynamoDBSeeder1CustomResource555E70AD": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Seeds": Object {
+          "S3Bucket": "seeds-bucket-one",
+          "S3Key": "seeds-one.json",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10",
+            "Arn",
+          ],
+        },
+        "TableName": Object {
+          "Ref": "TableCD117FA1",
+        },
+      },
+      "Type": "Custom::DynamodbSeeder",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "DynamoDBSeeder2CustomResourceAC955965": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Seeds": Object {
+          "S3Bucket": "seeds-bucket-two",
+          "S3Key": "seeds-two.json",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomDynamodbSeederCustomDynamodbSeeder3D3D7F10",
             "Arn",
           ],
         },

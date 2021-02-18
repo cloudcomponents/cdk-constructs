@@ -1,5 +1,6 @@
-import type { CloudFormationCustomResourceEvent, CloudFormationCustomResourceCreateEvent } from 'aws-lambda';
+import type { CloudFormationCustomResourceEvent } from 'aws-lambda';
 import { DynamoDB, S3 } from 'aws-sdk';
+import { customResourceHelper, OnCreateHandler, ResourceHandler, ResourceHandlerReturn } from 'custom-resource-helper';
 import chunk from 'lodash.chunk';
 
 // DynamoDB has a 25 item limit in batch requests
@@ -31,7 +32,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   },
 });
 
-const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<void> => {
+const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
   const props = getProperties(event.ResourceProperties);
 
   const { inlineSeeds, ...s3Location } = props.seeds;
@@ -41,6 +42,10 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
   await writeSeeds(props.tableName, seeds);
 
   console.log(`Seed running complete for table ${props.tableName}`);
+
+  return {
+    physicalResourceId: event.RequestId,
+  };
 };
 
 const getSeedsFromS3 = async (s3Location: { s3Bucket?: string; s3Key?: string; s3ObjectVersion?: string }): Promise<Seeds> => {
@@ -89,17 +94,8 @@ const writeSeeds = async (tableName: string, seeds: Seeds): Promise<void> => {
   );
 };
 
-export const handler = async (event: CloudFormationCustomResourceEvent): Promise<void> => {
-  const requestType = event.RequestType;
-
-  switch (requestType) {
-    case 'Create':
-      return onCreate(event as CloudFormationCustomResourceCreateEvent);
-    case 'Update':
-      return;
-    case 'Delete':
-      return;
-    default:
-      throw new Error(`Invalid request type: ${requestType}`);
-  }
-};
+export const handler = customResourceHelper(
+  (): ResourceHandler => ({
+    onCreate: handleCreate,
+  }),
+);
