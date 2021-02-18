@@ -7,10 +7,6 @@ import 'jest-cdk-snapshot';
 import { DynamoDBSeeder } from '../dynamodb-seeder';
 import { Seeds } from '../seeds';
 
-jest.mock('../directories', () => ({
-  dynamodbSeederDir: path.join(__dirname, 'mocks', 'dynamodb-seeder'),
-}));
-
 test('inline', () => {
   // GIVEN
   const stack = new Stack();
@@ -120,6 +116,34 @@ test('bucket', () => {
   new DynamoDBSeeder(stack, 'DynamoDBSeeder', {
     table,
     seeds: Seeds.fromBucket(seedsBucket, 'seeds.json'),
+  });
+
+  // THEN
+  expect(stack).toMatchCdkSnapshot();
+});
+
+test('multiple seeders', () => {
+  // GIVEN
+  const stack = new Stack();
+  const table = new Table(stack, 'Table', {
+    partitionKey: {
+      name: 'id',
+      type: AttributeType.NUMBER,
+    },
+  });
+
+  const seedsBucket1 = Bucket.fromBucketName(stack, 'SeedsBucket1', 'seeds-bucket-one');
+  const seedsBucket2 = Bucket.fromBucketName(stack, 'SeedsBucket2', 'seeds-bucket-two');
+
+  // WHEN
+  new DynamoDBSeeder(stack, 'DynamoDBSeeder1', {
+    table,
+    seeds: Seeds.fromBucket(seedsBucket1, 'seeds-one.json'),
+  });
+  // WHEN
+  new DynamoDBSeeder(stack, 'DynamoDBSeeder2', {
+    table,
+    seeds: Seeds.fromBucket(seedsBucket2, 'seeds-two.json'),
   });
 
   // THEN
