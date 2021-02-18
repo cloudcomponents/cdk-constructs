@@ -1522,11 +1522,7 @@ Object {
               ],
             },
             Object {
-              "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-              ],
+              "Action": "s3:GetObject",
               "Effect": "Allow",
               "Principal": Object {
                 "CanonicalUser": Object {
@@ -1536,28 +1532,20 @@ Object {
                   ],
                 },
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "SpaDistributionBucketB5F270D6",
-                    "Arn",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "SpaDistributionBucketB5F270D6",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
                   ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "SpaDistributionBucketB5F270D6",
-                          "Arn",
-                        ],
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
+                ],
+              },
             },
           ],
           "Version": "2012-10-17",
@@ -3290,11 +3278,7 @@ Object {
               ],
             },
             Object {
-              "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-              ],
+              "Action": "s3:GetObject",
               "Effect": "Allow",
               "Principal": Object {
                 "CanonicalUser": Object {
@@ -3304,28 +3288,20 @@ Object {
                   ],
                 },
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
-                    "StaticSiteDistributionBucketC2B24E1A",
-                    "Arn",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "StaticSiteDistributionBucketC2B24E1A",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
                   ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "StaticSiteDistributionBucketC2B24E1A",
-                          "Arn",
-                        ],
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
+                ],
+              },
             },
           ],
           "Version": "2012-10-17",

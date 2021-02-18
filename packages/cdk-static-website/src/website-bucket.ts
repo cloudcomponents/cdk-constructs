@@ -68,7 +68,10 @@ export class WebsiteBucket extends Construct {
       comment: `CloudFront OriginAccessIdentity for ${bucket.bucketName}`,
     });
 
-    bucket.grantRead(originAccessIdentity.grantPrincipal);
+    this.s3OriginConfig = {
+      originAccessIdentity,
+      s3BucketSource: bucket,
+    };
 
     if (!disableUpload) {
       const placeHolderSource = path.join(__dirname, '..', 'website');
@@ -79,10 +82,5 @@ export class WebsiteBucket extends Construct {
         retainOnDelete: removalPolicy === RemovalPolicy.RETAIN,
       });
     }
-
-    this.s3OriginConfig = {
-      originAccessIdentity,
-      s3BucketSource: bucket,
-    };
   }
 }
