@@ -71,7 +71,7 @@ export interface StaticWebsiteProps extends WebsiteBucketProps {
 }
 
 export class StaticWebsite extends Construct {
-  private readonly distribution: CloudFrontWebDistribution;
+  readonly distribution: CloudFrontWebDistribution;
 
   constructor(scope: Construct, id: string, props: StaticWebsiteProps = {}) {
     super(scope, id);
