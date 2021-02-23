@@ -52,6 +52,14 @@ new StaticWebsite(scope: Construct, id: string, props?: StaticWebsiteProps)
   * **webACLId** (<code>string</code>)  AWS WAF WebACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL)
 
 
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**distribution** | <code>[CloudFrontWebDistribution](#aws-cdk-aws-cloudfront-cloudfrontwebdistribution)</code> | <span></span>
+
 ### Methods
 
 

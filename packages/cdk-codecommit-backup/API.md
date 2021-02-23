@@ -40,7 +40,7 @@ new BackupBucket(scope: Construct, id: string, props?: BackupBucketProps)
 * **props** (<code>[BackupBucketProps](#cloudcomponents-cdk-codecommit-backup-backupbucketprops)</code>)  *No description*
   * **accessControl** (<code>[BucketAccessControl](#aws-cdk-aws-s3-bucketaccesscontrol)</code>)  Specifies a canned ACL that grants predefined permissions to the bucket. __*Default*__: BucketAccessControl.PRIVATE
   * **autoDeleteObjects** (<code>boolean</code>)  Whether all objects should be automatically deleted when the bucket is removed from the stack or when the stack is deleted. __*Default*__: false
-  * **blockPublicAccess** (<code>[BlockPublicAccess](#aws-cdk-aws-s3-blockpublicaccess)</code>)  The block public access configuration of this bucket. __*Default*__: false New buckets and objects don't allow public access, but users can modify bucket policies or object permissions to allow public access.
+  * **blockPublicAccess** (<code>[BlockPublicAccess](#aws-cdk-aws-s3-blockpublicaccess)</code>)  The block public access configuration of this bucket. __*Default*__: CloudFormation defaults will apply. New buckets and objects don't allow public access, but users can modify bucket policies or object permissions to allow public access
   * **bucketKeyEnabled** (<code>boolean</code>)  Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket. __*Default*__: false
   * **bucketName** (<code>string</code>)  Physical name of this bucket. __*Default*__: Assigned by CloudFormation (recommended).
   * **cors** (<code>Array<[CorsRule](#aws-cdk-aws-s3-corsrule)></code>)  The CORS configuration of this bucket. __*Default*__: No CORS configuration.
@@ -243,7 +243,7 @@ Name | Type | Description
 -----|------|-------------
 **accessControl**? | <code>[BucketAccessControl](#aws-cdk-aws-s3-bucketaccesscontrol)</code> | Specifies a canned ACL that grants predefined permissions to the bucket.<br/>__*Default*__: BucketAccessControl.PRIVATE
 **autoDeleteObjects**? | <code>boolean</code> | Whether all objects should be automatically deleted when the bucket is removed from the stack or when the stack is deleted.<br/>__*Default*__: false
-**blockPublicAccess**? | <code>[BlockPublicAccess](#aws-cdk-aws-s3-blockpublicaccess)</code> | The block public access configuration of this bucket.<br/>__*Default*__: false New buckets and objects don't allow public access, but users can modify bucket policies or object permissions to allow public access.
+**blockPublicAccess**? | <code>[BlockPublicAccess](#aws-cdk-aws-s3-blockpublicaccess)</code> | The block public access configuration of this bucket.<br/>__*Default*__: CloudFormation defaults will apply. New buckets and objects don't allow public access, but users can modify bucket policies or object permissions to allow public access
 **bucketKeyEnabled**? | <code>boolean</code> | Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket.<br/>__*Default*__: false
 **bucketName**? | <code>string</code> | Physical name of this bucket.<br/>__*Default*__: Assigned by CloudFormation (recommended).
 **cors**? | <code>Array<[CorsRule](#aws-cdk-aws-s3-corsrule)></code> | The CORS configuration of this bucket.<br/>__*Default*__: No CORS configuration.

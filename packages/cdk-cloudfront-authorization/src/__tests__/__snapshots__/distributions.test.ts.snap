@@ -1562,6 +1562,7 @@ Object {
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
     },
     "UserPool6BA7E5F2": Object {
+      "DeletionPolicy": "Retain",
       "Properties": Object {
         "AccountRecoverySetting": Object {
           "RecoveryMechanisms": Array [
@@ -1590,6 +1591,7 @@ Object {
         },
       },
       "Type": "AWS::Cognito::UserPool",
+      "UpdateReplacePolicy": "Retain",
     },
     "UserPoolDomainD0EA232A": Object {
       "Properties": Object {
@@ -3318,6 +3320,7 @@ Object {
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
     },
     "UserPool6BA7E5F2": Object {
+      "DeletionPolicy": "Retain",
       "Properties": Object {
         "AccountRecoverySetting": Object {
           "RecoveryMechanisms": Array [
@@ -3346,6 +3349,7 @@ Object {
         },
       },
       "Type": "AWS::Cognito::UserPool",
+      "UpdateReplacePolicy": "Retain",
     },
     "UserPoolDomainD0EA232A": Object {
       "Properties": Object {
