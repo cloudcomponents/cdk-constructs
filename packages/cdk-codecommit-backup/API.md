@@ -46,6 +46,7 @@ new BackupBucket(scope: Construct, id: string, props?: BackupBucketProps)
   * **cors** (<code>Array<[CorsRule](#aws-cdk-aws-s3-corsrule)></code>)  The CORS configuration of this bucket. __*Default*__: No CORS configuration.
   * **encryption** (<code>[BucketEncryption](#aws-cdk-aws-s3-bucketencryption)</code>)  The kind of server-side encryption to apply to this bucket. __*Default*__: `Kms` if `encryptionKey` is specified, or `Unencrypted` otherwise.
   * **encryptionKey** (<code>[IKey](#aws-cdk-aws-kms-ikey)</code>)  External KMS key to use for bucket encryption. __*Default*__: If encryption is set to "Kms" and this property is undefined, a new KMS key will be created and associated with this bucket.
+  * **enforceSSL** (<code>boolean</code>)  Enforces SSL for requests. __*Default*__: false
   * **inventories** (<code>Array<[Inventory](#aws-cdk-aws-s3-inventory)></code>)  The inventory configuration of the bucket. __*Default*__: No inventory configuration
   * **lifecycleRules** (<code>Array<[LifecycleRule](#aws-cdk-aws-s3-lifecyclerule)></code>)  Rules that define how Amazon S3 manages objects during their lifetime. __*Default*__: No lifecycle rules.
   * **metrics** (<code>Array<[BucketMetrics](#aws-cdk-aws-s3-bucketmetrics)></code>)  The metrics configuration of this bucket. __*Default*__: No metrics configuration.
@@ -249,6 +250,7 @@ Name | Type | Description
 **cors**? | <code>Array<[CorsRule](#aws-cdk-aws-s3-corsrule)></code> | The CORS configuration of this bucket.<br/>__*Default*__: No CORS configuration.
 **encryption**? | <code>[BucketEncryption](#aws-cdk-aws-s3-bucketencryption)</code> | The kind of server-side encryption to apply to this bucket.<br/>__*Default*__: `Kms` if `encryptionKey` is specified, or `Unencrypted` otherwise.
 **encryptionKey**? | <code>[IKey](#aws-cdk-aws-kms-ikey)</code> | External KMS key to use for bucket encryption.<br/>__*Default*__: If encryption is set to "Kms" and this property is undefined, a new KMS key will be created and associated with this bucket.
+**enforceSSL**? | <code>boolean</code> | Enforces SSL for requests.<br/>__*Default*__: false
 **inventories**? | <code>Array<[Inventory](#aws-cdk-aws-s3-inventory)></code> | The inventory configuration of the bucket.<br/>__*Default*__: No inventory configuration
 **lifecycleRules**? | <code>Array<[LifecycleRule](#aws-cdk-aws-s3-lifecyclerule)></code> | Rules that define how Amazon S3 manages objects during their lifetime.<br/>__*Default*__: No lifecycle rules.
 **metrics**? | <code>Array<[BucketMetrics](#aws-cdk-aws-s3-bucketmetrics)></code> | The metrics configuration of this bucket.<br/>__*Default*__: No metrics configuration.

@@ -38,12 +38,8 @@ test('default setup: us-east-1', () => {
       Resources: {
         httpheadersProvider158513BA: {
           Properties: {
-            Create: {
-              physicalResourceId: expect.any(Object),
-            },
-            Update: {
-              physicalResourceId: expect.any(Object),
-            },
+            Create: expect.any(Object),
+            Update: expect.any(Object),
           },
         },
       },
@@ -88,12 +84,8 @@ test('default setup: not us-east-1', () => {
       Resources: {
         httpheadersProvider158513BA: {
           Properties: {
-            Create: {
-              physicalResourceId: expect.any(Object),
-            },
-            Update: {
-              physicalResourceId: expect.any(Object),
-            },
+            Create: expect.any(String),
+            Update: expect.any(String),
           },
         },
       },

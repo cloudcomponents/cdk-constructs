@@ -707,15 +707,7 @@ Object {
         "SpaAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyEB70BE7B",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/check-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -723,15 +715,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/check-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -778,15 +762,7 @@ Object {
         "SpaAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy62224D55",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -794,15 +770,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -885,15 +853,7 @@ Object {
         "SpaAuthorizationAuthFlowparseauthProviderCustomResourcePolicy730B5E35",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/parse-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -901,15 +861,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/parse-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -920,15 +872,7 @@ Object {
         "SpaAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicyA9156390",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/refresh-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -936,15 +880,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/refresh-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -991,15 +927,7 @@ Object {
         "SpaAuthorizationAuthFlowsignoutProviderCustomResourcePolicyB477C3F8",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/sign-out/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -1007,15 +935,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/sign-out/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -1898,15 +1818,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyA7CBA911",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/check-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -1914,15 +1826,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/check-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -1969,15 +1873,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy0BFA9A4D",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -1985,15 +1881,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2040,15 +1928,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowparseauthProviderCustomResourcePolicyDAB54E6F",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/parse-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -2056,15 +1936,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/parse-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2111,15 +1983,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicy2F46934C",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/refresh-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -2127,15 +1991,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/refresh-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2182,15 +2038,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowsignoutProviderCustomResourcePolicy9C7C883B",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/sign-out/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -2198,15 +2046,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/sign-out/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2254,33 +2094,28 @@ Object {
       ],
       "Properties": Object {
         "Create": Object {
-          "action": "describeUserPoolClient",
-          "parameters": Object {
-            "ClientId": Object {
-              "Ref": "UserPoolUserPoolClient40176907",
-            },
-            "UserPoolId": Object {
-              "Ref": "UserPool6BA7E5F2",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  Object {
-                    "Ref": "UserPool6BA7E5F2",
-                  },
-                  "-",
-                  Object {
-                    "Ref": "UserPoolUserPoolClient40176907",
-                  },
-                  "-retrieved-client-secret",
-                ],
-              ],
-            },
-          },
-          "service": "CognitoIdentityServiceProvider",
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"CognitoIdentityServiceProvider\\",\\"action\\":\\"describeUserPoolClient\\",\\"parameters\\":{\\"UserPoolId\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "\\",\\"ClientId\\":\\"",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "\\"},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "-",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "-retrieved-client-secret\\"}}",
+            ],
+          ],
         },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
@@ -2290,33 +2125,28 @@ Object {
           ],
         },
         "Update": Object {
-          "action": "describeUserPoolClient",
-          "parameters": Object {
-            "ClientId": Object {
-              "Ref": "UserPoolUserPoolClient40176907",
-            },
-            "UserPoolId": Object {
-              "Ref": "UserPool6BA7E5F2",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  Object {
-                    "Ref": "UserPool6BA7E5F2",
-                  },
-                  "-",
-                  Object {
-                    "Ref": "UserPoolUserPoolClient40176907",
-                  },
-                  "-retrieved-client-secret",
-                ],
-              ],
-            },
-          },
-          "service": "CognitoIdentityServiceProvider",
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"CognitoIdentityServiceProvider\\",\\"action\\":\\"describeUserPoolClient\\",\\"parameters\\":{\\"UserPoolId\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "\\",\\"ClientId\\":\\"",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "\\"},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "-",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "-retrieved-client-secret\\"}}",
+            ],
+          ],
         },
       },
       "Type": "Custom::AWS",

@@ -47,6 +47,18 @@ Object {
       ],
       "Properties": Object {
         "Code": Any<Object>,
+        "Description": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "Lambda function for auto-deleting objects in ",
+              Object {
+                "Ref": "WebsiteBucket3C288C20",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
         "Handler": "__entrypoint__.handler",
         "MemorySize": 128,
         "Role": Object {

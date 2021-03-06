@@ -253,15 +253,7 @@ Object {
         "httpheadersProviderCustomResourcePolicy3D909427",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -269,15 +261,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -519,17 +503,7 @@ Object {
         "httpheadersProviderCustomResourcePolicy3D909427",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": Object {
-              "Ref": "httpheadersStringParameterE8E8A22A",
-            },
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<Object>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -537,17 +511,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": Object {
-              "Ref": "httpheadersStringParameterE8E8A22A",
-            },
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<Object>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",

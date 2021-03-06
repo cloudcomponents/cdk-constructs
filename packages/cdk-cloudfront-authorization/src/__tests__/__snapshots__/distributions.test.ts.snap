@@ -59,6 +59,18 @@ Object {
       ],
       "Properties": Object {
         "Code": Any<Object>,
+        "Description": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "Lambda function for auto-deleting objects in ",
+              Object {
+                "Ref": "SpaDistributionBucketB5F270D6",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
         "Handler": "__entrypoint__.handler",
         "MemorySize": 128,
         "Role": Object {
@@ -748,15 +760,7 @@ Object {
         "SpaAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyEB70BE7B",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/check-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -764,15 +768,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/check-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -819,15 +815,7 @@ Object {
         "SpaAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy62224D55",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -835,15 +823,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -926,15 +906,7 @@ Object {
         "SpaAuthorizationAuthFlowparseauthProviderCustomResourcePolicy730B5E35",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/parse-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -942,15 +914,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/parse-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -961,15 +925,7 @@ Object {
         "SpaAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicyA9156390",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/refresh-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -977,15 +933,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/refresh-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -1032,15 +980,7 @@ Object {
         "SpaAuthorizationAuthFlowsignoutProviderCustomResourcePolicyB477C3F8",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/sign-out/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -1048,15 +988,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/sign-out/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -1119,81 +1051,42 @@ Object {
       ],
       "Properties": Object {
         "Create": Object {
-          "action": "updateUserPoolClient",
-          "parameters": Object {
-            "AllowedOAuthFlows": Array [
-              "code",
-            ],
-            "AllowedOAuthFlowsUserPoolClient": "TRUE:BOOLEAN",
-            "AllowedOAuthScopes": Array [
-              "phone",
-              "email",
-              "profile",
-              "openid",
-              "aws.cognito.signin.user.admin",
-            ],
-            "CallbackURLs": Array [
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"CognitoIdentityServiceProvider\\",\\"action\\":\\"updateUserPoolClient\\",\\"parameters\\":{\\"UserPoolId\\":\\"",
               Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "https://",
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "SpaDistribution7A57F996",
-                        "DomainName",
-                      ],
-                    },
-                    "/parseauth",
-                  ],
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "\\",\\"ClientId\\":\\"",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "\\",\\"AllowedOAuthFlows\\":[\\"code\\"],\\"AllowedOAuthFlowsUserPoolClient\\":true,\\"SupportedIdentityProviders\\":[\\"COGNITO\\"],\\"AllowedOAuthScopes\\":[\\"phone\\",\\"email\\",\\"profile\\",\\"openid\\",\\"aws.cognito.signin.user.admin\\"],\\"CallbackURLs\\":[\\"https://",
+              Object {
+                "Fn::GetAtt": Array [
+                  "SpaDistribution7A57F996",
+                  "DomainName",
                 ],
               },
-            ],
-            "ClientId": Object {
-              "Ref": "UserPoolUserPoolClient40176907",
-            },
-            "LogoutURLs": Array [
+              "/parseauth\\"],\\"LogoutURLs\\":[\\"https://",
               Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "https://",
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "SpaDistribution7A57F996",
-                        "DomainName",
-                      ],
-                    },
-                    "/",
-                  ],
+                "Fn::GetAtt": Array [
+                  "SpaDistribution7A57F996",
+                  "DomainName",
                 ],
               },
+              "/\\"]},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "-",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "-updated-client\\"}}",
             ],
-            "SupportedIdentityProviders": Array [
-              "COGNITO",
-            ],
-            "UserPoolId": Object {
-              "Ref": "UserPool6BA7E5F2",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  Object {
-                    "Ref": "UserPool6BA7E5F2",
-                  },
-                  "-",
-                  Object {
-                    "Ref": "UserPoolUserPoolClient40176907",
-                  },
-                  "-updated-client",
-                ],
-              ],
-            },
-          },
-          "service": "CognitoIdentityServiceProvider",
+          ],
         },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
@@ -1203,81 +1096,42 @@ Object {
           ],
         },
         "Update": Object {
-          "action": "updateUserPoolClient",
-          "parameters": Object {
-            "AllowedOAuthFlows": Array [
-              "code",
-            ],
-            "AllowedOAuthFlowsUserPoolClient": "TRUE:BOOLEAN",
-            "AllowedOAuthScopes": Array [
-              "phone",
-              "email",
-              "profile",
-              "openid",
-              "aws.cognito.signin.user.admin",
-            ],
-            "CallbackURLs": Array [
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"CognitoIdentityServiceProvider\\",\\"action\\":\\"updateUserPoolClient\\",\\"parameters\\":{\\"UserPoolId\\":\\"",
               Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "https://",
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "SpaDistribution7A57F996",
-                        "DomainName",
-                      ],
-                    },
-                    "/parseauth",
-                  ],
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "\\",\\"ClientId\\":\\"",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "\\",\\"AllowedOAuthFlows\\":[\\"code\\"],\\"AllowedOAuthFlowsUserPoolClient\\":true,\\"SupportedIdentityProviders\\":[\\"COGNITO\\"],\\"AllowedOAuthScopes\\":[\\"phone\\",\\"email\\",\\"profile\\",\\"openid\\",\\"aws.cognito.signin.user.admin\\"],\\"CallbackURLs\\":[\\"https://",
+              Object {
+                "Fn::GetAtt": Array [
+                  "SpaDistribution7A57F996",
+                  "DomainName",
                 ],
               },
-            ],
-            "ClientId": Object {
-              "Ref": "UserPoolUserPoolClient40176907",
-            },
-            "LogoutURLs": Array [
+              "/parseauth\\"],\\"LogoutURLs\\":[\\"https://",
               Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "https://",
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "SpaDistribution7A57F996",
-                        "DomainName",
-                      ],
-                    },
-                    "/",
-                  ],
+                "Fn::GetAtt": Array [
+                  "SpaDistribution7A57F996",
+                  "DomainName",
                 ],
               },
+              "/\\"]},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "-",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "-updated-client\\"}}",
             ],
-            "SupportedIdentityProviders": Array [
-              "COGNITO",
-            ],
-            "UserPoolId": Object {
-              "Ref": "UserPool6BA7E5F2",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  Object {
-                    "Ref": "UserPool6BA7E5F2",
-                  },
-                  "-",
-                  Object {
-                    "Ref": "UserPoolUserPoolClient40176907",
-                  },
-                  "-updated-client",
-                ],
-              ],
-            },
-          },
-          "service": "CognitoIdentityServiceProvider",
+          ],
         },
       },
       "Type": "Custom::AWS",
@@ -1692,6 +1546,18 @@ Object {
       ],
       "Properties": Object {
         "Code": Any<Object>,
+        "Description": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "Lambda function for auto-deleting objects in ",
+              Object {
+                "Ref": "StaticSiteDistributionBucketC2B24E1A",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
         "Handler": "__entrypoint__.handler",
         "MemorySize": 128,
         "Role": Object {
@@ -2413,15 +2279,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyA7CBA911",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/check-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -2429,15 +2287,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/check-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2484,15 +2334,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy0BFA9A4D",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -2500,15 +2342,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2555,15 +2389,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowparseauthProviderCustomResourcePolicyDAB54E6F",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/parse-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -2571,15 +2397,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/parse-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2626,15 +2444,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowrefreshauthProviderCustomResourcePolicy2F46934C",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/refresh-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -2642,15 +2452,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/refresh-auth/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2697,15 +2499,7 @@ Object {
         "StaticSiteAuthorizationAuthFlowsignoutProviderCustomResourcePolicy9C7C883B",
       ],
       "Properties": Object {
-        "Create": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/sign-out/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Create": Any<String>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -2713,15 +2507,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "action": "getParameter",
-          "parameters": Object {
-            "Name": "/cloudcomponents/edge-lambda/Dummy/sign-out/c83d99d8def072b82738c0d40222a792527c17f94d",
-          },
-          "physicalResourceId": Any<Object>,
-          "region": "us-east-1",
-          "service": "SSM",
-        },
+        "Update": Any<String>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
@@ -2769,33 +2555,28 @@ Object {
       ],
       "Properties": Object {
         "Create": Object {
-          "action": "describeUserPoolClient",
-          "parameters": Object {
-            "ClientId": Object {
-              "Ref": "UserPoolUserPoolClient40176907",
-            },
-            "UserPoolId": Object {
-              "Ref": "UserPool6BA7E5F2",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  Object {
-                    "Ref": "UserPool6BA7E5F2",
-                  },
-                  "-",
-                  Object {
-                    "Ref": "UserPoolUserPoolClient40176907",
-                  },
-                  "-retrieved-client-secret",
-                ],
-              ],
-            },
-          },
-          "service": "CognitoIdentityServiceProvider",
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"CognitoIdentityServiceProvider\\",\\"action\\":\\"describeUserPoolClient\\",\\"parameters\\":{\\"UserPoolId\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "\\",\\"ClientId\\":\\"",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "\\"},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "-",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "-retrieved-client-secret\\"}}",
+            ],
+          ],
         },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
@@ -2805,33 +2586,28 @@ Object {
           ],
         },
         "Update": Object {
-          "action": "describeUserPoolClient",
-          "parameters": Object {
-            "ClientId": Object {
-              "Ref": "UserPoolUserPoolClient40176907",
-            },
-            "UserPoolId": Object {
-              "Ref": "UserPool6BA7E5F2",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  Object {
-                    "Ref": "UserPool6BA7E5F2",
-                  },
-                  "-",
-                  Object {
-                    "Ref": "UserPoolUserPoolClient40176907",
-                  },
-                  "-retrieved-client-secret",
-                ],
-              ],
-            },
-          },
-          "service": "CognitoIdentityServiceProvider",
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"CognitoIdentityServiceProvider\\",\\"action\\":\\"describeUserPoolClient\\",\\"parameters\\":{\\"UserPoolId\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "\\",\\"ClientId\\":\\"",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "\\"},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "-",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "-retrieved-client-secret\\"}}",
+            ],
+          ],
         },
       },
       "Type": "Custom::AWS",
@@ -2911,81 +2687,42 @@ Object {
       ],
       "Properties": Object {
         "Create": Object {
-          "action": "updateUserPoolClient",
-          "parameters": Object {
-            "AllowedOAuthFlows": Array [
-              "code",
-            ],
-            "AllowedOAuthFlowsUserPoolClient": "TRUE:BOOLEAN",
-            "AllowedOAuthScopes": Array [
-              "phone",
-              "email",
-              "profile",
-              "openid",
-              "aws.cognito.signin.user.admin",
-            ],
-            "CallbackURLs": Array [
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"CognitoIdentityServiceProvider\\",\\"action\\":\\"updateUserPoolClient\\",\\"parameters\\":{\\"UserPoolId\\":\\"",
               Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "https://",
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "StaticSiteDistribution48DA0944",
-                        "DomainName",
-                      ],
-                    },
-                    "/parseauth",
-                  ],
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "\\",\\"ClientId\\":\\"",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "\\",\\"AllowedOAuthFlows\\":[\\"code\\"],\\"AllowedOAuthFlowsUserPoolClient\\":true,\\"SupportedIdentityProviders\\":[\\"COGNITO\\"],\\"AllowedOAuthScopes\\":[\\"phone\\",\\"email\\",\\"profile\\",\\"openid\\",\\"aws.cognito.signin.user.admin\\"],\\"CallbackURLs\\":[\\"https://",
+              Object {
+                "Fn::GetAtt": Array [
+                  "StaticSiteDistribution48DA0944",
+                  "DomainName",
                 ],
               },
-            ],
-            "ClientId": Object {
-              "Ref": "UserPoolUserPoolClient40176907",
-            },
-            "LogoutURLs": Array [
+              "/parseauth\\"],\\"LogoutURLs\\":[\\"https://",
               Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "https://",
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "StaticSiteDistribution48DA0944",
-                        "DomainName",
-                      ],
-                    },
-                    "/",
-                  ],
+                "Fn::GetAtt": Array [
+                  "StaticSiteDistribution48DA0944",
+                  "DomainName",
                 ],
               },
+              "/\\"]},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "-",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "-updated-client\\"}}",
             ],
-            "SupportedIdentityProviders": Array [
-              "COGNITO",
-            ],
-            "UserPoolId": Object {
-              "Ref": "UserPool6BA7E5F2",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  Object {
-                    "Ref": "UserPool6BA7E5F2",
-                  },
-                  "-",
-                  Object {
-                    "Ref": "UserPoolUserPoolClient40176907",
-                  },
-                  "-updated-client",
-                ],
-              ],
-            },
-          },
-          "service": "CognitoIdentityServiceProvider",
+          ],
         },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
@@ -2995,81 +2732,42 @@ Object {
           ],
         },
         "Update": Object {
-          "action": "updateUserPoolClient",
-          "parameters": Object {
-            "AllowedOAuthFlows": Array [
-              "code",
-            ],
-            "AllowedOAuthFlowsUserPoolClient": "TRUE:BOOLEAN",
-            "AllowedOAuthScopes": Array [
-              "phone",
-              "email",
-              "profile",
-              "openid",
-              "aws.cognito.signin.user.admin",
-            ],
-            "CallbackURLs": Array [
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"CognitoIdentityServiceProvider\\",\\"action\\":\\"updateUserPoolClient\\",\\"parameters\\":{\\"UserPoolId\\":\\"",
               Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "https://",
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "StaticSiteDistribution48DA0944",
-                        "DomainName",
-                      ],
-                    },
-                    "/parseauth",
-                  ],
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "\\",\\"ClientId\\":\\"",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "\\",\\"AllowedOAuthFlows\\":[\\"code\\"],\\"AllowedOAuthFlowsUserPoolClient\\":true,\\"SupportedIdentityProviders\\":[\\"COGNITO\\"],\\"AllowedOAuthScopes\\":[\\"phone\\",\\"email\\",\\"profile\\",\\"openid\\",\\"aws.cognito.signin.user.admin\\"],\\"CallbackURLs\\":[\\"https://",
+              Object {
+                "Fn::GetAtt": Array [
+                  "StaticSiteDistribution48DA0944",
+                  "DomainName",
                 ],
               },
-            ],
-            "ClientId": Object {
-              "Ref": "UserPoolUserPoolClient40176907",
-            },
-            "LogoutURLs": Array [
+              "/parseauth\\"],\\"LogoutURLs\\":[\\"https://",
               Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "https://",
-                    Object {
-                      "Fn::GetAtt": Array [
-                        "StaticSiteDistribution48DA0944",
-                        "DomainName",
-                      ],
-                    },
-                    "/",
-                  ],
+                "Fn::GetAtt": Array [
+                  "StaticSiteDistribution48DA0944",
+                  "DomainName",
                 ],
               },
+              "/\\"]},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "UserPool6BA7E5F2",
+              },
+              "-",
+              Object {
+                "Ref": "UserPoolUserPoolClient40176907",
+              },
+              "-updated-client\\"}}",
             ],
-            "SupportedIdentityProviders": Array [
-              "COGNITO",
-            ],
-            "UserPoolId": Object {
-              "Ref": "UserPool6BA7E5F2",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  Object {
-                    "Ref": "UserPool6BA7E5F2",
-                  },
-                  "-",
-                  Object {
-                    "Ref": "UserPoolUserPoolClient40176907",
-                  },
-                  "-updated-client",
-                ],
-              ],
-            },
-          },
-          "service": "CognitoIdentityServiceProvider",
+          ],
         },
       },
       "Type": "Custom::AWS",

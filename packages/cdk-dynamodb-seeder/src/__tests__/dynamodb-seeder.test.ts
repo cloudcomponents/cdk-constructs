@@ -75,7 +75,7 @@ test('json file: no such file', () => {
   };
 
   // THEN
-  expect(() => addSeeder()).toThrowError(/ENOENT: no such file or directory/);
+  expect(() => addSeeder()).toThrowError(/Cannot find asset at/);
 });
 
 test('json file: no json file', () => {

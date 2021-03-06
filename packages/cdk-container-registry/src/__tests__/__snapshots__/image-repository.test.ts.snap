@@ -77,22 +77,23 @@ Object {
       ],
       "Properties": Object {
         "Delete": Object {
-          "action": "deleteRepository",
-          "parameters": Object {
-            "force": "TRUE:BOOLEAN",
-            "repositoryName": Object {
-              "Ref": "ImageRepositoryBBCBC9DF",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Fn::GetAtt": Array [
-                "ImageRepositoryBBCBC9DF",
-                "Arn",
-              ],
-            },
-          },
-          "service": "ECR",
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"ECR\\",\\"action\\":\\"deleteRepository\\",\\"parameters\\":{\\"repositoryName\\":\\"",
+              Object {
+                "Ref": "ImageRepositoryBBCBC9DF",
+              },
+              "\\",\\"force\\":true},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "ImageRepositoryBBCBC9DF",
+                  "Arn",
+                ],
+              },
+              "\\"}}",
+            ],
+          ],
         },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
@@ -146,7 +147,7 @@ Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
         "ImageScanningConfiguration": Object {
-          "scanOnPush": true,
+          "ScanOnPush": true,
         },
       },
       "Type": "AWS::ECR::Repository",
@@ -282,7 +283,7 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "ImageRepositoryfindingAllowEventRuleImageRepositoryfinding6652C3FBCC83388D": Object {
+    "ImageRepositoryfindingAllowEventRuleImageRepositorySevierityFilter52214491E942FBF8": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
