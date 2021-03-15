@@ -25,10 +25,10 @@ pip install cloudcomponents.cdk-stripe-webhook
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { RestApi } from '@aws-cdk/aws-apigateway';
+import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import { SecretKey } from '@cloudcomponents/cdk-secret-key';
 import { StripeWebhook } from '@cloudcomponents/cdk-stripe-webhook';
-
 export class StripeWebhookStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -36,7 +36,7 @@ export class StripeWebhookStack extends Stack {
     const api = new RestApi(this, 'Endpoint');
     api.root.addMethod('POST');
 
-    const secretKey = process.env.SECRET_KEY as string;
+    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY as string);
 
     const events = ['charge.failed', 'charge.succeeded'];
 
@@ -48,6 +48,7 @@ export class StripeWebhookStack extends Stack {
     });
   }
 }
+
 ```
 
 ## API Reference
