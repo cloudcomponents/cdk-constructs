@@ -7,7 +7,7 @@ Object {
     "ContentfulWebhookCustomResourceFC4E1F73": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
-        "AccessToken": "<access_token>",
+        "AccessTokenString": "{\\"secretKeyType\\":\\"PLAIN_TEXT\\",\\"value\\":\\"<access_token>\\"}",
         "Name": "My webhook",
         "ServiceToken": Object {
           "Fn::GetAtt": Array [

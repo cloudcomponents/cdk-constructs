@@ -1,3 +1,4 @@
+import { SecretKey } from '@cloudcomponents/lambda-utils';
 import type { CloudFormationCustomResourceEventCommon } from 'aws-lambda';
 import * as contentful from 'contentful-management';
 
@@ -11,8 +12,10 @@ import {
   camelizeKeys,
 } from 'custom-resource-helper';
 
+const secretKey = new SecretKey();
+
 export interface WebhookProps {
-  accessToken: string;
+  accessTokenString: string;
   spaceId: string;
   name: string;
   url: string;
@@ -28,9 +31,11 @@ const getSpace = async (accessToken: string, spaceId: string) => {
 };
 
 const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { accessToken, spaceId, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+  const { accessTokenString, spaceId, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
     event.ResourceProperties,
   );
+
+  const accessToken = await secretKey.getValue(accessTokenString);
 
   const space = await getSpace(accessToken, spaceId);
 
@@ -47,9 +52,11 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
 };
 
 const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { accessToken, spaceId, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+  const { accessTokenString, spaceId, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
     event.ResourceProperties,
   );
+
+  const accessToken = await secretKey.getValue(accessTokenString);
 
   const webhookId = event.PhysicalResourceId;
 
@@ -72,9 +79,11 @@ const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerRetu
 };
 
 const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
-  const { accessToken, spaceId } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+  const { accessTokenString, spaceId } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
     event.ResourceProperties,
   );
+
+  const accessToken = await secretKey.getValue(accessTokenString);
 
   const webhookId = event.PhysicalResourceId;
 

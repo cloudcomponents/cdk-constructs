@@ -60,14 +60,17 @@
   "peerDependencies": {
     "@aws-cdk/aws-lambda": "^1.93.0",
     "@aws-cdk/core": "^1.93.0",
+    "@cloudcomponents/cdk-secret-key": "^1.0.0",
     "constructs": "^3.2.0"
   },
   "dependencies": {
     "@aws-cdk/aws-lambda": "^1.93.0",
-    "@aws-cdk/core": "^1.93.0"
+    "@aws-cdk/core": "^1.93.0",
+    "@cloudcomponents/cdk-secret-key": "^1.0.0"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.93.0",
+    "@cloudcomponents/lambda-utils": "^0.1.1",
     "@octokit/rest": "^18.3.5",
     "@types/parse-github-url": "^1.0.0",
     "axios": "^0.21.1",

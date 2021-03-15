@@ -1,12 +1,13 @@
 import * as path from 'path';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
 import { Construct, Duration, CustomResource } from '@aws-cdk/core';
+import { SecretKey } from '@cloudcomponents/cdk-secret-key';
 
 export interface GithubWebhookProps {
   /**
    * The OAuth access token
    */
-  readonly githubApiToken: string;
+  readonly githubApiToken: string | SecretKey;
 
   /**
    * The Github repo url
@@ -31,6 +32,8 @@ export class GithubWebhook extends Construct {
   constructor(scope: Construct, id: string, props: GithubWebhookProps) {
     super(scope, id);
 
+    const githubApiToken = typeof props.githubApiToken === 'string' ? SecretKey.fromPlainText(props.githubApiToken) : props.githubApiToken;
+
     const handler = new SingletonFunction(this, 'CustomResourceHandler', {
       uuid: '83CBF3EB-7B62-44F2-8C67-8441E4C1232E',
       runtime: Runtime.NODEJS_12_X,
@@ -40,17 +43,20 @@ export class GithubWebhook extends Construct {
       timeout: Duration.minutes(15),
     });
 
-    const { githubApiToken, githubRepoUrl, payloadUrl, events, logLevel } = props;
+    if (githubApiToken.grantRead) {
+      githubApiToken.grantRead(handler);
+    }
 
     new CustomResource(this, 'CustomResource', {
       serviceToken: handler.functionArn,
       resourceType: 'Custom::GithubWebhook',
+      pascalCaseProperties: true,
       properties: {
-        GithubApiToken: githubApiToken,
-        GithubRepoUrl: githubRepoUrl,
-        PayloadUrl: payloadUrl,
-        Events: events,
-        LogLevel: logLevel,
+        githubApiTokenString: githubApiToken.serialize(),
+        githubRepoUrl: props.githubRepoUrl,
+        payloadUrl: props.payloadUrl,
+        events: props.events,
+        logLevel: props.logLevel,
       },
     });
   }
