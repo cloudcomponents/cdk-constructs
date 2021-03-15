@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { BuildSpec, ComputeType, IBuildImage, LinuxBuildImage, Project, Source } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
+import { IVpc, SubnetSelection, ISecurityGroup } from '@aws-cdk/aws-ec2';
 import { EventField, RuleTargetInput, OnEventOptions, Rule } from '@aws-cdk/aws-events';
 import { CodeBuildProject, LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
@@ -68,6 +69,39 @@ export interface PullRequestCheckProps {
 
   /** The IAM service Role of the Project. */
   readonly role?: IRole;
+
+  /**
+   * VPC network to place codebuild network interfaces.
+   * Specify this if the codebuild project needs to access resources in a VPC.
+   *
+   * @default No VPC is specified
+   */
+  readonly vpc?: IVpc;
+
+  /**
+   * Where to place the network interfaces within the VPC.
+   * Only used if 'vpc' is supplied.
+   *
+   * @default All private subnets
+   */
+  readonly subnetSelection?: SubnetSelection;
+
+  /**
+   * What security group to associate with the codebuild project's network interfaces.
+   * If no security group is identified, one will be created automatically.
+   * Only used if 'vpc' is supplied.
+   *
+   * @default Security group will be automatically created
+   */
+  readonly securityGroups?: ISecurityGroup[];
+  /**
+   * Whether to allow the CodeBuild to send all network traffic.
+   * If set to false, you must individually add traffic rules to allow the CodeBuild project to connect to network targets.
+   * Only used if 'vpc' is supplied.
+   *
+   * @default true
+   */
+  readonly allowAllOutbound?: boolean;
 }
 
 /**
@@ -89,6 +123,10 @@ export class PullRequestCheck extends Construct {
       postComment = true,
       projectName = `${repository.repositoryName}-pull-request`,
       role,
+      vpc,
+      subnetSelection,
+      securityGroups,
+      allowAllOutbound,
     } = props;
 
     this.pullRequestProject = new Project(this, 'PullRequestProject', {
@@ -103,6 +141,10 @@ export class PullRequestCheck extends Construct {
       },
       buildSpec,
       role,
+      vpc: vpc,
+      subnetSelection: subnetSelection,
+      securityGroups: securityGroups,
+      allowAllOutbound: allowAllOutbound,
     });
 
     if (updateApprovalState || postComment) {
