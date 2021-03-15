@@ -20,6 +20,7 @@
     "aws",
     "cdk",
     "stripe",
+    "event-bridge",
     "webhook",
     "@cloudcomponents"
   ],
@@ -58,13 +59,19 @@
     }
   },
   "peerDependencies": {
+    "@aws-cdk/aws-apigateway": "^1.93.0",
+    "@aws-cdk/aws-events": "^1.93.0",
     "@aws-cdk/aws-lambda": "^1.93.0",
+    "@aws-cdk/aws-iam": "^1.93.0",
     "@aws-cdk/core": "^1.93.0",
     "@cloudcomponents/cdk-secret-key": "^1.1.0",
     "constructs": "^3.2.0"
   },
   "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.93.0",
+    "@aws-cdk/aws-events": "^1.93.0",
     "@aws-cdk/aws-lambda": "^1.93.0",
+    "@aws-cdk/aws-iam": "^1.93.0",
     "@aws-cdk/core": "^1.93.0",
     "@cloudcomponents/cdk-secret-key": "^1.1.0"
   },
@@ -72,9 +79,13 @@
     "@aws-cdk/assert": "^1.93.0",
     "@cloudcomponents/lambda-utils": "^0.1.1",
     "@types/stripe": "^8.0.417",
+    "aws-sdk": "^2.862.0",
     "custom-resource-helper": "^1.0.15",
     "jest-cdk-snapshot": "^1.4.1",
     "stripe": "^8.138.0"
   },
+  "externals": [
+    "aws-sdk"
+  ],
   "gitHead": "b1ac0776c6169c1ca4a1434cad09d99c0ecb41ab"
 }
