@@ -1,7 +1,7 @@
 {
-  "name": "@cloudcomponents/cdk-stripe-webhook",
-  "version": "1.28.0",
-  "description": "Create, update and delete stripe webhooks with your app deployment",
+  "name": "@cloudcomponents/cdk-secret-key",
+  "version": "1.0.0",
+  "description": "Provide secret keys to lambdas",
   "license": "MIT",
   "author": {
     "name": "hupe1980",
@@ -13,14 +13,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cloudcomponents/cdk-constructs.git",
-    "directory": "packages/cdk-stripe-webhook"
+    "directory": "packages/cdk-secret-key"
   },
   "homepage": "https://github.com/cloudcomponents/cdk-constructs",
   "keywords": [
     "aws",
     "cdk",
-    "stripe",
-    "webhook",
+    "secrets",
     "@cloudcomponents"
   ],
   "main": "lib/index.js",
@@ -52,29 +51,25 @@
     ],
     "targets": {
       "python": {
-        "distName": "cloudcomponents.cdk-stripe-webhook",
-        "module": "cloudcomponents.cdk_stripe_webhook"
+        "distName": "cloudcomponents.cdk-secret-key",
+        "module": "cloudcomponents.cdk_secret_key"
       }
     }
   },
   "peerDependencies": {
-    "@aws-cdk/aws-lambda": "^1.93.0",
+    "@aws-cdk/aws-iam": "^1.93.0",
+    "@aws-cdk/aws-ssm": "^1.93.0",
+    "@aws-cdk/aws-secretsmanager": "^1.93.0",
     "@aws-cdk/core": "^1.93.0",
-    "constructs": "^3.2.0",
-    "@cloudcomponents/cdk-secret-key": "^1.0.0"
+    "constructs": "^3.2.0"
   },
   "dependencies": {
-    "@aws-cdk/aws-lambda": "^1.93.0",
-    "@aws-cdk/core": "^1.93.0",
-    "@cloudcomponents/cdk-secret-key": "^1.0.0"
+    "@aws-cdk/aws-iam": "^1.93.0",
+    "@aws-cdk/aws-ssm": "^1.93.0",
+    "@aws-cdk/aws-secretsmanager": "^1.93.0",
+    "@aws-cdk/core": "^1.93.0"
   },
-  "devDependencies": {
-    "@aws-cdk/assert": "^1.93.0",
-    "@cloudcomponents/lambda-utils": "^0.1.1",
-    "@types/stripe": "^8.0.417",
-    "custom-resource-helper": "^1.0.15",
-    "jest-cdk-snapshot": "^1.4.1",
-    "stripe": "^8.138.0"
-  },
-  "gitHead": "b1ac0776c6169c1ca4a1434cad09d99c0ecb41ab"
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -141,16 +141,16 @@ export class PullRequestCheck extends Construct {
       },
       buildSpec,
       role,
-      vpc: vpc,
-      subnetSelection: subnetSelection,
-      securityGroups: securityGroups,
-      allowAllOutbound: allowAllOutbound,
+      vpc,
+      subnetSelection,
+      securityGroups,
+      allowAllOutbound,
     });
 
     if (updateApprovalState || postComment) {
       const codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
         runtime: Runtime.NODEJS_12_X,
-        code: Code.asset(path.join(__dirname, 'lambdas', 'code-build-result')),
+        code: Code.fromAsset(path.join(__dirname, 'lambdas', 'code-build-result')),
         handler: 'index.handler',
         environment: {
           UPDATE_APPROVAL_STATE: updateApprovalState ? 'TRUE' : 'FALSE',

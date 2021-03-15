@@ -36,13 +36,17 @@ new PullRequestCheck(scope: Construct, id: string, props: PullRequestCheckProps)
 * **props** (<code>[PullRequestCheckProps](#cloudcomponents-cdk-pull-request-check-pullrequestcheckprops)</code>)  *No description*
   * **buildSpec** (<code>[BuildSpec](#aws-cdk-aws-codebuild-buildspec)</code>)  Filename or contents of buildspec in JSON format. 
   * **repository** (<code>[IRepository](#aws-cdk-aws-codecommit-irepository)</code>)  The CodeCommit repository. 
+  * **allowAllOutbound** (<code>boolean</code>)  Whether to allow the CodeBuild to send all network traffic. __*Default*__: true
   * **buildImage** (<code>[IBuildImage](#aws-cdk-aws-codebuild-ibuildimage)</code>)  Build environment to use for the build. __*Default*__: BuildEnvironment.LinuxBuildImage.STANDARD_2_0
   * **computeType** (<code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code>)  The type of compute to use for this build. __*Default*__: taken from {@link #buildImage#defaultComputeType}
   * **postComment** (<code>boolean</code>)  Specifies whether comments should be written in the request. __*Default*__: true
   * **privileged** (<code>boolean</code>)  Indicates how the project builds Docker images. __*Default*__: false
   * **projectName** (<code>string</code>)  The human-visible name of this PullRequest-Project. __*Optional*__
   * **role** (<code>[IRole](#aws-cdk-aws-iam-irole)</code>)  The IAM service Role of the Project. __*Optional*__
+  * **securityGroups** (<code>Array<[ISecurityGroup](#aws-cdk-aws-ec2-isecuritygroup)></code>)  What security group to associate with the codebuild project's network interfaces. __*Default*__: Security group will be automatically created
+  * **subnetSelection** (<code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code>)  Where to place the network interfaces within the VPC. __*Default*__: All private subnets
   * **updateApprovalState** (<code>boolean</code>)  Indicates whether the approval state [APPROVE, REVOKE] should be updated. __*Default*__: true
+  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  VPC network to place codebuild network interfaces. __*Default*__: No VPC is specified
 
 
 ### Methods
@@ -128,13 +132,17 @@ Name | Type | Description
 -----|------|-------------
 **buildSpec** | <code>[BuildSpec](#aws-cdk-aws-codebuild-buildspec)</code> | Filename or contents of buildspec in JSON format.
 **repository** | <code>[IRepository](#aws-cdk-aws-codecommit-irepository)</code> | The CodeCommit repository.
+**allowAllOutbound**? | <code>boolean</code> | Whether to allow the CodeBuild to send all network traffic.<br/>__*Default*__: true
 **buildImage**? | <code>[IBuildImage](#aws-cdk-aws-codebuild-ibuildimage)</code> | Build environment to use for the build.<br/>__*Default*__: BuildEnvironment.LinuxBuildImage.STANDARD_2_0
 **computeType**? | <code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code> | The type of compute to use for this build.<br/>__*Default*__: taken from {@link #buildImage#defaultComputeType}
 **postComment**? | <code>boolean</code> | Specifies whether comments should be written in the request.<br/>__*Default*__: true
 **privileged**? | <code>boolean</code> | Indicates how the project builds Docker images.<br/>__*Default*__: false
 **projectName**? | <code>string</code> | The human-visible name of this PullRequest-Project.<br/>__*Optional*__
 **role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | The IAM service Role of the Project.<br/>__*Optional*__
+**securityGroups**? | <code>Array<[ISecurityGroup](#aws-cdk-aws-ec2-isecuritygroup)></code> | What security group to associate with the codebuild project's network interfaces.<br/>__*Default*__: Security group will be automatically created
+**subnetSelection**? | <code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code> | Where to place the network interfaces within the VPC.<br/>__*Default*__: All private subnets
 **updateApprovalState**? | <code>boolean</code> | Indicates whether the approval state [APPROVE, REVOKE] should be updated.<br/>__*Default*__: true
+**vpc**? | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | VPC network to place codebuild network interfaces.<br/>__*Default*__: No VPC is specified
 
 
 

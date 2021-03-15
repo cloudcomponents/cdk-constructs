@@ -662,7 +662,7 @@
     "@aws-cdk/core" "1.93.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-secretsmanager@1.93.0":
+"@aws-cdk/aws-secretsmanager@1.93.0", "@aws-cdk/aws-secretsmanager@^1.93.0":
   version "1.93.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-secretsmanager/-/aws-secretsmanager-1.93.0.tgz#e45d0c0d00838cd7343cf505fd47871d9701e9bb"
   integrity sha512-Vyl2k66J0Ag256W8YBcdS7QM9cr6/aBZuEq5kyFT9GMwhpQ5RpDT+OUg31Pu3mLizlU70YlYueegnUQYEjxTbQ==
@@ -1126,6 +1126,13 @@
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
+
+"@cloudcomponents/lambda-utils@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@cloudcomponents/lambda-utils/-/lambda-utils-0.1.1.tgz#244aa2641c98ae773cc43c1f0c23b37bb6ae5c07"
+  integrity sha512-TTnT1yRGeL28EBFRhDXBMiUKn/mK95ZXKY+cOduG/MYU5U8hjC3/H+t0efkUPQJTnAyqR2jzvY8tsUkqFQmf+Q==
+  dependencies:
+    aws-parameter-cache "^1.2.0"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
@@ -3560,6 +3567,11 @@ aws-local-testing-library@^0.0.7:
     lodash.clonedeep "^4.5.0"
     lodash.merge "^4.6.2"
     uuid "^8.3.0"
+
+aws-parameter-cache@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/aws-parameter-cache/-/aws-parameter-cache-1.2.0.tgz#b202fcaace4e066a9b6f9a00e7eb29daab900643"
+  integrity sha512-GoMfOSEYJNXyUqkK2YBwyR6cKUEv8Gs6LrTx5pkZhLKCnU7finPgLHhS76SppPyrBJ9CuzRBi8FH4mvVf0eZ9w==
 
 aws-sdk@^2.848.0:
   version "2.849.0"

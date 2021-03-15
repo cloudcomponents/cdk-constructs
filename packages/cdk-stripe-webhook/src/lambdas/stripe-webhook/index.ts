@@ -1,3 +1,4 @@
+import { SecretKey } from '@cloudcomponents/lambda-utils';
 import type { CloudFormationCustomResourceEventCommon } from 'aws-lambda';
 import {
   camelizeKeys,
@@ -10,19 +11,22 @@ import {
 } from 'custom-resource-helper';
 import Stripe from 'stripe';
 
+const secretKey = new SecretKey();
 export interface WebhookProps {
-  secretKey: string;
+  secretKeyString: string;
   url: string;
   description?: string;
   events: Stripe.WebhookEndpointCreateParams.EnabledEvent[];
 }
 
 const handleCreate: OnCreateHandler = async (event, _): Promise<ResourceHandlerReturn> => {
-  const { secretKey, url, events, description } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+  const { secretKeyString, url, events, description } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
     event.ResourceProperties,
   );
 
-  const stripe = new Stripe(secretKey, { apiVersion: '2020-08-27' });
+  const value = await secretKey.getValue(secretKeyString);
+
+  const stripe = new Stripe(value, { apiVersion: '2020-08-27' });
 
   const data = await stripe.webhookEndpoints.create({
     url,
@@ -41,13 +45,15 @@ const handleCreate: OnCreateHandler = async (event, _): Promise<ResourceHandlerR
 };
 
 const handleUpdate: OnUpdateHandler = async (event, _): Promise<ResourceHandlerReturn> => {
-  const { secretKey, url, events, description } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+  const { secretKeyString, url, events, description } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
     event.ResourceProperties,
   );
 
+  const value = await secretKey.getValue(secretKeyString);
+
   const webhookId = event.PhysicalResourceId;
 
-  const stripe = new Stripe(secretKey, { apiVersion: '2020-08-27' });
+  const stripe = new Stripe(value, { apiVersion: '2020-08-27' });
 
   const data = await stripe.webhookEndpoints.update(webhookId, {
     url,
@@ -66,11 +72,13 @@ const handleUpdate: OnUpdateHandler = async (event, _): Promise<ResourceHandlerR
 };
 
 const handleDelete: OnDeleteHandler = async (event, _): Promise<void> => {
-  const { secretKey } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(event.ResourceProperties);
+  const { secretKeyString } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(event.ResourceProperties);
+
+  const value = await secretKey.getValue(secretKeyString);
 
   const webhookId = event.PhysicalResourceId;
 
-  const stripe = new Stripe(secretKey, { apiVersion: '2020-08-27' });
+  const stripe = new Stripe(value, { apiVersion: '2020-08-27' });
 
   await stripe.webhookEndpoints.del(webhookId);
 };

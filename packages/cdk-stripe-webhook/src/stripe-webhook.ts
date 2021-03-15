@@ -1,9 +1,9 @@
 import * as path from 'path';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
 import { Construct, Duration, CustomResource } from '@aws-cdk/core';
-
+import { SecretKey } from '@cloudcomponents/cdk-secret-key';
 export interface StripeWebhookProps {
-  readonly secretKey: string;
+  readonly secretKey: SecretKey | string;
   readonly url: string;
   readonly description?: string;
   readonly events: string[];
@@ -16,6 +16,8 @@ export class StripeWebhook extends Construct {
   constructor(scope: Construct, id: string, props: StripeWebhookProps) {
     super(scope, id);
 
+    const secretKey = typeof props.secretKey === 'string' ? SecretKey.fromPlainText(props.secretKey) : props.secretKey;
+
     const handler = new SingletonFunction(this, 'CustomResourceHandler', {
       uuid: 'e9db3870-d793-4cd2-96a9-efe2e318ebbc',
       runtime: Runtime.NODEJS_12_X,
@@ -25,12 +27,20 @@ export class StripeWebhook extends Construct {
       timeout: Duration.minutes(15),
     });
 
+    if (secretKey.grantRead) {
+      secretKey.grantRead(handler);
+    }
+
     const cr = new CustomResource(this, 'CustomResource', {
       serviceToken: handler.functionArn,
       resourceType: 'Custom::StripeWebhook',
       pascalCaseProperties: true,
       properties: {
-        ...props,
+        url: props.url,
+        description: props.description,
+        events: props.events,
+        logLevel: props.logLevel,
+        secretKeyString: secretKey.serialize(),
       },
     });
 
