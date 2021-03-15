@@ -34,7 +34,7 @@ new ContentfulWebhook(scope: Construct, id: string, props: ContentfulWebhookProp
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[ContentfulWebhookProps](#cloudcomponents-cdk-contentful-webhook-contentfulwebhookprops)</code>)  *No description*
-  * **accessToken** (<code>string</code>)  *No description* 
+  * **accessToken** (<code>string &#124; [SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>)  *No description* 
   * **name** (<code>string</code>)  *No description* 
   * **spaceId** (<code>string</code>)  *No description* 
   * **topics** (<code>Array<string></code>)  *No description* 
@@ -53,7 +53,7 @@ new ContentfulWebhook(scope: Construct, id: string, props: ContentfulWebhookProp
 
 Name | Type | Description 
 -----|------|-------------
-**accessToken** | <code>string</code> | <span></span>
+**accessToken** | <code>string &#124; [SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code> | <span></span>
 **name** | <code>string</code> | <span></span>
 **spaceId** | <code>string</code> | <span></span>
 **topics** | <code>Array<string></code> | <span></span>

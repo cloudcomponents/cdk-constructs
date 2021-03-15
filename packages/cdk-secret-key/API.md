@@ -82,6 +82,19 @@ static fromPlainText(value: string): SecretKey
 __Returns__:
 * <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>
 
+#### *static* fromSSMParameter(secretKeyParameter) <a id="cloudcomponents-cdk-secret-key-secretkey-fromssmparameter"></a>
+
+
+
+```ts
+static fromSSMParameter(secretKeyParameter: IParameter): SecretKey
+```
+
+* **secretKeyParameter** (<code>[IParameter](#aws-cdk-aws-ssm-iparameter)</code>)  *No description*
+
+__Returns__:
+* <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>
+
 #### *static* fromSecretsManager(secretKeySecret, fieldName?) <a id="cloudcomponents-cdk-secret-key-secretkey-fromsecretsmanager"></a>
 
 
@@ -92,19 +105,6 @@ static fromSecretsManager(secretKeySecret: ISecret, fieldName?: string): SecretK
 
 * **secretKeySecret** (<code>[ISecret](#aws-cdk-aws-secretsmanager-isecret)</code>)  *No description*
 * **fieldName** (<code>string</code>)  *No description*
-
-__Returns__:
-* <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>
-
-#### *static* fromSsmParameter(secretKeyParameter) <a id="cloudcomponents-cdk-secret-key-secretkey-fromssmparameter"></a>
-
-
-
-```ts
-static fromSsmParameter(secretKeyParameter: IParameter): SecretKey
-```
-
-* **secretKeyParameter** (<code>[IParameter](#aws-cdk-aws-ssm-iparameter)</code>)  *No description*
 
 __Returns__:
 * <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>
@@ -164,6 +164,19 @@ serialize(): string
 __Returns__:
 * <code>string</code>
 
+#### *static* fromSSMParameter(secretKeyParameter) <a id="cloudcomponents-cdk-secret-key-secretkeystore-fromssmparameter"></a>
+
+
+
+```ts
+static fromSSMParameter(secretKeyParameter: IParameter): SecretKeyStore
+```
+
+* **secretKeyParameter** (<code>[IParameter](#aws-cdk-aws-ssm-iparameter)</code>)  *No description*
+
+__Returns__:
+* <code>[SecretKeyStore](#cloudcomponents-cdk-secret-key-secretkeystore)</code>
+
 #### *static* fromSecretsManager(secretKeySecret) <a id="cloudcomponents-cdk-secret-key-secretkeystore-fromsecretsmanager"></a>
 
 
@@ -173,19 +186,6 @@ static fromSecretsManager(secretKeySecret: ISecret): SecretKeyStore
 ```
 
 * **secretKeySecret** (<code>[ISecret](#aws-cdk-aws-secretsmanager-isecret)</code>)  *No description*
-
-__Returns__:
-* <code>[SecretKeyStore](#cloudcomponents-cdk-secret-key-secretkeystore)</code>
-
-#### *static* fromSsmParameter(secretKeyParameter) <a id="cloudcomponents-cdk-secret-key-secretkeystore-fromssmparameter"></a>
-
-
-
-```ts
-static fromSsmParameter(secretKeyParameter: IParameter): SecretKeyStore
-```
-
-* **secretKeyParameter** (<code>[IParameter](#aws-cdk-aws-ssm-iparameter)</code>)  *No description*
 
 __Returns__:
 * <code>[SecretKeyStore](#cloudcomponents-cdk-secret-key-secretkeystore)</code>
