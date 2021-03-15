@@ -37,7 +37,7 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 | [cdk-temp-stack](/packages/cdk-temp-stack) | A stack that destroys itself after a given time (ttl)        | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-temp-stack) |
 | [cdk-lambda-at-edge-pattern](/packages/cdk-lambda-at-edge-pattern) | CDK Constructs for Lambda@Edge pattern: HttpHeaders     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-lambda-at-edge-pattern) |
 | [cdk-cloudfront-authorization](/packages/cdk-cloudfront-authorization) | CloudFront with Cognito authentication using Lambda@Edge     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-cloudfront-authorization) |
-
+| [cdk-secret-key](/packages/cdk-secret-key) | Provide secret keys to lambdas     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-secret-key) |
 ## Contributing
 
 We welcome community contributions and pull requests.

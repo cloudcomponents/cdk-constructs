@@ -1,6 +1,7 @@
 import { RestApi } from '@aws-cdk/aws-apigateway';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { ContentfulWebhook } from '@cloudcomponents/cdk-contentful-webhook';
+import { SecretKey } from '@cloudcomponents/cdk-secret-key';
 
 export class ContentfulWebhookStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -9,7 +10,7 @@ export class ContentfulWebhookStack extends Stack {
     const api = new RestApi(this, 'Endpoint');
     api.root.addMethod('POST');
 
-    const accessToken = process.env.ACCESS_TOKEN as string;
+    const accessToken = SecretKey.fromPlainText(process.env.ACCESS_TOKEN as string);
 
     const spaceId = process.env.SPACE_ID as string;
 

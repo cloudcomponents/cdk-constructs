@@ -35,7 +35,7 @@ new GithubWebhook(scope: Construct, id: string, props: GithubWebhookProps)
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[GithubWebhookProps](#cloudcomponents-cdk-github-webhook-githubwebhookprops)</code>)  *No description*
   * **events** (<code>Array<string></code>)  Determines what events the hook is triggered for. 
-  * **githubApiToken** (<code>string</code>)  The OAuth access token. 
+  * **githubApiToken** (<code>string &#124; [SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>)  The OAuth access token. 
   * **githubRepoUrl** (<code>string</code>)  The Github repo url. 
   * **payloadUrl** (<code>string</code>)  The URL to which the payloads will be delivered. 
   * **logLevel** (<code>string</code>)  *No description* __*Optional*__
@@ -53,7 +53,7 @@ new GithubWebhook(scope: Construct, id: string, props: GithubWebhookProps)
 Name | Type | Description 
 -----|------|-------------
 **events** | <code>Array<string></code> | Determines what events the hook is triggered for.
-**githubApiToken** | <code>string</code> | The OAuth access token.
+**githubApiToken** | <code>string &#124; [SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code> | The OAuth access token.
 **githubRepoUrl** | <code>string</code> | The Github repo url.
 **payloadUrl** | <code>string</code> | The URL to which the payloads will be delivered.
 **logLevel**? | <code>string</code> | __*Optional*__

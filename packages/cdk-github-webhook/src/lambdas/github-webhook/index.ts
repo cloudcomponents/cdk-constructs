@@ -1,3 +1,4 @@
+import { SecretKey } from '@cloudcomponents/lambda-utils';
 import type { CloudFormationCustomResourceEventCommon } from 'aws-lambda';
 import {
   customResourceHelper,
@@ -11,18 +12,22 @@ import {
 
 import { createWebhook, updateWebhook, deleteWebhook } from './webhook-api';
 
+const secretKey = new SecretKey();
+
 export interface WebhookProps {
-  githubApiToken: string;
+  githubApiTokenString: string;
   githubRepoUrl: string;
   payloadUrl: string;
   events: string[];
 }
 
 const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { githubApiToken, githubRepoUrl, payloadUrl, events } = camelizeKeys<
+  const { githubApiTokenString, githubRepoUrl, payloadUrl, events } = camelizeKeys<
     WebhookProps,
     CloudFormationCustomResourceEventCommon['ResourceProperties']
   >(event.ResourceProperties);
+
+  const githubApiToken = await secretKey.getValue(githubApiTokenString);
 
   const { data } = await createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
@@ -37,10 +42,12 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
 };
 
 const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { githubApiToken, githubRepoUrl, payloadUrl, events } = camelizeKeys<
+  const { githubApiTokenString, githubRepoUrl, payloadUrl, events } = camelizeKeys<
     WebhookProps,
     CloudFormationCustomResourceEventCommon['ResourceProperties']
   >(event.ResourceProperties);
+
+  const githubApiToken = await secretKey.getValue(githubApiTokenString);
 
   const hookId = event.PhysicalResourceId;
 
@@ -57,9 +64,11 @@ const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerRetu
 };
 
 const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
-  const { githubApiToken, githubRepoUrl } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+  const { githubApiTokenString, githubRepoUrl } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
     event.ResourceProperties,
   );
+
+  const githubApiToken = await secretKey.getValue(githubApiTokenString);
 
   const hookId = event.PhysicalResourceId;
 

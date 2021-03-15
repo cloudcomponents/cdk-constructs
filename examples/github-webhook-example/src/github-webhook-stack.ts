@@ -1,6 +1,7 @@
 import { RestApi } from '@aws-cdk/aws-apigateway';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { GithubWebhook } from '@cloudcomponents/cdk-github-webhook';
+import { SecretKey } from '@cloudcomponents/cdk-secret-key';
 
 export class GithubWebhookStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -9,7 +10,7 @@ export class GithubWebhookStack extends Stack {
     const api = new RestApi(this, 'github-webhook');
     api.root.addMethod('POST');
 
-    const githubApiToken = process.env.API_TOKEN as string;
+    const githubApiToken = SecretKey.fromPlainText(process.env.API_TOKEN as string);
 
     // @example https://github.com/cloudcomponents/cdk-constructs
     const githubRepoUrl = process.env.REPO_URL as string;
