@@ -53,7 +53,7 @@ export class SlackApprovalAction extends Action {
     const approvalRequester = new Function(scope, 'SlackApprovalRequesterFunction', {
       runtime: Runtime.NODEJS_10_X,
       handler: 'index.handler',
-      code: Code.asset(path.join(__dirname, 'lambdas', 'approval-requester')),
+      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'approval-requester')),
       environment,
     });
 
