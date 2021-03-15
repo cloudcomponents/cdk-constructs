@@ -28,11 +28,16 @@ const handleCreate: OnCreateHandler = async (event, _): Promise<ResourceHandlerR
 
   const stripe = new Stripe(value, { apiVersion: '2020-08-27' });
 
-  const data = await stripe.webhookEndpoints.create({
-    url,
-    description,
-    enabled_events: events,
-  });
+  const data = await stripe.webhookEndpoints.create(
+    {
+      url,
+      description,
+      enabled_events: events,
+    },
+    {
+      maxNetworkRetries: 5,
+    },
+  );
 
   const physicalResourceId = data.id;
 
@@ -55,11 +60,17 @@ const handleUpdate: OnUpdateHandler = async (event, _): Promise<ResourceHandlerR
 
   const stripe = new Stripe(value, { apiVersion: '2020-08-27' });
 
-  const data = await stripe.webhookEndpoints.update(webhookId, {
-    url,
-    description,
-    enabled_events: events,
-  });
+  const data = await stripe.webhookEndpoints.update(
+    webhookId,
+    {
+      url,
+      description,
+      enabled_events: events,
+    },
+    {
+      maxNetworkRetries: 5,
+    },
+  );
 
   const physicalResourceId = data.id;
 
@@ -80,7 +91,9 @@ const handleDelete: OnDeleteHandler = async (event, _): Promise<void> => {
 
   const stripe = new Stripe(value, { apiVersion: '2020-08-27' });
 
-  await stripe.webhookEndpoints.del(webhookId);
+  await stripe.webhookEndpoints.del(webhookId, undefined, {
+    maxNetworkRetries: 5,
+  });
 };
 
 export const handler = customResourceHelper(
