@@ -9,7 +9,7 @@ const app = new App();
 
 new StripeWebhookStack(app, 'StripeWebhookStack', {
   env: {
-    region: process.env.CDK_DEFAULT_REGION,
+    region: process.env.DEFAULT_REGION,
     account: process.env.CDK_DEFAULT_ACCOUNT,
   },
 });
