@@ -1,13 +1,14 @@
 import * as path from 'path';
 import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
 import { Construct, Duration, CustomResource } from '@aws-cdk/core';
-import { SecretKey } from '@cloudcomponents/cdk-secret-key';
+import { SecretKey, SecretKeyStore } from '@cloudcomponents/cdk-secret-key';
 export interface StripeWebhookProps {
   readonly secretKey: SecretKey | string;
   readonly url: string;
   readonly description?: string;
   readonly events: string[];
   readonly logLevel?: 'debug' | 'info' | 'warning' | 'error';
+  readonly endpointSecretStore?: SecretKeyStore;
 }
 
 export class StripeWebhook extends Construct {
@@ -31,6 +32,10 @@ export class StripeWebhook extends Construct {
       secretKey.grantRead(handler);
     }
 
+    if (props.endpointSecretStore) {
+      props.endpointSecretStore.grantWrite(handler);
+    }
+
     const cr = new CustomResource(this, 'CustomResource', {
       serviceToken: handler.functionArn,
       resourceType: 'Custom::StripeWebhook',
@@ -41,6 +46,7 @@ export class StripeWebhook extends Construct {
         events: props.events,
         logLevel: props.logLevel,
         secretKeyString: secretKey.serialize(),
+        endpointSecretStoreString: props.endpointSecretStore?.serialize(),
       },
     });
 

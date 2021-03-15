@@ -1,4 +1,4 @@
-import { SecretKey } from '@cloudcomponents/lambda-utils';
+import { SecretKey, SecretKeyStore } from '@cloudcomponents/lambda-utils';
 import type { CloudFormationCustomResourceEventCommon } from 'aws-lambda';
 import {
   camelizeKeys,
@@ -11,18 +11,21 @@ import {
 } from 'custom-resource-helper';
 import Stripe from 'stripe';
 
-const secretKey = new SecretKey();
+const secretKey = new SecretKey({ configuration: { maxRetries: 5 } });
+
 export interface WebhookProps {
   secretKeyString: string;
+  endpointSecretStoreString?: string;
   url: string;
   description?: string;
   events: Stripe.WebhookEndpointCreateParams.EnabledEvent[];
 }
 
 const handleCreate: OnCreateHandler = async (event, _): Promise<ResourceHandlerReturn> => {
-  const { secretKeyString, url, events, description } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
-    event.ResourceProperties,
-  );
+  const { secretKeyString, endpointSecretStoreString, url, events, description } = camelizeKeys<
+    WebhookProps,
+    CloudFormationCustomResourceEventCommon['ResourceProperties']
+  >(event.ResourceProperties);
 
   const value = await secretKey.getValue(secretKeyString);
 
@@ -39,10 +42,14 @@ const handleCreate: OnCreateHandler = async (event, _): Promise<ResourceHandlerR
     },
   );
 
-  const physicalResourceId = data.id;
+  if (endpointSecretStoreString && data.secret) {
+    const secretKeyStore = new SecretKeyStore({ configuration: { maxRetries: 5 } });
+    await secretKeyStore.putSecret(endpointSecretStoreString, data.secret);
+    delete data.secret;
+  }
 
   return {
-    physicalResourceId,
+    physicalResourceId: data.id,
     responseData: {
       ...data,
     },

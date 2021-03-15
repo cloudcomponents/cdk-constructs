@@ -15,7 +15,7 @@ export abstract class SecretKeyStore {
 
   constructor(public readonly secretKeyType: KeyType) {}
 
-  public abstract grantWrite?(grantee: IGrantable): Grant;
+  public abstract grantWrite(grantee: IGrantable): Grant;
 
   public abstract serialize(): string;
 }

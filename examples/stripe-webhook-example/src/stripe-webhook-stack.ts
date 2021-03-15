@@ -1,8 +1,8 @@
 import { RestApi } from '@aws-cdk/aws-apigateway';
 // import { Secret } from '@aws-cdk/aws-secretsmanager';
-// import { StringParameter } from '@aws-cdk/aws-ssm';
+import { StringParameter } from '@aws-cdk/aws-ssm';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { SecretKey } from '@cloudcomponents/cdk-secret-key';
+import { SecretKey, SecretKeyStore } from '@cloudcomponents/cdk-secret-key';
 import { StripeWebhook } from '@cloudcomponents/cdk-stripe-webhook';
 export class StripeWebhookStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -24,11 +24,18 @@ export class StripeWebhookStack extends Stack {
 
     const events = ['charge.failed', 'charge.succeeded'];
 
+    const ssmParameter = StringParameter.fromSecureStringParameterAttributes(this, 'Param', {
+      parameterName: 'stripe',
+      version: 1,
+    });
+    const endpointSecretStore = SecretKeyStore.fromSSMParameter(ssmParameter);
+
     new StripeWebhook(this, 'StripeWebhook', {
       secretKey,
       url: api.url,
       events,
       logLevel: 'debug',
+      endpointSecretStore,
     });
   }
 }
