@@ -1,6 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cdk-stripe-webhook snapshot 1`] = `
+exports[`default setup - secretKey 1`] = `
+Object {
+  "Parameters": Any<Object>,
+  "Resources": Object {
+    "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbc3F433A9D": Object {
+      "DependsOn": Array [
+        "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcServiceRole975E615A",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcServiceRole975E615A",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbcServiceRole975E615A": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "StripeWebhookCustomResource8D1A2FEA": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Events": Array [
+          "charge.failed",
+          "charge.succeeded",
+        ],
+        "SecretKeyString": "{\\"secretKeyType\\":\\"PLAIN_TEXT\\",\\"value\\":\\"sk_test_1213fdsdfsgfsdgdfgfdg\\"}",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbc3F433A9D",
+            "Arn",
+          ],
+        },
+        "Url": "https://www.example.com/test",
+      },
+      "Type": "Custom::StripeWebhook",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+}
+`;
+
+exports[`default setup 1`] = `
 Object {
   "Parameters": Any<Object>,
   "Resources": Object {

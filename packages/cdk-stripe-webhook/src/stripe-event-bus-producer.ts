@@ -6,7 +6,8 @@ import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
 import { Construct, Arn, Stack } from '@aws-cdk/core';
 import { SecretKey } from '@cloudcomponents/cdk-secret-key';
 
-export interface StripeEventBridgeProducerProps {
+export interface StripeEventBusProducerProps {
+  readonly secretKey: SecretKey;
   readonly endpointSecret: SecretKey;
   readonly source?: string;
   readonly eventBus?: IEventBus;
@@ -14,15 +15,15 @@ export interface StripeEventBridgeProducerProps {
   readonly throttlingRateLimit?: number;
 }
 
-export class StripeEventBridgeProducer extends Construct {
+export class StripeEventBusProducer extends Construct {
   public readonly url: string;
 
-  constructor(scope: Construct, id: string, props: StripeEventBridgeProducerProps) {
+  constructor(scope: Construct, id: string, props: StripeEventBusProducerProps) {
     super(scope, id);
 
     const handler = new Function(this, 'Function', {
       runtime: Runtime.NODEJS_12_X,
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-event-bridge-producer')),
+      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-event-bus-producer')),
       handler: 'index.handler',
     });
 
@@ -60,6 +61,11 @@ export class StripeEventBridgeProducer extends Construct {
       props.endpointSecret.grantRead(handler);
     }
     handler.addEnvironment('ENDPOINT_SECRET_STRING', props.endpointSecret.serialize());
+
+    if (props.secretKey.grantRead) {
+      props.secretKey.grantRead(handler);
+    }
+    handler.addEnvironment('SECRET_KEY_STRING', props.secretKey.serialize());
 
     const api = new RestApi(this, 'Endpoint', {
       description: 'Stripe event bridge producer webhook',

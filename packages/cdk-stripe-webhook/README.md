@@ -24,27 +24,29 @@ pip install cloudcomponents.cdk-stripe-webhook
 
 ## How to use
 
-### EventBridge Producer
+### EventBus Producer
 
 ```typescript
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { SecretKey, SecretKeyStore } from '@cloudcomponents/cdk-secret-key';
-import { StripeWebhook, StripeEventBridgeProducer } from '@cloudcomponents/cdk-stripe-webhook';
+import { StripeWebhook, StripeEventBusProducer } from '@cloudcomponents/cdk-stripe-webhook';
+
 export class StripeWebhookStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+
+    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY as string);
 
     const endpointSecretParameter = StringParameter.fromSecureStringParameterAttributes(this, 'Param', {
       parameterName: 'stripe',
       version: 1,
     });
 
-    const producer = new StripeEventBridgeProducer(this, 'Producer', {
+    const producer = new StripeEventBusProducer(this, 'Producer', {
+      secretKey,
       endpointSecret: SecretKey.fromSSMParameter(endpointSecretParameter),
     });
-
-    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY as string);
 
     const events = ['charge.failed', 'charge.succeeded'];
 

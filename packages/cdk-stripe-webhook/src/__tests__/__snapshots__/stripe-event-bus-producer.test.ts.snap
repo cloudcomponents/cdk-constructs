@@ -1,0 +1,330 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default setup - secretKey 1`] = `
+Object {
+  "Outputs": Object {
+    "StripeEventBusProducerEndpointA2162305": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "StripeEventBusProducerEndpoint7432B484",
+            },
+            ".execute-api.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            Object {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            Object {
+              "Ref": "StripeEventBusProducerEndpointDeploymentStageprodCEEA8490",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": Any<Object>,
+  "Resources": Object {
+    "StripeEventBusProducerEndpoint7432B484": Object {
+      "Properties": Object {
+        "Description": "Stripe event bridge producer webhook",
+        "Name": "Endpoint",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "StripeEventBusProducerEndpointAccount92D81366": Object {
+      "DependsOn": Array [
+        "StripeEventBusProducerEndpoint7432B484",
+      ],
+      "Properties": Object {
+        "CloudWatchRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "StripeEventBusProducerEndpointCloudWatchRole7058459E",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+    },
+    "StripeEventBusProducerEndpointCloudWatchRole7058459E": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "StripeEventBusProducerEndpointDeploymentE12AA95F46491c5acfe2c3ec9059e7abeec24dac": Object {
+      "DependsOn": Array [
+        "StripeEventBusProducerEndpointPOST2D64073D",
+      ],
+      "Properties": Object {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": Object {
+          "Ref": "StripeEventBusProducerEndpoint7432B484",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "StripeEventBusProducerEndpointDeploymentStageprodCEEA8490": Object {
+      "Properties": Object {
+        "DeploymentId": Object {
+          "Ref": "StripeEventBusProducerEndpointDeploymentE12AA95F46491c5acfe2c3ec9059e7abeec24dac",
+        },
+        "RestApiId": Object {
+          "Ref": "StripeEventBusProducerEndpoint7432B484",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "StripeEventBusProducerEndpointPOST2D64073D": Object {
+      "Properties": Object {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "POST",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "StripeEventBusProducerFunctionC5CBF385",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Fn::GetAtt": Array [
+            "StripeEventBusProducerEndpoint7432B484",
+            "RootResourceId",
+          ],
+        },
+        "RestApiId": Object {
+          "Ref": "StripeEventBusProducerEndpoint7432B484",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "StripeEventBusProducerEndpointPOSTApiPermissionStripeEventBusProducerEndpointBC2AB918POSTD5A4F18C": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "StripeEventBusProducerFunctionC5CBF385",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "StripeEventBusProducerEndpoint7432B484",
+              },
+              "/",
+              Object {
+                "Ref": "StripeEventBusProducerEndpointDeploymentStageprodCEEA8490",
+              },
+              "/POST/",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "StripeEventBusProducerEndpointPOSTApiPermissionTestStripeEventBusProducerEndpointBC2AB918POST6383F618": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "StripeEventBusProducerFunctionC5CBF385",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "StripeEventBusProducerEndpoint7432B484",
+              },
+              "/test-invoke-stage/POST/",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "StripeEventBusProducerFunctionC5CBF385": Object {
+      "DependsOn": Array [
+        "StripeEventBusProducerFunctionServiceRoleDefaultPolicyFE1A86CA",
+        "StripeEventBusProducerFunctionServiceRoleB248F6DF",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Environment": Object {
+          "Variables": Object {
+            "ENDPOINT_SECRET_STRING": "{\\"secretKeyType\\":\\"PLAIN_TEXT\\",\\"value\\":\\"endpointSecretxyz\\"}",
+            "SECRET_KEY_STRING": "{\\"secretKeyType\\":\\"PLAIN_TEXT\\",\\"value\\":\\"sk_test_1213fdsdfsgfsdgdfgfdg\\"}",
+            "SOURCE": "Stripe",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "StripeEventBusProducerFunctionServiceRoleB248F6DF",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "StripeEventBusProducerFunctionServiceRoleB248F6DF": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "StripeEventBusProducerFunctionServiceRoleDefaultPolicyFE1A86CA": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "events:PutEvents",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":events:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":event-bus/default",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "StripeEventBusProducerFunctionServiceRoleDefaultPolicyFE1A86CA",
+        "Roles": Array [
+          Object {
+            "Ref": "StripeEventBusProducerFunctionServiceRoleB248F6DF",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+}
+`;
