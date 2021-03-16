@@ -4,7 +4,7 @@
 
 Name|Description
 ----|-----------
-[StripeEventBridgeProducer](#cloudcomponents-cdk-stripe-webhook-stripeeventbridgeproducer)|*No description*
+[StripeEventBusProducer](#cloudcomponents-cdk-stripe-webhook-stripeeventbusproducer)|*No description*
 [StripeWebhook](#cloudcomponents-cdk-stripe-webhook-stripewebhook)|*No description*
 
 
@@ -12,12 +12,12 @@ Name|Description
 
 Name|Description
 ----|-----------
-[StripeEventBridgeProducerProps](#cloudcomponents-cdk-stripe-webhook-stripeeventbridgeproducerprops)|*No description*
+[StripeEventBusProducerProps](#cloudcomponents-cdk-stripe-webhook-stripeeventbusproducerprops)|*No description*
 [StripeWebhookProps](#cloudcomponents-cdk-stripe-webhook-stripewebhookprops)|*No description*
 
 
 
-## class StripeEventBridgeProducer  <a id="cloudcomponents-cdk-stripe-webhook-stripeeventbridgeproducer"></a>
+## class StripeEventBusProducer  <a id="cloudcomponents-cdk-stripe-webhook-stripeeventbusproducer"></a>
 
 
 
@@ -30,13 +30,14 @@ __Extends__: [Construct](#aws-cdk-core-construct)
 
 
 ```ts
-new StripeEventBridgeProducer(scope: Construct, id: string, props: StripeEventBridgeProducerProps)
+new StripeEventBusProducer(scope: Construct, id: string, props: StripeEventBusProducerProps)
 ```
 
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
-* **props** (<code>[StripeEventBridgeProducerProps](#cloudcomponents-cdk-stripe-webhook-stripeeventbridgeproducerprops)</code>)  *No description*
+* **props** (<code>[StripeEventBusProducerProps](#cloudcomponents-cdk-stripe-webhook-stripeeventbusproducerprops)</code>)  *No description*
   * **endpointSecret** (<code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>)  *No description* 
+  * **secretKey** (<code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>)  *No description* 
   * **eventBus** (<code>[IEventBus](#aws-cdk-aws-events-ieventbus)</code>)  *No description* __*Optional*__
   * **source** (<code>string</code>)  *No description* __*Optional*__
   * **throttlingBurstLimit** (<code>number</code>)  *No description* __*Optional*__
@@ -90,7 +91,7 @@ Name | Type | Description
 
 
 
-## struct StripeEventBridgeProducerProps  <a id="cloudcomponents-cdk-stripe-webhook-stripeeventbridgeproducerprops"></a>
+## struct StripeEventBusProducerProps  <a id="cloudcomponents-cdk-stripe-webhook-stripeeventbusproducerprops"></a>
 
 
 
@@ -100,6 +101,7 @@ Name | Type | Description
 Name | Type | Description 
 -----|------|-------------
 **endpointSecret** | <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code> | <span></span>
+**secretKey** | <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code> | <span></span>
 **eventBus**? | <code>[IEventBus](#aws-cdk-aws-events-ieventbus)</code> | __*Optional*__
 **source**? | <code>string</code> | __*Optional*__
 **throttlingBurstLimit**? | <code>number</code> | __*Optional*__
