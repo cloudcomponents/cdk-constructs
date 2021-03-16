@@ -4,12 +4,12 @@ import { EventBridge } from 'aws-sdk';
 import Stripe from 'stripe';
 
 const eventBridge = new EventBridge();
-const endpointSecretKey = new SecretKey({ configuration: { maxRetries: 5 } });
-const apiSecretKey = new SecretKey({ configuration: { maxRetries: 5 } });
+const endpointSecretKey = new SecretKey(process.env.ENDPOINT_SECRET_STRING as string, { configuration: { maxRetries: 5 } });
+const apiSecretKey = new SecretKey(process.env.SECRET_KEY_STRING as string, { configuration: { maxRetries: 5 } });
 
 export const handler: APIGatewayProxyHandler = async (event) => {
   try {
-    const apiKey = await apiSecretKey.getValue(process.env.SECRET_KEY_STRING as string);
+    const apiKey = await apiSecretKey.getValue();
 
     const stripe = new Stripe(apiKey, {
       apiVersion: '2020-08-27',
@@ -22,7 +22,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       throw new Error('Stripe signature is missing');
     }
 
-    const endpointSecret = await endpointSecretKey.getValue(process.env.ENDPOINT_SECRET_STRING as string);
+    const endpointSecret = await endpointSecretKey.getValue();
     const eventReceived = stripe.webhooks.constructEvent(event.body as string, signature, endpointSecret);
 
     const { type, ...details } = eventReceived;

@@ -12,8 +12,6 @@ import {
 
 import { createWebhook, updateWebhook, deleteWebhook } from './webhook-api';
 
-const secretKey = new SecretKey();
-
 export interface WebhookProps {
   githubApiTokenString: string;
   githubRepoUrl: string;
@@ -27,7 +25,8 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
     CloudFormationCustomResourceEventCommon['ResourceProperties']
   >(event.ResourceProperties);
 
-  const githubApiToken = await secretKey.getValue(githubApiTokenString);
+  const secretKey = new SecretKey(githubApiTokenString);
+  const githubApiToken = await secretKey.getValue();
 
   const { data } = await createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
 
@@ -47,7 +46,8 @@ const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerRetu
     CloudFormationCustomResourceEventCommon['ResourceProperties']
   >(event.ResourceProperties);
 
-  const githubApiToken = await secretKey.getValue(githubApiTokenString);
+  const secretKey = new SecretKey(githubApiTokenString);
+  const githubApiToken = await secretKey.getValue();
 
   const hookId = event.PhysicalResourceId;
 
@@ -68,7 +68,8 @@ const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
     event.ResourceProperties,
   );
 
-  const githubApiToken = await secretKey.getValue(githubApiTokenString);
+  const secretKey = new SecretKey(githubApiTokenString);
+  const githubApiToken = await secretKey.getValue();
 
   const hookId = event.PhysicalResourceId;
 

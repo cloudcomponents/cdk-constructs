@@ -12,8 +12,6 @@ import {
   camelizeKeys,
 } from 'custom-resource-helper';
 
-const secretKey = new SecretKey();
-
 export interface WebhookProps {
   accessTokenString: string;
   spaceId: string;
@@ -35,7 +33,8 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
     event.ResourceProperties,
   );
 
-  const accessToken = await secretKey.getValue(accessTokenString);
+  const secretKey = new SecretKey(accessTokenString);
+  const accessToken = await secretKey.getValue();
 
   const space = await getSpace(accessToken, spaceId);
 
@@ -56,7 +55,8 @@ const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerRetu
     event.ResourceProperties,
   );
 
-  const accessToken = await secretKey.getValue(accessTokenString);
+  const secretKey = new SecretKey(accessTokenString);
+  const accessToken = await secretKey.getValue();
 
   const webhookId = event.PhysicalResourceId;
 
@@ -83,7 +83,8 @@ const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
     event.ResourceProperties,
   );
 
-  const accessToken = await secretKey.getValue(accessTokenString);
+  const secretKey = new SecretKey(accessTokenString);
+  const accessToken = await secretKey.getValue();
 
   const webhookId = event.PhysicalResourceId;
 

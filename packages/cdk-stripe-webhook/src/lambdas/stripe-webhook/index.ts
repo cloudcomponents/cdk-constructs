@@ -11,8 +11,6 @@ import {
 } from 'custom-resource-helper';
 import Stripe from 'stripe';
 
-const secretKey = new SecretKey({ configuration: { maxRetries: 5 } });
-
 export interface WebhookProps {
   secretKeyString: string;
   endpointSecretStoreString?: string;
@@ -27,7 +25,8 @@ const handleCreate: OnCreateHandler = async (event, _): Promise<ResourceHandlerR
     CloudFormationCustomResourceEventCommon['ResourceProperties']
   >(event.ResourceProperties);
 
-  const value = await secretKey.getValue(secretKeyString);
+  const secretKey = new SecretKey(secretKeyString, { configuration: { maxRetries: 5 } });
+  const value = await secretKey.getValue();
 
   const stripe = new Stripe(value, { apiVersion: '2020-08-27' });
 
@@ -43,8 +42,8 @@ const handleCreate: OnCreateHandler = async (event, _): Promise<ResourceHandlerR
   );
 
   if (endpointSecretStoreString && data.secret) {
-    const secretKeyStore = new SecretKeyStore({ configuration: { maxRetries: 5 } });
-    await secretKeyStore.putSecret(endpointSecretStoreString, data.secret);
+    const secretKeyStore = new SecretKeyStore(endpointSecretStoreString, { configuration: { maxRetries: 5 } });
+    await secretKeyStore.putSecret(data.secret);
     delete data.secret;
   }
 
@@ -61,7 +60,8 @@ const handleUpdate: OnUpdateHandler = async (event, _): Promise<ResourceHandlerR
     event.ResourceProperties,
   );
 
-  const value = await secretKey.getValue(secretKeyString);
+  const secretKey = new SecretKey(secretKeyString, { configuration: { maxRetries: 5 } });
+  const value = await secretKey.getValue();
 
   const webhookId = event.PhysicalResourceId;
 
@@ -92,7 +92,8 @@ const handleUpdate: OnUpdateHandler = async (event, _): Promise<ResourceHandlerR
 const handleDelete: OnDeleteHandler = async (event, _): Promise<void> => {
   const { secretKeyString } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(event.ResourceProperties);
 
-  const value = await secretKey.getValue(secretKeyString);
+  const secretKey = new SecretKey(secretKeyString, { configuration: { maxRetries: 5 } });
+  const value = await secretKey.getValue();
 
   const webhookId = event.PhysicalResourceId;
 

@@ -70,13 +70,17 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.94.0",
-    "@cloudcomponents/lambda-utils": "^0.1.1",
+    "@cloudcomponents/lambda-utils": "^0.2.0",
     "@octokit/rest": "^18.3.5",
     "@types/parse-github-url": "^1.0.0",
+    "aws-sdk": "^2.865.0",
     "axios": "^0.21.1",
     "custom-resource-helper": "^1.0.15",
     "jest-cdk-snapshot": "^1.4.1",
     "parse-github-url": "^1.0.2"
   },
+  "externals": [
+    "aws-sdk"
+  ],
   "gitHead": "b1ac0776c6169c1ca4a1434cad09d99c0ecb41ab"
 }
