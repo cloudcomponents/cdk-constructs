@@ -1,7 +1,7 @@
 {
-  "name": "@cloudcomponents/cdk-github-webhook",
-  "version": "1.30.0",
-  "description": "Create, update and delete github webhooks with your app deployment",
+  "name": "@cloudcomponents/cdk-responsive-email-template",
+  "version": "1.0.0",
+  "description": "Responsive email template for aws ses",
   "license": "MIT",
   "author": {
     "name": "hupe1980",
@@ -13,14 +13,16 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cloudcomponents/cdk-constructs.git",
-    "directory": "packages/cdk-github-webhook"
+    "directory": "packages/cdk-responsive-email-template"
   },
   "homepage": "https://github.com/cloudcomponents/cdk-constructs",
   "keywords": [
     "aws",
     "cdk",
-    "github",
-    "webhook",
+    "mjml",
+    "ses",
+    "email",
+    "template",
     "@cloudcomponents"
   ],
   "main": "lib/index.js",
@@ -52,35 +54,34 @@
     ],
     "targets": {
       "python": {
-        "distName": "cloudcomponents.cdk-github-webhook",
-        "module": "cloudcomponents.cdk_github_webhook"
+        "distName": "cloudcomponents.cdk-responsive-email-template",
+        "module": "cloudcomponents.cdk_responsive_email_template"
       }
     }
   },
   "peerDependencies": {
-    "@aws-cdk/aws-lambda": "^1.94.1",
+    "@aws-cdk/aws-ses": "^1.94.1",
     "@aws-cdk/core": "^1.94.1",
-    "@cloudcomponents/cdk-secret-key": "^1.2.0",
     "constructs": "^3.2.0"
   },
   "dependencies": {
-    "@aws-cdk/aws-lambda": "^1.94.1",
+    "@aws-cdk/aws-ses": "^1.94.1",
     "@aws-cdk/core": "^1.94.1",
-    "@cloudcomponents/cdk-secret-key": "^1.2.0"
+    "html-minifier": "^4.0.0",
+    "js-beautify": "^1.13.5",
+    "mjml": "^4.9.0"
   },
-  "devDependencies": {
-    "@aws-cdk/assert": "^1.94.1",
-    "@cloudcomponents/lambda-utils": "^0.2.0",
-    "@octokit/rest": "^18.3.5",
-    "@types/parse-github-url": "^1.0.0",
-    "aws-sdk": "^2.865.0",
-    "axios": "^0.21.1",
-    "custom-resource-helper": "^1.0.15",
-    "jest-cdk-snapshot": "^1.4.1",
-    "parse-github-url": "^1.0.2"
-  },
-  "externals": [
-    "aws-sdk"
+  "bundledDependencies": [
+    "mjml",
+    "html-minifier",
+    "js-beautify"
   ],
-  "gitHead": "b1ac0776c6169c1ca4a1434cad09d99c0ecb41ab"
+  "devDependencies": {
+    "@types/html-minifier": "^4.0.0",
+    "@types/js-beautify": "^1.13.1",
+    "jest-cdk-snapshot": "^1.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
