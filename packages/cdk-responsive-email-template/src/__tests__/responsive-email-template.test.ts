@@ -3,7 +3,7 @@ import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
 import { ResponsiveEmailTemplate } from '../responsive-email-template';
-import { TemplateSource } from '../template-source';
+import { TemplatePart } from '../template-part';
 
 test('default setup', (): void => {
   const stack = new Stack();
@@ -11,8 +11,8 @@ test('default setup', (): void => {
   new ResponsiveEmailTemplate(stack, 'ResponsiveEmailTemplate', {
     templateName: 'testTemplate',
     subjectPart: 'Subject',
-    textPart: TemplateSource.fromInline('This ist the text part'),
-    htmlPart: TemplateSource.fromInline(`<mjml>
+    textPart: TemplatePart.fromInline('This ist the text part'),
+    htmlPart: TemplatePart.fromInline(`<mjml>
     <mj-head>
       <mj-title>Hello cloudcomponents</mj-title>
     </mj-head>
@@ -40,8 +40,8 @@ test('default setup - minify', (): void => {
     },
     templateName: 'testTemplate',
     subjectPart: 'Subject',
-    textPart: TemplateSource.fromInline('This ist the text part'),
-    htmlPart: TemplateSource.fromInline(`<mjml>
+    textPart: TemplatePart.fromInline('This ist the text part'),
+    htmlPart: TemplatePart.fromInline(`<mjml>
     <mj-head>
       <mj-title>Hello cloudcomponents</mj-title>
     </mj-head>
@@ -69,8 +69,8 @@ test('default setup - beautify', (): void => {
     },
     templateName: 'testTemplate',
     subjectPart: 'Subject',
-    textPart: TemplateSource.fromInline('This ist the text part'),
-    htmlPart: TemplateSource.fromInline(`<mjml>
+    textPart: TemplatePart.fromInline('This ist the text part'),
+    htmlPart: TemplatePart.fromInline(`<mjml>
     <mj-head>
       <mj-title>Hello cloudcomponents</mj-title>
     </mj-head>
@@ -98,8 +98,8 @@ test('template file', (): void => {
     },
     templateName: 'testTemplate',
     subjectPart: 'Subject',
-    textPart: TemplateSource.fromInline('This ist the text part'),
-    htmlPart: TemplateSource.fromFile(path.join(__dirname, 'fixtures', 'template', 'template.mjml')),
+    textPart: TemplatePart.fromInline('This ist the text part'),
+    htmlPart: TemplatePart.fromFile(path.join(__dirname, 'fixtures', 'template', 'template.mjml')),
   });
 
   expect(stack).toMatchCdkSnapshot();

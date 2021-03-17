@@ -1,2 +1,2 @@
 export * from './responsive-email-template';
-export * from './template-source';
+export * from './template-part';

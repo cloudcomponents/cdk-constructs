@@ -5,7 +5,7 @@
 Name|Description
 ----|-----------
 [ResponsiveEmailTemplate](#cloudcomponents-cdk-responsive-email-template-responsiveemailtemplate)|*No description*
-[TemplateSource](#cloudcomponents-cdk-responsive-email-template-templatesource)|*No description*
+[TemplatePart](#cloudcomponents-cdk-responsive-email-template-templatepart)|*No description*
 
 
 **Structs**
@@ -36,16 +36,16 @@ new ResponsiveEmailTemplate(scope: Construct, id: string, props: ResponsiveEmail
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[ResponsiveEmailTemplateProps](#cloudcomponents-cdk-responsive-email-template-responsiveemailtemplateprops)</code>)  *No description*
-  * **htmlPart** (<code>[TemplateSource](#cloudcomponents-cdk-responsive-email-template-templatesource)</code>)  *No description* 
+  * **htmlPart** (<code>[TemplatePart](#cloudcomponents-cdk-responsive-email-template-templatepart)</code>)  *No description* 
   * **subjectPart** (<code>string</code>)  *No description* 
   * **templateName** (<code>string</code>)  *No description* 
   * **parsingOptions** (<code>[ParsingOptions](#cloudcomponents-cdk-responsive-email-template-parsingoptions)</code>)  *No description* __*Optional*__
-  * **textPart** (<code>[TemplateSource](#cloudcomponents-cdk-responsive-email-template-templatesource)</code>)  *No description* __*Optional*__
+  * **textPart** (<code>[TemplatePart](#cloudcomponents-cdk-responsive-email-template-templatepart)</code>)  *No description* __*Optional*__
 
 
 
 
-## class TemplateSource  <a id="cloudcomponents-cdk-responsive-email-template-templatesource"></a>
+## class TemplatePart  <a id="cloudcomponents-cdk-responsive-email-template-templatepart"></a>
 
 
 
@@ -56,7 +56,7 @@ new ResponsiveEmailTemplate(scope: Construct, id: string, props: ResponsiveEmail
 
 
 ```ts
-new TemplateSource()
+new TemplatePart()
 ```
 
 
@@ -73,31 +73,31 @@ Name | Type | Description
 ### Methods
 
 
-#### *static* fromFile(filePath) <a id="cloudcomponents-cdk-responsive-email-template-templatesource-fromfile"></a>
+#### *static* fromFile(filePath) <a id="cloudcomponents-cdk-responsive-email-template-templatepart-fromfile"></a>
 
 
 
 ```ts
-static fromFile(filePath: string): TemplateSource
+static fromFile(filePath: string): TemplatePart
 ```
 
 * **filePath** (<code>string</code>)  *No description*
 
 __Returns__:
-* <code>[TemplateSource](#cloudcomponents-cdk-responsive-email-template-templatesource)</code>
+* <code>[TemplatePart](#cloudcomponents-cdk-responsive-email-template-templatepart)</code>
 
-#### *static* fromInline(source) <a id="cloudcomponents-cdk-responsive-email-template-templatesource-frominline"></a>
+#### *static* fromInline(source) <a id="cloudcomponents-cdk-responsive-email-template-templatepart-frominline"></a>
 
 
 
 ```ts
-static fromInline(source: string): TemplateSource
+static fromInline(source: string): TemplatePart
 ```
 
 * **source** (<code>string</code>)  *No description*
 
 __Returns__:
-* <code>[TemplateSource](#cloudcomponents-cdk-responsive-email-template-templatesource)</code>
+* <code>[TemplatePart](#cloudcomponents-cdk-responsive-email-template-templatepart)</code>
 
 
 
@@ -128,11 +128,11 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**htmlPart** | <code>[TemplateSource](#cloudcomponents-cdk-responsive-email-template-templatesource)</code> | <span></span>
+**htmlPart** | <code>[TemplatePart](#cloudcomponents-cdk-responsive-email-template-templatepart)</code> | <span></span>
 **subjectPart** | <code>string</code> | <span></span>
 **templateName** | <code>string</code> | <span></span>
 **parsingOptions**? | <code>[ParsingOptions](#cloudcomponents-cdk-responsive-email-template-parsingoptions)</code> | __*Optional*__
-**textPart**? | <code>[TemplateSource](#cloudcomponents-cdk-responsive-email-template-templatesource)</code> | __*Optional*__
+**textPart**? | <code>[TemplatePart](#cloudcomponents-cdk-responsive-email-template-templatepart)</code> | __*Optional*__
 
 
 

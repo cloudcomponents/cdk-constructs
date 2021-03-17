@@ -1,5 +1,5 @@
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { ResponsiveEmailTemplate, TemplateSource } from '@cloudcomponents/cdk-responsive-email-template';
+import { ResponsiveEmailTemplate, TemplatePart } from '@cloudcomponents/cdk-responsive-email-template';
 
 export class ResponsiveEmailTemplateStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
@@ -8,8 +8,8 @@ export class ResponsiveEmailTemplateStack extends Stack {
     new ResponsiveEmailTemplate(this, 'EmailTemplate', {
       templateName: 'demo',
       subjectPart: 'cloudcomponents - {{ title }}',
-      textPart: TemplateSource.fromInline('text message'),
-      htmlPart: TemplateSource.fromInline(`<mjml>
+      textPart: TemplatePart.fromInline('text message'),
+      htmlPart: TemplatePart.fromInline(`<mjml>
     <mj-head>
       <mj-title>cloudcomponents - {{ title }}</mj-title>
     </mj-head>

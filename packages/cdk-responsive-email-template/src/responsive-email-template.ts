@@ -4,7 +4,7 @@ import { minify as htmlMinify } from 'html-minifier';
 import { html as htmlBeautify } from 'js-beautify';
 import * as mjml2html from 'mjml';
 
-import { TemplateSource } from './template-source';
+import { TemplatePart } from './template-part';
 
 export interface ParsingOptions {
   /**
@@ -57,8 +57,8 @@ export interface ParsingOptions {
 export interface ResponsiveEmailTemplateProps {
   readonly templateName: string;
   readonly subjectPart: string;
-  readonly textPart?: TemplateSource;
-  readonly htmlPart: TemplateSource;
+  readonly textPart?: TemplatePart;
+  readonly htmlPart: TemplatePart;
   readonly parsingOptions?: ParsingOptions;
 }
 
