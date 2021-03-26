@@ -10,7 +10,7 @@ export abstract class TemplatePart {
 
   public static fromFile(filePath: string): TemplatePart {
     return {
-      source: fs.readFileSync(filePath).toString('utf8'),
+      source: fs.readFileSync(filePath, { encoding: 'utf8' }),
       defaultFilePath: path.dirname(filePath),
     };
   }

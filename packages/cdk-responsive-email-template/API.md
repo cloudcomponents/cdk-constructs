@@ -115,6 +115,7 @@ Name | Type | Description
 **fonts**? | <code>Map<string, string></code> | Default fonts imported in the HTML rendered by HTML ie.<br/>__*Default*__: :
 **keepComments**? | <code>boolean</code> | Option to keep comments in the HTML output.<br/>__*Default*__: : true
 **minify**? | <code>boolean</code> | Option to minify the HTML output.<br/>__*Default*__: : false
+**mjmlConfigPath**? | <code>string</code> | The path or directory of the .mjmlconfig file default: process.cwd().<br/>__*Optional*__
 **validationLevel**? | <code>string</code> | How to validate your MJML.<br/>__*Default*__: : soft
 
 

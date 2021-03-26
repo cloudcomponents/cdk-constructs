@@ -3,7 +3,7 @@ import { Rule, Schedule, RuleTargetInput } from '@aws-cdk/aws-events';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Code, Runtime, Function } from '@aws-cdk/aws-lambda';
-import { Aws, Construct, Duration, Stack } from '@aws-cdk/core';
+import { Annotations, Aws, Construct, Duration, Stack } from '@aws-cdk/core';
 
 export interface TimeToLiveProps {
   /**
@@ -16,7 +16,7 @@ export class TimeToLive extends Construct {
   constructor(scope: Construct, id: string, props: TimeToLiveProps) {
     super(scope, id);
 
-    Stack.of(this).node.addInfo(`Warning! The stack destroys itself in ${props.ttl.toMinutes()} minutes.\n`);
+    Annotations.of(this).addInfo(`Warning! The stack destroys itself in ${props.ttl.toMinutes()} minutes.\n`);
 
     const deleteStack = new Function(this, 'DeleteStack', {
       runtime: Runtime.NODEJS_12_X,

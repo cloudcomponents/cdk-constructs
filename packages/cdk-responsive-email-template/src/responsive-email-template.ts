@@ -52,6 +52,12 @@ export interface ParsingOptions {
    * @default: templateDir or '.'
    */
   readonly filePath?: string;
+
+  /**
+   * The path or directory of the .mjmlconfig file
+   * default: process.cwd()
+   */
+  readonly mjmlConfigPath?: string;
 }
 
 export interface ResponsiveEmailTemplateProps {
@@ -71,6 +77,7 @@ export class ResponsiveEmailTemplate extends Construct {
       beautify: false,
       keepComments: true,
       validationLevel: 'soft',
+      mjmlConfigPath: process.cwd(),
       filePath: props.htmlPart.defaultFilePath,
       ...props.parsingOptions,
     };
