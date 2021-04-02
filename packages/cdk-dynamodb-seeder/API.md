@@ -101,7 +101,8 @@ new JsonFileSeeds(path: string, options?: AssetOptions)
 * **options** (<code>[AssetOptions](#aws-cdk-aws-s3-assets-assetoptions)</code>)  *No description*
   * **exclude** (<code>Array<string></code>)  Glob patterns to exclude from the copy. __*Default*__: nothing is excluded
   * **follow** (<code>[FollowMode](#aws-cdk-assets-followmode)</code>)  A strategy for how to handle symlinks. __*Default*__: Never
-  * **ignoreMode** (<code>[IgnoreMode](#aws-cdk-core-ignoremode)</code>)  The ignore behavior to use for exclude patterns. __*Default*__: GLOB for file assets, DOCKER or GLOB for docker assets depending on whether the '
+  * **ignoreMode** (<code>[IgnoreMode](#aws-cdk-core-ignoremode)</code>)  The ignore behavior to use for exclude patterns. __*Default*__: IgnoreMode.GLOB
+  * **followSymlinks** (<code>[SymlinkFollowMode](#aws-cdk-core-symlinkfollowmode)</code>)  A strategy for how to handle symlinks. __*Default*__: SymlinkFollowMode.NEVER
   * **assetHash** (<code>string</code>)  Specify a custom hash for this asset. __*Default*__: based on `assetHashType`
   * **assetHashType** (<code>[AssetHashType](#aws-cdk-core-assethashtype)</code>)  Specifies the type of hash to calculate for this asset. __*Default*__: the default is `AssetHashType.SOURCE`, but if `assetHash` is explicitly specified this value defaults to `AssetHashType.CUSTOM`.
   * **bundling** (<code>[BundlingOptions](#aws-cdk-core-bundlingoptions)</code>)  Bundle the asset by executing a command in a Docker container. __*Default*__: uploaded as-is to S3 if the asset is a regular file or a .zip file, archived into a .zip file and uploaded to S3 otherwise
@@ -246,7 +247,8 @@ static fromJsonFile(path: string, options?: AssetOptions): JsonFileSeeds
 * **options** (<code>[AssetOptions](#aws-cdk-aws-s3-assets-assetoptions)</code>)  *No description*
   * **exclude** (<code>Array<string></code>)  Glob patterns to exclude from the copy. __*Default*__: nothing is excluded
   * **follow** (<code>[FollowMode](#aws-cdk-assets-followmode)</code>)  A strategy for how to handle symlinks. __*Default*__: Never
-  * **ignoreMode** (<code>[IgnoreMode](#aws-cdk-core-ignoremode)</code>)  The ignore behavior to use for exclude patterns. __*Default*__: GLOB for file assets, DOCKER or GLOB for docker assets depending on whether the '
+  * **ignoreMode** (<code>[IgnoreMode](#aws-cdk-core-ignoremode)</code>)  The ignore behavior to use for exclude patterns. __*Default*__: IgnoreMode.GLOB
+  * **followSymlinks** (<code>[SymlinkFollowMode](#aws-cdk-core-symlinkfollowmode)</code>)  A strategy for how to handle symlinks. __*Default*__: SymlinkFollowMode.NEVER
   * **assetHash** (<code>string</code>)  Specify a custom hash for this asset. __*Default*__: based on `assetHashType`
   * **assetHashType** (<code>[AssetHashType](#aws-cdk-core-assethashtype)</code>)  Specifies the type of hash to calculate for this asset. __*Default*__: the default is `AssetHashType.SOURCE`, but if `assetHash` is explicitly specified this value defaults to `AssetHashType.CUSTOM`.
   * **bundling** (<code>[BundlingOptions](#aws-cdk-core-bundlingoptions)</code>)  Bundle the asset by executing a command in a Docker container. __*Default*__: uploaded as-is to S3 if the asset is a regular file or a .zip file, archived into a .zip file and uploaded to S3 otherwise
