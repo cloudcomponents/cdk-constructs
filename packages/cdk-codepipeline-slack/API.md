@@ -60,9 +60,7 @@ new SlackApprovalAction(props: SlackApprovalActionProps)
 
 #### protected bound(scope, stage, options) <a id="cloudcomponents-cdk-codepipeline-slack-slackapprovalaction-bound"></a>
 
-(experimental) The method called when an Action is attached to a Pipeline.
-
-This method is guaranteed to be called only once for each Action instance.
+This is a renamed version of the {@link IAction.bind} method.
 
 ```ts
 protected bound(scope: Construct, stage: IStage, options: ActionBindOptions): ActionConfig
