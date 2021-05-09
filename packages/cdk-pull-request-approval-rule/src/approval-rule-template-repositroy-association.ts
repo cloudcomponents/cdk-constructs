@@ -33,7 +33,7 @@ export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
         {
           Effect: 'Allow',
           Action: ['codecommit:AssociateApprovalRuleTemplateWithRepository', 'codecommit:DisassociateApprovalRuleTemplateFromRepository'],
-          Resource: this.repository.repositoryArn,
+          Resource: '*',
         },
       ],
     });
