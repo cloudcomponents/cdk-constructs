@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { AttributeType, Table } from '@aws-cdk/aws-dynamodb';
+import { AttributeType, Table, TableEncryption } from '@aws-cdk/aws-dynamodb';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
@@ -144,6 +144,36 @@ test('multiple seeders', () => {
   new DynamoDBSeeder(stack, 'DynamoDBSeeder2', {
     table,
     seeds: Seeds.fromBucket(seedsBucket2, 'seeds-two.json'),
+  });
+
+  // THEN
+  expect(stack).toMatchCdkSnapshot();
+});
+
+test('customer managed encryption key', () => {
+  // GIVEN
+  const stack = new Stack();
+  const table = new Table(stack, 'Table', {
+    partitionKey: {
+      name: 'id',
+      type: AttributeType.NUMBER,
+    },
+    encryption: TableEncryption.CUSTOMER_MANAGED,
+  });
+
+  // WHEN
+  new DynamoDBSeeder(stack, 'DynamoDBSeeder', {
+    table,
+    seeds: Seeds.fromInline([
+      {
+        id: 1,
+        column: 'foo',
+      },
+      {
+        id: 2,
+        column: 'bar',
+      },
+    ]),
   });
 
   // THEN

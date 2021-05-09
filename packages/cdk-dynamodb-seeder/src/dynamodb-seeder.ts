@@ -45,6 +45,16 @@ export class DynamoDBSeeder extends Construct {
       }),
     );
 
+    if (props.table.encryptionKey) {
+      handler.addToRolePolicy(
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          actions: ['kms:Encrypt', 'kms:Decrypt', 'kms:ReEncrypt*', 'kms:GenerateDataKey*', 'kms:DescribeKey', 'kms:CreateGrant'],
+          resources: [props.table.encryptionKey.keyArn],
+        }),
+      );
+    }
+
     if (seedsBucket) {
       const objectKey = seeds.s3Location?.objectKey ?? '*';
 
