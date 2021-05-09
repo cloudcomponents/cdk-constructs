@@ -122,12 +122,7 @@ Object {
                     "codecommit:DisassociateApprovalRuleTemplateFromRepository",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::GetAtt": Array [
-                      "Repository22E53BBD",
-                      "Arn",
-                    ],
-                  },
+                  "Resource": "*",
                 },
               ],
               "Version": "2012-10-17",
@@ -270,12 +265,7 @@ Object {
                     "codecommit:DisassociateApprovalRuleTemplateFromRepository",
                   ],
                   "Effect": "Allow",
-                  "Resource": Object {
-                    "Fn::GetAtt": Array [
-                      "Repository22E53BBD",
-                      "Arn",
-                    ],
-                  },
+                  "Resource": "*",
                 },
               ],
               "Version": "2012-10-17",
