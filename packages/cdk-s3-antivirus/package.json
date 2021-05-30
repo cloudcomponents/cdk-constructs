@@ -1,0 +1,98 @@
+{
+  "name": "@cloudcomponents/cdk-s3-antivirus",
+  "version": "1.0.0",
+  "description": "Antivirus for Amazon S3",
+  "license": "MIT",
+  "author": {
+    "name": "hupe1980",
+    "url": "https://github.com/hupe1980"
+  },
+  "awscdkio": {
+    "twitter": "hupe1980"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudcomponents/cdk-constructs.git",
+    "directory": "packages/cdk-s3-antivirus"
+  },
+  "homepage": "https://github.com/cloudcomponents/cdk-constructs",
+  "keywords": [
+    "aws",
+    "cdk",
+    "elasticsearch",
+    "cognito",
+    "kinana",
+    "@cloudcomponents"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    ".jsii"
+  ],
+  "scripts": {
+    "build": "cdkdx build",
+    "watch": "cdkdx build -w",
+    "test": "cdkdx test",
+    "lint": "cdkdx lint",
+    "upgrade:cdk": "cdkdx upgrade-cdk",
+    "package": "cdkdx package",
+    "docgen": "cdkdx docgen",
+    "release:npm": "cdkdx release npm",
+    "release:pypi": "cdkdx release pypi"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "tsc": {
+      "outDir": "lib",
+      "rootDir": "src"
+    },
+    "excludeTypescript": [
+      "src/lambdas",
+      "src/**/__tests__"
+    ],
+    "targets": {
+      "python": {
+        "distName": "cloudcomponents.cdk-s3-antivirus",
+        "module": "cloudcomponents.cdk_s3_antivirus"
+      }
+    }
+  },
+  "peerDependencies": {
+    "@aws-cdk/aws-ec2": "^1.106.1",
+    "@aws-cdk/aws-efs": "^1.106.1",
+    "@aws-cdk/aws-events": "^1.106.1",
+    "@aws-cdk/aws-events-targets": "^1.106.1",
+    "@aws-cdk/aws-iam": "^1.106.1",
+    "@aws-cdk/aws-lambda": "^1.106.1",
+    "@aws-cdk/aws-lambda-event-sources": "^1.106.1",
+    "@aws-cdk/aws-s3": "^1.106.1",
+    "@aws-cdk/core": "^1.106.1",
+    "@aws-cdk/custom-resources": "^1.106.1",
+    "constructs": "^3.2.0"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-ec2": "^1.106.1",
+    "@aws-cdk/aws-efs": "^1.106.1",
+    "@aws-cdk/aws-events": "^1.106.1",
+    "@aws-cdk/aws-events-targets": "^1.106.1",
+    "@aws-cdk/aws-iam": "^1.106.1",
+    "@aws-cdk/aws-lambda": "^1.106.1",
+    "@aws-cdk/aws-lambda-event-sources": "^1.106.1",
+    "@aws-cdk/aws-s3": "^1.106.1",
+    "@aws-cdk/core": "^1.106.1",
+    "@aws-cdk/custom-resources": "^1.106.1"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.106.1",
+    "@types/fs-extra": "^9.0.11",
+    "aws-sdk": "^2.897.0",
+    "execa": "^5.0.0",
+    "fs-extra": "^10.0.0",
+    "globby": "^11.0.3",
+    "jest-cdk-snapshot": "^1.4.1"
+  },
+  "externals": [
+    "aws-sdk"
+  ]
+}
