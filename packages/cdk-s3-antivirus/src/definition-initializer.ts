@@ -4,7 +4,7 @@ import { Construct } from '@aws-cdk/core';
 import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '@aws-cdk/custom-resources';
 
 export interface DefinitionInitializerProps {
-  fn: IFunction;
+  readonly fn: IFunction;
 }
 
 export class DefinitionInitializer extends Construct {
