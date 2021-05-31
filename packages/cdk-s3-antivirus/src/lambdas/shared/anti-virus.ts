@@ -9,14 +9,15 @@ const FRESHCLAM_CONF = '/tmp/freshclam.conf';
 const REG_EXP = new RegExp('\\w+.c[vl]d');
 
 export interface ScanResult {
-  bucket: string;
-  key: string;
-  status: ScanStatus;
-  message: string;
+  readonly bucket: string;
+  readonly key: string;
+  readonly status: ScanStatus;
+  readonly message: string;
 }
 
 export interface AntiVirusOptions {
-  definitionsPath: string;
+  readonly definitionsPath: string;
+  readonly scanStatusTagName: string;
 }
 
 export class AntiVirus {
@@ -40,11 +41,7 @@ export class AntiVirus {
     args.push(os.userInfo().username);
     args.push(`--datadir=${this.options.definitionsPath}`);
 
-    const result = await execa('/opt/clamav/freshclam', args);
-
-    if (result.exitCode != 0) {
-      throw new Error(`freshclam exited with unexpected exit code: ${result.exitCode}`);
-    }
+    await execa('/opt/clamav/freshclam', args);
   }
 
   public async scan(bucket: string, key: string, scanPath: string): Promise<ScanResult> {
@@ -129,7 +126,7 @@ export class AntiVirus {
         Tagging: {
           TagSet: [
             {
-              Key: 'cc:scan-status',
+              Key: this.options.scanStatusTagName,
               Value: status,
             },
           ],

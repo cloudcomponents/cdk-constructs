@@ -4,6 +4,7 @@ import { AntiVirus } from '../shared/anti-virus';
 
 const antiVirus = new AntiVirus({
   definitionsPath: '/tmp',
+  scanStatusTagName: process.env.SCAN_STATUS_TAG_NAME as string,
 });
 
 export const handler = async (_event: ScheduledEvent, _context: Context): Promise<void> => {
@@ -12,6 +13,4 @@ export const handler = async (_event: ScheduledEvent, _context: Context): Promis
   await antiVirus.downloadDefinitions(bucket);
   await antiVirus.updateDefinitions([`DNSDatabaseInfo current.cvd.clamav.net`, `DatabaseMirror  database.clamav.net`, `CompressLocalDatabase yes`]);
   await antiVirus.uploadDefinitions(bucket);
-
-  return;
 };

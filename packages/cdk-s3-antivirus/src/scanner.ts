@@ -17,15 +17,22 @@ export interface ScannerProps {
   readonly onResult?: IDestination;
   readonly onError?: IDestination;
   readonly updateSchedule?: Schedule;
+  /**
+   * @default cc:scan-status
+   */
+  readonly scanStatusTagName?: string;
 }
 
 export class Scanner extends Construct {
   public readonly scanFunction: IFunction;
   public readonly updateFunction: IFunction;
   public readonly sandbox: Sandbox;
+  public readonly scanStatusTagName: string;
 
   constructor(scope: Construct, id: string, props: ScannerProps = {}) {
     super(scope, id);
+
+    this.scanStatusTagName = props.scanStatusTagName ?? 'cc:scna-status';
 
     this.sandbox = new Sandbox(this, 'Sandbox');
 
@@ -44,6 +51,7 @@ export class Scanner extends Construct {
       timeout: Duration.minutes(15),
       memorySize: 10240,
       environment: {
+        SCAN_STATUS_TAG_NAME: this.scanStatusTagName,
         EFS_MOUNT_PATH: '/mnt/lambda',
         EFS_DEFINITIONS_PATH: 'virus_database/',
         DEFINITIONS_URL: this.sandbox.definitionBucket.virtualHostedUrlForObject(),
@@ -58,9 +66,11 @@ export class Scanner extends Construct {
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'update')),
       handler: 'index.handler',
       runtime: Runtime.NODEJS_12_X,
+      onFailure: props.onError,
       timeout: Duration.minutes(5),
       memorySize: 1024,
       environment: {
+        SCAN_STATUS_TAG_NAME: this.scanStatusTagName,
         DEFINITIONS_BUCKET: this.sandbox.definitionBucket.bucketName,
       },
       layers: [layer],
@@ -126,7 +136,7 @@ export class Scanner extends Construct {
           notPrincipals: [this.scanFunction.role, scanAssumedPrincipal],
           conditions: {
             StringEquals: {
-              's3:ExistingObjectTag/cc:scan-status': ['IN PROGRESS', 'INFECTED', 'ERROR'],
+              [`s3:ExistingObjectTag/${this.scanStatusTagName}`]: ['IN PROGRESS', 'INFECTED', 'ERROR'],
             },
           },
         }),

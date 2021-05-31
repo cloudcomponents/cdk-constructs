@@ -5,6 +5,7 @@ import { AntiVirus, ScanResult } from '../shared/anti-virus';
 
 const antiVirus = new AntiVirus({
   definitionsPath: path.join(process.env.EFS_MOUNT_PATH as string, process.env.EFS_DEFINITIONS_PATH as string),
+  scanStatusTagName: process.env.SCAN_STATUS_TAG_NAME as string,
 });
 
 export const handler = async (event: S3CreateEvent, context: Context): Promise<ScanResult> => {
@@ -15,5 +16,6 @@ export const handler = async (event: S3CreateEvent, context: Context): Promise<S
   const downloadPath = path.join(process.env.EFS_MOUNT_PATH as string, context.awsRequestId);
 
   await antiVirus.updateDefinitions([`PrivateMirror ${mirror}`]);
+
   return antiVirus.scan(bucket, key, downloadPath);
 };

@@ -42,7 +42,7 @@ export class S3AntivirusStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const topic = new Topic(this, 'Topic', {});
+    const topic = new Topic(this, 'Topic');
     topic.addSubscription(new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string));
 
     const scanner = new Scanner(this, 'Scanner', {
