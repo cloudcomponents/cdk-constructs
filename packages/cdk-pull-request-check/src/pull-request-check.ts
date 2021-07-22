@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { BuildSpec, ComputeType, IBuildImage, LinuxBuildImage, Project, Source } from '@aws-cdk/aws-codebuild';
+import { BuildSpec, ComputeType, IBuildImage, LinuxBuildImage, Project, Source, BuildEnvironmentVariable } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import { IVpc, SubnetSelection, ISecurityGroup } from '@aws-cdk/aws-ec2';
 import { EventField, RuleTargetInput, OnEventOptions, Rule } from '@aws-cdk/aws-events';
@@ -102,6 +102,13 @@ export interface PullRequestCheckProps {
    * @default true
    */
   readonly allowAllOutbound?: boolean;
+
+  /**
+   * The environment variables that your builds can use.
+   */
+  readonly environmentVariables?: {
+      [name: string]: BuildEnvironmentVariable;
+  };
 }
 
 /**
@@ -127,6 +134,7 @@ export class PullRequestCheck extends Construct {
       subnetSelection,
       securityGroups,
       allowAllOutbound,
+      environmentVariables,
     } = props;
 
     this.pullRequestProject = new Project(this, 'PullRequestProject', {
@@ -138,6 +146,7 @@ export class PullRequestCheck extends Construct {
         buildImage,
         computeType,
         privileged,
+        environmentVariables,
       },
       buildSpec,
       role,
