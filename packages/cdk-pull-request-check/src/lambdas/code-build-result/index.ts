@@ -126,8 +126,6 @@ const getPullRequestProps = (detail: CodeBuildCloudWatchStateEvent['detail']): P
       case 'revisionId':
         revisionId = value;
         break;
-      default:
-        throw new Error(`Unknown environment variable: ${name}`);
     }
   });
 
