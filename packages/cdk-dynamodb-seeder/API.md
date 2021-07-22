@@ -105,7 +105,7 @@ new JsonFileSeeds(path: string, options?: AssetOptions)
   * **followSymlinks** (<code>[SymlinkFollowMode](#aws-cdk-core-symlinkfollowmode)</code>)  A strategy for how to handle symlinks. __*Default*__: SymlinkFollowMode.NEVER
   * **assetHash** (<code>string</code>)  Specify a custom hash for this asset. __*Default*__: based on `assetHashType`
   * **assetHashType** (<code>[AssetHashType](#aws-cdk-core-assethashtype)</code>)  Specifies the type of hash to calculate for this asset. __*Default*__: the default is `AssetHashType.SOURCE`, but if `assetHash` is explicitly specified this value defaults to `AssetHashType.CUSTOM`.
-  * **bundling** (<code>[BundlingOptions](#aws-cdk-core-bundlingoptions)</code>)  Bundle the asset by executing a command in a Docker container. __*Default*__: uploaded as-is to S3 if the asset is a regular file or a .zip file, archived into a .zip file and uploaded to S3 otherwise
+  * **bundling** (<code>[BundlingOptions](#aws-cdk-core-bundlingoptions)</code>)  Bundle the asset by executing a command in a Docker container or a custom bundling provider. __*Default*__: uploaded as-is to S3 if the asset is a regular file or a .zip file, archived into a .zip file and uploaded to S3 otherwise
   * **readers** (<code>Array<[IGrantable](#aws-cdk-aws-iam-igrantable)></code>)  A list of principals that should be able to read this asset from S3. __*Default*__: No principals that can read file asset.
   * **sourceHash** (<code>string</code>)  Custom hash to use when identifying the specific version of the asset. __*Default*__: automatically calculate source hash based on the contents of the source file or directory.
 
@@ -251,7 +251,7 @@ static fromJsonFile(path: string, options?: AssetOptions): JsonFileSeeds
   * **followSymlinks** (<code>[SymlinkFollowMode](#aws-cdk-core-symlinkfollowmode)</code>)  A strategy for how to handle symlinks. __*Default*__: SymlinkFollowMode.NEVER
   * **assetHash** (<code>string</code>)  Specify a custom hash for this asset. __*Default*__: based on `assetHashType`
   * **assetHashType** (<code>[AssetHashType](#aws-cdk-core-assethashtype)</code>)  Specifies the type of hash to calculate for this asset. __*Default*__: the default is `AssetHashType.SOURCE`, but if `assetHash` is explicitly specified this value defaults to `AssetHashType.CUSTOM`.
-  * **bundling** (<code>[BundlingOptions](#aws-cdk-core-bundlingoptions)</code>)  Bundle the asset by executing a command in a Docker container. __*Default*__: uploaded as-is to S3 if the asset is a regular file or a .zip file, archived into a .zip file and uploaded to S3 otherwise
+  * **bundling** (<code>[BundlingOptions](#aws-cdk-core-bundlingoptions)</code>)  Bundle the asset by executing a command in a Docker container or a custom bundling provider. __*Default*__: uploaded as-is to S3 if the asset is a regular file or a .zip file, archived into a .zip file and uploaded to S3 otherwise
   * **readers** (<code>Array<[IGrantable](#aws-cdk-aws-iam-igrantable)></code>)  A list of principals that should be able to read this asset from S3. __*Default*__: No principals that can read file asset.
   * **sourceHash** (<code>string</code>)  Custom hash to use when identifying the specific version of the asset. __*Default*__: automatically calculate source hash based on the contents of the source file or directory.
 

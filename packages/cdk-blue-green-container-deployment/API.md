@@ -180,7 +180,7 @@ Name | Type | Description
 
 
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IProject](#aws-cdk-aws-codebuild-iproject), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource), [IGrantable](#aws-cdk-aws-iam-igrantable), [IConnectable](#aws-cdk-aws-ec2-iconnectable)
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IProject](#aws-cdk-aws-codebuild-iproject), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource), [IGrantable](#aws-cdk-aws-iam-igrantable), [IConnectable](#aws-cdk-aws-ec2-iconnectable), [INotificationRuleSource](#aws-cdk-aws-codestarnotifications-inotificationrulesource)
 __Extends__: [PipelineProject](#aws-cdk-aws-codebuild-pipelineproject)
 
 ### Initializer

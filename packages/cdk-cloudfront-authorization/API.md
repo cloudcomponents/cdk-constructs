@@ -161,6 +161,7 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
   * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
   * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
@@ -184,6 +185,7 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
   * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
   * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
@@ -206,6 +208,7 @@ createLegacyAdditionalBehaviors(options?: Behavior): Array<Behavior>
   * **compress** (<code>boolean</code>)  If CloudFront should automatically compress some content types. __*Default*__: true
   * **defaultTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The default amount of time CloudFront will cache an object. __*Default*__: 86400 (1 day)
   * **forwardedValues** (<code>[CfnDistribution.ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **isDefaultBehavior** (<code>boolean</code>)  If this behavior is the default behavior for the distribution. __*Optional*__
   * **lambdaFunctionAssociations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  Declares associated lambda@edge functions for this distribution behaviour. __*Default*__: No lambda function associated
   * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
@@ -231,6 +234,7 @@ createLegacyDefaultBehavior(options?: Behavior): Behavior
   * **compress** (<code>boolean</code>)  If CloudFront should automatically compress some content types. __*Default*__: true
   * **defaultTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The default amount of time CloudFront will cache an object. __*Default*__: 86400 (1 day)
   * **forwardedValues** (<code>[CfnDistribution.ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **isDefaultBehavior** (<code>boolean</code>)  If this behavior is the default behavior for the distribution. __*Optional*__
   * **lambdaFunctionAssociations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  Declares associated lambda@edge functions for this distribution behaviour. __*Default*__: No lambda function associated
   * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
@@ -816,6 +820,7 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
   * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
   * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
@@ -839,6 +844,7 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
   * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
   * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
@@ -921,6 +927,7 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
   * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
   * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
@@ -944,6 +951,7 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
   * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
   * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
@@ -1026,6 +1034,7 @@ createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<st
   * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
   * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
@@ -1049,6 +1058,7 @@ createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOp
   * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
   * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
   * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
+  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
   * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
   * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior

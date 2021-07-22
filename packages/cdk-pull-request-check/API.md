@@ -39,6 +39,7 @@ new PullRequestCheck(scope: Construct, id: string, props: PullRequestCheckProps)
   * **allowAllOutbound** (<code>boolean</code>)  Whether to allow the CodeBuild to send all network traffic. __*Default*__: true
   * **buildImage** (<code>[IBuildImage](#aws-cdk-aws-codebuild-ibuildimage)</code>)  Build environment to use for the build. __*Default*__: BuildEnvironment.LinuxBuildImage.STANDARD_2_0
   * **computeType** (<code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code>)  The type of compute to use for this build. __*Default*__: taken from {@link #buildImage#defaultComputeType}
+  * **environmentVariables** (<code>Map<string, [BuildEnvironmentVariable](#aws-cdk-aws-codebuild-buildenvironmentvariable)></code>)  The environment variables that your builds can use. __*Optional*__
   * **postComment** (<code>boolean</code>)  Specifies whether comments should be written in the request. __*Default*__: true
   * **privileged** (<code>boolean</code>)  Indicates how the project builds Docker images. __*Default*__: false
   * **projectName** (<code>string</code>)  The human-visible name of this PullRequest-Project. __*Optional*__
@@ -135,6 +136,7 @@ Name | Type | Description
 **allowAllOutbound**? | <code>boolean</code> | Whether to allow the CodeBuild to send all network traffic.<br/>__*Default*__: true
 **buildImage**? | <code>[IBuildImage](#aws-cdk-aws-codebuild-ibuildimage)</code> | Build environment to use for the build.<br/>__*Default*__: BuildEnvironment.LinuxBuildImage.STANDARD_2_0
 **computeType**? | <code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code> | The type of compute to use for this build.<br/>__*Default*__: taken from {@link #buildImage#defaultComputeType}
+**environmentVariables**? | <code>Map<string, [BuildEnvironmentVariable](#aws-cdk-aws-codebuild-buildenvironmentvariable)></code> | The environment variables that your builds can use.<br/>__*Optional*__
 **postComment**? | <code>boolean</code> | Specifies whether comments should be written in the request.<br/>__*Default*__: true
 **privileged**? | <code>boolean</code> | Indicates how the project builds Docker images.<br/>__*Default*__: false
 **projectName**? | <code>string</code> | The human-visible name of this PullRequest-Project.<br/>__*Optional*__
