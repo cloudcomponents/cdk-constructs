@@ -1,7 +1,7 @@
 FROM public.ecr.aws/lambda/provided:latest
 
 ARG asset_name=layer
-ARG CLAMAV_VERSION=0.103.2-1.el7
+ARG CLAMAV_VERSION=0.103.3-1.el7
 
 USER root
 RUN mkdir -p /opt/{lib,clamav}
@@ -17,6 +17,7 @@ RUN yum-config-manager --enable epel
 # layer
 # 
 RUN yum install clamav-$CLAMAV_VERSION -y
+
 
 RUN ldd /usr/bin/clamscan | cut -d '>' -f 2 | awk '{print $1}' | grep /lib | xargs -I '{}' cp -v '{}' /opt/lib/
 RUN ldd /usr/bin/freshclam | cut -d '>' -f 2 | awk '{print $1}' | grep /lib | xargs -I '{}' cp -v '{}' /opt/lib/

@@ -107,7 +107,7 @@ export interface PullRequestCheckProps {
    * The environment variables that your builds can use.
    */
   readonly environmentVariables?: {
-      [name: string]: BuildEnvironmentVariable;
+    [name: string]: BuildEnvironmentVariable;
   };
 }
 
