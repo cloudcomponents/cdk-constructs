@@ -23,5 +23,15 @@ test('default setup: us-east-1', () => {
 
   expect(stack).toMatchCdkSnapshot({
     ignoreAssets: true,
+    propertyMatchers: {
+      Resources: {
+        originmutationProviderA4786C4E: {
+          Properties: {
+            Create: expect.any(Object),
+            Update: expect.any(Object),
+          },
+        },
+      },
+    },
   });
 });

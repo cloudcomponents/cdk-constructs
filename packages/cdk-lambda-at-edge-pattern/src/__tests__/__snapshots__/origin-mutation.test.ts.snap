@@ -188,18 +188,7 @@ Object {
         "originmutationProviderCustomResourcePolicyE087AD13",
       ],
       "Properties": Object {
-        "Create": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "{\\"service\\":\\"SSM\\",\\"action\\":\\"getParameter\\",\\"parameters\\":{\\"Name\\":\\"",
-              Object {
-                "Ref": "originmutationStringParameterFEABB344",
-              },
-              "\\"},\\"region\\":\\"us-east-1\\",\\"physicalResourceId\\":{\\"id\\":\\"1626942620734\\"}}",
-            ],
-          ],
-        },
+        "Create": Any<Object>,
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -207,18 +196,7 @@ Object {
             "Arn",
           ],
         },
-        "Update": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "{\\"service\\":\\"SSM\\",\\"action\\":\\"getParameter\\",\\"parameters\\":{\\"Name\\":\\"",
-              Object {
-                "Ref": "originmutationStringParameterFEABB344",
-              },
-              "\\"},\\"region\\":\\"us-east-1\\",\\"physicalResourceId\\":{\\"id\\":\\"1626942620734\\"}}",
-            ],
-          ],
-        },
+        "Update": Any<Object>,
       },
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
