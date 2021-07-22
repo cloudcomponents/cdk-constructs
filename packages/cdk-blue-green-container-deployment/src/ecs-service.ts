@@ -38,10 +38,11 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
       launchType = LaunchType.FARGATE,
       platformVersion = '1.4.0',
       desiredCount = 1,
-      containerPort = 80,
       prodTargetGroup,
       taskDefinition,
     } = props;
+
+    const containerPort = props.containerPort ?? taskDefinition.containerPort;
 
     const { vpc } = cluster;
 
@@ -54,7 +55,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
 
     const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::BlueGreenService', {
       codeDirectory: path.join(__dirname, 'lambdas', 'ecs-service'),
-      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      runtime: CustomResourceProviderRuntime.NODEJS_12_X,
       policyStatements: [
         {
           Effect: Effect.ALLOW,
