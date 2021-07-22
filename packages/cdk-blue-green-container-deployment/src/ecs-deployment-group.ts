@@ -81,7 +81,7 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
 
     const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::EcsDeploymentGroup', {
       codeDirectory: path.join(__dirname, 'lambdas', 'ecs-deployment-group'),
-      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      runtime: CustomResourceProviderRuntime.NODEJS_12_X,
       policyStatements: [
         {
           Effect: Effect.ALLOW,

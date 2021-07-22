@@ -38,7 +38,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
 
     const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::DummyTaskDefinition', {
       codeDirectory: path.join(__dirname, 'lambdas', 'dummy-task-definition'),
-      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      runtime: CustomResourceProviderRuntime.NODEJS_12_X,
       policyStatements: [
         {
           Effect: Effect.ALLOW,
@@ -75,6 +75,6 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
    * Adds a policy statement to the task execution IAM role.
    */
   public addToExecutionRolePolicy(statement: PolicyStatement): void {
-    this.executionRole.addToPolicy(statement);
+    this.executionRole.addToPrincipalPolicy(statement);
   }
 }
