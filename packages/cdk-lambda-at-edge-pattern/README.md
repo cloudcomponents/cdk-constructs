@@ -100,6 +100,30 @@ new cloudfront.CloudFrontWebDistribution(this, 'MyDistribution', {
  });
 ```
 
+### HttpHeaders
+```typescript
+const httpHeaders = new HttpHeaders(this, 'HttpHeaders', {
+  httpHeaders: {
+    'Content-Security-Policy':
+      "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+    'Strict-Transport-Security':
+      'max-age=31536000; includeSubdomains; preload',
+    'Referrer-Policy': 'same-origin',
+    'X-XSS-Protection': '1; mode=block',
+    'X-Frame-Options': 'DENY',
+    'X-Content-Type-Options': 'nosniff',
+    'Cache-Control': 'no-cache',
+  },
+});
+```
+
+### OriginMutation
+https://chrisschuld.com/2020/05/gatsby-hosting-on-cloudfront/
+
+```typescript
+const originMutation = new OriginMutation(stack, 'OriginMutation');
+```
+
 ## API Reference
 
 See [API.md](https://github.com/cloudcomponents/cdk-constructs/tree/master/packages/cdk-lambda-at-edge-pattern/API.md).
