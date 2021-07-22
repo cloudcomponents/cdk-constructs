@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default setup: us-east-1 1`] = `
+Object {
+  "Parameters": Any<Object>,
+  "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B": Object {
+      "DependsOn": Array [
+        "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A",
+        "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "lambda:GetFunction",
+                "lambda:UpdateFunctionCode",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "originmutationProviderA4786C4E",
+                  "Parameter.Value",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleDefaultPolicyA42C156A",
+        "Roles": Array [
+          Object {
+            "Ref": "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationServiceRoleF04EA3EE": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "OriginMutationWithConfiguration4D5BA8BC": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "Configuration": "{
+  \\"logLevel\\": \\"warn\\"
+}",
+        "FunctionName": Object {
+          "Fn::Select": Array [
+            6,
+            Object {
+              "Fn::Split": Array [
+                ":",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "originmutationProviderA4786C4E",
+                    "Parameter.Value",
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        "Region": "us-east-1",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::WithConfiguration",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "originmutationFunction689DF756": Object {
+      "DependsOn": Array [
+        "originmutationRoleB8F97561",
+      ],
+      "Properties": Object {
+        "Code": Any<Object>,
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "originmutationRoleB8F97561",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "originmutationProviderA4786C4E": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "originmutationProviderCustomResourcePolicyE087AD13",
+      ],
+      "Properties": Object {
+        "Create": Any<Object>,
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+        "Update": Any<Object>,
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "originmutationProviderCustomResourcePolicyE087AD13": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ssm:GetParameter",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ssm:us-east-1:",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter",
+                    Object {
+                      "Ref": "originmutationStringParameterFEABB344",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "originmutationProviderCustomResourcePolicyE087AD13",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "originmutationRoleB8F97561": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Array [
+                  "edgelambda.amazonaws.com",
+                  "lambda.amazonaws.com",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "originmutationStringParameterFEABB344": Object {
+      "Properties": Object {
+        "Description": "Parameter stored for cross region Lambda@Edge",
+        "Name": "/cloudcomponents/edge-lambda/Dummy/origin-mutation/c83d99d8def072b82738c0d40222a792527c17f94d",
+        "Type": "String",
+        "Value": Object {
+          "Fn::GetAtt": Array [
+            "originmutationFunction689DF756",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SSM::Parameter",
+    },
+  },
+}
+`;
