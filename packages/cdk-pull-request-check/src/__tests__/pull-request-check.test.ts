@@ -23,7 +23,9 @@ test('default setup', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('custom setup', (): void => {
@@ -44,7 +46,9 @@ test('custom setup', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('privileged', (): void => {
@@ -64,7 +68,9 @@ test('privileged', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('custom projectName', (): void => {
@@ -84,7 +90,9 @@ test('custom projectName', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('events', (): void => {
@@ -110,7 +118,9 @@ test('events', (): void => {
   prCheck.onCheckFailed('failed', { target: new SnsTopic(topic) });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('randomizer', (): void => {
@@ -135,5 +145,7 @@ test('randomizer', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
