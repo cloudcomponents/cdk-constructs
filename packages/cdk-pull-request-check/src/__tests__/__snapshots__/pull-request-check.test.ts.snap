@@ -2,20 +2,7 @@
 
 exports[`custom projectName 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807ArtifactHashDDF11205": Object {
-      "Description": "Artifact hash for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764": Object {
-      "Description": "S3 bucket for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33": Object {
-      "Description": "S3 key for asset version \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -23,44 +10,7 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -467,20 +417,7 @@ Object {
 
 exports[`custom setup 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807ArtifactHashDDF11205": Object {
-      "Description": "Artifact hash for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764": Object {
-      "Description": "S3 bucket for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33": Object {
-      "Description": "S3 key for asset version \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -488,44 +425,7 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -945,20 +845,7 @@ Object {
 
 exports[`default setup 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807ArtifactHashDDF11205": Object {
-      "Description": "Artifact hash for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764": Object {
-      "Description": "S3 bucket for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33": Object {
-      "Description": "S3 key for asset version \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -966,44 +853,7 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -1423,20 +1273,7 @@ Object {
 
 exports[`events 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807ArtifactHashDDF11205": Object {
-      "Description": "Artifact hash for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764": Object {
-      "Description": "S3 bucket for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33": Object {
-      "Description": "S3 key for asset version \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -1444,44 +1281,7 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -2025,20 +1825,7 @@ Object {
 
 exports[`privileged 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807ArtifactHashDDF11205": Object {
-      "Description": "Artifact hash for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764": Object {
-      "Description": "S3 bucket for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33": Object {
-      "Description": "S3 key for asset version \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -2046,44 +1833,7 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -2503,20 +2253,7 @@ Object {
 
 exports[`randomizer 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807ArtifactHashDDF11205": Object {
-      "Description": "Artifact hash for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764": Object {
-      "Description": "S3 bucket for asset \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-    "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33": Object {
-      "Description": "S3 key for asset version \\"d0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807\\"",
-      "Type": "String",
-    },
-  },
+  "Parameters": Any<Object>,
   "Resources": Object {
     "PullRequestCheck1CodeBuildResultFunction92561847": Object {
       "DependsOn": Array [
@@ -2524,44 +2261,7 @@ Object {
         "PullRequestCheck1CodeBuildResultFunctionServiceRole56BD8BE4",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -2906,44 +2606,7 @@ Object {
         "PullRequestCheck2CodeBuildResultFunctionServiceRole5CE92E16",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3Bucket9CCF0764",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersd0d8212dbc617007c48e720a38c4685b77b69e024fcd7f357b3719ac23c11807S3VersionKey657C8A33",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
+        "Code": Any<Object>,
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
