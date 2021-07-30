@@ -16,6 +16,7 @@ interface HandlerReturn {
 export interface BlueGreenServiceProps {
   cluster: string;
   serviceName: string;
+  containerName: string;
   taskDefinition: string;
   launchType: string;
   platformVersion: string;
@@ -25,6 +26,8 @@ export interface BlueGreenServiceProps {
   targetGroupArn: string;
   containerPort: number;
   schedulingStrategy: string;
+  healthCheckGracePeriodSeconds: number;
+  deploymentConfiguration: ECS.DeploymentConfiguration;
 }
 
 const ecs = new ECS();
@@ -32,6 +35,7 @@ const ecs = new ECS();
 const getProperties = (props: CloudFormationCustomResourceEvent['ResourceProperties']): BlueGreenServiceProps => ({
   cluster: props.Cluster,
   serviceName: props.ServiceName,
+  containerName: props.ContainerName,
   taskDefinition: props.TaskDefinition,
   launchType: props.LaunchType,
   platformVersion: props.PlatformVersion,
@@ -41,12 +45,15 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   targetGroupArn: props.TargetGroupArn,
   containerPort: props.ContainerPort,
   schedulingStrategy: props.SchedulingStrategy,
+  healthCheckGracePeriodSeconds: props.HealthCheckGracePeriodSeconds,
+  deploymentConfiguration: JSON.parse(props.DeploymentConfiguration),
 });
 
 const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
   const {
     cluster,
     serviceName,
+    containerName,
     taskDefinition,
     launchType,
     platformVersion,
@@ -56,6 +63,8 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
     targetGroupArn,
     containerPort,
     schedulingStrategy,
+    healthCheckGracePeriodSeconds,
+    deploymentConfiguration,
   } = getProperties(event.ResourceProperties);
 
   const { service } = await ecs
@@ -76,11 +85,13 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
           securityGroups,
         },
       },
+      deploymentConfiguration,
+      healthCheckGracePeriodSeconds,
       loadBalancers: [
         {
           targetGroupArn: targetGroupArn,
           containerPort,
-          containerName: 'sample-website',
+          containerName,
         },
       ],
     })
@@ -105,13 +116,15 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
  * For more information, see CreateDeployment in the AWS CodeDeploy API Reference.
  */
 const onUpdate = async (event: CloudFormationCustomResourceUpdateEvent): Promise<HandlerReturn> => {
-  const { cluster, serviceName, desiredCount } = getProperties(event.ResourceProperties);
+  const { cluster, serviceName, desiredCount, deploymentConfiguration, healthCheckGracePeriodSeconds } = getProperties(event.ResourceProperties);
 
   const { service } = await ecs
     .updateService({
       service: serviceName,
       cluster,
       desiredCount,
+      deploymentConfiguration,
+      healthCheckGracePeriodSeconds,
     })
     .promise();
 

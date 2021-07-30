@@ -10,12 +10,34 @@ export interface IDummyTaskDefinition {
   readonly family: string;
 
   readonly taskDefinitionArn: string;
+
+  readonly containerName: string;
+
+  readonly containerPort: number;
 }
 export interface DummyTaskDefinitionProps {
+  /**
+   * The name of a family that this task definition is registered to. A family groups multiple versions of a task definition.
+   *
+   * @default - Automatically generated name.
+   */
   readonly family?: string;
 
+  /**
+   * The image used to start a container.
+   */
   readonly image: string;
 
+  /**
+   * The name of the container.
+   *
+   * @default `sample-website`
+   */
+  readonly containerName?: string;
+
+  /**
+   * @default 80
+   */
   readonly containerPort?: number;
 }
 
@@ -25,6 +47,8 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
   public readonly family: string;
 
   public readonly taskDefinitionArn: string;
+
+  public readonly containerName: string;
 
   public readonly containerPort: number;
 
@@ -53,8 +77,9 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
       ],
     });
 
-    this.family = props.family || this.node.addr;
-    this.containerPort = props.containerPort || 80;
+    this.family = props.family ?? this.node.addr;
+    this.containerName = props.containerName ?? 'sample-website';
+    this.containerPort = props.containerPort ?? 80;
 
     const taskDefinition = new CustomResource(this, 'CustomResource', {
       serviceToken,
@@ -64,6 +89,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
         Image: props.image,
         ExecutionRoleArn: this.executionRole.roleArn,
         NetworkMode: NetworkMode.AWS_VPC,
+        ContainerName: this.containerName,
         ContainerPort: this.containerPort,
       },
     });

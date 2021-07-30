@@ -57,9 +57,10 @@ new DummyTaskDefinition(scope: Construct, id: string, props: DummyTaskDefinition
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[DummyTaskDefinitionProps](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinitionprops)</code>)  *No description*
-  * **image** (<code>string</code>)  *No description* 
-  * **containerPort** (<code>number</code>)  *No description* __*Optional*__
-  * **family** (<code>string</code>)  *No description* __*Optional*__
+  * **image** (<code>string</code>)  The image used to start a container. 
+  * **containerName** (<code>string</code>)  The name of the container. __*Default*__: `sample-website`
+  * **containerPort** (<code>number</code>)  *No description* __*Default*__: 80
+  * **family** (<code>string</code>)  The name of a family that this task definition is registered to. __*Default*__: Automatically generated name.
 
 
 
@@ -68,6 +69,7 @@ new DummyTaskDefinition(scope: Construct, id: string, props: DummyTaskDefinition
 
 Name | Type | Description 
 -----|------|-------------
+**containerName** | <code>string</code> | <span></span>
 **containerPort** | <code>number</code> | <span></span>
 **executionRole** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
 **family** | <code>string</code> | <span></span>
@@ -157,9 +159,13 @@ new EcsService(scope: Construct, id: string, props: EcsServiceProps)
   * **prodTargetGroup** (<code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code>)  *No description* 
   * **serviceName** (<code>string</code>)  *No description* 
   * **taskDefinition** (<code>[DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)</code>)  *No description* 
+  * **circuitBreaker** (<code>[DeploymentCircuitBreaker](#aws-cdk-aws-ecs-deploymentcircuitbreaker)</code>)  Whether to enable the deployment circuit breaker. __*Default*__: disabled
   * **containerPort** (<code>number</code>)  *No description* __*Optional*__
   * **desiredCount** (<code>number</code>)  *No description* __*Optional*__
+  * **healthCheckGracePeriod** (<code>[Duration](#aws-cdk-core-duration)</code>)  The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy Elastic Load Balancing target health checks after a task has first started. __*Default*__: defaults to 60 seconds if at least one load balancer is in-use and it is not already set
   * **launchType** (<code>[LaunchType](#aws-cdk-aws-ecs-launchtype)</code>)  *No description* __*Optional*__
+  * **maxHealthyPercent** (<code>number</code>)  The maximum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that can run in a service during a deployment. __*Default*__: 100 if daemon, otherwise 200
+  * **minHealthyPercent** (<code>number</code>)  The minimum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that must continue to run and remain healthy during a deployment. __*Default*__: 0 if daemon, otherwise 50
   * **platformVersion** (<code>string</code>)  *No description* __*Optional*__
   * **securityGroups** (<code>Array<[SecurityGroup](#aws-cdk-aws-ec2-securitygroup)></code>)  *No description* __*Optional*__
 
@@ -215,9 +221,10 @@ new PushImageProject(scope: Construct, id: string, props: PushImageProjectProps)
 
 Name | Type | Description 
 -----|------|-------------
-**image** | <code>string</code> | <span></span>
-**containerPort**? | <code>number</code> | __*Optional*__
-**family**? | <code>string</code> | __*Optional*__
+**image** | <code>string</code> | The image used to start a container.
+**containerName**? | <code>string</code> | The name of the container.<br/>__*Default*__: `sample-website`
+**containerPort**? | <code>number</code> | __*Default*__: 80
+**family**? | <code>string</code> | The name of a family that this task definition is registered to.<br/>__*Default*__: Automatically generated name.
 
 
 
@@ -255,9 +262,13 @@ Name | Type | Description
 **prodTargetGroup** | <code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code> | <span></span>
 **serviceName** | <code>string</code> | <span></span>
 **taskDefinition** | <code>[DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)</code> | <span></span>
+**circuitBreaker**? | <code>[DeploymentCircuitBreaker](#aws-cdk-aws-ecs-deploymentcircuitbreaker)</code> | Whether to enable the deployment circuit breaker.<br/>__*Default*__: disabled
 **containerPort**? | <code>number</code> | __*Optional*__
 **desiredCount**? | <code>number</code> | __*Optional*__
+**healthCheckGracePeriod**? | <code>[Duration](#aws-cdk-core-duration)</code> | The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy Elastic Load Balancing target health checks after a task has first started.<br/>__*Default*__: defaults to 60 seconds if at least one load balancer is in-use and it is not already set
 **launchType**? | <code>[LaunchType](#aws-cdk-aws-ecs-launchtype)</code> | __*Optional*__
+**maxHealthyPercent**? | <code>number</code> | The maximum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that can run in a service during a deployment.<br/>__*Default*__: 100 if daemon, otherwise 200
+**minHealthyPercent**? | <code>number</code> | The minimum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that must continue to run and remain healthy during a deployment.<br/>__*Default*__: 0 if daemon, otherwise 50
 **platformVersion**? | <code>string</code> | __*Optional*__
 **securityGroups**? | <code>Array<[SecurityGroup](#aws-cdk-aws-ec2-securitygroup)></code> | __*Optional*__
 
@@ -274,6 +285,8 @@ __Implemented by__: [DummyTaskDefinition](#cloudcomponents-cdk-blue-green-contai
 
 Name | Type | Description 
 -----|------|-------------
+**containerName** | <code>string</code> | <span></span>
+**containerPort** | <code>number</code> | <span></span>
 **executionRole** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
 **family** | <code>string</code> | <span></span>
 **taskDefinitionArn** | <code>string</code> | <span></span>
