@@ -177,7 +177,7 @@ new EcsService(scope: Construct, id: string, props: EcsServiceProps)
 Name | Type | Description 
 -----|------|-------------
 **clusterName** | <code>string</code> | <span></span>
-**connections** | <code>[Connections](#aws-cdk-aws-ec2-connections)</code> | <span></span>
+**connections** | <code>[Connections](#aws-cdk-aws-ec2-connections)</code> | The network connections associated with this resource.
 **serviceName** | <code>string</code> | <span></span>
 
 
