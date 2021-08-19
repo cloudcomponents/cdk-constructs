@@ -26,6 +26,8 @@ export interface EcsDeploymentGroupProps {
   testTrafficListenerArn: string;
   terminationWaitTimeInMinutes: number;
   autoRollbackOnEvents?: RollbackEvent[];
+  existsDeploymentConfigName?: string;
+  createDeploymentConfigInput?: CodeDeploy.CreateDeploymentConfigInput
 }
 
 const codeDeploy = new CodeDeploy();
@@ -45,6 +47,8 @@ const getProperties = (
   testTrafficListenerArn: props.TestTrafficListenerArn,
   terminationWaitTimeInMinutes: props.TerminationWaitTimeInMinutes,
   autoRollbackOnEvents: props.AutoRollbackOnEvents,
+  existsDeploymentConfigName: props.ExistsDeploymentConfigName,
+  createDeploymentConfigInput: JSON.parse(props.CreateDeploymentConfigInput),
 });
 
 const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
@@ -58,7 +62,15 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
     testTrafficListenerArn,
     terminationWaitTimeInMinutes,
     autoRollbackOnEvents,
+    existsDeploymentConfigName,
+    createDeploymentConfigInput,
   } = getProperties(event.ResourceProperties);
+
+  if (!existsDeploymentConfigName && createDeploymentConfigInput) {
+    await codeDeploy
+      .createDeploymentConfig(createDeploymentConfigInput)
+      .promise();
+  }
 
   await codeDeploy
     .createDeploymentGroup({
@@ -98,6 +110,7 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
         deploymentType: 'BLUE_GREEN',
         deploymentOption: 'WITH_TRAFFIC_CONTROL',
       },
+      deploymentConfigName: existsDeploymentConfigName ?? createDeploymentConfigInput?.deploymentConfigName,
     })
     .promise();
 
@@ -153,7 +166,7 @@ const onUpdate = async (event: CloudFormationCustomResourceUpdateEvent): Promise
 };
 
 const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise<void> => {
-  const { applicationName, deploymentGroupName } = getProperties(event.ResourceProperties);
+  const { applicationName, deploymentGroupName, existsDeploymentConfigName, createDeploymentConfigInput } = getProperties(event.ResourceProperties);
 
   await codeDeploy
     .deleteDeploymentGroup({
@@ -161,6 +174,14 @@ const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise
       deploymentGroupName,
     })
     .promise();
+
+  if (!existsDeploymentConfigName && createDeploymentConfigInput) {
+    await codeDeploy
+        .deleteDeploymentConfig({
+          deploymentConfigName: createDeploymentConfigInput?.deploymentConfigName
+        })
+        .promise();
+  }      
 };
 
 export const handler = async (event: CloudFormationCustomResourceEvent): Promise<HandlerReturn | void> => {
