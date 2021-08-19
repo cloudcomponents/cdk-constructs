@@ -1,6 +1,6 @@
 [![cloudcomponents Logo](https://raw.githubusercontent.com/cloudcomponents/cdk-constructs/master/logo.png)](https://github.com/cloudcomponents/cdk-constructs)
 
-# @cloudcomponents/cdk-blue-green-container-deployment 
+# @cloudcomponents/cdk-blue-green-container-deployment
 
 [![Build Status](https://github.com/cloudcomponents/cdk-constructs/workflows/Build/badge.svg)](https://github.com/cloudcomponents/cdk-constructs/actions?query=workflow=Build)
 [![cdkdx](https://img.shields.io/badge/buildtool-cdkdx-blue.svg)](https://github.com/hupe1980/cdkdx)
@@ -11,6 +11,7 @@
 > Blue green container deployment with CodeDeploy
 
 ## Install
+
 TypeScript/JavaScript:
 
 ```bash
@@ -26,97 +27,97 @@ pip install cloudcomponents.cdk-blue-green-container-deployment
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { Vpc, Port } from '@aws-cdk/aws-ec2';
-import { Cluster } from '@aws-cdk/aws-ecs';
+import { Construct, Stack, StackProps } from "@aws-cdk/core";
+import { Repository } from "@aws-cdk/aws-codecommit";
+import { Pipeline, Artifact } from "@aws-cdk/aws-codepipeline";
+import { Vpc, Port } from "@aws-cdk/aws-ec2";
+import { Cluster } from "@aws-cdk/aws-ecs";
 import {
   ApplicationLoadBalancer,
   ApplicationTargetGroup,
   TargetType,
-} from '@aws-cdk/aws-elasticloadbalancingv2';
+} from "@aws-cdk/aws-elasticloadbalancingv2";
 import {
   CodeBuildAction,
   CodeCommitSourceAction,
   CodeDeployEcsDeployAction,
-} from '@aws-cdk/aws-codepipeline-actions';
+} from "@aws-cdk/aws-codepipeline-actions";
 
-import { ImageRepository } from '@cloudcomponents/cdk-container-registry';
+import { ImageRepository } from "@cloudcomponents/cdk-container-registry";
 import {
   EcsService,
   DummyTaskDefinition,
   EcsDeploymentGroup,
   PushImageProject,
-} from '@cloudcomponents/cdk-blue-green-container-deployment';
+} from "@cloudcomponents/cdk-blue-green-container-deployment";
 
 export class BlueGreenContainerDeploymentStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const vpc = new Vpc(this, 'Vpc', {
+    const vpc = new Vpc(this, "Vpc", {
       maxAzs: 2,
     });
 
-    const cluster = new Cluster(this, 'Cluster', {
+    const cluster = new Cluster(this, "Cluster", {
       vpc,
-      clusterName: 'blue-green-cluster',
+      clusterName: "blue-green-cluster",
     });
 
-    const loadBalancer = new ApplicationLoadBalancer(this, 'LoadBalancer', {
+    const loadBalancer = new ApplicationLoadBalancer(this, "LoadBalancer", {
       vpc,
       internetFacing: true,
     });
 
-    const prodListener = loadBalancer.addListener('ProfListener', {
+    const prodListener = loadBalancer.addListener("ProfListener", {
       port: 80,
     });
 
-    const testListener = loadBalancer.addListener('TestListener', {
+    const testListener = loadBalancer.addListener("TestListener", {
       port: 8080,
     });
 
     const prodTargetGroup = new ApplicationTargetGroup(
       this,
-      'ProdTargetGroup',
+      "ProdTargetGroup",
       {
         port: 80,
         targetType: TargetType.IP,
         vpc,
-      },
+      }
     );
 
-    prodListener.addTargetGroups('AddProdTg', {
+    prodListener.addTargetGroups("AddProdTg", {
       targetGroups: [prodTargetGroup],
     });
 
     const testTargetGroup = new ApplicationTargetGroup(
       this,
-      'TestTargetGroup',
+      "TestTargetGroup",
       {
         port: 8080,
         targetType: TargetType.IP,
         vpc,
-      },
+      }
     );
 
-    testListener.addTargetGroups('AddTestTg', {
+    testListener.addTargetGroups("AddTestTg", {
       targetGroups: [testTargetGroup],
     });
 
     // Will be replaced by CodeDeploy in CodePipeline
     const taskDefinition = new DummyTaskDefinition(
       this,
-      'DummyTaskDefinition',
+      "DummyTaskDefinition",
       {
-        image: 'nginx',
-        family: 'blue-green',
-      },
+        image: "nginx",
+        family: "blue-green",
+      }
     );
 
-    const ecsService = new EcsService(this, 'EcsService', {
+    const ecsService = new EcsService(this, "EcsService", {
       cluster,
-      serviceName: 'blue-green-service',
+      serviceName: "blue-green-service",
       desiredCount: 2,
       taskDefinition,
       prodTargetGroup,
@@ -125,9 +126,9 @@ export class BlueGreenContainerDeploymentStack extends Stack {
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(80));
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(8080));
 
-    const deploymentGroup = new EcsDeploymentGroup(this, 'DeploymentGroup', {
-      applicationName: 'blue-green-application',
-      deploymentGroupName: 'blue-green-deployment-group',
+    const deploymentGroup = new EcsDeploymentGroup(this, "DeploymentGroup", {
+      applicationName: "blue-green-application",
+      deploymentGroupName: "blue-green-deployment-group",
       ecsServices: [ecsService],
       targetGroupNames: [
         prodTargetGroup.targetGroupName,
@@ -136,66 +137,78 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
       terminationWaitTimeInMinutes: 100,
+      autoRollbackOnEvents: [RollbackEvent.DEPLOYMENT_FAILURE],
+      createDeploymentConfigInput: {
+        computePlatform: "ECS",
+        deploymentConfigName: "Canary20Percent5Minute",
+        trafficRoutingConfig: {
+          type: "TimeBasedCanary",
+          timeBasedCanary: {
+            canaryInterval: 5,
+            canaryPercentage: 20,
+          },
+        },
+      },
     });
 
     // @see https://github.com/cloudcomponents/cdk-constructs/tree/master/examples/blue-green-container-deployment-example/blue-green-repository
-    const repository = new Repository(this, 'CodeRepository', {
-      repositoryName: 'blue-green-repository',
+    const repository = new Repository(this, "CodeRepository", {
+      repositoryName: "blue-green-repository",
     });
 
-    const imageRepository = new ImageRepository(this, 'ImageRepository', {
+    const imageRepository = new ImageRepository(this, "ImageRepository", {
       forceDelete: true, //Only for tests
     });
 
     const sourceArtifact = new Artifact();
 
     const sourceAction = new CodeCommitSourceAction({
-      actionName: 'CodeCommit',
+      actionName: "CodeCommit",
       repository,
       output: sourceArtifact,
     });
 
-    const imageArtifact = new Artifact('ImageArtifact');
-    const manifestArtifact = new Artifact('ManifestArtifact');
+    const imageArtifact = new Artifact("ImageArtifact");
+    const manifestArtifact = new Artifact("ManifestArtifact");
 
-    const pushImageProject = new PushImageProject(this, 'PushImageProject', {
+    const pushImageProject = new PushImageProject(this, "PushImageProject", {
       imageRepository,
       taskDefinition,
     });
 
     const buildAction = new CodeBuildAction({
-      actionName: 'PushImage',
+      actionName: "PushImage",
       project: pushImageProject,
       input: sourceArtifact,
       outputs: [imageArtifact, manifestArtifact],
     });
 
     const deployAction = new CodeDeployEcsDeployAction({
-      actionName: 'CodeDeploy',
+      actionName: "CodeDeploy",
       taskDefinitionTemplateInput: manifestArtifact,
       appSpecTemplateInput: manifestArtifact,
       containerImageInputs: [
         {
           input: imageArtifact,
-          taskDefinitionPlaceholder: 'IMAGE1_NAME',
+          taskDefinitionPlaceholder: "IMAGE1_NAME",
         },
       ],
       deploymentGroup,
     });
 
-    new Pipeline(this, 'Pipeline', {
-      pipelineName: 'blue-green-pipeline',
+    new Pipeline(this, "Pipeline", {
+      pipelineName: "blue-green-pipeline",
       stages: [
         {
-          stageName: 'Source',
+          stageName: "Source",
           actions: [sourceAction],
         },
         {
-          stageName: 'Build',
+          stageName: "Build",
           actions: [buildAction],
         },
         {
-          stageName: 'Deploy',
+          stageName: "Deploy",
           actions: [deployAction],
         },
       ],
