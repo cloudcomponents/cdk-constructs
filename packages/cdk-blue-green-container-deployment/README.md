@@ -136,6 +136,17 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
       terminationWaitTimeInMinutes: 100,
+      createDeploymentConfigInput: {
+        computePlatform: "ECS",
+        deploymentConfigName: "Canary20Percent5Minute",
+        trafficRoutingConfig: {
+          type: "TimeBasedCanary",
+          timeBasedCanary: {
+            canaryInterval: 5,
+            canaryPercentage: 20,
+          },
+        },
+      },
     });
 
     // @see https://github.com/cloudcomponents/cdk-constructs/tree/master/examples/blue-green-container-deployment-example/blue-green-repository
