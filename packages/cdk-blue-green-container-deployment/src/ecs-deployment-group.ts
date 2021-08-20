@@ -1,5 +1,12 @@
 import * as path from 'path';
-import { EcsApplication, IEcsDeploymentGroup, IEcsApplication, IEcsDeploymentConfig, EcsDeploymentConfig, CfnDeploymentConfigProps } from '@aws-cdk/aws-codedeploy';
+import {
+  EcsApplication,
+  IEcsDeploymentGroup,
+  IEcsApplication,
+  IEcsDeploymentConfig,
+  EcsDeploymentConfig,
+  CfnDeploymentConfigProps,
+} from '@aws-cdk/aws-codedeploy';
 import { Role, ServicePrincipal, ManagedPolicy, Effect } from '@aws-cdk/aws-iam';
 import { Aws, Construct, Resource, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
 

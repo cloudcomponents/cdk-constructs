@@ -27,7 +27,7 @@ export interface EcsDeploymentGroupProps {
   terminationWaitTimeInMinutes: number;
   autoRollbackOnEvents?: RollbackEvent[];
   existsDeploymentConfigName?: string;
-  createDeploymentConfigInput?: CodeDeploy.CreateDeploymentConfigInput
+  createDeploymentConfigInput?: CodeDeploy.CreateDeploymentConfigInput;
 }
 
 const codeDeploy = new CodeDeploy();
@@ -67,9 +67,7 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
   } = getProperties(event.ResourceProperties);
 
   if (!existsDeploymentConfigName && createDeploymentConfigInput) {
-    await codeDeploy
-      .createDeploymentConfig(createDeploymentConfigInput)
-      .promise();
+    await codeDeploy.createDeploymentConfig(createDeploymentConfigInput).promise();
   }
 
   await codeDeploy
@@ -177,11 +175,11 @@ const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise
 
   if (!existsDeploymentConfigName && createDeploymentConfigInput) {
     await codeDeploy
-        .deleteDeploymentConfig({
-          deploymentConfigName: createDeploymentConfigInput?.deploymentConfigName
-        })
-        .promise();
-  }      
+      .deleteDeploymentConfig({
+        deploymentConfigName: createDeploymentConfigInput?.deploymentConfigName,
+      })
+      .promise();
+  }
 };
 
 export const handler = async (event: CloudFormationCustomResourceEvent): Promise<HandlerReturn | void> => {
