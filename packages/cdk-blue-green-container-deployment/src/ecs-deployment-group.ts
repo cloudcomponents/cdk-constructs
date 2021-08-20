@@ -95,7 +95,13 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
       policyStatements: [
         {
           Effect: Effect.ALLOW,
-          Action: ['codeDeploy:CreateDeploymentGroup', 'codeDeploy:UpdateDeploymentGroup', 'codeDeploy:DeleteDeploymentGroup'],
+          Action: [
+            'codeDeploy:CreateDeploymentGroup',
+            'codeDeploy:UpdateDeploymentGroup',
+            'codeDeploy:DeleteDeploymentGroup',
+            'codedeploy:CreateDeploymentConfig',
+            'codedeploy:DeleteDeploymentConfig',
+          ],
           Resource: '*',
         },
         {

@@ -48,7 +48,7 @@ const getProperties = (
   terminationWaitTimeInMinutes: props.TerminationWaitTimeInMinutes,
   autoRollbackOnEvents: props.AutoRollbackOnEvents,
   existsDeploymentConfigName: props.ExistsDeploymentConfigName,
-  createDeploymentConfigInput: JSON.parse(props.CreateDeploymentConfigInput),
+  createDeploymentConfigInput: props.CreateDeploymentConfigInput,
 });
 
 const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
