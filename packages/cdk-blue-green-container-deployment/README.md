@@ -125,6 +125,21 @@ export class BlueGreenContainerDeploymentStack extends Stack {
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(80));
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(8080));
 
+    const ecsDeploymentConfiguration = new EcsDeploymentConfiguration(
+      this,
+      'DeploymentConfig',
+      {
+        deploymentConfigName: 'Canary20Percent5Minute',
+        trafficRoutingConfig: {
+          type: 'TimeBasedCanary',
+          timeBasedCanary: {
+            canaryInterval: 5,
+            canaryPercentage: 20,
+          },
+        },
+      }
+    );
+
     const deploymentGroup = new EcsDeploymentGroup(this, 'DeploymentGroup', {
       applicationName: 'blue-green-application',
       deploymentGroupName: 'blue-green-deployment-group',
@@ -136,18 +151,10 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
       terminationWaitTimeInMinutes: 100,
-      createDeploymentConfigInput: {
-        computePlatform: "ECS",
-        deploymentConfigName: "Canary20Percent5Minute",
-        trafficRoutingConfig: {
-          type: "TimeBasedCanary",
-          timeBasedCanary: {
-            canaryInterval: 5,
-            canaryPercentage: 20,
-          },
-        },
-      },
+      deploymentConfig: ecsDeploymentConfiguration.deploymentConfig,
     });
+
+    deploymentGroup.node.addDependency(ecsDeploymentConfiguration);
 
     // @see https://github.com/cloudcomponents/cdk-constructs/tree/master/examples/blue-green-container-deployment-example/blue-green-repository
     const repository = new Repository(this, 'CodeRepository', {
