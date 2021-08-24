@@ -151,7 +151,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
       terminationWaitTimeInMinutes: 100,
-      deploymentConfig: ecsDeploymentConfiguration.deploymentConfig,
+      deploymentConfig: ecsDeploymentConfiguration,
     });
 
     deploymentGroup.node.addDependency(ecsDeploymentConfiguration);
