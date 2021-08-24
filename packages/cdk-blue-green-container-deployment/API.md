@@ -5,6 +5,7 @@
 Name|Description
 ----|-----------
 [DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)|*No description*
+[EcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig)|*No description*
 [EcsDeploymentGroup](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroup)|*No description*
 [EcsService](#cloudcomponents-cdk-blue-green-container-deployment-ecsservice)|*No description*
 [PushImageProject](#cloudcomponents-cdk-blue-green-container-deployment-pushimageproject)|*No description*
@@ -15,6 +16,7 @@ Name|Description
 Name|Description
 ----|-----------
 [DummyTaskDefinitionProps](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinitionprops)|*No description*
+[EcsDeploymentConfigurationProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfigurationprops)|*No description*
 [EcsDeploymentGroupProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroupprops)|*No description*
 [EcsServiceProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsserviceprops)|*No description*
 [PushImageProjectProps](#cloudcomponents-cdk-blue-green-container-deployment-pushimageprojectprops)|*No description*
@@ -26,6 +28,8 @@ Name|Description
 Name|Description
 ----|-----------
 [IDummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-idummytaskdefinition)|*No description*
+[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)|*No description*
+[IEcsDeploymentGroup](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentgroup)|Interface for an ECS deployment group.
 [IEcsService](#cloudcomponents-cdk-blue-green-container-deployment-iecsservice)|*No description*
 
 
@@ -93,11 +97,69 @@ addToExecutionRolePolicy(statement: PolicyStatement): void
 
 
 
+## class EcsDeploymentConfig  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig"></a>
+
+
+
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)
+__Extends__: [Resource](#aws-cdk-core-resource)
+
+### Initializer
+
+
+
+
+```ts
+new EcsDeploymentConfig(scope: Construct, id: string, props: EcsDeploymentConfigurationProps)
+```
+
+* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
+* **id** (<code>string</code>)  *No description*
+* **props** (<code>[EcsDeploymentConfigurationProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfigurationprops)</code>)  *No description*
+  * **deploymentConfigName** (<code>string</code>)  `AWS::CodeDeploy::DeploymentConfig.DeploymentConfigName`. __*Optional*__
+  * **minimumHealthyHosts** (<code>[CfnDeploymentConfig.MinimumHealthyHostsProperty](#aws-cdk-aws-codedeploy-cfndeploymentconfig-minimumhealthyhostsproperty) &#124; [IResolvable](#aws-cdk-core-iresolvable)</code>)  `AWS::CodeDeploy::DeploymentConfig.MinimumHealthyHosts`. __*Optional*__
+  * **trafficRoutingConfig** (<code>[IResolvable](#aws-cdk-core-iresolvable) &#124; [CfnDeploymentConfig.TrafficRoutingConfigProperty](#aws-cdk-aws-codedeploy-cfndeploymentconfig-trafficroutingconfigproperty)</code>)  `AWS::CodeDeploy::DeploymentConfig.TrafficRoutingConfig`. __*Optional*__
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**deploymentConfigArn** | <code>string</code> | <span></span>
+**deploymentConfigName** | <code>string</code> | <span></span>
+*static* **ALL_AT_ONCE** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
+*static* **CANARY_10PERCENT_15MINUTES** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
+*static* **CANARY_10PERCENT_5MINUTES** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
+*static* **LINEAR_10PERCENT_EVERY_1MINUTE** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
+*static* **LINEAR_10PERCENT_EVERY_3MINUTES** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
+
+### Methods
+
+
+#### *static* fromEcsDeploymentConfigName(_scope, _id, ecsDeploymentConfigName) <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig-fromecsdeploymentconfigname"></a>
+
+Import a custom Deployment Configuration for an ECS Deployment Group defined outside the CDK.
+
+```ts
+static fromEcsDeploymentConfigName(_scope: Construct, _id: string, ecsDeploymentConfigName: string): IEcsDeploymentConfig
+```
+
+* **_scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  the parent Construct for this new Construct.
+* **_id** (<code>string</code>)  the logical ID of this new Construct.
+* **ecsDeploymentConfigName** (<code>string</code>)  the name of the referenced custom Deployment Configuration.
+
+__Returns__:
+* <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code>
+
+
+
 ## class EcsDeploymentGroup  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroup"></a>
 
 
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IEcsDeploymentGroup](#aws-cdk-aws-codedeploy-iecsdeploymentgroup), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IEcsDeploymentGroup](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentgroup), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
 __Extends__: [Resource](#aws-cdk-core-resource)
 
 ### Initializer
@@ -119,7 +181,7 @@ new EcsDeploymentGroup(scope: Construct, id: string, props: EcsDeploymentGroupPr
   * **testTrafficListener** (<code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code>)  *No description* 
   * **applicationName** (<code>string</code>)  *No description* __*Optional*__
   * **autoRollbackOnEvents** (<code>Array<[RollbackEvent](#cloudcomponents-cdk-blue-green-container-deployment-rollbackevent)></code>)  The event type or types that trigger a rollback. __*Optional*__
-  * **deploymentConfig** (<code>[IEcsDeploymentConfig](#aws-cdk-aws-codedeploy-iecsdeploymentconfig)</code>)  *No description* __*Optional*__
+  * **deploymentConfig** (<code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code>)  *No description* __*Optional*__
   * **terminationWaitTimeInMinutes** (<code>number</code>)  the number of minutes before deleting the original (blue) task set. __*Default*__: 60
 
 
@@ -130,7 +192,7 @@ new EcsDeploymentGroup(scope: Construct, id: string, props: EcsDeploymentGroupPr
 Name | Type | Description 
 -----|------|-------------
 **application** | <code>[IEcsApplication](#aws-cdk-aws-codedeploy-iecsapplication)</code> | The reference to the CodeDeploy ECS Application that this Deployment Group belongs to.
-**deploymentConfig** | <code>[IEcsDeploymentConfig](#aws-cdk-aws-codedeploy-iecsdeploymentconfig)</code> | The Deployment Configuration this Group uses.
+**deploymentConfig** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | The Deployment Configuration this Group uses.
 **deploymentGroupArn** | <code>string</code> | The ARN of this Deployment Group.
 **deploymentGroupName** | <code>string</code> | The physical name of the CodeDeploy Deployment Group.
 
@@ -228,6 +290,21 @@ Name | Type | Description
 
 
 
+## struct EcsDeploymentConfigurationProps  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfigurationprops"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**deploymentConfigName**? | <code>string</code> | `AWS::CodeDeploy::DeploymentConfig.DeploymentConfigName`.<br/>__*Optional*__
+**minimumHealthyHosts**? | <code>[CfnDeploymentConfig.MinimumHealthyHostsProperty](#aws-cdk-aws-codedeploy-cfndeploymentconfig-minimumhealthyhostsproperty) &#124; [IResolvable](#aws-cdk-core-iresolvable)</code> | `AWS::CodeDeploy::DeploymentConfig.MinimumHealthyHosts`.<br/>__*Optional*__
+**trafficRoutingConfig**? | <code>[IResolvable](#aws-cdk-core-iresolvable) &#124; [CfnDeploymentConfig.TrafficRoutingConfigProperty](#aws-cdk-aws-codedeploy-cfndeploymentconfig-trafficroutingconfigproperty)</code> | `AWS::CodeDeploy::DeploymentConfig.TrafficRoutingConfig`.<br/>__*Optional*__
+
+
+
 ## struct EcsDeploymentGroupProps  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroupprops"></a>
 
 
@@ -244,7 +321,7 @@ Name | Type | Description
 **testTrafficListener** | <code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code> | <span></span>
 **applicationName**? | <code>string</code> | __*Optional*__
 **autoRollbackOnEvents**? | <code>Array<[RollbackEvent](#cloudcomponents-cdk-blue-green-container-deployment-rollbackevent)></code> | The event type or types that trigger a rollback.<br/>__*Optional*__
-**deploymentConfig**? | <code>[IEcsDeploymentConfig](#aws-cdk-aws-codedeploy-iecsdeploymentconfig)</code> | __*Optional*__
+**deploymentConfig**? | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | __*Optional*__
 **terminationWaitTimeInMinutes**? | <code>number</code> | the number of minutes before deleting the original (blue) task set.<br/>__*Default*__: 60
 
 
@@ -290,6 +367,44 @@ Name | Type | Description
 **executionRole** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
 **family** | <code>string</code> | <span></span>
 **taskDefinitionArn** | <code>string</code> | <span></span>
+
+
+
+## interface IEcsDeploymentConfig  <a id="cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig"></a>
+
+__Implemented by__: [EcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig)
+__Obtainable from__: [EcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig).[fromEcsDeploymentConfigName](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig-fromecsdeploymentconfigname)()
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**deploymentConfigArn** | <code>string</code> | <span></span>
+**deploymentConfigName** | <code>string</code> | <span></span>
+
+
+
+## interface IEcsDeploymentGroup  <a id="cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentgroup"></a>
+
+__Implemented by__: [EcsDeploymentGroup](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroup)
+
+Interface for an ECS deployment group.
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**application** | <code>[IEcsApplication](#aws-cdk-aws-codedeploy-iecsapplication)</code> | The reference to the CodeDeploy ECS Application that this Deployment Group belongs to.
+**deploymentConfig** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | The Deployment Configuration this Group uses.
+**deploymentGroupArn** | <code>string</code> | The ARN of this Deployment Group.
+**deploymentGroupName** | <code>string</code> | The physical name of the CodeDeploy Deployment Group.
+**env** | <code>[ResourceEnvironment](#aws-cdk-core-resourceenvironment)</code> | The environment this resource belongs to.
+**node** | <code>[ConstructNode](#aws-cdk-core-constructnode)</code> | The construct tree node for this construct.
+**stack** | <code>[Stack](#aws-cdk-core-stack)</code> | The stack in which this resource is defined.
 
 
 

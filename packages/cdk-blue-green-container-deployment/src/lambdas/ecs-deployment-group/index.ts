@@ -101,7 +101,7 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
         deploymentType: 'BLUE_GREEN',
         deploymentOption: 'WITH_TRAFFIC_CONTROL',
       },
-      deploymentConfigName: deploymentConfigName ?? 'CodeDeployDefault.OneAtATime',
+      deploymentConfigName: deploymentConfigName ?? 'CodeDeployDefault.ECSAllAtOnce',
     })
     .promise();
 
@@ -148,6 +148,7 @@ const onUpdate = async (event: CloudFormationCustomResourceUpdateEvent): Promise
           actionOnTimeout: 'CONTINUE_DEPLOYMENT',
         },
       },
+      deploymentConfigName: newProps.deploymentConfigName,
     })
     .promise();
 

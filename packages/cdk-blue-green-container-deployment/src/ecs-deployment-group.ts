@@ -1,8 +1,9 @@
 import * as path from 'path';
-import { EcsApplication, IEcsDeploymentGroup, IEcsApplication, IEcsDeploymentConfig, EcsDeploymentConfig } from '@aws-cdk/aws-codedeploy';
+import { EcsApplication, IEcsApplication } from '@aws-cdk/aws-codedeploy';
 import { Role, ServicePrincipal, ManagedPolicy, Effect } from '@aws-cdk/aws-iam';
-import { Aws, Construct, Resource, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
+import { Aws, Construct, Resource, IResource, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
 
+import { EcsDeploymentConfig, IEcsDeploymentConfig } from './ecs-deployment-config';
 import { IEcsService } from './ecs-service';
 
 export interface TrafficListener {
@@ -11,6 +12,31 @@ export interface TrafficListener {
    * @attribute
    */
   readonly listenerArn: string;
+}
+
+/**
+ * Interface for an ECS deployment group.
+ */
+export interface IEcsDeploymentGroup extends IResource {
+  /**
+   * The reference to the CodeDeploy ECS Application that this Deployment Group belongs to.
+   */
+  readonly application: IEcsApplication;
+
+  /**
+   * The physical name of the CodeDeploy Deployment Group.
+   */
+  readonly deploymentGroupName: string;
+
+  /**
+   * The ARN of this Deployment Group.
+   */
+  readonly deploymentGroupArn: string;
+
+  /**
+   * The Deployment Configuration this Group uses.
+   */
+  readonly deploymentConfig: IEcsDeploymentConfig;
 }
 
 export interface EcsDeploymentGroupProps {
@@ -96,6 +122,8 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
       ],
     });
 
+    this.deploymentConfig = deploymentConfig || EcsDeploymentConfig.ALL_AT_ONCE;
+
     const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
       serviceToken,
       resourceType: 'Custom::EcsDeploymentGroup',
@@ -112,13 +140,12 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
         TestTrafficListenerArn: testTrafficListener.listenerArn,
         TerminationWaitTimeInMinutes: terminationWaitTimeInMinutes,
         AutoRollbackOnEvents: autoRollbackOnEvents,
-        DeploymentConfigName: deploymentConfig?.deploymentConfigName,
+        DeploymentConfigName: this.deploymentConfig.deploymentConfigName,
       },
     });
 
     this.deploymentGroupName = ecsDeploymentGroup.ref;
     this.deploymentGroupArn = this.arnForDeploymentGroup(this.application.applicationName, this.deploymentGroupName);
-    this.deploymentConfig = deploymentConfig || EcsDeploymentConfig.ALL_AT_ONCE;
   }
 
   private arnForDeploymentGroup(applicationName: string, deploymentGroupName: string): string {
