@@ -1,6 +1,6 @@
 import { IEcsDeploymentConfig, CfnDeploymentConfig } from '@aws-cdk/aws-codedeploy';
 
-import { Aws, Construct, IResolvable } from '@aws-cdk/core';
+import { Aws, Construct, IResolvable, Resource } from '@aws-cdk/core';
 
 export interface EcsDeploymentConfigurationProps {
   /**
@@ -26,8 +26,9 @@ export interface EcsDeploymentConfigurationProps {
   readonly trafficRoutingConfig?: CfnDeploymentConfig.TrafficRoutingConfigProperty | IResolvable;
 }
 
-export class EcsDeploymentConfiguration extends Construct {
-  readonly deploymentConfig: IEcsDeploymentConfig;
+export class EcsDeploymentConfiguration extends Resource implements IEcsDeploymentConfig {
+  readonly deploymentConfigName: string;
+  readonly deploymentConfigArn: string;
 
   constructor(scope: Construct, id: string, props: EcsDeploymentConfigurationProps) {
     super(scope, id);
@@ -39,10 +40,8 @@ export class EcsDeploymentConfiguration extends Construct {
 
     const deployConfigurationName = props.deploymentConfigName ?? cfnDeploymentConfig.ref;
 
-    this.deploymentConfig = {
-      deploymentConfigName: deployConfigurationName,
-      deploymentConfigArn: this.arnForDeploymentConfig(deployConfigurationName),
-    };
+    this.deploymentConfigName = deployConfigurationName;
+    this.deploymentConfigArn = this.arnForDeploymentConfig(deployConfigurationName);
   }
 
   private arnForDeploymentConfig(deploymentConfigurationName: string): string {
