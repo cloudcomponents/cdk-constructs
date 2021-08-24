@@ -5,7 +5,7 @@ import { Aws, Construct } from '@aws-cdk/core';
 type EcsDeploymentConfigurationProps = Omit<CfnDeploymentConfigProps, 'computePlatform'>;
 
 export class EcsDeploymentConfiguration extends Construct {
-  readonly ecsDeploymentConfig: IEcsDeploymentConfig;
+  readonly deploymentConfig: IEcsDeploymentConfig;
 
   constructor(scope: Construct, id: string, props: EcsDeploymentConfigurationProps) {
     super(scope, id);
@@ -17,7 +17,7 @@ export class EcsDeploymentConfiguration extends Construct {
 
     const deployConfigurationName = props.deploymentConfigName ?? cfnDeploymentConfig.ref;
 
-    this.ecsDeploymentConfig = {
+    this.deploymentConfig = {
       deploymentConfigName: deployConfigurationName,
       deploymentConfigArn: this.arnForDeploymentConfig(deployConfigurationName),
     };
