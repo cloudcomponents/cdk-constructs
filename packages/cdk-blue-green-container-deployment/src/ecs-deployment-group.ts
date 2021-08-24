@@ -1,12 +1,5 @@
 import * as path from 'path';
-import {
-  EcsApplication,
-  IEcsDeploymentGroup,
-  IEcsApplication,
-  IEcsDeploymentConfig,
-  EcsDeploymentConfig,
-  CfnDeploymentConfigProps,
-} from '@aws-cdk/aws-codedeploy';
+import { EcsApplication, IEcsDeploymentGroup, IEcsApplication, IEcsDeploymentConfig, EcsDeploymentConfig } from '@aws-cdk/aws-codedeploy';
 import { Role, ServicePrincipal, ManagedPolicy, Effect } from '@aws-cdk/aws-iam';
 import { Aws, Construct, Resource, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
 
@@ -50,8 +43,6 @@ export interface EcsDeploymentGroupProps {
    * The event type or types that trigger a rollback.
    */
   readonly autoRollbackOnEvents?: RollbackEvent[];
-
-  readonly createDeploymentConfigInput?: CfnDeploymentConfigProps;
 }
 
 export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup {
@@ -73,7 +64,6 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
       testTrafficListener,
       terminationWaitTimeInMinutes = 60,
       autoRollbackOnEvents,
-      createDeploymentConfigInput,
     } = props;
 
     if (terminationWaitTimeInMinutes > 2880) {
@@ -128,8 +118,7 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
         TestTrafficListenerArn: testTrafficListener.listenerArn,
         TerminationWaitTimeInMinutes: terminationWaitTimeInMinutes,
         AutoRollbackOnEvents: autoRollbackOnEvents,
-        ExistsDeploymentConfigName: deploymentConfig?.deploymentConfigName,
-        CreateDeploymentConfigInput: createDeploymentConfigInput,
+        DeploymentConfigName: deploymentConfig?.deploymentConfigName,
       },
     });
 
