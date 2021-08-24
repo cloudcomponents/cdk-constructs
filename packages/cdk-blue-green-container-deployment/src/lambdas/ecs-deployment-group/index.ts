@@ -26,6 +26,7 @@ export interface EcsDeploymentGroupProps {
   testTrafficListenerArn: string;
   terminationWaitTimeInMinutes: number;
   autoRollbackOnEvents?: RollbackEvent[];
+  deploymentConfigName?: string;
 }
 
 const codeDeploy = new CodeDeploy();
@@ -45,6 +46,7 @@ const getProperties = (
   testTrafficListenerArn: props.TestTrafficListenerArn,
   terminationWaitTimeInMinutes: props.TerminationWaitTimeInMinutes,
   autoRollbackOnEvents: props.AutoRollbackOnEvents,
+  deploymentConfigName: props.DeploymentConfigName,
 });
 
 const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
@@ -58,6 +60,7 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
     testTrafficListenerArn,
     terminationWaitTimeInMinutes,
     autoRollbackOnEvents,
+    deploymentConfigName,
   } = getProperties(event.ResourceProperties);
 
   await codeDeploy
@@ -98,6 +101,7 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
         deploymentType: 'BLUE_GREEN',
         deploymentOption: 'WITH_TRAFFIC_CONTROL',
       },
+      deploymentConfigName: deploymentConfigName ?? 'CodeDeployDefault.OneAtATime',
     })
     .promise();
 

@@ -112,6 +112,7 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
         TestTrafficListenerArn: testTrafficListener.listenerArn,
         TerminationWaitTimeInMinutes: terminationWaitTimeInMinutes,
         AutoRollbackOnEvents: autoRollbackOnEvents,
+        DeploymentConfigName: deploymentConfig?.deploymentConfigName,
       },
     });
 
