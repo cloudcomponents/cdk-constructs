@@ -2,7 +2,7 @@ import { IEcsDeploymentConfig, CfnDeploymentConfigProps, CfnDeploymentConfig } f
 
 import { Aws, Construct } from '@aws-cdk/core';
 
-type EcsDeploymentConfigurationProps = Omit<CfnDeploymentConfigProps, 'computePlatform'>;
+export type EcsDeploymentConfigurationProps = Omit<CfnDeploymentConfigProps, 'computePlatform'>;
 
 export class EcsDeploymentConfiguration extends Construct {
   readonly deploymentConfig: IEcsDeploymentConfig;
