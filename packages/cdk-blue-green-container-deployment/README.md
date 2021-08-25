@@ -46,6 +46,7 @@ import { ImageRepository } from '@cloudcomponents/cdk-container-registry';
 import {
   EcsService,
   DummyTaskDefinition,
+  EcsDeploymentConfig,
   EcsDeploymentGroup,
   PushImageProject,
 } from '@cloudcomponents/cdk-blue-green-container-deployment';
@@ -125,7 +126,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(80));
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(8080));
 
-    const ecsDeploymentConfiguration = new EcsDeploymentConfiguration(
+    const deploymentConfig = new EcsDeploymentConfig(
       this,
       'DeploymentConfig',
       {
@@ -151,10 +152,10 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
       terminationWaitTimeInMinutes: 100,
-      deploymentConfig: ecsDeploymentConfiguration,
+      deploymentConfig,
     });
 
-    deploymentGroup.node.addDependency(ecsDeploymentConfiguration);
+    deploymentGroup.node.addDependency(deploymentConfig);
 
     // @see https://github.com/cloudcomponents/cdk-constructs/tree/master/examples/blue-green-container-deployment-example/blue-green-repository
     const repository = new Repository(this, 'CodeRepository', {
