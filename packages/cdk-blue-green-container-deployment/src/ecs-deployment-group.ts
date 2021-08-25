@@ -124,6 +124,10 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
 
     this.deploymentConfig = deploymentConfig || EcsDeploymentConfig.ALL_AT_ONCE;
 
+    if (Construct.isConstruct(props.deploymentConfig)) {
+      this.node.addDependency(props.deploymentConfig);
+    }
+
     const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
       serviceToken,
       resourceType: 'Custom::EcsDeploymentGroup',
