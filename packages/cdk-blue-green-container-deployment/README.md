@@ -152,7 +152,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
       terminationWaitTimeInMinutes: 100,
-      deploymentConfig, // If you want to use default DeploymentConfig name, use static method which like "EcsDeploymentConfig.CANARY_10PERCENT_15MINUTES".
+      deploymentConfig, // If you want to use default DeploymentConfig name, use static method as "EcsDeploymentConfig.CANARY_10PERCENT_15MINUTES".
     });
 
     // @see https://github.com/cloudcomponents/cdk-constructs/tree/master/examples/blue-green-container-deployment-example/blue-green-repository
