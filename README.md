@@ -40,6 +40,7 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 | [cdk-secret-key](/packages/cdk-secret-key) | Provide secret keys to lambdas     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-secret-key) |
 | [cdk-responsive-email-template](/packages/cdk-responsive-email-template) | Responsive email template for aws ses     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-responsive-email-template) |
 | [cdk-s3-antivirus](/packages/cdk-s3-antivirus) | Antivirus for Amazon S3     | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-s3-antivirus) |
+| [cdk-wordpress](/packages/cdk-wordpress) | CDK Construct to deploy wordpress    | ![npm](https://img.shields.io/npm/dm/@cloudcomponents/cdk-wordpress) |
 ## Contributing
 
 We welcome community contributions and pull requests.
