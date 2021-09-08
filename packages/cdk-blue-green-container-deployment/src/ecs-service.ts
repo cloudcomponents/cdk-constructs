@@ -81,13 +81,13 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
     const { vpc } = cluster;
 
     const securityGroups = props.securityGroups || [
-      new SecurityGroup(this, 'SecurityGroup', {
+      new SecurityGroup(this, `SecurityGroup-${id}`, {
         description: `Security group for ${this.node.id} service`,
         vpc,
       }),
     ];
 
-    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::BlueGreenService', {
+    const serviceToken = CustomResourceProvider.getOrCreate(this, `Custom::BlueGreenService-${id}`, {
       codeDirectory: path.join(__dirname, 'lambdas', 'ecs-service'),
       runtime: CustomResourceProviderRuntime.NODEJS_12_X,
       policyStatements: [
@@ -104,7 +104,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
       ],
     });
 
-    const service = new CustomResource(this, 'CustomResource', {
+    const service = new CustomResource(this, `CustomResource-${id}`, {
       serviceToken,
       resourceType: 'Custom::BlueGreenService',
       properties: {

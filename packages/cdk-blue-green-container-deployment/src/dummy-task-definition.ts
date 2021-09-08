@@ -55,12 +55,12 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
   constructor(scope: Construct, id: string, props: DummyTaskDefinitionProps) {
     super(scope, id);
 
-    this.executionRole = new Role(this, 'ExecutionRole', {
+    this.executionRole = new Role(this, `ExecutionRole-${id}`, {
       assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),
       managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
     });
 
-    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::DummyTaskDefinition', {
+    const serviceToken = CustomResourceProvider.getOrCreate(this, `Custom::DummyTaskDef-${id}`, {
       codeDirectory: path.join(__dirname, 'lambdas', 'dummy-task-definition'),
       runtime: CustomResourceProviderRuntime.NODEJS_12_X,
       policyStatements: [
@@ -81,7 +81,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
     this.containerName = props.containerName ?? 'sample-website';
     this.containerPort = props.containerPort ?? 80;
 
-    const taskDefinition = new CustomResource(this, 'CustomResource', {
+    const taskDefinition = new CustomResource(this, `CustomResource-${id}`, {
       serviceToken,
       resourceType: 'Custom::DummyTaskDefinition',
       properties: {
