@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { BuildSpec, ComputeType, IBuildImage, LinuxBuildImage, Project, Source, BuildEnvironmentVariable } from '@aws-cdk/aws-codebuild';
+import { BuildSpec, ComputeType, IBuildImage, LinuxBuildImage, Project, Source, BuildEnvironmentVariable, IArtifacts } from '@aws-cdk/aws-codebuild';
 import { IRepository } from '@aws-cdk/aws-codecommit';
 import { IVpc, SubnetSelection, ISecurityGroup } from '@aws-cdk/aws-ec2';
 import { EventField, RuleTargetInput, OnEventOptions, Rule } from '@aws-cdk/aws-events';
@@ -109,6 +109,15 @@ export interface PullRequestCheckProps {
   readonly environmentVariables?: {
     [name: string]: BuildEnvironmentVariable;
   };
+
+  /**
+   * Defines where build artifacts will be stored.
+   *
+   * Could be: PipelineBuildArtifacts, NoArtifacts and S3Artifacts.
+   *
+   * @default NoArtifacts
+   */
+  readonly artifacts?: IArtifacts;
 }
 
 /**
@@ -135,6 +144,7 @@ export class PullRequestCheck extends Construct {
       securityGroups,
       allowAllOutbound,
       environmentVariables,
+      artifacts
     } = props;
 
     this.pullRequestProject = new Project(this, 'PullRequestProject', {
@@ -154,6 +164,7 @@ export class PullRequestCheck extends Construct {
       subnetSelection,
       securityGroups,
       allowAllOutbound,
+      artifacts
     });
 
     if (updateApprovalState || postComment) {
