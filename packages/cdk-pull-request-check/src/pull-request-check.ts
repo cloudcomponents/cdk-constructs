@@ -144,7 +144,7 @@ export class PullRequestCheck extends Construct {
       securityGroups,
       allowAllOutbound,
       environmentVariables,
-      artifacts
+      artifacts,
     } = props;
 
     this.pullRequestProject = new Project(this, 'PullRequestProject', {
@@ -164,7 +164,7 @@ export class PullRequestCheck extends Construct {
       subnetSelection,
       securityGroups,
       allowAllOutbound,
-      artifacts
+      artifacts,
     });
 
     if (updateApprovalState || postComment) {
