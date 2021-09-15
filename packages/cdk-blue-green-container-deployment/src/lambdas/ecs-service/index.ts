@@ -46,7 +46,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   containerPort: props.ContainerPort,
   schedulingStrategy: props.SchedulingStrategy,
   healthCheckGracePeriodSeconds: props.HealthCheckGracePeriodSeconds,
-  deploymentConfiguration: JSON.parse(props.DeploymentConfiguration),
+  deploymentConfiguration: props.DeploymentConfiguration,
 });
 
 const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
