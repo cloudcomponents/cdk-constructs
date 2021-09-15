@@ -37,6 +37,7 @@ new PullRequestCheck(scope: Construct, id: string, props: PullRequestCheckProps)
   * **buildSpec** (<code>[BuildSpec](#aws-cdk-aws-codebuild-buildspec)</code>)  Filename or contents of buildspec in JSON format. 
   * **repository** (<code>[IRepository](#aws-cdk-aws-codecommit-irepository)</code>)  The CodeCommit repository. 
   * **allowAllOutbound** (<code>boolean</code>)  Whether to allow the CodeBuild to send all network traffic. __*Default*__: true
+  * **artifacts** (<code>[IArtifacts](#aws-cdk-aws-codebuild-iartifacts)</code>)  Defines where build artifacts will be stored. __*Default*__: NoArtifacts
   * **buildImage** (<code>[IBuildImage](#aws-cdk-aws-codebuild-ibuildimage)</code>)  Build environment to use for the build. __*Default*__: BuildEnvironment.LinuxBuildImage.STANDARD_2_0
   * **computeType** (<code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code>)  The type of compute to use for this build. __*Default*__: taken from {@link #buildImage#defaultComputeType}
   * **environmentVariables** (<code>Map<string, [BuildEnvironmentVariable](#aws-cdk-aws-codebuild-buildenvironmentvariable)></code>)  The environment variables that your builds can use. __*Optional*__
@@ -134,6 +135,7 @@ Name | Type | Description
 **buildSpec** | <code>[BuildSpec](#aws-cdk-aws-codebuild-buildspec)</code> | Filename or contents of buildspec in JSON format.
 **repository** | <code>[IRepository](#aws-cdk-aws-codecommit-irepository)</code> | The CodeCommit repository.
 **allowAllOutbound**? | <code>boolean</code> | Whether to allow the CodeBuild to send all network traffic.<br/>__*Default*__: true
+**artifacts**? | <code>[IArtifacts](#aws-cdk-aws-codebuild-iartifacts)</code> | Defines where build artifacts will be stored.<br/>__*Default*__: NoArtifacts
 **buildImage**? | <code>[IBuildImage](#aws-cdk-aws-codebuild-ibuildimage)</code> | Build environment to use for the build.<br/>__*Default*__: BuildEnvironment.LinuxBuildImage.STANDARD_2_0
 **computeType**? | <code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code> | The type of compute to use for this build.<br/>__*Default*__: taken from {@link #buildImage#defaultComputeType}
 **environmentVariables**? | <code>Map<string, [BuildEnvironmentVariable](#aws-cdk-aws-codebuild-buildenvironmentvariable)></code> | The environment variables that your builds can use.<br/>__*Optional*__
