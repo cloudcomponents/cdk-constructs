@@ -45,5 +45,7 @@ test('default setup', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });

@@ -42,7 +42,9 @@ test('default setup', (): void => {
     ],
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('with regExp', (): void => {
@@ -82,7 +84,9 @@ test('with regExp', (): void => {
     ],
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });
 
 test('multiple', (): void => {
@@ -124,5 +128,7 @@ test('multiple', (): void => {
     ],
   });
 
-  expect(stack).toMatchCdkSnapshot();
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
 });

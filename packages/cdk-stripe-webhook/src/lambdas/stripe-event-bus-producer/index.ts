@@ -1,11 +1,12 @@
 import { SecretKey } from '@cloudcomponents/lambda-utils';
 import type { APIGatewayProxyHandler } from 'aws-lambda';
 import { EventBridge } from 'aws-sdk';
+import { getEnv } from 'get-env-or-die';
 import Stripe from 'stripe';
 
 const eventBridge = new EventBridge();
-const endpointSecretKey = new SecretKey(process.env.ENDPOINT_SECRET_STRING as string, { configuration: { maxRetries: 5 } });
-const apiSecretKey = new SecretKey(process.env.SECRET_KEY_STRING as string, { configuration: { maxRetries: 5 } });
+const endpointSecretKey = new SecretKey(getEnv('ENDPOINT_SECRET_STRING'), { configuration: { maxRetries: 5 } });
+const apiSecretKey = new SecretKey(getEnv('SECRET_KEY_STRING'), { configuration: { maxRetries: 5 } });
 
 export const handler: APIGatewayProxyHandler = async (event) => {
   try {
@@ -32,7 +33,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         {
           Detail: JSON.stringify(details),
           DetailType: type,
-          EventBusName: process.env.EVENT_BUS_NAME ?? 'default',
+          EventBusName: getEnv('EVENT_BUS_NAME', 'default'),
           Resources: [],
           Source: process.env.SOURCE,
         },
@@ -45,7 +46,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       statusCode: 200,
       body: 'Success',
     };
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     console.error(error);
 
     if (error.type === 'StripeSignatureVerificationError') {

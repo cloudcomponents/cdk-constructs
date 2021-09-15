@@ -40,15 +40,27 @@ export class SlackApprovalAction extends Action {
   }
 
   protected bound(scope: Construct, stage: IStage, options: ActionBindOptions): ActionConfig {
-    const environment = {
+    const environment: Record<string, string> = {
       SLACK_BOT_TOKEN: this.props.slackBotToken,
       SLACK_SIGNING_SECRET: this.props.slackSigningSecret,
-      SLACK_CHANNEL: this.props.slackChannel as string,
-      SLACK_CHANNEL_ID: this.props.slackChannelId as string,
       SLACK_CHANNEL_TYPES: (this.props.slackChannelTypes || [ChannelTypes.PUBLIC]).join(','),
-      SLACK_BOT_NAME: this.props.slackBotName || 'buildbot',
-      SLACK_BOT_ICON: this.props.slackBotIcon || ':robot_face:',
     };
+
+    if (this.props.slackChannel) {
+      environment.SLACK_CHANNEL = this.props.slackChannel;
+    }
+
+    if (this.props.slackChannelId) {
+      environment.SLACK_CHANNEL_ID = this.props.slackChannelId;
+    }
+
+    if (this.props.slackBotName) {
+      environment.SLACK_BOT_NAME = this.props.slackBotName;
+    }
+
+    if (this.props.slackBotIcon) {
+      environment.SLACK_BOT_ICON = this.props.slackBotIcon;
+    }
 
     const approvalRequester = new Function(scope, 'SlackApprovalRequesterFunction', {
       runtime: Runtime.NODEJS_10_X,

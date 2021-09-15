@@ -49,7 +49,8 @@ export const handler: CloudFormationCustomResourceHandler = async (event) => {
         DomainName: domainName,
       },
     };
-  } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
     response = {
       LogicalResourceId,
       PhysicalResourceId: physicalResourceId || `failed-to-create-${Date.now()}`,

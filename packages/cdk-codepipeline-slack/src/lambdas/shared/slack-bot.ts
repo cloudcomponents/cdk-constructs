@@ -7,8 +7,8 @@ export interface SlackBotProps {
   channelName: string;
   channelId?: string;
   channelTypes: string;
-  name?: string;
-  icon?: string;
+  name: string;
+  icon: string;
 }
 
 interface Channel {
@@ -39,8 +39,8 @@ export class SlackBot {
       this.channelId = channelId;
     }
     this.channelTypes = channelTypes;
-    this.name = name || 'Pipeline Bot';
-    this.icon = icon || ':robot_face:';
+    this.name = name;
+    this.icon = icon;
     // this.messageCache = {};
   }
 
