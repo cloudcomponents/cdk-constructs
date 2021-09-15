@@ -203,7 +203,6 @@ export class PullRequestCheck extends Construct {
       new CodeBuildProject(this.pullRequestProject, {
         event: RuleTargetInput.fromObject({
           sourceVersion: EventField.fromPath('$.detail.sourceCommit'),
-          artifactsOverride: { type: 'NO_ARTIFACTS' },
           environmentVariablesOverride: [
             {
               name: 'pullRequestId',
