@@ -67,8 +67,7 @@ export class AntiVirus {
         status: ScanStatus.CLEAN,
         message: result.stdout,
       };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error) {
       if (error.exitCode === 1) {
         await this.updateScanStatus(bucket, key, ScanStatus.INFECTED);
 

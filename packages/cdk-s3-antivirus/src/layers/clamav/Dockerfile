@@ -1,7 +1,7 @@
-FROM public.ecr.aws/lambda/provided:al2.2021.09.13.11
+FROM public.ecr.aws/lambda/provided:latest
 
 ARG asset_name=layer
-ARG CLAMAV_VERSION=0.103.3-5.el7
+ARG CLAMAV_VERSION=0.103.3-1.el7
 
 USER root
 RUN mkdir -p /opt/{lib,clamav}

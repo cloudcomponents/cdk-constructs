@@ -53,8 +53,7 @@ export const handler = async (event: CodePipelineEvent): Promise<void> => {
     }
 
     await putJobSuccess(jobId, logParameter ? JSON.stringify(parameter) : 'Logging is off');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
     await putJobFailure(jobId, `Function exception: ${error.message as string}`);
   }

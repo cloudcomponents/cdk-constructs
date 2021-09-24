@@ -1,6 +1,5 @@
 import type { CodePipelineEvent } from 'aws-lambda';
 import { CodeCommit, CodePipeline, STS } from 'aws-sdk';
-import { getEnv } from 'get-env-or-die';
 
 // default session
 const codePipeline = new CodePipeline();
@@ -12,7 +11,7 @@ export const handler = async (event: CodePipelineEvent): Promise<string> => {
   try {
     const { repositoryName, sourceCommitSpecifier, destinationCommitSpecifier } = getUserParams(jobData);
 
-    const codeCommitRoleArn = getEnv('CODE_COMMIT_ROLE_ARN', '');
+    const codeCommitRoleArn = process.env.CODE_COMMIT_ROLE_ARN;
 
     const codeCommit = await (async () => {
       if (!codeCommitRoleArn) {
@@ -46,8 +45,7 @@ export const handler = async (event: CodePipelineEvent): Promise<string> => {
       .promise();
 
     await putJobSuccess(jobId, commitId);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
     await putJobFailure(jobId, `Function exception: ${error.message}`);
   }

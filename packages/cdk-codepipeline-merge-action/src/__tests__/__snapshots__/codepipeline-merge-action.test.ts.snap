@@ -2,7 +2,20 @@
 
 exports[`default setup 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "AssetParameters3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4eeArtifactHash13736D08": Object {
+      "Description": "Artifact hash for asset \\"3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4ee\\"",
+      "Type": "String",
+    },
+    "AssetParameters3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4eeS3BucketE88BC6AC": Object {
+      "Description": "S3 bucket for asset \\"3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4ee\\"",
+      "Type": "String",
+    },
+    "AssetParameters3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4eeS3VersionKey70C273E0": Object {
+      "Description": "S3 key for asset version \\"3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4ee\\"",
+      "Type": "String",
+    },
+  },
   "Resources": Object {
     "PipelineArtifactsBucket22248F97": Object {
       "DeletionPolicy": "Retain",
@@ -373,7 +386,44 @@ Object {
         "PipelineMergeMergeBranchesFunctionServiceRole6C0E2853",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4eeS3BucketE88BC6AC",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4eeS3VersionKey70C273E0",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters3ae958565a64c514a103975dd9e45bdf8f6a5b99a69abf26520fda1bedf8d4eeS3VersionKey70C273E0",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [

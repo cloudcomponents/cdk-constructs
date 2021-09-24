@@ -1,15 +1,14 @@
 import type { CodeBuildCloudWatchStateEvent } from 'aws-lambda';
 import { CodeCommit } from 'aws-sdk';
-import { getBoolEnv } from 'get-env-or-die';
 
 const codeCommit = new CodeCommit();
 
 export const handler = async (event: CodeBuildCloudWatchStateEvent): Promise<void> => {
   const { region, detail } = event;
 
-  const shouldUpdateApprovalState = getBoolEnv('UPDATE_APPROVAL_STATE', false);
+  const shouldUpdateApprovalState = process.env.UPDATE_APPROVAL_STATE === 'TRUE';
 
-  const shouldPostComment = getBoolEnv('POST_COMMENT', false);
+  const shouldPostComment = process.env.POST_COMMENT === 'TRUE';
 
   const { pullRequestId, revisionId, repositoryName, beforeCommitId, afterCommitId } = getPullRequestProps(detail);
 
