@@ -120,7 +120,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
         TargetGroupArn: prodTargetGroup.targetGroupArn,
         ContainerPort: containerPort,
         SchedulingStrategy: SchedulingStrategy.REPLICA,
-        HealthCheckGracePeriod: healthCheckGracePeriod.toSeconds(),
+        HealthCheckGracePeriodSeconds: healthCheckGracePeriod.toSeconds(),
         DeploymentConfiguration: {
           maximumPercent: props.maxHealthyPercent ?? 200,
           minimumHealthyPercent: props.minHealthyPercent ?? 50,
