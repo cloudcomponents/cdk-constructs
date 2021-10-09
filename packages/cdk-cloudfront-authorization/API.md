@@ -216,6 +216,7 @@ createLegacyAdditionalBehaviors(options?: Behavior): Array<Behavior>
   * **pathPattern** (<code>string</code>)  The path this behavior responds to. __*Optional*__
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **trustedSigners** (<code>Array<string></code>)  Trusted signers is how CloudFront allows you to serve private content. __*Optional*__
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The viewer policy for this behavior. __*Default*__: the distribution wide viewer protocol policy will be used
 
 __Returns__:
 * <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
@@ -242,6 +243,7 @@ createLegacyDefaultBehavior(options?: Behavior): Behavior
   * **pathPattern** (<code>string</code>)  The path this behavior responds to. __*Optional*__
   * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
   * **trustedSigners** (<code>Array<string></code>)  Trusted signers is how CloudFront allows you to serve private content. __*Optional*__
+  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The viewer policy for this behavior. __*Default*__: the distribution wide viewer protocol policy will be used
 
 __Returns__:
 * <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>

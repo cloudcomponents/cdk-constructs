@@ -59,7 +59,8 @@ export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFront
 
     if (CONFIG.clientSecret) {
       const encodedSecret = Buffer.from(`${CONFIG.clientId}:${CONFIG.clientSecret}`).toString('base64');
-      requestConfig.headers.Authorization = `Basic ${encodedSecret}`;
+      //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      requestConfig.headers!.Authorization = `Basic ${encodedSecret}`;
     }
 
     CONFIG.logger.debug('HTTP POST to Cognito token endpoint:\n', {
@@ -68,7 +69,11 @@ export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFront
       requestConfig,
     });
 
-    const { status, headers, data: tokens } = await httpPostWithRetry<{
+    const {
+      status,
+      headers,
+      data: tokens,
+    } = await httpPostWithRetry<{
       id_token: string;
       access_token: string;
       refresh_token: string;
@@ -107,7 +112,7 @@ export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFront
 
     return response;
   } catch (err) {
-    CONFIG.logger.error(err.stack || err);
+    CONFIG.logger.error(err instanceof Error ? err.stack : err);
 
     if (idToken) {
       // There is an ID token - maybe the user signed in already (e.g. in another browser tab)
@@ -139,7 +144,7 @@ export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFront
 
         return response;
       } catch (err) {
-        CONFIG.logger.debug('ID token not valid:', err.toString());
+        CONFIG.logger.debug('ID token not valid:', err instanceof Error ? err.toString() : err);
       }
     }
     let htmlParams: Parameters<typeof createErrorHtml>[0];
@@ -158,7 +163,7 @@ export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFront
         title: 'Sign-in issue',
         message: "We can't sign you in because of a",
         expandText: 'technical problem',
-        details: err.toString(),
+        details: err instanceof Error ? err.toString() : 'Error',
         linkUri: redirectedFromUri,
         linkText: 'Try again',
       };

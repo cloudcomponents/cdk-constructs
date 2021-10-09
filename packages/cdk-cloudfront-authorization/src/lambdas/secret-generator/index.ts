@@ -40,7 +40,7 @@ export const handler: CloudFormationCustomResourceHandler = async (event) => {
         (event as CloudFormationCustomResourceDeleteEvent | CloudFormationCustomResourceUpdateEvent).PhysicalResourceId ||
         `failed-to-create-${Date.now()}`,
       Status: 'FAILED',
-      Reason: err.stack || err.message,
+      Reason: err instanceof Error ? err.stack || err.message : 'Error',
       RequestId,
       StackId,
     };

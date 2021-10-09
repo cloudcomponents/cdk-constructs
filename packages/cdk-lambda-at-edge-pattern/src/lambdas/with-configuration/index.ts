@@ -53,7 +53,11 @@ const updateLambdaCode = async (
 
   newLambdaZip.addLocalFolder(tempDir);
 
-  const { CodeSha256: codeSha256, Version: version, FunctionArn: functionArn } = await lambda
+  const {
+    CodeSha256: codeSha256,
+    Version: version,
+    FunctionArn: functionArn,
+  } = await lambda
     .updateFunctionCode({
       FunctionName: functionName,
       ZipFile: newLambdaZip.toBuffer(),

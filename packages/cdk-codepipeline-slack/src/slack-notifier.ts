@@ -26,17 +26,8 @@ export class SlackNotifier extends Construct {
   constructor(scope: Construct, id: string, props: SlackNotifierProps) {
     super(scope, id);
 
-    const {
-      slackBotToken,
-      slackSigningSecret,
-      slackChannel,
-      slackChannelId,
-      slackChannelTypes,
-      slackBotName,
-      slackBotIcon,
-      pipeline,
-      stageNames,
-    } = props;
+    const { slackBotToken, slackSigningSecret, slackChannel, slackChannelId, slackChannelTypes, slackBotName, slackBotIcon, pipeline, stageNames } =
+      props;
 
     this.environment = {
       SLACK_BOT_TOKEN: slackBotToken,

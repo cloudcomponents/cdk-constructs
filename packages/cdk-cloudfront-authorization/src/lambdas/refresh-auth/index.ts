@@ -89,7 +89,7 @@ export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFront
         title: 'Refresh issue',
         message: "We can't refresh your sign-in because of a",
         expandText: 'technical problem',
-        details: err.toString(),
+        details: err instanceof Error ? err.toString() : 'Error',
         linkUri: redirectedFromUri,
         linkText: 'Try again',
       }),

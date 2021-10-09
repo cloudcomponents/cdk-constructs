@@ -121,7 +121,9 @@ test('redirect to requestedUri', async () => {
     status: 200,
     statusText: 'OK',
     config: {},
-    headers: 'headers',
+    headers: {
+      key: 'value'
+    },
     data: {
       id_token: 'idToken',
       access_token: 'accessToken',

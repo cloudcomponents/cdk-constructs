@@ -80,11 +80,11 @@ export const handler = async (event: CloudFormationCustomResourceEvent): Promise
 
   switch (requestType) {
     case 'Create':
-      return onCreate(event as CloudFormationCustomResourceCreateEvent);
+      return onCreate(event);
     case 'Update':
-      return onUpdate(event as CloudFormationCustomResourceUpdateEvent);
+      return onUpdate(event);
     case 'Delete':
-      return onDelete(event as CloudFormationCustomResourceDeleteEvent);
+      return onDelete(event);
     default:
       throw new Error(`Invalid request type: ${requestType}`);
   }

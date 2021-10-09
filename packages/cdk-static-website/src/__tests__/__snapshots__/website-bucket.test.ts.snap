@@ -98,6 +98,12 @@ Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "BucketName": "testbucket",
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+        ],
         "WebsiteConfiguration": Object {
           "ErrorDocument": "error.html",
           "IndexDocument": "index.html",

@@ -26,6 +26,9 @@ export async function validate(jwtToken: string, jwksUri: string, issuer: string
 
   // The JWT contains a "kid" claim, key id, that tells which key was used to sign the token
   const kid = decodedToken['header']['kid'];
+  if (!kid) {
+    throw new Error('Kid is missing in token');
+  }
   const jwk = await getSigningKey(jwksUri, kid);
 
   // Verify the JWT

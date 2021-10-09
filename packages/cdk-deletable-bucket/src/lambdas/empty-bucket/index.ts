@@ -56,6 +56,6 @@ export const handler = async (event: CloudFormationCustomResourceEvent): Promise
   const requestType = event.RequestType;
 
   if (requestType === 'Delete') {
-    return onDelete(event as CloudFormationCustomResourceDeleteEvent);
+    return onDelete(event);
   }
 };

@@ -21,7 +21,11 @@ export async function httpPostWithRetry<R>(url: string, data: unknown, config: A
     return await AXIOS_INSTANCE.post(url, data, config);
   } catch (err) {
     logger.debug(`HTTP POST to ${url} failed.`);
-    logger.debug((err.response && err.response.data) || err);
+    if (axios.isAxiosError(err)) {
+      logger.debug(err.response?.data || err);
+    } else {
+      logger.debug(err);
+    }
 
     throw err;
   }
