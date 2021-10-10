@@ -96,16 +96,16 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
       throw new Error('Invalid TerminationWaitTimeInMinutes: The maximum setting is 2880 minutes (2 days).');
     }
 
-    const codeDeployEcsRole = new Role(this, 'EcsCodeDeployRole', {
+    const codeDeployEcsRole = new Role(this, `${id}-ECSRole`, {
       assumedBy: new ServicePrincipal('codedeploy.amazonaws.com'),
       managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('AWSCodeDeployRoleForECS')],
     });
 
-    this.application = new EcsApplication(this, 'EcsApplication', {
+    this.application = new EcsApplication(this, `EcsApplication-${id}`, {
       applicationName,
     });
 
-    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::EcsDeploymentGroup', {
+    const serviceToken = CustomResourceProvider.getOrCreate(this, `Custom::EcsDepGroup-${id}`, {
       codeDirectory: path.join(__dirname, 'lambdas', 'ecs-deployment-group'),
       runtime: CustomResourceProviderRuntime.NODEJS_12_X,
       policyStatements: [
@@ -128,7 +128,7 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
       this.node.addDependency(props.deploymentConfig);
     }
 
-    const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
+    const ecsDeploymentGroup = new CustomResource(this, `CustomResource-${id}`, {
       serviceToken,
       resourceType: 'Custom::EcsDeploymentGroup',
       properties: {
