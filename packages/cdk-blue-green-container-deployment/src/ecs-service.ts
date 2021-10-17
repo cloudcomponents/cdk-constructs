@@ -2,8 +2,9 @@ import * as path from 'path';
 import { IConnectable, Connections, SecurityGroup, Port } from '@aws-cdk/aws-ec2';
 import { ICluster, LaunchType, DeploymentCircuitBreaker } from '@aws-cdk/aws-ecs';
 import { ITargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
-import { Effect } from '@aws-cdk/aws-iam';
-import { Duration, Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
+import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
+import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
+import { Duration, Construct, CustomResource } from '@aws-cdk/core';
 
 import { DummyTaskDefinition } from './dummy-task-definition';
 
@@ -21,6 +22,7 @@ export interface EcsServiceProps {
   readonly desiredCount?: number;
   readonly containerPort?: number;
   readonly prodTargetGroup: ITargetGroup;
+  readonly testTargetGroup: ITargetGroup;
   readonly taskDefinition: DummyTaskDefinition;
 
   /**
@@ -72,6 +74,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
       platformVersion = '1.4.0',
       desiredCount = 1,
       prodTargetGroup,
+      testTargetGroup,
       taskDefinition,
       healthCheckGracePeriod = Duration.seconds(60),
     } = props;
@@ -80,6 +83,8 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
 
     const { vpc } = cluster;
 
+    this.node.addDependency(prodTargetGroup, testTargetGroup);
+
     const securityGroups = props.securityGroups || [
       new SecurityGroup(this, 'SecurityGroup', {
         description: `Security group for ${this.node.id} service`,
@@ -87,25 +92,31 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
       }),
     ];
 
-    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::BlueGreenService', {
-      codeDirectory: path.join(__dirname, 'lambdas', 'ecs-service'),
-      runtime: CustomResourceProviderRuntime.NODEJS_12_X,
-      policyStatements: [
-        {
-          Effect: Effect.ALLOW,
-          Action: ['ecs:CreateService', 'ecs:UpdateService', 'ecs:DeleteService', 'ecs:DescribeServices'],
-          Resource: '*',
-        },
-        {
-          Effect: Effect.ALLOW,
-          Action: ['iam:PassRole'],
-          Resource: taskDefinition.executionRole.roleArn,
-        },
-      ],
+    const serviceToken = new Function(this, 'Function', {
+      runtime: Runtime.NODEJS_12_X,
+      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'ecs-service')),
+      handler: 'index.handler',
+      timeout: Duration.minutes(15),
     });
 
+    serviceToken.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: ['ecs:CreateService', 'ecs:UpdateService', 'ecs:DeleteService', 'ecs:DescribeServices'],
+        resources: ['*'],
+      }),
+    );
+
+    serviceToken.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: ['iam:PassRole'],
+        resources: [taskDefinition.executionRole.roleArn],
+      }),
+    );
+
     const service = new CustomResource(this, 'CustomResource', {
-      serviceToken,
+      serviceToken: serviceToken.functionArn,
       resourceType: 'Custom::BlueGreenService',
       properties: {
         Cluster: cluster.clusterName,
