@@ -37,7 +37,7 @@ const updateLambdaCode = async (
     throw new Error(`The code of the lambda function ${functionName} could not be downloaded.`);
   }
 
-  const { data } = await axios.get(code.Location, {
+  const { data } = await axios.get<Buffer>(code.Location, {
     responseType: 'arraybuffer',
   });
 
