@@ -1,8 +1,7 @@
-import * as path from 'path';
-
 import { NetworkMode } from '@aws-cdk/aws-ecs';
 import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
-import { Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
+import { Construct } from '@aws-cdk/core';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId, PhysicalResourceIdReference } from '@aws-cdk/custom-resources';
 
 export interface IDummyTaskDefinition {
   readonly executionRole: IRole;
@@ -60,41 +59,60 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
       managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
     });
 
-    const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::DummyTaskDefinition', {
-      codeDirectory: path.join(__dirname, 'lambdas', 'dummy-task-definition'),
-      runtime: CustomResourceProviderRuntime.NODEJS_12_X,
-      policyStatements: [
-        {
-          Effect: Effect.ALLOW,
-          Action: ['ecs:RegisterTaskDefinition', 'ecs:DeregisterTaskDefinition'],
-          Resource: '*',
-        },
-        {
-          Effect: Effect.ALLOW,
-          Action: ['iam:PassRole'],
-          Resource: this.executionRole.roleArn,
-        },
-      ],
-    });
-
     this.family = props.family ?? this.node.addr;
     this.containerName = props.containerName ?? 'sample-website';
     this.containerPort = props.containerPort ?? 80;
 
-    const taskDefinition = new CustomResource(this, 'CustomResource', {
-      serviceToken,
+    const taskDefinition = new AwsCustomResource(this, 'DummyTaskDefinition', {
       resourceType: 'Custom::DummyTaskDefinition',
-      properties: {
-        Family: this.family,
-        Image: props.image,
-        ExecutionRoleArn: this.executionRole.roleArn,
-        NetworkMode: NetworkMode.AWS_VPC,
-        ContainerName: this.containerName,
-        ContainerPort: this.containerPort,
+      onCreate: {
+        service: 'ECS',
+        action: 'registerTaskDefinition',
+        parameters: {
+          requiresCompatibilities: ['FARGATE'],
+          family: this.family,
+          executionRoleArn: this.executionRole.roleArn,
+          networkMode: NetworkMode.AWS_VPC,
+          cpu: '256',
+          memory: '512',
+          containerDefinitions: [
+            {
+              name: this.containerName,
+              image: props.image,
+              portMappings: [
+                {
+                  hostPort: this.containerPort,
+                  protocol: 'tcp',
+                  containerPort: this.containerPort,
+                },
+              ],
+            },
+          ],
+        },
+        physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
       },
+      onDelete: {
+        service: 'ECS',
+        action: 'deregisterTaskDefinition',
+        parameters: {
+          taskDefinition: new PhysicalResourceIdReference(),
+        },
+      },
+      policy: AwsCustomResourcePolicy.fromStatements([
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          actions: ['ecs:RegisterTaskDefinition', 'ecs:DeregisterTaskDefinition'],
+          resources: ['*'],
+        }),
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          actions: ['iam:PassRole'],
+          resources: [this.executionRole.roleArn],
+        }),
+      ]),
     });
 
-    this.taskDefinitionArn = taskDefinition.ref;
+    this.taskDefinitionArn = taskDefinition.getResponseField('taskDefinition.taskDefinitionArn');
   }
 
   /**

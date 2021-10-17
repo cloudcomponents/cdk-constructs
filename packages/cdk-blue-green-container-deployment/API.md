@@ -177,12 +177,12 @@ new EcsDeploymentGroup(scope: Construct, id: string, props: EcsDeploymentGroupPr
   * **deploymentGroupName** (<code>string</code>)  *No description* 
   * **ecsServices** (<code>Array<[IEcsService](#cloudcomponents-cdk-blue-green-container-deployment-iecsservice)></code>)  *No description* 
   * **prodTrafficListener** (<code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code>)  *No description* 
-  * **targetGroupNames** (<code>Array<string></code>)  *No description* 
+  * **targetGroups** (<code>Array<[ApplicationTargetGroup](#aws-cdk-aws-elasticloadbalancingv2-applicationtargetgroup)></code>)  *No description* 
   * **testTrafficListener** (<code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code>)  *No description* 
   * **applicationName** (<code>string</code>)  *No description* __*Optional*__
   * **autoRollbackOnEvents** (<code>Array<[RollbackEvent](#cloudcomponents-cdk-blue-green-container-deployment-rollbackevent)></code>)  The event type or types that trigger a rollback. __*Optional*__
   * **deploymentConfig** (<code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code>)  *No description* __*Optional*__
-  * **terminationWaitTimeInMinutes** (<code>number</code>)  the number of minutes before deleting the original (blue) task set. __*Default*__: 60
+  * **terminationWaitTime** (<code>[Duration](#aws-cdk-core-duration)</code>)  the number of minutes before deleting the original (blue) task set. __*Default*__: 60 minutes
 
 
 
@@ -221,6 +221,7 @@ new EcsService(scope: Construct, id: string, props: EcsServiceProps)
   * **prodTargetGroup** (<code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code>)  *No description* 
   * **serviceName** (<code>string</code>)  *No description* 
   * **taskDefinition** (<code>[DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)</code>)  *No description* 
+  * **testTargetGroup** (<code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code>)  *No description* 
   * **circuitBreaker** (<code>[DeploymentCircuitBreaker](#aws-cdk-aws-ecs-deploymentcircuitbreaker)</code>)  Whether to enable the deployment circuit breaker. __*Default*__: disabled
   * **containerPort** (<code>number</code>)  *No description* __*Optional*__
   * **desiredCount** (<code>number</code>)  *No description* __*Optional*__
@@ -317,12 +318,12 @@ Name | Type | Description
 **deploymentGroupName** | <code>string</code> | <span></span>
 **ecsServices** | <code>Array<[IEcsService](#cloudcomponents-cdk-blue-green-container-deployment-iecsservice)></code> | <span></span>
 **prodTrafficListener** | <code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code> | <span></span>
-**targetGroupNames** | <code>Array<string></code> | <span></span>
+**targetGroups** | <code>Array<[ApplicationTargetGroup](#aws-cdk-aws-elasticloadbalancingv2-applicationtargetgroup)></code> | <span></span>
 **testTrafficListener** | <code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code> | <span></span>
 **applicationName**? | <code>string</code> | __*Optional*__
 **autoRollbackOnEvents**? | <code>Array<[RollbackEvent](#cloudcomponents-cdk-blue-green-container-deployment-rollbackevent)></code> | The event type or types that trigger a rollback.<br/>__*Optional*__
 **deploymentConfig**? | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | __*Optional*__
-**terminationWaitTimeInMinutes**? | <code>number</code> | the number of minutes before deleting the original (blue) task set.<br/>__*Default*__: 60
+**terminationWaitTime**? | <code>[Duration](#aws-cdk-core-duration)</code> | the number of minutes before deleting the original (blue) task set.<br/>__*Default*__: 60 minutes
 
 
 
@@ -339,6 +340,7 @@ Name | Type | Description
 **prodTargetGroup** | <code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code> | <span></span>
 **serviceName** | <code>string</code> | <span></span>
 **taskDefinition** | <code>[DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)</code> | <span></span>
+**testTargetGroup** | <code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code> | <span></span>
 **circuitBreaker**? | <code>[DeploymentCircuitBreaker](#aws-cdk-aws-ecs-deploymentcircuitbreaker)</code> | Whether to enable the deployment circuit breaker.<br/>__*Default*__: disabled
 **containerPort**? | <code>number</code> | __*Optional*__
 **desiredCount**? | <code>number</code> | __*Optional*__

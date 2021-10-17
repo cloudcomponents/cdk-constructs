@@ -1,19 +1,18 @@
-import type {
-  CloudFormationCustomResourceEvent,
-  CloudFormationCustomResourceCreateEvent,
-  CloudFormationCustomResourceUpdateEvent,
-  CloudFormationCustomResourceDeleteEvent,
-} from 'aws-lambda';
+import type { CloudFormationCustomResourceEvent, CloudFormationCustomResourceUpdateEvent } from 'aws-lambda';
 import { CodeDeploy } from 'aws-sdk';
+import {
+  customResourceHelper,
+  OnCreateHandler,
+  OnUpdateHandler,
+  OnDeleteHandler,
+  ResourceHandler,
+  ResourceHandlerReturn,
+} from 'custom-resource-helper';
 
 enum RollbackEvent {
   DEPLOYMENT_FAILURE = 'DEPLOYMENT_FAILURE',
   DEPLOYMENT_STOP_ON_ALARM = 'DEPLOYMENT_STOP_ON_ALARM',
   DEPLOYMENT_STOP_ON_REQUEST = 'DEPLOYMENT_STOP_ON_REQUEST',
-}
-
-interface HandlerReturn {
-  PhysicalResourceId: string;
 }
 
 export interface EcsDeploymentGroupProps {
@@ -49,7 +48,7 @@ const getProperties = (
   deploymentConfigName: props.DeploymentConfigName,
 });
 
-const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise<HandlerReturn> => {
+const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
   const {
     applicationName,
     deploymentGroupName,
@@ -106,11 +105,11 @@ const onCreate = async (event: CloudFormationCustomResourceCreateEvent): Promise
     .promise();
 
   return {
-    PhysicalResourceId: deploymentGroupName,
+    physicalResourceId: deploymentGroupName,
   };
 };
 
-const onUpdate = async (event: CloudFormationCustomResourceUpdateEvent): Promise<HandlerReturn> => {
+const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
   const newProps = getProperties(event.ResourceProperties);
   const oldProps = getProperties(event.OldResourceProperties);
 
@@ -153,11 +152,11 @@ const onUpdate = async (event: CloudFormationCustomResourceUpdateEvent): Promise
     .promise();
 
   return {
-    PhysicalResourceId: newProps.deploymentGroupName,
+    physicalResourceId: newProps.deploymentGroupName,
   };
 };
 
-const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise<void> => {
+const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
   const { applicationName, deploymentGroupName } = getProperties(event.ResourceProperties);
 
   await codeDeploy
@@ -168,17 +167,10 @@ const onDelete = async (event: CloudFormationCustomResourceDeleteEvent): Promise
     .promise();
 };
 
-export const handler = async (event: CloudFormationCustomResourceEvent): Promise<HandlerReturn | void> => {
-  const requestType = event.RequestType;
-
-  switch (requestType) {
-    case 'Create':
-      return onCreate(event);
-    case 'Update':
-      return onUpdate(event);
-    case 'Delete':
-      return onDelete(event);
-    default:
-      throw new Error(`Invalid request type: ${requestType}`);
-  }
-};
+export const handler = customResourceHelper(
+  (): ResourceHandler => ({
+    onCreate: handleCreate,
+    onUpdate: handleUpdate,
+    onDelete: handleDelete,
+  }),
+);
