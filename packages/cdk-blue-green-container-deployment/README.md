@@ -69,7 +69,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       internetFacing: true,
     });
 
-    const prodListener = loadBalancer.addListener('ProfListener', {
+    const prodListener = loadBalancer.addListener('ProdListener', {
       port: 80,
     });
 
