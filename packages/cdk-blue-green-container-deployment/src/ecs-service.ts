@@ -4,7 +4,7 @@ import { ICluster, LaunchType, DeploymentCircuitBreaker } from '@aws-cdk/aws-ecs
 import { ITargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Duration, Construct, CustomResource } from '@aws-cdk/core';
+import { Duration, Construct, CustomResource, ITaggable, TagManager, TagType, Lazy } from '@aws-cdk/core';
 
 import { DummyTaskDefinition } from './dummy-task-definition';
 
@@ -65,13 +65,16 @@ export interface EcsServiceProps {
   readonly circuitBreaker?: DeploymentCircuitBreaker;
 }
 
-export class EcsService extends Construct implements IConnectable, IEcsService {
+export class EcsService extends Construct implements IConnectable, IEcsService, ITaggable {
   public readonly clusterName: string;
   public readonly serviceName: string;
   public readonly connections: Connections;
+  public readonly tags: TagManager;
 
   constructor(scope: Construct, id: string, props: EcsServiceProps) {
     super(scope, id);
+
+    this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
 
     const {
       cluster,
@@ -148,7 +151,8 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
               }
             : undefined,
         },
-        PropagateTags: props.propagateTags
+        PropagateTags: props.propagateTags,
+        Tags: Lazy.any({ produce: () => this.tags.renderTags() }),
       },
     });
 
