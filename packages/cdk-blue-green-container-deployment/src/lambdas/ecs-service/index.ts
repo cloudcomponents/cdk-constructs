@@ -54,7 +54,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   tags: props.Tags,
 });
 
-const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
+export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
   const {
     cluster,
     serviceName,
@@ -126,7 +126,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
  * updated, a new AWS CodeDeploy deployment should be created.
  * For more information, see CreateDeployment in the AWS CodeDeploy API Reference.
  */
-const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
+export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
   const { cluster, serviceName, desiredCount, deploymentConfiguration, healthCheckGracePeriodSeconds, tags } =
     getProperties(event.ResourceProperties);
 
