@@ -61,7 +61,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
   constructor(scope: Construct, id: string, props: DummyTaskDefinitionProps) {
     super(scope, id);
 
-    this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
+    this.tags = new TagManager(TagType.STANDARD, 'TagManager');
 
     this.executionRole = new Role(this, 'ExecutionRole', {
       assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),
