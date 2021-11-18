@@ -24,6 +24,8 @@ export interface EcsDeploymentGroupProps {
   prodTrafficListenerArn: string;
   testTrafficListenerArn: string;
   terminationWaitTimeInMinutes: number;
+  arnForDeploymentGroup: string;
+  tags: CodeDeploy.Tag[];
   autoRollbackOnEvents?: RollbackEvent[];
   deploymentConfigName?: string;
 }
@@ -46,6 +48,8 @@ const getProperties = (
   terminationWaitTimeInMinutes: props.TerminationWaitTimeInMinutes,
   autoRollbackOnEvents: props.AutoRollbackOnEvents,
   deploymentConfigName: props.DeploymentConfigName,
+  arnForDeploymentGroup: props.ArnForDeploymentGroup,
+  tags: props.Tags,
 });
 
 const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
@@ -60,6 +64,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
     terminationWaitTimeInMinutes,
     autoRollbackOnEvents,
     deploymentConfigName,
+    tags,
   } = getProperties(event.ResourceProperties);
 
   await codeDeploy
@@ -101,6 +106,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
         deploymentOption: 'WITH_TRAFFIC_CONTROL',
       },
       deploymentConfigName: deploymentConfigName ?? 'CodeDeployDefault.ECSAllAtOnce',
+      tags,
     })
     .promise();
 
@@ -148,6 +154,23 @@ const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerRetu
         },
       },
       deploymentConfigName: newProps.deploymentConfigName,
+    })
+    .promise();
+
+  const newTagKeys: string[] = newProps.tags.map((t: any) => t.Key);
+  const removableTagKeys: string[] = oldProps.tags.map((t: any) => t.Key).filter((t) => !newTagKeys.includes(t));
+
+  await codeDeploy
+    .untagResource({
+      ResourceArn: newProps.arnForDeploymentGroup,
+      TagKeys: removableTagKeys,
+    })
+    .promise();
+
+  await codeDeploy
+    .tagResource({
+      ResourceArn: newProps.arnForDeploymentGroup,
+      Tags: newProps.tags,
     })
     .promise();
 

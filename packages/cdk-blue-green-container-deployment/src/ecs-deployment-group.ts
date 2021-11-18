@@ -3,7 +3,7 @@ import { EcsApplication, IEcsApplication } from '@aws-cdk/aws-codedeploy';
 import { ApplicationTargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { Role, ServicePrincipal, ManagedPolicy, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Aws, Construct, Resource, IResource, CustomResource, Duration } from '@aws-cdk/core';
+import { Aws, Construct, Resource, IResource, CustomResource, Duration, ITaggable, TagType, TagManager, Lazy } from '@aws-cdk/core';
 
 import { EcsDeploymentConfig, IEcsDeploymentConfig } from './ecs-deployment-config';
 import { IEcsService } from './ecs-service';
@@ -73,14 +73,17 @@ export interface EcsDeploymentGroupProps {
   readonly autoRollbackOnEvents?: RollbackEvent[];
 }
 
-export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup {
+export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup, ITaggable {
   public readonly application: IEcsApplication;
   public readonly deploymentGroupName: string;
   public readonly deploymentGroupArn: string;
   public readonly deploymentConfig: IEcsDeploymentConfig;
+  public readonly tags: TagManager;
 
   constructor(scope: Construct, id: string, props: EcsDeploymentGroupProps) {
     super(scope, id);
+
+    this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
 
     const {
       applicationName,
@@ -117,7 +120,12 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
     serviceToken.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ['codeDeploy:CreateDeploymentGroup', 'codeDeploy:UpdateDeploymentGroup', 'codeDeploy:DeleteDeploymentGroup'],
+        actions: [
+          'codeDeploy:CreateDeploymentGroup',
+          'codeDeploy:UpdateDeploymentGroup',
+          'codeDeploy:DeleteDeploymentGroup',
+          'codeDeploy:TagResource',
+        ],
         resources: ['*'],
       }),
     );
@@ -154,11 +162,13 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup 
         TerminationWaitTimeInMinutes: terminationWaitTime.toMinutes(),
         AutoRollbackOnEvents: autoRollbackOnEvents,
         DeploymentConfigName: this.deploymentConfig.deploymentConfigName,
+        Tags: Lazy.any({ produce: () => this.tags.renderTags() }),
+        ArnForDeploymentGroup: this.arnForDeploymentGroup(this.application.applicationName, deploymentGroupName),
       },
     });
 
     this.deploymentGroupName = ecsDeploymentGroup.ref;
-    this.deploymentGroupArn = this.arnForDeploymentGroup(this.application.applicationName, this.deploymentGroupName);
+    this.deploymentGroupArn = this.arnForDeploymentGroup(this.application.applicationName, deploymentGroupName);
   }
 
   private arnForDeploymentGroup(applicationName: string, deploymentGroupName: string): string {
