@@ -52,7 +52,7 @@ const getProperties = (
   tags: props.Tags,
 });
 
-const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
+export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
   const {
     applicationName,
     deploymentGroupName,
@@ -115,7 +115,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
   };
 };
 
-const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
+export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
   const newProps = getProperties(event.ResourceProperties);
   const oldProps = getProperties(event.OldResourceProperties);
 
