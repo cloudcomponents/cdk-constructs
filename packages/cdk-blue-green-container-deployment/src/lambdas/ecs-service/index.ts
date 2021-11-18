@@ -142,15 +142,8 @@ export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHand
 
   if (!service) throw Error('Service could not be updated');
 
-  const oldTagKeys: string[] = (event.OldResourceProperties.Tags || []).map((t: Tag) => t.Key);
   const newTagKeys: string[] = tags.map((t: Tag) => t.Key);
-
-  const removableTagKeys: string[] = [];
-  for (const tagKey of oldTagKeys) {
-    if (!newTagKeys.includes(tagKey)) {
-      removableTagKeys.push(tagKey);
-    }
-  }
+  const removableTagKeys: string[] = (event.OldResourceProperties.Tags || []).map((t: any) => t.Key).filter((t: string) => !newTagKeys.includes(t));
 
   await ecs
     .untagResource({
