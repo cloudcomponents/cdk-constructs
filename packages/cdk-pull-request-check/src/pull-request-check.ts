@@ -125,6 +125,7 @@ export interface PullRequestCheckProps {
  */
 export class PullRequestCheck extends Construct {
   private pullRequestProject: Project;
+  public codeBuildResultFunction: Function;
 
   public constructor(scope: Construct, id: string, props: PullRequestCheckProps) {
     super(scope, id);
@@ -168,7 +169,7 @@ export class PullRequestCheck extends Construct {
     });
 
     if (updateApprovalState || postComment) {
-      const codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
+      this.codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
         runtime: Runtime.NODEJS_12_X,
         code: Code.fromAsset(path.join(__dirname, 'lambdas', 'code-build-result')),
         handler: 'index.handler',
@@ -178,7 +179,7 @@ export class PullRequestCheck extends Construct {
         },
       });
 
-      codeBuildResultFunction.addToRolePolicy(
+      this.codeBuildResultFunction.addToRolePolicy(
         new PolicyStatement({
           effect: Effect.ALLOW,
           resources: [repository.repositoryArn],
@@ -187,7 +188,7 @@ export class PullRequestCheck extends Construct {
       );
 
       this.pullRequestProject.onStateChange('PullRequestValidationRule', {
-        target: new LambdaFunction(codeBuildResultFunction),
+        target: new LambdaFunction(this.codeBuildResultFunction),
       });
     }
 
