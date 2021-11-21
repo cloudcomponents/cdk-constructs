@@ -57,6 +57,12 @@ export interface EcsServiceProps {
    * @default - disabled
    */
   readonly circuitBreaker?: DeploymentCircuitBreaker;
+
+  /**
+   * Specifies whether to propagate the tags from the task definition or the service to the tasks in the service. If no value is specified, the tags aren't propagated.
+   * @default - no propagate
+   */
+  readonly propagateTags?: PropagateTags;
 }
 
 export class EcsService extends Construct implements IConnectable, IEcsService {
@@ -132,6 +138,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
         ContainerPort: containerPort,
         SchedulingStrategy: SchedulingStrategy.REPLICA,
         HealthCheckGracePeriodSeconds: healthCheckGracePeriod.toSeconds(),
+        PropagateTags: props.propagateTags,
         DeploymentConfiguration: {
           maximumPercent: props.maxHealthyPercent ?? 200,
           minimumHealthyPercent: props.minHealthyPercent ?? 50,
@@ -160,4 +167,9 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
 export enum SchedulingStrategy {
   REPLICA = 'REPLICA',
   DAEMON = 'DAEMON',
+}
+
+export enum PropagateTags {
+  TASK_DEFINITION = 'TASK_DEFINITION',
+  SERVICE = 'SERVICE',
 }
