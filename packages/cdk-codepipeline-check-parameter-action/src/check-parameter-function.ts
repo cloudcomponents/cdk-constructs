@@ -31,12 +31,15 @@ export class CheckParameterFunction extends Function {
         }),
       );
     } else {
-      const parameterArn = Arn.format({
-        service: 'ssm',
-        resource: 'parameter',
-        resourceName: props.parameterName.startsWith('/') ? props.parameterName.substring(1) : props.parameterName,
-        arnFormat: ArnFormat.SLASH_RESOURCE_NAME,
-      }, this.stack);
+      const parameterArn = Arn.format(
+        {
+          service: 'ssm',
+          resource: 'parameter',
+          resourceName: props.parameterName.startsWith('/') ? props.parameterName.substring(1) : props.parameterName,
+          arnFormat: ArnFormat.SLASH_RESOURCE_NAME,
+        },
+        this.stack,
+      );
 
       this.addToRolePolicy(
         new PolicyStatement({
