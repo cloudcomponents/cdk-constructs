@@ -1,2 +1,2 @@
 export * from './approval-rule-template';
-export * from './approval-rule-template-repositroy-association';
+export * from './approval-rule-template-repository-association';
