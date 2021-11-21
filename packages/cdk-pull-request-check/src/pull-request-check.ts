@@ -5,7 +5,7 @@ import { IVpc, SubnetSelection, ISecurityGroup } from '@aws-cdk/aws-ec2';
 import { EventField, RuleTargetInput, OnEventOptions, Rule } from '@aws-cdk/aws-events';
 import { CodeBuildProject, LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Code, Function, IFunction, Runtime } from '@aws-cdk/aws-lambda';
 import { Construct } from '@aws-cdk/core';
 
 export interface PullRequestCheckProps {
@@ -124,10 +124,11 @@ export interface PullRequestCheckProps {
  * Represents a reference to a PullRequestCheck.
  */
 export class PullRequestCheck extends Construct {
-  private pullRequestProject: Project;
-  public codeBuildResultFunction: Function;
+  public readonly codeBuildResultFunction?: IFunction;
 
-  public constructor(scope: Construct, id: string, props: PullRequestCheckProps) {
+  private pullRequestProject: Project;
+
+  constructor(scope: Construct, id: string, props: PullRequestCheckProps) {
     super(scope, id);
 
     const {
