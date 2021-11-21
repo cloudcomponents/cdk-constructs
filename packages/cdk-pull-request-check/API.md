@@ -51,6 +51,14 @@ new PullRequestCheck(scope: Construct, id: string, props: PullRequestCheckProps)
   * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  VPC network to place codebuild network interfaces. __*Default*__: No VPC is specified
 
 
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**codeBuildResultFunction**? | <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code> | __*Optional*__
+
 ### Methods
 
 
