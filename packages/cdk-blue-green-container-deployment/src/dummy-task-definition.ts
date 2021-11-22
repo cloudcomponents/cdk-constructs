@@ -1,7 +1,7 @@
 import { NetworkMode } from '@aws-cdk/aws-ecs';
 import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
 import { Construct } from '@aws-cdk/core';
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId, PhysicalResourceIdReference } from '@aws-cdk/custom-resources';
+import { AwsCustomResource, AwsCustomResourcePolicy, AwsSdkCall, PhysicalResourceId, PhysicalResourceIdReference } from '@aws-cdk/custom-resources';
 
 export interface IDummyTaskDefinition {
   readonly executionRole: IRole;
@@ -38,6 +38,13 @@ export interface DummyTaskDefinitionProps {
    * @default 80
    */
   readonly containerPort?: number;
+
+  /**
+   * Allow task definition to be updated, causing new task definition to be created with new attributes.
+   * Updates could negatively affect blue/green deployments.
+   * @default false
+   */
+  readonly allowUpdates?: boolean;
 }
 
 export class DummyTaskDefinition extends Construct implements IDummyTaskDefinition {
@@ -62,46 +69,61 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
     this.family = props.family ?? this.node.addr;
     this.containerName = props.containerName ?? 'sample-website';
     this.containerPort = props.containerPort ?? 80;
+    const allowUpdates = !!props.allowUpdates;
+
+    const registerTaskDefinition: AwsSdkCall = {
+      service: 'ECS',
+      action: 'registerTaskDefinition',
+      parameters: {
+        requiresCompatibilities: ['FARGATE'],
+        family: this.family,
+        executionRoleArn: this.executionRole.roleArn,
+        networkMode: NetworkMode.AWS_VPC,
+        cpu: '256',
+        memory: '512',
+        containerDefinitions: [
+          {
+            name: this.containerName,
+            image: props.image,
+            portMappings: [
+              {
+                hostPort: this.containerPort,
+                protocol: 'tcp',
+                containerPort: this.containerPort,
+              },
+            ],
+          },
+        ],
+      },
+      physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
+    };
+
+    const describeTaskDefinition: AwsSdkCall = {
+      service: 'ECS',
+      action: 'describeTaskDefinition',
+      parameters: {
+        taskDefinition: new PhysicalResourceIdReference(),
+      },
+      physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
+    };
+
+    const deregisterTaskDefinition: AwsSdkCall = {
+      service: 'ECS',
+      action: 'deregisterTaskDefinition',
+      parameters: {
+        taskDefinition: new PhysicalResourceIdReference(),
+      },
+    };
 
     const taskDefinition = new AwsCustomResource(this, 'DummyTaskDefinition', {
       resourceType: 'Custom::DummyTaskDefinition',
-      onCreate: {
-        service: 'ECS',
-        action: 'registerTaskDefinition',
-        parameters: {
-          requiresCompatibilities: ['FARGATE'],
-          family: this.family,
-          executionRoleArn: this.executionRole.roleArn,
-          networkMode: NetworkMode.AWS_VPC,
-          cpu: '256',
-          memory: '512',
-          containerDefinitions: [
-            {
-              name: this.containerName,
-              image: props.image,
-              portMappings: [
-                {
-                  hostPort: this.containerPort,
-                  protocol: 'tcp',
-                  containerPort: this.containerPort,
-                },
-              ],
-            },
-          ],
-        },
-        physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
-      },
-      onDelete: {
-        service: 'ECS',
-        action: 'deregisterTaskDefinition',
-        parameters: {
-          taskDefinition: new PhysicalResourceIdReference(),
-        },
-      },
+      onCreate: registerTaskDefinition,
+      onUpdate: allowUpdates ? registerTaskDefinition : describeTaskDefinition,
+      onDelete: deregisterTaskDefinition,
       policy: AwsCustomResourcePolicy.fromStatements([
         new PolicyStatement({
           effect: Effect.ALLOW,
-          actions: ['ecs:RegisterTaskDefinition', 'ecs:DeregisterTaskDefinition'],
+          actions: ['ecs:RegisterTaskDefinition', 'ecs:DescribeTaskDefinition', 'ecs:DeregisterTaskDefinition'],
           resources: ['*'],
         }),
         new PolicyStatement({
