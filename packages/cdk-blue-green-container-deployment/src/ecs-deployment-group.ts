@@ -146,7 +146,10 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup,
     }
     this.node.addDependency(...ecsServices);
 
-    const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
+    this.deploymentGroupName = deploymentGroupName;
+    this.deploymentGroupArn = this.arnForDeploymentGroup(this.application.applicationName, deploymentGroupName);
+
+    new CustomResource(this, 'CustomResource', {
       serviceToken: serviceToken.functionArn,
       resourceType: 'Custom::EcsDeploymentGroup',
       properties: {
@@ -167,9 +170,6 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup,
         ArnForDeploymentGroup: this.arnForDeploymentGroup(this.application.applicationName, deploymentGroupName),
       },
     });
-
-    this.deploymentGroupName = ecsDeploymentGroup.ref;
-    this.deploymentGroupArn = this.arnForDeploymentGroup(this.application.applicationName, deploymentGroupName);
   }
 
   private arnForDeploymentGroup(applicationName: string, deploymentGroupName: string): string {
