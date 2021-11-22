@@ -26,7 +26,7 @@ pip install cloudcomponents.cdk-blue-green-container-deployment
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import { Construct, Duration, Stack, StackProps } from '@aws-cdk/core';
 import { Repository } from '@aws-cdk/aws-codecommit';
 import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
 import { Vpc, Port } from '@aws-cdk/aws-ec2';
@@ -69,7 +69,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       internetFacing: true,
     });
 
-    const prodListener = loadBalancer.addListener('ProfListener', {
+    const prodListener = loadBalancer.addListener('ProdListener', {
       port: 80,
     });
 
@@ -121,6 +121,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       desiredCount: 2,
       taskDefinition,
       prodTargetGroup,
+      testTargetGroup,
     });
 
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(80));
@@ -145,13 +146,10 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       applicationName: 'blue-green-application',
       deploymentGroupName: 'blue-green-deployment-group',
       ecsServices: [ecsService],
-      targetGroupNames: [
-        prodTargetGroup.targetGroupName,
-        testTargetGroup.targetGroupName,
-      ],
+      targetGroups: [prodTargetGroup, testTargetGroup],
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
-      terminationWaitTimeInMinutes: 100,
+      terminationWaitTime: Duration.minutes(100),
       deploymentConfig, // If you want to use default DeploymentConfig name, use static method as "EcsDeploymentConfig.CANARY_10PERCENT_15MINUTES".
     });
 
