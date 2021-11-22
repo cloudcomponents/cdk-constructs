@@ -38,13 +38,6 @@ export interface DummyTaskDefinitionProps {
    * @default 80
    */
   readonly containerPort?: number;
-
-  /**
-   * Allow task definition to be updated, causing new task definition to be created with new attributes.
-   * Updates could negatively affect blue/green deployments.
-   * @default false
-   */
-  readonly allowUpdates?: boolean;
 }
 
 export class DummyTaskDefinition extends Construct implements IDummyTaskDefinition {
@@ -69,7 +62,6 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
     this.family = props.family ?? this.node.addr;
     this.containerName = props.containerName ?? 'sample-website';
     this.containerPort = props.containerPort ?? 80;
-    const allowUpdates = !!props.allowUpdates;
 
     const registerTaskDefinition: AwsSdkCall = {
       service: 'ECS',
@@ -98,15 +90,6 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
       physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
     };
 
-    const describeTaskDefinition: AwsSdkCall = {
-      service: 'ECS',
-      action: 'describeTaskDefinition',
-      parameters: {
-        taskDefinition: new PhysicalResourceIdReference(),
-      },
-      physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
-    };
-
     const deregisterTaskDefinition: AwsSdkCall = {
       service: 'ECS',
       action: 'deregisterTaskDefinition',
@@ -118,12 +101,12 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
     const taskDefinition = new AwsCustomResource(this, 'DummyTaskDefinition', {
       resourceType: 'Custom::DummyTaskDefinition',
       onCreate: registerTaskDefinition,
-      onUpdate: allowUpdates ? registerTaskDefinition : describeTaskDefinition,
+      onUpdate: registerTaskDefinition,
       onDelete: deregisterTaskDefinition,
       policy: AwsCustomResourcePolicy.fromStatements([
         new PolicyStatement({
           effect: Effect.ALLOW,
-          actions: ['ecs:RegisterTaskDefinition', 'ecs:DescribeTaskDefinition', 'ecs:DeregisterTaskDefinition'],
+          actions: ['ecs:RegisterTaskDefinition', 'ecs:DeregisterTaskDefinition'],
           resources: ['*'],
         }),
         new PolicyStatement({
