@@ -157,22 +157,26 @@ export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHand
     })
     .promise();
 
-  const newTagKeys: string[] = newProps.tags.map((t: any) => t.Key);
-  const removableTagKeys: string[] = oldProps.tags.map((t: any) => t.Key).filter((t) => !newTagKeys.includes(t));
+  const newTagKeys: string[] = (newProps.tags || []).map((t: any) => t.Key);
+  const removableTagKeys: string[] = (oldProps.tags || []).map((t: any) => t.Key).filter((t) => !newTagKeys.includes(t));
 
-  await codeDeploy
-    .untagResource({
-      ResourceArn: newProps.arnForDeploymentGroup,
-      TagKeys: removableTagKeys,
-    })
-    .promise();
+  if (removableTagKeys.length > 0) {
+    await codeDeploy
+      .untagResource({
+        ResourceArn: newProps.arnForDeploymentGroup,
+        TagKeys: removableTagKeys,
+      })
+      .promise();
+  }
 
-  await codeDeploy
-    .tagResource({
-      ResourceArn: newProps.arnForDeploymentGroup,
-      Tags: newProps.tags,
-    })
-    .promise();
+  if (newProps.tags.length > 0) {
+    await codeDeploy
+      .tagResource({
+        ResourceArn: newProps.arnForDeploymentGroup,
+        Tags: newProps.tags,
+      })
+      .promise();
+  }
 
   return {
     physicalResourceId: newProps.deploymentGroupName,
