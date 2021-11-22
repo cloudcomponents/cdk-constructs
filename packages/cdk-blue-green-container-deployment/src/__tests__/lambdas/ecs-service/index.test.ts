@@ -1,13 +1,13 @@
-const mockEcsCreate = jest.fn();
-const mockEcsUpdate = jest.fn();
-const mockEcsTagResource = jest.fn();
-const mockEcsUntagResource = jest.fn();
+const mockCreateRequest = jest.fn();
+const mockUpdateRequest = jest.fn();
+const mockTagResourceRequest = jest.fn();
+const mockUntagResourceRequest = jest.fn();
 
 jest.mock('aws-sdk', () => {
   return {
     ECS: jest.fn().mockImplementation(() => {
       return {
-        createService: mockEcsCreate.mockReturnValue({
+        createService: mockCreateRequest.mockReturnValue({
           promise: jest.fn().mockResolvedValue({
             service: {
               serviceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
@@ -15,7 +15,7 @@ jest.mock('aws-sdk', () => {
             },
           }),
         }),
-        updateService: mockEcsUpdate.mockReturnValue({
+        updateService: mockUpdateRequest.mockReturnValue({
           promise: jest.fn().mockResolvedValue({
             service: {
               serviceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
@@ -23,10 +23,10 @@ jest.mock('aws-sdk', () => {
             },
           }),
         }),
-        tagResource: mockEcsTagResource.mockReturnValue({
+        tagResource: mockTagResourceRequest.mockReturnValue({
           promise: jest.fn().mockResolvedValue({}),
         }),
-        untagResource: mockEcsUntagResource.mockReturnValue({
+        untagResource: mockUntagResourceRequest.mockReturnValue({
           promise: jest.fn().mockResolvedValue({}),
         }),
       };
@@ -41,10 +41,10 @@ import { defaultEvent } from '../__fixtures__/defaultEvent';
 import { defaultLogger } from '../__fixtures__/defaultLogger';
 
 afterEach(() => {
-  mockEcsCreate.mockClear();
-  mockEcsUpdate.mockClear();
-  mockEcsTagResource.mockClear();
-  mockEcsUntagResource.mockClear();
+  mockCreateRequest.mockClear();
+  mockUpdateRequest.mockClear();
+  mockTagResourceRequest.mockClear();
+  mockUntagResourceRequest.mockClear();
 });
 
 describe('createHandler', () => {
@@ -65,7 +65,7 @@ describe('createHandler', () => {
       defaultLogger,
     );
 
-    expect(mockEcsCreate).toHaveBeenCalledWith(
+    expect(mockCreateRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         tags: [
           { key: 'foo', value: 'bar' },
@@ -111,7 +111,7 @@ describe('updateHandler', () => {
       defaultLogger,
     );
 
-    expect(mockEcsUpdate).toHaveBeenCalledWith(
+    expect(mockUpdateRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         cluster: 'foo',
         deploymentConfiguration: {},
@@ -121,12 +121,12 @@ describe('updateHandler', () => {
       }),
     );
 
-    expect(mockEcsUntagResource).toHaveBeenCalledWith({
+    expect(mockUntagResourceRequest).toHaveBeenCalledWith({
       resourceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
       tagKeys: ['foo'],
     });
 
-    expect(mockEcsTagResource).toHaveBeenCalledWith(
+    expect(mockTagResourceRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         resourceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
         tags: [
@@ -165,7 +165,7 @@ describe('updateHandler', () => {
       defaultLogger,
     );
 
-    expect(mockEcsUpdate).toHaveBeenCalledWith(
+    expect(mockUpdateRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         cluster: 'foo',
         deploymentConfiguration: {},
@@ -175,9 +175,9 @@ describe('updateHandler', () => {
       }),
     );
 
-    expect(mockEcsUntagResource).not.toHaveBeenCalled();
+    expect(mockUntagResourceRequest).not.toHaveBeenCalled();
 
-    expect(mockEcsTagResource).toHaveBeenCalledWith(
+    expect(mockTagResourceRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         resourceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
         tags: [
@@ -208,7 +208,7 @@ describe('updateHandler', () => {
       defaultLogger,
     );
 
-    expect(mockEcsUpdate).toHaveBeenCalledWith(
+    expect(mockUpdateRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         cluster: 'foo',
         deploymentConfiguration: {},
@@ -218,8 +218,8 @@ describe('updateHandler', () => {
       }),
     );
 
-    expect(mockEcsUntagResource).not.toHaveBeenCalled();
+    expect(mockUntagResourceRequest).not.toHaveBeenCalled();
 
-    expect(mockEcsTagResource).not.toHaveBeenCalled();
+    expect(mockTagResourceRequest).not.toHaveBeenCalled();
   });
 });

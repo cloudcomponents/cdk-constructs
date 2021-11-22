@@ -1,13 +1,13 @@
-const mockCodeDeployCreate = jest.fn();
-const mockCodeDeployUpdate = jest.fn();
-const mockCodeDeployTagResource = jest.fn();
-const mockCodeDeployUntagResource = jest.fn();
+const mockCreateRequest = jest.fn();
+const mockUpdateRequest = jest.fn();
+const mockTagResourceRequest = jest.fn();
+const mockUntagResourceRequest = jest.fn();
 
 jest.mock('aws-sdk', () => {
   return {
     CodeDeploy: jest.fn().mockImplementation(() => {
       return {
-        createDeploymentGroup: mockCodeDeployCreate.mockReturnValue({
+        createDeploymentGroup: mockCreateRequest.mockReturnValue({
           promise: jest.fn().mockResolvedValue({
             service: {
               serviceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
@@ -15,7 +15,7 @@ jest.mock('aws-sdk', () => {
             },
           }),
         }),
-        updateDeploymentGroup: mockCodeDeployUpdate.mockReturnValue({
+        updateDeploymentGroup: mockUpdateRequest.mockReturnValue({
           promise: jest.fn().mockResolvedValue({
             service: {
               serviceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
@@ -23,10 +23,10 @@ jest.mock('aws-sdk', () => {
             },
           }),
         }),
-        tagResource: mockCodeDeployTagResource.mockReturnValue({
+        tagResource: mockTagResourceRequest.mockReturnValue({
           promise: jest.fn().mockResolvedValue({}),
         }),
-        untagResource: mockCodeDeployUntagResource.mockReturnValue({
+        untagResource: mockUntagResourceRequest.mockReturnValue({
           promise: jest.fn().mockResolvedValue({}),
         }),
       };
@@ -75,7 +75,7 @@ describe('createHandler', () => {
       defaultLogger,
     );
 
-    expect(mockCodeDeployCreate).toHaveBeenCalledWith(
+    expect(mockCreateRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         tags: [
           { Key: 'foo', Value: 'bar' },
@@ -116,14 +116,14 @@ describe('updateHandler', () => {
       defaultLogger,
     );
 
-    expect(mockCodeDeployUpdate).toHaveBeenCalled();
+    expect(mockUpdateRequest).toHaveBeenCalled();
 
-    expect(mockCodeDeployUntagResource).toHaveBeenCalledWith({
+    expect(mockUntagResourceRequest).toHaveBeenCalledWith({
       ResourceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
       TagKeys: ['foo'],
     });
 
-    expect(mockCodeDeployTagResource).toHaveBeenCalledWith(
+    expect(mockTagResourceRequest).toHaveBeenCalledWith(
       expect.objectContaining({
         ResourceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
         Tags: [
