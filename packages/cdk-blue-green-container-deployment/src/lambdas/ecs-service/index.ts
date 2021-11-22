@@ -127,8 +127,9 @@ export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHand
  * For more information, see CreateDeployment in the AWS CodeDeploy API Reference.
  */
 export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { cluster, serviceName, desiredCount, deploymentConfiguration, healthCheckGracePeriodSeconds, tags } =
-    getProperties(event.ResourceProperties);
+  const { cluster, serviceName, desiredCount, deploymentConfiguration, healthCheckGracePeriodSeconds, tags } = getProperties(
+    event.ResourceProperties,
+  );
 
   const { service } = await ecs
     .updateService({
@@ -143,23 +144,29 @@ export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHand
   if (!service) throw Error('Service could not be updated');
 
   const newTagKeys: string[] = tags.map((t: Tag) => t.Key);
-  const removableTagKeys: string[] = (event.OldResourceProperties.Tags || []).map((t: any) => t.Key).filter((t: string) => !newTagKeys.includes(t));
+  const removableTagKeys: string[] = (event.OldResourceProperties.Tags || [])
+    .map((t: any) => t.Key)
+    .filter((t: string) => !newTagKeys.includes(t));
 
-  await ecs
-    .untagResource({
-      resourceArn: service.serviceArn as string,
-      tagKeys: removableTagKeys,
-    })
-    .promise();
+  if (removableTagKeys.length > 0) {
+    await ecs
+      .untagResource({
+        resourceArn: service.serviceArn as string,
+        tagKeys: removableTagKeys,
+      })
+      .promise();
+  }
 
-  await ecs
-    .tagResource({
-      resourceArn: service.serviceArn as string,
-      tags: tags.map((t) => {
-        return { key: t.Key, value: t.Value };
-      }),
-    })
-    .promise();
+  if (tags.length > 0) {
+    await ecs
+      .tagResource({
+        resourceArn: service.serviceArn as string,
+        tags: tags.map((t) => {
+          return { key: t.Key, value: t.Value };
+        }),
+      })
+      .promise();
+  }
 
   return {
     physicalResourceId: service.serviceArn as string,

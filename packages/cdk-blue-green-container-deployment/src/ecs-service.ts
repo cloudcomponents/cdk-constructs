@@ -15,7 +15,7 @@ export interface IEcsService {
 
 export enum PropagateTags {
   SERVICE = 'SERVICE',
-  TASK_DEFINITION = 'TASK_DEFINITION'
+  TASK_DEFINITION = 'TASK_DEFINITION',
 }
 
 export interface EcsServiceProps {
@@ -111,7 +111,14 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
     serviceToken.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ['ecs:CreateService', 'ecs:UpdateService', 'ecs:DeleteService', 'ecs:DescribeServices'],
+        actions: [
+          'ecs:CreateService',
+          'ecs:UpdateService',
+          'ecs:DeleteService',
+          'ecs:DescribeServices',
+          'ecs:TagResource',
+          'ecs:UntagResource',
+        ],
         resources: ['*'],
       }),
     );

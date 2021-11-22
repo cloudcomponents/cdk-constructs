@@ -40,6 +40,13 @@ import { defaultEcsServiceResourceProperties } from '../__fixtures__/defaultEcsS
 import { defaultEvent } from '../__fixtures__/defaultEvent';
 import { defaultLogger } from '../__fixtures__/defaultLogger';
 
+afterEach(() => {
+  mockEcsCreate.mockClear();
+  mockEcsUpdate.mockClear();
+  mockEcsTagResource.mockClear();
+  mockEcsUntagResource.mockClear();
+});
+
 describe('createHandler', () => {
   it('sends tags with create request', async () => {
     const response = await handleCreate(
@@ -129,5 +136,90 @@ describe('updateHandler', () => {
         ],
       }),
     );
+  });
+
+  it('does not delete keys if no old keys are deleted', async () => {
+    await handleUpdate(
+      {
+        ...defaultEvent,
+        RequestType: 'Update',
+        PhysicalResourceId: 'foo',
+        ResourceProperties: {
+          ...defaultEcsServiceResourceProperties,
+          Tags: [
+            { Key: 'dis', Value: 'dat' },
+            { Key: 'k', Value: 'west' },
+            { Key: 'ye', Value: 'west' },
+          ],
+        },
+        OldResourceProperties: {
+          ...defaultEcsServiceResourceProperties,
+          Tags: [
+            { Key: 'dis', Value: 'dat' },
+            { Key: 'k', Value: 'west' },
+            { Key: 'ye', Value: 'west' },
+          ],
+        },
+      },
+      defaultContext,
+      defaultLogger,
+    );
+
+    expect(mockEcsUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        cluster: 'foo',
+        deploymentConfiguration: {},
+        desiredCount: 1,
+        healthCheckGracePeriodSeconds: 3,
+        service: 'foo',
+      }),
+    );
+
+    expect(mockEcsUntagResource).not.toHaveBeenCalled();
+
+    expect(mockEcsTagResource).toHaveBeenCalledWith(
+      expect.objectContaining({
+        resourceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
+        tags: [
+          { key: 'dis', value: 'dat' },
+          { key: 'k', value: 'west' },
+          { key: 'ye', value: 'west' },
+        ],
+      }),
+    );
+  });
+
+  it('does not delete or create keys if no old keys or new keys are present', async () => {
+    await handleUpdate(
+      {
+        ...defaultEvent,
+        RequestType: 'Update',
+        PhysicalResourceId: 'foo',
+        ResourceProperties: {
+          ...defaultEcsServiceResourceProperties,
+          Tags: [],
+        },
+        OldResourceProperties: {
+          ...defaultEcsServiceResourceProperties,
+          Tags: [],
+        },
+      },
+      defaultContext,
+      defaultLogger,
+    );
+
+    expect(mockEcsUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        cluster: 'foo',
+        deploymentConfiguration: {},
+        desiredCount: 1,
+        healthCheckGracePeriodSeconds: 3,
+        service: 'foo',
+      }),
+    );
+
+    expect(mockEcsUntagResource).not.toHaveBeenCalled();
+
+    expect(mockEcsTagResource).not.toHaveBeenCalled();
   });
 });
