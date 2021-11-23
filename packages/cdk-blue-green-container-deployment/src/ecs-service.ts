@@ -29,7 +29,6 @@ export interface EcsServiceProps {
   readonly prodTargetGroup: ITargetGroup;
   readonly testTargetGroup: ITargetGroup;
   readonly taskDefinition: DummyTaskDefinition;
-  readonly propagateTags?: PropagateTags;
 
   /**
    * The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy
@@ -63,6 +62,12 @@ export interface EcsServiceProps {
    * @default - disabled
    */
   readonly circuitBreaker?: DeploymentCircuitBreaker;
+
+  /**
+   * Specifies whether to propagate the tags from the task definition or the service to the tasks in the service. If no value is specified, the tags aren't propagated.
+   * @default - no propagate
+   */
+  readonly propagateTags?: PropagateTags;
 }
 
 export class EcsService extends Construct implements IConnectable, IEcsService, ITaggable {

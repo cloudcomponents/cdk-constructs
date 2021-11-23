@@ -1,7 +1,7 @@
 import { NetworkMode } from '@aws-cdk/aws-ecs';
 import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
 import { Construct, ITaggable, TagManager, TagType, Lazy } from '@aws-cdk/core';
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId, PhysicalResourceIdReference } from '@aws-cdk/custom-resources';
+import { AwsCustomResource, AwsCustomResourcePolicy, AwsSdkCall, PhysicalResourceId, PhysicalResourceIdReference } from '@aws-cdk/custom-resources';
 
 export interface IDummyTaskDefinition {
   readonly executionRole: IRole;
@@ -67,42 +67,47 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
     this.containerName = props.containerName ?? 'sample-website';
     this.containerPort = props.containerPort ?? 80;
 
+    const registerTaskDefinition: AwsSdkCall = {
+      service: 'ECS',
+      action: 'registerTaskDefinition',
+      parameters: {
+        requiresCompatibilities: ['FARGATE'],
+        family: this.family,
+        executionRoleArn: this.executionRole.roleArn,
+        networkMode: NetworkMode.AWS_VPC,
+        cpu: '256',
+        memory: '512',
+        containerDefinitions: [
+          {
+            name: this.containerName,
+            image: props.image,
+            portMappings: [
+              {
+                hostPort: this.containerPort,
+                protocol: 'tcp',
+                containerPort: this.containerPort,
+              },
+            ],
+          },
+        ],
+        tags: Lazy.any({ produce: () => this.tags.renderTags() }),
+      },
+      physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
+    };
+
+    const deregisterTaskDefinition: AwsSdkCall = {
+      service: 'ECS',
+      action: 'deregisterTaskDefinition',
+      parameters: {
+        taskDefinition: new PhysicalResourceIdReference(),
+      },
+    };
+
     const taskDefinition = new AwsCustomResource(this, 'DummyTaskDefinition', {
       resourceType: 'Custom::DummyTaskDefinition',
-      onCreate: {
-        service: 'ECS',
-        action: 'registerTaskDefinition',
-        parameters: {
-          requiresCompatibilities: ['FARGATE'],
-          family: this.family,
-          executionRoleArn: this.executionRole.roleArn,
-          networkMode: NetworkMode.AWS_VPC,
-          cpu: '256',
-          memory: '512',
-          containerDefinitions: [
-            {
-              name: this.containerName,
-              image: props.image,
-              portMappings: [
-                {
-                  hostPort: this.containerPort,
-                  protocol: 'tcp',
-                  containerPort: this.containerPort,
-                },
-              ],
-            },
-          ],
-          tags: Lazy.any({ produce: () => this.tags.renderTags() }),
-        },
-        physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
-      },
-      onDelete: {
-        service: 'ECS',
-        action: 'deregisterTaskDefinition',
-        parameters: {
-          taskDefinition: new PhysicalResourceIdReference(),
-        },
-      },
+      onCreate: registerTaskDefinition,
+      onUpdate: registerTaskDefinition,
+      onDelete: deregisterTaskDefinition,
       policy: AwsCustomResourcePolicy.fromStatements([
         new PolicyStatement({
           effect: Effect.ALLOW,

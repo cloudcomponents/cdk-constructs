@@ -5,7 +5,7 @@ import { IVpc, SubnetSelection, ISecurityGroup } from '@aws-cdk/aws-ec2';
 import { EventField, RuleTargetInput, OnEventOptions, Rule } from '@aws-cdk/aws-events';
 import { CodeBuildProject, LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Code, Function, IFunction, Runtime } from '@aws-cdk/aws-lambda';
 import { Construct } from '@aws-cdk/core';
 
 export interface PullRequestCheckProps {
@@ -124,9 +124,11 @@ export interface PullRequestCheckProps {
  * Represents a reference to a PullRequestCheck.
  */
 export class PullRequestCheck extends Construct {
+  public readonly codeBuildResultFunction?: IFunction;
+
   private pullRequestProject: Project;
 
-  public constructor(scope: Construct, id: string, props: PullRequestCheckProps) {
+  constructor(scope: Construct, id: string, props: PullRequestCheckProps) {
     super(scope, id);
 
     const {
@@ -168,7 +170,7 @@ export class PullRequestCheck extends Construct {
     });
 
     if (updateApprovalState || postComment) {
-      const codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
+      this.codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
         runtime: Runtime.NODEJS_12_X,
         code: Code.fromAsset(path.join(__dirname, 'lambdas', 'code-build-result')),
         handler: 'index.handler',
@@ -178,7 +180,7 @@ export class PullRequestCheck extends Construct {
         },
       });
 
-      codeBuildResultFunction.addToRolePolicy(
+      this.codeBuildResultFunction.addToRolePolicy(
         new PolicyStatement({
           effect: Effect.ALLOW,
           resources: [repository.repositoryArn],
@@ -187,7 +189,7 @@ export class PullRequestCheck extends Construct {
       );
 
       this.pullRequestProject.onStateChange('PullRequestValidationRule', {
-        target: new LambdaFunction(codeBuildResultFunction),
+        target: new LambdaFunction(this.codeBuildResultFunction),
       });
     }
 

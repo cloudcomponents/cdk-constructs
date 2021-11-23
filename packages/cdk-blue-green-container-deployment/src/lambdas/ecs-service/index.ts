@@ -83,6 +83,7 @@ export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHand
       platformVersion,
       desiredCount,
       schedulingStrategy,
+      propagateTags,
       deploymentController: {
         type: 'CODE_DEPLOY',
       },
@@ -101,7 +102,6 @@ export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHand
           containerName,
         },
       ],
-      propagateTags,
       tags: tags.map((t) => {
         return { key: t.Key, value: t.Value };
       }),

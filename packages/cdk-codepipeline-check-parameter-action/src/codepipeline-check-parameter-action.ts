@@ -66,7 +66,7 @@ export class CodePipelineCheckParameterAction extends Action {
     });
 
     // allow pipeline to list functions
-    options.role.addToPolicy(
+    options.role.addToPrincipalPolicy(
       new PolicyStatement({
         actions: ['lambda:ListFunctions'],
         resources: ['*'],
@@ -74,7 +74,7 @@ export class CodePipelineCheckParameterAction extends Action {
     );
 
     // allow pipeline to invoke this lambda functionn
-    options.role.addToPolicy(
+    options.role.addToPrincipalPolicy(
       new PolicyStatement({
         actions: ['lambda:InvokeFunction'],
         resources: [checkParameterFunction.functionArn],

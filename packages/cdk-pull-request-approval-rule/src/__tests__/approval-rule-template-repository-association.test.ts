@@ -5,7 +5,7 @@ import { Topic } from '@aws-cdk/aws-sns';
 import { Stack } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
 
-import { ApprovalRuleTemplateRepositoryAssociation } from '../approval-rule-template-repositroy-association';
+import { ApprovalRuleTemplateRepositoryAssociation } from '../approval-rule-template-repository-association';
 
 jest.mock('../directories', () => ({
   approvalRuleTemplateRepositoryAssociationDir: path.join(__dirname, 'mocks', 'approval-rule-template-repository-association'),
