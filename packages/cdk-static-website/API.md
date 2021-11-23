@@ -73,8 +73,8 @@ addLambdaFunctionAssociation(assosiation: LambdaFunctionAssociation): void
 
 * **assosiation** (<code>[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)</code>)  *No description*
   * **eventType** (<code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code>)  The lambda event type defines at which event the lambda is called during the request lifecycle. 
-  * **lambdaFunction** (<code>[IVersion](#aws-cdk-aws-lambda-iversion)</code>)  A version of the lambda to associate. 
   * **includeBody** (<code>boolean</code>)  Allows a Lambda function to have read access to the body content. __*Default*__: false
+  * **lambdaFunction** (<code>[IVersion](#aws-cdk-aws-lambda-iversion)</code>)  A version of the lambda to associate. 
 
 
 

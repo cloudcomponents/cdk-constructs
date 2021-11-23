@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { Construct, Stack } from '@aws-cdk/core';
+import { Arn, ArnFormat, Construct } from '@aws-cdk/core';
 
 export interface CheckParamterFunctionProps {
   /**
@@ -31,12 +31,15 @@ export class CheckParameterFunction extends Function {
         }),
       );
     } else {
-      const parameterArn = Stack.of(scope).formatArn({
-        service: 'ssm',
-        resource: 'parameter',
-        sep: props.parameterName.startsWith('/') ? '' : '/',
-        resourceName: props.parameterName,
-      });
+      const parameterArn = Arn.format(
+        {
+          service: 'ssm',
+          resource: 'parameter',
+          resourceName: props.parameterName.startsWith('/') ? props.parameterName.substring(1) : props.parameterName,
+          arnFormat: ArnFormat.SLASH_RESOURCE_NAME,
+        },
+        this.stack,
+      );
 
       this.addToRolePolicy(
         new PolicyStatement({

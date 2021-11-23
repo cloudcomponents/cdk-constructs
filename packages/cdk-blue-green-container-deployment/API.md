@@ -37,6 +37,7 @@ Name|Description
 
 Name|Description
 ----|-----------
+[PropagateTags](#cloudcomponents-cdk-blue-green-container-deployment-propagatetags)|*No description*
 [RollbackEvent](#cloudcomponents-cdk-blue-green-container-deployment-rollbackevent)|*No description*
 [SchedulingStrategy](#cloudcomponents-cdk-blue-green-container-deployment-schedulingstrategy)|*No description*
 
@@ -230,6 +231,7 @@ new EcsService(scope: Construct, id: string, props: EcsServiceProps)
   * **maxHealthyPercent** (<code>number</code>)  The maximum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that can run in a service during a deployment. __*Default*__: 100 if daemon, otherwise 200
   * **minHealthyPercent** (<code>number</code>)  The minimum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that must continue to run and remain healthy during a deployment. __*Default*__: 0 if daemon, otherwise 50
   * **platformVersion** (<code>string</code>)  *No description* __*Optional*__
+  * **propagateTags** (<code>[PropagateTags](#cloudcomponents-cdk-blue-green-container-deployment-propagatetags)</code>)  Specifies whether to propagate the tags from the task definition or the service to the tasks in the service. __*Default*__: no propagate
   * **securityGroups** (<code>Array<[SecurityGroup](#aws-cdk-aws-ec2-securitygroup)></code>)  *No description* __*Optional*__
 
 
@@ -349,6 +351,7 @@ Name | Type | Description
 **maxHealthyPercent**? | <code>number</code> | The maximum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that can run in a service during a deployment.<br/>__*Default*__: 100 if daemon, otherwise 200
 **minHealthyPercent**? | <code>number</code> | The minimum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that must continue to run and remain healthy during a deployment.<br/>__*Default*__: 0 if daemon, otherwise 50
 **platformVersion**? | <code>string</code> | __*Optional*__
+**propagateTags**? | <code>[PropagateTags](#cloudcomponents-cdk-blue-green-container-deployment-propagatetags)</code> | Specifies whether to propagate the tags from the task definition or the service to the tasks in the service.<br/>__*Default*__: no propagate
 **securityGroups**? | <code>Array<[SecurityGroup](#aws-cdk-aws-ec2-securitygroup)></code> | __*Optional*__
 
 
@@ -456,6 +459,16 @@ Name | Type | Description
 -----|------|-------------
 **listenerArn** | <code>string</code> | ARN of the listener.
 
+
+
+## enum PropagateTags  <a id="cloudcomponents-cdk-blue-green-container-deployment-propagatetags"></a>
+
+
+
+Name | Description
+-----|-----
+**TASK_DEFINITION** |
+**SERVICE** |
 
 
 ## enum RollbackEvent  <a id="cloudcomponents-cdk-blue-green-container-deployment-rollbackevent"></a>

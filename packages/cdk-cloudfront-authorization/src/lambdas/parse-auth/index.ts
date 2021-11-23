@@ -59,8 +59,7 @@ export const handler = async (event: CloudFrontRequestEvent): Promise<CloudFront
 
     if (CONFIG.clientSecret) {
       const encodedSecret = Buffer.from(`${CONFIG.clientId}:${CONFIG.clientSecret}`).toString('base64');
-      //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      requestConfig.headers!.Authorization = `Basic ${encodedSecret}`;
+      requestConfig.headers.Authorization = `Basic ${encodedSecret}`;
     }
 
     CONFIG.logger.debug('HTTP POST to Cognito token endpoint:\n', {

@@ -44,7 +44,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   schedulingStrategy: props.SchedulingStrategy,
   healthCheckGracePeriodSeconds: props.HealthCheckGracePeriodSeconds,
   deploymentConfiguration: props.DeploymentConfiguration,
-  propagateTags: props.PropagateTags
+  propagateTags: props.PropagateTags,
 });
 
 const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
@@ -63,7 +63,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
     schedulingStrategy,
     healthCheckGracePeriodSeconds,
     deploymentConfiguration,
-    propagateTags
+    propagateTags,
   } = getProperties(event.ResourceProperties);
 
   const { service } = await ecs
@@ -75,6 +75,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
       platformVersion,
       desiredCount,
       schedulingStrategy,
+      propagateTags,
       deploymentController: {
         type: 'CODE_DEPLOY',
       },
@@ -93,7 +94,6 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
           containerName,
         },
       ],
-      propagateTags
     })
     .promise();
 
