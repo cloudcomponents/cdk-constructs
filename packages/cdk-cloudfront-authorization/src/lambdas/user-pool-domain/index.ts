@@ -37,7 +37,7 @@ export const handler: CloudFormationCustomResourceHandler = async (event) => {
   let response: CloudFormationCustomResourceResponse;
 
   try {
-    const domainName = RequestType !== 'Delete' ? await ensureCognitoUserPoolDomain(ResourceProperties.UserPoolId) : undefined;
+    const domainName = RequestType !== 'Delete' ? await ensureCognitoUserPoolDomain(ResourceProperties.UserPoolId as string) : undefined;
 
     response = {
       LogicalResourceId,

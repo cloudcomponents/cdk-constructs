@@ -1,258 +1,3050 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-s3-antivirus
 
-Name|Description
-----|-----------
-[ClamavLayer](#cloudcomponents-cdk-s3-antivirus-clamavlayer)|Clamav Lambda layer.
-[DefinitionBucket](#cloudcomponents-cdk-s3-antivirus-definitionbucket)|*No description*
-[DefinitionInitializer](#cloudcomponents-cdk-s3-antivirus-definitioninitializer)|*No description*
-[Sandbox](#cloudcomponents-cdk-s3-antivirus-sandbox)|*No description*
-[Scanner](#cloudcomponents-cdk-s3-antivirus-scanner)|*No description*
+# @cloudcomponents/cdk-s3-antivirus
 
+## Table of contents
 
-**Structs**
+### Classes
 
-Name|Description
-----|-----------
-[DefinitionBucketProps](#cloudcomponents-cdk-s3-antivirus-definitionbucketprops)|*No description*
-[DefinitionInitializerProps](#cloudcomponents-cdk-s3-antivirus-definitioninitializerprops)|*No description*
-[SandboxProps](#cloudcomponents-cdk-s3-antivirus-sandboxprops)|*No description*
-[ScannerProps](#cloudcomponents-cdk-s3-antivirus-scannerprops)|*No description*
+- [ClamavLayer](#clamav-layer)
+- [DefinitionBucket](#definition-bucket)
+- [DefinitionInitializer](#definition-initializer)
+- [Sandbox](#sandbox)
+- [Scanner](#scanner)
 
+### Interfaces
 
+- [DefinitionBucketProps](#definition-bucket-props)
+- [DefinitionInitializerProps](#definition-initializer-props)
+- [SandboxProps](#sandbox-props)
+- [ScannerProps](#scanner-props)
 
-## class ClamavLayer  <a id="cloudcomponents-cdk-s3-antivirus-clamavlayer"></a>
+# Clamav Layer
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / ClamavLayer
+
+# Class: ClamavLayer
 
 Clamav Lambda layer.
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [ILayerVersion](#aws-cdk-aws-lambda-ilayerversion), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
-__Extends__: [LayerVersion](#aws-cdk-aws-lambda-layerversion)
+## Hierarchy
 
-### Initializer
+- `LayerVersion`
 
+  ↳ **`ClamavLayer`**
 
+## Table of contents
 
+### Constructors
 
-```ts
-new ClamavLayer(scope: Construct, id: string)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-
-
-
-
-## class DefinitionBucket  <a id="cloudcomponents-cdk-s3-antivirus-definitionbucket"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IBucket](#aws-cdk-aws-s3-ibucket), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
-__Extends__: [Bucket](#aws-cdk-aws-s3-bucket)
-
-### Initializer
-
-
-
-
-```ts
-new DefinitionBucket(scope: Construct, id: string, props: DefinitionBucketProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[DefinitionBucketProps](#cloudcomponents-cdk-s3-antivirus-definitionbucketprops)</code>)  *No description*
-  * **vpcEndpoint** (<code>string</code>)  *No description* 
-  * **bucketName** (<code>string</code>)  *No description* __*Optional*__
-
-
-
-
-## class DefinitionInitializer  <a id="cloudcomponents-cdk-s3-antivirus-definitioninitializer"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
-
-### Initializer
-
-
-
-
-```ts
-new DefinitionInitializer(scope: Construct, id: string, props: DefinitionInitializerProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[DefinitionInitializerProps](#cloudcomponents-cdk-s3-antivirus-definitioninitializerprops)</code>)  *No description*
-  * **fn** (<code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code>)  *No description* 
-
-
-
-
-## class Sandbox  <a id="cloudcomponents-cdk-s3-antivirus-sandbox"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
-
-### Initializer
-
-
-
-
-```ts
-new Sandbox(scope: Construct, id: string, props?: SandboxProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[SandboxProps](#cloudcomponents-cdk-s3-antivirus-sandboxprops)</code>)  *No description*
-  * **encryptedFileSystem** (<code>boolean</code>)  *No description* __*Optional*__
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**definitionBucket** | <code>[DefinitionBucket](#cloudcomponents-cdk-s3-antivirus-definitionbucket)</code> | <span></span>
-**lambdaAccessPoint** | <code>[IAccessPoint](#aws-cdk-aws-efs-iaccesspoint)</code> | <span></span>
-**s3Endpoint** | <code>[GatewayVpcEndpoint](#aws-cdk-aws-ec2-gatewayvpcendpoint)</code> | <span></span>
-**vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | <span></span>
+- [compatibleRuntimes](#compatibleruntimes)
+- [env](#env)
+- [layerVersionArn](#layerversionarn)
+- [node](#node)
+- [physicalName](#physicalname)
+- [stack](#stack)
 
 ### Methods
 
+- [\_enableCrossEnvironment](#_enablecrossenvironment)
+- [addPermission](#addpermission)
+- [applyRemovalPolicy](#applyremovalpolicy)
+- [generatePhysicalName](#generatephysicalname)
+- [getResourceArnAttribute](#getresourcearnattribute)
+- [getResourceNameAttribute](#getresourcenameattribute)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [fromLayerVersionArn](#fromlayerversionarn)
+- [fromLayerVersionAttributes](#fromlayerversionattributes)
+- [isConstruct](#isconstruct)
+- [isResource](#isresource)
 
-#### addToS3EnpointPolicy(statement) <a id="cloudcomponents-cdk-s3-antivirus-sandbox-addtos3enpointpolicy"></a>
+## Constructors
 
+### constructor
 
+• **new ClamavLayer**(`scope`, `id`)
 
-```ts
-addToS3EnpointPolicy(statement: PolicyStatement): void
-```
+#### Parameters
 
-* **statement** (<code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
 
+#### Overrides
 
+lambda.LayerVersion.constructor
 
+## Properties
 
+### compatibleRuntimes
 
+• `Optional` `Readonly` **compatibleRuntimes**: `Runtime`[]
 
-## class Scanner  <a id="cloudcomponents-cdk-s3-antivirus-scanner"></a>
+The runtimes compatible with this Layer.
 
+**`stability`** stable
 
+#### Inherited from
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+lambda.LayerVersion.compatibleRuntimes
 
-### Initializer
+___
 
+### env
 
+• `Readonly` **env**: `ResourceEnvironment`
 
+The environment this resource belongs to.
 
-```ts
-new Scanner(scope: Construct, id: string, props?: ScannerProps)
-```
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[ScannerProps](#cloudcomponents-cdk-s3-antivirus-scannerprops)</code>)  *No description*
-  * **buckets** (<code>Array<[Bucket](#aws-cdk-aws-s3-bucket)></code>)  *No description* __*Optional*__
-  * **onError** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  *No description* __*Optional*__
-  * **onResult** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  *No description* __*Optional*__
-  * **scanStatusTagName** (<code>string</code>)  *No description* __*Default*__: cc:scan-status
-  * **updateSchedule** (<code>[Schedule](#aws-cdk-aws-events-schedule)</code>)  *No description* __*Optional*__
+**`stability`** stable
 
+#### Inherited from
 
+lambda.LayerVersion.env
+
+___
+
+### layerVersionArn
+
+• `Readonly` **layerVersionArn**: `string`
+
+The ARN of the Lambda Layer version that this Layer defines.
+
+**`stability`** stable
+
+#### Inherited from
+
+lambda.LayerVersion.layerVersionArn
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+lambda.LayerVersion.node
+
+___
+
+### physicalName
+
+• `Protected` `Readonly` **physicalName**: `string`
+
+Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
+
+This value will resolve to one of the following:
+- a concrete value (e.g. `"my-awesome-bucket"`)
+- `undefined`, when a name should be generated by CloudFormation
+- a concrete name generated automatically during synthesis, in
+   cross-environment scenarios.
+
+**`stability`** stable
+
+#### Inherited from
+
+lambda.LayerVersion.physicalName
+
+___
+
+### stack
+
+• `Readonly` **stack**: `Stack`
+
+The stack in which this resource is defined.
+
+**`stability`** stable
+
+#### Inherited from
+
+lambda.LayerVersion.stack
+
+## Methods
+
+### \_enableCrossEnvironment
+
+▸ **_enableCrossEnvironment**(): `void`
+
+Called when this resource is referenced across environments
+(account/region) to order to request that a physical name will be generated
+for this resource during synthesis, so the resource can be referenced
+through it's absolute name/arn.
+
+**`internal`**
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+lambda.LayerVersion.\_enableCrossEnvironment
+
+___
+
+### addPermission
+
+▸ **addPermission**(`id`, `permission`): `void`
+
+Add permission for this layer version to specific entities.
+
+Usage within
+the same account where the layer is defined is always allowed and does not
+require calling this method. Note that the principal that creates the
+Lambda function using the layer (for example, a CloudFormation changeset
+execution role) also needs to have the ``lambda:GetLayerVersion``
+permission on the layer version.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `permission` | `LayerVersionPermission` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+lambda.LayerVersion.addPermission
+
+___
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+lambda.LayerVersion.applyRemovalPolicy
+
+___
+
+### generatePhysicalName
+
+▸ `Protected` **generatePhysicalName**(): `string`
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+lambda.LayerVersion.generatePhysicalName
+
+___
+
+### getResourceArnAttribute
+
+▸ `Protected` **getResourceArnAttribute**(`arnAttr`, `arnComponents`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "ARN" attribute (e.g. `bucket.bucketArn`).
+
+Normally, this token will resolve to `arnAttr`, but if the resource is
+referenced across environments, `arnComponents` will be used to synthesize
+a concrete ARN with the resource's physical name. Make sure to reference
+`this.physicalName` in `arnComponents`.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `arnAttr` | `string` | The CFN attribute which resolves to the ARN of the resource. |
+| `arnComponents` | `ArnComponents` | The format of the ARN of this resource. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+lambda.LayerVersion.getResourceArnAttribute
+
+___
+
+### getResourceNameAttribute
+
+▸ `Protected` **getResourceNameAttribute**(`nameAttr`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "name" attribute (e.g. `bucket.bucketName`).
+
+Normally, this token will resolve to `nameAttr`, but if the resource is
+referenced across environments, it will be resolved to `this.physicalName`,
+which will be a concrete name.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `nameAttr` | `string` | The CFN attribute which resolves to the resource's name. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+lambda.LayerVersion.getResourceNameAttribute
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+lambda.LayerVersion.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+lambda.LayerVersion.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+lambda.LayerVersion.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+lambda.LayerVersion.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+lambda.LayerVersion.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+lambda.LayerVersion.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+lambda.LayerVersion.validate
+
+___
+
+### fromLayerVersionArn
+
+▸ `Static` **fromLayerVersionArn**(`scope`, `id`, `layerVersionArn`): `ILayerVersion`
+
+Imports a layer version by ARN.
+
+Assumes it is compatible with all Lambda runtimes.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `layerVersionArn` | `string` |
+
+#### Returns
+
+`ILayerVersion`
+
+#### Inherited from
+
+lambda.LayerVersion.fromLayerVersionArn
+
+___
+
+### fromLayerVersionAttributes
+
+▸ `Static` **fromLayerVersionAttributes**(`scope`, `id`, `attrs`): `ILayerVersion`
+
+Imports a Layer that has been defined externally.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `scope` | `Construct` | the parent Construct that will use the imported layer. |
+| `id` | `string` | the id of the imported layer in the construct tree. |
+| `attrs` | `LayerVersionAttributes` | the properties of the imported layer. |
+
+#### Returns
+
+`ILayerVersion`
+
+#### Inherited from
+
+lambda.LayerVersion.fromLayerVersionAttributes
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+lambda.LayerVersion.isConstruct
+
+___
+
+### isResource
+
+▸ `Static` **isResource**(`construct`): construct is CfnResource
+
+Check whether the given construct is a Resource.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `construct` | `IConstruct` |
+
+#### Returns
+
+construct is CfnResource
+
+#### Inherited from
+
+lambda.LayerVersion.isResource
+
+# Definition Bucket
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / DefinitionBucket
+
+# Class: DefinitionBucket
+
+## Hierarchy
+
+- `Bucket`
+
+  ↳ **`DefinitionBucket`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
+- [autoCreatePolicy](#autocreatepolicy)
+- [bucketArn](#bucketarn)
+- [bucketDomainName](#bucketdomainname)
+- [bucketDualStackDomainName](#bucketdualstackdomainname)
+- [bucketName](#bucketname)
+- [bucketRegionalDomainName](#bucketregionaldomainname)
+- [bucketWebsiteDomainName](#bucketwebsitedomainname)
+- [bucketWebsiteUrl](#bucketwebsiteurl)
+- [disallowPublicAccess](#disallowpublicaccess)
+- [encryptionKey](#encryptionkey)
+- [env](#env)
+- [isWebsite](#iswebsite)
+- [node](#node)
+- [physicalName](#physicalname)
+- [policy](#policy)
+- [stack](#stack)
 
-Name | Type | Description 
------|------|-------------
-**sandbox** | <code>[Sandbox](#cloudcomponents-cdk-s3-antivirus-sandbox)</code> | <span></span>
-**scanFunction** | <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code> | <span></span>
-**scanStatusTagName** | <code>string</code> | <span></span>
-**updateFunction** | <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code> | <span></span>
+### Accessors
+
+- [putActions](#putactions)
+- [writeActions](#writeactions)
 
 ### Methods
 
+- [\_enableCrossEnvironment](#_enablecrossenvironment)
+- [addCorsRule](#addcorsrule)
+- [addEventNotification](#addeventnotification)
+- [addInventory](#addinventory)
+- [addLifecycleRule](#addlifecyclerule)
+- [addMetric](#addmetric)
+- [addObjectCreatedNotification](#addobjectcreatednotification)
+- [addObjectRemovedNotification](#addobjectremovednotification)
+- [addToResourcePolicy](#addtoresourcepolicy)
+- [applyRemovalPolicy](#applyremovalpolicy)
+- [arnForObjects](#arnforobjects)
+- [generatePhysicalName](#generatephysicalname)
+- [getResourceArnAttribute](#getresourcearnattribute)
+- [getResourceNameAttribute](#getresourcenameattribute)
+- [grantDelete](#grantdelete)
+- [grantPublicAccess](#grantpublicaccess)
+- [grantPut](#grantput)
+- [grantPutAcl](#grantputacl)
+- [grantRead](#grantread)
+- [grantReadWrite](#grantreadwrite)
+- [grantWrite](#grantwrite)
+- [onCloudTrailEvent](#oncloudtrailevent)
+- [onCloudTrailPutObject](#oncloudtrailputobject)
+- [onCloudTrailWriteObject](#oncloudtrailwriteobject)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [s3UrlForObject](#s3urlforobject)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [urlForObject](#urlforobject)
+- [validate](#validate)
+- [virtualHostedUrlForObject](#virtualhostedurlforobject)
+- [fromBucketArn](#frombucketarn)
+- [fromBucketAttributes](#frombucketattributes)
+- [fromBucketName](#frombucketname)
+- [isConstruct](#isconstruct)
+- [isResource](#isresource)
+- [validateBucketName](#validatebucketname)
 
-#### addSourceBucket(bucket) <a id="cloudcomponents-cdk-s3-antivirus-scanner-addsourcebucket"></a>
+## Constructors
 
+### constructor
 
+• **new DefinitionBucket**(`scope`, `id`, `props`)
 
-```ts
-addSourceBucket(bucket: Bucket): void
-```
+#### Parameters
 
-* **bucket** (<code>[Bucket](#aws-cdk-aws-s3-bucket)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`DefinitionBucketProps`](#definition-bucket-props) |
 
+#### Overrides
 
+Bucket.constructor
 
+## Properties
 
+### autoCreatePolicy
 
+• `Protected` **autoCreatePolicy**: `boolean`
 
-## struct DefinitionBucketProps  <a id="cloudcomponents-cdk-s3-antivirus-definitionbucketprops"></a>
+Indicates if a bucket resource policy should automatically created upon the first call to `addToResourcePolicy`.
 
+**`stability`** stable
 
+#### Inherited from
 
+Bucket.autoCreatePolicy
 
+___
 
+### bucketArn
 
-Name | Type | Description 
------|------|-------------
-**vpcEndpoint** | <code>string</code> | <span></span>
-**bucketName**? | <code>string</code> | __*Optional*__
+• `Readonly` **bucketArn**: `string`
 
+The ARN of the bucket.
 
+**`stability`** stable
 
-## struct DefinitionInitializerProps  <a id="cloudcomponents-cdk-s3-antivirus-definitioninitializerprops"></a>
+#### Inherited from
 
+Bucket.bucketArn
 
+___
 
+### bucketDomainName
 
+• `Readonly` **bucketDomainName**: `string`
 
+The IPv4 DNS name of the specified bucket.
 
-Name | Type | Description 
------|------|-------------
-**fn** | <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code> | <span></span>
+**`stability`** stable
 
+#### Inherited from
 
+Bucket.bucketDomainName
 
-## struct SandboxProps  <a id="cloudcomponents-cdk-s3-antivirus-sandboxprops"></a>
+___
 
+### bucketDualStackDomainName
 
+• `Readonly` **bucketDualStackDomainName**: `string`
 
+The IPv6 DNS name of the specified bucket.
 
+**`stability`** stable
 
+#### Inherited from
 
-Name | Type | Description 
------|------|-------------
-**encryptedFileSystem**? | <code>boolean</code> | __*Optional*__
+Bucket.bucketDualStackDomainName
 
+___
 
+### bucketName
 
-## struct ScannerProps  <a id="cloudcomponents-cdk-s3-antivirus-scannerprops"></a>
+• `Readonly` **bucketName**: `string`
 
+The name of the bucket.
 
+**`stability`** stable
 
+#### Inherited from
 
+Bucket.bucketName
 
+___
 
-Name | Type | Description 
------|------|-------------
-**buckets**? | <code>Array<[Bucket](#aws-cdk-aws-s3-bucket)></code> | __*Optional*__
-**onError**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | __*Optional*__
-**onResult**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | __*Optional*__
-**scanStatusTagName**? | <code>string</code> | __*Default*__: cc:scan-status
-**updateSchedule**? | <code>[Schedule](#aws-cdk-aws-events-schedule)</code> | __*Optional*__
+### bucketRegionalDomainName
 
+• `Readonly` **bucketRegionalDomainName**: `string`
 
+The regional domain name of the specified bucket.
 
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.bucketRegionalDomainName
+
+___
+
+### bucketWebsiteDomainName
+
+• `Readonly` **bucketWebsiteDomainName**: `string`
+
+The Domain name of the static website.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.bucketWebsiteDomainName
+
+___
+
+### bucketWebsiteUrl
+
+• `Readonly` **bucketWebsiteUrl**: `string`
+
+The URL of the static website.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.bucketWebsiteUrl
+
+___
+
+### disallowPublicAccess
+
+• `Protected` `Optional` **disallowPublicAccess**: `boolean`
+
+Whether to disallow public access.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.disallowPublicAccess
+
+___
+
+### encryptionKey
+
+• `Optional` `Readonly` **encryptionKey**: `IKey`
+
+Optional KMS encryption key associated with this bucket.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.encryptionKey
+
+___
+
+### env
+
+• `Readonly` **env**: `ResourceEnvironment`
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.env
+
+___
+
+### isWebsite
+
+• `Optional` `Readonly` **isWebsite**: `boolean`
+
+If this bucket has been configured for static website hosting.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.isWebsite
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.node
+
+___
+
+### physicalName
+
+• `Protected` `Readonly` **physicalName**: `string`
+
+Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
+
+This value will resolve to one of the following:
+- a concrete value (e.g. `"my-awesome-bucket"`)
+- `undefined`, when a name should be generated by CloudFormation
+- a concrete name generated automatically during synthesis, in
+   cross-environment scenarios.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.physicalName
+
+___
+
+### policy
+
+• `Optional` **policy**: `BucketPolicy`
+
+The resource policy associated with this bucket.
+
+If `autoCreatePolicy` is true, a `BucketPolicy` will be created upon the
+first call to addToResourcePolicy(s).
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.policy
+
+___
+
+### stack
+
+• `Readonly` **stack**: `Stack`
+
+The stack in which this resource is defined.
+
+**`stability`** stable
+
+#### Inherited from
+
+Bucket.stack
+
+## Accessors
+
+### putActions
+
+• `Private` `get` **putActions**(): `any`
+
+#### Returns
+
+`any`
+
+___
+
+### writeActions
+
+• `Private` `get` **writeActions**(): `any`
+
+#### Returns
+
+`any`
+
+## Methods
+
+### \_enableCrossEnvironment
+
+▸ **_enableCrossEnvironment**(): `void`
+
+Called when this resource is referenced across environments
+(account/region) to order to request that a physical name will be generated
+for this resource during synthesis, so the resource can be referenced
+through it's absolute name/arn.
+
+**`internal`**
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.\_enableCrossEnvironment
+
+___
+
+### addCorsRule
+
+▸ **addCorsRule**(`rule`): `void`
+
+Adds a cross-origin access configuration for objects in an Amazon S3 bucket.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `rule` | `CorsRule` | The CORS configuration rule to add. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.addCorsRule
+
+___
+
+### addEventNotification
+
+▸ **addEventNotification**(`event`, `dest`, ...`filters`): `void`
+
+Adds a bucket notification event destination.
+
+**`see`** https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
+
+**`stability`** stable
+
+**`example`**
+
+   declare const myLambda: lambda.Function;
+   const bucket = new s3.Bucket(this, 'MyBucket');
+   bucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3n.LambdaDestination(myLambda), {prefix: 'home/myusername/*'});
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `EventType` | The event to trigger the notification. |
+| `dest` | `IBucketNotificationDestination` | The notification destination (Lambda, SNS Topic or SQS Queue). |
+| `...filters` | `NotificationKeyFilter`[] | S3 object key filter rules to determine which objects trigger this event. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.addEventNotification
+
+___
+
+### addInventory
+
+▸ **addInventory**(`inventory`): `void`
+
+Add an inventory configuration.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `inventory` | `Inventory` | configuration to add. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.addInventory
+
+___
+
+### addLifecycleRule
+
+▸ **addLifecycleRule**(`rule`): `void`
+
+Add a lifecycle rule to the bucket.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `rule` | `LifecycleRule` | The rule to add. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.addLifecycleRule
+
+___
+
+### addMetric
+
+▸ **addMetric**(`metric`): `void`
+
+Adds a metrics configuration for the CloudWatch request metrics from the bucket.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `metric` | `BucketMetrics` | The metric configuration to add. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.addMetric
+
+___
+
+### addObjectCreatedNotification
+
+▸ **addObjectCreatedNotification**(`dest`, ...`filters`): `void`
+
+Subscribes a destination to receive notifications when an object is created in the bucket.
+
+This is identical to calling
+`onEvent(EventType.OBJECT_CREATED)`.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `dest` | `IBucketNotificationDestination` | The notification destination (see onEvent). |
+| `...filters` | `NotificationKeyFilter`[] | Filters (see onEvent). |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.addObjectCreatedNotification
+
+___
+
+### addObjectRemovedNotification
+
+▸ **addObjectRemovedNotification**(`dest`, ...`filters`): `void`
+
+Subscribes a destination to receive notifications when an object is removed from the bucket.
+
+This is identical to calling
+`onEvent(EventType.OBJECT_REMOVED)`.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `dest` | `IBucketNotificationDestination` | The notification destination (see onEvent). |
+| `...filters` | `NotificationKeyFilter`[] | Filters (see onEvent). |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.addObjectRemovedNotification
+
+___
+
+### addToResourcePolicy
+
+▸ **addToResourcePolicy**(`permission`): `AddToResourcePolicyResult`
+
+Adds a statement to the resource policy for a principal (i.e. account/role/service) to perform actions on this bucket and/or its contents. Use `bucketArn` and `arnForObjects(keys)` to obtain ARNs for this bucket or objects.
+
+Note that the policy statement may or may not be added to the policy.
+For example, when an `IBucket` is created from an existing bucket,
+it's not possible to tell whether the bucket already has a policy
+attached, let alone to re-use that policy to add more statements to it.
+So it's safest to do nothing in these cases.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `permission` | `PolicyStatement` | the policy statement to be added to the bucket's policy. |
+
+#### Returns
+
+`AddToResourcePolicyResult`
+
+metadata about the execution of this method. If the policy
+was not added, the value of `statementAdded` will be `false`. You
+should always check this value to make sure that the operation was
+actually carried out. Otherwise, synthesis and deploy will terminate
+silently, which may be confusing.
+
+#### Inherited from
+
+Bucket.addToResourcePolicy
+
+___
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.applyRemovalPolicy
+
+___
+
+### arnForObjects
+
+▸ **arnForObjects**(`keyPattern`): `string`
+
+Returns an ARN that represents all objects within the bucket that match the key pattern specified.
+
+To represent all keys, specify ``"*"``.
+
+If you need to specify a keyPattern with multiple components, concatenate them into a single string, e.g.:
+
+   arnForObjects(`home/${team}/${user}/*`)
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `keyPattern` | `string` |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Bucket.arnForObjects
+
+___
+
+### generatePhysicalName
+
+▸ `Protected` **generatePhysicalName**(): `string`
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Bucket.generatePhysicalName
+
+___
+
+### getResourceArnAttribute
+
+▸ `Protected` **getResourceArnAttribute**(`arnAttr`, `arnComponents`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "ARN" attribute (e.g. `bucket.bucketArn`).
+
+Normally, this token will resolve to `arnAttr`, but if the resource is
+referenced across environments, `arnComponents` will be used to synthesize
+a concrete ARN with the resource's physical name. Make sure to reference
+`this.physicalName` in `arnComponents`.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `arnAttr` | `string` | The CFN attribute which resolves to the ARN of the resource. |
+| `arnComponents` | `ArnComponents` | The format of the ARN of this resource. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Bucket.getResourceArnAttribute
+
+___
+
+### getResourceNameAttribute
+
+▸ `Protected` **getResourceNameAttribute**(`nameAttr`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "name" attribute (e.g. `bucket.bucketName`).
+
+Normally, this token will resolve to `nameAttr`, but if the resource is
+referenced across environments, it will be resolved to `this.physicalName`,
+which will be a concrete name.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `nameAttr` | `string` | The CFN attribute which resolves to the resource's name. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Bucket.getResourceNameAttribute
+
+___
+
+### grantDelete
+
+▸ **grantDelete**(`identity`, `objectsKeyPattern?`): `Grant`
+
+Grants s3:DeleteObject* permission to an IAM principal for objects in this bucket.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `identity` | `IGrantable` | The principal. |
+| `objectsKeyPattern?` | `any` | Restrict the permission to a certain key pattern (default '*'). |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Bucket.grantDelete
+
+___
+
+### grantPublicAccess
+
+▸ **grantPublicAccess**(`keyPrefix?`, ...`allowedActions`): `Grant`
+
+Allows unrestricted access to objects from this bucket.
+
+IMPORTANT: This permission allows anyone to perform actions on S3 objects
+in this bucket, which is useful for when you configure your bucket as a
+website and want everyone to be able to read objects in the bucket without
+needing to authenticate.
+
+Without arguments, this method will grant read ("s3:GetObject") access to
+all objects ("*") in the bucket.
+
+The method returns the `iam.Grant` object, which can then be modified
+as needed. For example, you can add a condition that will restrict access only
+to an IPv4 range like this:
+
+     const grant = bucket.grantPublicAccess();
+     grant.resourceStatement!.addCondition(‘IpAddress’, { “aws:SourceIp”: “54.240.143.0/24” });
+
+Note that if this `IBucket` refers to an existing bucket, possibly not
+managed by CloudFormation, this method will have no effect, since it's
+impossible to modify the policy of an existing bucket.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `keyPrefix?` | `string` | the prefix of S3 object keys (e.g. `home/*`). Default is "*". |
+| `...allowedActions` | `string`[] | the set of S3 actions to allow. |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Bucket.grantPublicAccess
+
+___
+
+### grantPut
+
+▸ **grantPut**(`identity`, `objectsKeyPattern?`): `Grant`
+
+Grants s3:PutObject* and s3:Abort* permissions for this bucket to an IAM principal.
+
+If encryption is used, permission to use the key to encrypt the contents
+of written files will also be granted to the same principal.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `identity` | `IGrantable` | The principal. |
+| `objectsKeyPattern?` | `any` | Restrict the permission to a certain key pattern (default '*'). |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Bucket.grantPut
+
+___
+
+### grantPutAcl
+
+▸ **grantPutAcl**(`identity`, `objectsKeyPattern?`): `Grant`
+
+Grant the given IAM identity permissions to modify the ACLs of objects in the given Bucket.
+
+If your application has the '@aws-cdk/aws-s3:grantWriteWithoutAcl' feature flag set,
+calling [grantWrite](#grantwrite) or [grantReadWrite](#grantreadwrite) no longer grants permissions to modify the ACLs of the objects;
+in this case, if you need to modify object ACLs, call this method explicitly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `identity` | `IGrantable` |
+| `objectsKeyPattern?` | `string` |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Bucket.grantPutAcl
+
+___
+
+### grantRead
+
+▸ **grantRead**(`identity`, `objectsKeyPattern?`): `Grant`
+
+Grant read permissions for this bucket and it's contents to an IAM principal (Role/Group/User).
+
+If encryption is used, permission to use the key to decrypt the contents
+of the bucket will also be granted to the same principal.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `identity` | `IGrantable` | The principal. |
+| `objectsKeyPattern?` | `any` | Restrict the permission to a certain key pattern (default '*'). |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Bucket.grantRead
+
+___
+
+### grantReadWrite
+
+▸ **grantReadWrite**(`identity`, `objectsKeyPattern?`): `Grant`
+
+Grants read/write permissions for this bucket and it's contents to an IAM principal (Role/Group/User).
+
+If an encryption key is used, permission to use the key for
+encrypt/decrypt will also be granted.
+
+Before CDK version 1.85.0, this method granted the `s3:PutObject*` permission that included `s3:PutObjectAcl`,
+which could be used to grant read/write object access to IAM principals in other accounts.
+If you want to get rid of that behavior, update your CDK version to 1.85.0 or later,
+and make sure the `@aws-cdk/aws-s3:grantWriteWithoutAcl` feature flag is set to `true`
+in the `context` key of your cdk.json file.
+If you've already updated, but still need the principal to have permissions to modify the ACLs,
+use the [grantPutAcl](#grantputacl) method.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `identity` | `IGrantable` |
+| `objectsKeyPattern?` | `any` |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Bucket.grantReadWrite
+
+___
+
+### grantWrite
+
+▸ **grantWrite**(`identity`, `objectsKeyPattern?`): `Grant`
+
+Grant write permissions to this bucket to an IAM principal.
+
+If encryption is used, permission to use the key to encrypt the contents
+of written files will also be granted to the same principal.
+
+Before CDK version 1.85.0, this method granted the `s3:PutObject*` permission that included `s3:PutObjectAcl`,
+which could be used to grant read/write object access to IAM principals in other accounts.
+If you want to get rid of that behavior, update your CDK version to 1.85.0 or later,
+and make sure the `@aws-cdk/aws-s3:grantWriteWithoutAcl` feature flag is set to `true`
+in the `context` key of your cdk.json file.
+If you've already updated, but still need the principal to have permissions to modify the ACLs,
+use the [grantPutAcl](#grantputacl) method.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `identity` | `IGrantable` |
+| `objectsKeyPattern?` | `any` |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Bucket.grantWrite
+
+___
+
+### onCloudTrailEvent
+
+▸ **onCloudTrailEvent**(`id`, `options?`): `Rule`
+
+Define a CloudWatch event that triggers when something happens to this repository.
+
+Requires that there exists at least one CloudTrail Trail in your account
+that captures the event. This method will not create the Trail.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The id of the rule. |
+| `options?` | `OnCloudTrailBucketEventOptions` | Options for adding the rule. |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+Bucket.onCloudTrailEvent
+
+___
+
+### onCloudTrailPutObject
+
+▸ **onCloudTrailPutObject**(`id`, `options?`): `Rule`
+
+Defines an AWS CloudWatch event that triggers when an object is uploaded to the specified paths (keys) in this bucket using the PutObject API call.
+
+Note that some tools like `aws s3 cp` will automatically use either
+PutObject or the multipart upload API depending on the file size,
+so using `onCloudTrailWriteObject` may be preferable.
+
+Requires that there exists at least one CloudTrail Trail in your account
+that captures the event. This method will not create the Trail.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The id of the rule. |
+| `options?` | `OnCloudTrailBucketEventOptions` | Options for adding the rule. |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+Bucket.onCloudTrailPutObject
+
+___
+
+### onCloudTrailWriteObject
+
+▸ **onCloudTrailWriteObject**(`id`, `options?`): `Rule`
+
+Defines an AWS CloudWatch event that triggers when an object at the specified paths (keys) in this bucket are written to.
+
+This includes
+the events PutObject, CopyObject, and CompleteMultipartUpload.
+
+Note that some tools like `aws s3 cp` will automatically use either
+PutObject or the multipart upload API depending on the file size,
+so using this method may be preferable to `onCloudTrailPutObject`.
+
+Requires that there exists at least one CloudTrail Trail in your account
+that captures the event. This method will not create the Trail.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The id of the rule. |
+| `options?` | `OnCloudTrailBucketEventOptions` | Options for adding the rule. |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+Bucket.onCloudTrailWriteObject
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Bucket.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.prepare
+
+___
+
+### s3UrlForObject
+
+▸ **s3UrlForObject**(`key?`): `string`
+
+The S3 URL of an S3 object. For example:.
+
+- `s3://onlybucket`
+- `s3://bucket/key`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key?` | `string` | The S3 key of the object. |
+
+#### Returns
+
+`string`
+
+an ObjectS3Url token
+
+#### Inherited from
+
+Bucket.s3UrlForObject
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Bucket.toString
+
+___
+
+### urlForObject
+
+▸ **urlForObject**(`key?`): `string`
+
+The https URL of an S3 object. Specify `regional: false` at the options for non-regional URLs. For example:.
+
+- `https://s3.us-west-1.amazonaws.com/onlybucket`
+- `https://s3.us-west-1.amazonaws.com/bucket/key`
+- `https://s3.cn-north-1.amazonaws.com.cn/china-bucket/mykey`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key?` | `string` | The S3 key of the object. |
+
+#### Returns
+
+`string`
+
+an ObjectS3Url token
+
+#### Inherited from
+
+Bucket.urlForObject
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+#### Inherited from
+
+Bucket.validate
+
+___
+
+### virtualHostedUrlForObject
+
+▸ **virtualHostedUrlForObject**(`key?`, `options?`): `string`
+
+The virtual hosted-style URL of an S3 object. Specify `regional: false` at the options for non-regional URL. For example:.
+
+- `https://only-bucket.s3.us-west-1.amazonaws.com`
+- `https://bucket.s3.us-west-1.amazonaws.com/key`
+- `https://bucket.s3.amazonaws.com/key`
+- `https://china-bucket.s3.cn-north-1.amazonaws.com.cn/mykey`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key?` | `string` | The S3 key of the object. |
+| `options?` | `VirtualHostedStyleUrlOptions` | Options for generating URL. |
+
+#### Returns
+
+`string`
+
+an ObjectS3Url token
+
+#### Inherited from
+
+Bucket.virtualHostedUrlForObject
+
+___
+
+### fromBucketArn
+
+▸ `Static` **fromBucketArn**(`scope`, `id`, `bucketArn`): `IBucket`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `bucketArn` | `string` |
+
+#### Returns
+
+`IBucket`
+
+#### Inherited from
+
+Bucket.fromBucketArn
+
+___
+
+### fromBucketAttributes
+
+▸ `Static` **fromBucketAttributes**(`scope`, `id`, `attrs`): `IBucket`
+
+Creates a Bucket construct that represents an external bucket.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `scope` | `Construct` | The parent creating construct (usually `this`). |
+| `id` | `string` | The construct's name. |
+| `attrs` | `BucketAttributes` | A `BucketAttributes` object. |
+
+#### Returns
+
+`IBucket`
+
+#### Inherited from
+
+Bucket.fromBucketAttributes
+
+___
+
+### fromBucketName
+
+▸ `Static` **fromBucketName**(`scope`, `id`, `bucketName`): `IBucket`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `bucketName` | `string` |
+
+#### Returns
+
+`IBucket`
+
+#### Inherited from
+
+Bucket.fromBucketName
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Bucket.isConstruct
+
+___
+
+### isResource
+
+▸ `Static` **isResource**(`construct`): construct is CfnResource
+
+Check whether the given construct is a Resource.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `construct` | `IConstruct` |
+
+#### Returns
+
+construct is CfnResource
+
+#### Inherited from
+
+Bucket.isResource
+
+___
+
+### validateBucketName
+
+▸ `Static` **validateBucketName**(`physicalName`): `void`
+
+Thrown an exception if the given bucket name is not valid.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `physicalName` | `string` | name of the bucket. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.validateBucketName
+
+# Definition Initializer
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / DefinitionInitializer
+
+# Class: DefinitionInitializer
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`DefinitionInitializer`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [node](#node)
+
+### Methods
+
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new DefinitionInitializer**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`DefinitionInitializerProps`](#definition-initializer-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Sandbox
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / Sandbox
+
+# Class: Sandbox
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`Sandbox`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [definitionBucket](#definitionbucket)
+- [lambdaAccessPoint](#lambdaaccesspoint)
+- [node](#node)
+- [s3Endpoint](#s3endpoint)
+- [vpc](#vpc)
+
+### Methods
+
+- [addToS3EnpointPolicy](#addtos3enpointpolicy)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new Sandbox**(`scope`, `id`, `props?`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`SandboxProps`](#sandbox-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### definitionBucket
+
+• `Readonly` **definitionBucket**: [`DefinitionBucket`](#definition-bucket)
+
+___
+
+### lambdaAccessPoint
+
+• `Readonly` **lambdaAccessPoint**: `IAccessPoint`
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### s3Endpoint
+
+• `Readonly` **s3Endpoint**: `GatewayVpcEndpoint`
+
+___
+
+### vpc
+
+• `Readonly` **vpc**: `IVpc`
+
+## Methods
+
+### addToS3EnpointPolicy
+
+▸ **addToS3EnpointPolicy**(`statement`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `statement` | `PolicyStatement` |
+
+#### Returns
+
+`void`
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Scanner
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / Scanner
+
+# Class: Scanner
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`Scanner`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [node](#node)
+- [sandbox](#sandbox)
+- [scanFunction](#scanfunction)
+- [scanStatusTagName](#scanstatustagname)
+- [updateFunction](#updatefunction)
+
+### Methods
+
+- [addSourceBucket](#addsourcebucket)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new Scanner**(`scope`, `id`, `props?`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`ScannerProps`](#scanner-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### sandbox
+
+• `Readonly` **sandbox**: [`Sandbox`](#sandbox)
+
+___
+
+### scanFunction
+
+• `Readonly` **scanFunction**: `IFunction`
+
+___
+
+### scanStatusTagName
+
+• `Readonly` **scanStatusTagName**: `string`
+
+___
+
+### updateFunction
+
+• `Readonly` **updateFunction**: `IFunction`
+
+## Methods
+
+### addSourceBucket
+
+▸ **addSourceBucket**(`bucket`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `bucket` | `Bucket` |
+
+#### Returns
+
+`void`
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Definition Bucket Props
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / DefinitionBucketProps
+
+# Interface: DefinitionBucketProps
+
+## Table of contents
+
+### Properties
+
+- [bucketName](#bucketname)
+- [vpcEndpoint](#vpcendpoint)
+
+## Properties
+
+### bucketName
+
+• `Optional` `Readonly` **bucketName**: `string`
+
+___
+
+### vpcEndpoint
+
+• `Readonly` **vpcEndpoint**: `string`
+
+# Definition Initializer Props
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / DefinitionInitializerProps
+
+# Interface: DefinitionInitializerProps
+
+## Table of contents
+
+### Properties
+
+- [fn](#fn)
+
+## Properties
+
+### fn
+
+• `Readonly` **fn**: `IFunction`
+
+# Sandbox Props
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / SandboxProps
+
+# Interface: SandboxProps
+
+## Table of contents
+
+### Properties
+
+- [encryptedFileSystem](#encryptedfilesystem)
+
+## Properties
+
+### encryptedFileSystem
+
+• `Optional` `Readonly` **encryptedFileSystem**: `boolean`
+
+# Scanner Props
+
+[@cloudcomponents/cdk-s3-antivirus](#readme) / ScannerProps
+
+# Interface: ScannerProps
+
+## Table of contents
+
+### Properties
+
+- [buckets](#buckets)
+- [onError](#onerror)
+- [onResult](#onresult)
+- [scanStatusTagName](#scanstatustagname)
+- [updateSchedule](#updateschedule)
+
+## Properties
+
+### buckets
+
+• `Optional` `Readonly` **buckets**: `Bucket`[]
+
+___
+
+### onError
+
+• `Optional` `Readonly` **onError**: `IDestination`
+
+___
+
+### onResult
+
+• `Optional` `Readonly` **onResult**: `IDestination`
+
+___
+
+### scanStatusTagName
+
+• `Optional` `Readonly` **scanStatusTagName**: `string`
+
+**`default`** cc:scan-status
+
+___
+
+### updateSchedule
+
+• `Optional` `Readonly` **updateSchedule**: `Schedule`

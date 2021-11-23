@@ -1,606 +1,2636 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-developer-tools-notifications
 
-Name|Description
-----|-----------
-[ApplicationNotificationRule](#cloudcomponents-cdk-developer-tools-notifications-applicationnotificationrule)|*No description*
-[MSTeamsIncomingWebhook](#cloudcomponents-cdk-developer-tools-notifications-msteamsincomingwebhook)|*No description*
-[NotificationRule](#cloudcomponents-cdk-developer-tools-notifications-notificationrule)|*No description*
-[PipelineNotificationRule](#cloudcomponents-cdk-developer-tools-notifications-pipelinenotificationrule)|*No description*
-[ProjectNotificationRule](#cloudcomponents-cdk-developer-tools-notifications-projectnotificationrule)|*No description*
-[RepositoryNotificationRule](#cloudcomponents-cdk-developer-tools-notifications-repositorynotificationrule)|*No description*
-[SlackChannel](#cloudcomponents-cdk-developer-tools-notifications-slackchannel)|*No description*
-[SnsTopic](#cloudcomponents-cdk-developer-tools-notifications-snstopic)|*No description*
+# @cloudcomponents/cdk-developer-tools-notifications
 
+## Table of contents
 
-**Structs**
+### Enumerations
 
-Name|Description
-----|-----------
-[ApplicationNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-applicationnotificationruleprops)|*No description*
-[CommonNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-commonnotificationruleprops)|*No description*
-[NotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-notificationruleprops)|*No description*
-[NotificationTargetProperty](#cloudcomponents-cdk-developer-tools-notifications-notificationtargetproperty)|*No description*
-[PipelineNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-pipelinenotificationruleprops)|*No description*
-[ProjectNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-projectnotificationruleprops)|*No description*
-[RepositoryNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-repositorynotificationruleprops)|*No description*
+- [ApplicationEvent](#application-event)
+- [DetailType](#detail-type)
+- [PipelineEvent](#pipeline-event)
+- [ProjectEvent](#project-event)
+- [RepositoryEvent](#repository-event)
+- [Status](#status)
+- [TargetType](#target-type)
 
+### Classes
 
-**Interfaces**
+- [ApplicationNotificationRule](#application-notification-rule)
+- [MSTeamsIncomingWebhook](#ms-teams-incoming-webhook)
+- [NotificationRule](#notification-rule)
+- [PipelineNotificationRule](#pipeline-notification-rule)
+- [ProjectNotificationRule](#project-notification-rule)
+- [RepositoryNotificationRule](#repository-notification-rule)
+- [SlackChannel](#slack-channel)
+- [SnsTopic](#sns-topic)
 
-Name|Description
-----|-----------
-[INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)|*No description*
-[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)|*No description*
+### Interfaces
 
+- [ApplicationNotificationRuleProps](#application-notification-rule-props)
+- [CommonNotificationRuleProps](#common-notification-rule-props)
+- [INotificationRule](#i-notification-rule)
+- [INotificationTarget](#i-notification-target)
+- [NotificationRuleProps](#notification-rule-props)
+- [NotificationTargetProperty](#notification-target-property)
+- [PipelineNotificationRuleProps](#pipeline-notification-rule-props)
+- [ProjectNotificationRuleProps](#project-notification-rule-props)
+- [RepositoryNotificationRuleProps](#repository-notification-rule-props)
 
-**Enums**
+# Application Notification Rule
 
-Name|Description
-----|-----------
-[ApplicationEvent](#cloudcomponents-cdk-developer-tools-notifications-applicationevent)|*No description*
-[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)|*No description*
-[PipelineEvent](#cloudcomponents-cdk-developer-tools-notifications-pipelineevent)|*No description*
-[ProjectEvent](#cloudcomponents-cdk-developer-tools-notifications-projectevent)|*No description*
-[RepositoryEvent](#cloudcomponents-cdk-developer-tools-notifications-repositoryevent)|*No description*
-[Status](#cloudcomponents-cdk-developer-tools-notifications-status)|*No description*
-[TargetType](#cloudcomponents-cdk-developer-tools-notifications-targettype)|*No description*
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / ApplicationNotificationRule
 
+# Class: ApplicationNotificationRule
 
+## Hierarchy
 
-## class ApplicationNotificationRule  <a id="cloudcomponents-cdk-developer-tools-notifications-applicationnotificationrule"></a>
+- [`NotificationRule`](#notification-rule)
 
+  ↳ **`ApplicationNotificationRule`**
 
+## Table of contents
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)
-__Extends__: [NotificationRule](#cloudcomponents-cdk-developer-tools-notifications-notificationrule)
+### Constructors
 
-### Initializer
-
-
-
-
-```ts
-new ApplicationNotificationRule(scope: Construct, id: string, props: ApplicationNotificationRuleProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[ApplicationNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-applicationnotificationruleprops)</code>)  *No description*
-  * **name** (<code>string</code>)  The name for the notification rule. 
-  * **detailType** (<code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code>)  The level of detail to include in the notifications for this resource. __*Default*__: FULL
-  * **status** (<code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code>)  The status of the notification rule. __*Default*__: ENABLED
-  * **targets** (<code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code>)  SNS topics or AWS Chatbot clients to associate with the notification rule. __*Optional*__
-  * **application** (<code>[IServerApplication](#aws-cdk-aws-codedeploy-iserverapplication) &#124; [ILambdaApplication](#aws-cdk-aws-codedeploy-ilambdaapplication) &#124; [IEcsApplication](#aws-cdk-aws-codedeploy-iecsapplication)</code>)  *No description* 
-  * **events** (<code>Array<[ApplicationEvent](#cloudcomponents-cdk-developer-tools-notifications-applicationevent)></code>)  *No description* 
-
-
-
-
-## class MSTeamsIncomingWebhook  <a id="cloudcomponents-cdk-developer-tools-notifications-msteamsincomingwebhook"></a>
-
-
-
-__Implements__: [INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)
-
-### Initializer
-
-
-
-
-```ts
-new MSTeamsIncomingWebhook(webhook: MSTeamsIncomingWebhookConfiguration)
-```
-
-* **webhook** (<code>[MSTeamsIncomingWebhookConfiguration](#cloudcomponents-cdk-chatops-msteamsincomingwebhookconfiguration)</code>)  *No description*
-
-
-### Methods
-
-
-#### bind(scope, _rule) <a id="cloudcomponents-cdk-developer-tools-notifications-msteamsincomingwebhook-bind"></a>
-
-
-
-```ts
-bind(scope: Construct, _rule: INotificationRule): NotificationTargetProperty
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **_rule** (<code>[INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)</code>)  *No description*
-
-__Returns__:
-* <code>[NotificationTargetProperty](#cloudcomponents-cdk-developer-tools-notifications-notificationtargetproperty)</code>
-
-
-
-## class NotificationRule  <a id="cloudcomponents-cdk-developer-tools-notifications-notificationrule"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)
-__Extends__: [Construct](#aws-cdk-core-construct)
-
-### Initializer
-
-
-
-
-```ts
-new NotificationRule(scope: Construct, id: string, props: NotificationRuleProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[NotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-notificationruleprops)</code>)  *No description*
-  * **name** (<code>string</code>)  The name for the notification rule. 
-  * **detailType** (<code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code>)  The level of detail to include in the notifications for this resource. __*Default*__: FULL
-  * **status** (<code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code>)  The status of the notification rule. __*Default*__: ENABLED
-  * **targets** (<code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code>)  SNS topics or AWS Chatbot clients to associate with the notification rule. __*Optional*__
-  * **events** (<code>Array<[RepositoryEvent](#cloudcomponents-cdk-developer-tools-notifications-repositoryevent) &#124; [ProjectEvent](#cloudcomponents-cdk-developer-tools-notifications-projectevent) &#124; [ApplicationEvent](#cloudcomponents-cdk-developer-tools-notifications-applicationevent) &#124; [PipelineEvent](#cloudcomponents-cdk-developer-tools-notifications-pipelineevent)></code>)  A list of events associated with this notification rule. 
-  * **resource** (<code>string</code>)  The Amazon Resource Name (ARN) of the resource to associate with the notification rule. 
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**notificationRuleArn** | <code>string</code> | <span></span>
+- [node](#node)
+- [notificationRuleArn](#notificationrulearn)
 
 ### Methods
 
+- [addTarget](#addtarget)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### addTarget(target) <a id="cloudcomponents-cdk-developer-tools-notifications-notificationrule-addtarget"></a>
+## Constructors
 
+### constructor
 
+• **new ApplicationNotificationRule**(`scope`, `id`, `props`)
 
-```ts
-addTarget(target: INotificationTarget): void
-```
+#### Parameters
 
-* **target** (<code>[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`ApplicationNotificationRuleProps`](#application-notification-rule-props) |
 
+#### Overrides
 
+[NotificationRule](#notification-rule).[constructor](#constructor)
 
+## Properties
 
-#### protected validate() <a id="cloudcomponents-cdk-developer-tools-notifications-notificationrule-validate"></a>
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[node](#node)
+
+___
+
+### notificationRuleArn
+
+• `Readonly` **notificationRuleArn**: `string`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[notificationRuleArn](#notificationrulearn)
+
+## Methods
+
+### addTarget
+
+▸ **addTarget**(`target`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`INotificationTarget`](#i-notification-target) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[addTarget](#addtarget)
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
 
 Validate the current construct.
 
 This method can be implemented by derived constructs in order to perform
 validation logic. It is called on all constructs before synthesis.
 
-```ts
-protected validate(): Array<string>
-```
+**`stability`** stable
 
+#### Returns
 
-__Returns__:
-* <code>Array<string></code>
+`string`[]
 
+An array of validation error messages, or an empty array if the construct is valid.
 
+#### Inherited from
 
-## class PipelineNotificationRule  <a id="cloudcomponents-cdk-developer-tools-notifications-pipelinenotificationrule"></a>
+[NotificationRule](#notification-rule).[onValidate](#onvalidate)
 
+___
 
+### prepare
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)
-__Extends__: [NotificationRule](#cloudcomponents-cdk-developer-tools-notifications-notificationrule)
+▸ `Protected` **prepare**(): `void`
 
-### Initializer
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
-```ts
-new PipelineNotificationRule(scope: Construct, id: string, props: PipelineNotificationRuleProps)
-```
+#### Returns
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[PipelineNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-pipelinenotificationruleprops)</code>)  *No description*
-  * **name** (<code>string</code>)  The name for the notification rule. 
-  * **detailType** (<code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code>)  The level of detail to include in the notifications for this resource. __*Default*__: FULL
-  * **status** (<code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code>)  The status of the notification rule. __*Default*__: ENABLED
-  * **targets** (<code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code>)  SNS topics or AWS Chatbot clients to associate with the notification rule. __*Optional*__
-  * **events** (<code>Array<[PipelineEvent](#cloudcomponents-cdk-developer-tools-notifications-pipelineevent)></code>)  *No description* 
-  * **pipeline** (<code>[IPipeline](#aws-cdk-aws-codepipeline-ipipeline)</code>)  *No description* 
+`void`
 
+#### Inherited from
 
+[NotificationRule](#notification-rule).[prepare](#prepare)
 
+___
 
-## class ProjectNotificationRule  <a id="cloudcomponents-cdk-developer-tools-notifications-projectnotificationrule"></a>
+### synthesize
 
+▸ `Protected` **synthesize**(`session`): `void`
 
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)
-__Extends__: [NotificationRule](#cloudcomponents-cdk-developer-tools-notifications-notificationrule)
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
-### Initializer
+**`stability`** stable
 
+#### Parameters
 
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
+#### Returns
 
-```ts
-new ProjectNotificationRule(scope: Construct, id: string, props: ProjectNotificationRuleProps)
-```
+`void`
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[ProjectNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-projectnotificationruleprops)</code>)  *No description*
-  * **name** (<code>string</code>)  The name for the notification rule. 
-  * **detailType** (<code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code>)  The level of detail to include in the notifications for this resource. __*Default*__: FULL
-  * **status** (<code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code>)  The status of the notification rule. __*Default*__: ENABLED
-  * **targets** (<code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code>)  SNS topics or AWS Chatbot clients to associate with the notification rule. __*Optional*__
-  * **events** (<code>Array<[ProjectEvent](#cloudcomponents-cdk-developer-tools-notifications-projectevent)></code>)  *No description* 
-  * **project** (<code>[IProject](#aws-cdk-aws-codebuild-iproject)</code>)  *No description* 
+#### Inherited from
 
+[NotificationRule](#notification-rule).[synthesize](#synthesize)
 
+___
 
+### toString
 
-## class RepositoryNotificationRule  <a id="cloudcomponents-cdk-developer-tools-notifications-repositorynotificationrule"></a>
+▸ **toString**(): `string`
 
+Returns a string representation of this construct.
 
+**`stability`** stable
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)
-__Extends__: [NotificationRule](#cloudcomponents-cdk-developer-tools-notifications-notificationrule)
+#### Returns
 
-### Initializer
+`string`
 
+#### Inherited from
 
+[NotificationRule](#notification-rule).[toString](#tostring)
 
+___
 
-```ts
-new RepositoryNotificationRule(scope: Construct, id: string, props: RepositoryNotificationRuleProps)
-```
+### validate
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[RepositoryNotificationRuleProps](#cloudcomponents-cdk-developer-tools-notifications-repositorynotificationruleprops)</code>)  *No description*
-  * **name** (<code>string</code>)  The name for the notification rule. 
-  * **detailType** (<code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code>)  The level of detail to include in the notifications for this resource. __*Default*__: FULL
-  * **status** (<code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code>)  The status of the notification rule. __*Default*__: ENABLED
-  * **targets** (<code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code>)  SNS topics or AWS Chatbot clients to associate with the notification rule. __*Optional*__
-  * **events** (<code>Array<[RepositoryEvent](#cloudcomponents-cdk-developer-tools-notifications-repositoryevent)></code>)  *No description* 
-  * **repository** (<code>[IRepository](#aws-cdk-aws-codecommit-irepository)</code>)  *No description* 
+▸ `Protected` **validate**(): `string`[]
 
+#### Returns
 
+`string`[]
 
+#### Inherited from
 
-## class SlackChannel  <a id="cloudcomponents-cdk-developer-tools-notifications-slackchannel"></a>
+[NotificationRule](#notification-rule).[validate](#validate)
 
+___
 
+### isConstruct
 
-__Implements__: [INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)
+▸ `Static` **isConstruct**(`x`): x is Construct
 
-### Initializer
+Return whether the given object is a Construct.
 
+**`stability`** stable
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
 
-```ts
-new SlackChannel(channel: ISlackChannelConfiguration)
-```
+#### Returns
 
-* **channel** (<code>[ISlackChannelConfiguration](#cloudcomponents-cdk-chatops-islackchannelconfiguration)</code>)  *No description*
+x is Construct
 
+#### Inherited from
+
+[NotificationRule](#notification-rule).[isConstruct](#isconstruct)
+
+# MS Teams Incoming Webhook
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / MSTeamsIncomingWebhook
+
+# Class: MSTeamsIncomingWebhook
+
+## Implements
+
+- [`INotificationTarget`](#i-notification-target)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Methods
 
+- [bind](#bind)
 
-#### bind(_scope, _rule) <a id="cloudcomponents-cdk-developer-tools-notifications-slackchannel-bind"></a>
+## Constructors
 
+### constructor
 
+• **new MSTeamsIncomingWebhook**(`webhook`)
 
-```ts
-bind(_scope: Construct, _rule: INotificationRule): NotificationTargetProperty
-```
+#### Parameters
 
-* **_scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **_rule** (<code>[INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `webhook` | `MSTeamsIncomingWebhookConfiguration` |
 
-__Returns__:
-* <code>[NotificationTargetProperty](#cloudcomponents-cdk-developer-tools-notifications-notificationtargetproperty)</code>
+## Methods
 
+### bind
 
+▸ **bind**(`scope`, `_rule`): [`NotificationTargetProperty`](#notification-target-property)
 
-## class SnsTopic  <a id="cloudcomponents-cdk-developer-tools-notifications-snstopic"></a>
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `_rule` | [`INotificationRule`](#i-notification-rule) |
 
+#### Returns
 
-__Implements__: [INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)
+[`NotificationTargetProperty`](#notification-target-property)
 
-### Initializer
+#### Implementation of
 
+[INotificationTarget](#i-notification-target).[bind](#bind)
 
+# Notification Rule
 
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / NotificationRule
 
-```ts
-new SnsTopic(topic: ITopic)
-```
+# Class: NotificationRule
 
-* **topic** (<code>[ITopic](#aws-cdk-aws-sns-itopic)</code>)  *No description*
+## Hierarchy
 
+- `Construct`
 
-### Methods
+  ↳ **`NotificationRule`**
 
+  ↳↳ [`RepositoryNotificationRule`](#repository-notification-rule)
 
-#### bind(_scope, _rule) <a id="cloudcomponents-cdk-developer-tools-notifications-snstopic-bind"></a>
+  ↳↳ [`PipelineNotificationRule`](#pipeline-notification-rule)
 
+  ↳↳ [`ProjectNotificationRule`](#project-notification-rule)
 
+  ↳↳ [`ApplicationNotificationRule`](#application-notification-rule)
 
-```ts
-bind(_scope: Construct, _rule: INotificationRule): NotificationTargetProperty
-```
+## Implements
 
-* **_scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **_rule** (<code>[INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)</code>)  *No description*
+- [`INotificationRule`](#i-notification-rule)
 
-__Returns__:
-* <code>[NotificationTargetProperty](#cloudcomponents-cdk-developer-tools-notifications-notificationtargetproperty)</code>
+## Table of contents
 
+### Constructors
 
-
-## struct ApplicationNotificationRuleProps  <a id="cloudcomponents-cdk-developer-tools-notifications-applicationnotificationruleprops"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**application** | <code>[IServerApplication](#aws-cdk-aws-codedeploy-iserverapplication) &#124; [ILambdaApplication](#aws-cdk-aws-codedeploy-ilambdaapplication) &#124; [IEcsApplication](#aws-cdk-aws-codedeploy-iecsapplication)</code> | <span></span>
-**events** | <code>Array<[ApplicationEvent](#cloudcomponents-cdk-developer-tools-notifications-applicationevent)></code> | <span></span>
-**name** | <code>string</code> | The name for the notification rule.
-**detailType**? | <code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code> | The level of detail to include in the notifications for this resource.<br/>__*Default*__: FULL
-**status**? | <code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code> | The status of the notification rule.<br/>__*Default*__: ENABLED
-**targets**? | <code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code> | SNS topics or AWS Chatbot clients to associate with the notification rule.<br/>__*Optional*__
-
-
-
-## struct CommonNotificationRuleProps  <a id="cloudcomponents-cdk-developer-tools-notifications-commonnotificationruleprops"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**name** | <code>string</code> | The name for the notification rule.
-**detailType**? | <code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code> | The level of detail to include in the notifications for this resource.<br/>__*Default*__: FULL
-**status**? | <code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code> | The status of the notification rule.<br/>__*Default*__: ENABLED
-**targets**? | <code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code> | SNS topics or AWS Chatbot clients to associate with the notification rule.<br/>__*Optional*__
-
-
-
-## interface INotificationRule  <a id="cloudcomponents-cdk-developer-tools-notifications-inotificationrule"></a>
-
-__Implemented by__: [ApplicationNotificationRule](#cloudcomponents-cdk-developer-tools-notifications-applicationnotificationrule), [NotificationRule](#cloudcomponents-cdk-developer-tools-notifications-notificationrule), [PipelineNotificationRule](#cloudcomponents-cdk-developer-tools-notifications-pipelinenotificationrule), [ProjectNotificationRule](#cloudcomponents-cdk-developer-tools-notifications-projectnotificationrule), [RepositoryNotificationRule](#cloudcomponents-cdk-developer-tools-notifications-repositorynotificationrule)
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**notificationRuleArn** | <code>string</code> | <span></span>
-
-
-
-## interface INotificationTarget  <a id="cloudcomponents-cdk-developer-tools-notifications-inotificationtarget"></a>
-
-__Implemented by__: [MSTeamsIncomingWebhook](#cloudcomponents-cdk-developer-tools-notifications-msteamsincomingwebhook), [SlackChannel](#cloudcomponents-cdk-developer-tools-notifications-slackchannel), [SnsTopic](#cloudcomponents-cdk-developer-tools-notifications-snstopic)
-
+- [node](#node)
+- [notificationRuleArn](#notificationrulearn)
+- [targets](#targets)
 
 ### Methods
 
+- [addTarget](#addtarget)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### bind(scope, rule) <a id="cloudcomponents-cdk-developer-tools-notifications-inotificationtarget-bind"></a>
+## Constructors
 
+### constructor
 
+• **new NotificationRule**(`scope`, `id`, `props`)
 
-```ts
-bind(scope: Construct, rule: INotificationRule): NotificationTargetProperty
-```
+#### Parameters
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **rule** (<code>[INotificationRule](#cloudcomponents-cdk-developer-tools-notifications-inotificationrule)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`NotificationRuleProps`](#notification-rule-props) |
 
-__Returns__:
-* <code>[NotificationTargetProperty](#cloudcomponents-cdk-developer-tools-notifications-notificationtargetproperty)</code>
+#### Overrides
 
+Construct.constructor
 
+## Properties
 
-## struct NotificationRuleProps  <a id="cloudcomponents-cdk-developer-tools-notifications-notificationruleprops"></a>
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
-Name | Type | Description 
------|------|-------------
-**events** | <code>Array<[RepositoryEvent](#cloudcomponents-cdk-developer-tools-notifications-repositoryevent) &#124; [ProjectEvent](#cloudcomponents-cdk-developer-tools-notifications-projectevent) &#124; [ApplicationEvent](#cloudcomponents-cdk-developer-tools-notifications-applicationevent) &#124; [PipelineEvent](#cloudcomponents-cdk-developer-tools-notifications-pipelineevent)></code> | A list of events associated with this notification rule.
-**name** | <code>string</code> | The name for the notification rule.
-**resource** | <code>string</code> | The Amazon Resource Name (ARN) of the resource to associate with the notification rule.
-**detailType**? | <code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code> | The level of detail to include in the notifications for this resource.<br/>__*Default*__: FULL
-**status**? | <code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code> | The status of the notification rule.<br/>__*Default*__: ENABLED
-**targets**? | <code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code> | SNS topics or AWS Chatbot clients to associate with the notification rule.<br/>__*Optional*__
+___
 
+### notificationRuleArn
 
+• `Readonly` **notificationRuleArn**: `string`
 
-## struct NotificationTargetProperty  <a id="cloudcomponents-cdk-developer-tools-notifications-notificationtargetproperty"></a>
+#### Implementation of
 
-__Obtainable from__: [MSTeamsIncomingWebhook](#cloudcomponents-cdk-developer-tools-notifications-msteamsincomingwebhook).[bind](#cloudcomponents-cdk-developer-tools-notifications-msteamsincomingwebhook#cloudcomponents-cdk-developer-tools-notifications-msteamsincomingwebhook-bind)(), [SlackChannel](#cloudcomponents-cdk-developer-tools-notifications-slackchannel).[bind](#cloudcomponents-cdk-developer-tools-notifications-slackchannel#cloudcomponents-cdk-developer-tools-notifications-slackchannel-bind)(), [SnsTopic](#cloudcomponents-cdk-developer-tools-notifications-snstopic).[bind](#cloudcomponents-cdk-developer-tools-notifications-snstopic#cloudcomponents-cdk-developer-tools-notifications-snstopic-bind)()
+[INotificationRule](#i-notification-rule).[notificationRuleArn](#notificationrulearn)
 
+___
 
+### targets
 
+• `Private` `Readonly` **targets**: [`NotificationTargetProperty`](#notification-target-property)[]
 
+## Methods
 
-Name | Type | Description 
------|------|-------------
-**targetAddress** | <code>string</code> | <span></span>
-**targetType** | <code>[TargetType](#cloudcomponents-cdk-developer-tools-notifications-targettype)</code> | <span></span>
+### addTarget
 
+▸ **addTarget**(`target`): `void`
 
+#### Parameters
 
-## struct PipelineNotificationRuleProps  <a id="cloudcomponents-cdk-developer-tools-notifications-pipelinenotificationruleprops"></a>
+| Name | Type |
+| :------ | :------ |
+| `target` | [`INotificationTarget`](#i-notification-target) |
 
+#### Returns
 
+`void`
 
+___
 
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
-Name | Type | Description 
------|------|-------------
-**events** | <code>Array<[PipelineEvent](#cloudcomponents-cdk-developer-tools-notifications-pipelineevent)></code> | <span></span>
-**name** | <code>string</code> | The name for the notification rule.
-**pipeline** | <code>[IPipeline](#aws-cdk-aws-codepipeline-ipipeline)</code> | <span></span>
-**detailType**? | <code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code> | The level of detail to include in the notifications for this resource.<br/>__*Default*__: FULL
-**status**? | <code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code> | The status of the notification rule.<br/>__*Default*__: ENABLED
-**targets**? | <code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code> | SNS topics or AWS Chatbot clients to associate with the notification rule.<br/>__*Optional*__
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
-## struct ProjectNotificationRuleProps  <a id="cloudcomponents-cdk-developer-tools-notifications-projectnotificationruleprops"></a>
+**`stability`** stable
 
+#### Returns
 
+`void`
 
+#### Inherited from
 
+Construct.onPrepare
 
+___
 
-Name | Type | Description 
------|------|-------------
-**events** | <code>Array<[ProjectEvent](#cloudcomponents-cdk-developer-tools-notifications-projectevent)></code> | <span></span>
-**name** | <code>string</code> | The name for the notification rule.
-**project** | <code>[IProject](#aws-cdk-aws-codebuild-iproject)</code> | <span></span>
-**detailType**? | <code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code> | The level of detail to include in the notifications for this resource.<br/>__*Default*__: FULL
-**status**? | <code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code> | The status of the notification rule.<br/>__*Default*__: ENABLED
-**targets**? | <code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code> | SNS topics or AWS Chatbot clients to associate with the notification rule.<br/>__*Optional*__
+### onSynthesize
 
+▸ `Protected` **onSynthesize**(`session`): `void`
 
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
-## struct RepositoryNotificationRuleProps  <a id="cloudcomponents-cdk-developer-tools-notifications-repositorynotificationruleprops"></a>
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
+**`stability`** stable
 
+#### Parameters
 
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
+#### Returns
 
+`void`
 
-Name | Type | Description 
------|------|-------------
-**events** | <code>Array<[RepositoryEvent](#cloudcomponents-cdk-developer-tools-notifications-repositoryevent)></code> | <span></span>
-**name** | <code>string</code> | The name for the notification rule.
-**repository** | <code>[IRepository](#aws-cdk-aws-codecommit-irepository)</code> | <span></span>
-**detailType**? | <code>[DetailType](#cloudcomponents-cdk-developer-tools-notifications-detailtype)</code> | The level of detail to include in the notifications for this resource.<br/>__*Default*__: FULL
-**status**? | <code>[Status](#cloudcomponents-cdk-developer-tools-notifications-status)</code> | The status of the notification rule.<br/>__*Default*__: ENABLED
-**targets**? | <code>Array<[INotificationTarget](#cloudcomponents-cdk-developer-tools-notifications-inotificationtarget)></code> | SNS topics or AWS Chatbot clients to associate with the notification rule.<br/>__*Optional*__
+#### Inherited from
 
+Construct.onSynthesize
 
+___
 
-## enum ApplicationEvent  <a id="cloudcomponents-cdk-developer-tools-notifications-applicationevent"></a>
+### onValidate
 
+▸ `Protected` **onValidate**(): `string`[]
 
+Validate the current construct.
 
-Name | Description
------|-----
-**DEPLOYMENT_FAILED** |
-**DEPLOYMENT_SUCCEEDED** |
-**DEPLOYMENT_STARTED** |
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
 
+**`stability`** stable
 
-## enum DetailType  <a id="cloudcomponents-cdk-developer-tools-notifications-detailtype"></a>
+#### Returns
 
+`string`[]
 
+An array of validation error messages, or an empty array if the construct is valid.
 
-Name | Description
------|-----
-**FULL** |
-**BASIC** |
+#### Inherited from
 
+Construct.onValidate
 
-## enum PipelineEvent  <a id="cloudcomponents-cdk-developer-tools-notifications-pipelineevent"></a>
+___
 
+### prepare
 
+▸ `Protected` **prepare**(): `void`
 
-Name | Description
------|-----
-**ACTION_EXECUTION_SUCCEEDED** |
-**ACTION_EXECUTION_FAILED** |
-**ACTION_EXECUTION_CANCELED** |
-**ACTION_EXECUTION_STARTED** |
-**STAGE_EXECUTION_STARTED** |
-**STAGE_EXECUTION_SUCCEEDED** |
-**STAGE_EXECUTION_RESUMED** |
-**STAGE_EXECUTION_CANCELED** |
-**STAGE_EXECUTION_FAILED** |
-**PIPELINE_EXECUTION_FAILED** |
-**PIPELINE_EXECUTION_CANCELED** |
-**PIPELINE_EXECUTION_STARTED** |
-**PIPELINE_EXECUTION_RESUMED** |
-**PIPELINE_EXECUTION_SUCCEEDED** |
-**PIPELINE_EXECUTION_SUPERSEDED** |
-**MANUAL_APPROVAL_FAILED** |
-**MANUAL_APPROVAL_NEEDED** |
-**MANUAL_APPROVAL_SUCCEEDED** |
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
-## enum ProjectEvent  <a id="cloudcomponents-cdk-developer-tools-notifications-projectevent"></a>
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
+#### Returns
 
-Name | Description
------|-----
-**BUILD_STATE_FAILED** |
-**BUILD_STATE_SUCCEEDED** |
-**BUILD_STATE_IN_PROGRESS** |
-**BUILD_STATE_STOPPED** |
-**BUILD_PHASE_FAILURE** |
-**BUILD_PHASE_SUCCESS** |
+`void`
 
+#### Inherited from
 
-## enum RepositoryEvent  <a id="cloudcomponents-cdk-developer-tools-notifications-repositoryevent"></a>
+Construct.prepare
 
+___
 
+### synthesize
 
-Name | Description
------|-----
-**COMMENTS_ON_COMMITS** |
-**COMMENTS_ON_PULL_REQUEST** |
-**APPROVAL_STATUS_CHANGED** |
-**APPROVAL_RULE_OVERRIDE** |
-**PULL_REQUEST_CREATED** |
-**PULL_REQUEST_SOURCE_UPDATED** |
-**PULL_REQUEST_STATUS_CHANGED** |
-**PULL_REQUEST_MERGED** |
-**BRANCHES_AND_TAGS_CREATED** |
-**BRANCHES_AND_TAGS_DELETED** |
-**BRANCHES_AND_TAGS_UPDATED** |
+▸ `Protected` **synthesize**(`session`): `void`
 
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
-## enum Status  <a id="cloudcomponents-cdk-developer-tools-notifications-status"></a>
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
+**`stability`** stable
 
+#### Parameters
 
-Name | Description
------|-----
-**DISABLED** |
-**ENABLED** |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
+#### Returns
 
-## enum TargetType  <a id="cloudcomponents-cdk-developer-tools-notifications-targettype"></a>
+`void`
 
+#### Inherited from
 
+Construct.synthesize
 
-Name | Description
------|-----
-**SNS** |
-**AWS_CHATBOT_SLACK** |
+___
 
+### toString
 
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+#### Returns
+
+`string`[]
+
+#### Overrides
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Pipeline Notification Rule
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / PipelineNotificationRule
+
+# Class: PipelineNotificationRule
+
+## Hierarchy
+
+- [`NotificationRule`](#notification-rule)
+
+  ↳ **`PipelineNotificationRule`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [node](#node)
+- [notificationRuleArn](#notificationrulearn)
+
+### Methods
+
+- [addTarget](#addtarget)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new PipelineNotificationRule**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`PipelineNotificationRuleProps`](#pipeline-notification-rule-props) |
+
+#### Overrides
+
+[NotificationRule](#notification-rule).[constructor](#constructor)
+
+## Properties
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[node](#node)
+
+___
+
+### notificationRuleArn
+
+• `Readonly` **notificationRuleArn**: `string`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[notificationRuleArn](#notificationrulearn)
+
+## Methods
+
+### addTarget
+
+▸ **addTarget**(`target`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`INotificationTarget`](#i-notification-target) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[addTarget](#addtarget)
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[prepare](#prepare)
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[toString](#tostring)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+#### Returns
+
+`string`[]
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[isConstruct](#isconstruct)
+
+# Project Notification Rule
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / ProjectNotificationRule
+
+# Class: ProjectNotificationRule
+
+## Hierarchy
+
+- [`NotificationRule`](#notification-rule)
+
+  ↳ **`ProjectNotificationRule`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [node](#node)
+- [notificationRuleArn](#notificationrulearn)
+
+### Methods
+
+- [addTarget](#addtarget)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new ProjectNotificationRule**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`ProjectNotificationRuleProps`](#project-notification-rule-props) |
+
+#### Overrides
+
+[NotificationRule](#notification-rule).[constructor](#constructor)
+
+## Properties
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[node](#node)
+
+___
+
+### notificationRuleArn
+
+• `Readonly` **notificationRuleArn**: `string`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[notificationRuleArn](#notificationrulearn)
+
+## Methods
+
+### addTarget
+
+▸ **addTarget**(`target`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`INotificationTarget`](#i-notification-target) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[addTarget](#addtarget)
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[prepare](#prepare)
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[toString](#tostring)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+#### Returns
+
+`string`[]
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[isConstruct](#isconstruct)
+
+# Repository Notification Rule
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / RepositoryNotificationRule
+
+# Class: RepositoryNotificationRule
+
+## Hierarchy
+
+- [`NotificationRule`](#notification-rule)
+
+  ↳ **`RepositoryNotificationRule`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [node](#node)
+- [notificationRuleArn](#notificationrulearn)
+
+### Methods
+
+- [addTarget](#addtarget)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new RepositoryNotificationRule**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`RepositoryNotificationRuleProps`](#repository-notification-rule-props) |
+
+#### Overrides
+
+[NotificationRule](#notification-rule).[constructor](#constructor)
+
+## Properties
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[node](#node)
+
+___
+
+### notificationRuleArn
+
+• `Readonly` **notificationRuleArn**: `string`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[notificationRuleArn](#notificationrulearn)
+
+## Methods
+
+### addTarget
+
+▸ **addTarget**(`target`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`INotificationTarget`](#i-notification-target) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[addTarget](#addtarget)
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[prepare](#prepare)
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[toString](#tostring)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+#### Returns
+
+`string`[]
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[NotificationRule](#notification-rule).[isConstruct](#isconstruct)
+
+# Slack Channel
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / SlackChannel
+
+# Class: SlackChannel
+
+## Implements
+
+- [`INotificationTarget`](#i-notification-target)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Methods
+
+- [bind](#bind)
+
+## Constructors
+
+### constructor
+
+• **new SlackChannel**(`channel`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `channel` | `ISlackChannelConfiguration` |
+
+## Methods
+
+### bind
+
+▸ **bind**(`_scope`, `_rule`): [`NotificationTargetProperty`](#notification-target-property)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_scope` | `Construct` |
+| `_rule` | [`INotificationRule`](#i-notification-rule) |
+
+#### Returns
+
+[`NotificationTargetProperty`](#notification-target-property)
+
+#### Implementation of
+
+[INotificationTarget](#i-notification-target).[bind](#bind)
+
+# Sns Topic
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / SnsTopic
+
+# Class: SnsTopic
+
+## Implements
+
+- [`INotificationTarget`](#i-notification-target)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Methods
+
+- [bind](#bind)
+
+## Constructors
+
+### constructor
+
+• **new SnsTopic**(`topic`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `topic` | `ITopic` |
+
+## Methods
+
+### bind
+
+▸ **bind**(`_scope`, `_rule`): [`NotificationTargetProperty`](#notification-target-property)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_scope` | `Construct` |
+| `_rule` | [`INotificationRule`](#i-notification-rule) |
+
+#### Returns
+
+[`NotificationTargetProperty`](#notification-target-property)
+
+#### Implementation of
+
+[INotificationTarget](#i-notification-target).[bind](#bind)
+
+# Application Event
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / ApplicationEvent
+
+# Enumeration: ApplicationEvent
+
+## Table of contents
+
+### Enumeration members
+
+- [DEPLOYMENT\_FAILED](#deployment_failed)
+- [DEPLOYMENT\_STARTED](#deployment_started)
+- [DEPLOYMENT\_SUCCEEDED](#deployment_succeeded)
+
+## Enumeration members
+
+### DEPLOYMENT\_FAILED
+
+• **DEPLOYMENT\_FAILED** = `"codedeploy-application-deployment-failed"`
+
+___
+
+### DEPLOYMENT\_STARTED
+
+• **DEPLOYMENT\_STARTED** = `"codedeploy-application-deployment-started"`
+
+___
+
+### DEPLOYMENT\_SUCCEEDED
+
+• **DEPLOYMENT\_SUCCEEDED** = `"codedeploy-application-deployment-succeeded"`
+
+# Detail Type
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / DetailType
+
+# Enumeration: DetailType
+
+## Table of contents
+
+### Enumeration members
+
+- [BASIC](#basic)
+- [FULL](#full)
+
+## Enumeration members
+
+### BASIC
+
+• **BASIC** = `"BASIC"`
+
+___
+
+### FULL
+
+• **FULL** = `"FULL"`
+
+# Pipeline Event
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / PipelineEvent
+
+# Enumeration: PipelineEvent
+
+## Table of contents
+
+### Enumeration members
+
+- [ACTION\_EXECUTION\_CANCELED](#action_execution_canceled)
+- [ACTION\_EXECUTION\_FAILED](#action_execution_failed)
+- [ACTION\_EXECUTION\_STARTED](#action_execution_started)
+- [ACTION\_EXECUTION\_SUCCEEDED](#action_execution_succeeded)
+- [MANUAL\_APPROVAL\_FAILED](#manual_approval_failed)
+- [MANUAL\_APPROVAL\_NEEDED](#manual_approval_needed)
+- [MANUAL\_APPROVAL\_SUCCEEDED](#manual_approval_succeeded)
+- [PIPELINE\_EXECUTION\_CANCELED](#pipeline_execution_canceled)
+- [PIPELINE\_EXECUTION\_FAILED](#pipeline_execution_failed)
+- [PIPELINE\_EXECUTION\_RESUMED](#pipeline_execution_resumed)
+- [PIPELINE\_EXECUTION\_STARTED](#pipeline_execution_started)
+- [PIPELINE\_EXECUTION\_SUCCEEDED](#pipeline_execution_succeeded)
+- [PIPELINE\_EXECUTION\_SUPERSEDED](#pipeline_execution_superseded)
+- [STAGE\_EXECUTION\_CANCELED](#stage_execution_canceled)
+- [STAGE\_EXECUTION\_FAILED](#stage_execution_failed)
+- [STAGE\_EXECUTION\_RESUMED](#stage_execution_resumed)
+- [STAGE\_EXECUTION\_STARTED](#stage_execution_started)
+- [STAGE\_EXECUTION\_SUCCEEDED](#stage_execution_succeeded)
+
+## Enumeration members
+
+### ACTION\_EXECUTION\_CANCELED
+
+• **ACTION\_EXECUTION\_CANCELED** = `"codepipeline-pipeline-action-execution-canceled"`
+
+___
+
+### ACTION\_EXECUTION\_FAILED
+
+• **ACTION\_EXECUTION\_FAILED** = `"codepipeline-pipeline-action-execution-failed"`
+
+___
+
+### ACTION\_EXECUTION\_STARTED
+
+• **ACTION\_EXECUTION\_STARTED** = `"codepipeline-pipeline-action-execution-started"`
+
+___
+
+### ACTION\_EXECUTION\_SUCCEEDED
+
+• **ACTION\_EXECUTION\_SUCCEEDED** = `"codepipeline-pipeline-action-execution-succeeded"`
+
+___
+
+### MANUAL\_APPROVAL\_FAILED
+
+• **MANUAL\_APPROVAL\_FAILED** = `"codepipeline-pipeline-manual-approval-failed"`
+
+___
+
+### MANUAL\_APPROVAL\_NEEDED
+
+• **MANUAL\_APPROVAL\_NEEDED** = `"codepipeline-pipeline-manual-approval-needed"`
+
+___
+
+### MANUAL\_APPROVAL\_SUCCEEDED
+
+• **MANUAL\_APPROVAL\_SUCCEEDED** = `"codepipeline-pipeline-manual-approval-succeeded"`
+
+___
+
+### PIPELINE\_EXECUTION\_CANCELED
+
+• **PIPELINE\_EXECUTION\_CANCELED** = `"codepipeline-pipeline-pipeline-execution-canceled"`
+
+___
+
+### PIPELINE\_EXECUTION\_FAILED
+
+• **PIPELINE\_EXECUTION\_FAILED** = `"codepipeline-pipeline-pipeline-execution-failed"`
+
+___
+
+### PIPELINE\_EXECUTION\_RESUMED
+
+• **PIPELINE\_EXECUTION\_RESUMED** = `"codepipeline-pipeline-pipeline-execution-resumed"`
+
+___
+
+### PIPELINE\_EXECUTION\_STARTED
+
+• **PIPELINE\_EXECUTION\_STARTED** = `"codepipeline-pipeline-pipeline-execution-started"`
+
+___
+
+### PIPELINE\_EXECUTION\_SUCCEEDED
+
+• **PIPELINE\_EXECUTION\_SUCCEEDED** = `"codepipeline-pipeline-pipeline-execution-succeeded"`
+
+___
+
+### PIPELINE\_EXECUTION\_SUPERSEDED
+
+• **PIPELINE\_EXECUTION\_SUPERSEDED** = `"codepipeline-pipeline-pipeline-execution-superseded"`
+
+___
+
+### STAGE\_EXECUTION\_CANCELED
+
+• **STAGE\_EXECUTION\_CANCELED** = `"codepipeline-pipeline-stage-execution-canceled"`
+
+___
+
+### STAGE\_EXECUTION\_FAILED
+
+• **STAGE\_EXECUTION\_FAILED** = `"codepipeline-pipeline-stage-execution-failed"`
+
+___
+
+### STAGE\_EXECUTION\_RESUMED
+
+• **STAGE\_EXECUTION\_RESUMED** = `"codepipeline-pipeline-stage-execution-resumed"`
+
+___
+
+### STAGE\_EXECUTION\_STARTED
+
+• **STAGE\_EXECUTION\_STARTED** = `"codepipeline-pipeline-stage-execution-started"`
+
+___
+
+### STAGE\_EXECUTION\_SUCCEEDED
+
+• **STAGE\_EXECUTION\_SUCCEEDED** = `"codepipeline-pipeline-stage-execution-succeeded"`
+
+# Project Event
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / ProjectEvent
+
+# Enumeration: ProjectEvent
+
+## Table of contents
+
+### Enumeration members
+
+- [BUILD\_PHASE\_FAILURE](#build_phase_failure)
+- [BUILD\_PHASE\_SUCCESS](#build_phase_success)
+- [BUILD\_STATE\_FAILED](#build_state_failed)
+- [BUILD\_STATE\_IN\_PROGRESS](#build_state_in_progress)
+- [BUILD\_STATE\_STOPPED](#build_state_stopped)
+- [BUILD\_STATE\_SUCCEEDED](#build_state_succeeded)
+
+## Enumeration members
+
+### BUILD\_PHASE\_FAILURE
+
+• **BUILD\_PHASE\_FAILURE** = `"codebuild-project-build-phase-failure"`
+
+___
+
+### BUILD\_PHASE\_SUCCESS
+
+• **BUILD\_PHASE\_SUCCESS** = `"codebuild-project-build-phase-success"`
+
+___
+
+### BUILD\_STATE\_FAILED
+
+• **BUILD\_STATE\_FAILED** = `"codebuild-project-build-state-failed"`
+
+___
+
+### BUILD\_STATE\_IN\_PROGRESS
+
+• **BUILD\_STATE\_IN\_PROGRESS** = `"codebuild-project-build-state-in-progress"`
+
+___
+
+### BUILD\_STATE\_STOPPED
+
+• **BUILD\_STATE\_STOPPED** = `"codebuild-project-build-state-stopped"`
+
+___
+
+### BUILD\_STATE\_SUCCEEDED
+
+• **BUILD\_STATE\_SUCCEEDED** = `"codebuild-project-build-state-succeeded"`
+
+# Repository Event
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / RepositoryEvent
+
+# Enumeration: RepositoryEvent
+
+## Table of contents
+
+### Enumeration members
+
+- [APPROVAL\_RULE\_OVERRIDE](#approval_rule_override)
+- [APPROVAL\_STATUS\_CHANGED](#approval_status_changed)
+- [BRANCHES\_AND\_TAGS\_CREATED](#branches_and_tags_created)
+- [BRANCHES\_AND\_TAGS\_DELETED](#branches_and_tags_deleted)
+- [BRANCHES\_AND\_TAGS\_UPDATED](#branches_and_tags_updated)
+- [COMMENTS\_ON\_COMMITS](#comments_on_commits)
+- [COMMENTS\_ON\_PULL\_REQUEST](#comments_on_pull_request)
+- [PULL\_REQUEST\_CREATED](#pull_request_created)
+- [PULL\_REQUEST\_MERGED](#pull_request_merged)
+- [PULL\_REQUEST\_SOURCE\_UPDATED](#pull_request_source_updated)
+- [PULL\_REQUEST\_STATUS\_CHANGED](#pull_request_status_changed)
+
+## Enumeration members
+
+### APPROVAL\_RULE\_OVERRIDE
+
+• **APPROVAL\_RULE\_OVERRIDE** = `"codecommit-repository-approvals-rule-override"`
+
+___
+
+### APPROVAL\_STATUS\_CHANGED
+
+• **APPROVAL\_STATUS\_CHANGED** = `"codecommit-repository-approvals-status-changed"`
+
+___
+
+### BRANCHES\_AND\_TAGS\_CREATED
+
+• **BRANCHES\_AND\_TAGS\_CREATED** = `"codecommit-repository-branches-and-tags-created"`
+
+___
+
+### BRANCHES\_AND\_TAGS\_DELETED
+
+• **BRANCHES\_AND\_TAGS\_DELETED** = `"codecommit-repository-branches-and-tags-deleted"`
+
+___
+
+### BRANCHES\_AND\_TAGS\_UPDATED
+
+• **BRANCHES\_AND\_TAGS\_UPDATED** = `"codecommit-repository-branches-and-tags-updated"`
+
+___
+
+### COMMENTS\_ON\_COMMITS
+
+• **COMMENTS\_ON\_COMMITS** = `"codecommit-repository-comments-on-commits"`
+
+___
+
+### COMMENTS\_ON\_PULL\_REQUEST
+
+• **COMMENTS\_ON\_PULL\_REQUEST** = `"codecommit-repository-comments-on-pull-requests"`
+
+___
+
+### PULL\_REQUEST\_CREATED
+
+• **PULL\_REQUEST\_CREATED** = `"codecommit-repository-pull-request-created"`
+
+___
+
+### PULL\_REQUEST\_MERGED
+
+• **PULL\_REQUEST\_MERGED** = `"codecommit-repository-pull-request-merged"`
+
+___
+
+### PULL\_REQUEST\_SOURCE\_UPDATED
+
+• **PULL\_REQUEST\_SOURCE\_UPDATED** = `"codecommit-repository-pull-request-source-updated"`
+
+___
+
+### PULL\_REQUEST\_STATUS\_CHANGED
+
+• **PULL\_REQUEST\_STATUS\_CHANGED** = `"codecommit-repository-pull-request-status-changed"`
+
+# Status
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / Status
+
+# Enumeration: Status
+
+## Table of contents
+
+### Enumeration members
+
+- [DISABLED](#disabled)
+- [ENABLED](#enabled)
+
+## Enumeration members
+
+### DISABLED
+
+• **DISABLED** = `"DISABLED"`
+
+___
+
+### ENABLED
+
+• **ENABLED** = `"ENABLED"`
+
+# Target Type
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / TargetType
+
+# Enumeration: TargetType
+
+## Table of contents
+
+### Enumeration members
+
+- [AWS\_CHATBOT\_SLACK](#aws_chatbot_slack)
+- [SNS](#sns)
+
+## Enumeration members
+
+### AWS\_CHATBOT\_SLACK
+
+• **AWS\_CHATBOT\_SLACK** = `"AWSChatbotSlack"`
+
+___
+
+### SNS
+
+• **SNS** = `"SNS"`
+
+# Application Notification Rule Props
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / ApplicationNotificationRuleProps
+
+# Interface: ApplicationNotificationRuleProps
+
+## Hierarchy
+
+- [`CommonNotificationRuleProps`](#common-notification-rule-props)
+
+  ↳ **`ApplicationNotificationRuleProps`**
+
+## Table of contents
+
+### Properties
+
+- [application](#application)
+- [detailType](#detailtype)
+- [events](#events)
+- [name](#name)
+- [status](#status)
+- [targets](#targets)
+
+## Properties
+
+### application
+
+• `Readonly` **application**: `IServerApplication` \| `ILambdaApplication` \| `IEcsApplication`
+
+___
+
+### detailType
+
+• `Optional` `Readonly` **detailType**: [`DetailType`](#detail-type)
+
+The level of detail to include in the notifications for this
+resource. BASIC will include only the contents of the event
+as it would appear in AWS CloudWatch. FULL will include any
+supplemental information provided by AWS CodeStar Notifications
+and/or the service for the resource for which the notification
+is created.
+
+**`default`** FULL
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[detailType](#detailtype)
+
+___
+
+### events
+
+• `Readonly` **events**: [`ApplicationEvent`](#application-event)[]
+
+___
+
+### name
+
+• `Readonly` **name**: `string`
+
+The name for the notification rule. Notification rule names
+must be unique in your AWS account.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[name](#name)
+
+___
+
+### status
+
+• `Optional` `Readonly` **status**: [`Status`](#status)
+
+The status of the notification rule. The default value is ENABLED.
+If the status is set to DISABLED, notifications aren't sent for
+the notification rule.
+
+**`default`** ENABLED
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[status](#status)
+
+___
+
+### targets
+
+• `Optional` `Readonly` **targets**: [`INotificationTarget`](#i-notification-target)[]
+
+SNS topics or AWS Chatbot clients to associate with the notification rule.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[targets](#targets)
+
+# Common Notification Rule Props
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / CommonNotificationRuleProps
+
+# Interface: CommonNotificationRuleProps
+
+## Hierarchy
+
+- **`CommonNotificationRuleProps`**
+
+  ↳ [`NotificationRuleProps`](#notification-rule-props)
+
+  ↳ [`RepositoryNotificationRuleProps`](#repository-notification-rule-props)
+
+  ↳ [`PipelineNotificationRuleProps`](#pipeline-notification-rule-props)
+
+  ↳ [`ProjectNotificationRuleProps`](#project-notification-rule-props)
+
+  ↳ [`ApplicationNotificationRuleProps`](#application-notification-rule-props)
+
+## Table of contents
+
+### Properties
+
+- [detailType](#detailtype)
+- [name](#name)
+- [status](#status)
+- [targets](#targets)
+
+## Properties
+
+### detailType
+
+• `Optional` `Readonly` **detailType**: [`DetailType`](#detail-type)
+
+The level of detail to include in the notifications for this
+resource. BASIC will include only the contents of the event
+as it would appear in AWS CloudWatch. FULL will include any
+supplemental information provided by AWS CodeStar Notifications
+and/or the service for the resource for which the notification
+is created.
+
+**`default`** FULL
+
+___
+
+### name
+
+• `Readonly` **name**: `string`
+
+The name for the notification rule. Notification rule names
+must be unique in your AWS account.
+
+___
+
+### status
+
+• `Optional` `Readonly` **status**: [`Status`](#status)
+
+The status of the notification rule. The default value is ENABLED.
+If the status is set to DISABLED, notifications aren't sent for
+the notification rule.
+
+**`default`** ENABLED
+
+___
+
+### targets
+
+• `Optional` `Readonly` **targets**: [`INotificationTarget`](#i-notification-target)[]
+
+SNS topics or AWS Chatbot clients to associate with the notification rule.
+
+# I Notification Rule
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / INotificationRule
+
+# Interface: INotificationRule
+
+## Implemented by
+
+- [`NotificationRule`](#notification-rule)
+
+## Table of contents
+
+### Properties
+
+- [notificationRuleArn](#notificationrulearn)
+
+## Properties
+
+### notificationRuleArn
+
+• `Readonly` **notificationRuleArn**: `string`
+
+# I Notification Target
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / INotificationTarget
+
+# Interface: INotificationTarget
+
+## Implemented by
+
+- [`MSTeamsIncomingWebhook`](#ms-teams-incoming-webhook)
+- [`SlackChannel`](#slack-channel)
+- [`SnsTopic`](#sns-topic)
+
+## Table of contents
+
+### Methods
+
+- [bind](#bind)
+
+## Methods
+
+### bind
+
+▸ **bind**(`scope`, `rule`): [`NotificationTargetProperty`](#notification-target-property)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `rule` | [`INotificationRule`](#i-notification-rule) |
+
+#### Returns
+
+[`NotificationTargetProperty`](#notification-target-property)
+
+# Notification Rule Props
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / NotificationRuleProps
+
+# Interface: NotificationRuleProps
+
+## Hierarchy
+
+- [`CommonNotificationRuleProps`](#common-notification-rule-props)
+
+  ↳ **`NotificationRuleProps`**
+
+## Table of contents
+
+### Properties
+
+- [detailType](#detailtype)
+- [events](#events)
+- [name](#name)
+- [resource](#resource)
+- [status](#status)
+- [targets](#targets)
+
+## Properties
+
+### detailType
+
+• `Optional` `Readonly` **detailType**: [`DetailType`](#detail-type)
+
+The level of detail to include in the notifications for this
+resource. BASIC will include only the contents of the event
+as it would appear in AWS CloudWatch. FULL will include any
+supplemental information provided by AWS CodeStar Notifications
+and/or the service for the resource for which the notification
+is created.
+
+**`default`** FULL
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[detailType](#detailtype)
+
+___
+
+### events
+
+• `Readonly` **events**: `Events`[]
+
+A list of events associated with this notification rule.
+
+___
+
+### name
+
+• `Readonly` **name**: `string`
+
+The name for the notification rule. Notification rule names
+must be unique in your AWS account.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[name](#name)
+
+___
+
+### resource
+
+• `Readonly` **resource**: `string`
+
+The Amazon Resource Name (ARN) of the resource to associate with
+the notification rule. Supported resources include pipelines in
+AWS CodePipeline, repositories in AWS CodeCommit, and build
+projects in AWS CodeBuild.
+
+___
+
+### status
+
+• `Optional` `Readonly` **status**: [`Status`](#status)
+
+The status of the notification rule. The default value is ENABLED.
+If the status is set to DISABLED, notifications aren't sent for
+the notification rule.
+
+**`default`** ENABLED
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[status](#status)
+
+___
+
+### targets
+
+• `Optional` `Readonly` **targets**: [`INotificationTarget`](#i-notification-target)[]
+
+SNS topics or AWS Chatbot clients to associate with the notification rule.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[targets](#targets)
+
+# Notification Target Property
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / NotificationTargetProperty
+
+# Interface: NotificationTargetProperty
+
+## Table of contents
+
+### Properties
+
+- [targetAddress](#targetaddress)
+- [targetType](#targettype)
+
+## Properties
+
+### targetAddress
+
+• `Readonly` **targetAddress**: `string`
+
+___
+
+### targetType
+
+• `Readonly` **targetType**: `TargetType`
+
+# Pipeline Notification Rule Props
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / PipelineNotificationRuleProps
+
+# Interface: PipelineNotificationRuleProps
+
+## Hierarchy
+
+- [`CommonNotificationRuleProps`](#common-notification-rule-props)
+
+  ↳ **`PipelineNotificationRuleProps`**
+
+## Table of contents
+
+### Properties
+
+- [detailType](#detailtype)
+- [events](#events)
+- [name](#name)
+- [pipeline](#pipeline)
+- [status](#status)
+- [targets](#targets)
+
+## Properties
+
+### detailType
+
+• `Optional` `Readonly` **detailType**: [`DetailType`](#detail-type)
+
+The level of detail to include in the notifications for this
+resource. BASIC will include only the contents of the event
+as it would appear in AWS CloudWatch. FULL will include any
+supplemental information provided by AWS CodeStar Notifications
+and/or the service for the resource for which the notification
+is created.
+
+**`default`** FULL
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[detailType](#detailtype)
+
+___
+
+### events
+
+• `Readonly` **events**: [`PipelineEvent`](#pipeline-event)[]
+
+___
+
+### name
+
+• `Readonly` **name**: `string`
+
+The name for the notification rule. Notification rule names
+must be unique in your AWS account.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[name](#name)
+
+___
+
+### pipeline
+
+• `Readonly` **pipeline**: `IPipeline`
+
+___
+
+### status
+
+• `Optional` `Readonly` **status**: [`Status`](#status)
+
+The status of the notification rule. The default value is ENABLED.
+If the status is set to DISABLED, notifications aren't sent for
+the notification rule.
+
+**`default`** ENABLED
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[status](#status)
+
+___
+
+### targets
+
+• `Optional` `Readonly` **targets**: [`INotificationTarget`](#i-notification-target)[]
+
+SNS topics or AWS Chatbot clients to associate with the notification rule.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[targets](#targets)
+
+# Project Notification Rule Props
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / ProjectNotificationRuleProps
+
+# Interface: ProjectNotificationRuleProps
+
+## Hierarchy
+
+- [`CommonNotificationRuleProps`](#common-notification-rule-props)
+
+  ↳ **`ProjectNotificationRuleProps`**
+
+## Table of contents
+
+### Properties
+
+- [detailType](#detailtype)
+- [events](#events)
+- [name](#name)
+- [project](#project)
+- [status](#status)
+- [targets](#targets)
+
+## Properties
+
+### detailType
+
+• `Optional` `Readonly` **detailType**: [`DetailType`](#detail-type)
+
+The level of detail to include in the notifications for this
+resource. BASIC will include only the contents of the event
+as it would appear in AWS CloudWatch. FULL will include any
+supplemental information provided by AWS CodeStar Notifications
+and/or the service for the resource for which the notification
+is created.
+
+**`default`** FULL
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[detailType](#detailtype)
+
+___
+
+### events
+
+• `Readonly` **events**: [`ProjectEvent`](#project-event)[]
+
+___
+
+### name
+
+• `Readonly` **name**: `string`
+
+The name for the notification rule. Notification rule names
+must be unique in your AWS account.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[name](#name)
+
+___
+
+### project
+
+• `Readonly` **project**: `IProject`
+
+___
+
+### status
+
+• `Optional` `Readonly` **status**: [`Status`](#status)
+
+The status of the notification rule. The default value is ENABLED.
+If the status is set to DISABLED, notifications aren't sent for
+the notification rule.
+
+**`default`** ENABLED
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[status](#status)
+
+___
+
+### targets
+
+• `Optional` `Readonly` **targets**: [`INotificationTarget`](#i-notification-target)[]
+
+SNS topics or AWS Chatbot clients to associate with the notification rule.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[targets](#targets)
+
+# Repository Notification Rule Props
+
+[@cloudcomponents/cdk-developer-tools-notifications](#readme) / RepositoryNotificationRuleProps
+
+# Interface: RepositoryNotificationRuleProps
+
+## Hierarchy
+
+- [`CommonNotificationRuleProps`](#common-notification-rule-props)
+
+  ↳ **`RepositoryNotificationRuleProps`**
+
+## Table of contents
+
+### Properties
+
+- [detailType](#detailtype)
+- [events](#events)
+- [name](#name)
+- [repository](#repository)
+- [status](#status)
+- [targets](#targets)
+
+## Properties
+
+### detailType
+
+• `Optional` `Readonly` **detailType**: [`DetailType`](#detail-type)
+
+The level of detail to include in the notifications for this
+resource. BASIC will include only the contents of the event
+as it would appear in AWS CloudWatch. FULL will include any
+supplemental information provided by AWS CodeStar Notifications
+and/or the service for the resource for which the notification
+is created.
+
+**`default`** FULL
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[detailType](#detailtype)
+
+___
+
+### events
+
+• `Readonly` **events**: [`RepositoryEvent`](#repository-event)[]
+
+___
+
+### name
+
+• `Readonly` **name**: `string`
+
+The name for the notification rule. Notification rule names
+must be unique in your AWS account.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[name](#name)
+
+___
+
+### repository
+
+• `Readonly` **repository**: `IRepository`
+
+___
+
+### status
+
+• `Optional` `Readonly` **status**: [`Status`](#status)
+
+The status of the notification rule. The default value is ENABLED.
+If the status is set to DISABLED, notifications aren't sent for
+the notification rule.
+
+**`default`** ENABLED
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[status](#status)
+
+___
+
+### targets
+
+• `Optional` `Readonly` **targets**: [`INotificationTarget`](#i-notification-target)[]
+
+SNS topics or AWS Chatbot clients to associate with the notification rule.
+
+#### Inherited from
+
+[CommonNotificationRuleProps](#common-notification-rule-props).[targets](#targets)

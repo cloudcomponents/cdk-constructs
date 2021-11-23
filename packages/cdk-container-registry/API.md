@@ -1,123 +1,1182 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-container-registry
 
-Name|Description
-----|-----------
-[ImageRepository](#cloudcomponents-cdk-container-registry-imagerepository)|*No description*
+# @cloudcomponents/cdk-container-registry
 
+## Table of contents
 
-**Structs**
+### Enumerations
 
-Name|Description
-----|-----------
-[ImageRepositoryProps](#cloudcomponents-cdk-container-registry-imagerepositoryprops)|*No description*
-[OnFindingOptions](#cloudcomponents-cdk-container-registry-onfindingoptions)|*No description*
+- [Severity](#severity)
 
+### Classes
 
-**Enums**
+- [ImageRepository](#image-repository)
 
-Name|Description
-----|-----------
-[Severity](#cloudcomponents-cdk-container-registry-severity)|*No description*
+### Interfaces
 
+- [ImageRepositoryProps](#image-repository-props)
+- [OnFindingOptions](#on-finding-options)
 
+# Image Repository
 
-## class ImageRepository  <a id="cloudcomponents-cdk-container-registry-imagerepository"></a>
+[@cloudcomponents/cdk-container-registry](#readme) / ImageRepository
 
+# Class: ImageRepository
 
+## Hierarchy
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IRepository](#aws-cdk-aws-ecr-irepository), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
-__Extends__: [Repository](#aws-cdk-aws-ecr-repository)
+- `Repository`
 
-### Initializer
+  ↳ **`ImageRepository`**
 
+## Table of contents
 
+### Constructors
 
+- [constructor](#constructor)
 
-```ts
-new ImageRepository(scope: Construct, id: string, props?: ImageRepositoryProps)
-```
+### Properties
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[ImageRepositoryProps](#cloudcomponents-cdk-container-registry-imagerepositoryprops)</code>)  *No description*
-  * **imageScanOnPush** (<code>boolean</code>)  Enable the scan on push when creating the repository. __*Default*__: false
-  * **imageTagMutability** (<code>[TagMutability](#aws-cdk-aws-ecr-tagmutability)</code>)  The tag mutability setting for the repository. __*Default*__: TagMutability.MUTABLE
-  * **lifecycleRegistryId** (<code>string</code>)  The AWS account ID associated with the registry that contains the repository. __*Default*__: The default registry is assumed.
-  * **lifecycleRules** (<code>Array<[LifecycleRule](#aws-cdk-aws-ecr-lifecyclerule)></code>)  Life cycle rules to apply to this registry. __*Default*__: No life cycle rules
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  Determine what happens to the repository when the resource/stack is deleted. __*Default*__: RemovalPolicy.Retain
-  * **repositoryName** (<code>string</code>)  Name for this repository. __*Default*__: Automatically generated name.
-  * **forceDelete** (<code>boolean</code>)  If a repository contains images, forces the deletion during stack deletion. __*Default*__: false
+- [env](#env)
+- [node](#node)
+- [physicalName](#physicalname)
+- [repositoryArn](#repositoryarn)
+- [repositoryName](#repositoryname)
+- [stack](#stack)
 
+### Accessors
+
+- [repositoryUri](#repositoryuri)
 
 ### Methods
 
+- [\_enableCrossEnvironment](#_enablecrossenvironment)
+- [addLifecycleRule](#addlifecyclerule)
+- [addToResourcePolicy](#addtoresourcepolicy)
+- [applyRemovalPolicy](#applyremovalpolicy)
+- [generatePhysicalName](#generatephysicalname)
+- [getResourceArnAttribute](#getresourcearnattribute)
+- [getResourceNameAttribute](#getresourcenameattribute)
+- [grant](#grant)
+- [grantPull](#grantpull)
+- [grantPullPush](#grantpullpush)
+- [onCloudTrailEvent](#oncloudtrailevent)
+- [onCloudTrailImagePushed](#oncloudtrailimagepushed)
+- [onEvent](#onevent)
+- [onFinding](#onfinding)
+- [onImageScanCompleted](#onimagescancompleted)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [repositoryUriForDigest](#repositoryurifordigest)
+- [repositoryUriForTag](#repositoryurifortag)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [arnForLocalRepository](#arnforlocalrepository)
+- [fromRepositoryArn](#fromrepositoryarn)
+- [fromRepositoryAttributes](#fromrepositoryattributes)
+- [fromRepositoryName](#fromrepositoryname)
+- [isConstruct](#isconstruct)
+- [isResource](#isresource)
 
-#### onFinding(id, options) <a id="cloudcomponents-cdk-container-registry-imagerepository-onfinding"></a>
+## Constructors
 
+### constructor
 
+• **new ImageRepository**(`scope`, `id`, `props?`)
 
-```ts
-onFinding(id: string, options: OnFindingOptions): Rule
-```
+#### Parameters
 
-* **id** (<code>string</code>)  *No description*
-* **options** (<code>[OnFindingOptions](#cloudcomponents-cdk-container-registry-onfindingoptions)</code>)  *No description*
-  * **alarmTopic** (<code>[ITopic](#aws-cdk-aws-sns-itopic)</code>)  *No description* 
-  * **severity** (<code>[Severity](#cloudcomponents-cdk-container-registry-severity)</code>)  *No description* 
-  * **imageTags** (<code>Array<string></code>)  Only watch changes to the image tags specified. __*Default*__: Watch the changes to the repository with all image tags
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props?` | [`ImageRepositoryProps`](#image-repository-props) |
 
-__Returns__:
-* <code>[Rule](#aws-cdk-aws-events-rule)</code>
+#### Overrides
 
+Repository.constructor
 
+## Properties
 
-## struct ImageRepositoryProps  <a id="cloudcomponents-cdk-container-registry-imagerepositoryprops"></a>
+### env
 
+• `Readonly` **env**: `ResourceEnvironment`
 
+The environment this resource belongs to.
 
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
 
+**`stability`** stable
 
+#### Inherited from
 
-Name | Type | Description 
------|------|-------------
-**forceDelete**? | <code>boolean</code> | If a repository contains images, forces the deletion during stack deletion.<br/>__*Default*__: false
-**imageScanOnPush**? | <code>boolean</code> | Enable the scan on push when creating the repository.<br/>__*Default*__: false
-**imageTagMutability**? | <code>[TagMutability](#aws-cdk-aws-ecr-tagmutability)</code> | The tag mutability setting for the repository.<br/>__*Default*__: TagMutability.MUTABLE
-**lifecycleRegistryId**? | <code>string</code> | The AWS account ID associated with the registry that contains the repository.<br/>__*Default*__: The default registry is assumed.
-**lifecycleRules**? | <code>Array<[LifecycleRule](#aws-cdk-aws-ecr-lifecyclerule)></code> | Life cycle rules to apply to this registry.<br/>__*Default*__: No life cycle rules
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | Determine what happens to the repository when the resource/stack is deleted.<br/>__*Default*__: RemovalPolicy.Retain
-**repositoryName**? | <code>string</code> | Name for this repository.<br/>__*Default*__: Automatically generated name.
+Repository.env
 
+___
 
+### node
 
-## struct OnFindingOptions  <a id="cloudcomponents-cdk-container-registry-onfindingoptions"></a>
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
+Repository.node
 
+___
 
-Name | Type | Description 
------|------|-------------
-**alarmTopic** | <code>[ITopic](#aws-cdk-aws-sns-itopic)</code> | <span></span>
-**severity** | <code>[Severity](#cloudcomponents-cdk-container-registry-severity)</code> | <span></span>
-**imageTags**? | <code>Array<string></code> | Only watch changes to the image tags specified.<br/>__*Default*__: Watch the changes to the repository with all image tags
+### physicalName
 
+• `Protected` `Readonly` **physicalName**: `string`
 
+Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
 
-## enum Severity  <a id="cloudcomponents-cdk-container-registry-severity"></a>
+This value will resolve to one of the following:
+- a concrete value (e.g. `"my-awesome-bucket"`)
+- `undefined`, when a name should be generated by CloudFormation
+- a concrete name generated automatically during synthesis, in
+   cross-environment scenarios.
 
+**`stability`** stable
 
+#### Inherited from
 
-Name | Description
------|-----
-**CRITICAL** |
-**HIGH** |
-**MEDIUM** |
-**LOW** |
-**INFORMATIONAL** |
-**UNDEFINED** |
+Repository.physicalName
 
+___
 
+### repositoryArn
+
+• `Readonly` **repositoryArn**: `string`
+
+The ARN of the repository.
+
+**`stability`** stable
+
+#### Inherited from
+
+Repository.repositoryArn
+
+___
+
+### repositoryName
+
+• `Readonly` **repositoryName**: `string`
+
+The name of the repository.
+
+**`stability`** stable
+
+#### Inherited from
+
+Repository.repositoryName
+
+___
+
+### stack
+
+• `Readonly` **stack**: `Stack`
+
+The stack in which this resource is defined.
+
+**`stability`** stable
+
+#### Inherited from
+
+Repository.stack
+
+## Accessors
+
+### repositoryUri
+
+• `get` **repositoryUri**(): `string`
+
+The URI of this repository (represents the latest image):.
+
+ACCOUNT.dkr.ecr.REGION.amazonaws.com/REPOSITORY
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+## Methods
+
+### \_enableCrossEnvironment
+
+▸ **_enableCrossEnvironment**(): `void`
+
+Called when this resource is referenced across environments
+(account/region) to order to request that a physical name will be generated
+for this resource during synthesis, so the resource can be referenced
+through it's absolute name/arn.
+
+**`internal`**
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Repository.\_enableCrossEnvironment
+
+___
+
+### addLifecycleRule
+
+▸ **addLifecycleRule**(`rule`): `void`
+
+Add a life cycle rule to the repository.
+
+Life cycle rules automatically expire images from the repository that match
+certain conditions.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `rule` | `LifecycleRule` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Repository.addLifecycleRule
+
+___
+
+### addToResourcePolicy
+
+▸ **addToResourcePolicy**(`statement`): `AddToResourcePolicyResult`
+
+Add a policy statement to the repository's resource policy.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `statement` | `PolicyStatement` |
+
+#### Returns
+
+`AddToResourcePolicyResult`
+
+#### Inherited from
+
+Repository.addToResourcePolicy
+
+___
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Repository.applyRemovalPolicy
+
+___
+
+### generatePhysicalName
+
+▸ `Protected` **generatePhysicalName**(): `string`
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Repository.generatePhysicalName
+
+___
+
+### getResourceArnAttribute
+
+▸ `Protected` **getResourceArnAttribute**(`arnAttr`, `arnComponents`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "ARN" attribute (e.g. `bucket.bucketArn`).
+
+Normally, this token will resolve to `arnAttr`, but if the resource is
+referenced across environments, `arnComponents` will be used to synthesize
+a concrete ARN with the resource's physical name. Make sure to reference
+`this.physicalName` in `arnComponents`.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `arnAttr` | `string` | The CFN attribute which resolves to the ARN of the resource. |
+| `arnComponents` | `ArnComponents` | The format of the ARN of this resource. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Repository.getResourceArnAttribute
+
+___
+
+### getResourceNameAttribute
+
+▸ `Protected` **getResourceNameAttribute**(`nameAttr`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "name" attribute (e.g. `bucket.bucketName`).
+
+Normally, this token will resolve to `nameAttr`, but if the resource is
+referenced across environments, it will be resolved to `this.physicalName`,
+which will be a concrete name.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `nameAttr` | `string` | The CFN attribute which resolves to the resource's name. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Repository.getResourceNameAttribute
+
+___
+
+### grant
+
+▸ **grant**(`grantee`, ...`actions`): `Grant`
+
+Grant the given principal identity permissions to perform the actions on this repository.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `grantee` | `IGrantable` |
+| `...actions` | `string`[] |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Repository.grant
+
+___
+
+### grantPull
+
+▸ **grantPull**(`grantee`): `Grant`
+
+Grant the given identity permissions to use the images in this repository.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `grantee` | `IGrantable` |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Repository.grantPull
+
+___
+
+### grantPullPush
+
+▸ **grantPullPush**(`grantee`): `Grant`
+
+Grant the given identity permissions to pull and push images to this repository.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `grantee` | `IGrantable` |
+
+#### Returns
+
+`Grant`
+
+#### Inherited from
+
+Repository.grantPullPush
+
+___
+
+### onCloudTrailEvent
+
+▸ **onCloudTrailEvent**(`id`, `options?`): `Rule`
+
+Define a CloudWatch event that triggers when something happens to this repository.
+
+Requires that there exists at least one CloudTrail Trail in your account
+that captures the event. This method will not create the Trail.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The id of the rule. |
+| `options?` | `OnEventOptions` | Options for adding the rule. |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+Repository.onCloudTrailEvent
+
+___
+
+### onCloudTrailImagePushed
+
+▸ **onCloudTrailImagePushed**(`id`, `options?`): `Rule`
+
+Defines an AWS CloudWatch event rule that can trigger a target when an image is pushed to this repository.
+
+Requires that there exists at least one CloudTrail Trail in your account
+that captures the event. This method will not create the Trail.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The id of the rule. |
+| `options?` | `OnCloudTrailImagePushedOptions` | Options for adding the rule. |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+Repository.onCloudTrailImagePushed
+
+___
+
+### onEvent
+
+▸ **onEvent**(`id`, `options?`): `Rule`
+
+Defines a CloudWatch event rule which triggers for repository events.
+
+Use
+`rule.addEventPattern(pattern)` to specify a filter.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+Repository.onEvent
+
+___
+
+### onFinding
+
+▸ **onFinding**(`id`, `options`): `Rule`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options` | [`OnFindingOptions`](#on-finding-options) |
+
+#### Returns
+
+`Rule`
+
+___
+
+### onImageScanCompleted
+
+▸ **onImageScanCompleted**(`id`, `options?`): `Rule`
+
+Defines an AWS CloudWatch event rule that can trigger a target when an image scan is completed.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The id of the rule. |
+| `options?` | `OnImageScanCompletedOptions` | Options for adding the rule. |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+Repository.onImageScanCompleted
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Repository.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Repository.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Repository.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Repository.prepare
+
+___
+
+### repositoryUriForDigest
+
+▸ **repositoryUriForDigest**(`digest?`): `string`
+
+Returns the URL of the repository. Can be used in `docker push/pull`.
+
+ACCOUNT.dkr.ecr.REGION.amazonaws.com/REPOSITORY[@DIGEST]
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `digest?` | `string` | Optional image digest. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Repository.repositoryUriForDigest
+
+___
+
+### repositoryUriForTag
+
+▸ **repositoryUriForTag**(`tag?`): `string`
+
+Returns the URL of the repository. Can be used in `docker push/pull`.
+
+ACCOUNT.dkr.ecr.REGION.amazonaws.com/REPOSITORY[:TAG]
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `tag?` | `string` | Optional image tag. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Repository.repositoryUriForTag
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Repository.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Repository.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+#### Inherited from
+
+Repository.validate
+
+___
+
+### arnForLocalRepository
+
+▸ `Static` **arnForLocalRepository**(`repositoryName`, `scope`, `account?`): `string`
+
+Returns an ECR ARN for a repository that resides in the same account/region as the current stack.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `repositoryName` | `string` |
+| `scope` | `IConstruct` |
+| `account?` | `string` |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Repository.arnForLocalRepository
+
+___
+
+### fromRepositoryArn
+
+▸ `Static` **fromRepositoryArn**(`scope`, `id`, `repositoryArn`): `IRepository`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `repositoryArn` | `string` |
+
+#### Returns
+
+`IRepository`
+
+#### Inherited from
+
+Repository.fromRepositoryArn
+
+___
+
+### fromRepositoryAttributes
+
+▸ `Static` **fromRepositoryAttributes**(`scope`, `id`, `attrs`): `IRepository`
+
+Import a repository.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `attrs` | `RepositoryAttributes` |
+
+#### Returns
+
+`IRepository`
+
+#### Inherited from
+
+Repository.fromRepositoryAttributes
+
+___
+
+### fromRepositoryName
+
+▸ `Static` **fromRepositoryName**(`scope`, `id`, `repositoryName`): `IRepository`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `repositoryName` | `string` |
+
+#### Returns
+
+`IRepository`
+
+#### Inherited from
+
+Repository.fromRepositoryName
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Repository.isConstruct
+
+___
+
+### isResource
+
+▸ `Static` **isResource**(`construct`): construct is CfnResource
+
+Check whether the given construct is a Resource.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `construct` | `IConstruct` |
+
+#### Returns
+
+construct is CfnResource
+
+#### Inherited from
+
+Repository.isResource
+
+# Severity
+
+[@cloudcomponents/cdk-container-registry](#readme) / Severity
+
+# Enumeration: Severity
+
+## Table of contents
+
+### Enumeration members
+
+- [CRITICAL](#critical)
+- [HIGH](#high)
+- [INFORMATIONAL](#informational)
+- [LOW](#low)
+- [MEDIUM](#medium)
+- [UNDEFINED](#undefined)
+
+## Enumeration members
+
+### CRITICAL
+
+• **CRITICAL** = `"CRITICAL"`
+
+___
+
+### HIGH
+
+• **HIGH** = `"HIGH"`
+
+___
+
+### INFORMATIONAL
+
+• **INFORMATIONAL** = `"INFORMATIONAL"`
+
+___
+
+### LOW
+
+• **LOW** = `"LOW"`
+
+___
+
+### MEDIUM
+
+• **MEDIUM** = `"MEDIUM"`
+
+___
+
+### UNDEFINED
+
+• **UNDEFINED** = `"UNDEFINED"`
+
+# Image Repository Props
+
+[@cloudcomponents/cdk-container-registry](#readme) / ImageRepositoryProps
+
+# Interface: ImageRepositoryProps
+
+## Hierarchy
+
+- `RepositoryProps`
+
+  ↳ **`ImageRepositoryProps`**
+
+## Table of contents
+
+### Properties
+
+- [forceDelete](#forcedelete)
+- [imageScanOnPush](#imagescanonpush)
+- [imageTagMutability](#imagetagmutability)
+- [lifecycleRegistryId](#lifecycleregistryid)
+- [lifecycleRules](#lifecyclerules)
+- [removalPolicy](#removalpolicy)
+- [repositoryName](#repositoryname)
+
+## Properties
+
+### forceDelete
+
+• `Optional` `Readonly` **forceDelete**: `boolean`
+
+If a repository contains images, forces the deletion during stack deletion.
+
+**`default`** false
+
+___
+
+### imageScanOnPush
+
+• `Optional` `Readonly` **imageScanOnPush**: `boolean`
+
+Enable the scan on push when creating the repository.
+
+**`default`** false
+
+**`stability`** stable
+
+#### Inherited from
+
+RepositoryProps.imageScanOnPush
+
+___
+
+### imageTagMutability
+
+• `Optional` `Readonly` **imageTagMutability**: `TagMutability`
+
+The tag mutability setting for the repository.
+
+If this parameter is omitted, the default setting of MUTABLE will be used which will allow image tags to be overwritten.
+
+**`default`** TagMutability.MUTABLE
+
+**`stability`** stable
+
+#### Inherited from
+
+RepositoryProps.imageTagMutability
+
+___
+
+### lifecycleRegistryId
+
+• `Optional` `Readonly` **lifecycleRegistryId**: `string`
+
+The AWS account ID associated with the registry that contains the repository.
+
+**`default`** The default registry is assumed.
+
+**`see`** https://docs.aws.amazon.com/AmazonECR/latest/APIReference/API_PutLifecyclePolicy.html
+
+**`stability`** stable
+
+#### Inherited from
+
+RepositoryProps.lifecycleRegistryId
+
+___
+
+### lifecycleRules
+
+• `Optional` `Readonly` **lifecycleRules**: `LifecycleRule`[]
+
+Life cycle rules to apply to this registry.
+
+**`default`** No life cycle rules
+
+**`stability`** stable
+
+#### Inherited from
+
+RepositoryProps.lifecycleRules
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+Determine what happens to the repository when the resource/stack is deleted.
+
+**`default`** RemovalPolicy.Retain
+
+**`stability`** stable
+
+#### Inherited from
+
+RepositoryProps.removalPolicy
+
+___
+
+### repositoryName
+
+• `Optional` `Readonly` **repositoryName**: `string`
+
+Name for this repository.
+
+**`default`** Automatically generated name.
+
+**`stability`** stable
+
+#### Inherited from
+
+RepositoryProps.repositoryName
+
+# On Finding Options
+
+[@cloudcomponents/cdk-container-registry](#readme) / OnFindingOptions
+
+# Interface: OnFindingOptions
+
+## Table of contents
+
+### Properties
+
+- [alarmTopic](#alarmtopic)
+- [imageTags](#imagetags)
+- [severity](#severity)
+
+## Properties
+
+### alarmTopic
+
+• `Readonly` **alarmTopic**: `ITopic`
+
+___
+
+### imageTags
+
+• `Optional` `Readonly` **imageTags**: `string`[]
+
+Only watch changes to the image tags specified.
+Leave it undefined to watch the full repository.
+
+**`default`** - Watch the changes to the repository with all image tags
+
+___
+
+### severity
+
+• `Readonly` **severity**: [`Severity`](#severity)

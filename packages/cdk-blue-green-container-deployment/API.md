@@ -1,494 +1,3764 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-blue-green-container-deployment
 
-Name|Description
-----|-----------
-[DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)|*No description*
-[EcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig)|*No description*
-[EcsDeploymentGroup](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroup)|*No description*
-[EcsService](#cloudcomponents-cdk-blue-green-container-deployment-ecsservice)|*No description*
-[PushImageProject](#cloudcomponents-cdk-blue-green-container-deployment-pushimageproject)|*No description*
+# @cloudcomponents/cdk-blue-green-container-deployment
 
+## Table of contents
 
-**Structs**
+### Enumerations
 
-Name|Description
-----|-----------
-[DummyTaskDefinitionProps](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinitionprops)|*No description*
-[EcsDeploymentConfigurationProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfigurationprops)|*No description*
-[EcsDeploymentGroupProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroupprops)|*No description*
-[EcsServiceProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsserviceprops)|*No description*
-[PushImageProjectProps](#cloudcomponents-cdk-blue-green-container-deployment-pushimageprojectprops)|*No description*
-[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)|*No description*
+- [PropagateTags](#propagate-tags)
+- [RollbackEvent](#rollback-event)
+- [SchedulingStrategy](#scheduling-strategy)
 
+### Classes
 
-**Interfaces**
+- [DummyTaskDefinition](#dummy-task-definition)
+- [EcsDeploymentConfig](#ecs-deployment-config)
+- [EcsDeploymentGroup](#ecs-deployment-group)
+- [EcsService](#ecs-service)
+- [PushImageProject](#push-image-project)
 
-Name|Description
-----|-----------
-[IDummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-idummytaskdefinition)|*No description*
-[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)|*No description*
-[IEcsDeploymentGroup](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentgroup)|Interface for an ECS deployment group.
-[IEcsService](#cloudcomponents-cdk-blue-green-container-deployment-iecsservice)|*No description*
+### Interfaces
 
+- [DummyTaskDefinitionProps](#dummy-task-definition-props)
+- [EcsDeploymentConfigurationProps](#ecs-deployment-configuration-props)
+- [EcsDeploymentGroupProps](#ecs-deployment-group-props)
+- [EcsServiceProps](#ecs-service-props)
+- [IDummyTaskDefinition](#i-dummy-task-definition)
+- [IEcsDeploymentConfig](#i-ecs-deployment-config)
+- [IEcsDeploymentGroup](#i-ecs-deployment-group)
+- [IEcsService](#i-ecs-service)
+- [PushImageProjectProps](#push-image-project-props)
+- [TrafficListener](#traffic-listener)
 
-**Enums**
+# Dummy Task Definition
 
-Name|Description
-----|-----------
-[PropagateTags](#cloudcomponents-cdk-blue-green-container-deployment-propagatetags)|*No description*
-[RollbackEvent](#cloudcomponents-cdk-blue-green-container-deployment-rollbackevent)|*No description*
-[SchedulingStrategy](#cloudcomponents-cdk-blue-green-container-deployment-schedulingstrategy)|*No description*
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / DummyTaskDefinition
 
+# Class: DummyTaskDefinition
 
+## Hierarchy
 
-## class DummyTaskDefinition  <a id="cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition"></a>
+- `Construct`
 
+  ↳ **`DummyTaskDefinition`**
 
+## Implements
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IDummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-idummytaskdefinition)
-__Extends__: [Construct](#aws-cdk-core-construct)
+- [`IDummyTaskDefinition`](#i-dummy-task-definition)
 
-### Initializer
+## Table of contents
 
+### Constructors
 
-
-
-```ts
-new DummyTaskDefinition(scope: Construct, id: string, props: DummyTaskDefinitionProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[DummyTaskDefinitionProps](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinitionprops)</code>)  *No description*
-  * **image** (<code>string</code>)  The image used to start a container. 
-  * **containerName** (<code>string</code>)  The name of the container. __*Default*__: `sample-website`
-  * **containerPort** (<code>number</code>)  *No description* __*Default*__: 80
-  * **family** (<code>string</code>)  The name of a family that this task definition is registered to. __*Default*__: Automatically generated name.
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**containerName** | <code>string</code> | <span></span>
-**containerPort** | <code>number</code> | <span></span>
-**executionRole** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
-**family** | <code>string</code> | <span></span>
-**taskDefinitionArn** | <code>string</code> | <span></span>
+- [containerName](#containername)
+- [containerPort](#containerport)
+- [executionRole](#executionrole)
+- [family](#family)
+- [node](#node)
+- [taskDefinitionArn](#taskdefinitionarn)
 
 ### Methods
 
+- [addToExecutionRolePolicy](#addtoexecutionrolepolicy)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### addToExecutionRolePolicy(statement) <a id="cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition-addtoexecutionrolepolicy"></a>
+## Constructors
+
+### constructor
+
+• **new DummyTaskDefinition**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`DummyTaskDefinitionProps`](#dummy-task-definition-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### containerName
+
+• `Readonly` **containerName**: `string`
+
+#### Implementation of
+
+[IDummyTaskDefinition](#i-dummy-task-definition).[containerName](#containername)
+
+___
+
+### containerPort
+
+• `Readonly` **containerPort**: `number`
+
+#### Implementation of
+
+[IDummyTaskDefinition](#i-dummy-task-definition).[containerPort](#containerport)
+
+___
+
+### executionRole
+
+• `Readonly` **executionRole**: `IRole`
+
+#### Implementation of
+
+[IDummyTaskDefinition](#i-dummy-task-definition).[executionRole](#executionrole)
+
+___
+
+### family
+
+• `Readonly` **family**: `string`
+
+#### Implementation of
+
+[IDummyTaskDefinition](#i-dummy-task-definition).[family](#family)
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### taskDefinitionArn
+
+• `Readonly` **taskDefinitionArn**: `string`
+
+#### Implementation of
+
+[IDummyTaskDefinition](#i-dummy-task-definition).[taskDefinitionArn](#taskdefinitionarn)
+
+## Methods
+
+### addToExecutionRolePolicy
+
+▸ **addToExecutionRolePolicy**(`statement`): `void`
 
 Adds a policy statement to the task execution IAM role.
 
-```ts
-addToExecutionRolePolicy(statement: PolicyStatement): void
-```
+#### Parameters
 
-* **statement** (<code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `statement` | `PolicyStatement` |
 
+#### Returns
 
+`void`
 
+___
 
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
-## class EcsDeploymentConfig  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig"></a>
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)
-__Extends__: [Resource](#aws-cdk-core-resource)
+**`stability`** stable
 
-### Initializer
+#### Returns
 
+`void`
 
+#### Inherited from
 
+Construct.onPrepare
 
-```ts
-new EcsDeploymentConfig(scope: Construct, id: string, props: EcsDeploymentConfigurationProps)
-```
+___
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[EcsDeploymentConfigurationProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfigurationprops)</code>)  *No description*
-  * **deploymentConfigName** (<code>string</code>)  `AWS::CodeDeploy::DeploymentConfig.DeploymentConfigName`. __*Optional*__
-  * **minimumHealthyHosts** (<code>[CfnDeploymentConfig.MinimumHealthyHostsProperty](#aws-cdk-aws-codedeploy-cfndeploymentconfig-minimumhealthyhostsproperty) &#124; [IResolvable](#aws-cdk-core-iresolvable)</code>)  `AWS::CodeDeploy::DeploymentConfig.MinimumHealthyHosts`. __*Optional*__
-  * **trafficRoutingConfig** (<code>[IResolvable](#aws-cdk-core-iresolvable) &#124; [CfnDeploymentConfig.TrafficRoutingConfigProperty](#aws-cdk-aws-codedeploy-cfndeploymentconfig-trafficroutingconfigproperty)</code>)  `AWS::CodeDeploy::DeploymentConfig.TrafficRoutingConfig`. __*Optional*__
+### onSynthesize
 
+▸ `Protected` **onSynthesize**(`session`): `void`
 
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Ecs Deployment Config
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / EcsDeploymentConfig
+
+# Class: EcsDeploymentConfig
+
+## Hierarchy
+
+- `Resource`
+
+  ↳ **`EcsDeploymentConfig`**
+
+## Implements
+
+- [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**deploymentConfigArn** | <code>string</code> | <span></span>
-**deploymentConfigName** | <code>string</code> | <span></span>
-*static* **ALL_AT_ONCE** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
-*static* **CANARY_10PERCENT_15MINUTES** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
-*static* **CANARY_10PERCENT_5MINUTES** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
-*static* **LINEAR_10PERCENT_EVERY_1MINUTE** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
-*static* **LINEAR_10PERCENT_EVERY_3MINUTES** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | <span></span>
+- [deploymentConfigArn](#deploymentconfigarn)
+- [deploymentConfigName](#deploymentconfigname)
+- [env](#env)
+- [node](#node)
+- [physicalName](#physicalname)
+- [stack](#stack)
+- [ALL\_AT\_ONCE](#all_at_once)
+- [CANARY\_10PERCENT\_15MINUTES](#canary_10percent_15minutes)
+- [CANARY\_10PERCENT\_5MINUTES](#canary_10percent_5minutes)
+- [LINEAR\_10PERCENT\_EVERY\_1MINUTE](#linear_10percent_every_1minute)
+- [LINEAR\_10PERCENT\_EVERY\_3MINUTES](#linear_10percent_every_3minutes)
 
 ### Methods
 
+- [\_enableCrossEnvironment](#_enablecrossenvironment)
+- [applyRemovalPolicy](#applyremovalpolicy)
+- [generatePhysicalName](#generatephysicalname)
+- [getResourceArnAttribute](#getresourcearnattribute)
+- [getResourceNameAttribute](#getresourcenameattribute)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [fromEcsDeploymentConfigName](#fromecsdeploymentconfigname)
+- [isConstruct](#isconstruct)
+- [isResource](#isresource)
 
-#### *static* fromEcsDeploymentConfigName(_scope, _id, ecsDeploymentConfigName) <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig-fromecsdeploymentconfigname"></a>
+## Constructors
+
+### constructor
+
+• **new EcsDeploymentConfig**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`EcsDeploymentConfigurationProps`](#ecs-deployment-configuration-props) |
+
+#### Overrides
+
+Resource.constructor
+
+## Properties
+
+### deploymentConfigArn
+
+• `Readonly` **deploymentConfigArn**: `string`
+
+#### Implementation of
+
+[IEcsDeploymentConfig](#i-ecs-deployment-config).[deploymentConfigArn](#deploymentconfigarn)
+
+___
+
+### deploymentConfigName
+
+• `Readonly` **deploymentConfigName**: `string`
+
+#### Implementation of
+
+[IEcsDeploymentConfig](#i-ecs-deployment-config).[deploymentConfigName](#deploymentconfigname)
+
+___
+
+### env
+
+• `Readonly` **env**: `ResourceEnvironment`
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+**`stability`** stable
+
+#### Inherited from
+
+Resource.env
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Resource.node
+
+___
+
+### physicalName
+
+• `Protected` `Readonly` **physicalName**: `string`
+
+Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
+
+This value will resolve to one of the following:
+- a concrete value (e.g. `"my-awesome-bucket"`)
+- `undefined`, when a name should be generated by CloudFormation
+- a concrete name generated automatically during synthesis, in
+   cross-environment scenarios.
+
+**`stability`** stable
+
+#### Inherited from
+
+Resource.physicalName
+
+___
+
+### stack
+
+• `Readonly` **stack**: `Stack`
+
+The stack in which this resource is defined.
+
+**`stability`** stable
+
+#### Inherited from
+
+Resource.stack
+
+___
+
+### ALL\_AT\_ONCE
+
+▪ `Static` `Readonly` **ALL\_AT\_ONCE**: [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
+
+___
+
+### CANARY\_10PERCENT\_15MINUTES
+
+▪ `Static` `Readonly` **CANARY\_10PERCENT\_15MINUTES**: [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
+
+___
+
+### CANARY\_10PERCENT\_5MINUTES
+
+▪ `Static` `Readonly` **CANARY\_10PERCENT\_5MINUTES**: [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
+
+___
+
+### LINEAR\_10PERCENT\_EVERY\_1MINUTE
+
+▪ `Static` `Readonly` **LINEAR\_10PERCENT\_EVERY\_1MINUTE**: [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
+
+___
+
+### LINEAR\_10PERCENT\_EVERY\_3MINUTES
+
+▪ `Static` `Readonly` **LINEAR\_10PERCENT\_EVERY\_3MINUTES**: [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
+
+## Methods
+
+### \_enableCrossEnvironment
+
+▸ **_enableCrossEnvironment**(): `void`
+
+Called when this resource is referenced across environments
+(account/region) to order to request that a physical name will be generated
+for this resource during synthesis, so the resource can be referenced
+through it's absolute name/arn.
+
+**`internal`**
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.\_enableCrossEnvironment
+
+___
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.applyRemovalPolicy
+
+___
+
+### generatePhysicalName
+
+▸ `Protected` **generatePhysicalName**(): `string`
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Resource.generatePhysicalName
+
+___
+
+### getResourceArnAttribute
+
+▸ `Protected` **getResourceArnAttribute**(`arnAttr`, `arnComponents`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "ARN" attribute (e.g. `bucket.bucketArn`).
+
+Normally, this token will resolve to `arnAttr`, but if the resource is
+referenced across environments, `arnComponents` will be used to synthesize
+a concrete ARN with the resource's physical name. Make sure to reference
+`this.physicalName` in `arnComponents`.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `arnAttr` | `string` | The CFN attribute which resolves to the ARN of the resource. |
+| `arnComponents` | `ArnComponents` | The format of the ARN of this resource. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Resource.getResourceArnAttribute
+
+___
+
+### getResourceNameAttribute
+
+▸ `Protected` **getResourceNameAttribute**(`nameAttr`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "name" attribute (e.g. `bucket.bucketName`).
+
+Normally, this token will resolve to `nameAttr`, but if the resource is
+referenced across environments, it will be resolved to `this.physicalName`,
+which will be a concrete name.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `nameAttr` | `string` | The CFN attribute which resolves to the resource's name. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Resource.getResourceNameAttribute
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Resource.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Resource.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Resource.validate
+
+___
+
+### fromEcsDeploymentConfigName
+
+▸ `Static` **fromEcsDeploymentConfigName**(`_scope`, `_id`, `ecsDeploymentConfigName`): [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
 
 Import a custom Deployment Configuration for an ECS Deployment Group defined outside the CDK.
 
-```ts
-static fromEcsDeploymentConfigName(_scope: Construct, _id: string, ecsDeploymentConfigName: string): IEcsDeploymentConfig
-```
+#### Parameters
 
-* **_scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  the parent Construct for this new Construct.
-* **_id** (<code>string</code>)  the logical ID of this new Construct.
-* **ecsDeploymentConfigName** (<code>string</code>)  the name of the referenced custom Deployment Configuration.
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_scope` | `Construct` | the parent Construct for this new Construct |
+| `_id` | `string` | the logical ID of this new Construct |
+| `ecsDeploymentConfigName` | `string` | the name of the referenced custom Deployment Configuration |
 
-__Returns__:
-* <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code>
+#### Returns
 
+[`IEcsDeploymentConfig`](#i-ecs-deployment-config)
 
+a Construct representing a reference to an existing custom Deployment Configuration
 
-## class EcsDeploymentGroup  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroup"></a>
+___
 
+### isConstruct
 
+▸ `Static` **isConstruct**(`x`): x is Construct
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IEcsDeploymentGroup](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentgroup), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
-__Extends__: [Resource](#aws-cdk-core-resource)
+Return whether the given object is a Construct.
 
-### Initializer
+**`stability`** stable
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
 
+#### Returns
 
-```ts
-new EcsDeploymentGroup(scope: Construct, id: string, props: EcsDeploymentGroupProps)
-```
+x is Construct
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[EcsDeploymentGroupProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroupprops)</code>)  *No description*
-  * **deploymentGroupName** (<code>string</code>)  *No description* 
-  * **ecsServices** (<code>Array<[IEcsService](#cloudcomponents-cdk-blue-green-container-deployment-iecsservice)></code>)  *No description* 
-  * **prodTrafficListener** (<code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code>)  *No description* 
-  * **targetGroups** (<code>Array<[ApplicationTargetGroup](#aws-cdk-aws-elasticloadbalancingv2-applicationtargetgroup)></code>)  *No description* 
-  * **testTrafficListener** (<code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code>)  *No description* 
-  * **applicationName** (<code>string</code>)  *No description* __*Optional*__
-  * **autoRollbackOnEvents** (<code>Array<[RollbackEvent](#cloudcomponents-cdk-blue-green-container-deployment-rollbackevent)></code>)  The event type or types that trigger a rollback. __*Optional*__
-  * **deploymentConfig** (<code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code>)  *No description* __*Optional*__
-  * **terminationWaitTime** (<code>[Duration](#aws-cdk-core-duration)</code>)  the number of minutes before deleting the original (blue) task set. __*Default*__: 60 minutes
+#### Inherited from
 
+Resource.isConstruct
 
+___
 
-### Properties
+### isResource
 
+▸ `Static` **isResource**(`construct`): construct is CfnResource
 
-Name | Type | Description 
------|------|-------------
-**application** | <code>[IEcsApplication](#aws-cdk-aws-codedeploy-iecsapplication)</code> | The reference to the CodeDeploy ECS Application that this Deployment Group belongs to.
-**deploymentConfig** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | The Deployment Configuration this Group uses.
-**deploymentGroupArn** | <code>string</code> | The ARN of this Deployment Group.
-**deploymentGroupName** | <code>string</code> | The physical name of the CodeDeploy Deployment Group.
+Check whether the given construct is a Resource.
 
+**`stability`** stable
 
+#### Parameters
 
-## class EcsService  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsservice"></a>
+| Name | Type |
+| :------ | :------ |
+| `construct` | `IConstruct` |
 
+#### Returns
 
+construct is CfnResource
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConnectable](#aws-cdk-aws-ec2-iconnectable), [IEcsService](#cloudcomponents-cdk-blue-green-container-deployment-iecsservice)
-__Extends__: [Construct](#aws-cdk-core-construct)
+#### Inherited from
 
-### Initializer
+Resource.isResource
 
+# Ecs Deployment Group
 
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / EcsDeploymentGroup
 
+# Class: EcsDeploymentGroup
 
-```ts
-new EcsService(scope: Construct, id: string, props: EcsServiceProps)
-```
+## Hierarchy
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[EcsServiceProps](#cloudcomponents-cdk-blue-green-container-deployment-ecsserviceprops)</code>)  *No description*
-  * **cluster** (<code>[ICluster](#aws-cdk-aws-ecs-icluster)</code>)  *No description* 
-  * **prodTargetGroup** (<code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code>)  *No description* 
-  * **serviceName** (<code>string</code>)  *No description* 
-  * **taskDefinition** (<code>[DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)</code>)  *No description* 
-  * **testTargetGroup** (<code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code>)  *No description* 
-  * **circuitBreaker** (<code>[DeploymentCircuitBreaker](#aws-cdk-aws-ecs-deploymentcircuitbreaker)</code>)  Whether to enable the deployment circuit breaker. __*Default*__: disabled
-  * **containerPort** (<code>number</code>)  *No description* __*Optional*__
-  * **desiredCount** (<code>number</code>)  *No description* __*Optional*__
-  * **healthCheckGracePeriod** (<code>[Duration](#aws-cdk-core-duration)</code>)  The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy Elastic Load Balancing target health checks after a task has first started. __*Default*__: defaults to 60 seconds if at least one load balancer is in-use and it is not already set
-  * **launchType** (<code>[LaunchType](#aws-cdk-aws-ecs-launchtype)</code>)  *No description* __*Optional*__
-  * **maxHealthyPercent** (<code>number</code>)  The maximum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that can run in a service during a deployment. __*Default*__: 100 if daemon, otherwise 200
-  * **minHealthyPercent** (<code>number</code>)  The minimum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that must continue to run and remain healthy during a deployment. __*Default*__: 0 if daemon, otherwise 50
-  * **platformVersion** (<code>string</code>)  *No description* __*Optional*__
-  * **propagateTags** (<code>[PropagateTags](#cloudcomponents-cdk-blue-green-container-deployment-propagatetags)</code>)  Specifies whether to propagate the tags from the task definition or the service to the tasks in the service. __*Default*__: no propagate
-  * **securityGroups** (<code>Array<[SecurityGroup](#aws-cdk-aws-ec2-securitygroup)></code>)  *No description* __*Optional*__
+- `Resource`
 
+  ↳ **`EcsDeploymentGroup`**
 
+## Implements
+
+- [`IEcsDeploymentGroup`](#i-ecs-deployment-group)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
+- [application](#application)
+- [deploymentConfig](#deploymentconfig)
+- [deploymentGroupArn](#deploymentgrouparn)
+- [deploymentGroupName](#deploymentgroupname)
+- [env](#env)
+- [node](#node)
+- [physicalName](#physicalname)
+- [stack](#stack)
 
-Name | Type | Description 
------|------|-------------
-**clusterName** | <code>string</code> | <span></span>
-**connections** | <code>[Connections](#aws-cdk-aws-ec2-connections)</code> | The network connections associated with this resource.
-**serviceName** | <code>string</code> | <span></span>
+### Methods
 
+- [\_enableCrossEnvironment](#_enablecrossenvironment)
+- [applyRemovalPolicy](#applyremovalpolicy)
+- [arnForDeploymentGroup](#arnfordeploymentgroup)
+- [generatePhysicalName](#generatephysicalname)
+- [getResourceArnAttribute](#getresourcearnattribute)
+- [getResourceNameAttribute](#getresourcenameattribute)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+- [isResource](#isresource)
 
+## Constructors
 
-## class PushImageProject  <a id="cloudcomponents-cdk-blue-green-container-deployment-pushimageproject"></a>
+### constructor
 
+• **new EcsDeploymentGroup**(`scope`, `id`, `props`)
 
+#### Parameters
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IResource](#aws-cdk-core-iresource), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IProject](#aws-cdk-aws-codebuild-iproject), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource), [IGrantable](#aws-cdk-aws-iam-igrantable), [IConnectable](#aws-cdk-aws-ec2-iconnectable), [INotificationRuleSource](#aws-cdk-aws-codestarnotifications-inotificationrulesource)
-__Extends__: [PipelineProject](#aws-cdk-aws-codebuild-pipelineproject)
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`EcsDeploymentGroupProps`](#ecs-deployment-group-props) |
 
-### Initializer
+#### Overrides
 
+Resource.constructor
 
+## Properties
 
+### application
 
-```ts
-new PushImageProject(scope: Construct, id: string, props: PushImageProjectProps)
-```
+• `Readonly` **application**: `IEcsApplication`
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[PushImageProjectProps](#cloudcomponents-cdk-blue-green-container-deployment-pushimageprojectprops)</code>)  *No description*
-  * **imageRepository** (<code>[IRepository](#aws-cdk-aws-ecr-irepository)</code>)  *No description* 
-  * **taskDefinition** (<code>[IDummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-idummytaskdefinition)</code>)  *No description* 
-  * **buildSpec** (<code>[BuildSpec](#aws-cdk-aws-codebuild-buildspec)</code>)  *No description* __*Optional*__
-  * **cache** (<code>[Cache](#aws-cdk-aws-codebuild-cache)</code>)  *No description* __*Optional*__
-  * **computeType** (<code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code>)  *No description* __*Optional*__
-  * **environmentVariables** (<code>Map<string, [BuildEnvironmentVariable](#aws-cdk-aws-codebuild-buildenvironmentvariable)></code>)  *No description* __*Optional*__
-  * **projectName** (<code>string</code>)  *No description* __*Optional*__
+The reference to the CodeDeploy ECS Application that this Deployment Group belongs to.
 
+#### Implementation of
 
+[IEcsDeploymentGroup](#i-ecs-deployment-group).[application](#application)
 
+___
 
-## struct DummyTaskDefinitionProps  <a id="cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinitionprops"></a>
+### deploymentConfig
 
+• `Readonly` **deploymentConfig**: [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
 
+The Deployment Configuration this Group uses.
 
+#### Implementation of
 
+[IEcsDeploymentGroup](#i-ecs-deployment-group).[deploymentConfig](#deploymentconfig)
 
+___
 
-Name | Type | Description 
------|------|-------------
-**image** | <code>string</code> | The image used to start a container.
-**containerName**? | <code>string</code> | The name of the container.<br/>__*Default*__: `sample-website`
-**containerPort**? | <code>number</code> | __*Default*__: 80
-**family**? | <code>string</code> | The name of a family that this task definition is registered to.<br/>__*Default*__: Automatically generated name.
+### deploymentGroupArn
 
+• `Readonly` **deploymentGroupArn**: `string`
 
+The ARN of this Deployment Group.
 
-## struct EcsDeploymentConfigurationProps  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfigurationprops"></a>
+#### Implementation of
 
+[IEcsDeploymentGroup](#i-ecs-deployment-group).[deploymentGroupArn](#deploymentgrouparn)
 
+___
 
+### deploymentGroupName
 
+• `Readonly` **deploymentGroupName**: `string`
 
+The physical name of the CodeDeploy Deployment Group.
 
-Name | Type | Description 
------|------|-------------
-**deploymentConfigName**? | <code>string</code> | `AWS::CodeDeploy::DeploymentConfig.DeploymentConfigName`.<br/>__*Optional*__
-**minimumHealthyHosts**? | <code>[CfnDeploymentConfig.MinimumHealthyHostsProperty](#aws-cdk-aws-codedeploy-cfndeploymentconfig-minimumhealthyhostsproperty) &#124; [IResolvable](#aws-cdk-core-iresolvable)</code> | `AWS::CodeDeploy::DeploymentConfig.MinimumHealthyHosts`.<br/>__*Optional*__
-**trafficRoutingConfig**? | <code>[IResolvable](#aws-cdk-core-iresolvable) &#124; [CfnDeploymentConfig.TrafficRoutingConfigProperty](#aws-cdk-aws-codedeploy-cfndeploymentconfig-trafficroutingconfigproperty)</code> | `AWS::CodeDeploy::DeploymentConfig.TrafficRoutingConfig`.<br/>__*Optional*__
+#### Implementation of
 
+[IEcsDeploymentGroup](#i-ecs-deployment-group).[deploymentGroupName](#deploymentgroupname)
 
+___
 
-## struct EcsDeploymentGroupProps  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroupprops"></a>
+### env
 
+• `Readonly` **env**: `ResourceEnvironment`
 
+The environment this resource belongs to.
 
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
 
+**`stability`** stable
 
+#### Implementation of
 
-Name | Type | Description 
------|------|-------------
-**deploymentGroupName** | <code>string</code> | <span></span>
-**ecsServices** | <code>Array<[IEcsService](#cloudcomponents-cdk-blue-green-container-deployment-iecsservice)></code> | <span></span>
-**prodTrafficListener** | <code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code> | <span></span>
-**targetGroups** | <code>Array<[ApplicationTargetGroup](#aws-cdk-aws-elasticloadbalancingv2-applicationtargetgroup)></code> | <span></span>
-**testTrafficListener** | <code>[TrafficListener](#cloudcomponents-cdk-blue-green-container-deployment-trafficlistener)</code> | <span></span>
-**applicationName**? | <code>string</code> | __*Optional*__
-**autoRollbackOnEvents**? | <code>Array<[RollbackEvent](#cloudcomponents-cdk-blue-green-container-deployment-rollbackevent)></code> | The event type or types that trigger a rollback.<br/>__*Optional*__
-**deploymentConfig**? | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | __*Optional*__
-**terminationWaitTime**? | <code>[Duration](#aws-cdk-core-duration)</code> | the number of minutes before deleting the original (blue) task set.<br/>__*Default*__: 60 minutes
+[IEcsDeploymentGroup](#i-ecs-deployment-group).[env](#env)
 
+#### Inherited from
 
+Resource.env
 
-## struct EcsServiceProps  <a id="cloudcomponents-cdk-blue-green-container-deployment-ecsserviceprops"></a>
+___
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Implementation of
 
-Name | Type | Description 
------|------|-------------
-**cluster** | <code>[ICluster](#aws-cdk-aws-ecs-icluster)</code> | <span></span>
-**prodTargetGroup** | <code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code> | <span></span>
-**serviceName** | <code>string</code> | <span></span>
-**taskDefinition** | <code>[DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)</code> | <span></span>
-**testTargetGroup** | <code>[ITargetGroup](#aws-cdk-aws-elasticloadbalancingv2-itargetgroup)</code> | <span></span>
-**circuitBreaker**? | <code>[DeploymentCircuitBreaker](#aws-cdk-aws-ecs-deploymentcircuitbreaker)</code> | Whether to enable the deployment circuit breaker.<br/>__*Default*__: disabled
-**containerPort**? | <code>number</code> | __*Optional*__
-**desiredCount**? | <code>number</code> | __*Optional*__
-**healthCheckGracePeriod**? | <code>[Duration](#aws-cdk-core-duration)</code> | The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy Elastic Load Balancing target health checks after a task has first started.<br/>__*Default*__: defaults to 60 seconds if at least one load balancer is in-use and it is not already set
-**launchType**? | <code>[LaunchType](#aws-cdk-aws-ecs-launchtype)</code> | __*Optional*__
-**maxHealthyPercent**? | <code>number</code> | The maximum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that can run in a service during a deployment.<br/>__*Default*__: 100 if daemon, otherwise 200
-**minHealthyPercent**? | <code>number</code> | The minimum number of tasks, specified as a percentage of the Amazon ECS service's DesiredCount value, that must continue to run and remain healthy during a deployment.<br/>__*Default*__: 0 if daemon, otherwise 50
-**platformVersion**? | <code>string</code> | __*Optional*__
-**propagateTags**? | <code>[PropagateTags](#cloudcomponents-cdk-blue-green-container-deployment-propagatetags)</code> | Specifies whether to propagate the tags from the task definition or the service to the tasks in the service.<br/>__*Default*__: no propagate
-**securityGroups**? | <code>Array<[SecurityGroup](#aws-cdk-aws-ec2-securitygroup)></code> | __*Optional*__
+[IEcsDeploymentGroup](#i-ecs-deployment-group).[node](#node)
 
+#### Inherited from
 
+Resource.node
 
-## interface IDummyTaskDefinition  <a id="cloudcomponents-cdk-blue-green-container-deployment-idummytaskdefinition"></a>
+___
 
-__Implemented by__: [DummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-dummytaskdefinition)
+### physicalName
 
+• `Protected` `Readonly` **physicalName**: `string`
 
+Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
+
+This value will resolve to one of the following:
+- a concrete value (e.g. `"my-awesome-bucket"`)
+- `undefined`, when a name should be generated by CloudFormation
+- a concrete name generated automatically during synthesis, in
+   cross-environment scenarios.
+
+**`stability`** stable
+
+#### Inherited from
+
+Resource.physicalName
+
+___
+
+### stack
+
+• `Readonly` **stack**: `Stack`
+
+The stack in which this resource is defined.
+
+**`stability`** stable
+
+#### Implementation of
+
+[IEcsDeploymentGroup](#i-ecs-deployment-group).[stack](#stack)
+
+#### Inherited from
+
+Resource.stack
+
+## Methods
+
+### \_enableCrossEnvironment
+
+▸ **_enableCrossEnvironment**(): `void`
+
+Called when this resource is referenced across environments
+(account/region) to order to request that a physical name will be generated
+for this resource during synthesis, so the resource can be referenced
+through it's absolute name/arn.
+
+**`internal`**
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.\_enableCrossEnvironment
+
+___
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.applyRemovalPolicy
+
+___
+
+### arnForDeploymentGroup
+
+▸ `Private` **arnForDeploymentGroup**(`applicationName`, `deploymentGroupName`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `applicationName` | `string` |
+| `deploymentGroupName` | `string` |
+
+#### Returns
+
+`string`
+
+___
+
+### generatePhysicalName
+
+▸ `Protected` **generatePhysicalName**(): `string`
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Resource.generatePhysicalName
+
+___
+
+### getResourceArnAttribute
+
+▸ `Protected` **getResourceArnAttribute**(`arnAttr`, `arnComponents`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "ARN" attribute (e.g. `bucket.bucketArn`).
+
+Normally, this token will resolve to `arnAttr`, but if the resource is
+referenced across environments, `arnComponents` will be used to synthesize
+a concrete ARN with the resource's physical name. Make sure to reference
+`this.physicalName` in `arnComponents`.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `arnAttr` | `string` | The CFN attribute which resolves to the ARN of the resource. |
+| `arnComponents` | `ArnComponents` | The format of the ARN of this resource. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Resource.getResourceArnAttribute
+
+___
+
+### getResourceNameAttribute
+
+▸ `Protected` **getResourceNameAttribute**(`nameAttr`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "name" attribute (e.g. `bucket.bucketName`).
+
+Normally, this token will resolve to `nameAttr`, but if the resource is
+referenced across environments, it will be resolved to `this.physicalName`,
+which will be a concrete name.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `nameAttr` | `string` | The CFN attribute which resolves to the resource's name. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Resource.getResourceNameAttribute
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Resource.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Resource.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Resource.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Resource.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Resource.isConstruct
+
+___
+
+### isResource
+
+▸ `Static` **isResource**(`construct`): construct is CfnResource
+
+Check whether the given construct is a Resource.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `construct` | `IConstruct` |
+
+#### Returns
+
+construct is CfnResource
+
+#### Inherited from
+
+Resource.isResource
+
+# Ecs Service
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / EcsService
+
+# Class: EcsService
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`EcsService`**
+
+## Implements
+
+- `IConnectable`
+- [`IEcsService`](#i-ecs-service)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
+- [clusterName](#clustername)
+- [connections](#connections)
+- [node](#node)
+- [serviceName](#servicename)
 
-Name | Type | Description 
------|------|-------------
-**containerName** | <code>string</code> | <span></span>
-**containerPort** | <code>number</code> | <span></span>
-**executionRole** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
-**family** | <code>string</code> | <span></span>
-**taskDefinitionArn** | <code>string</code> | <span></span>
+### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
+## Constructors
 
-## interface IEcsDeploymentConfig  <a id="cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig"></a>
+### constructor
 
-__Implemented by__: [EcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig)
-__Obtainable from__: [EcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig).[fromEcsDeploymentConfigName](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentconfig-fromecsdeploymentconfigname)()
+• **new EcsService**(`scope`, `id`, `props`)
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`EcsServiceProps`](#ecs-service-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### clusterName
+
+• `Readonly` **clusterName**: `string`
+
+#### Implementation of
+
+[IEcsService](#i-ecs-service).[clusterName](#clustername)
+
+___
+
+### connections
+
+• `Readonly` **connections**: `Connections`
+
+#### Implementation of
+
+IConnectable.connections
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### serviceName
+
+• `Readonly` **serviceName**: `string`
+
+#### Implementation of
+
+[IEcsService](#i-ecs-service).[serviceName](#servicename)
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Push Image Project
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / PushImageProject
+
+# Class: PushImageProject
+
+## Hierarchy
+
+- `PipelineProject`
+
+  ↳ **`PushImageProject`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
+- [\_connections](#_connections)
+- [env](#env)
+- [grantPrincipal](#grantprincipal)
+- [node](#node)
+- [physicalName](#physicalname)
+- [projectArn](#projectarn)
+- [projectName](#projectname)
+- [role](#role)
+- [stack](#stack)
 
-Name | Type | Description 
------|------|-------------
-**deploymentConfigArn** | <code>string</code> | <span></span>
-**deploymentConfigName** | <code>string</code> | <span></span>
+### Accessors
 
+- [connections](#connections)
+- [encryptionKey](#encryptionkey)
 
+### Methods
 
-## interface IEcsDeploymentGroup  <a id="cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentgroup"></a>
+- [\_enableCrossEnvironment](#_enablecrossenvironment)
+- [addFileSystemLocation](#addfilesystemlocation)
+- [addSecondaryArtifact](#addsecondaryartifact)
+- [addSecondarySource](#addsecondarysource)
+- [addToRolePolicy](#addtorolepolicy)
+- [applyRemovalPolicy](#applyremovalpolicy)
+- [bindAsNotificationRuleSource](#bindasnotificationrulesource)
+- [bindToCodePipeline](#bindtocodepipeline)
+- [enableBatchBuilds](#enablebatchbuilds)
+- [generatePhysicalName](#generatephysicalname)
+- [getResourceArnAttribute](#getresourcearnattribute)
+- [getResourceNameAttribute](#getresourcenameattribute)
+- [metric](#metric)
+- [metricBuilds](#metricbuilds)
+- [metricDuration](#metricduration)
+- [metricFailedBuilds](#metricfailedbuilds)
+- [metricSucceededBuilds](#metricsucceededbuilds)
+- [notifyOn](#notifyon)
+- [notifyOnBuildFailed](#notifyonbuildfailed)
+- [notifyOnBuildSucceeded](#notifyonbuildsucceeded)
+- [onBuildFailed](#onbuildfailed)
+- [onBuildStarted](#onbuildstarted)
+- [onBuildSucceeded](#onbuildsucceeded)
+- [onEvent](#onevent)
+- [onPhaseChange](#onphasechange)
+- [onPrepare](#onprepare)
+- [onStateChange](#onstatechange)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [fromProjectArn](#fromprojectarn)
+- [fromProjectName](#fromprojectname)
+- [isConstruct](#isconstruct)
+- [isResource](#isresource)
+- [serializeEnvVariables](#serializeenvvariables)
 
-__Implemented by__: [EcsDeploymentGroup](#cloudcomponents-cdk-blue-green-container-deployment-ecsdeploymentgroup)
+## Constructors
+
+### constructor
+
+• **new PushImageProject**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`PushImageProjectProps`](#push-image-project-props) |
+
+#### Overrides
+
+PipelineProject.constructor
+
+## Properties
+
+### \_connections
+
+• `Protected` **\_connections**: `undefined` \| `Connections`
+
+Actual connections object for this Project.
+May be unset, in which case this Project is not configured to use a VPC.
+
+**`internal`**
+
+#### Inherited from
+
+PipelineProject.\_connections
+
+___
+
+### env
+
+• `Readonly` **env**: `ResourceEnvironment`
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+**`stability`** stable
+
+#### Inherited from
+
+PipelineProject.env
+
+___
+
+### grantPrincipal
+
+• `Readonly` **grantPrincipal**: `IPrincipal`
+
+The principal to grant permissions to.
+
+**`stability`** stable
+
+#### Inherited from
+
+PipelineProject.grantPrincipal
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+PipelineProject.node
+
+___
+
+### physicalName
+
+• `Protected` `Readonly` **physicalName**: `string`
+
+Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
+
+This value will resolve to one of the following:
+- a concrete value (e.g. `"my-awesome-bucket"`)
+- `undefined`, when a name should be generated by CloudFormation
+- a concrete name generated automatically during synthesis, in
+   cross-environment scenarios.
+
+**`stability`** stable
+
+#### Inherited from
+
+PipelineProject.physicalName
+
+___
+
+### projectArn
+
+• `Readonly` **projectArn**: `string`
+
+The ARN of the project.
+
+**`stability`** stable
+
+#### Inherited from
+
+PipelineProject.projectArn
+
+___
+
+### projectName
+
+• `Readonly` **projectName**: `string`
+
+The name of the project.
+
+**`stability`** stable
+
+#### Inherited from
+
+PipelineProject.projectName
+
+___
+
+### role
+
+• `Optional` `Readonly` **role**: `IRole`
+
+The IAM role for this project.
+
+**`stability`** stable
+
+#### Inherited from
+
+PipelineProject.role
+
+___
+
+### stack
+
+• `Readonly` **stack**: `Stack`
+
+The stack in which this resource is defined.
+
+**`stability`** stable
+
+#### Inherited from
+
+PipelineProject.stack
+
+## Accessors
+
+### connections
+
+• `get` **connections**(): `Connections`
+
+Access the Connections object.
+
+Will fail if this Project does not have a VPC set.
+
+**`stability`** stable
+
+#### Returns
+
+`Connections`
+
+___
+
+### encryptionKey
+
+• `Private` `set` **encryptionKey**(`value`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `any` |
+
+#### Returns
+
+`void`
+
+## Methods
+
+### \_enableCrossEnvironment
+
+▸ **_enableCrossEnvironment**(): `void`
+
+Called when this resource is referenced across environments
+(account/region) to order to request that a physical name will be generated
+for this resource during synthesis, so the resource can be referenced
+through it's absolute name/arn.
+
+**`internal`**
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.\_enableCrossEnvironment
+
+___
+
+### addFileSystemLocation
+
+▸ **addFileSystemLocation**(`fileSystemLocation`): `void`
+
+Adds a fileSystemLocation to the Project.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `fileSystemLocation` | `IFileSystemLocation` | the fileSystemLocation to add. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.addFileSystemLocation
+
+___
+
+### addSecondaryArtifact
+
+▸ **addSecondaryArtifact**(`secondaryArtifact`): `void`
+
+Adds a secondary artifact to the Project.
+
+**`see`** https://docs.aws.amazon.com/codebuild/latest/userguide/sample-multi-in-out.html
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `secondaryArtifact` | `IArtifacts` | the artifact to add as a secondary artifact. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.addSecondaryArtifact
+
+___
+
+### addSecondarySource
+
+▸ **addSecondarySource**(`secondarySource`): `void`
+
+Adds a secondary source to the Project.
+
+**`see`** https://docs.aws.amazon.com/codebuild/latest/userguide/sample-multi-in-out.html
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `secondarySource` | `ISource` | the source to add as a secondary source. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.addSecondarySource
+
+___
+
+### addToRolePolicy
+
+▸ **addToRolePolicy**(`statement`): `void`
+
+Add a permission only if there's a policy attached.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `statement` | `PolicyStatement` | The permissions statement to add. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.addToRolePolicy
+
+___
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.applyRemovalPolicy
+
+___
+
+### bindAsNotificationRuleSource
+
+▸ **bindAsNotificationRuleSource**(`_scope`): `NotificationRuleSourceConfig`
+
+Returns a source configuration for notification rule.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_scope` | `Construct` |
+
+#### Returns
+
+`NotificationRuleSourceConfig`
+
+#### Inherited from
+
+PipelineProject.bindAsNotificationRuleSource
+
+___
+
+### bindToCodePipeline
+
+▸ **bindToCodePipeline**(`_scope`, `options`): `void`
+
+A callback invoked when the given project is added to a CodePipeline.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_scope` | `Construct` | the construct the binding is taking place in. |
+| `options` | `BindToCodePipelineOptions` | additional options for the binding. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.bindToCodePipeline
+
+___
+
+### enableBatchBuilds
+
+▸ **enableBatchBuilds**(): `undefined` \| `BatchBuildConfig`
+
+Enable batch builds.
+
+Returns an object contining the batch service role if batch builds
+could be enabled.
+
+**`stability`** stable
+
+#### Returns
+
+`undefined` \| `BatchBuildConfig`
+
+#### Inherited from
+
+PipelineProject.enableBatchBuilds
+
+___
+
+### generatePhysicalName
+
+▸ `Protected` **generatePhysicalName**(): `string`
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+PipelineProject.generatePhysicalName
+
+___
+
+### getResourceArnAttribute
+
+▸ `Protected` **getResourceArnAttribute**(`arnAttr`, `arnComponents`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "ARN" attribute (e.g. `bucket.bucketArn`).
+
+Normally, this token will resolve to `arnAttr`, but if the resource is
+referenced across environments, `arnComponents` will be used to synthesize
+a concrete ARN with the resource's physical name. Make sure to reference
+`this.physicalName` in `arnComponents`.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `arnAttr` | `string` | The CFN attribute which resolves to the ARN of the resource. |
+| `arnComponents` | `ArnComponents` | The format of the ARN of this resource. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+PipelineProject.getResourceArnAttribute
+
+___
+
+### getResourceNameAttribute
+
+▸ `Protected` **getResourceNameAttribute**(`nameAttr`): `string`
+
+Returns an environment-sensitive token that should be used for the resource's "name" attribute (e.g. `bucket.bucketName`).
+
+Normally, this token will resolve to `nameAttr`, but if the resource is
+referenced across environments, it will be resolved to `this.physicalName`,
+which will be a concrete name.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `nameAttr` | `string` | The CFN attribute which resolves to the resource's name. |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+PipelineProject.getResourceNameAttribute
+
+___
+
+### metric
+
+▸ **metric**(`metricName`, `props?`): `Metric`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `metricName` | `string` | The name of the metric. |
+| `props?` | `MetricOptions` | Customization properties. |
+
+#### Returns
+
+`Metric`
+
+a CloudWatch metric associated with this build project.
+
+#### Inherited from
+
+PipelineProject.metric
+
+___
+
+### metricBuilds
+
+▸ **metricBuilds**(`props?`): `Metric`
+
+Measures the number of builds triggered.
+
+Units: Count
+
+Valid CloudWatch statistics: Sum
+
+**`default`** sum over 5 minutes
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `props?` | `MetricOptions` |
+
+#### Returns
+
+`Metric`
+
+#### Inherited from
+
+PipelineProject.metricBuilds
+
+___
+
+### metricDuration
+
+▸ **metricDuration**(`props?`): `Metric`
+
+Measures the duration of all builds over time.
+
+Units: Seconds
+
+Valid CloudWatch statistics: Average (recommended), Maximum, Minimum
+
+**`default`** average over 5 minutes
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `props?` | `MetricOptions` |
+
+#### Returns
+
+`Metric`
+
+#### Inherited from
+
+PipelineProject.metricDuration
+
+___
+
+### metricFailedBuilds
+
+▸ **metricFailedBuilds**(`props?`): `Metric`
+
+Measures the number of builds that failed because of client error or because of a timeout.
+
+Units: Count
+
+Valid CloudWatch statistics: Sum
+
+**`default`** sum over 5 minutes
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `props?` | `MetricOptions` |
+
+#### Returns
+
+`Metric`
+
+#### Inherited from
+
+PipelineProject.metricFailedBuilds
+
+___
+
+### metricSucceededBuilds
+
+▸ **metricSucceededBuilds**(`props?`): `Metric`
+
+Measures the number of successful builds.
+
+Units: Count
+
+Valid CloudWatch statistics: Sum
+
+**`default`** sum over 5 minutes
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `props?` | `MetricOptions` |
+
+#### Returns
+
+`Metric`
+
+#### Inherited from
+
+PipelineProject.metricSucceededBuilds
+
+___
+
+### notifyOn
+
+▸ **notifyOn**(`id`, `target`, `options`): `INotificationRule`
+
+Defines a CodeStar Notification rule triggered when the project events emitted by you specified, it very similar to `onEvent` API.
+
+You can also use the methods `notifyOnBuildSucceeded` and
+`notifyOnBuildFailed` to define rules for these specific event emitted.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `target` | `INotificationRuleTarget` |
+| `options` | `ProjectNotifyOnOptions` |
+
+#### Returns
+
+`INotificationRule`
+
+#### Inherited from
+
+PipelineProject.notifyOn
+
+___
+
+### notifyOnBuildFailed
+
+▸ **notifyOnBuildFailed**(`id`, `target`, `options?`): `INotificationRule`
+
+Defines a CodeStar notification rule which triggers when a build fails.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `target` | `INotificationRuleTarget` |
+| `options?` | `NotificationRuleOptions` |
+
+#### Returns
+
+`INotificationRule`
+
+#### Inherited from
+
+PipelineProject.notifyOnBuildFailed
+
+___
+
+### notifyOnBuildSucceeded
+
+▸ **notifyOnBuildSucceeded**(`id`, `target`, `options?`): `INotificationRule`
+
+Defines a CodeStar notification rule which triggers when a build completes successfully.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `target` | `INotificationRuleTarget` |
+| `options?` | `NotificationRuleOptions` |
+
+#### Returns
+
+`INotificationRule`
+
+#### Inherited from
+
+PipelineProject.notifyOnBuildSucceeded
+
+___
+
+### onBuildFailed
+
+▸ **onBuildFailed**(`id`, `options?`): `Rule`
+
+Defines an event rule which triggers when a build fails.
+
+To access fields from the event in the event target input,
+use the static fields on the `StateChangeEvent` class.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+PipelineProject.onBuildFailed
+
+___
+
+### onBuildStarted
+
+▸ **onBuildStarted**(`id`, `options?`): `Rule`
+
+Defines an event rule which triggers when a build starts.
+
+To access fields from the event in the event target input,
+use the static fields on the `StateChangeEvent` class.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+PipelineProject.onBuildStarted
+
+___
+
+### onBuildSucceeded
+
+▸ **onBuildSucceeded**(`id`, `options?`): `Rule`
+
+Defines an event rule which triggers when a build completes successfully.
+
+To access fields from the event in the event target input,
+use the static fields on the `StateChangeEvent` class.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+PipelineProject.onBuildSucceeded
+
+___
+
+### onEvent
+
+▸ **onEvent**(`id`, `options?`): `Rule`
+
+Defines a CloudWatch event rule triggered when something happens with this project.
+
+**`see`** https://docs.aws.amazon.com/codebuild/latest/userguide/sample-build-notifications.html
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+PipelineProject.onEvent
+
+___
+
+### onPhaseChange
+
+▸ **onPhaseChange**(`id`, `options?`): `Rule`
+
+Defines a CloudWatch event rule that triggers upon phase change of this build project.
+
+**`see`** https://docs.aws.amazon.com/codebuild/latest/userguide/sample-build-notifications.html
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+PipelineProject.onPhaseChange
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.onPrepare
+
+___
+
+### onStateChange
+
+▸ **onStateChange**(`id`, `options?`): `Rule`
+
+Defines a CloudWatch event rule triggered when the build project state changes.
+
+You can filter specific build status events using an event
+pattern filter on the `build-status` detail field:
+
+    const rule = project.onStateChange('OnBuildStarted', { target });
+    rule.addEventPattern({
+      detail: {
+        'build-status': [
+          "IN_PROGRESS",
+          "SUCCEEDED",
+          "FAILED",
+          "STOPPED"
+        ]
+      }
+    });
+
+You can also use the methods `onBuildFailed` and `onBuildSucceeded` to define rules for
+these specific state changes.
+
+To access fields from the event in the event target input,
+use the static fields on the `StateChangeEvent` class.
+
+**`see`** https://docs.aws.amazon.com/codebuild/latest/userguide/sample-build-notifications.html
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
+
+#### Returns
+
+`Rule`
+
+#### Inherited from
+
+PipelineProject.onStateChange
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+PipelineProject.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+PipelineProject.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+PipelineProject.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+**`override`** true
+
+#### Returns
+
+`string`[]
+
+#### Inherited from
+
+PipelineProject.validate
+
+___
+
+### fromProjectArn
+
+▸ `Static` **fromProjectArn**(`scope`, `id`, `projectArn`): `IProject`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `projectArn` | `string` |
+
+#### Returns
+
+`IProject`
+
+#### Inherited from
+
+PipelineProject.fromProjectArn
+
+___
+
+### fromProjectName
+
+▸ `Static` **fromProjectName**(`scope`, `id`, `projectName`): `IProject`
+
+Import a Project defined either outside the CDK, or in a different CDK Stack (and exported using the {@link export} method).
+
+**`stability`** stable
+
+**`note`** if you're importing a CodeBuild Project for use
+in a CodePipeline, make sure the existing Project
+has permissions to access the S3 Bucket of that Pipeline -
+otherwise, builds in that Pipeline will always fail.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `scope` | `Construct` | the parent Construct for this Construct. |
+| `id` | `string` | the logical name of this Construct. |
+| `projectName` | `string` | the name of the project to import. |
+
+#### Returns
+
+`IProject`
+
+a reference to the existing Project
+
+#### Inherited from
+
+PipelineProject.fromProjectName
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+PipelineProject.isConstruct
+
+___
+
+### isResource
+
+▸ `Static` **isResource**(`construct`): construct is CfnResource
+
+Check whether the given construct is a Resource.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `construct` | `IConstruct` |
+
+#### Returns
+
+construct is CfnResource
+
+#### Inherited from
+
+PipelineProject.isResource
+
+___
+
+### serializeEnvVariables
+
+▸ `Static` **serializeEnvVariables**(`environmentVariables`, `validateNoPlainTextSecrets?`, `principal?`): `EnvironmentVariableProperty`[]
+
+Convert the environment variables map of string to {@link BuildEnvironmentVariable}, which is the customer-facing type, to a list of {@link CfnProject.EnvironmentVariableProperty}, which is the representation of environment variables in CloudFormation.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `environmentVariables` | `Object` | the map of string to environment variables. |
+| `validateNoPlainTextSecrets?` | `boolean` | whether to throw an exception if any of the plain text environment variables contain secrets, defaults to 'false'. |
+| `principal?` | `IGrantable` | - |
+
+#### Returns
+
+`EnvironmentVariableProperty`[]
+
+an array of {@link CfnProject.EnvironmentVariableProperty} instances
+
+#### Inherited from
+
+PipelineProject.serializeEnvVariables
+
+# Propagate Tags
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / PropagateTags
+
+# Enumeration: PropagateTags
+
+## Table of contents
+
+### Enumeration members
+
+- [SERVICE](#service)
+- [TASK\_DEFINITION](#task_definition)
+
+## Enumeration members
+
+### SERVICE
+
+• **SERVICE** = `"SERVICE"`
+
+___
+
+### TASK\_DEFINITION
+
+• **TASK\_DEFINITION** = `"TASK_DEFINITION"`
+
+# Rollback Event
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / RollbackEvent
+
+# Enumeration: RollbackEvent
+
+## Table of contents
+
+### Enumeration members
+
+- [DEPLOYMENT\_FAILURE](#deployment_failure)
+- [DEPLOYMENT\_STOP\_ON\_ALARM](#deployment_stop_on_alarm)
+- [DEPLOYMENT\_STOP\_ON\_REQUEST](#deployment_stop_on_request)
+
+## Enumeration members
+
+### DEPLOYMENT\_FAILURE
+
+• **DEPLOYMENT\_FAILURE** = `"DEPLOYMENT_FAILURE"`
+
+___
+
+### DEPLOYMENT\_STOP\_ON\_ALARM
+
+• **DEPLOYMENT\_STOP\_ON\_ALARM** = `"DEPLOYMENT_STOP_ON_ALARM"`
+
+___
+
+### DEPLOYMENT\_STOP\_ON\_REQUEST
+
+• **DEPLOYMENT\_STOP\_ON\_REQUEST** = `"DEPLOYMENT_STOP_ON_REQUEST"`
+
+# Scheduling Strategy
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / SchedulingStrategy
+
+# Enumeration: SchedulingStrategy
+
+## Table of contents
+
+### Enumeration members
+
+- [DAEMON](#daemon)
+- [REPLICA](#replica)
+
+## Enumeration members
+
+### DAEMON
+
+• **DAEMON** = `"DAEMON"`
+
+___
+
+### REPLICA
+
+• **REPLICA** = `"REPLICA"`
+
+# Dummy Task Definition Props
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / DummyTaskDefinitionProps
+
+# Interface: DummyTaskDefinitionProps
+
+## Table of contents
+
+### Properties
+
+- [containerName](#containername)
+- [containerPort](#containerport)
+- [family](#family)
+- [image](#image)
+
+## Properties
+
+### containerName
+
+• `Optional` `Readonly` **containerName**: `string`
+
+The name of the container.
+
+**`default`** `sample-website`
+
+___
+
+### containerPort
+
+• `Optional` `Readonly` **containerPort**: `number`
+
+**`default`** 80
+
+___
+
+### family
+
+• `Optional` `Readonly` **family**: `string`
+
+The name of a family that this task definition is registered to. A family groups multiple versions of a task definition.
+
+**`default`** - Automatically generated name.
+
+___
+
+### image
+
+• `Readonly` **image**: `string`
+
+The image used to start a container.
+
+# Ecs Deployment Configuration Props
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / EcsDeploymentConfigurationProps
+
+# Interface: EcsDeploymentConfigurationProps
+
+## Table of contents
+
+### Properties
+
+- [deploymentConfigName](#deploymentconfigname)
+- [minimumHealthyHosts](#minimumhealthyhosts)
+- [trafficRoutingConfig](#trafficroutingconfig)
+
+## Properties
+
+### deploymentConfigName
+
+• `Optional` `Readonly` **deploymentConfigName**: `string`
+
+`AWS::CodeDeploy::DeploymentConfig.DeploymentConfigName`.
+
+**`external`**
+
+**`link`** http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentconfig.html#cfn-codedeploy-deploymentconfig-deploymentconfigname
+
+___
+
+### minimumHealthyHosts
+
+• `Optional` `Readonly` **minimumHealthyHosts**: `MinimumHealthyHostsProperty` \| `IResolvable`
+
+`AWS::CodeDeploy::DeploymentConfig.MinimumHealthyHosts`.
+
+**`external`**
+
+**`link`** http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentconfig.html#cfn-codedeploy-deploymentconfig-minimumhealthyhosts
+
+___
+
+### trafficRoutingConfig
+
+• `Optional` `Readonly` **trafficRoutingConfig**: `IResolvable` \| `TrafficRoutingConfigProperty`
+
+`AWS::CodeDeploy::DeploymentConfig.TrafficRoutingConfig`.
+
+**`external`**
+
+**`link`** http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentconfig.html#cfn-codedeploy-deploymentconfig-trafficroutingconfig
+
+# Ecs Deployment Group Props
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / EcsDeploymentGroupProps
+
+# Interface: EcsDeploymentGroupProps
+
+## Table of contents
+
+### Properties
+
+- [applicationName](#applicationname)
+- [autoRollbackOnEvents](#autorollbackonevents)
+- [deploymentConfig](#deploymentconfig)
+- [deploymentGroupName](#deploymentgroupname)
+- [ecsServices](#ecsservices)
+- [prodTrafficListener](#prodtrafficlistener)
+- [targetGroups](#targetgroups)
+- [terminationWaitTime](#terminationwaittime)
+- [testTrafficListener](#testtrafficlistener)
+
+## Properties
+
+### applicationName
+
+• `Optional` `Readonly` **applicationName**: `string`
+
+___
+
+### autoRollbackOnEvents
+
+• `Optional` `Readonly` **autoRollbackOnEvents**: [`RollbackEvent`](#rollback-event)[]
+
+The event type or types that trigger a rollback.
+
+___
+
+### deploymentConfig
+
+• `Optional` `Readonly` **deploymentConfig**: [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
+
+___
+
+### deploymentGroupName
+
+• `Readonly` **deploymentGroupName**: `string`
+
+___
+
+### ecsServices
+
+• `Readonly` **ecsServices**: [`IEcsService`](#i-ecs-service)[]
+
+___
+
+### prodTrafficListener
+
+• `Readonly` **prodTrafficListener**: [`TrafficListener`](#traffic-listener)
+
+___
+
+### targetGroups
+
+• `Readonly` **targetGroups**: `ApplicationTargetGroup`[]
+
+___
+
+### terminationWaitTime
+
+• `Optional` `Readonly` **terminationWaitTime**: `Duration`
+
+the number of minutes before deleting the original (blue) task set.
+During an Amazon ECS deployment, CodeDeploy shifts traffic from the
+original (blue) task set to a replacement (green) task set.
+
+The maximum setting is 2880 minutes (2 days).
+
+**`default`** 60 minutes
+
+___
+
+### testTrafficListener
+
+• `Readonly` **testTrafficListener**: [`TrafficListener`](#traffic-listener)
+
+# Ecs Service Props
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / EcsServiceProps
+
+# Interface: EcsServiceProps
+
+## Table of contents
+
+### Properties
+
+- [circuitBreaker](#circuitbreaker)
+- [cluster](#cluster)
+- [containerPort](#containerport)
+- [desiredCount](#desiredcount)
+- [healthCheckGracePeriod](#healthcheckgraceperiod)
+- [launchType](#launchtype)
+- [maxHealthyPercent](#maxhealthypercent)
+- [minHealthyPercent](#minhealthypercent)
+- [platformVersion](#platformversion)
+- [prodTargetGroup](#prodtargetgroup)
+- [propagateTags](#propagatetags)
+- [securityGroups](#securitygroups)
+- [serviceName](#servicename)
+- [taskDefinition](#taskdefinition)
+- [testTargetGroup](#testtargetgroup)
+
+## Properties
+
+### circuitBreaker
+
+• `Optional` `Readonly` **circuitBreaker**: `DeploymentCircuitBreaker`
+
+Whether to enable the deployment circuit breaker. If this property is defined, circuit breaker will be implicitly
+enabled.
+
+**`default`** - disabled
+
+___
+
+### cluster
+
+• `Readonly` **cluster**: `ICluster`
+
+___
+
+### containerPort
+
+• `Optional` `Readonly` **containerPort**: `number`
+
+___
+
+### desiredCount
+
+• `Optional` `Readonly` **desiredCount**: `number`
+
+___
+
+### healthCheckGracePeriod
+
+• `Optional` `Readonly` **healthCheckGracePeriod**: `Duration`
+
+The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy
+Elastic Load Balancing target health checks after a task has first started.
+
+**`default`** - defaults to 60 seconds if at least one load balancer is in-use and it is not already set
+
+___
+
+### launchType
+
+• `Optional` `Readonly` **launchType**: `LaunchType`
+
+___
+
+### maxHealthyPercent
+
+• `Optional` `Readonly` **maxHealthyPercent**: `number`
+
+The maximum number of tasks, specified as a percentage of the Amazon ECS
+service's DesiredCount value, that can run in a service during a
+deployment.
+
+**`default`** - 100 if daemon, otherwise 200
+
+___
+
+### minHealthyPercent
+
+• `Optional` `Readonly` **minHealthyPercent**: `number`
+
+The minimum number of tasks, specified as a percentage of
+the Amazon ECS service's DesiredCount value, that must
+continue to run and remain healthy during a deployment.
+
+**`default`** - 0 if daemon, otherwise 50
+
+___
+
+### platformVersion
+
+• `Optional` `Readonly` **platformVersion**: `string`
+
+___
+
+### prodTargetGroup
+
+• `Readonly` **prodTargetGroup**: `ITargetGroup`
+
+___
+
+### propagateTags
+
+• `Optional` `Readonly` **propagateTags**: [`PropagateTags`](#propagate-tags)
+
+Specifies whether to propagate the tags from the task definition or the service to the tasks in the service. If no value is specified, the tags aren't propagated.
+
+**`default`** - no propagate
+
+___
+
+### securityGroups
+
+• `Optional` `Readonly` **securityGroups**: `SecurityGroup`[]
+
+___
+
+### serviceName
+
+• `Readonly` **serviceName**: `string`
+
+___
+
+### taskDefinition
+
+• `Readonly` **taskDefinition**: [`DummyTaskDefinition`](#dummy-task-definition)
+
+___
+
+### testTargetGroup
+
+• `Readonly` **testTargetGroup**: `ITargetGroup`
+
+# I Dummy Task Definition
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / IDummyTaskDefinition
+
+# Interface: IDummyTaskDefinition
+
+## Implemented by
+
+- [`DummyTaskDefinition`](#dummy-task-definition)
+
+## Table of contents
+
+### Properties
+
+- [containerName](#containername)
+- [containerPort](#containerport)
+- [executionRole](#executionrole)
+- [family](#family)
+- [taskDefinitionArn](#taskdefinitionarn)
+
+## Properties
+
+### containerName
+
+• `Readonly` **containerName**: `string`
+
+___
+
+### containerPort
+
+• `Readonly` **containerPort**: `number`
+
+___
+
+### executionRole
+
+• `Readonly` **executionRole**: `IRole`
+
+___
+
+### family
+
+• `Readonly` **family**: `string`
+
+___
+
+### taskDefinitionArn
+
+• `Readonly` **taskDefinitionArn**: `string`
+
+# I Ecs Deployment Config
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / IEcsDeploymentConfig
+
+# Interface: IEcsDeploymentConfig
+
+## Implemented by
+
+- [`EcsDeploymentConfig`](#ecs-deployment-config)
+
+## Table of contents
+
+### Properties
+
+- [deploymentConfigArn](#deploymentconfigarn)
+- [deploymentConfigName](#deploymentconfigname)
+
+## Properties
+
+### deploymentConfigArn
+
+• `Readonly` **deploymentConfigArn**: `string`
+
+___
+
+### deploymentConfigName
+
+• `Readonly` **deploymentConfigName**: `string`
+
+# I Ecs Deployment Group
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / IEcsDeploymentGroup
+
+# Interface: IEcsDeploymentGroup
 
 Interface for an ECS deployment group.
 
-### Properties
+## Hierarchy
 
+- `IResource`
 
-Name | Type | Description 
------|------|-------------
-**application** | <code>[IEcsApplication](#aws-cdk-aws-codedeploy-iecsapplication)</code> | The reference to the CodeDeploy ECS Application that this Deployment Group belongs to.
-**deploymentConfig** | <code>[IEcsDeploymentConfig](#cloudcomponents-cdk-blue-green-container-deployment-iecsdeploymentconfig)</code> | The Deployment Configuration this Group uses.
-**deploymentGroupArn** | <code>string</code> | The ARN of this Deployment Group.
-**deploymentGroupName** | <code>string</code> | The physical name of the CodeDeploy Deployment Group.
-**env** | <code>[ResourceEnvironment](#aws-cdk-core-resourceenvironment)</code> | The environment this resource belongs to.
-**node** | <code>[ConstructNode](#aws-cdk-core-constructnode)</code> | The construct tree node for this construct.
-**stack** | <code>[Stack](#aws-cdk-core-stack)</code> | The stack in which this resource is defined.
+  ↳ **`IEcsDeploymentGroup`**
 
+## Implemented by
 
+- [`EcsDeploymentGroup`](#ecs-deployment-group)
 
-## interface IEcsService  <a id="cloudcomponents-cdk-blue-green-container-deployment-iecsservice"></a>
-
-__Implemented by__: [EcsService](#cloudcomponents-cdk-blue-green-container-deployment-ecsservice)
-
-
+## Table of contents
 
 ### Properties
 
+- [application](#application)
+- [deploymentConfig](#deploymentconfig)
+- [deploymentGroupArn](#deploymentgrouparn)
+- [deploymentGroupName](#deploymentgroupname)
+- [env](#env)
+- [node](#node)
+- [stack](#stack)
 
-Name | Type | Description 
------|------|-------------
-**clusterName** | <code>string</code> | <span></span>
-**serviceName** | <code>string</code> | <span></span>
+## Properties
 
+### application
 
+• `Readonly` **application**: `IEcsApplication`
 
-## struct PushImageProjectProps  <a id="cloudcomponents-cdk-blue-green-container-deployment-pushimageprojectprops"></a>
+The reference to the CodeDeploy ECS Application that this Deployment Group belongs to.
 
+___
 
+### deploymentConfig
 
+• `Readonly` **deploymentConfig**: [`IEcsDeploymentConfig`](#i-ecs-deployment-config)
 
+The Deployment Configuration this Group uses.
 
+___
 
-Name | Type | Description 
------|------|-------------
-**imageRepository** | <code>[IRepository](#aws-cdk-aws-ecr-irepository)</code> | <span></span>
-**taskDefinition** | <code>[IDummyTaskDefinition](#cloudcomponents-cdk-blue-green-container-deployment-idummytaskdefinition)</code> | <span></span>
-**buildSpec**? | <code>[BuildSpec](#aws-cdk-aws-codebuild-buildspec)</code> | __*Optional*__
-**cache**? | <code>[Cache](#aws-cdk-aws-codebuild-cache)</code> | __*Optional*__
-**computeType**? | <code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code> | __*Optional*__
-**environmentVariables**? | <code>Map<string, [BuildEnvironmentVariable](#aws-cdk-aws-codebuild-buildenvironmentvariable)></code> | __*Optional*__
-**projectName**? | <code>string</code> | __*Optional*__
+### deploymentGroupArn
 
+• `Readonly` **deploymentGroupArn**: `string`
 
+The ARN of this Deployment Group.
 
-## struct TrafficListener  <a id="cloudcomponents-cdk-blue-green-container-deployment-trafficlistener"></a>
+___
 
+### deploymentGroupName
 
+• `Readonly` **deploymentGroupName**: `string`
 
+The physical name of the CodeDeploy Deployment Group.
 
+___
 
+### env
 
-Name | Type | Description 
------|------|-------------
-**listenerArn** | <code>string</code> | ARN of the listener.
+• `Readonly` **env**: `ResourceEnvironment`
 
+The environment this resource belongs to.
 
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
 
-## enum PropagateTags  <a id="cloudcomponents-cdk-blue-green-container-deployment-propagatetags"></a>
+**`stability`** stable
 
+#### Inherited from
 
+IResource.env
 
-Name | Description
------|-----
-**TASK_DEFINITION** |
-**SERVICE** |
+___
 
+### node
 
-## enum RollbackEvent  <a id="cloudcomponents-cdk-blue-green-container-deployment-rollbackevent"></a>
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node for this construct.
 
+**`stability`** stable
 
-Name | Description
------|-----
-**DEPLOYMENT_FAILURE** |
-**DEPLOYMENT_STOP_ON_ALARM** |
-**DEPLOYMENT_STOP_ON_REQUEST** |
+#### Inherited from
 
+IResource.node
 
-## enum SchedulingStrategy  <a id="cloudcomponents-cdk-blue-green-container-deployment-schedulingstrategy"></a>
+___
 
+### stack
 
+• `Readonly` **stack**: `Stack`
 
-Name | Description
------|-----
-**REPLICA** |
-**DAEMON** |
+The stack in which this resource is defined.
 
+**`stability`** stable
 
+#### Inherited from
+
+IResource.stack
+
+# I Ecs Service
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / IEcsService
+
+# Interface: IEcsService
+
+## Implemented by
+
+- [`EcsService`](#ecs-service)
+
+## Table of contents
+
+### Properties
+
+- [clusterName](#clustername)
+- [serviceName](#servicename)
+
+## Properties
+
+### clusterName
+
+• `Readonly` **clusterName**: `string`
+
+___
+
+### serviceName
+
+• `Readonly` **serviceName**: `string`
+
+# Push Image Project Props
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / PushImageProjectProps
+
+# Interface: PushImageProjectProps
+
+## Table of contents
+
+### Properties
+
+- [buildSpec](#buildspec)
+- [cache](#cache)
+- [computeType](#computetype)
+- [environmentVariables](#environmentvariables)
+- [imageRepository](#imagerepository)
+- [projectName](#projectname)
+- [taskDefinition](#taskdefinition)
+
+## Properties
+
+### buildSpec
+
+• `Optional` `Readonly` **buildSpec**: `BuildSpec`
+
+___
+
+### cache
+
+• `Optional` `Readonly` **cache**: `Cache`
+
+___
+
+### computeType
+
+• `Optional` `Readonly` **computeType**: `ComputeType`
+
+___
+
+### environmentVariables
+
+• `Optional` `Readonly` **environmentVariables**: `Record`<`string`, `BuildEnvironmentVariable`\>
+
+___
+
+### imageRepository
+
+• `Readonly` **imageRepository**: `IRepository`
+
+___
+
+### projectName
+
+• `Optional` `Readonly` **projectName**: `string`
+
+___
+
+### taskDefinition
+
+• `Readonly` **taskDefinition**: [`IDummyTaskDefinition`](#i-dummy-task-definition)
+
+# Traffic Listener
+
+[@cloudcomponents/cdk-blue-green-container-deployment](#readme) / TrafficListener
+
+# Interface: TrafficListener
+
+## Table of contents
+
+### Properties
+
+- [listenerArn](#listenerarn)
+
+## Properties
+
+### listenerArn
+
+• `Readonly` **listenerArn**: `string`
+
+ARN of the listener
+
+**`attribute`**

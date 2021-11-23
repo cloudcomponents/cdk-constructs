@@ -95,7 +95,7 @@ export class AntiVirus {
     console.log(files);
 
     await Promise.all(
-      files.map((file) => {
+      files.map((file: string) => {
         if (!REG_EXP.exec(file)) return;
         return this.uploadFile(bucket, path.basename(file), file);
       }),

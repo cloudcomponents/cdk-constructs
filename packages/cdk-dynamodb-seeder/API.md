@@ -1,292 +1,898 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-dynamodb-seeder
 
-Name|Description
-----|-----------
-[DynamoDBSeeder](#cloudcomponents-cdk-dynamodb-seeder-dynamodbseeder)|*No description*
-[InlineSeeds](#cloudcomponents-cdk-dynamodb-seeder-inlineseeds)|Seeds from an inline json object (limited to 4KiB).
-[JsonFileSeeds](#cloudcomponents-cdk-dynamodb-seeder-jsonfileseeds)|Seeds from a local json file.
-[S3Seeds](#cloudcomponents-cdk-dynamodb-seeder-s3seeds)|Seeds from an S3 archive.
-[Seeds](#cloudcomponents-cdk-dynamodb-seeder-seeds)|*No description*
+# @cloudcomponents/cdk-dynamodb-seeder
 
+## Table of contents
 
-**Structs**
+### Classes
 
-Name|Description
-----|-----------
-[DynamoDBSeederProps](#cloudcomponents-cdk-dynamodb-seeder-dynamodbseederprops)|*No description*
-[SeedsConfig](#cloudcomponents-cdk-dynamodb-seeder-seedsconfig)|*No description*
+- [DynamoDBSeeder](#dynamo-db-seeder)
+- [InlineSeeds](#inline-seeds)
+- [JsonFileSeeds](#json-file-seeds)
+- [S3Seeds](#s-3-seeds)
+- [Seeds](#seeds)
 
+### Interfaces
 
+- [DynamoDBSeederProps](#dynamo-db-seeder-props)
+- [SeedsConfig](#seeds-config)
 
-## class DynamoDBSeeder  <a id="cloudcomponents-cdk-dynamodb-seeder-dynamodbseeder"></a>
+# Dynamo DB Seeder
 
+[@cloudcomponents/cdk-dynamodb-seeder](#readme) / DynamoDBSeeder
 
+# Class: DynamoDBSeeder
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+## Hierarchy
 
-### Initializer
+- `Construct`
 
+  ↳ **`DynamoDBSeeder`**
 
+## Table of contents
 
+### Constructors
 
-```ts
-new DynamoDBSeeder(scope: Construct, id: string, props: DynamoDBSeederProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[DynamoDBSeederProps](#cloudcomponents-cdk-dynamodb-seeder-dynamodbseederprops)</code>)  *No description*
-  * **seeds** (<code>[Seeds](#cloudcomponents-cdk-dynamodb-seeder-seeds)</code>)  *No description* 
-  * **table** (<code>[ITable](#aws-cdk-aws-dynamodb-itable)</code>)  *No description* 
-  * **timeout** (<code>[Duration](#aws-cdk-core-duration)</code>)  The function execution time (in seconds) after which Lambda terminates the function. __*Default*__: Duration.minutes(15)
-
-
-
-
-## class InlineSeeds  <a id="cloudcomponents-cdk-dynamodb-seeder-inlineseeds"></a>
-
-Seeds from an inline json object (limited to 4KiB).
-
-__Extends__: [Seeds](#cloudcomponents-cdk-dynamodb-seeder-seeds)
-
-### Initializer
-
-
-
-
-```ts
-new InlineSeeds(seeds: string)
-```
-
-* **seeds** (<code>string</code>)  *No description*
-
-
-### Methods
-
-
-#### bind(_scope) <a id="cloudcomponents-cdk-dynamodb-seeder-inlineseeds-bind"></a>
-
-Called when the seeder is initialized to allow this object to bind to the stack.
-
-```ts
-bind(_scope: Construct): SeedsConfig
-```
-
-* **_scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-
-__Returns__:
-* <code>[SeedsConfig](#cloudcomponents-cdk-dynamodb-seeder-seedsconfig)</code>
-
-
-
-## class JsonFileSeeds  <a id="cloudcomponents-cdk-dynamodb-seeder-jsonfileseeds"></a>
-
-Seeds from a local json file.
-
-__Extends__: [Seeds](#cloudcomponents-cdk-dynamodb-seeder-seeds)
-
-### Initializer
-
-
-
-
-```ts
-new JsonFileSeeds(path: string, options?: AssetOptions)
-```
-
-* **path** (<code>string</code>)  *No description*
-* **options** (<code>[AssetOptions](#aws-cdk-aws-s3-assets-assetoptions)</code>)  *No description*
-  * **exclude** (<code>Array<string></code>)  Glob patterns to exclude from the copy. __*Default*__: nothing is excluded
-  * **follow** (<code>[FollowMode](#aws-cdk-assets-followmode)</code>)  A strategy for how to handle symlinks. __*Default*__: Never
-  * **ignoreMode** (<code>[IgnoreMode](#aws-cdk-core-ignoremode)</code>)  The ignore behavior to use for exclude patterns. __*Default*__: IgnoreMode.GLOB
-  * **followSymlinks** (<code>[SymlinkFollowMode](#aws-cdk-core-symlinkfollowmode)</code>)  A strategy for how to handle symlinks. __*Default*__: SymlinkFollowMode.NEVER
-  * **assetHash** (<code>string</code>)  Specify a custom hash for this asset. __*Default*__: based on `assetHashType`
-  * **assetHashType** (<code>[AssetHashType](#aws-cdk-core-assethashtype)</code>)  Specifies the type of hash to calculate for this asset. __*Default*__: the default is `AssetHashType.SOURCE`, but if `assetHash` is explicitly specified this value defaults to `AssetHashType.CUSTOM`.
-  * **bundling** (<code>[BundlingOptions](#aws-cdk-core-bundlingoptions)</code>)  Bundle the asset by executing a command in a Docker container or a custom bundling provider. __*Default*__: uploaded as-is to S3 if the asset is a regular file or a .zip file, archived into a .zip file and uploaded to S3 otherwise
-  * **readers** (<code>Array<[IGrantable](#aws-cdk-aws-iam-igrantable)></code>)  A list of principals that should be able to read this asset from S3. __*Default*__: No principals that can read file asset.
-  * **sourceHash** (<code>string</code>)  Custom hash to use when identifying the specific version of the asset. __*Default*__: automatically calculate source hash based on the contents of the source file or directory.
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**path** | <code>string</code> | <span></span>
+- [node](#node)
 
 ### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### bind(scope) <a id="cloudcomponents-cdk-dynamodb-seeder-jsonfileseeds-bind"></a>
+## Constructors
 
-Called when the seeder is initialized to allow this object to bind to the stack.
+### constructor
 
-```ts
-bind(scope: Construct): SeedsConfig
-```
+• **new DynamoDBSeeder**(`scope`, `id`, `props`)
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
+#### Parameters
 
-__Returns__:
-* <code>[SeedsConfig](#cloudcomponents-cdk-dynamodb-seeder-seedsconfig)</code>
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`DynamoDBSeederProps`](#dynamo-db-seeder-props) |
 
+#### Overrides
 
+Construct.constructor
 
-## class S3Seeds  <a id="cloudcomponents-cdk-dynamodb-seeder-s3seeds"></a>
+## Properties
 
-Seeds from an S3 archive.
+### node
 
-__Extends__: [Seeds](#cloudcomponents-cdk-dynamodb-seeder-seeds)
+• `Readonly` **node**: `ConstructNode`
 
-### Initializer
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
-```ts
-new S3Seeds(bucket: IBucket, key: string, objectVersion?: string)
-```
+## Methods
 
-* **bucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  *No description*
-* **key** (<code>string</code>)  *No description*
-* **objectVersion** (<code>string</code>)  *No description*
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Inline Seeds
+
+[@cloudcomponents/cdk-dynamodb-seeder](#readme) / InlineSeeds
+
+# Class: InlineSeeds
+
+Seeds from an inline json object (limited to 4KiB).
+
+## Hierarchy
+
+- [`Seeds`](#seeds)
+
+  ↳ **`InlineSeeds`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Methods
 
+- [bind](#bind)
+- [fromBucket](#frombucket)
+- [fromInline](#frominline)
+- [fromJsonFile](#fromjsonfile)
 
-#### bind(_scope) <a id="cloudcomponents-cdk-dynamodb-seeder-s3seeds-bind"></a>
+## Constructors
 
-Called when the seeder is initialized to allow this object to bind to the stack.
+### constructor
 
-```ts
-bind(_scope: Construct): SeedsConfig
-```
+• **new InlineSeeds**(`seeds`)
 
-* **_scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
+#### Parameters
 
-__Returns__:
-* <code>[SeedsConfig](#cloudcomponents-cdk-dynamodb-seeder-seedsconfig)</code>
+| Name | Type |
+| :------ | :------ |
+| `seeds` | `string` |
 
+#### Overrides
 
+[Seeds](#seeds).[constructor](#constructor)
 
-## class Seeds  <a id="cloudcomponents-cdk-dynamodb-seeder-seeds"></a>
+## Methods
 
+### bind
 
+▸ **bind**(`_scope`): [`SeedsConfig`](#seeds-config)
 
-__Implemented by__: [InlineSeeds](#cloudcomponents-cdk-dynamodb-seeder-inlineseeds), [JsonFileSeeds](#cloudcomponents-cdk-dynamodb-seeder-jsonfileseeds), [S3Seeds](#cloudcomponents-cdk-dynamodb-seeder-s3seeds)
+Called when the seeder is initialized to allow this object to bind
+to the stack.
 
-### Initializer
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `_scope` | `Construct` |
 
+#### Returns
 
+[`SeedsConfig`](#seeds-config)
 
-```ts
-new Seeds()
-```
+#### Overrides
 
+[Seeds](#seeds).[bind](#bind)
 
+___
 
-### Methods
+### fromBucket
 
+▸ `Static` **fromBucket**(`bucket`, `key`, `objectVersion?`): [`S3Seeds`](#s-3-seeds)
 
-#### bind(scope) <a id="cloudcomponents-cdk-dynamodb-seeder-seeds-bind"></a>
+#### Parameters
 
-Called when the seeder is initialized to allow this object to bind to the stack.
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `bucket` | `IBucket` | The S3 bucket |
+| `key` | `string` | The object key |
+| `objectVersion?` | `string` | Optional S3 object version |
 
-```ts
-bind(scope: Construct): SeedsConfig
-```
+#### Returns
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  The binding scope.
+[`S3Seeds`](#s-3-seeds)
 
-__Returns__:
-* <code>[SeedsConfig](#cloudcomponents-cdk-dynamodb-seeder-seedsconfig)</code>
+`S3Seeds` associated with the specified S3 object.
 
-#### *static* fromBucket(bucket, key, objectVersion?) <a id="cloudcomponents-cdk-dynamodb-seeder-seeds-frombucket"></a>
+#### Inherited from
 
+[Seeds](#seeds).[fromBucket](#frombucket)
 
+___
 
-```ts
-static fromBucket(bucket: IBucket, key: string, objectVersion?: string): S3Seeds
-```
+### fromInline
 
-* **bucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  The S3 bucket.
-* **key** (<code>string</code>)  The object key.
-* **objectVersion** (<code>string</code>)  Optional S3 object version.
+▸ `Static` **fromInline**(`seeds`): [`InlineSeeds`](#inline-seeds)
 
-__Returns__:
-* <code>[S3Seeds](#cloudcomponents-cdk-dynamodb-seeder-s3seeds)</code>
+#### Parameters
 
-#### *static* fromInline(seeds) <a id="cloudcomponents-cdk-dynamodb-seeder-seeds-frominline"></a>
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `seeds` | `Record`<`string`, `unknown`\>[] | The actual json code (limited to 4KiB) |
 
+#### Returns
 
+[`InlineSeeds`](#inline-seeds)
 
-```ts
-static fromInline(seeds: Array<Map<string, any>>): InlineSeeds
-```
+`InlineSeeds` with inline seeds.
 
-* **seeds** (<code>Array<Map<string, any>></code>)  The actual json code (limited to 4KiB).
+#### Inherited from
 
-__Returns__:
-* <code>[InlineSeeds](#cloudcomponents-cdk-dynamodb-seeder-inlineseeds)</code>
+[Seeds](#seeds).[fromInline](#frominline)
 
-#### *static* fromJsonFile(path, options?) <a id="cloudcomponents-cdk-dynamodb-seeder-seeds-fromjsonfile"></a>
+___
+
+### fromJsonFile
+
+▸ `Static` **fromJsonFile**(`path`, `options?`): [`JsonFileSeeds`](#json-file-seeds)
 
 Loads the seeds from a local disk path and uploads it to s3.
 
-```ts
-static fromJsonFile(path: string, options?: AssetOptions): JsonFileSeeds
-```
+#### Parameters
 
-* **path** (<code>string</code>)  Path to json seeds file.
-* **options** (<code>[AssetOptions](#aws-cdk-aws-s3-assets-assetoptions)</code>)  *No description*
-  * **exclude** (<code>Array<string></code>)  Glob patterns to exclude from the copy. __*Default*__: nothing is excluded
-  * **follow** (<code>[FollowMode](#aws-cdk-assets-followmode)</code>)  A strategy for how to handle symlinks. __*Default*__: Never
-  * **ignoreMode** (<code>[IgnoreMode](#aws-cdk-core-ignoremode)</code>)  The ignore behavior to use for exclude patterns. __*Default*__: IgnoreMode.GLOB
-  * **followSymlinks** (<code>[SymlinkFollowMode](#aws-cdk-core-symlinkfollowmode)</code>)  A strategy for how to handle symlinks. __*Default*__: SymlinkFollowMode.NEVER
-  * **assetHash** (<code>string</code>)  Specify a custom hash for this asset. __*Default*__: based on `assetHashType`
-  * **assetHashType** (<code>[AssetHashType](#aws-cdk-core-assethashtype)</code>)  Specifies the type of hash to calculate for this asset. __*Default*__: the default is `AssetHashType.SOURCE`, but if `assetHash` is explicitly specified this value defaults to `AssetHashType.CUSTOM`.
-  * **bundling** (<code>[BundlingOptions](#aws-cdk-core-bundlingoptions)</code>)  Bundle the asset by executing a command in a Docker container or a custom bundling provider. __*Default*__: uploaded as-is to S3 if the asset is a regular file or a .zip file, archived into a .zip file and uploaded to S3 otherwise
-  * **readers** (<code>Array<[IGrantable](#aws-cdk-aws-iam-igrantable)></code>)  A list of principals that should be able to read this asset from S3. __*Default*__: No principals that can read file asset.
-  * **sourceHash** (<code>string</code>)  Custom hash to use when identifying the specific version of the asset. __*Default*__: automatically calculate source hash based on the contents of the source file or directory.
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `path` | `string` | Path to json seeds file. |
+| `options?` | `AssetOptions` | - |
 
-__Returns__:
-* <code>[JsonFileSeeds](#cloudcomponents-cdk-dynamodb-seeder-jsonfileseeds)</code>
+#### Returns
 
+[`JsonFileSeeds`](#json-file-seeds)
 
+`JsonFileSeeds` associated with the specified S3 object.
 
-## struct DynamoDBSeederProps  <a id="cloudcomponents-cdk-dynamodb-seeder-dynamodbseederprops"></a>
+#### Inherited from
 
+[Seeds](#seeds).[fromJsonFile](#fromjsonfile)
 
+# Json File Seeds
 
+[@cloudcomponents/cdk-dynamodb-seeder](#readme) / JsonFileSeeds
 
+# Class: JsonFileSeeds
 
+Seeds from a local json file.
 
-Name | Type | Description 
------|------|-------------
-**seeds** | <code>[Seeds](#cloudcomponents-cdk-dynamodb-seeder-seeds)</code> | <span></span>
-**table** | <code>[ITable](#aws-cdk-aws-dynamodb-itable)</code> | <span></span>
-**timeout**? | <code>[Duration](#aws-cdk-core-duration)</code> | The function execution time (in seconds) after which Lambda terminates the function.<br/>__*Default*__: Duration.minutes(15)
+## Hierarchy
 
+- [`Seeds`](#seeds)
 
+  ↳ **`JsonFileSeeds`**
 
-## struct SeedsConfig  <a id="cloudcomponents-cdk-dynamodb-seeder-seedsconfig"></a>
+## Table of contents
 
-__Obtainable from__: [InlineSeeds](#cloudcomponents-cdk-dynamodb-seeder-inlineseeds).[bind](#cloudcomponents-cdk-dynamodb-seeder-inlineseeds#cloudcomponents-cdk-dynamodb-seeder-inlineseeds-bind)(), [JsonFileSeeds](#cloudcomponents-cdk-dynamodb-seeder-jsonfileseeds).[bind](#cloudcomponents-cdk-dynamodb-seeder-jsonfileseeds#cloudcomponents-cdk-dynamodb-seeder-jsonfileseeds-bind)(), [S3Seeds](#cloudcomponents-cdk-dynamodb-seeder-s3seeds).[bind](#cloudcomponents-cdk-dynamodb-seeder-s3seeds#cloudcomponents-cdk-dynamodb-seeder-s3seeds-bind)(), [Seeds](#cloudcomponents-cdk-dynamodb-seeder-seeds).[bind](#cloudcomponents-cdk-dynamodb-seeder-seeds#cloudcomponents-cdk-dynamodb-seeder-seeds-bind)()
+### Constructors
 
+- [constructor](#constructor)
 
+### Properties
 
+- [asset](#asset)
+- [path](#path)
 
+### Methods
 
-Name | Type | Description 
------|------|-------------
-**inlineSeeds**? | <code>string</code> | Inline seeds.<br/>__*Optional*__
-**s3Location**? | <code>[Location](#aws-cdk-aws-s3-location)</code> | The location of the seeds in S3.<br/>__*Optional*__
+- [bind](#bind)
+- [fromBucket](#frombucket)
+- [fromInline](#frominline)
+- [fromJsonFile](#fromjsonfile)
 
+## Constructors
 
+### constructor
 
+• **new JsonFileSeeds**(`path`, `options?`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+| `options` | `AssetOptions` |
+
+#### Overrides
+
+[Seeds](#seeds).[constructor](#constructor)
+
+## Properties
+
+### asset
+
+• `Private` `Optional` **asset**: `Asset`
+
+___
+
+### path
+
+• `Readonly` **path**: `string`
+
+## Methods
+
+### bind
+
+▸ **bind**(`scope`): [`SeedsConfig`](#seeds-config)
+
+Called when the seeder is initialized to allow this object to bind
+to the stack.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+
+#### Returns
+
+[`SeedsConfig`](#seeds-config)
+
+#### Overrides
+
+[Seeds](#seeds).[bind](#bind)
+
+___
+
+### fromBucket
+
+▸ `Static` **fromBucket**(`bucket`, `key`, `objectVersion?`): [`S3Seeds`](#s-3-seeds)
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `bucket` | `IBucket` | The S3 bucket |
+| `key` | `string` | The object key |
+| `objectVersion?` | `string` | Optional S3 object version |
+
+#### Returns
+
+[`S3Seeds`](#s-3-seeds)
+
+`S3Seeds` associated with the specified S3 object.
+
+#### Inherited from
+
+[Seeds](#seeds).[fromBucket](#frombucket)
+
+___
+
+### fromInline
+
+▸ `Static` **fromInline**(`seeds`): [`InlineSeeds`](#inline-seeds)
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `seeds` | `Record`<`string`, `unknown`\>[] | The actual json code (limited to 4KiB) |
+
+#### Returns
+
+[`InlineSeeds`](#inline-seeds)
+
+`InlineSeeds` with inline seeds.
+
+#### Inherited from
+
+[Seeds](#seeds).[fromInline](#frominline)
+
+___
+
+### fromJsonFile
+
+▸ `Static` **fromJsonFile**(`path`, `options?`): [`JsonFileSeeds`](#json-file-seeds)
+
+Loads the seeds from a local disk path and uploads it to s3.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `path` | `string` | Path to json seeds file. |
+| `options?` | `AssetOptions` | - |
+
+#### Returns
+
+[`JsonFileSeeds`](#json-file-seeds)
+
+`JsonFileSeeds` associated with the specified S3 object.
+
+#### Inherited from
+
+[Seeds](#seeds).[fromJsonFile](#fromjsonfile)
+
+# S 3 Seeds
+
+[@cloudcomponents/cdk-dynamodb-seeder](#readme) / S3Seeds
+
+# Class: S3Seeds
+
+Seeds from an S3 archive.
+
+## Hierarchy
+
+- [`Seeds`](#seeds)
+
+  ↳ **`S3Seeds`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [bucketName](#bucketname)
+
+### Methods
+
+- [bind](#bind)
+- [fromBucket](#frombucket)
+- [fromInline](#frominline)
+- [fromJsonFile](#fromjsonfile)
+
+## Constructors
+
+### constructor
+
+• **new S3Seeds**(`bucket`, `key`, `objectVersion?`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `bucket` | `IBucket` |
+| `key` | `string` |
+| `objectVersion?` | `string` |
+
+#### Overrides
+
+[Seeds](#seeds).[constructor](#constructor)
+
+## Properties
+
+### bucketName
+
+• `Private` **bucketName**: `string`
+
+## Methods
+
+### bind
+
+▸ **bind**(`_scope`): [`SeedsConfig`](#seeds-config)
+
+Called when the seeder is initialized to allow this object to bind
+to the stack.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_scope` | `Construct` |
+
+#### Returns
+
+[`SeedsConfig`](#seeds-config)
+
+#### Overrides
+
+[Seeds](#seeds).[bind](#bind)
+
+___
+
+### fromBucket
+
+▸ `Static` **fromBucket**(`bucket`, `key`, `objectVersion?`): [`S3Seeds`](#s-3-seeds)
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `bucket` | `IBucket` | The S3 bucket |
+| `key` | `string` | The object key |
+| `objectVersion?` | `string` | Optional S3 object version |
+
+#### Returns
+
+[`S3Seeds`](#s-3-seeds)
+
+`S3Seeds` associated with the specified S3 object.
+
+#### Inherited from
+
+[Seeds](#seeds).[fromBucket](#frombucket)
+
+___
+
+### fromInline
+
+▸ `Static` **fromInline**(`seeds`): [`InlineSeeds`](#inline-seeds)
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `seeds` | `Record`<`string`, `unknown`\>[] | The actual json code (limited to 4KiB) |
+
+#### Returns
+
+[`InlineSeeds`](#inline-seeds)
+
+`InlineSeeds` with inline seeds.
+
+#### Inherited from
+
+[Seeds](#seeds).[fromInline](#frominline)
+
+___
+
+### fromJsonFile
+
+▸ `Static` **fromJsonFile**(`path`, `options?`): [`JsonFileSeeds`](#json-file-seeds)
+
+Loads the seeds from a local disk path and uploads it to s3.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `path` | `string` | Path to json seeds file. |
+| `options?` | `AssetOptions` | - |
+
+#### Returns
+
+[`JsonFileSeeds`](#json-file-seeds)
+
+`JsonFileSeeds` associated with the specified S3 object.
+
+#### Inherited from
+
+[Seeds](#seeds).[fromJsonFile](#fromjsonfile)
+
+# Seeds
+
+[@cloudcomponents/cdk-dynamodb-seeder](#readme) / Seeds
+
+# Class: Seeds
+
+## Hierarchy
+
+- **`Seeds`**
+
+  ↳ [`S3Seeds`](#s-3-seeds)
+
+  ↳ [`InlineSeeds`](#inline-seeds)
+
+  ↳ [`JsonFileSeeds`](#json-file-seeds)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Methods
+
+- [bind](#bind)
+- [fromBucket](#frombucket)
+- [fromInline](#frominline)
+- [fromJsonFile](#fromjsonfile)
+
+## Constructors
+
+### constructor
+
+• **new Seeds**()
+
+## Methods
+
+### bind
+
+▸ `Abstract` **bind**(`scope`): [`SeedsConfig`](#seeds-config)
+
+Called when the seeder is initialized to allow this object to bind
+to the stack.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `scope` | `Construct` | The binding scope. |
+
+#### Returns
+
+[`SeedsConfig`](#seeds-config)
+
+___
+
+### fromBucket
+
+▸ `Static` **fromBucket**(`bucket`, `key`, `objectVersion?`): [`S3Seeds`](#s-3-seeds)
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `bucket` | `IBucket` | The S3 bucket |
+| `key` | `string` | The object key |
+| `objectVersion?` | `string` | Optional S3 object version |
+
+#### Returns
+
+[`S3Seeds`](#s-3-seeds)
+
+`S3Seeds` associated with the specified S3 object.
+
+___
+
+### fromInline
+
+▸ `Static` **fromInline**(`seeds`): [`InlineSeeds`](#inline-seeds)
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `seeds` | `Record`<`string`, `unknown`\>[] | The actual json code (limited to 4KiB) |
+
+#### Returns
+
+[`InlineSeeds`](#inline-seeds)
+
+`InlineSeeds` with inline seeds.
+
+___
+
+### fromJsonFile
+
+▸ `Static` **fromJsonFile**(`path`, `options?`): [`JsonFileSeeds`](#json-file-seeds)
+
+Loads the seeds from a local disk path and uploads it to s3.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `path` | `string` | Path to json seeds file. |
+| `options?` | `AssetOptions` | - |
+
+#### Returns
+
+[`JsonFileSeeds`](#json-file-seeds)
+
+`JsonFileSeeds` associated with the specified S3 object.
+
+# Dynamo DB Seeder Props
+
+[@cloudcomponents/cdk-dynamodb-seeder](#readme) / DynamoDBSeederProps
+
+# Interface: DynamoDBSeederProps
+
+## Table of contents
+
+### Properties
+
+- [seeds](#seeds)
+- [table](#table)
+- [timeout](#timeout)
+
+## Properties
+
+### seeds
+
+• `Readonly` **seeds**: [`Seeds`](#seeds)
+
+___
+
+### table
+
+• `Readonly` **table**: `ITable`
+
+___
+
+### timeout
+
+• `Optional` `Readonly` **timeout**: `Duration`
+
+The function execution time (in seconds) after which Lambda terminates
+the function. Because the execution time affects cost, set this value
+based on the function's expected execution time.
+
+**`default`** Duration.minutes(15)
+
+# Seeds Config
+
+[@cloudcomponents/cdk-dynamodb-seeder](#readme) / SeedsConfig
+
+# Interface: SeedsConfig
+
+## Table of contents
+
+### Properties
+
+- [inlineSeeds](#inlineseeds)
+- [s3Location](#s3location)
+
+## Properties
+
+### inlineSeeds
+
+• `Optional` `Readonly` **inlineSeeds**: `string`
+
+Inline seeds.
+
+___
+
+### s3Location
+
+• `Optional` `Readonly` **s3Location**: `Location`
+
+The location of the seeds in S3.

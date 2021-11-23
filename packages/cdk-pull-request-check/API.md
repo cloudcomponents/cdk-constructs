@@ -1,160 +1,554 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-pull-request-check
 
-Name|Description
-----|-----------
-[PullRequestCheck](#cloudcomponents-cdk-pull-request-check-pullrequestcheck)|Represents a reference to a PullRequestCheck.
+# @cloudcomponents/cdk-pull-request-check
 
+## Table of contents
 
-**Structs**
+### Classes
 
-Name|Description
-----|-----------
-[PullRequestCheckProps](#cloudcomponents-cdk-pull-request-check-pullrequestcheckprops)|*No description*
+- [PullRequestCheck](#pull-request-check)
 
+### Interfaces
 
+- [PullRequestCheckProps](#pull-request-check-props)
 
-## class PullRequestCheck  <a id="cloudcomponents-cdk-pull-request-check-pullrequestcheck"></a>
+# Pull Request Check
+
+[@cloudcomponents/cdk-pull-request-check](#readme) / PullRequestCheck
+
+# Class: PullRequestCheck
 
 Represents a reference to a PullRequestCheck.
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+## Hierarchy
 
-### Initializer
+- `Construct`
 
+  ↳ **`PullRequestCheck`**
 
+## Table of contents
 
+### Constructors
 
-```ts
-new PullRequestCheck(scope: Construct, id: string, props: PullRequestCheckProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[PullRequestCheckProps](#cloudcomponents-cdk-pull-request-check-pullrequestcheckprops)</code>)  *No description*
-  * **buildSpec** (<code>[BuildSpec](#aws-cdk-aws-codebuild-buildspec)</code>)  Filename or contents of buildspec in JSON format. 
-  * **repository** (<code>[IRepository](#aws-cdk-aws-codecommit-irepository)</code>)  The CodeCommit repository. 
-  * **allowAllOutbound** (<code>boolean</code>)  Whether to allow the CodeBuild to send all network traffic. __*Default*__: true
-  * **artifacts** (<code>[IArtifacts](#aws-cdk-aws-codebuild-iartifacts)</code>)  Defines where build artifacts will be stored. __*Default*__: NoArtifacts
-  * **buildImage** (<code>[IBuildImage](#aws-cdk-aws-codebuild-ibuildimage)</code>)  Build environment to use for the build. __*Default*__: BuildEnvironment.LinuxBuildImage.STANDARD_2_0
-  * **computeType** (<code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code>)  The type of compute to use for this build. __*Default*__: taken from {@link #buildImage#defaultComputeType}
-  * **environmentVariables** (<code>Map<string, [BuildEnvironmentVariable](#aws-cdk-aws-codebuild-buildenvironmentvariable)></code>)  The environment variables that your builds can use. __*Optional*__
-  * **postComment** (<code>boolean</code>)  Specifies whether comments should be written in the request. __*Default*__: true
-  * **privileged** (<code>boolean</code>)  Indicates how the project builds Docker images. __*Default*__: false
-  * **projectName** (<code>string</code>)  The human-visible name of this PullRequest-Project. __*Optional*__
-  * **role** (<code>[IRole](#aws-cdk-aws-iam-irole)</code>)  The IAM service Role of the Project. __*Optional*__
-  * **securityGroups** (<code>Array<[ISecurityGroup](#aws-cdk-aws-ec2-isecuritygroup)></code>)  What security group to associate with the codebuild project's network interfaces. __*Default*__: Security group will be automatically created
-  * **subnetSelection** (<code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code>)  Where to place the network interfaces within the VPC. __*Default*__: All private subnets
-  * **updateApprovalState** (<code>boolean</code>)  Indicates whether the approval state [APPROVE, REVOKE] should be updated. __*Default*__: true
-  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  VPC network to place codebuild network interfaces. __*Default*__: No VPC is specified
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**codeBuildResultFunction**? | <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code> | __*Optional*__
+- [codeBuildResultFunction](#codebuildresultfunction)
+- [node](#node)
+- [pullRequestProject](#pullrequestproject)
 
 ### Methods
 
+- [addToRolePolicy](#addtorolepolicy)
+- [onCheckFailed](#oncheckfailed)
+- [onCheckStarted](#oncheckstarted)
+- [onCheckSucceeded](#onchecksucceeded)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### addToRolePolicy(statement) <a id="cloudcomponents-cdk-pull-request-check-pullrequestcheck-addtorolepolicy"></a>
+## Constructors
+
+### constructor
+
+• **new PullRequestCheck**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`PullRequestCheckProps`](#pull-request-check-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### codeBuildResultFunction
+
+• `Optional` `Readonly` **codeBuildResultFunction**: `IFunction`
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### pullRequestProject
+
+• `Private` **pullRequestProject**: `Project`
+
+## Methods
+
+### addToRolePolicy
+
+▸ **addToRolePolicy**(`statement`): `void`
 
 Add a permission only if there's a policy attached.
 
-```ts
-addToRolePolicy(statement: PolicyStatement): void
-```
+#### Parameters
 
-* **statement** (<code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>)  The permissions statement to add.
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `statement` | `PolicyStatement` | The permissions statement to add |
 
+#### Returns
 
+`void`
 
+___
 
-#### onCheckFailed(id, options?) <a id="cloudcomponents-cdk-pull-request-check-pullrequestcheck-oncheckfailed"></a>
+### onCheckFailed
+
+▸ **onCheckFailed**(`id`, `options?`): `Rule`
 
 Defines an event rule which triggers when a check fails.
 
-```ts
-onCheckFailed(id: string, options?: OnEventOptions): Rule
-```
+#### Parameters
 
-* **id** (<code>string</code>)  *No description*
-* **options** (<code>[OnEventOptions](#aws-cdk-aws-events-oneventoptions)</code>)  *No description*
-  * **description** (<code>string</code>)  A description of the rule's purpose. __*Default*__: No description
-  * **eventPattern** (<code>[EventPattern](#aws-cdk-aws-events-eventpattern)</code>)  Additional restrictions for the event to route to the specified target. __*Default*__: No additional filtering based on an event pattern.
-  * **ruleName** (<code>string</code>)  A name for the rule. __*Default*__: AWS CloudFormation generates a unique physical ID.
-  * **target** (<code>[IRuleTarget](#aws-cdk-aws-events-iruletarget)</code>)  The target to register for the event. __*Default*__: No target is added to the rule. Use `addTarget()` to add a target.
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
 
-__Returns__:
-* <code>[Rule](#aws-cdk-aws-events-rule)</code>
+#### Returns
 
-#### onCheckStarted(id, options?) <a id="cloudcomponents-cdk-pull-request-check-pullrequestcheck-oncheckstarted"></a>
+`Rule`
+
+___
+
+### onCheckStarted
+
+▸ **onCheckStarted**(`id`, `options?`): `Rule`
 
 Defines an event rule which triggers when a check starts.
 
-```ts
-onCheckStarted(id: string, options?: OnEventOptions): Rule
-```
+#### Parameters
 
-* **id** (<code>string</code>)  *No description*
-* **options** (<code>[OnEventOptions](#aws-cdk-aws-events-oneventoptions)</code>)  *No description*
-  * **description** (<code>string</code>)  A description of the rule's purpose. __*Default*__: No description
-  * **eventPattern** (<code>[EventPattern](#aws-cdk-aws-events-eventpattern)</code>)  Additional restrictions for the event to route to the specified target. __*Default*__: No additional filtering based on an event pattern.
-  * **ruleName** (<code>string</code>)  A name for the rule. __*Default*__: AWS CloudFormation generates a unique physical ID.
-  * **target** (<code>[IRuleTarget](#aws-cdk-aws-events-iruletarget)</code>)  The target to register for the event. __*Default*__: No target is added to the rule. Use `addTarget()` to add a target.
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
 
-__Returns__:
-* <code>[Rule](#aws-cdk-aws-events-rule)</code>
+#### Returns
 
-#### onCheckSucceeded(id, options?) <a id="cloudcomponents-cdk-pull-request-check-pullrequestcheck-onchecksucceeded"></a>
+`Rule`
+
+___
+
+### onCheckSucceeded
+
+▸ **onCheckSucceeded**(`id`, `options?`): `Rule`
 
 Defines an event rule which triggers when a check complets successfully.
 
-```ts
-onCheckSucceeded(id: string, options?: OnEventOptions): Rule
-```
+#### Parameters
 
-* **id** (<code>string</code>)  *No description*
-* **options** (<code>[OnEventOptions](#aws-cdk-aws-events-oneventoptions)</code>)  *No description*
-  * **description** (<code>string</code>)  A description of the rule's purpose. __*Default*__: No description
-  * **eventPattern** (<code>[EventPattern](#aws-cdk-aws-events-eventpattern)</code>)  Additional restrictions for the event to route to the specified target. __*Default*__: No additional filtering based on an event pattern.
-  * **ruleName** (<code>string</code>)  A name for the rule. __*Default*__: AWS CloudFormation generates a unique physical ID.
-  * **target** (<code>[IRuleTarget](#aws-cdk-aws-events-iruletarget)</code>)  The target to register for the event. __*Default*__: No target is added to the rule. Use `addTarget()` to add a target.
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `options?` | `OnEventOptions` |
 
-__Returns__:
-* <code>[Rule](#aws-cdk-aws-events-rule)</code>
+#### Returns
 
+`Rule`
 
+___
 
-## struct PullRequestCheckProps  <a id="cloudcomponents-cdk-pull-request-check-pullrequestcheckprops"></a>
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
-Name | Type | Description 
------|------|-------------
-**buildSpec** | <code>[BuildSpec](#aws-cdk-aws-codebuild-buildspec)</code> | Filename or contents of buildspec in JSON format.
-**repository** | <code>[IRepository](#aws-cdk-aws-codecommit-irepository)</code> | The CodeCommit repository.
-**allowAllOutbound**? | <code>boolean</code> | Whether to allow the CodeBuild to send all network traffic.<br/>__*Default*__: true
-**artifacts**? | <code>[IArtifacts](#aws-cdk-aws-codebuild-iartifacts)</code> | Defines where build artifacts will be stored.<br/>__*Default*__: NoArtifacts
-**buildImage**? | <code>[IBuildImage](#aws-cdk-aws-codebuild-ibuildimage)</code> | Build environment to use for the build.<br/>__*Default*__: BuildEnvironment.LinuxBuildImage.STANDARD_2_0
-**computeType**? | <code>[ComputeType](#aws-cdk-aws-codebuild-computetype)</code> | The type of compute to use for this build.<br/>__*Default*__: taken from {@link #buildImage#defaultComputeType}
-**environmentVariables**? | <code>Map<string, [BuildEnvironmentVariable](#aws-cdk-aws-codebuild-buildenvironmentvariable)></code> | The environment variables that your builds can use.<br/>__*Optional*__
-**postComment**? | <code>boolean</code> | Specifies whether comments should be written in the request.<br/>__*Default*__: true
-**privileged**? | <code>boolean</code> | Indicates how the project builds Docker images.<br/>__*Default*__: false
-**projectName**? | <code>string</code> | The human-visible name of this PullRequest-Project.<br/>__*Optional*__
-**role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | The IAM service Role of the Project.<br/>__*Optional*__
-**securityGroups**? | <code>Array<[ISecurityGroup](#aws-cdk-aws-ec2-isecuritygroup)></code> | What security group to associate with the codebuild project's network interfaces.<br/>__*Default*__: Security group will be automatically created
-**subnetSelection**? | <code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code> | Where to place the network interfaces within the VPC.<br/>__*Default*__: All private subnets
-**updateApprovalState**? | <code>boolean</code> | Indicates whether the approval state [APPROVE, REVOKE] should be updated.<br/>__*Default*__: true
-**vpc**? | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | VPC network to place codebuild network interfaces.<br/>__*Default*__: No VPC is specified
+#### Returns
 
+`void`
 
+#### Inherited from
 
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Pull Request Check Props
+
+[@cloudcomponents/cdk-pull-request-check](#readme) / PullRequestCheckProps
+
+# Interface: PullRequestCheckProps
+
+## Table of contents
+
+### Properties
+
+- [allowAllOutbound](#allowalloutbound)
+- [artifacts](#artifacts)
+- [buildImage](#buildimage)
+- [buildSpec](#buildspec)
+- [computeType](#computetype)
+- [environmentVariables](#environmentvariables)
+- [postComment](#postcomment)
+- [privileged](#privileged)
+- [projectName](#projectname)
+- [repository](#repository)
+- [role](#role)
+- [securityGroups](#securitygroups)
+- [subnetSelection](#subnetselection)
+- [updateApprovalState](#updateapprovalstate)
+- [vpc](#vpc)
+
+## Properties
+
+### allowAllOutbound
+
+• `Optional` `Readonly` **allowAllOutbound**: `boolean`
+
+Whether to allow the CodeBuild to send all network traffic.
+If set to false, you must individually add traffic rules to allow the CodeBuild project to connect to network targets.
+Only used if 'vpc' is supplied.
+
+**`default`** true
+
+___
+
+### artifacts
+
+• `Optional` `Readonly` **artifacts**: `IArtifacts`
+
+Defines where build artifacts will be stored.
+
+Could be: PipelineBuildArtifacts, NoArtifacts and S3Artifacts.
+
+**`default`** NoArtifacts
+
+___
+
+### buildImage
+
+• `Optional` `Readonly` **buildImage**: `IBuildImage`
+
+Build environment to use for the build.
+
+**`default`** BuildEnvironment.LinuxBuildImage.STANDARD_2_0
+
+___
+
+### buildSpec
+
+• `Readonly` **buildSpec**: `BuildSpec`
+
+Filename or contents of buildspec in JSON format.
+
+**`see`** https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-example
+
+___
+
+### computeType
+
+• `Optional` `Readonly` **computeType**: `ComputeType`
+
+The type of compute to use for this build.
+See the {@link ComputeType} enum for the possible values.
+
+**`default`** taken from {@link #buildImage#defaultComputeType}
+
+___
+
+### environmentVariables
+
+• `Optional` `Readonly` **environmentVariables**: `Object`
+
+The environment variables that your builds can use.
+
+#### Index signature
+
+▪ [name: `string`]: `BuildEnvironmentVariable`
+
+___
+
+### postComment
+
+• `Optional` `Readonly` **postComment**: `boolean`
+
+Specifies whether comments should be written in the request
+
+**`default`** true
+
+___
+
+### privileged
+
+• `Optional` `Readonly` **privileged**: `boolean`
+
+Indicates how the project builds Docker images. Specify true to enable
+running the Docker daemon inside a Docker container. This value must be
+set to true only if this build project will be used to build Docker
+images, and the specified build environment image is not one provided by
+AWS CodeBuild with Docker support. Otherwise, all associated builds that
+attempt to interact with the Docker daemon will fail.
+
+**`default`** false
+
+___
+
+### projectName
+
+• `Optional` `Readonly` **projectName**: `string`
+
+The human-visible name of this PullRequest-Project.
+ * @default taken from {@link #repository:#repositoryName}-pull-request
+
+___
+
+### repository
+
+• `Readonly` **repository**: `IRepository`
+
+The CodeCommit repository.
+
+___
+
+### role
+
+• `Optional` `Readonly` **role**: `IRole`
+
+The IAM service Role of the Project.
+
+___
+
+### securityGroups
+
+• `Optional` `Readonly` **securityGroups**: `ISecurityGroup`[]
+
+What security group to associate with the codebuild project's network interfaces.
+If no security group is identified, one will be created automatically.
+Only used if 'vpc' is supplied.
+
+**`default`** Security group will be automatically created
+
+___
+
+### subnetSelection
+
+• `Optional` `Readonly` **subnetSelection**: `SubnetSelection`
+
+Where to place the network interfaces within the VPC.
+Only used if 'vpc' is supplied.
+
+**`default`** All private subnets
+
+___
+
+### updateApprovalState
+
+• `Optional` `Readonly` **updateApprovalState**: `boolean`
+
+Indicates whether the approval state [APPROVE, REVOKE] should be updated
+
+**`default`** true
+
+___
+
+### vpc
+
+• `Optional` `Readonly` **vpc**: `IVpc`
+
+VPC network to place codebuild network interfaces.
+Specify this if the codebuild project needs to access resources in a VPC.
+
+**`default`** No VPC is specified

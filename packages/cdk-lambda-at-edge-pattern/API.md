@@ -1,385 +1,1936 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-lambda-at-edge-pattern
 
-Name|Description
-----|-----------
-[BaseEdgeConstruct](#cloudcomponents-cdk-lambda-at-edge-pattern-baseedgeconstruct)|*No description*
-[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)|*No description*
-[EdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-edgerole)|*No description*
-[HttpHeaders](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders)|*No description*
-[WithConfiguration](#cloudcomponents-cdk-lambda-at-edge-pattern-withconfiguration)|*No description*
+# @cloudcomponents/cdk-lambda-at-edge-pattern
 
+## Table of contents
 
-**Structs**
+### Enumerations
 
-Name|Description
-----|-----------
-[CommonEdgeFunctionProps](#cloudcomponents-cdk-lambda-at-edge-pattern-commonedgefunctionprops)|*No description*
-[Configuration](#cloudcomponents-cdk-lambda-at-edge-pattern-configuration)|*No description*
-[EdgeFunctionProps](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunctionprops)|*No description*
-[EdgeRoleProps](#cloudcomponents-cdk-lambda-at-edge-pattern-edgeroleprops)|*No description*
-[HttpHeadersProps](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheadersprops)|*No description*
-[WithConfigurationProps](#cloudcomponents-cdk-lambda-at-edge-pattern-withconfigurationprops)|*No description*
+- [LogLevel](#log-level)
 
+### Classes
 
-**Interfaces**
+- [BaseEdgeConstruct](#base-edge-construct)
+- [EdgeFunction](#edge-function)
+- [EdgeRole](#edge-role)
+- [HttpHeaders](#http-headers)
+- [WithConfiguration](#with-configuration)
 
-Name|Description
-----|-----------
-[IEdgeLambda](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgelambda)|*No description*
-[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)|*No description*
-[ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation)|*No description*
+### Interfaces
 
+- [CommonEdgeFunctionProps](#common-edge-function-props)
+- [Configuration](#configuration)
+- [EdgeFunctionProps](#edge-function-props)
+- [EdgeRoleProps](#edge-role-props)
+- [HttpHeadersProps](#http-headers-props)
+- [IEdgeLambda](#i-edge-lambda)
+- [IEdgeRole](#i-edge-role)
+- [ILambdaFunctionAssociation](#i-lambda-function-association)
+- [WithConfigurationProps](#with-configuration-props)
 
-**Enums**
+# Base Edge Construct
 
-Name|Description
-----|-----------
-[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)|*No description*
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / BaseEdgeConstruct
 
+# Class: BaseEdgeConstruct
 
+## Hierarchy
 
-## class BaseEdgeConstruct  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-baseedgeconstruct"></a>
+- `Construct`
 
+  ↳ **`BaseEdgeConstruct`**
 
+  ↳↳ [`EdgeFunction`](#edge-function)
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+  ↳↳ [`EdgeRole`](#edge-role)
 
-### Initializer
+## Table of contents
 
+### Constructors
 
-
-
-```ts
-new BaseEdgeConstruct(scope: Construct, id: string)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**edgeStack** | <code>[Stack](#aws-cdk-core-stack)</code> | <span></span>
-**stack** | <code>[Stack](#aws-cdk-core-stack)</code> | <span></span>
-
-
-
-## class EdgeFunction  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation), [IEdgeLambda](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgelambda)
-__Extends__: [BaseEdgeConstruct](#cloudcomponents-cdk-lambda-at-edge-pattern-baseedgeconstruct)
-
-### Initializer
-
-
-
-
-```ts
-new EdgeFunction(scope: Construct, id: string, props: EdgeFunctionProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[EdgeFunctionProps](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunctionprops)</code>)  *No description*
-  * **edgeRole** (<code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code>)  *No description* __*Optional*__
-  * **parameterName** (<code>string</code>)  The name of the parameter. __*Optional*__
-  * **code** (<code>[Code](#aws-cdk-aws-lambda-code)</code>)  *No description* 
-  * **configuration** (<code>[Configuration](#cloudcomponents-cdk-lambda-at-edge-pattern-configuration)</code>)  *No description* 
-  * **eventType** (<code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code>)  *No description* 
-  * **name** (<code>string</code>)  *No description* 
-
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**edgeRole** | <code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code> | <span></span>
-**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
-**functionVersion** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
-**lambdaFunction** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
-
-
-
-## class EdgeRole  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgerole"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)
-__Extends__: [BaseEdgeConstruct](#cloudcomponents-cdk-lambda-at-edge-pattern-baseedgeconstruct)
-
-### Initializer
-
-
-
-
-```ts
-new EdgeRole(scope: Construct, id: string, props?: EdgeRoleProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[EdgeRoleProps](#cloudcomponents-cdk-lambda-at-edge-pattern-edgeroleprops)</code>)  *No description*
-  * **roleName** (<code>string</code>)  *No description* __*Optional*__
-
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**role** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
+- [edgeStack](#edgestack)
+- [node](#node)
+- [stack](#stack)
 
 ### Methods
 
+- [getCrossRegionSupportSynthesizer](#getcrossregionsupportsynthesizer)
+- [getOrCreateCrossRegionSupportStack](#getorcreatecrossregionsupportstack)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [requireApp](#requireapp)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### addToEdgeRolePolicy(statement) <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgerole-addtoedgerolepolicy"></a>
+## Constructors
 
+### constructor
 
+• **new BaseEdgeConstruct**(`scope`, `id`)
 
-```ts
-addToEdgeRolePolicy(statement: PolicyStatement): void
-```
+#### Parameters
 
-* **statement** (<code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
 
+#### Overrides
 
+Construct.constructor
 
+## Properties
 
+### edgeStack
 
+• `Protected` `Readonly` **edgeStack**: `Stack`
 
-## class HttpHeaders  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders"></a>
+___
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [ILambdaFunctionAssociation](#cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation), [IEdgeLambda](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgelambda)
-__Extends__: [EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)
+The construct tree node associated with this construct.
 
-### Initializer
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
+___
 
-```ts
-new HttpHeaders(scope: Construct, id: string, props: HttpHeadersProps)
-```
+### stack
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[HttpHeadersProps](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheadersprops)</code>)  *No description*
-  * **edgeRole** (<code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code>)  *No description* __*Optional*__
-  * **parameterName** (<code>string</code>)  The name of the parameter. __*Optional*__
-  * **httpHeaders** (<code>Map<string, string></code>)  *No description* 
-  * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
+• `Protected` `Readonly` **stack**: `Stack`
 
+## Methods
 
+### getCrossRegionSupportSynthesizer
 
+▸ `Private` **getCrossRegionSupportSynthesizer**(): `undefined` \| `IStackSynthesizer`
 
-## class WithConfiguration  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-withconfiguration"></a>
+#### Returns
 
+`undefined` \| `IStackSynthesizer`
 
+___
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+### getOrCreateCrossRegionSupportStack
 
-### Initializer
+▸ `Private` **getOrCreateCrossRegionSupportStack**(): `Stack`
 
+#### Returns
 
+`Stack`
 
+___
 
-```ts
-new WithConfiguration(scope: Construct, id: string, props: WithConfigurationProps)
-```
+### onPrepare
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[WithConfigurationProps](#cloudcomponents-cdk-lambda-at-edge-pattern-withconfigurationprops)</code>)  *No description*
-  * **configuration** (<code>[Configuration](#cloudcomponents-cdk-lambda-at-edge-pattern-configuration)</code>)  *No description* 
-  * **function** (<code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code>)  *No description* 
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### requireApp
+
+▸ `Private` **requireApp**(): `App`
+
+#### Returns
+
+`App`
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Edge Function
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / EdgeFunction
+
+# Class: EdgeFunction
+
+## Hierarchy
+
+- [`BaseEdgeConstruct`](#base-edge-construct)
+
+  ↳ **`EdgeFunction`**
+
+  ↳↳ [`HttpHeaders`](#http-headers)
+
+## Implements
+
+- [`ILambdaFunctionAssociation`](#i-lambda-function-association)
+- [`IEdgeLambda`](#i-edge-lambda)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**functionVersion** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
-
-
-
-## struct CommonEdgeFunctionProps  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-commonedgefunctionprops"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**edgeRole**? | <code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code> | __*Optional*__
-**parameterName**? | <code>string</code> | The name of the parameter.<br/>__*Optional*__
-
-
-
-## struct Configuration  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-configuration"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**logLevel** | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | <span></span>
-
-
-
-## struct EdgeFunctionProps  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgefunctionprops"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**code** | <code>[Code](#aws-cdk-aws-lambda-code)</code> | <span></span>
-**configuration** | <code>[Configuration](#cloudcomponents-cdk-lambda-at-edge-pattern-configuration)</code> | <span></span>
-**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
-**name** | <code>string</code> | <span></span>
-**edgeRole**? | <code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code> | __*Optional*__
-**parameterName**? | <code>string</code> | The name of the parameter.<br/>__*Optional*__
-
-
-
-## struct EdgeRoleProps  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-edgeroleprops"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**roleName**? | <code>string</code> | __*Optional*__
-
-
-
-## struct HttpHeadersProps  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-httpheadersprops"></a>
-
-
-
-
-
-
-Name | Type | Description 
------|------|-------------
-**httpHeaders** | <code>Map<string, string></code> | <span></span>
-**edgeRole**? | <code>[IEdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole)</code> | __*Optional*__
-**logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
-**parameterName**? | <code>string</code> | The name of the parameter.<br/>__*Optional*__
-
-
-
-## interface IEdgeLambda  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-iedgelambda"></a>
-
-__Implemented by__: [EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction), [HttpHeaders](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders)
-
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
-**functionVersion** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
-
-
-
-## interface IEdgeRole  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole"></a>
-
-__Implemented by__: [EdgeRole](#cloudcomponents-cdk-lambda-at-edge-pattern-edgerole)
-
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**role** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
+- [edgeRole](#edgerole)
+- [edgeStack](#edgestack)
+- [eventType](#eventtype)
+- [functionVersion](#functionversion)
+- [lambdaFunction](#lambdafunction)
+- [node](#node)
+- [stack](#stack)
 
 ### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### addToEdgeRolePolicy(statement) <a id="cloudcomponents-cdk-lambda-at-edge-pattern-iedgerole-addtoedgerolepolicy"></a>
+## Constructors
 
+### constructor
 
+• **new EdgeFunction**(`scope`, `id`, `props`)
 
-```ts
-addToEdgeRolePolicy(statement: PolicyStatement): void
-```
+#### Parameters
 
-* **statement** (<code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`EdgeFunctionProps`](#edge-function-props) |
 
+#### Overrides
 
+[BaseEdgeConstruct](#base-edge-construct).[constructor](#constructor)
 
+## Properties
 
+### edgeRole
 
+• `Readonly` **edgeRole**: [`IEdgeRole`](#i-edge-role)
 
-## interface ILambdaFunctionAssociation  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-ilambdafunctionassociation"></a>
+___
 
-__Implemented by__: [EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction), [HttpHeaders](#cloudcomponents-cdk-lambda-at-edge-pattern-httpheaders)
+### edgeStack
 
+• `Protected` `Readonly` **edgeStack**: `Stack`
 
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[edgeStack](#edgestack)
+
+___
+
+### eventType
+
+• `Readonly` **eventType**: `LambdaEdgeEventType`
+
+#### Implementation of
+
+[IEdgeLambda](#i-edge-lambda).[eventType](#eventtype)
+
+___
+
+### functionVersion
+
+• `Readonly` **functionVersion**: `IVersion`
+
+#### Implementation of
+
+[IEdgeLambda](#i-edge-lambda).[functionVersion](#functionversion)
+
+___
+
+### lambdaFunction
+
+• `Readonly` **lambdaFunction**: `IVersion`
+
+#### Implementation of
+
+[ILambdaFunctionAssociation](#i-lambda-function-association).[lambdaFunction](#lambdafunction)
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[node](#node)
+
+___
+
+### stack
+
+• `Protected` `Readonly` **stack**: `Stack`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[stack](#stack)
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[prepare](#prepare)
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[toString](#tostring)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[isConstruct](#isconstruct)
+
+# Edge Role
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / EdgeRole
+
+# Class: EdgeRole
+
+## Hierarchy
+
+- [`BaseEdgeConstruct`](#base-edge-construct)
+
+  ↳ **`EdgeRole`**
+
+## Implements
+
+- [`IEdgeRole`](#i-edge-role)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
+- [edgeStack](#edgestack)
+- [node](#node)
+- [role](#role)
+- [stack](#stack)
 
-Name | Type | Description 
------|------|-------------
-**eventType** | <code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code> | <span></span>
-**lambdaFunction** | <code>[IVersion](#aws-cdk-aws-lambda-iversion)</code> | <span></span>
+### Methods
 
+- [addToEdgeRolePolicy](#addtoedgerolepolicy)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
+## Constructors
 
-## struct WithConfigurationProps  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-withconfigurationprops"></a>
+### constructor
 
+• **new EdgeRole**(`scope`, `id`, `props?`)
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`EdgeRoleProps`](#edge-role-props) |
 
+#### Overrides
 
+[BaseEdgeConstruct](#base-edge-construct).[constructor](#constructor)
 
-Name | Type | Description 
------|------|-------------
-**configuration** | <code>[Configuration](#cloudcomponents-cdk-lambda-at-edge-pattern-configuration)</code> | <span></span>
-**function** | <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code> | <span></span>
+## Properties
 
+### edgeStack
 
+• `Protected` `Readonly` **edgeStack**: `Stack`
 
-## enum LogLevel  <a id="cloudcomponents-cdk-lambda-at-edge-pattern-loglevel"></a>
+#### Inherited from
 
+[BaseEdgeConstruct](#base-edge-construct).[edgeStack](#edgestack)
 
+___
 
-Name | Description
------|-----
-**NONE** |
-**INFO** |
-**WARN** |
-**ERROR** |
-**DEBUG** |
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[node](#node)
+
+___
+
+### role
+
+• `Readonly` **role**: `IRole`
+
+#### Implementation of
+
+[IEdgeRole](#i-edge-role).[role](#role)
+
+___
+
+### stack
+
+• `Protected` `Readonly` **stack**: `Stack`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[stack](#stack)
+
+## Methods
+
+### addToEdgeRolePolicy
+
+▸ **addToEdgeRolePolicy**(`statement`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `statement` | `PolicyStatement` |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[IEdgeRole](#i-edge-role).[addToEdgeRolePolicy](#addtoedgerolepolicy)
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[prepare](#prepare)
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[toString](#tostring)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[BaseEdgeConstruct](#base-edge-construct).[isConstruct](#isconstruct)
+
+# Http Headers
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / HttpHeaders
+
+# Class: HttpHeaders
+
+## Hierarchy
+
+- [`EdgeFunction`](#edge-function)
+
+  ↳ **`HttpHeaders`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [edgeRole](#edgerole)
+- [edgeStack](#edgestack)
+- [eventType](#eventtype)
+- [functionVersion](#functionversion)
+- [lambdaFunction](#lambdafunction)
+- [node](#node)
+- [stack](#stack)
+
+### Methods
+
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new HttpHeaders**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`HttpHeadersProps`](#http-headers-props) |
+
+#### Overrides
+
+[EdgeFunction](#edge-function).[constructor](#constructor)
+
+## Properties
+
+### edgeRole
+
+• `Readonly` **edgeRole**: [`IEdgeRole`](#i-edge-role)
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[edgeRole](#edgerole)
+
+___
+
+### edgeStack
+
+• `Protected` `Readonly` **edgeStack**: `Stack`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[edgeStack](#edgestack)
+
+___
+
+### eventType
+
+• `Readonly` **eventType**: `LambdaEdgeEventType`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[eventType](#eventtype)
+
+___
+
+### functionVersion
+
+• `Readonly` **functionVersion**: `IVersion`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[functionVersion](#functionversion)
+
+___
+
+### lambdaFunction
+
+• `Readonly` **lambdaFunction**: `IVersion`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[lambdaFunction](#lambdafunction)
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[node](#node)
+
+___
+
+### stack
+
+• `Protected` `Readonly` **stack**: `Stack`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[stack](#stack)
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[prepare](#prepare)
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[toString](#tostring)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[EdgeFunction](#edge-function).[isConstruct](#isconstruct)
+
+# With Configuration
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / WithConfiguration
+
+# Class: WithConfiguration
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`WithConfiguration`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [functionVersion](#functionversion)
+- [node](#node)
+
+### Methods
+
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new WithConfiguration**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`WithConfigurationProps`](#with-configuration-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### functionVersion
+
+• `Readonly` **functionVersion**: `IVersion`
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Log Level
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / LogLevel
+
+# Enumeration: LogLevel
+
+## Table of contents
+
+### Enumeration members
+
+- [DEBUG](#debug)
+- [ERROR](#error)
+- [INFO](#info)
+- [NONE](#none)
+- [WARN](#warn)
+
+## Enumeration members
+
+### DEBUG
+
+• **DEBUG** = `"debug"`
+
+___
+
+### ERROR
+
+• **ERROR** = `"error"`
+
+___
+
+### INFO
+
+• **INFO** = `"info"`
+
+___
+
+### NONE
+
+• **NONE** = `"none"`
+
+___
+
+### WARN
+
+• **WARN** = `"warn"`
+
+# Common Edge Function Props
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / CommonEdgeFunctionProps
+
+# Interface: CommonEdgeFunctionProps
+
+## Hierarchy
+
+- **`CommonEdgeFunctionProps`**
+
+  ↳ [`HttpHeadersProps`](#http-headers-props)
+
+  ↳ [`EdgeFunctionProps`](#edge-function-props)
+
+## Table of contents
+
+### Properties
+
+- [edgeRole](#edgerole)
+- [parameterName](#parametername)
+
+## Properties
+
+### edgeRole
+
+• `Optional` `Readonly` **edgeRole**: [`IEdgeRole`](#i-edge-role)
+
+___
+
+### parameterName
+
+• `Optional` `Readonly` **parameterName**: `string`
+
+The name of the parameter.
+
+# Configuration
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / Configuration
+
+# Interface: Configuration
+
+## Indexable
+
+▪ [key: `string`]: `unknown`
+
+## Table of contents
+
+### Properties
+
+- [logLevel](#loglevel)
+
+## Properties
+
+### logLevel
+
+• `Readonly` **logLevel**: [`LogLevel`](#log-level)
+
+# Edge Function Props
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / EdgeFunctionProps
+
+# Interface: EdgeFunctionProps
+
+## Hierarchy
+
+- [`CommonEdgeFunctionProps`](#common-edge-function-props)
+
+  ↳ **`EdgeFunctionProps`**
+
+## Table of contents
+
+### Properties
+
+- [code](#code)
+- [configuration](#configuration)
+- [edgeRole](#edgerole)
+- [eventType](#eventtype)
+- [name](#name)
+- [parameterName](#parametername)
+
+## Properties
+
+### code
+
+• `Readonly` **code**: `Code`
+
+___
+
+### configuration
+
+• `Readonly` **configuration**: [`Configuration`](#configuration)
+
+___
+
+### edgeRole
+
+• `Optional` `Readonly` **edgeRole**: [`IEdgeRole`](#i-edge-role)
+
+#### Inherited from
+
+[CommonEdgeFunctionProps](#common-edge-function-props).[edgeRole](#edgerole)
+
+___
+
+### eventType
+
+• `Readonly` **eventType**: `LambdaEdgeEventType`
+
+___
+
+### name
+
+• `Readonly` **name**: `string`
+
+___
+
+### parameterName
+
+• `Optional` `Readonly` **parameterName**: `string`
+
+The name of the parameter.
+
+#### Inherited from
+
+[CommonEdgeFunctionProps](#common-edge-function-props).[parameterName](#parametername)
+
+# Edge Role Props
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / EdgeRoleProps
+
+# Interface: EdgeRoleProps
+
+## Table of contents
+
+### Properties
+
+- [roleName](#rolename)
+
+## Properties
+
+### roleName
+
+• `Optional` `Readonly` **roleName**: `string`
+
+# Http Headers Props
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / HttpHeadersProps
+
+# Interface: HttpHeadersProps
+
+## Hierarchy
+
+- [`CommonEdgeFunctionProps`](#common-edge-function-props)
+
+  ↳ **`HttpHeadersProps`**
+
+## Table of contents
+
+### Properties
+
+- [edgeRole](#edgerole)
+- [httpHeaders](#httpheaders)
+- [logLevel](#loglevel)
+- [parameterName](#parametername)
+
+## Properties
+
+### edgeRole
+
+• `Optional` `Readonly` **edgeRole**: [`IEdgeRole`](#i-edge-role)
+
+#### Inherited from
+
+[CommonEdgeFunctionProps](#common-edge-function-props).[edgeRole](#edgerole)
+
+___
+
+### httpHeaders
+
+• `Readonly` **httpHeaders**: `Record`<`string`, `string`\>
+
+___
+
+### logLevel
+
+• `Optional` `Readonly` **logLevel**: [`LogLevel`](#log-level)
+
+___
+
+### parameterName
+
+• `Optional` `Readonly` **parameterName**: `string`
+
+The name of the parameter.
+
+#### Inherited from
+
+[CommonEdgeFunctionProps](#common-edge-function-props).[parameterName](#parametername)
+
+# I Edge Lambda
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / IEdgeLambda
+
+# Interface: IEdgeLambda
+
+## Implemented by
+
+- [`EdgeFunction`](#edge-function)
+
+## Table of contents
+
+### Properties
+
+- [eventType](#eventtype)
+- [functionVersion](#functionversion)
+
+## Properties
+
+### eventType
+
+• `Readonly` **eventType**: `LambdaEdgeEventType`
+
+___
+
+### functionVersion
+
+• `Readonly` **functionVersion**: `IVersion`
+
+# I Edge Role
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / IEdgeRole
+
+# Interface: IEdgeRole
+
+## Implemented by
+
+- [`EdgeRole`](#edge-role)
+
+## Table of contents
+
+### Properties
+
+- [role](#role)
+
+### Methods
+
+- [addToEdgeRolePolicy](#addtoedgerolepolicy)
+
+## Properties
+
+### role
+
+• `Readonly` **role**: `IRole`
+
+## Methods
+
+### addToEdgeRolePolicy
+
+▸ **addToEdgeRolePolicy**(`statement`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `statement` | `PolicyStatement` |
+
+#### Returns
+
+`void`
+
+# I Lambda Function Association
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / ILambdaFunctionAssociation
+
+# Interface: ILambdaFunctionAssociation
+
+## Implemented by
+
+- [`EdgeFunction`](#edge-function)
+
+## Table of contents
+
+### Properties
+
+- [eventType](#eventtype)
+- [lambdaFunction](#lambdafunction)
+
+## Properties
+
+### eventType
+
+• `Readonly` **eventType**: `LambdaEdgeEventType`
+
+___
+
+### lambdaFunction
+
+• `Readonly` **lambdaFunction**: `IVersion`
+
+# With Configuration Props
+
+[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / WithConfigurationProps
+
+# Interface: WithConfigurationProps
+
+## Table of contents
+
+### Properties
+
+- [configuration](#configuration)
+- [function](#function)
+
+## Properties
+
+### configuration
+
+• `Readonly` **configuration**: [`Configuration`](#configuration)
+
+___
+
+### function
+
+• `Readonly` **function**: `IFunction`

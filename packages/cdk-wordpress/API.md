@@ -1,393 +1,1863 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-wordpress
 
-Name|Description
-----|-----------
-[Application](#cloudcomponents-cdk-wordpress-application)|*No description*
-[Database](#cloudcomponents-cdk-wordpress-database)|*No description*
-[Dns](#cloudcomponents-cdk-wordpress-dns)|*No description*
-[EfsVolume](#cloudcomponents-cdk-wordpress-efsvolume)|*No description*
-[Wordpress](#cloudcomponents-cdk-wordpress-wordpress)|*No description*
+# @cloudcomponents/cdk-wordpress
 
+## Table of contents
 
-**Structs**
+### Classes
 
-Name|Description
-----|-----------
-[ApplicationProps](#cloudcomponents-cdk-wordpress-applicationprops)|*No description*
-[DatabaseProps](#cloudcomponents-cdk-wordpress-databaseprops)|*No description*
-[DnsProps](#cloudcomponents-cdk-wordpress-dnsprops)|*No description*
-[EfsVolumeProps](#cloudcomponents-cdk-wordpress-efsvolumeprops)|*No description*
-[StaticContentOffload](#cloudcomponents-cdk-wordpress-staticcontentoffload)|*No description*
-[WordpressProps](#cloudcomponents-cdk-wordpress-wordpressprops)|*No description*
+- [Application](#application)
+- [Database](#database)
+- [Dns](#dns)
+- [EfsVolume](#efs-volume)
+- [Wordpress](#wordpress)
 
+### Interfaces
 
+- [ApplicationProps](#application-props)
+- [DatabaseProps](#database-props)
+- [DnsProps](#dns-props)
+- [EfsVolumeProps](#efs-volume-props)
+- [StaticContentOffload](#static-content-offload)
+- [WordpressProps](#wordpress-props)
 
-## class Application  <a id="cloudcomponents-cdk-wordpress-application"></a>
+# Application
 
+[@cloudcomponents/cdk-wordpress](#readme) / Application
 
+# Class: Application
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+## Hierarchy
 
-### Initializer
+- `Construct`
 
+  ↳ **`Application`**
 
+## Table of contents
 
+### Constructors
 
-```ts
-new Application(scope: Construct, id: string, props: ApplicationProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[ApplicationProps](#cloudcomponents-cdk-wordpress-applicationprops)</code>)  *No description*
-  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  *No description* 
-  * **database** (<code>[Database](#cloudcomponents-cdk-wordpress-database)</code>)  *No description* 
-  * **domainName** (<code>string</code>)  *No description* 
-  * **domainZone** (<code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code>)  *No description* 
-  * **volume** (<code>[EfsVolume](#cloudcomponents-cdk-wordpress-efsvolume)</code>)  *No description* 
-  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  *No description* 
-  * **cloudFrontHashHeader** (<code>string</code>)  *No description* __*Optional*__
-  * **environment** (<code>Map<string, string></code>)  *No description* __*Optional*__
-  * **image** (<code>[ContainerImage](#aws-cdk-aws-ecs-containerimage)</code>)  *No description* __*Optional*__
-  * **logDriver** (<code>[LogDriver](#aws-cdk-aws-ecs-logdriver)</code>)  *No description* __*Optional*__
-  * **memoryLimitMiB** (<code>number</code>)  *No description* __*Optional*__
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
-  * **secrets** (<code>Map<string, [Secret](#aws-cdk-aws-ecs-secret)></code>)  *No description* __*Optional*__
-  * **serviceName** (<code>string</code>)  *No description* __*Optional*__
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**distribution** | <code>[IDistribution](#aws-cdk-aws-cloudfront-idistribution)</code> | <span></span>
-**domainName** | <code>string</code> | <span></span>
-**domainZone** | <code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code> | <span></span>
-**listener** | <code>[ApplicationListener](#aws-cdk-aws-elasticloadbalancingv2-applicationlistener)</code> | <span></span>
-**service** | <code>[FargateService](#aws-cdk-aws-ecs-fargateservice)</code> | <span></span>
-**targetGroup** | <code>[ApplicationTargetGroup](#aws-cdk-aws-elasticloadbalancingv2-applicationtargetgroup)</code> | <span></span>
+- [cloudFrontHashHeader](#cloudfronthashheader)
+- [distribution](#distribution)
+- [domainName](#domainname)
+- [domainZone](#domainzone)
+- [listener](#listener)
+- [node](#node)
+- [removalPolicy](#removalpolicy)
+- [service](#service)
+- [targetGroup](#targetgroup)
 
 ### Methods
 
+- [enableStaticContentOffload](#enablestaticcontentoffload)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### enableStaticContentOffload(domainName, certificate) <a id="cloudcomponents-cdk-wordpress-application-enablestaticcontentoffload"></a>
+## Constructors
 
+### constructor
 
+• **new Application**(`scope`, `id`, `props`)
 
-```ts
-enableStaticContentOffload(domainName: string, certificate: ICertificate): StaticContentOffload
-```
+#### Parameters
 
-* **domainName** (<code>string</code>)  *No description*
-* **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`ApplicationProps`](#application-props) |
 
-__Returns__:
-* <code>[StaticContentOffload](#cloudcomponents-cdk-wordpress-staticcontentoffload)</code>
+#### Overrides
 
+Construct.constructor
 
+## Properties
 
-## class Database  <a id="cloudcomponents-cdk-wordpress-database"></a>
+### cloudFrontHashHeader
 
+• `Private` `Readonly` **cloudFrontHashHeader**: `string`
 
+___
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+### distribution
 
-### Initializer
+• `Readonly` **distribution**: `IDistribution`
 
+___
 
+### domainName
 
+• `Readonly` **domainName**: `string`
 
-```ts
-new Database(scope: Construct, id: string, props: DatabaseProps)
-```
+___
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[DatabaseProps](#cloudcomponents-cdk-wordpress-databaseprops)</code>)  *No description*
-  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  *No description* 
-  * **allocatedStorage** (<code>number</code>)  *No description* __*Optional*__
-  * **databaseName** (<code>string</code>)  *No description* __*Optional*__
-  * **engine** (<code>[IInstanceEngine](#aws-cdk-aws-rds-iinstanceengine)</code>)  *No description* __*Optional*__
-  * **instanceType** (<code>[InstanceType](#aws-cdk-aws-ec2-instancetype)</code>)  *No description* __*Optional*__
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
+### domainZone
 
+• `Readonly` **domainZone**: `IHostedZone`
 
+___
+
+### listener
+
+• `Readonly` **listener**: `ApplicationListener`
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### removalPolicy
+
+• `Private` `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+___
+
+### service
+
+• `Readonly` **service**: `FargateService`
+
+___
+
+### targetGroup
+
+• `Readonly` **targetGroup**: `ApplicationTargetGroup`
+
+## Methods
+
+### enableStaticContentOffload
+
+▸ **enableStaticContentOffload**(`domainName`, `certificate`): [`StaticContentOffload`](#static-content-offload)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `domainName` | `string` |
+| `certificate` | `ICertificate` |
+
+#### Returns
+
+[`StaticContentOffload`](#static-content-offload)
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Database
+
+[@cloudcomponents/cdk-wordpress](#readme) / Database
+
+# Class: Database
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`Database`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**environment** | <code>Map<string, string></code> | <span></span>
-**secrets** | <code>Map<string, [Secret](#aws-cdk-aws-ecs-secret)></code> | <span></span>
+- [environment](#environment)
+- [instance](#instance)
+- [node](#node)
+- [secrets](#secrets)
 
 ### Methods
 
+- [allowDefaultPortFrom](#allowdefaultportfrom)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### allowDefaultPortFrom(other, description?) <a id="cloudcomponents-cdk-wordpress-database-allowdefaultportfrom"></a>
+## Constructors
 
+### constructor
 
+• **new Database**(`scope`, `id`, `props`)
 
-```ts
-allowDefaultPortFrom(other: IConnectable, description?: string): void
-```
+#### Parameters
 
-* **other** (<code>[IConnectable](#aws-cdk-aws-ec2-iconnectable)</code>)  *No description*
-* **description** (<code>string</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`DatabaseProps`](#database-props) |
 
+#### Overrides
 
+Construct.constructor
 
+## Properties
 
+### environment
 
+• `Readonly` **environment**: `Record`<`string`, `string`\>
 
-## class Dns  <a id="cloudcomponents-cdk-wordpress-dns"></a>
+___
 
+### instance
 
+• `Private` `Readonly` **instance**: `DatabaseInstance`
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+___
 
-### Initializer
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
-```ts
-new Dns(scope: Construct, id: string, props: DnsProps)
-```
+#### Inherited from
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[DnsProps](#cloudcomponents-cdk-wordpress-dnsprops)</code>)  *No description*
-  * **distribution** (<code>[IDistribution](#aws-cdk-aws-cloudfront-idistribution)</code>)  *No description* 
-  * **domainName** (<code>string</code>)  *No description* 
-  * **domainZone** (<code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code>)  *No description* 
+Construct.node
 
+___
 
+### secrets
 
+• `Readonly` **secrets**: `Record`<`string`, `Secret`\>
 
-## class EfsVolume  <a id="cloudcomponents-cdk-wordpress-efsvolume"></a>
+## Methods
 
+### allowDefaultPortFrom
 
+▸ **allowDefaultPortFrom**(`other`, `description?`): `void`
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+#### Parameters
 
-### Initializer
+| Name | Type |
+| :------ | :------ |
+| `other` | `IConnectable` |
+| `description?` | `string` |
 
+#### Returns
 
+`void`
 
+___
 
-```ts
-new EfsVolume(scope: Construct, id: string, props: EfsVolumeProps)
-```
+### onPrepare
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[EfsVolumeProps](#cloudcomponents-cdk-wordpress-efsvolumeprops)</code>)  *No description*
-  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  *No description* 
-  * **name** (<code>string</code>)  *No description* __*Optional*__
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Dns
+
+[@cloudcomponents/cdk-wordpress](#readme) / Dns
+
+# Class: Dns
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`Dns`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**efsVolumeConfiguration** | <code>[EfsVolumeConfiguration](#aws-cdk-aws-ecs-efsvolumeconfiguration)</code> | <span></span>
-**name** | <code>string</code> | <span></span>
+- [node](#node)
 
 ### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### allowDefaultPortFrom(other, description?) <a id="cloudcomponents-cdk-wordpress-efsvolume-allowdefaultportfrom"></a>
+## Constructors
 
+### constructor
 
+• **new Dns**(`scope`, `id`, `props`)
 
-```ts
-allowDefaultPortFrom(other: IConnectable, description?: string): void
-```
+#### Parameters
 
-* **other** (<code>[IConnectable](#aws-cdk-aws-ec2-iconnectable)</code>)  *No description*
-* **description** (<code>string</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`DnsProps`](#dns-props) |
 
+#### Overrides
 
+Construct.constructor
 
+## Properties
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
-## class Wordpress  <a id="cloudcomponents-cdk-wordpress-wordpress"></a>
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+Construct.node
 
-### Initializer
+## Methods
 
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
-```ts
-new Wordpress(scope: Construct, id: string, props: WordpressProps)
-```
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[WordpressProps](#cloudcomponents-cdk-wordpress-wordpressprops)</code>)  *No description*
-  * **domainName** (<code>string</code>)  *No description* 
-  * **domainZone** (<code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code>)  *No description* 
-  * **backupPlan** (<code>[BackupPlan](#aws-cdk-aws-backup-backupplan)</code>)  *No description* __*Optional*__
-  * **cloudFrontHashHeader** (<code>string</code>)  *No description* __*Optional*__
-  * **database** (<code>[Database](#cloudcomponents-cdk-wordpress-database)</code>)  *No description* __*Optional*__
-  * **environment** (<code>Map<string, string></code>)  *No description* __*Optional*__
-  * **image** (<code>[ContainerImage](#aws-cdk-aws-ecs-containerimage)</code>)  *No description* __*Optional*__
-  * **logDriver** (<code>[LogDriver](#aws-cdk-aws-ecs-logdriver)</code>)  *No description* __*Optional*__
-  * **memoryLimitMiB** (<code>number</code>)  *No description* __*Optional*__
-  * **offloadStaticContent** (<code>boolean</code>)  *No description* __*Optional*__
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Optional*__
-  * **secrets** (<code>Map<string, [Secret](#aws-cdk-aws-ecs-secret)></code>)  *No description* __*Optional*__
-  * **serviceName** (<code>string</code>)  *No description* __*Optional*__
-  * **subjectAlternativeNames** (<code>Array<string></code>)  *No description* __*Optional*__
-  * **volume** (<code>[EfsVolume](#cloudcomponents-cdk-wordpress-efsvolume)</code>)  *No description* __*Optional*__
-  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  *No description* __*Optional*__
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Efs Volume
+
+[@cloudcomponents/cdk-wordpress](#readme) / EfsVolume
+
+# Class: EfsVolume
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`EfsVolume`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
+- [efsVolumeConfiguration](#efsvolumeconfiguration)
+- [fileSystem](#filesystem)
+- [name](#name)
+- [node](#node)
 
-Name | Type | Description 
------|------|-------------
-**application** | <code>[Application](#cloudcomponents-cdk-wordpress-application)</code> | <span></span>
-**database** | <code>[Database](#cloudcomponents-cdk-wordpress-database)</code> | <span></span>
-**volume** | <code>[EfsVolume](#cloudcomponents-cdk-wordpress-efsvolume)</code> | <span></span>
-**staticContentOffload**? | <code>[StaticContentOffload](#cloudcomponents-cdk-wordpress-staticcontentoffload)</code> | __*Optional*__
+### Methods
 
+- [allowDefaultPortFrom](#allowdefaultportfrom)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
+## Constructors
 
-## struct ApplicationProps  <a id="cloudcomponents-cdk-wordpress-applicationprops"></a>
+### constructor
 
+• **new EfsVolume**(`scope`, `id`, `props`)
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`EfsVolumeProps`](#efs-volume-props) |
 
+#### Overrides
 
+Construct.constructor
 
-Name | Type | Description 
------|------|-------------
-**certificate** | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | <span></span>
-**database** | <code>[Database](#cloudcomponents-cdk-wordpress-database)</code> | <span></span>
-**domainName** | <code>string</code> | <span></span>
-**domainZone** | <code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code> | <span></span>
-**volume** | <code>[EfsVolume](#cloudcomponents-cdk-wordpress-efsvolume)</code> | <span></span>
-**vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | <span></span>
-**cloudFrontHashHeader**? | <code>string</code> | __*Optional*__
-**environment**? | <code>Map<string, string></code> | __*Optional*__
-**image**? | <code>[ContainerImage](#aws-cdk-aws-ecs-containerimage)</code> | __*Optional*__
-**logDriver**? | <code>[LogDriver](#aws-cdk-aws-ecs-logdriver)</code> | __*Optional*__
-**memoryLimitMiB**? | <code>number</code> | __*Optional*__
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
-**secrets**? | <code>Map<string, [Secret](#aws-cdk-aws-ecs-secret)></code> | __*Optional*__
-**serviceName**? | <code>string</code> | __*Optional*__
+## Properties
 
+### efsVolumeConfiguration
 
+• `Readonly` **efsVolumeConfiguration**: `EfsVolumeConfiguration`
 
-## struct DatabaseProps  <a id="cloudcomponents-cdk-wordpress-databaseprops"></a>
+___
 
+### fileSystem
 
+• `Private` `Readonly` **fileSystem**: `FileSystem`
 
+___
 
+### name
 
+• `Readonly` **name**: `string`
 
-Name | Type | Description 
------|------|-------------
-**vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | <span></span>
-**allocatedStorage**? | <code>number</code> | __*Optional*__
-**databaseName**? | <code>string</code> | __*Optional*__
-**engine**? | <code>[IInstanceEngine](#aws-cdk-aws-rds-iinstanceengine)</code> | __*Optional*__
-**instanceType**? | <code>[InstanceType](#aws-cdk-aws-ec2-instancetype)</code> | __*Optional*__
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+___
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
-## struct DnsProps  <a id="cloudcomponents-cdk-wordpress-dnsprops"></a>
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
+## Methods
 
+### allowDefaultPortFrom
 
-Name | Type | Description 
------|------|-------------
-**distribution** | <code>[IDistribution](#aws-cdk-aws-cloudfront-idistribution)</code> | <span></span>
-**domainName** | <code>string</code> | <span></span>
-**domainZone** | <code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code> | <span></span>
+▸ **allowDefaultPortFrom**(`other`, `description?`): `void`
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `other` | `IConnectable` |
+| `description?` | `string` |
 
-## struct EfsVolumeProps  <a id="cloudcomponents-cdk-wordpress-efsvolumeprops"></a>
+#### Returns
 
+`void`
 
+___
 
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
-Name | Type | Description 
------|------|-------------
-**vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | <span></span>
-**name**? | <code>string</code> | __*Optional*__
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
-## struct StaticContentOffload  <a id="cloudcomponents-cdk-wordpress-staticcontentoffload"></a>
+#### Returns
 
-__Obtainable from__: [Application](#cloudcomponents-cdk-wordpress-application).[enableStaticContentOffload](#cloudcomponents-cdk-wordpress-application#cloudcomponents-cdk-wordpress-application-enablestaticcontentoffload)()
+`void`
 
+#### Inherited from
 
+Construct.onPrepare
 
+___
 
+### onSynthesize
 
-Name | Type | Description 
------|------|-------------
-**distribution** | <code>[IDistribution](#aws-cdk-aws-cloudfront-idistribution)</code> | <span></span>
-**domainName** | <code>string</code> | <span></span>
+▸ `Protected` **onSynthesize**(`session`): `void`
 
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
-## struct WordpressProps  <a id="cloudcomponents-cdk-wordpress-wordpressprops"></a>
+**`stability`** stable
 
+#### Parameters
 
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
+#### Returns
 
+`void`
 
+#### Inherited from
 
-Name | Type | Description 
------|------|-------------
-**domainName** | <code>string</code> | <span></span>
-**domainZone** | <code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code> | <span></span>
-**backupPlan**? | <code>[BackupPlan](#aws-cdk-aws-backup-backupplan)</code> | __*Optional*__
-**cloudFrontHashHeader**? | <code>string</code> | __*Optional*__
-**database**? | <code>[Database](#cloudcomponents-cdk-wordpress-database)</code> | __*Optional*__
-**environment**? | <code>Map<string, string></code> | __*Optional*__
-**image**? | <code>[ContainerImage](#aws-cdk-aws-ecs-containerimage)</code> | __*Optional*__
-**logDriver**? | <code>[LogDriver](#aws-cdk-aws-ecs-logdriver)</code> | __*Optional*__
-**memoryLimitMiB**? | <code>number</code> | __*Optional*__
-**offloadStaticContent**? | <code>boolean</code> | __*Optional*__
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Optional*__
-**secrets**? | <code>Map<string, [Secret](#aws-cdk-aws-ecs-secret)></code> | __*Optional*__
-**serviceName**? | <code>string</code> | __*Optional*__
-**subjectAlternativeNames**? | <code>Array<string></code> | __*Optional*__
-**volume**? | <code>[EfsVolume](#cloudcomponents-cdk-wordpress-efsvolume)</code> | __*Optional*__
-**vpc**? | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | __*Optional*__
+Construct.onSynthesize
 
+___
 
+### onValidate
 
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Wordpress
+
+[@cloudcomponents/cdk-wordpress](#readme) / Wordpress
+
+# Class: Wordpress
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`Wordpress`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [application](#application)
+- [database](#database)
+- [node](#node)
+- [staticContentOffload](#staticcontentoffload)
+- [volume](#volume)
+
+### Methods
+
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new Wordpress**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`WordpressProps`](#wordpress-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### application
+
+• `Readonly` **application**: [`Application`](#application)
+
+___
+
+### database
+
+• `Readonly` **database**: [`Database`](#database)
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### staticContentOffload
+
+• `Optional` `Readonly` **staticContentOffload**: [`StaticContentOffload`](#static-content-offload)
+
+___
+
+### volume
+
+• `Readonly` **volume**: [`EfsVolume`](#efs-volume)
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Application Props
+
+[@cloudcomponents/cdk-wordpress](#readme) / ApplicationProps
+
+# Interface: ApplicationProps
+
+## Table of contents
+
+### Properties
+
+- [certificate](#certificate)
+- [cloudFrontHashHeader](#cloudfronthashheader)
+- [database](#database)
+- [domainName](#domainname)
+- [domainZone](#domainzone)
+- [environment](#environment)
+- [image](#image)
+- [logDriver](#logdriver)
+- [memoryLimitMiB](#memorylimitmib)
+- [removalPolicy](#removalpolicy)
+- [secrets](#secrets)
+- [serviceName](#servicename)
+- [volume](#volume)
+- [vpc](#vpc)
+
+## Properties
+
+### certificate
+
+• `Readonly` **certificate**: `ICertificate`
+
+___
+
+### cloudFrontHashHeader
+
+• `Optional` `Readonly` **cloudFrontHashHeader**: `string`
+
+___
+
+### database
+
+• `Readonly` **database**: [`Database`](#database)
+
+___
+
+### domainName
+
+• `Readonly` **domainName**: `string`
+
+___
+
+### domainZone
+
+• `Readonly` **domainZone**: `IHostedZone`
+
+___
+
+### environment
+
+• `Optional` `Readonly` **environment**: `Record`<`string`, `string`\>
+
+___
+
+### image
+
+• `Optional` `Readonly` **image**: `ContainerImage`
+
+___
+
+### logDriver
+
+• `Optional` `Readonly` **logDriver**: `LogDriver`
+
+___
+
+### memoryLimitMiB
+
+• `Optional` `Readonly` **memoryLimitMiB**: `number`
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+___
+
+### secrets
+
+• `Optional` `Readonly` **secrets**: `Record`<`string`, `Secret`\>
+
+___
+
+### serviceName
+
+• `Optional` `Readonly` **serviceName**: `string`
+
+___
+
+### volume
+
+• `Readonly` **volume**: [`EfsVolume`](#efs-volume)
+
+___
+
+### vpc
+
+• `Readonly` **vpc**: `IVpc`
+
+# Database Props
+
+[@cloudcomponents/cdk-wordpress](#readme) / DatabaseProps
+
+# Interface: DatabaseProps
+
+## Table of contents
+
+### Properties
+
+- [allocatedStorage](#allocatedstorage)
+- [databaseName](#databasename)
+- [engine](#engine)
+- [instanceType](#instancetype)
+- [removalPolicy](#removalpolicy)
+- [vpc](#vpc)
+
+## Properties
+
+### allocatedStorage
+
+• `Optional` `Readonly` **allocatedStorage**: `number`
+
+___
+
+### databaseName
+
+• `Optional` `Readonly` **databaseName**: `string`
+
+___
+
+### engine
+
+• `Optional` `Readonly` **engine**: `IInstanceEngine`
+
+___
+
+### instanceType
+
+• `Optional` `Readonly` **instanceType**: `InstanceType`
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+___
+
+### vpc
+
+• `Readonly` **vpc**: `IVpc`
+
+# Dns Props
+
+[@cloudcomponents/cdk-wordpress](#readme) / DnsProps
+
+# Interface: DnsProps
+
+## Table of contents
+
+### Properties
+
+- [distribution](#distribution)
+- [domainName](#domainname)
+- [domainZone](#domainzone)
+
+## Properties
+
+### distribution
+
+• `Readonly` **distribution**: `IDistribution`
+
+___
+
+### domainName
+
+• `Readonly` **domainName**: `string`
+
+___
+
+### domainZone
+
+• `Readonly` **domainZone**: `IHostedZone`
+
+# Efs Volume Props
+
+[@cloudcomponents/cdk-wordpress](#readme) / EfsVolumeProps
+
+# Interface: EfsVolumeProps
+
+## Table of contents
+
+### Properties
+
+- [name](#name)
+- [removalPolicy](#removalpolicy)
+- [vpc](#vpc)
+
+## Properties
+
+### name
+
+• `Optional` `Readonly` **name**: `string`
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+___
+
+### vpc
+
+• `Readonly` **vpc**: `IVpc`
+
+# Static Content Offload
+
+[@cloudcomponents/cdk-wordpress](#readme) / StaticContentOffload
+
+# Interface: StaticContentOffload
+
+## Table of contents
+
+### Properties
+
+- [distribution](#distribution)
+- [domainName](#domainname)
+
+## Properties
+
+### distribution
+
+• `Readonly` **distribution**: `IDistribution`
+
+___
+
+### domainName
+
+• `Readonly` **domainName**: `string`
+
+# Wordpress Props
+
+[@cloudcomponents/cdk-wordpress](#readme) / WordpressProps
+
+# Interface: WordpressProps
+
+## Table of contents
+
+### Properties
+
+- [backupPlan](#backupplan)
+- [cloudFrontHashHeader](#cloudfronthashheader)
+- [database](#database)
+- [domainName](#domainname)
+- [domainZone](#domainzone)
+- [environment](#environment)
+- [image](#image)
+- [logDriver](#logdriver)
+- [memoryLimitMiB](#memorylimitmib)
+- [offloadStaticContent](#offloadstaticcontent)
+- [removalPolicy](#removalpolicy)
+- [secrets](#secrets)
+- [serviceName](#servicename)
+- [subjectAlternativeNames](#subjectalternativenames)
+- [volume](#volume)
+- [vpc](#vpc)
+
+## Properties
+
+### backupPlan
+
+• `Optional` `Readonly` **backupPlan**: `BackupPlan`
+
+___
+
+### cloudFrontHashHeader
+
+• `Optional` `Readonly` **cloudFrontHashHeader**: `string`
+
+___
+
+### database
+
+• `Optional` `Readonly` **database**: [`Database`](#database)
+
+___
+
+### domainName
+
+• `Readonly` **domainName**: `string`
+
+___
+
+### domainZone
+
+• `Readonly` **domainZone**: `IHostedZone`
+
+___
+
+### environment
+
+• `Optional` `Readonly` **environment**: `Record`<`string`, `string`\>
+
+___
+
+### image
+
+• `Optional` `Readonly` **image**: `ContainerImage`
+
+___
+
+### logDriver
+
+• `Optional` `Readonly` **logDriver**: `LogDriver`
+
+___
+
+### memoryLimitMiB
+
+• `Optional` `Readonly` **memoryLimitMiB**: `number`
+
+___
+
+### offloadStaticContent
+
+• `Optional` `Readonly` **offloadStaticContent**: `boolean`
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+___
+
+### secrets
+
+• `Optional` `Readonly` **secrets**: `Record`<`string`, `Secret`\>
+
+___
+
+### serviceName
+
+• `Optional` `Readonly` **serviceName**: `string`
+
+___
+
+### subjectAlternativeNames
+
+• `Optional` `Readonly` **subjectAlternativeNames**: `string`[]
+
+___
+
+### volume
+
+• `Optional` `Readonly` **volume**: [`EfsVolume`](#efs-volume)
+
+___
+
+### vpc
+
+• `Optional` `Readonly` **vpc**: `IVpc`

@@ -19,7 +19,7 @@ export const handler: CloudFormationCustomResourceHandler = async (event) => {
     const physicalResourceId = (() => {
       switch (event.RequestType) {
         case 'Create':
-          return [...new Array(parseInt(Length))].map(() => randomChoiceFromIndexable(AllowedCharacters)).join('');
+          return [...new Array(Length)].map(() => randomChoiceFromIndexable(AllowedCharacters as string)).join('');
         case 'Update':
         case 'Delete':
           return event.PhysicalResourceId;

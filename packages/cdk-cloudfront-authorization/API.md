@@ -1,1259 +1,5737 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-cloudfront-authorization
 
-Name|Description
-----|-----------
-[AuthFlow](#cloudcomponents-cdk-cloudfront-authorization-authflow)|*No description*
-[Authorization](#cloudcomponents-cdk-cloudfront-authorization-authorization)|*No description*
-[BaseDistribution](#cloudcomponents-cdk-cloudfront-authorization-basedistribution)|*No description*
-[RetrieveUserPoolClientSecret](#cloudcomponents-cdk-cloudfront-authorization-retrieveuserpoolclientsecret)|*No description*
-[SecretGenerator](#cloudcomponents-cdk-cloudfront-authorization-secretgenerator)|*No description*
-[SpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-spaauthorization)|*No description*
-[SpaDistribution](#cloudcomponents-cdk-cloudfront-authorization-spadistribution)|*No description*
-[StaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-staticsiteauthorization)|*No description*
-[StaticSiteDistribution](#cloudcomponents-cdk-cloudfront-authorization-staticsitedistribution)|*No description*
-[UserPoolClientRedirects](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientredirects)|*No description*
+# @cloudcomponents/cdk-cloudfront-authorization
 
+## Table of contents
 
-**Structs**
+### Enumerations
 
-Name|Description
-----|-----------
-[AuthFlowProps](#cloudcomponents-cdk-cloudfront-authorization-authflowprops)|*No description*
-[AuthorizationProps](#cloudcomponents-cdk-cloudfront-authorization-authorizationprops)|*No description*
-[BaseDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-basedistributionprops)|*No description*
-[CommonDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-commondistributionprops)|*No description*
-[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)|*No description*
-[RetrieveUserPoolClientSecretProps](#cloudcomponents-cdk-cloudfront-authorization-retrieveuserpoolclientsecretprops)|*No description*
-[SecretGeneratorProps](#cloudcomponents-cdk-cloudfront-authorization-secretgeneratorprops)|*No description*
-[SpaDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-spadistributionprops)|*No description*
-[StaticSiteDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-staticsitedistributionprops)|*No description*
-[UserPoolClientCallbackUrls](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientcallbackurls)|*No description*
-[UserPoolClientRedirectsProps](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientredirectsprops)|*No description*
+- [Mode](#mode)
 
+### Classes
 
-**Interfaces**
+- [AuthFlow](#auth-flow)
+- [Authorization](#authorization)
+- [BaseDistribution](#base-distribution)
+- [RetrieveUserPoolClientSecret](#retrieve-user-pool-client-secret)
+- [SecretGenerator](#secret-generator)
+- [SpaAuthorization](#spa-authorization)
+- [SpaDistribution](#spa-distribution)
+- [StaticSiteAuthorization](#static-site-authorization)
+- [StaticSiteDistribution](#static-site-distribution)
+- [UserPoolClientRedirects](#user-pool-client-redirects)
 
-Name|Description
-----|-----------
-[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)|*No description*
-[ISpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-ispaauthorization)|*No description*
-[IStaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization)|*No description*
+### Interfaces
 
+- [AuthFlowProps](#auth-flow-props)
+- [AuthorizationProps](#authorization-props)
+- [BaseDistributionProps](#base-distribution-props)
+- [CommonDistributionProps](#common-distribution-props)
+- [IAuthorization](#i-authorization)
+- [ISpaAuthorization](#i-spa-authorization)
+- [IStaticSiteAuthorization](#i-static-site-authorization)
+- [RedirectPaths](#redirect-paths)
+- [RetrieveUserPoolClientSecretProps](#retrieve-user-pool-client-secret-props)
+- [SecretGeneratorProps](#secret-generator-props)
+- [SpaDistributionProps](#spa-distribution-props)
+- [StaticSiteDistributionProps](#static-site-distribution-props)
+- [UserPoolClientCallbackUrls](#user-pool-client-callback-urls)
+- [UserPoolClientRedirectsProps](#user-pool-client-redirects-props)
 
-**Enums**
+### Type aliases
 
-Name|Description
-----|-----------
-[Mode](#cloudcomponents-cdk-cloudfront-authorization-mode)|*No description*
+- [SpaAuthorizationProps](#spaauthorizationprops)
+- [StaticSiteAuthorizationProps](#staticsiteauthorizationprops)
 
+## Type aliases
 
+### SpaAuthorizationProps
 
-## class AuthFlow  <a id="cloudcomponents-cdk-cloudfront-authorization-authflow"></a>
+Ƭ **SpaAuthorizationProps**: [`AuthorizationProps`](#authorization-props)
 
+___
 
+### StaticSiteAuthorizationProps
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+Ƭ **StaticSiteAuthorizationProps**: [`AuthorizationProps`](#authorization-props)
 
-### Initializer
+# Auth Flow
 
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / AuthFlow
 
+# Class: AuthFlow
 
+## Hierarchy
 
-```ts
-new AuthFlow(scope: Construct, id: string, props: AuthFlowProps)
-```
+- `Construct`
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[AuthFlowProps](#cloudcomponents-cdk-cloudfront-authorization-authflowprops)</code>)  *No description*
-  * **cognitoAuthDomain** (<code>string</code>)  *No description* 
-  * **cookieSettings** (<code>Map<string, string></code>)  *No description* 
-  * **httpHeaders** (<code>Map<string, string></code>)  *No description* 
-  * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* 
-  * **nonceSigningSecret** (<code>string</code>)  *No description* 
-  * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* 
-  * **redirectPaths** (<code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code>)  *No description* 
-  * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
-  * **userPoolClient** (<code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code>)  *No description* 
-  * **clientSecret** (<code>string</code>)  *No description* __*Optional*__
+  ↳ **`AuthFlow`**
 
+## Table of contents
 
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**checkAuth** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
-**httpHeaders** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
-**parseAuth** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
-**refreshAuth** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
-**signOut** | <code>[EdgeFunction](#cloudcomponents-cdk-lambda-at-edge-pattern-edgefunction)</code> | <span></span>
-
-
-
-## class Authorization  <a id="cloudcomponents-cdk-cloudfront-authorization-authorization"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
-__Implemented by__: [SpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-spaauthorization), [StaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-staticsiteauthorization)
-
-### Initializer
-
-
-
-
-```ts
-new Authorization(scope: Construct, id: string, props: AuthorizationProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[AuthorizationProps](#cloudcomponents-cdk-cloudfront-authorization-authorizationprops)</code>)  *No description*
-  * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
-  * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
-  * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
-  * **identityProviders** (<code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code>)  *No description* __*Optional*__
-  * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
-  * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
-  * **redirectPaths** (<code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code>)  *No description* __*Optional*__
-  * **signOutUrl** (<code>string</code>)  *No description* __*Optional*__
-
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**authFlow** | <code>[AuthFlow](#cloudcomponents-cdk-cloudfront-authorization-authflow)</code> | <span></span>
-**cognitoAuthDomain** | <code>string</code> | <span></span>
-**httpHeaders** | <code>Map<string, string></code> | <span></span>
-**identityProviders** | <code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code> | <span></span>
-**nonceSigningSecret** | <code>string</code> | <span></span>
-**oauthScopes** | <code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code> | <span></span>
-**redirectPaths** | <code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code> | <span></span>
-**signOutUrlPath** | <code>string</code> | <span></span>
-**userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
-**userPoolClient** | <code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code> | <span></span>
-**cookieSettings**? | <code>Map<string, string></code> | __*Optional*__
+- [checkAuth](#checkauth)
+- [httpHeaders](#httpheaders)
+- [node](#node)
+- [parseAuth](#parseauth)
+- [refreshAuth](#refreshauth)
+- [signOut](#signout)
 
 ### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### createAdditionalBehaviors(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createadditionalbehaviors"></a>
+## Constructors
 
+### constructor
 
+• **new AuthFlow**(`scope`, `id`, `props`)
 
-```ts
-createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<string, BehaviorOptions>
-```
+#### Parameters
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
-  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
-  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
-  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
-  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`AuthFlowProps`](#auth-flow-props) |
 
-__Returns__:
-* <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
+#### Overrides
 
-#### createDefaultBehavior(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createdefaultbehavior"></a>
+Construct.constructor
 
+## Properties
 
+### checkAuth
 
-```ts
-createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions
-```
+• `Readonly` **checkAuth**: `EdgeFunction`
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
-  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
-  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
-  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
-  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
+___
 
-__Returns__:
-* <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
+### httpHeaders
 
-#### createLegacyAdditionalBehaviors(options?) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createlegacyadditionalbehaviors"></a>
+• `Readonly` **httpHeaders**: `EdgeFunction`
 
+___
 
+### node
 
-```ts
-createLegacyAdditionalBehaviors(options?: Behavior): Array<Behavior>
-```
+• `Readonly` **node**: `ConstructNode`
 
-* **options** (<code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>)  *No description*
-  * **allowedMethods** (<code>[CloudFrontAllowedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedmethods)</code>)  The method this CloudFront distribution responds do. __*Default*__: GET_HEAD
-  * **cachedMethods** (<code>[CloudFrontAllowedCachedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedcachedmethods)</code>)  Which methods are cached by CloudFront by default. __*Default*__: GET_HEAD
-  * **compress** (<code>boolean</code>)  If CloudFront should automatically compress some content types. __*Default*__: true
-  * **defaultTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The default amount of time CloudFront will cache an object. __*Default*__: 86400 (1 day)
-  * **forwardedValues** (<code>[CfnDistribution.ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **isDefaultBehavior** (<code>boolean</code>)  If this behavior is the default behavior for the distribution. __*Optional*__
-  * **lambdaFunctionAssociations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  Declares associated lambda@edge functions for this distribution behaviour. __*Default*__: No lambda function associated
-  * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
-  * **minTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time that you want objects to stay in the cache before CloudFront queries your origin. __*Optional*__
-  * **pathPattern** (<code>string</code>)  The path this behavior responds to. __*Optional*__
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **trustedSigners** (<code>Array<string></code>)  Trusted signers is how CloudFront allows you to serve private content. __*Optional*__
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The viewer policy for this behavior. __*Default*__: the distribution wide viewer protocol policy will be used
+The construct tree node associated with this construct.
 
-__Returns__:
-* <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
+**`stability`** stable
 
-#### createLegacyDefaultBehavior(options?) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createlegacydefaultbehavior"></a>
+#### Inherited from
 
+Construct.node
 
+___
 
-```ts
-createLegacyDefaultBehavior(options?: Behavior): Behavior
-```
+### parseAuth
 
-* **options** (<code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>)  *No description*
-  * **allowedMethods** (<code>[CloudFrontAllowedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedmethods)</code>)  The method this CloudFront distribution responds do. __*Default*__: GET_HEAD
-  * **cachedMethods** (<code>[CloudFrontAllowedCachedMethods](#aws-cdk-aws-cloudfront-cloudfrontallowedcachedmethods)</code>)  Which methods are cached by CloudFront by default. __*Default*__: GET_HEAD
-  * **compress** (<code>boolean</code>)  If CloudFront should automatically compress some content types. __*Default*__: true
-  * **defaultTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The default amount of time CloudFront will cache an object. __*Default*__: 86400 (1 day)
-  * **forwardedValues** (<code>[CfnDistribution.ForwardedValuesProperty](#aws-cdk-aws-cloudfront-cfndistribution-forwardedvaluesproperty)</code>)  The values CloudFront will forward to the origin when making a request. __*Default*__: none (no cookies - no headers)
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **isDefaultBehavior** (<code>boolean</code>)  If this behavior is the default behavior for the distribution. __*Optional*__
-  * **lambdaFunctionAssociations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  Declares associated lambda@edge functions for this distribution behaviour. __*Default*__: No lambda function associated
-  * **maxTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The max amount of time you want objects to stay in the cache before CloudFront queries your origin. __*Default*__: Duration.seconds(31536000) (one year)
-  * **minTtl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time that you want objects to stay in the cache before CloudFront queries your origin. __*Optional*__
-  * **pathPattern** (<code>string</code>)  The path this behavior responds to. __*Optional*__
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **trustedSigners** (<code>Array<string></code>)  Trusted signers is how CloudFront allows you to serve private content. __*Optional*__
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The viewer policy for this behavior. __*Default*__: the distribution wide viewer protocol policy will be used
+• `Readonly` **parseAuth**: `EdgeFunction`
 
-__Returns__:
-* <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>
+___
 
-#### updateUserPoolClientCallbacks(redirects) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-updateuserpoolclientcallbacks"></a>
+### refreshAuth
 
+• `Readonly` **refreshAuth**: `EdgeFunction`
 
+___
 
-```ts
-updateUserPoolClientCallbacks(redirects: UserPoolClientCallbackUrls): void
-```
+### signOut
 
-* **redirects** (<code>[UserPoolClientCallbackUrls](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientcallbackurls)</code>)  *No description*
-  * **callbackUrls** (<code>Array<string></code>)  A list of allowed redirect (callback) URLs for the identity providers. 
-  * **logoutUrls** (<code>Array<string></code>)  A list of allowed logout URLs for the identity providers. 
+• `Readonly` **signOut**: `EdgeFunction`
 
+## Methods
 
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
-#### protected createAuthFlow(logLevel) <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createauthflow"></a>
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
-```ts
-protected createAuthFlow(logLevel: LogLevel): AuthFlow
-```
+**`stability`** stable
 
-* **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description*
+#### Returns
 
-__Returns__:
-* <code>[AuthFlow](#cloudcomponents-cdk-cloudfront-authorization-authflow)</code>
+`void`
 
-#### protected createUserPoolClient() <a id="cloudcomponents-cdk-cloudfront-authorization-authorization-createuserpoolclient"></a>
+#### Inherited from
 
+Construct.onPrepare
 
+___
 
-```ts
-protected createUserPoolClient(): IUserPoolClient
-```
+### onSynthesize
 
+▸ `Protected` **onSynthesize**(`session`): `void`
 
-__Returns__:
-* <code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code>
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
+**`stability`** stable
 
-## class BaseDistribution  <a id="cloudcomponents-cdk-cloudfront-authorization-basedistribution"></a>
+#### Parameters
 
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
+#### Returns
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IDistribution](#aws-cdk-aws-cloudfront-idistribution), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
-__Extends__: [Construct](#aws-cdk-core-construct)
+`void`
 
-### Initializer
+#### Inherited from
 
+Construct.onSynthesize
 
+___
 
+### onValidate
 
-```ts
-new BaseDistribution(scope: Construct, id: string, props: BaseDistributionProps)
-```
+▸ `Protected` **onValidate**(): `string`[]
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[BaseDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-basedistributionprops)</code>)  *No description*
-  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  A certificate to associate with the distribution. __*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
-  * **comment** (<code>string</code>)  Any comments you want to include about the distribution. __*Default*__: no comment
-  * **defaultRootObject** (<code>string</code>)  The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/). __*Default*__: index.html
-  * **domainNames** (<code>Array<string></code>)  Alternative domain names for this distribution. __*Default*__: The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
-  * **enabled** (<code>boolean</code>)  Enable or disable the distribution. __*Default*__: true
-  * **enableIpv6** (<code>boolean</code>)  Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address. __*Default*__: true
-  * **enableLogging** (<code>boolean</code>)  Enable access logging for the distribution. __*Default*__: false, unless `logBucket` is specified.
-  * **geoRestriction** (<code>[GeoRestriction](#aws-cdk-aws-cloudfront-georestriction)</code>)  Controls the countries in which your content is distributed. __*Default*__: No geographic restrictions
-  * **httpVersion** (<code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code>)  Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. __*Default*__: HttpVersion.HTTP2
-  * **logBucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  The Amazon S3 bucket to store the access logs in. __*Default*__: A bucket is created if `enableLogging` is true
-  * **logFilePrefix** (<code>string</code>)  An optional string that you want CloudFront to prefix to the access log filenames for this distribution. __*Default*__: no prefix
-  * **logIncludesCookies** (<code>boolean</code>)  Specifies whether you want CloudFront to include cookies in access logs. __*Default*__: false
-  * **minimumProtocolVersion** (<code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code>)  The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. __*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
-  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
-  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Default*__: Destroy
-  * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
-  * **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description* 
-  * **errorResponses** (<code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code>)  *No description* __*Optional*__
+Validate the current construct.
 
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
 
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Authorization
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / Authorization
+
+# Class: Authorization
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`Authorization`**
+
+  ↳↳ [`SpaAuthorization`](#spa-authorization)
+
+  ↳↳ [`StaticSiteAuthorization`](#static-site-authorization)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**distributionDomainName** | <code>string</code> | The domain name of the Distribution, such as d111111abcdef8.cloudfront.net.
-**distributionId** | <code>string</code> | The distribution ID for this distribution.
-**domainName** | <code>string</code> | (deprecated) The domain name of the Distribution, such as d111111abcdef8.cloudfront.net.
-**env** | <code>[ResourceEnvironment](#aws-cdk-core-resourceenvironment)</code> | The environment this resource belongs to.
-**stack** | <code>[Stack](#aws-cdk-core-stack)</code> | The stack in which this resource is defined.
+- [authFlow](#authflow)
+- [cognitoAuthDomain](#cognitoauthdomain)
+- [cookieSettings](#cookiesettings)
+- [httpHeaders](#httpheaders)
+- [identityProviders](#identityproviders)
+- [node](#node)
+- [nonceSigningSecret](#noncesigningsecret)
+- [oauthScopes](#oauthscopes)
+- [redirectPaths](#redirectpaths)
+- [signOutUrlPath](#signouturlpath)
+- [userPool](#userpool)
+- [userPoolClient](#userpoolclient)
 
 ### Methods
 
+- [createAdditionalBehaviors](#createadditionalbehaviors)
+- [createAuthFlow](#createauthflow)
+- [createDefaultBehavior](#createdefaultbehavior)
+- [createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+- [createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+- [createUserPoolClient](#createuserpoolclient)
+- [generateNonceSigningSecret](#generatenoncesigningsecret)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [retrieveCognitoAuthDomain](#retrievecognitoauthdomain)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### protected renderAdditionalBehaviors(origin, authorization) <a id="cloudcomponents-cdk-cloudfront-authorization-basedistribution-renderadditionalbehaviors"></a>
+## Constructors
 
+### constructor
 
+• **new Authorization**(`scope`, `id`, `props`)
 
-```ts
-protected renderAdditionalBehaviors(origin: IOrigin, authorization: IAuthorization): Map<string, BehaviorOptions>
-```
+#### Parameters
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`AuthorizationProps`](#authorization-props) |
 
-__Returns__:
-* <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
+#### Overrides
 
-#### protected renderDefaultBehaviour(origin, authorization) <a id="cloudcomponents-cdk-cloudfront-authorization-basedistribution-renderdefaultbehaviour"></a>
+Construct.constructor
 
+## Properties
 
+### authFlow
 
-```ts
-protected renderDefaultBehaviour(origin: IOrigin, authorization: IAuthorization): BehaviorOptions
-```
+• `Readonly` **authFlow**: [`AuthFlow`](#auth-flow)
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **authorization** (<code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code>)  *No description*
+___
 
-__Returns__:
-* <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
+### cognitoAuthDomain
 
+• `Protected` `Readonly` **cognitoAuthDomain**: `string`
 
+___
 
-## class RetrieveUserPoolClientSecret  <a id="cloudcomponents-cdk-cloudfront-authorization-retrieveuserpoolclientsecret"></a>
+### cookieSettings
 
+• `Protected` `Readonly` **cookieSettings**: `undefined` \| `Record`<`string`, `string`\>
 
+___
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+### httpHeaders
 
-### Initializer
+• `Protected` `Readonly` **httpHeaders**: `Record`<`string`, `string`\>
 
+___
 
+### identityProviders
 
+• `Protected` `Readonly` **identityProviders**: `UserPoolClientIdentityProvider`[]
 
-```ts
-new RetrieveUserPoolClientSecret(scope: Construct, id: string, props: RetrieveUserPoolClientSecretProps)
-```
+___
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[RetrieveUserPoolClientSecretProps](#cloudcomponents-cdk-cloudfront-authorization-retrieveuserpoolclientsecretprops)</code>)  *No description*
-  * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
-  * **userPoolClient** (<code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code>)  *No description* 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### nonceSigningSecret
+
+• `Protected` `Readonly` **nonceSigningSecret**: `string`
+
+___
+
+### oauthScopes
+
+• `Protected` `Readonly` **oauthScopes**: `OAuthScope`[]
+
+___
+
+### redirectPaths
+
+• `Readonly` **redirectPaths**: [`RedirectPaths`](#redirect-paths)
+
+___
+
+### signOutUrlPath
+
+• `Readonly` **signOutUrlPath**: `string`
+
+___
+
+### userPool
+
+• `Protected` `Readonly` **userPool**: `IUserPool`
+
+___
+
+### userPoolClient
+
+• `Readonly` **userPoolClient**: `IUserPoolClient`
+
+## Methods
+
+### createAdditionalBehaviors
+
+▸ **createAdditionalBehaviors**(`origin`, `options?`): `Record`<`string`, `BehaviorOptions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`Record`<`string`, `BehaviorOptions`\>
+
+___
+
+### createAuthFlow
+
+▸ `Protected` `Abstract` **createAuthFlow**(`logLevel`): [`AuthFlow`](#auth-flow)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `logLevel` | `LogLevel` |
+
+#### Returns
+
+[`AuthFlow`](#auth-flow)
+
+___
+
+### createDefaultBehavior
+
+▸ **createDefaultBehavior**(`origin`, `options?`): `BehaviorOptions`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`BehaviorOptions`
+
+___
+
+### createLegacyAdditionalBehaviors
+
+▸ **createLegacyAdditionalBehaviors**(`options?`): `Behavior`[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | `Behavior` |
+
+#### Returns
+
+`Behavior`[]
+
+___
+
+### createLegacyDefaultBehavior
+
+▸ **createLegacyDefaultBehavior**(`options?`): `Behavior`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | `Behavior` |
+
+#### Returns
+
+`Behavior`
+
+___
+
+### createUserPoolClient
+
+▸ `Protected` `Abstract` **createUserPoolClient**(): `IUserPoolClient`
+
+#### Returns
+
+`IUserPoolClient`
+
+___
+
+### generateNonceSigningSecret
+
+▸ `Private` **generateNonceSigningSecret**(): `string`
+
+#### Returns
+
+`string`
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### retrieveCognitoAuthDomain
+
+▸ `Private` **retrieveCognitoAuthDomain**(): `string`
+
+#### Returns
+
+`string`
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### updateUserPoolClientCallbacks
+
+▸ **updateUserPoolClientCallbacks**(`redirects`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `redirects` | [`UserPoolClientCallbackUrls`](#user-pool-client-callback-urls) |
+
+#### Returns
+
+`void`
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Base Distribution
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / BaseDistribution
+
+# Class: BaseDistribution
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`BaseDistribution`**
+
+  ↳↳ [`StaticSiteDistribution`](#static-site-distribution)
+
+  ↳↳ [`SpaDistribution`](#spa-distribution)
+
+## Implements
+
+- `IDistribution`
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**clientSecret** | <code>string</code> | <span></span>
-
-
-
-## class SecretGenerator  <a id="cloudcomponents-cdk-cloudfront-authorization-secretgenerator"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
-
-### Initializer
-
-
-
-
-```ts
-new SecretGenerator(scope: Construct, id: string, props?: SecretGeneratorProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[SecretGeneratorProps](#cloudcomponents-cdk-cloudfront-authorization-secretgeneratorprops)</code>)  *No description*
-  * **allowedCharacters** (<code>string</code>)  *No description* __*Optional*__
-  * **length** (<code>number</code>)  *No description* __*Optional*__
-
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**secret** | <code>string</code> | <span></span>
-
-
-
-## class SpaAuthorization  <a id="cloudcomponents-cdk-cloudfront-authorization-spaauthorization"></a>
-
-
-
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [ISpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-ispaauthorization), [IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)
-__Extends__: [Authorization](#cloudcomponents-cdk-cloudfront-authorization-authorization)
-
-### Initializer
-
-
-
-
-```ts
-new SpaAuthorization(scope: Construct, id: string, props: AuthorizationProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[AuthorizationProps](#cloudcomponents-cdk-cloudfront-authorization-authorizationprops)</code>)  *No description*
-  * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
-  * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
-  * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
-  * **identityProviders** (<code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code>)  *No description* __*Optional*__
-  * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
-  * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
-  * **redirectPaths** (<code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code>)  *No description* __*Optional*__
-  * **signOutUrl** (<code>string</code>)  *No description* __*Optional*__
-
-
-
-### Properties
-
-
-Name | Type | Description 
------|------|-------------
-**mode** | <code>[Mode](#cloudcomponents-cdk-cloudfront-authorization-mode)</code> | <span></span>
+- [distributionDomainName](#distributiondomainname)
+- [distributionId](#distributionid)
+- [domainName](#domainname)
+- [env](#env)
+- [node](#node)
+- [stack](#stack)
 
 ### Methods
 
+- [defaultOrigin](#defaultorigin)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [renderAdditionalBehaviors](#renderadditionalbehaviors)
+- [renderDefaultBehaviour](#renderdefaultbehaviour)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### protected createAuthFlow(logLevel) <a id="cloudcomponents-cdk-cloudfront-authorization-spaauthorization-createauthflow"></a>
+## Constructors
 
+### constructor
 
+• **new BaseDistribution**(`scope`, `id`, `props`)
 
-```ts
-protected createAuthFlow(logLevel: LogLevel): AuthFlow
-```
+#### Parameters
 
-* **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`BaseDistributionProps`](#base-distribution-props) |
 
-__Returns__:
-* <code>[AuthFlow](#cloudcomponents-cdk-cloudfront-authorization-authflow)</code>
+#### Overrides
 
-#### protected createUserPoolClient() <a id="cloudcomponents-cdk-cloudfront-authorization-spaauthorization-createuserpoolclient"></a>
+Construct.constructor
 
+## Properties
 
+### distributionDomainName
 
-```ts
-protected createUserPoolClient(): IUserPoolClient
-```
+• `Readonly` **distributionDomainName**: `string`
 
+#### Implementation of
 
-__Returns__:
-* <code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code>
+IDistribution.distributionDomainName
 
+___
 
+### distributionId
 
-## class SpaDistribution  <a id="cloudcomponents-cdk-cloudfront-authorization-spadistribution"></a>
+• `Readonly` **distributionId**: `string`
 
+#### Implementation of
 
+IDistribution.distributionId
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IDistribution](#aws-cdk-aws-cloudfront-idistribution), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
-__Extends__: [BaseDistribution](#cloudcomponents-cdk-cloudfront-authorization-basedistribution)
+___
 
-### Initializer
+### domainName
 
+• `Readonly` **domainName**: `string`
 
+#### Implementation of
 
+IDistribution.domainName
 
-```ts
-new SpaDistribution(scope: Construct, id: string, props: SpaDistributionProps)
-```
+___
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[SpaDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-spadistributionprops)</code>)  *No description*
-  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  A certificate to associate with the distribution. __*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
-  * **comment** (<code>string</code>)  Any comments you want to include about the distribution. __*Default*__: no comment
-  * **defaultRootObject** (<code>string</code>)  The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/). __*Default*__: index.html
-  * **domainNames** (<code>Array<string></code>)  Alternative domain names for this distribution. __*Default*__: The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
-  * **enabled** (<code>boolean</code>)  Enable or disable the distribution. __*Default*__: true
-  * **enableIpv6** (<code>boolean</code>)  Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address. __*Default*__: true
-  * **enableLogging** (<code>boolean</code>)  Enable access logging for the distribution. __*Default*__: false, unless `logBucket` is specified.
-  * **geoRestriction** (<code>[GeoRestriction](#aws-cdk-aws-cloudfront-georestriction)</code>)  Controls the countries in which your content is distributed. __*Default*__: No geographic restrictions
-  * **httpVersion** (<code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code>)  Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. __*Default*__: HttpVersion.HTTP2
-  * **logBucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  The Amazon S3 bucket to store the access logs in. __*Default*__: A bucket is created if `enableLogging` is true
-  * **logFilePrefix** (<code>string</code>)  An optional string that you want CloudFront to prefix to the access log filenames for this distribution. __*Default*__: no prefix
-  * **logIncludesCookies** (<code>boolean</code>)  Specifies whether you want CloudFront to include cookies in access logs. __*Default*__: false
-  * **minimumProtocolVersion** (<code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code>)  The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. __*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
-  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
-  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Default*__: Destroy
-  * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
-  * **authorization** (<code>[ISpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-ispaauthorization)</code>)  *No description* 
-  * **ttl** (<code>[Duration](#aws-cdk-core-duration)</code>)  The minimum amount of time, in seconds, that you want CloudFront to cache the HTTP status code specified in ErrorCode. __*Default*__: 300 seconds
+### env
 
+• `Readonly` **env**: `ResourceEnvironment`
 
+#### Implementation of
 
+IDistribution.env
 
-## class StaticSiteAuthorization  <a id="cloudcomponents-cdk-cloudfront-authorization-staticsiteauthorization"></a>
+___
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IStaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization), [IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)
-__Extends__: [Authorization](#cloudcomponents-cdk-cloudfront-authorization-authorization)
+The construct tree node associated with this construct.
 
-### Initializer
+**`stability`** stable
 
+#### Implementation of
 
+IDistribution.node
 
+#### Inherited from
 
-```ts
-new StaticSiteAuthorization(scope: Construct, id: string, props: AuthorizationProps)
-```
+Construct.node
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[AuthorizationProps](#cloudcomponents-cdk-cloudfront-authorization-authorizationprops)</code>)  *No description*
-  * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
-  * **cookieSettings** (<code>Map<string, string></code>)  *No description* __*Optional*__
-  * **httpHeaders** (<code>Map<string, string></code>)  *No description* __*Optional*__
-  * **identityProviders** (<code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code>)  *No description* __*Optional*__
-  * **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description* __*Optional*__
-  * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* __*Optional*__
-  * **redirectPaths** (<code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code>)  *No description* __*Optional*__
-  * **signOutUrl** (<code>string</code>)  *No description* __*Optional*__
+___
 
+### stack
 
+• `Readonly` **stack**: `Stack`
+
+#### Implementation of
+
+IDistribution.stack
+
+## Methods
+
+### defaultOrigin
+
+▸ `Private` **defaultOrigin**(`removalPolicy`): `IOrigin`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `removalPolicy` | `RemovalPolicy` |
+
+#### Returns
+
+`IOrigin`
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### renderAdditionalBehaviors
+
+▸ `Protected` **renderAdditionalBehaviors**(`origin`, `authorization`): `Record`<`string`, `BehaviorOptions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `authorization` | [`IAuthorization`](#i-authorization) |
+
+#### Returns
+
+`Record`<`string`, `BehaviorOptions`\>
+
+___
+
+### renderDefaultBehaviour
+
+▸ `Protected` **renderDefaultBehaviour**(`origin`, `authorization`): `BehaviorOptions`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `authorization` | [`IAuthorization`](#i-authorization) |
+
+#### Returns
+
+`BehaviorOptions`
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Retrieve User Pool Client Secret
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / RetrieveUserPoolClientSecret
+
+# Class: RetrieveUserPoolClientSecret
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`RetrieveUserPoolClientSecret`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**mode** | <code>[Mode](#cloudcomponents-cdk-cloudfront-authorization-mode)</code> | <span></span>
+- [clientSecret](#clientsecret)
+- [node](#node)
 
 ### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### protected createAuthFlow(logLevel) <a id="cloudcomponents-cdk-cloudfront-authorization-staticsiteauthorization-createauthflow"></a>
+## Constructors
 
+### constructor
 
+• **new RetrieveUserPoolClientSecret**(`scope`, `id`, `props`)
 
-```ts
-protected createAuthFlow(logLevel: LogLevel): AuthFlow
-```
+#### Parameters
 
-* **logLevel** (<code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`RetrieveUserPoolClientSecretProps`](#retrieve-user-pool-client-secret-props) |
 
-__Returns__:
-* <code>[AuthFlow](#cloudcomponents-cdk-cloudfront-authorization-authflow)</code>
+#### Overrides
 
-#### protected createUserPoolClient() <a id="cloudcomponents-cdk-cloudfront-authorization-staticsiteauthorization-createuserpoolclient"></a>
+Construct.constructor
 
+## Properties
 
+### clientSecret
 
-```ts
-protected createUserPoolClient(): IUserPoolClient
-```
+• **clientSecret**: `string`
 
+___
 
-__Returns__:
-* <code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code>
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
-## class StaticSiteDistribution  <a id="cloudcomponents-cdk-cloudfront-authorization-staticsitedistribution"></a>
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IDistribution](#aws-cdk-aws-cloudfront-idistribution), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable), [IConstruct](#aws-cdk-core-iconstruct), [IResource](#aws-cdk-core-iresource)
-__Extends__: [BaseDistribution](#cloudcomponents-cdk-cloudfront-authorization-basedistribution)
+## Methods
 
-### Initializer
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
-```ts
-new StaticSiteDistribution(scope: Construct, id: string, props: StaticSiteDistributionProps)
-```
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[StaticSiteDistributionProps](#cloudcomponents-cdk-cloudfront-authorization-staticsitedistributionprops)</code>)  *No description*
-  * **certificate** (<code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code>)  A certificate to associate with the distribution. __*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
-  * **comment** (<code>string</code>)  Any comments you want to include about the distribution. __*Default*__: no comment
-  * **defaultRootObject** (<code>string</code>)  The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/). __*Default*__: index.html
-  * **domainNames** (<code>Array<string></code>)  Alternative domain names for this distribution. __*Default*__: The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
-  * **enabled** (<code>boolean</code>)  Enable or disable the distribution. __*Default*__: true
-  * **enableIpv6** (<code>boolean</code>)  Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address. __*Default*__: true
-  * **enableLogging** (<code>boolean</code>)  Enable access logging for the distribution. __*Default*__: false, unless `logBucket` is specified.
-  * **geoRestriction** (<code>[GeoRestriction](#aws-cdk-aws-cloudfront-georestriction)</code>)  Controls the countries in which your content is distributed. __*Default*__: No geographic restrictions
-  * **httpVersion** (<code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code>)  Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. __*Default*__: HttpVersion.HTTP2
-  * **logBucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  The Amazon S3 bucket to store the access logs in. __*Default*__: A bucket is created if `enableLogging` is true
-  * **logFilePrefix** (<code>string</code>)  An optional string that you want CloudFront to prefix to the access log filenames for this distribution. __*Default*__: no prefix
-  * **logIncludesCookies** (<code>boolean</code>)  Specifies whether you want CloudFront to include cookies in access logs. __*Default*__: false
-  * **minimumProtocolVersion** (<code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code>)  The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. __*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
-  * **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  The origin that you want CloudFront to route requests. __*Optional*__
-  * **priceClass** (<code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code>)  The price class that corresponds with the maximum price that you want to pay for CloudFront service. __*Default*__: PriceClass.PRICE_CLASS_100
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  *No description* __*Default*__: Destroy
-  * **webAclId** (<code>string</code>)  Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL).
-  * **authorization** (<code>[IStaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization)</code>)  *No description* 
-  * **errorResponses** (<code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code>)  *No description* __*Optional*__
+**`stability`** stable
 
+#### Returns
 
+`void`
 
+#### Inherited from
 
-## class UserPoolClientRedirects  <a id="cloudcomponents-cdk-cloudfront-authorization-userpoolclientredirects"></a>
+Construct.onPrepare
 
+___
 
+### onSynthesize
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+▸ `Protected` **onSynthesize**(`session`): `void`
 
-### Initializer
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
+**`stability`** stable
 
+#### Parameters
 
-```ts
-new UserPoolClientRedirects(scope: Construct, id: string, props: UserPoolClientRedirectsProps)
-```
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[UserPoolClientRedirectsProps](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientredirectsprops)</code>)  *No description*
-  * **callbackUrls** (<code>Array<string></code>)  *No description* 
-  * **identityProviders** (<code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code>)  *No description* 
-  * **logoutUrls** (<code>Array<string></code>)  *No description* 
-  * **oauthScopes** (<code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code>)  *No description* 
-  * **userPool** (<code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code>)  *No description* 
-  * **userPoolClient** (<code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code>)  *No description* 
+#### Returns
 
+`void`
 
+#### Inherited from
 
+Construct.onSynthesize
 
-## struct AuthFlowProps  <a id="cloudcomponents-cdk-cloudfront-authorization-authflowprops"></a>
+___
 
+### onValidate
 
+▸ `Protected` **onValidate**(): `string`[]
 
+Validate the current construct.
 
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
 
+**`stability`** stable
 
-Name | Type | Description 
------|------|-------------
-**cognitoAuthDomain** | <code>string</code> | <span></span>
-**cookieSettings** | <code>Map<string, string></code> | <span></span>
-**httpHeaders** | <code>Map<string, string></code> | <span></span>
-**logLevel** | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | <span></span>
-**nonceSigningSecret** | <code>string</code> | <span></span>
-**oauthScopes** | <code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code> | <span></span>
-**redirectPaths** | <code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code> | <span></span>
-**userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
-**userPoolClient** | <code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code> | <span></span>
-**clientSecret**? | <code>string</code> | __*Optional*__
+#### Returns
 
+`string`[]
 
+An array of validation error messages, or an empty array if the construct is valid.
 
-## struct AuthorizationProps  <a id="cloudcomponents-cdk-cloudfront-authorization-authorizationprops"></a>
+#### Inherited from
 
+Construct.onValidate
 
+___
 
+### prepare
 
+▸ `Protected` **prepare**(): `void`
 
+Perform final modifications before synthesis.
 
-Name | Type | Description 
------|------|-------------
-**userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
-**cookieSettings**? | <code>Map<string, string></code> | __*Optional*__
-**httpHeaders**? | <code>Map<string, string></code> | __*Optional*__
-**identityProviders**? | <code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code> | __*Optional*__
-**logLevel**? | <code>[LogLevel](#cloudcomponents-cdk-lambda-at-edge-pattern-loglevel)</code> | __*Optional*__
-**oauthScopes**? | <code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code> | __*Optional*__
-**redirectPaths**? | <code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code> | __*Optional*__
-**signOutUrl**? | <code>string</code> | __*Optional*__
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
-## struct BaseDistributionProps  <a id="cloudcomponents-cdk-cloudfront-authorization-basedistributionprops"></a>
+#### Returns
 
+`void`
 
+#### Inherited from
 
+Construct.prepare
 
+___
 
+### synthesize
 
-Name | Type | Description 
------|------|-------------
-**authorization** | <code>[IAuthorization](#cloudcomponents-cdk-cloudfront-authorization-iauthorization)</code> | <span></span>
-**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | A certificate to associate with the distribution.<br/>__*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
-**comment**? | <code>string</code> | Any comments you want to include about the distribution.<br/>__*Default*__: no comment
-**defaultRootObject**? | <code>string</code> | The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/).<br/>__*Default*__: index.html
-**domainNames**? | <code>Array<string></code> | Alternative domain names for this distribution.<br/>__*Default*__: The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
-**enableIpv6**? | <code>boolean</code> | Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.<br/>__*Default*__: true
-**enableLogging**? | <code>boolean</code> | Enable access logging for the distribution.<br/>__*Default*__: false, unless `logBucket` is specified.
-**enabled**? | <code>boolean</code> | Enable or disable the distribution.<br/>__*Default*__: true
-**errorResponses**? | <code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code> | __*Optional*__
-**geoRestriction**? | <code>[GeoRestriction](#aws-cdk-aws-cloudfront-georestriction)</code> | Controls the countries in which your content is distributed.<br/>__*Default*__: No geographic restrictions
-**httpVersion**? | <code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code> | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.<br/>__*Default*__: HttpVersion.HTTP2
-**logBucket**? | <code>[IBucket](#aws-cdk-aws-s3-ibucket)</code> | The Amazon S3 bucket to store the access logs in.<br/>__*Default*__: A bucket is created if `enableLogging` is true
-**logFilePrefix**? | <code>string</code> | An optional string that you want CloudFront to prefix to the access log filenames for this distribution.<br/>__*Default*__: no prefix
-**logIncludesCookies**? | <code>boolean</code> | Specifies whether you want CloudFront to include cookies in access logs.<br/>__*Default*__: false
-**minimumProtocolVersion**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
-**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
-**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Default*__: Destroy
-**webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
+▸ `Protected` **synthesize**(`session`): `void`
 
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
-## struct CommonDistributionProps  <a id="cloudcomponents-cdk-cloudfront-authorization-commondistributionprops"></a>
+**`stability`** stable
 
+#### Parameters
 
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
+#### Returns
 
+`void`
 
+#### Inherited from
 
-Name | Type | Description 
------|------|-------------
-**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | A certificate to associate with the distribution.<br/>__*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
-**comment**? | <code>string</code> | Any comments you want to include about the distribution.<br/>__*Default*__: no comment
-**defaultRootObject**? | <code>string</code> | The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/).<br/>__*Default*__: index.html
-**domainNames**? | <code>Array<string></code> | Alternative domain names for this distribution.<br/>__*Default*__: The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
-**enableIpv6**? | <code>boolean</code> | Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.<br/>__*Default*__: true
-**enableLogging**? | <code>boolean</code> | Enable access logging for the distribution.<br/>__*Default*__: false, unless `logBucket` is specified.
-**enabled**? | <code>boolean</code> | Enable or disable the distribution.<br/>__*Default*__: true
-**geoRestriction**? | <code>[GeoRestriction](#aws-cdk-aws-cloudfront-georestriction)</code> | Controls the countries in which your content is distributed.<br/>__*Default*__: No geographic restrictions
-**httpVersion**? | <code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code> | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.<br/>__*Default*__: HttpVersion.HTTP2
-**logBucket**? | <code>[IBucket](#aws-cdk-aws-s3-ibucket)</code> | The Amazon S3 bucket to store the access logs in.<br/>__*Default*__: A bucket is created if `enableLogging` is true
-**logFilePrefix**? | <code>string</code> | An optional string that you want CloudFront to prefix to the access log filenames for this distribution.<br/>__*Default*__: no prefix
-**logIncludesCookies**? | <code>boolean</code> | Specifies whether you want CloudFront to include cookies in access logs.<br/>__*Default*__: false
-**minimumProtocolVersion**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
-**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
-**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Default*__: Destroy
-**webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
+Construct.synthesize
 
+___
 
+### toString
 
-## interface IAuthorization  <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization"></a>
+▸ **toString**(): `string`
 
-__Implemented by__: [SpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-spaauthorization), [StaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-staticsiteauthorization)
+Returns a string representation of this construct.
 
+**`stability`** stable
 
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Secret Generator
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / SecretGenerator
+
+# Class: SecretGenerator
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`SecretGenerator`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**redirectPaths** | <code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code> | <span></span>
-**signOutUrlPath** | <code>string</code> | <span></span>
+- [node](#node)
+- [secret](#secret)
 
 ### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### createAdditionalBehaviors(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createadditionalbehaviors"></a>
+## Constructors
 
+### constructor
 
+• **new SecretGenerator**(`scope`, `id`, `props?`)
 
-```ts
-createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<string, BehaviorOptions>
-```
+#### Parameters
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
-  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
-  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
-  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
-  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`SecretGeneratorProps`](#secret-generator-props) |
 
-__Returns__:
-* <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
+#### Overrides
 
-#### createDefaultBehavior(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createdefaultbehavior"></a>
+Construct.constructor
 
+## Properties
 
+### node
 
-```ts
-createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions
-```
+• `Readonly` **node**: `ConstructNode`
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
-  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
-  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
-  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
-  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
+The construct tree node associated with this construct.
 
-__Returns__:
-* <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
+**`stability`** stable
 
-#### createLegacyAdditionalBehaviors() <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createlegacyadditionalbehaviors"></a>
+#### Inherited from
 
+Construct.node
 
+___
 
-```ts
-createLegacyAdditionalBehaviors(): Array<Behavior>
-```
+### secret
 
+• `Readonly` **secret**: `string`
 
-__Returns__:
-* <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
+## Methods
 
-#### createLegacyDefaultBehavior() <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-createlegacydefaultbehavior"></a>
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
-```ts
-createLegacyDefaultBehavior(): Behavior
-```
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
-__Returns__:
-* <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>
+**`stability`** stable
 
-#### updateUserPoolClientCallbacks(redirects) <a id="cloudcomponents-cdk-cloudfront-authorization-iauthorization-updateuserpoolclientcallbacks"></a>
+#### Returns
 
+`void`
 
+#### Inherited from
 
-```ts
-updateUserPoolClientCallbacks(redirects: UserPoolClientCallbackUrls): void
-```
+Construct.onPrepare
 
-* **redirects** (<code>[UserPoolClientCallbackUrls](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientcallbackurls)</code>)  *No description*
-  * **callbackUrls** (<code>Array<string></code>)  A list of allowed redirect (callback) URLs for the identity providers. 
-  * **logoutUrls** (<code>Array<string></code>)  A list of allowed logout URLs for the identity providers. 
+___
 
+### onSynthesize
 
+▸ `Protected` **onSynthesize**(`session`): `void`
 
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
+**`stability`** stable
 
-## interface ISpaAuthorization  <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization"></a>
+#### Parameters
 
-__Implemented by__: [SpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-spaauthorization)
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
+#### Returns
 
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Spa Authorization
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / SpaAuthorization
+
+# Class: SpaAuthorization
+
+## Hierarchy
+
+- [`Authorization`](#authorization)
+
+  ↳ **`SpaAuthorization`**
+
+## Implements
+
+- [`ISpaAuthorization`](#i-spa-authorization)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**mode** | <code>[Mode](#cloudcomponents-cdk-cloudfront-authorization-mode)</code> | <span></span>
-**redirectPaths** | <code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code> | <span></span>
-**signOutUrlPath** | <code>string</code> | <span></span>
+- [authFlow](#authflow)
+- [cognitoAuthDomain](#cognitoauthdomain)
+- [cookieSettings](#cookiesettings)
+- [httpHeaders](#httpheaders)
+- [identityProviders](#identityproviders)
+- [mode](#mode)
+- [node](#node)
+- [nonceSigningSecret](#noncesigningsecret)
+- [oauthScopes](#oauthscopes)
+- [redirectPaths](#redirectpaths)
+- [signOutUrlPath](#signouturlpath)
+- [userPool](#userpool)
+- [userPoolClient](#userpoolclient)
 
 ### Methods
 
+- [createAdditionalBehaviors](#createadditionalbehaviors)
+- [createAuthFlow](#createauthflow)
+- [createDefaultBehavior](#createdefaultbehavior)
+- [createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+- [createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+- [createUserPoolClient](#createuserpoolclient)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### createAdditionalBehaviors(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createadditionalbehaviors"></a>
+## Constructors
 
+### constructor
 
+• **new SpaAuthorization**(`scope`, `id`, `props`)
 
-```ts
-createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<string, BehaviorOptions>
-```
+#### Parameters
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
-  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
-  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
-  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
-  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`AuthorizationProps`](#authorization-props) |
 
-__Returns__:
-* <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
+#### Overrides
 
-#### createDefaultBehavior(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createdefaultbehavior"></a>
+[Authorization](#authorization).[constructor](#constructor)
 
+## Properties
 
+### authFlow
 
-```ts
-createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions
-```
+• `Readonly` **authFlow**: [`AuthFlow`](#auth-flow)
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
-  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
-  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
-  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
-  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
+#### Inherited from
 
-__Returns__:
-* <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
+[Authorization](#authorization).[authFlow](#authflow)
 
-#### createLegacyAdditionalBehaviors() <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createlegacyadditionalbehaviors"></a>
+___
 
+### cognitoAuthDomain
 
+• `Protected` `Readonly` **cognitoAuthDomain**: `string`
 
-```ts
-createLegacyAdditionalBehaviors(): Array<Behavior>
-```
+#### Inherited from
 
+[Authorization](#authorization).[cognitoAuthDomain](#cognitoauthdomain)
 
-__Returns__:
-* <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
+___
 
-#### createLegacyDefaultBehavior() <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-createlegacydefaultbehavior"></a>
+### cookieSettings
 
+• `Protected` `Readonly` **cookieSettings**: `undefined` \| `Record`<`string`, `string`\>
 
+#### Inherited from
 
-```ts
-createLegacyDefaultBehavior(): Behavior
-```
+[Authorization](#authorization).[cookieSettings](#cookiesettings)
 
+___
 
-__Returns__:
-* <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>
+### httpHeaders
 
-#### updateUserPoolClientCallbacks(redirects) <a id="cloudcomponents-cdk-cloudfront-authorization-ispaauthorization-updateuserpoolclientcallbacks"></a>
+• `Protected` `Readonly` **httpHeaders**: `Record`<`string`, `string`\>
 
+#### Inherited from
 
+[Authorization](#authorization).[httpHeaders](#httpheaders)
 
-```ts
-updateUserPoolClientCallbacks(redirects: UserPoolClientCallbackUrls): void
-```
+___
 
-* **redirects** (<code>[UserPoolClientCallbackUrls](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientcallbackurls)</code>)  *No description*
-  * **callbackUrls** (<code>Array<string></code>)  A list of allowed redirect (callback) URLs for the identity providers. 
-  * **logoutUrls** (<code>Array<string></code>)  A list of allowed logout URLs for the identity providers. 
+### identityProviders
 
+• `Protected` `Readonly` **identityProviders**: `UserPoolClientIdentityProvider`[]
 
+#### Inherited from
 
+[Authorization](#authorization).[identityProviders](#identityproviders)
 
+___
 
+### mode
 
-## interface IStaticSiteAuthorization  <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization"></a>
+• `Readonly` **mode**: [`SPA`](#spa)
 
-__Implemented by__: [StaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-staticsiteauthorization)
+#### Implementation of
 
+[ISpaAuthorization](#i-spa-authorization).[mode](#mode)
 
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[Authorization](#authorization).[node](#node)
+
+___
+
+### nonceSigningSecret
+
+• `Protected` `Readonly` **nonceSigningSecret**: `string`
+
+#### Inherited from
+
+[Authorization](#authorization).[nonceSigningSecret](#noncesigningsecret)
+
+___
+
+### oauthScopes
+
+• `Protected` `Readonly` **oauthScopes**: `OAuthScope`[]
+
+#### Inherited from
+
+[Authorization](#authorization).[oauthScopes](#oauthscopes)
+
+___
+
+### redirectPaths
+
+• `Readonly` **redirectPaths**: [`RedirectPaths`](#redirect-paths)
+
+#### Implementation of
+
+[ISpaAuthorization](#i-spa-authorization).[redirectPaths](#redirectpaths)
+
+#### Inherited from
+
+[Authorization](#authorization).[redirectPaths](#redirectpaths)
+
+___
+
+### signOutUrlPath
+
+• `Readonly` **signOutUrlPath**: `string`
+
+#### Implementation of
+
+[ISpaAuthorization](#i-spa-authorization).[signOutUrlPath](#signouturlpath)
+
+#### Inherited from
+
+[Authorization](#authorization).[signOutUrlPath](#signouturlpath)
+
+___
+
+### userPool
+
+• `Protected` `Readonly` **userPool**: `IUserPool`
+
+#### Inherited from
+
+[Authorization](#authorization).[userPool](#userpool)
+
+___
+
+### userPoolClient
+
+• `Readonly` **userPoolClient**: `IUserPoolClient`
+
+#### Inherited from
+
+[Authorization](#authorization).[userPoolClient](#userpoolclient)
+
+## Methods
+
+### createAdditionalBehaviors
+
+▸ **createAdditionalBehaviors**(`origin`, `options?`): `Record`<`string`, `BehaviorOptions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`Record`<`string`, `BehaviorOptions`\>
+
+#### Implementation of
+
+[ISpaAuthorization](#i-spa-authorization).[createAdditionalBehaviors](#createadditionalbehaviors)
+
+#### Inherited from
+
+[Authorization](#authorization).[createAdditionalBehaviors](#createadditionalbehaviors)
+
+___
+
+### createAuthFlow
+
+▸ `Protected` **createAuthFlow**(`logLevel`): [`AuthFlow`](#auth-flow)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `logLevel` | `LogLevel` |
+
+#### Returns
+
+[`AuthFlow`](#auth-flow)
+
+#### Overrides
+
+[Authorization](#authorization).[createAuthFlow](#createauthflow)
+
+___
+
+### createDefaultBehavior
+
+▸ **createDefaultBehavior**(`origin`, `options?`): `BehaviorOptions`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`BehaviorOptions`
+
+#### Implementation of
+
+[ISpaAuthorization](#i-spa-authorization).[createDefaultBehavior](#createdefaultbehavior)
+
+#### Inherited from
+
+[Authorization](#authorization).[createDefaultBehavior](#createdefaultbehavior)
+
+___
+
+### createLegacyAdditionalBehaviors
+
+▸ **createLegacyAdditionalBehaviors**(`options?`): `Behavior`[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | `Behavior` |
+
+#### Returns
+
+`Behavior`[]
+
+#### Implementation of
+
+[ISpaAuthorization](#i-spa-authorization).[createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+
+#### Inherited from
+
+[Authorization](#authorization).[createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+
+___
+
+### createLegacyDefaultBehavior
+
+▸ **createLegacyDefaultBehavior**(`options?`): `Behavior`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | `Behavior` |
+
+#### Returns
+
+`Behavior`
+
+#### Implementation of
+
+[ISpaAuthorization](#i-spa-authorization).[createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+
+#### Inherited from
+
+[Authorization](#authorization).[createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+
+___
+
+### createUserPoolClient
+
+▸ `Protected` **createUserPoolClient**(): `IUserPoolClient`
+
+#### Returns
+
+`IUserPoolClient`
+
+#### Overrides
+
+[Authorization](#authorization).[createUserPoolClient](#createuserpoolclient)
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[Authorization](#authorization).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[Authorization](#authorization).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[Authorization](#authorization).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[Authorization](#authorization).[prepare](#prepare)
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[Authorization](#authorization).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[Authorization](#authorization).[toString](#tostring)
+
+___
+
+### updateUserPoolClientCallbacks
+
+▸ **updateUserPoolClientCallbacks**(`redirects`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `redirects` | [`UserPoolClientCallbackUrls`](#user-pool-client-callback-urls) |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[ISpaAuthorization](#i-spa-authorization).[updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+#### Inherited from
+
+[Authorization](#authorization).[updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[Authorization](#authorization).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[Authorization](#authorization).[isConstruct](#isconstruct)
+
+# Spa Distribution
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / SpaDistribution
+
+# Class: SpaDistribution
+
+## Hierarchy
+
+- [`BaseDistribution`](#base-distribution)
+
+  ↳ **`SpaDistribution`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**mode** | <code>[Mode](#cloudcomponents-cdk-cloudfront-authorization-mode)</code> | <span></span>
-**redirectPaths** | <code>[RedirectPaths](#cloudcomponents-cdk-cloudfront-authorization-redirectpaths)</code> | <span></span>
-**signOutUrlPath** | <code>string</code> | <span></span>
+- [distributionDomainName](#distributiondomainname)
+- [distributionId](#distributionid)
+- [domainName](#domainname)
+- [env](#env)
+- [node](#node)
+- [stack](#stack)
 
 ### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [renderAdditionalBehaviors](#renderadditionalbehaviors)
+- [renderDefaultBehaviour](#renderdefaultbehaviour)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### createAdditionalBehaviors(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createadditionalbehaviors"></a>
+## Constructors
 
+### constructor
 
+• **new SpaDistribution**(`scope`, `id`, `props`)
 
-```ts
-createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Map<string, BehaviorOptions>
-```
+#### Parameters
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
-  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
-  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
-  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
-  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`SpaDistributionProps`](#spa-distribution-props) |
 
-__Returns__:
-* <code>Map<string, [BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)></code>
+#### Overrides
 
-#### createDefaultBehavior(origin, options?) <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createdefaultbehavior"></a>
+[BaseDistribution](#base-distribution).[constructor](#constructor)
 
+## Properties
 
+### distributionDomainName
 
-```ts
-createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions
-```
+• `Readonly` **distributionDomainName**: `string`
 
-* **origin** (<code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code>)  *No description*
-* **options** (<code>[AddBehaviorOptions](#aws-cdk-aws-cloudfront-addbehavioroptions)</code>)  *No description*
-  * **allowedMethods** (<code>[AllowedMethods](#aws-cdk-aws-cloudfront-allowedmethods)</code>)  HTTP methods to allow for this behavior. __*Default*__: AllowedMethods.ALLOW_GET_HEAD
-  * **cachedMethods** (<code>[CachedMethods](#aws-cdk-aws-cloudfront-cachedmethods)</code>)  HTTP methods to cache for this behavior. __*Default*__: CachedMethods.CACHE_GET_HEAD
-  * **cachePolicy** (<code>[ICachePolicy](#aws-cdk-aws-cloudfront-icachepolicy)</code>)  The cache policy for this behavior. __*Default*__: CachePolicy.CACHING_OPTIMIZED
-  * **compress** (<code>boolean</code>)  Whether you want CloudFront to automatically compress certain files for this cache behavior. __*Default*__: true
-  * **edgeLambdas** (<code>Array<[EdgeLambda](#aws-cdk-aws-cloudfront-edgelambda)></code>)  The Lambda@Edge functions to invoke before serving the contents. __*Default*__: no Lambda functions will be invoked
-  * **functionAssociations** (<code>Array<[FunctionAssociation](#aws-cdk-aws-cloudfront-functionassociation)></code>)  The CloudFront functions to invoke before serving the contents. __*Default*__: no functions will be invoked
-  * **originRequestPolicy** (<code>[IOriginRequestPolicy](#aws-cdk-aws-cloudfront-ioriginrequestpolicy)</code>)  The origin request policy for this behavior. __*Default*__: none
-  * **smoothStreaming** (<code>boolean</code>)  Set this to true to indicate you want to distribute media files in the Microsoft Smooth Streaming format using this behavior. __*Default*__: false
-  * **trustedKeyGroups** (<code>Array<[IKeyGroup](#aws-cdk-aws-cloudfront-ikeygroup)></code>)  A list of Key Groups that CloudFront can use to validate signed URLs or signed cookies. __*Default*__: no KeyGroups are associated with cache behavior
-  * **viewerProtocolPolicy** (<code>[ViewerProtocolPolicy](#aws-cdk-aws-cloudfront-viewerprotocolpolicy)</code>)  The protocol that viewers can use to access the files controlled by this behavior. __*Default*__: ViewerProtocolPolicy.ALLOW_ALL
+#### Inherited from
 
-__Returns__:
-* <code>[BehaviorOptions](#aws-cdk-aws-cloudfront-behavioroptions)</code>
+[BaseDistribution](#base-distribution).[distributionDomainName](#distributiondomainname)
 
-#### createLegacyAdditionalBehaviors() <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createlegacyadditionalbehaviors"></a>
+___
 
+### distributionId
 
+• `Readonly` **distributionId**: `string`
 
-```ts
-createLegacyAdditionalBehaviors(): Array<Behavior>
-```
+#### Inherited from
 
+[BaseDistribution](#base-distribution).[distributionId](#distributionid)
 
-__Returns__:
-* <code>Array<[Behavior](#aws-cdk-aws-cloudfront-behavior)></code>
+___
 
-#### createLegacyDefaultBehavior() <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-createlegacydefaultbehavior"></a>
+### domainName
 
+• `Readonly` **domainName**: `string`
 
+#### Inherited from
 
-```ts
-createLegacyDefaultBehavior(): Behavior
-```
+[BaseDistribution](#base-distribution).[domainName](#domainname)
 
+___
 
-__Returns__:
-* <code>[Behavior](#aws-cdk-aws-cloudfront-behavior)</code>
+### env
 
-#### updateUserPoolClientCallbacks(redirects) <a id="cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization-updateuserpoolclientcallbacks"></a>
+• `Readonly` **env**: `ResourceEnvironment`
 
+#### Inherited from
 
+[BaseDistribution](#base-distribution).[env](#env)
 
-```ts
-updateUserPoolClientCallbacks(redirects: UserPoolClientCallbackUrls): void
-```
+___
 
-* **redirects** (<code>[UserPoolClientCallbackUrls](#cloudcomponents-cdk-cloudfront-authorization-userpoolclientcallbackurls)</code>)  *No description*
-  * **callbackUrls** (<code>Array<string></code>)  A list of allowed redirect (callback) URLs for the identity providers. 
-  * **logoutUrls** (<code>Array<string></code>)  A list of allowed logout URLs for the identity providers. 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
+[BaseDistribution](#base-distribution).[node](#node)
 
-## struct RedirectPaths  <a id="cloudcomponents-cdk-cloudfront-authorization-redirectpaths"></a>
+___
 
+### stack
 
+• `Readonly` **stack**: `Stack`
 
+#### Inherited from
 
+[BaseDistribution](#base-distribution).[stack](#stack)
 
+## Methods
 
-Name | Type | Description 
------|------|-------------
-**authRefresh** | <code>string</code> | <span></span>
-**signIn** | <code>string</code> | <span></span>
-**signOut** | <code>string</code> | <span></span>
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
-## struct RetrieveUserPoolClientSecretProps  <a id="cloudcomponents-cdk-cloudfront-authorization-retrieveuserpoolclientsecretprops"></a>
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
+#### Returns
 
+`void`
 
+#### Inherited from
 
-Name | Type | Description 
------|------|-------------
-**userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
-**userPoolClient** | <code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code> | <span></span>
+[BaseDistribution](#base-distribution).[onPrepare](#onprepare)
 
+___
 
+### onSynthesize
 
-## struct SecretGeneratorProps  <a id="cloudcomponents-cdk-cloudfront-authorization-secretgeneratorprops"></a>
+▸ `Protected` **onSynthesize**(`session`): `void`
 
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
+**`stability`** stable
 
+#### Parameters
 
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
-Name | Type | Description 
------|------|-------------
-**allowedCharacters**? | <code>string</code> | __*Optional*__
-**length**? | <code>number</code> | __*Optional*__
+#### Returns
 
+`void`
 
+#### Inherited from
 
-## struct SpaDistributionProps  <a id="cloudcomponents-cdk-cloudfront-authorization-spadistributionprops"></a>
+[BaseDistribution](#base-distribution).[onSynthesize](#onsynthesize)
 
+___
 
+### onValidate
 
+▸ `Protected` **onValidate**(): `string`[]
 
+Validate the current construct.
 
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
 
-Name | Type | Description 
------|------|-------------
-**authorization** | <code>[ISpaAuthorization](#cloudcomponents-cdk-cloudfront-authorization-ispaauthorization)</code> | <span></span>
-**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | A certificate to associate with the distribution.<br/>__*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
-**comment**? | <code>string</code> | Any comments you want to include about the distribution.<br/>__*Default*__: no comment
-**defaultRootObject**? | <code>string</code> | The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/).<br/>__*Default*__: index.html
-**domainNames**? | <code>Array<string></code> | Alternative domain names for this distribution.<br/>__*Default*__: The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
-**enableIpv6**? | <code>boolean</code> | Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.<br/>__*Default*__: true
-**enableLogging**? | <code>boolean</code> | Enable access logging for the distribution.<br/>__*Default*__: false, unless `logBucket` is specified.
-**enabled**? | <code>boolean</code> | Enable or disable the distribution.<br/>__*Default*__: true
-**geoRestriction**? | <code>[GeoRestriction](#aws-cdk-aws-cloudfront-georestriction)</code> | Controls the countries in which your content is distributed.<br/>__*Default*__: No geographic restrictions
-**httpVersion**? | <code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code> | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.<br/>__*Default*__: HttpVersion.HTTP2
-**logBucket**? | <code>[IBucket](#aws-cdk-aws-s3-ibucket)</code> | The Amazon S3 bucket to store the access logs in.<br/>__*Default*__: A bucket is created if `enableLogging` is true
-**logFilePrefix**? | <code>string</code> | An optional string that you want CloudFront to prefix to the access log filenames for this distribution.<br/>__*Default*__: no prefix
-**logIncludesCookies**? | <code>boolean</code> | Specifies whether you want CloudFront to include cookies in access logs.<br/>__*Default*__: false
-**minimumProtocolVersion**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
-**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
-**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Default*__: Destroy
-**ttl**? | <code>[Duration](#aws-cdk-core-duration)</code> | The minimum amount of time, in seconds, that you want CloudFront to cache the HTTP status code specified in ErrorCode.<br/>__*Default*__: 300 seconds
-**webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
+**`stability`** stable
 
+#### Returns
 
+`string`[]
 
-## struct StaticSiteDistributionProps  <a id="cloudcomponents-cdk-cloudfront-authorization-staticsitedistributionprops"></a>
+An array of validation error messages, or an empty array if the construct is valid.
 
+#### Inherited from
 
+[BaseDistribution](#base-distribution).[onValidate](#onvalidate)
 
+___
 
+### prepare
 
+▸ `Protected` **prepare**(): `void`
 
-Name | Type | Description 
------|------|-------------
-**authorization** | <code>[IStaticSiteAuthorization](#cloudcomponents-cdk-cloudfront-authorization-istaticsiteauthorization)</code> | <span></span>
-**certificate**? | <code>[ICertificate](#aws-cdk-aws-certificatemanager-icertificate)</code> | A certificate to associate with the distribution.<br/>__*Default*__: the CloudFront wildcard certificate (*.cloudfront.net) will be used.
-**comment**? | <code>string</code> | Any comments you want to include about the distribution.<br/>__*Default*__: no comment
-**defaultRootObject**? | <code>string</code> | The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution. If no default object is set, the request goes to the origin's root (e.g., example.com/).<br/>__*Default*__: index.html
-**domainNames**? | <code>Array<string></code> | Alternative domain names for this distribution.<br/>__*Default*__: The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
-**enableIpv6**? | <code>boolean</code> | Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.<br/>__*Default*__: true
-**enableLogging**? | <code>boolean</code> | Enable access logging for the distribution.<br/>__*Default*__: false, unless `logBucket` is specified.
-**enabled**? | <code>boolean</code> | Enable or disable the distribution.<br/>__*Default*__: true
-**errorResponses**? | <code>Array<[ErrorResponse](#aws-cdk-aws-cloudfront-errorresponse)></code> | __*Optional*__
-**geoRestriction**? | <code>[GeoRestriction](#aws-cdk-aws-cloudfront-georestriction)</code> | Controls the countries in which your content is distributed.<br/>__*Default*__: No geographic restrictions
-**httpVersion**? | <code>[HttpVersion](#aws-cdk-aws-cloudfront-httpversion)</code> | Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.<br/>__*Default*__: HttpVersion.HTTP2
-**logBucket**? | <code>[IBucket](#aws-cdk-aws-s3-ibucket)</code> | The Amazon S3 bucket to store the access logs in.<br/>__*Default*__: A bucket is created if `enableLogging` is true
-**logFilePrefix**? | <code>string</code> | An optional string that you want CloudFront to prefix to the access log filenames for this distribution.<br/>__*Default*__: no prefix
-**logIncludesCookies**? | <code>boolean</code> | Specifies whether you want CloudFront to include cookies in access logs.<br/>__*Default*__: false
-**minimumProtocolVersion**? | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SecurityPolicyProtocol.TLS_V1_2_2019
-**origin**? | <code>[IOrigin](#aws-cdk-aws-cloudfront-iorigin)</code> | The origin that you want CloudFront to route requests.<br/>__*Optional*__
-**priceClass**? | <code>[PriceClass](#aws-cdk-aws-cloudfront-priceclass)</code> | The price class that corresponds with the maximum price that you want to pay for CloudFront service.<br/>__*Default*__: PriceClass.PRICE_CLASS_100
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | __*Default*__: Destroy
-**webAclId**? | <code>string</code> | Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL).
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
-## struct UserPoolClientCallbackUrls  <a id="cloudcomponents-cdk-cloudfront-authorization-userpoolclientcallbackurls"></a>
+**`stability`** stable
 
+#### Returns
 
+`void`
 
+#### Inherited from
 
+[BaseDistribution](#base-distribution).[prepare](#prepare)
 
+___
 
-Name | Type | Description 
------|------|-------------
-**callbackUrls** | <code>Array<string></code> | A list of allowed redirect (callback) URLs for the identity providers.
-**logoutUrls** | <code>Array<string></code> | A list of allowed logout URLs for the identity providers.
+### renderAdditionalBehaviors
 
+▸ `Protected` **renderAdditionalBehaviors**(`origin`, `authorization`): `Record`<`string`, `BehaviorOptions`\>
 
+#### Parameters
 
-## struct UserPoolClientRedirectsProps  <a id="cloudcomponents-cdk-cloudfront-authorization-userpoolclientredirectsprops"></a>
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `authorization` | [`IAuthorization`](#i-authorization) |
 
+#### Returns
 
+`Record`<`string`, `BehaviorOptions`\>
 
+#### Inherited from
 
+[BaseDistribution](#base-distribution).[renderAdditionalBehaviors](#renderadditionalbehaviors)
 
+___
 
-Name | Type | Description 
------|------|-------------
-**callbackUrls** | <code>Array<string></code> | <span></span>
-**identityProviders** | <code>Array<[UserPoolClientIdentityProvider](#aws-cdk-aws-cognito-userpoolclientidentityprovider)></code> | <span></span>
-**logoutUrls** | <code>Array<string></code> | <span></span>
-**oauthScopes** | <code>Array<[OAuthScope](#aws-cdk-aws-cognito-oauthscope)></code> | <span></span>
-**userPool** | <code>[IUserPool](#aws-cdk-aws-cognito-iuserpool)</code> | <span></span>
-**userPoolClient** | <code>[IUserPoolClient](#aws-cdk-aws-cognito-iuserpoolclient)</code> | <span></span>
+### renderDefaultBehaviour
 
+▸ `Protected` **renderDefaultBehaviour**(`origin`, `authorization`): `BehaviorOptions`
 
+#### Parameters
 
-## enum Mode  <a id="cloudcomponents-cdk-cloudfront-authorization-mode"></a>
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `authorization` | [`IAuthorization`](#i-authorization) |
 
+#### Returns
 
+`BehaviorOptions`
 
-Name | Description
------|-----
-**SPA** |
-**STATIC_SITE** |
+#### Inherited from
 
+[BaseDistribution](#base-distribution).[renderDefaultBehaviour](#renderdefaultbehaviour)
 
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[toString](#tostring)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[isConstruct](#isconstruct)
+
+# Static Site Authorization
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / StaticSiteAuthorization
+
+# Class: StaticSiteAuthorization
+
+## Hierarchy
+
+- [`Authorization`](#authorization)
+
+  ↳ **`StaticSiteAuthorization`**
+
+## Implements
+
+- [`IStaticSiteAuthorization`](#i-static-site-authorization)
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [authFlow](#authflow)
+- [cognitoAuthDomain](#cognitoauthdomain)
+- [cookieSettings](#cookiesettings)
+- [httpHeaders](#httpheaders)
+- [identityProviders](#identityproviders)
+- [mode](#mode)
+- [node](#node)
+- [nonceSigningSecret](#noncesigningsecret)
+- [oauthScopes](#oauthscopes)
+- [redirectPaths](#redirectpaths)
+- [signOutUrlPath](#signouturlpath)
+- [userPool](#userpool)
+- [userPoolClient](#userpoolclient)
+
+### Methods
+
+- [createAdditionalBehaviors](#createadditionalbehaviors)
+- [createAuthFlow](#createauthflow)
+- [createDefaultBehavior](#createdefaultbehavior)
+- [createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+- [createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+- [createUserPoolClient](#createuserpoolclient)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [retrieveUserPoolClientSecret](#retrieveuserpoolclientsecret)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new StaticSiteAuthorization**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`AuthorizationProps`](#authorization-props) |
+
+#### Overrides
+
+[Authorization](#authorization).[constructor](#constructor)
+
+## Properties
+
+### authFlow
+
+• `Readonly` **authFlow**: [`AuthFlow`](#auth-flow)
+
+#### Inherited from
+
+[Authorization](#authorization).[authFlow](#authflow)
+
+___
+
+### cognitoAuthDomain
+
+• `Protected` `Readonly` **cognitoAuthDomain**: `string`
+
+#### Inherited from
+
+[Authorization](#authorization).[cognitoAuthDomain](#cognitoauthdomain)
+
+___
+
+### cookieSettings
+
+• `Protected` `Readonly` **cookieSettings**: `undefined` \| `Record`<`string`, `string`\>
+
+#### Inherited from
+
+[Authorization](#authorization).[cookieSettings](#cookiesettings)
+
+___
+
+### httpHeaders
+
+• `Protected` `Readonly` **httpHeaders**: `Record`<`string`, `string`\>
+
+#### Inherited from
+
+[Authorization](#authorization).[httpHeaders](#httpheaders)
+
+___
+
+### identityProviders
+
+• `Protected` `Readonly` **identityProviders**: `UserPoolClientIdentityProvider`[]
+
+#### Inherited from
+
+[Authorization](#authorization).[identityProviders](#identityproviders)
+
+___
+
+### mode
+
+• `Readonly` **mode**: [`STATIC_SITE`](#static_site)
+
+#### Implementation of
+
+[IStaticSiteAuthorization](#i-static-site-authorization).[mode](#mode)
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[Authorization](#authorization).[node](#node)
+
+___
+
+### nonceSigningSecret
+
+• `Protected` `Readonly` **nonceSigningSecret**: `string`
+
+#### Inherited from
+
+[Authorization](#authorization).[nonceSigningSecret](#noncesigningsecret)
+
+___
+
+### oauthScopes
+
+• `Protected` `Readonly` **oauthScopes**: `OAuthScope`[]
+
+#### Inherited from
+
+[Authorization](#authorization).[oauthScopes](#oauthscopes)
+
+___
+
+### redirectPaths
+
+• `Readonly` **redirectPaths**: [`RedirectPaths`](#redirect-paths)
+
+#### Implementation of
+
+[IStaticSiteAuthorization](#i-static-site-authorization).[redirectPaths](#redirectpaths)
+
+#### Inherited from
+
+[Authorization](#authorization).[redirectPaths](#redirectpaths)
+
+___
+
+### signOutUrlPath
+
+• `Readonly` **signOutUrlPath**: `string`
+
+#### Implementation of
+
+[IStaticSiteAuthorization](#i-static-site-authorization).[signOutUrlPath](#signouturlpath)
+
+#### Inherited from
+
+[Authorization](#authorization).[signOutUrlPath](#signouturlpath)
+
+___
+
+### userPool
+
+• `Protected` `Readonly` **userPool**: `IUserPool`
+
+#### Inherited from
+
+[Authorization](#authorization).[userPool](#userpool)
+
+___
+
+### userPoolClient
+
+• `Readonly` **userPoolClient**: `IUserPoolClient`
+
+#### Inherited from
+
+[Authorization](#authorization).[userPoolClient](#userpoolclient)
+
+## Methods
+
+### createAdditionalBehaviors
+
+▸ **createAdditionalBehaviors**(`origin`, `options?`): `Record`<`string`, `BehaviorOptions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`Record`<`string`, `BehaviorOptions`\>
+
+#### Implementation of
+
+[IStaticSiteAuthorization](#i-static-site-authorization).[createAdditionalBehaviors](#createadditionalbehaviors)
+
+#### Inherited from
+
+[Authorization](#authorization).[createAdditionalBehaviors](#createadditionalbehaviors)
+
+___
+
+### createAuthFlow
+
+▸ `Protected` **createAuthFlow**(`logLevel`): [`AuthFlow`](#auth-flow)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `logLevel` | `LogLevel` |
+
+#### Returns
+
+[`AuthFlow`](#auth-flow)
+
+#### Overrides
+
+[Authorization](#authorization).[createAuthFlow](#createauthflow)
+
+___
+
+### createDefaultBehavior
+
+▸ **createDefaultBehavior**(`origin`, `options?`): `BehaviorOptions`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`BehaviorOptions`
+
+#### Implementation of
+
+[IStaticSiteAuthorization](#i-static-site-authorization).[createDefaultBehavior](#createdefaultbehavior)
+
+#### Inherited from
+
+[Authorization](#authorization).[createDefaultBehavior](#createdefaultbehavior)
+
+___
+
+### createLegacyAdditionalBehaviors
+
+▸ **createLegacyAdditionalBehaviors**(`options?`): `Behavior`[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | `Behavior` |
+
+#### Returns
+
+`Behavior`[]
+
+#### Implementation of
+
+[IStaticSiteAuthorization](#i-static-site-authorization).[createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+
+#### Inherited from
+
+[Authorization](#authorization).[createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+
+___
+
+### createLegacyDefaultBehavior
+
+▸ **createLegacyDefaultBehavior**(`options?`): `Behavior`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | `Behavior` |
+
+#### Returns
+
+`Behavior`
+
+#### Implementation of
+
+[IStaticSiteAuthorization](#i-static-site-authorization).[createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+
+#### Inherited from
+
+[Authorization](#authorization).[createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+
+___
+
+### createUserPoolClient
+
+▸ `Protected` **createUserPoolClient**(): `IUserPoolClient`
+
+#### Returns
+
+`IUserPoolClient`
+
+#### Overrides
+
+[Authorization](#authorization).[createUserPoolClient](#createuserpoolclient)
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[Authorization](#authorization).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[Authorization](#authorization).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[Authorization](#authorization).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[Authorization](#authorization).[prepare](#prepare)
+
+___
+
+### retrieveUserPoolClientSecret
+
+▸ `Private` **retrieveUserPoolClientSecret**(): `string`
+
+#### Returns
+
+`string`
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[Authorization](#authorization).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[Authorization](#authorization).[toString](#tostring)
+
+___
+
+### updateUserPoolClientCallbacks
+
+▸ **updateUserPoolClientCallbacks**(`redirects`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `redirects` | [`UserPoolClientCallbackUrls`](#user-pool-client-callback-urls) |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[IStaticSiteAuthorization](#i-static-site-authorization).[updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+#### Inherited from
+
+[Authorization](#authorization).[updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[Authorization](#authorization).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[Authorization](#authorization).[isConstruct](#isconstruct)
+
+# Static Site Distribution
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / StaticSiteDistribution
+
+# Class: StaticSiteDistribution
+
+## Hierarchy
+
+- [`BaseDistribution`](#base-distribution)
+
+  ↳ **`StaticSiteDistribution`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [distributionDomainName](#distributiondomainname)
+- [distributionId](#distributionid)
+- [domainName](#domainname)
+- [env](#env)
+- [node](#node)
+- [stack](#stack)
+
+### Methods
+
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [renderAdditionalBehaviors](#renderadditionalbehaviors)
+- [renderDefaultBehaviour](#renderdefaultbehaviour)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new StaticSiteDistribution**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`StaticSiteDistributionProps`](#static-site-distribution-props) |
+
+#### Overrides
+
+[BaseDistribution](#base-distribution).[constructor](#constructor)
+
+## Properties
+
+### distributionDomainName
+
+• `Readonly` **distributionDomainName**: `string`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[distributionDomainName](#distributiondomainname)
+
+___
+
+### distributionId
+
+• `Readonly` **distributionId**: `string`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[distributionId](#distributionid)
+
+___
+
+### domainName
+
+• `Readonly` **domainName**: `string`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[domainName](#domainname)
+
+___
+
+### env
+
+• `Readonly` **env**: `ResourceEnvironment`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[env](#env)
+
+___
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[node](#node)
+
+___
+
+### stack
+
+• `Readonly` **stack**: `Stack`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[stack](#stack)
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[onPrepare](#onprepare)
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[onSynthesize](#onsynthesize)
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[onValidate](#onvalidate)
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[prepare](#prepare)
+
+___
+
+### renderAdditionalBehaviors
+
+▸ `Protected` **renderAdditionalBehaviors**(`origin`, `authorization`): `Record`<`string`, `BehaviorOptions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `authorization` | [`IAuthorization`](#i-authorization) |
+
+#### Returns
+
+`Record`<`string`, `BehaviorOptions`\>
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[renderAdditionalBehaviors](#renderadditionalbehaviors)
+
+___
+
+### renderDefaultBehaviour
+
+▸ `Protected` **renderDefaultBehaviour**(`origin`, `authorization`): `BehaviorOptions`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `authorization` | [`IAuthorization`](#i-authorization) |
+
+#### Returns
+
+`BehaviorOptions`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[renderDefaultBehaviour](#renderdefaultbehaviour)
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[synthesize](#synthesize)
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[toString](#tostring)
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[validate](#validate)
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[isConstruct](#isconstruct)
+
+# User Pool Client Redirects
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / UserPoolClientRedirects
+
+# Class: UserPoolClientRedirects
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`UserPoolClientRedirects`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [node](#node)
+
+### Methods
+
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new UserPoolClientRedirects**(`scope`, `id`, `props`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`UserPoolClientRedirectsProps`](#user-pool-client-redirects-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Mode
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / Mode
+
+# Enumeration: Mode
+
+## Table of contents
+
+### Enumeration members
+
+- [SPA](#spa)
+- [STATIC\_SITE](#static_site)
+
+## Enumeration members
+
+### SPA
+
+• **SPA** = `"SPA"`
+
+___
+
+### STATIC\_SITE
+
+• **STATIC\_SITE** = `"STATIC_SITE"`
+
+# Auth Flow Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / AuthFlowProps
+
+# Interface: AuthFlowProps
+
+## Table of contents
+
+### Properties
+
+- [clientSecret](#clientsecret)
+- [cognitoAuthDomain](#cognitoauthdomain)
+- [cookieSettings](#cookiesettings)
+- [httpHeaders](#httpheaders)
+- [logLevel](#loglevel)
+- [nonceSigningSecret](#noncesigningsecret)
+- [oauthScopes](#oauthscopes)
+- [redirectPaths](#redirectpaths)
+- [userPool](#userpool)
+- [userPoolClient](#userpoolclient)
+
+## Properties
+
+### clientSecret
+
+• `Optional` `Readonly` **clientSecret**: `string`
+
+___
+
+### cognitoAuthDomain
+
+• `Readonly` **cognitoAuthDomain**: `string`
+
+___
+
+### cookieSettings
+
+• `Readonly` **cookieSettings**: `Record`<`string`, `string`\>
+
+___
+
+### httpHeaders
+
+• `Readonly` **httpHeaders**: `Record`<`string`, `string`\>
+
+___
+
+### logLevel
+
+• `Readonly` **logLevel**: `LogLevel`
+
+___
+
+### nonceSigningSecret
+
+• `Readonly` **nonceSigningSecret**: `string`
+
+___
+
+### oauthScopes
+
+• `Readonly` **oauthScopes**: `OAuthScope`[]
+
+___
+
+### redirectPaths
+
+• `Readonly` **redirectPaths**: [`RedirectPaths`](#redirect-paths)
+
+___
+
+### userPool
+
+• `Readonly` **userPool**: `IUserPool`
+
+___
+
+### userPoolClient
+
+• `Readonly` **userPoolClient**: `IUserPoolClient`
+
+# Authorization Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / AuthorizationProps
+
+# Interface: AuthorizationProps
+
+## Table of contents
+
+### Properties
+
+- [cookieSettings](#cookiesettings)
+- [httpHeaders](#httpheaders)
+- [identityProviders](#identityproviders)
+- [logLevel](#loglevel)
+- [oauthScopes](#oauthscopes)
+- [redirectPaths](#redirectpaths)
+- [signOutUrl](#signouturl)
+- [userPool](#userpool)
+
+## Properties
+
+### cookieSettings
+
+• `Optional` `Readonly` **cookieSettings**: `Record`<`string`, `string`\>
+
+___
+
+### httpHeaders
+
+• `Optional` `Readonly` **httpHeaders**: `Record`<`string`, `string`\>
+
+___
+
+### identityProviders
+
+• `Optional` `Readonly` **identityProviders**: `UserPoolClientIdentityProvider`[]
+
+___
+
+### logLevel
+
+• `Optional` `Readonly` **logLevel**: `LogLevel`
+
+___
+
+### oauthScopes
+
+• `Optional` `Readonly` **oauthScopes**: `OAuthScope`[]
+
+___
+
+### redirectPaths
+
+• `Optional` `Readonly` **redirectPaths**: [`RedirectPaths`](#redirect-paths)
+
+___
+
+### signOutUrl
+
+• `Optional` `Readonly` **signOutUrl**: `string`
+
+___
+
+### userPool
+
+• `Readonly` **userPool**: `IUserPool`
+
+# Base Distribution Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / BaseDistributionProps
+
+# Interface: BaseDistributionProps
+
+## Hierarchy
+
+- [`CommonDistributionProps`](#common-distribution-props)
+
+  ↳ **`BaseDistributionProps`**
+
+## Table of contents
+
+### Properties
+
+- [authorization](#authorization)
+- [certificate](#certificate)
+- [comment](#comment)
+- [defaultRootObject](#defaultrootobject)
+- [domainNames](#domainnames)
+- [enableIpv6](#enableipv6)
+- [enableLogging](#enablelogging)
+- [enabled](#enabled)
+- [errorResponses](#errorresponses)
+- [geoRestriction](#georestriction)
+- [httpVersion](#httpversion)
+- [logBucket](#logbucket)
+- [logFilePrefix](#logfileprefix)
+- [logIncludesCookies](#logincludescookies)
+- [minimumProtocolVersion](#minimumprotocolversion)
+- [origin](#origin)
+- [priceClass](#priceclass)
+- [removalPolicy](#removalpolicy)
+- [webAclId](#webaclid)
+
+## Properties
+
+### authorization
+
+• `Readonly` **authorization**: [`IAuthorization`](#i-authorization)
+
+___
+
+### certificate
+
+• `Optional` `Readonly` **certificate**: `ICertificate`
+
+A certificate to associate with the distribution. The certificate must be located in N. Virginia (us-east-1).
+
+**`default`** - the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[certificate](#certificate)
+
+___
+
+### comment
+
+• `Optional` `Readonly` **comment**: `string`
+
+Any comments you want to include about the distribution.
+
+**`default`** - no comment
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[comment](#comment)
+
+___
+
+### defaultRootObject
+
+• `Optional` `Readonly` **defaultRootObject**: `string`
+
+The object that you want CloudFront to request from your origin (for example, index.html)
+when a viewer requests the root URL for your distribution. If no default object is set, the
+request goes to the origin's root (e.g., example.com/).
+
+**`default`** - index.html
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[defaultRootObject](#defaultrootobject)
+
+___
+
+### domainNames
+
+• `Optional` `Readonly` **domainNames**: `string`[]
+
+Alternative domain names for this distribution.
+
+If you want to use your own domain name, such as www.example.com, instead of the cloudfront.net domain name,
+you can add an alternate domain name to your distribution. If you attach a certificate to the distribution,
+you must add (at least one of) the domain names of the certificate to this list.
+
+**`default`** - The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[domainNames](#domainnames)
+
+___
+
+### enableIpv6
+
+• `Optional` `Readonly` **enableIpv6**: `boolean`
+
+Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.
+
+If you specify false, CloudFront responds to IPv6 DNS requests with the DNS response code NOERROR and with no IP addresses.
+This allows viewers to submit a second request, for an IPv4 address for your distribution.
+
+**`default`** true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enableIpv6](#enableipv6)
+
+___
+
+### enableLogging
+
+• `Optional` `Readonly` **enableLogging**: `boolean`
+
+Enable access logging for the distribution.
+
+**`default`** - false, unless `logBucket` is specified.
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enableLogging](#enablelogging)
+
+___
+
+### enabled
+
+• `Optional` `Readonly` **enabled**: `boolean`
+
+Enable or disable the distribution.
+
+**`default`** true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enabled](#enabled)
+
+___
+
+### errorResponses
+
+• `Optional` `Readonly` **errorResponses**: `ErrorResponse`[]
+
+___
+
+### geoRestriction
+
+• `Optional` `Readonly` **geoRestriction**: `GeoRestriction`
+
+Controls the countries in which your content is distributed.
+
+**`default`** - No geographic restrictions
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[geoRestriction](#georestriction)
+
+___
+
+### httpVersion
+
+• `Optional` `Readonly` **httpVersion**: `HttpVersion`
+
+Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
+
+For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support server name identification (SNI).
+
+**`default`** HttpVersion.HTTP2
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[httpVersion](#httpversion)
+
+___
+
+### logBucket
+
+• `Optional` `Readonly` **logBucket**: `IBucket`
+
+The Amazon S3 bucket to store the access logs in.
+
+**`default`** - A bucket is created if `enableLogging` is true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logBucket](#logbucket)
+
+___
+
+### logFilePrefix
+
+• `Optional` `Readonly` **logFilePrefix**: `string`
+
+An optional string that you want CloudFront to prefix to the access log filenames for this distribution.
+
+**`default`** - no prefix
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logFilePrefix](#logfileprefix)
+
+___
+
+### logIncludesCookies
+
+• `Optional` `Readonly` **logIncludesCookies**: `boolean`
+
+Specifies whether you want CloudFront to include cookies in access logs
+
+**`default`** false
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logIncludesCookies](#logincludescookies)
+
+___
+
+### minimumProtocolVersion
+
+• `Optional` `Readonly` **minimumProtocolVersion**: `SecurityPolicyProtocol`
+
+The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.
+
+CloudFront serves your objects only to browsers or devices that support at
+least the SSL version that you specify.
+
+**`default`** SecurityPolicyProtocol.TLS_V1_2_2019
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[minimumProtocolVersion](#minimumprotocolversion)
+
+___
+
+### origin
+
+• `Optional` `Readonly` **origin**: `IOrigin`
+
+The origin that you want CloudFront to route requests
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[origin](#origin)
+
+___
+
+### priceClass
+
+• `Optional` `Readonly` **priceClass**: `PriceClass`
+
+The price class that corresponds with the maximum price that you want to pay for CloudFront service.
+If you specify PriceClass_All, CloudFront responds to requests for your objects from all CloudFront edge locations.
+If you specify a price class other than PriceClass_All, CloudFront serves your objects from the CloudFront edge location
+that has the lowest latency among the edge locations in your price class.
+
+**`default`** PriceClass.PRICE_CLASS_100
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[priceClass](#priceclass)
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+**`default`** Destroy
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[removalPolicy](#removalpolicy)
+
+___
+
+### webAclId
+
+• `Optional` `Readonly` **webAclId**: `string`
+
+Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.
+
+To specify a web ACL created using the latest version of AWS WAF, use the ACL ARN, for example
+`arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a`.
+To specify a web ACL created using AWS WAF Classic, use the ACL ID, for example `473e64fd-f30b-4765-81a0-62ad96dd167a`.
+
+**`see`** https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html
+
+**`see`** https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html#API_CreateDistribution_RequestParameters.
+
+**`default`** - No AWS Web Application Firewall web access control list (web ACL).
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[webAclId](#webaclid)
+
+# Common Distribution Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / CommonDistributionProps
+
+# Interface: CommonDistributionProps
+
+## Hierarchy
+
+- **`CommonDistributionProps`**
+
+  ↳ [`BaseDistributionProps`](#base-distribution-props)
+
+  ↳ [`StaticSiteDistributionProps`](#static-site-distribution-props)
+
+  ↳ [`SpaDistributionProps`](#spa-distribution-props)
+
+## Table of contents
+
+### Properties
+
+- [certificate](#certificate)
+- [comment](#comment)
+- [defaultRootObject](#defaultrootobject)
+- [domainNames](#domainnames)
+- [enableIpv6](#enableipv6)
+- [enableLogging](#enablelogging)
+- [enabled](#enabled)
+- [geoRestriction](#georestriction)
+- [httpVersion](#httpversion)
+- [logBucket](#logbucket)
+- [logFilePrefix](#logfileprefix)
+- [logIncludesCookies](#logincludescookies)
+- [minimumProtocolVersion](#minimumprotocolversion)
+- [origin](#origin)
+- [priceClass](#priceclass)
+- [removalPolicy](#removalpolicy)
+- [webAclId](#webaclid)
+
+## Properties
+
+### certificate
+
+• `Optional` `Readonly` **certificate**: `ICertificate`
+
+A certificate to associate with the distribution. The certificate must be located in N. Virginia (us-east-1).
+
+**`default`** - the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+
+___
+
+### comment
+
+• `Optional` `Readonly` **comment**: `string`
+
+Any comments you want to include about the distribution.
+
+**`default`** - no comment
+
+___
+
+### defaultRootObject
+
+• `Optional` `Readonly` **defaultRootObject**: `string`
+
+The object that you want CloudFront to request from your origin (for example, index.html)
+when a viewer requests the root URL for your distribution. If no default object is set, the
+request goes to the origin's root (e.g., example.com/).
+
+**`default`** - index.html
+
+___
+
+### domainNames
+
+• `Optional` `Readonly` **domainNames**: `string`[]
+
+Alternative domain names for this distribution.
+
+If you want to use your own domain name, such as www.example.com, instead of the cloudfront.net domain name,
+you can add an alternate domain name to your distribution. If you attach a certificate to the distribution,
+you must add (at least one of) the domain names of the certificate to this list.
+
+**`default`** - The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
+
+___
+
+### enableIpv6
+
+• `Optional` `Readonly` **enableIpv6**: `boolean`
+
+Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.
+
+If you specify false, CloudFront responds to IPv6 DNS requests with the DNS response code NOERROR and with no IP addresses.
+This allows viewers to submit a second request, for an IPv4 address for your distribution.
+
+**`default`** true
+
+___
+
+### enableLogging
+
+• `Optional` `Readonly` **enableLogging**: `boolean`
+
+Enable access logging for the distribution.
+
+**`default`** - false, unless `logBucket` is specified.
+
+___
+
+### enabled
+
+• `Optional` `Readonly` **enabled**: `boolean`
+
+Enable or disable the distribution.
+
+**`default`** true
+
+___
+
+### geoRestriction
+
+• `Optional` `Readonly` **geoRestriction**: `GeoRestriction`
+
+Controls the countries in which your content is distributed.
+
+**`default`** - No geographic restrictions
+
+___
+
+### httpVersion
+
+• `Optional` `Readonly` **httpVersion**: `HttpVersion`
+
+Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
+
+For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support server name identification (SNI).
+
+**`default`** HttpVersion.HTTP2
+
+___
+
+### logBucket
+
+• `Optional` `Readonly` **logBucket**: `IBucket`
+
+The Amazon S3 bucket to store the access logs in.
+
+**`default`** - A bucket is created if `enableLogging` is true
+
+___
+
+### logFilePrefix
+
+• `Optional` `Readonly` **logFilePrefix**: `string`
+
+An optional string that you want CloudFront to prefix to the access log filenames for this distribution.
+
+**`default`** - no prefix
+
+___
+
+### logIncludesCookies
+
+• `Optional` `Readonly` **logIncludesCookies**: `boolean`
+
+Specifies whether you want CloudFront to include cookies in access logs
+
+**`default`** false
+
+___
+
+### minimumProtocolVersion
+
+• `Optional` `Readonly` **minimumProtocolVersion**: `SecurityPolicyProtocol`
+
+The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.
+
+CloudFront serves your objects only to browsers or devices that support at
+least the SSL version that you specify.
+
+**`default`** SecurityPolicyProtocol.TLS_V1_2_2019
+
+___
+
+### origin
+
+• `Optional` `Readonly` **origin**: `IOrigin`
+
+The origin that you want CloudFront to route requests
+
+___
+
+### priceClass
+
+• `Optional` `Readonly` **priceClass**: `PriceClass`
+
+The price class that corresponds with the maximum price that you want to pay for CloudFront service.
+If you specify PriceClass_All, CloudFront responds to requests for your objects from all CloudFront edge locations.
+If you specify a price class other than PriceClass_All, CloudFront serves your objects from the CloudFront edge location
+that has the lowest latency among the edge locations in your price class.
+
+**`default`** PriceClass.PRICE_CLASS_100
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+**`default`** Destroy
+
+___
+
+### webAclId
+
+• `Optional` `Readonly` **webAclId**: `string`
+
+Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.
+
+To specify a web ACL created using the latest version of AWS WAF, use the ACL ARN, for example
+`arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a`.
+To specify a web ACL created using AWS WAF Classic, use the ACL ID, for example `473e64fd-f30b-4765-81a0-62ad96dd167a`.
+
+**`see`** https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html
+
+**`see`** https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html#API_CreateDistribution_RequestParameters.
+
+**`default`** - No AWS Web Application Firewall web access control list (web ACL).
+
+# I Authorization
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / IAuthorization
+
+# Interface: IAuthorization
+
+## Hierarchy
+
+- **`IAuthorization`**
+
+  ↳ [`ISpaAuthorization`](#i-spa-authorization)
+
+  ↳ [`IStaticSiteAuthorization`](#i-static-site-authorization)
+
+## Table of contents
+
+### Properties
+
+- [redirectPaths](#redirectpaths)
+- [signOutUrlPath](#signouturlpath)
+
+### Methods
+
+- [createAdditionalBehaviors](#createadditionalbehaviors)
+- [createDefaultBehavior](#createdefaultbehavior)
+- [createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+- [createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+- [updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+## Properties
+
+### redirectPaths
+
+• `Readonly` **redirectPaths**: [`RedirectPaths`](#redirect-paths)
+
+___
+
+### signOutUrlPath
+
+• `Readonly` **signOutUrlPath**: `string`
+
+## Methods
+
+### createAdditionalBehaviors
+
+▸ **createAdditionalBehaviors**(`origin`, `options?`): `Record`<`string`, `BehaviorOptions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`Record`<`string`, `BehaviorOptions`\>
+
+___
+
+### createDefaultBehavior
+
+▸ **createDefaultBehavior**(`origin`, `options?`): `BehaviorOptions`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`BehaviorOptions`
+
+___
+
+### createLegacyAdditionalBehaviors
+
+▸ **createLegacyAdditionalBehaviors**(): `Behavior`[]
+
+#### Returns
+
+`Behavior`[]
+
+___
+
+### createLegacyDefaultBehavior
+
+▸ **createLegacyDefaultBehavior**(): `Behavior`
+
+#### Returns
+
+`Behavior`
+
+___
+
+### updateUserPoolClientCallbacks
+
+▸ **updateUserPoolClientCallbacks**(`redirects`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `redirects` | [`UserPoolClientCallbackUrls`](#user-pool-client-callback-urls) |
+
+#### Returns
+
+`void`
+
+# I Spa Authorization
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / ISpaAuthorization
+
+# Interface: ISpaAuthorization
+
+## Hierarchy
+
+- [`IAuthorization`](#i-authorization)
+
+  ↳ **`ISpaAuthorization`**
+
+## Implemented by
+
+- [`SpaAuthorization`](#spa-authorization)
+
+## Table of contents
+
+### Properties
+
+- [mode](#mode)
+- [redirectPaths](#redirectpaths)
+- [signOutUrlPath](#signouturlpath)
+
+### Methods
+
+- [createAdditionalBehaviors](#createadditionalbehaviors)
+- [createDefaultBehavior](#createdefaultbehavior)
+- [createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+- [createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+- [updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+## Properties
+
+### mode
+
+• `Readonly` **mode**: [`SPA`](#spa)
+
+___
+
+### redirectPaths
+
+• `Readonly` **redirectPaths**: [`RedirectPaths`](#redirect-paths)
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[redirectPaths](#redirectpaths)
+
+___
+
+### signOutUrlPath
+
+• `Readonly` **signOutUrlPath**: `string`
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[signOutUrlPath](#signouturlpath)
+
+## Methods
+
+### createAdditionalBehaviors
+
+▸ **createAdditionalBehaviors**(`origin`, `options?`): `Record`<`string`, `BehaviorOptions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`Record`<`string`, `BehaviorOptions`\>
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[createAdditionalBehaviors](#createadditionalbehaviors)
+
+___
+
+### createDefaultBehavior
+
+▸ **createDefaultBehavior**(`origin`, `options?`): `BehaviorOptions`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`BehaviorOptions`
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[createDefaultBehavior](#createdefaultbehavior)
+
+___
+
+### createLegacyAdditionalBehaviors
+
+▸ **createLegacyAdditionalBehaviors**(): `Behavior`[]
+
+#### Returns
+
+`Behavior`[]
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+
+___
+
+### createLegacyDefaultBehavior
+
+▸ **createLegacyDefaultBehavior**(): `Behavior`
+
+#### Returns
+
+`Behavior`
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+
+___
+
+### updateUserPoolClientCallbacks
+
+▸ **updateUserPoolClientCallbacks**(`redirects`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `redirects` | [`UserPoolClientCallbackUrls`](#user-pool-client-callback-urls) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+# I Static Site Authorization
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / IStaticSiteAuthorization
+
+# Interface: IStaticSiteAuthorization
+
+## Hierarchy
+
+- [`IAuthorization`](#i-authorization)
+
+  ↳ **`IStaticSiteAuthorization`**
+
+## Implemented by
+
+- [`StaticSiteAuthorization`](#static-site-authorization)
+
+## Table of contents
+
+### Properties
+
+- [mode](#mode)
+- [redirectPaths](#redirectpaths)
+- [signOutUrlPath](#signouturlpath)
+
+### Methods
+
+- [createAdditionalBehaviors](#createadditionalbehaviors)
+- [createDefaultBehavior](#createdefaultbehavior)
+- [createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+- [createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+- [updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+## Properties
+
+### mode
+
+• `Readonly` **mode**: [`STATIC_SITE`](#static_site)
+
+___
+
+### redirectPaths
+
+• `Readonly` **redirectPaths**: [`RedirectPaths`](#redirect-paths)
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[redirectPaths](#redirectpaths)
+
+___
+
+### signOutUrlPath
+
+• `Readonly` **signOutUrlPath**: `string`
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[signOutUrlPath](#signouturlpath)
+
+## Methods
+
+### createAdditionalBehaviors
+
+▸ **createAdditionalBehaviors**(`origin`, `options?`): `Record`<`string`, `BehaviorOptions`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`Record`<`string`, `BehaviorOptions`\>
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[createAdditionalBehaviors](#createadditionalbehaviors)
+
+___
+
+### createDefaultBehavior
+
+▸ **createDefaultBehavior**(`origin`, `options?`): `BehaviorOptions`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `origin` | `IOrigin` |
+| `options?` | `AddBehaviorOptions` |
+
+#### Returns
+
+`BehaviorOptions`
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[createDefaultBehavior](#createdefaultbehavior)
+
+___
+
+### createLegacyAdditionalBehaviors
+
+▸ **createLegacyAdditionalBehaviors**(): `Behavior`[]
+
+#### Returns
+
+`Behavior`[]
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[createLegacyAdditionalBehaviors](#createlegacyadditionalbehaviors)
+
+___
+
+### createLegacyDefaultBehavior
+
+▸ **createLegacyDefaultBehavior**(): `Behavior`
+
+#### Returns
+
+`Behavior`
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[createLegacyDefaultBehavior](#createlegacydefaultbehavior)
+
+___
+
+### updateUserPoolClientCallbacks
+
+▸ **updateUserPoolClientCallbacks**(`redirects`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `redirects` | [`UserPoolClientCallbackUrls`](#user-pool-client-callback-urls) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[IAuthorization](#i-authorization).[updateUserPoolClientCallbacks](#updateuserpoolclientcallbacks)
+
+# Redirect Paths
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / RedirectPaths
+
+# Interface: RedirectPaths
+
+## Table of contents
+
+### Properties
+
+- [authRefresh](#authrefresh)
+- [signIn](#signin)
+- [signOut](#signout)
+
+## Properties
+
+### authRefresh
+
+• `Readonly` **authRefresh**: `string`
+
+___
+
+### signIn
+
+• `Readonly` **signIn**: `string`
+
+___
+
+### signOut
+
+• `Readonly` **signOut**: `string`
+
+# Retrieve User Pool Client Secret Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / RetrieveUserPoolClientSecretProps
+
+# Interface: RetrieveUserPoolClientSecretProps
+
+## Table of contents
+
+### Properties
+
+- [userPool](#userpool)
+- [userPoolClient](#userpoolclient)
+
+## Properties
+
+### userPool
+
+• `Readonly` **userPool**: `IUserPool`
+
+___
+
+### userPoolClient
+
+• `Readonly` **userPoolClient**: `IUserPoolClient`
+
+# Secret Generator Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / SecretGeneratorProps
+
+# Interface: SecretGeneratorProps
+
+## Table of contents
+
+### Properties
+
+- [allowedCharacters](#allowedcharacters)
+- [length](#length)
+
+## Properties
+
+### allowedCharacters
+
+• `Optional` `Readonly` **allowedCharacters**: `string`
+
+___
+
+### length
+
+• `Optional` `Readonly` **length**: `number`
+
+# Spa Distribution Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / SpaDistributionProps
+
+# Interface: SpaDistributionProps
+
+## Hierarchy
+
+- [`CommonDistributionProps`](#common-distribution-props)
+
+  ↳ **`SpaDistributionProps`**
+
+## Table of contents
+
+### Properties
+
+- [authorization](#authorization)
+- [certificate](#certificate)
+- [comment](#comment)
+- [defaultRootObject](#defaultrootobject)
+- [domainNames](#domainnames)
+- [enableIpv6](#enableipv6)
+- [enableLogging](#enablelogging)
+- [enabled](#enabled)
+- [geoRestriction](#georestriction)
+- [httpVersion](#httpversion)
+- [logBucket](#logbucket)
+- [logFilePrefix](#logfileprefix)
+- [logIncludesCookies](#logincludescookies)
+- [minimumProtocolVersion](#minimumprotocolversion)
+- [origin](#origin)
+- [priceClass](#priceclass)
+- [removalPolicy](#removalpolicy)
+- [ttl](#ttl)
+- [webAclId](#webaclid)
+
+## Properties
+
+### authorization
+
+• `Readonly` **authorization**: [`ISpaAuthorization`](#i-spa-authorization)
+
+___
+
+### certificate
+
+• `Optional` `Readonly` **certificate**: `ICertificate`
+
+A certificate to associate with the distribution. The certificate must be located in N. Virginia (us-east-1).
+
+**`default`** - the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[certificate](#certificate)
+
+___
+
+### comment
+
+• `Optional` `Readonly` **comment**: `string`
+
+Any comments you want to include about the distribution.
+
+**`default`** - no comment
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[comment](#comment)
+
+___
+
+### defaultRootObject
+
+• `Optional` `Readonly` **defaultRootObject**: `string`
+
+The object that you want CloudFront to request from your origin (for example, index.html)
+when a viewer requests the root URL for your distribution. If no default object is set, the
+request goes to the origin's root (e.g., example.com/).
+
+**`default`** - index.html
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[defaultRootObject](#defaultrootobject)
+
+___
+
+### domainNames
+
+• `Optional` `Readonly` **domainNames**: `string`[]
+
+Alternative domain names for this distribution.
+
+If you want to use your own domain name, such as www.example.com, instead of the cloudfront.net domain name,
+you can add an alternate domain name to your distribution. If you attach a certificate to the distribution,
+you must add (at least one of) the domain names of the certificate to this list.
+
+**`default`** - The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[domainNames](#domainnames)
+
+___
+
+### enableIpv6
+
+• `Optional` `Readonly` **enableIpv6**: `boolean`
+
+Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.
+
+If you specify false, CloudFront responds to IPv6 DNS requests with the DNS response code NOERROR and with no IP addresses.
+This allows viewers to submit a second request, for an IPv4 address for your distribution.
+
+**`default`** true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enableIpv6](#enableipv6)
+
+___
+
+### enableLogging
+
+• `Optional` `Readonly` **enableLogging**: `boolean`
+
+Enable access logging for the distribution.
+
+**`default`** - false, unless `logBucket` is specified.
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enableLogging](#enablelogging)
+
+___
+
+### enabled
+
+• `Optional` `Readonly` **enabled**: `boolean`
+
+Enable or disable the distribution.
+
+**`default`** true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enabled](#enabled)
+
+___
+
+### geoRestriction
+
+• `Optional` `Readonly` **geoRestriction**: `GeoRestriction`
+
+Controls the countries in which your content is distributed.
+
+**`default`** - No geographic restrictions
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[geoRestriction](#georestriction)
+
+___
+
+### httpVersion
+
+• `Optional` `Readonly` **httpVersion**: `HttpVersion`
+
+Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
+
+For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support server name identification (SNI).
+
+**`default`** HttpVersion.HTTP2
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[httpVersion](#httpversion)
+
+___
+
+### logBucket
+
+• `Optional` `Readonly` **logBucket**: `IBucket`
+
+The Amazon S3 bucket to store the access logs in.
+
+**`default`** - A bucket is created if `enableLogging` is true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logBucket](#logbucket)
+
+___
+
+### logFilePrefix
+
+• `Optional` `Readonly` **logFilePrefix**: `string`
+
+An optional string that you want CloudFront to prefix to the access log filenames for this distribution.
+
+**`default`** - no prefix
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logFilePrefix](#logfileprefix)
+
+___
+
+### logIncludesCookies
+
+• `Optional` `Readonly` **logIncludesCookies**: `boolean`
+
+Specifies whether you want CloudFront to include cookies in access logs
+
+**`default`** false
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logIncludesCookies](#logincludescookies)
+
+___
+
+### minimumProtocolVersion
+
+• `Optional` `Readonly` **minimumProtocolVersion**: `SecurityPolicyProtocol`
+
+The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.
+
+CloudFront serves your objects only to browsers or devices that support at
+least the SSL version that you specify.
+
+**`default`** SecurityPolicyProtocol.TLS_V1_2_2019
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[minimumProtocolVersion](#minimumprotocolversion)
+
+___
+
+### origin
+
+• `Optional` `Readonly` **origin**: `IOrigin`
+
+The origin that you want CloudFront to route requests
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[origin](#origin)
+
+___
+
+### priceClass
+
+• `Optional` `Readonly` **priceClass**: `PriceClass`
+
+The price class that corresponds with the maximum price that you want to pay for CloudFront service.
+If you specify PriceClass_All, CloudFront responds to requests for your objects from all CloudFront edge locations.
+If you specify a price class other than PriceClass_All, CloudFront serves your objects from the CloudFront edge location
+that has the lowest latency among the edge locations in your price class.
+
+**`default`** PriceClass.PRICE_CLASS_100
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[priceClass](#priceclass)
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+**`default`** Destroy
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[removalPolicy](#removalpolicy)
+
+___
+
+### ttl
+
+• `Optional` `Readonly` **ttl**: `Duration`
+
+The minimum amount of time, in seconds, that you want CloudFront
+to cache the HTTP status code specified in ErrorCode.
+
+**`default`** 300 seconds
+
+___
+
+### webAclId
+
+• `Optional` `Readonly` **webAclId**: `string`
+
+Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.
+
+To specify a web ACL created using the latest version of AWS WAF, use the ACL ARN, for example
+`arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a`.
+To specify a web ACL created using AWS WAF Classic, use the ACL ID, for example `473e64fd-f30b-4765-81a0-62ad96dd167a`.
+
+**`see`** https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html
+
+**`see`** https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html#API_CreateDistribution_RequestParameters.
+
+**`default`** - No AWS Web Application Firewall web access control list (web ACL).
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[webAclId](#webaclid)
+
+# Static Site Distribution Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / StaticSiteDistributionProps
+
+# Interface: StaticSiteDistributionProps
+
+## Hierarchy
+
+- [`CommonDistributionProps`](#common-distribution-props)
+
+  ↳ **`StaticSiteDistributionProps`**
+
+## Table of contents
+
+### Properties
+
+- [authorization](#authorization)
+- [certificate](#certificate)
+- [comment](#comment)
+- [defaultRootObject](#defaultrootobject)
+- [domainNames](#domainnames)
+- [enableIpv6](#enableipv6)
+- [enableLogging](#enablelogging)
+- [enabled](#enabled)
+- [errorResponses](#errorresponses)
+- [geoRestriction](#georestriction)
+- [httpVersion](#httpversion)
+- [logBucket](#logbucket)
+- [logFilePrefix](#logfileprefix)
+- [logIncludesCookies](#logincludescookies)
+- [minimumProtocolVersion](#minimumprotocolversion)
+- [origin](#origin)
+- [priceClass](#priceclass)
+- [removalPolicy](#removalpolicy)
+- [webAclId](#webaclid)
+
+## Properties
+
+### authorization
+
+• `Readonly` **authorization**: [`IStaticSiteAuthorization`](#i-static-site-authorization)
+
+___
+
+### certificate
+
+• `Optional` `Readonly` **certificate**: `ICertificate`
+
+A certificate to associate with the distribution. The certificate must be located in N. Virginia (us-east-1).
+
+**`default`** - the CloudFront wildcard certificate (*.cloudfront.net) will be used.
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[certificate](#certificate)
+
+___
+
+### comment
+
+• `Optional` `Readonly` **comment**: `string`
+
+Any comments you want to include about the distribution.
+
+**`default`** - no comment
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[comment](#comment)
+
+___
+
+### defaultRootObject
+
+• `Optional` `Readonly` **defaultRootObject**: `string`
+
+The object that you want CloudFront to request from your origin (for example, index.html)
+when a viewer requests the root URL for your distribution. If no default object is set, the
+request goes to the origin's root (e.g., example.com/).
+
+**`default`** - index.html
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[defaultRootObject](#defaultrootobject)
+
+___
+
+### domainNames
+
+• `Optional` `Readonly` **domainNames**: `string`[]
+
+Alternative domain names for this distribution.
+
+If you want to use your own domain name, such as www.example.com, instead of the cloudfront.net domain name,
+you can add an alternate domain name to your distribution. If you attach a certificate to the distribution,
+you must add (at least one of) the domain names of the certificate to this list.
+
+**`default`** - The distribution will only support the default generated name (e.g., d111111abcdef8.cloudfront.net)
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[domainNames](#domainnames)
+
+___
+
+### enableIpv6
+
+• `Optional` `Readonly` **enableIpv6**: `boolean`
+
+Whether CloudFront will respond to IPv6 DNS requests with an IPv6 address.
+
+If you specify false, CloudFront responds to IPv6 DNS requests with the DNS response code NOERROR and with no IP addresses.
+This allows viewers to submit a second request, for an IPv4 address for your distribution.
+
+**`default`** true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enableIpv6](#enableipv6)
+
+___
+
+### enableLogging
+
+• `Optional` `Readonly` **enableLogging**: `boolean`
+
+Enable access logging for the distribution.
+
+**`default`** - false, unless `logBucket` is specified.
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enableLogging](#enablelogging)
+
+___
+
+### enabled
+
+• `Optional` `Readonly` **enabled**: `boolean`
+
+Enable or disable the distribution.
+
+**`default`** true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[enabled](#enabled)
+
+___
+
+### errorResponses
+
+• `Optional` `Readonly` **errorResponses**: `ErrorResponse`[]
+
+___
+
+### geoRestriction
+
+• `Optional` `Readonly` **geoRestriction**: `GeoRestriction`
+
+Controls the countries in which your content is distributed.
+
+**`default`** - No geographic restrictions
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[geoRestriction](#georestriction)
+
+___
+
+### httpVersion
+
+• `Optional` `Readonly` **httpVersion**: `HttpVersion`
+
+Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
+
+For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support server name identification (SNI).
+
+**`default`** HttpVersion.HTTP2
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[httpVersion](#httpversion)
+
+___
+
+### logBucket
+
+• `Optional` `Readonly` **logBucket**: `IBucket`
+
+The Amazon S3 bucket to store the access logs in.
+
+**`default`** - A bucket is created if `enableLogging` is true
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logBucket](#logbucket)
+
+___
+
+### logFilePrefix
+
+• `Optional` `Readonly` **logFilePrefix**: `string`
+
+An optional string that you want CloudFront to prefix to the access log filenames for this distribution.
+
+**`default`** - no prefix
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logFilePrefix](#logfileprefix)
+
+___
+
+### logIncludesCookies
+
+• `Optional` `Readonly` **logIncludesCookies**: `boolean`
+
+Specifies whether you want CloudFront to include cookies in access logs
+
+**`default`** false
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[logIncludesCookies](#logincludescookies)
+
+___
+
+### minimumProtocolVersion
+
+• `Optional` `Readonly` **minimumProtocolVersion**: `SecurityPolicyProtocol`
+
+The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.
+
+CloudFront serves your objects only to browsers or devices that support at
+least the SSL version that you specify.
+
+**`default`** SecurityPolicyProtocol.TLS_V1_2_2019
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[minimumProtocolVersion](#minimumprotocolversion)
+
+___
+
+### origin
+
+• `Optional` `Readonly` **origin**: `IOrigin`
+
+The origin that you want CloudFront to route requests
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[origin](#origin)
+
+___
+
+### priceClass
+
+• `Optional` `Readonly` **priceClass**: `PriceClass`
+
+The price class that corresponds with the maximum price that you want to pay for CloudFront service.
+If you specify PriceClass_All, CloudFront responds to requests for your objects from all CloudFront edge locations.
+If you specify a price class other than PriceClass_All, CloudFront serves your objects from the CloudFront edge location
+that has the lowest latency among the edge locations in your price class.
+
+**`default`** PriceClass.PRICE_CLASS_100
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[priceClass](#priceclass)
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+**`default`** Destroy
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[removalPolicy](#removalpolicy)
+
+___
+
+### webAclId
+
+• `Optional` `Readonly` **webAclId**: `string`
+
+Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.
+
+To specify a web ACL created using the latest version of AWS WAF, use the ACL ARN, for example
+`arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a`.
+To specify a web ACL created using AWS WAF Classic, use the ACL ID, for example `473e64fd-f30b-4765-81a0-62ad96dd167a`.
+
+**`see`** https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html
+
+**`see`** https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html#API_CreateDistribution_RequestParameters.
+
+**`default`** - No AWS Web Application Firewall web access control list (web ACL).
+
+#### Inherited from
+
+[CommonDistributionProps](#common-distribution-props).[webAclId](#webaclid)
+
+# User Pool Client Callback Urls
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / UserPoolClientCallbackUrls
+
+# Interface: UserPoolClientCallbackUrls
+
+## Table of contents
+
+### Properties
+
+- [callbackUrls](#callbackurls)
+- [logoutUrls](#logouturls)
+
+## Properties
+
+### callbackUrls
+
+• `Readonly` **callbackUrls**: `string`[]
+
+A list of allowed redirect (callback) URLs for the identity providers.
+
+___
+
+### logoutUrls
+
+• `Readonly` **logoutUrls**: `string`[]
+
+A list of allowed logout URLs for the identity providers.
+
+# User Pool Client Redirects Props
+
+[@cloudcomponents/cdk-cloudfront-authorization](#readme) / UserPoolClientRedirectsProps
+
+# Interface: UserPoolClientRedirectsProps
+
+## Table of contents
+
+### Properties
+
+- [callbackUrls](#callbackurls)
+- [identityProviders](#identityproviders)
+- [logoutUrls](#logouturls)
+- [oauthScopes](#oauthscopes)
+- [userPool](#userpool)
+- [userPoolClient](#userpoolclient)
+
+## Properties
+
+### callbackUrls
+
+• `Readonly` **callbackUrls**: `string`[]
+
+___
+
+### identityProviders
+
+• `Readonly` **identityProviders**: `UserPoolClientIdentityProvider`[]
+
+___
+
+### logoutUrls
+
+• `Readonly` **logoutUrls**: `string`[]
+
+___
+
+### oauthScopes
+
+• `Readonly` **oauthScopes**: `OAuthScope`[]
+
+___
+
+### userPool
+
+• `Readonly` **userPool**: `IUserPool`
+
+___
+
+### userPoolClient
+
+• `Readonly` **userPoolClient**: `IUserPoolClient`

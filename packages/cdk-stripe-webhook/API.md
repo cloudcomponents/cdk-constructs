@@ -1,129 +1,651 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-stripe-webhook
 
-Name|Description
-----|-----------
-[StripeEventBusProducer](#cloudcomponents-cdk-stripe-webhook-stripeeventbusproducer)|*No description*
-[StripeWebhook](#cloudcomponents-cdk-stripe-webhook-stripewebhook)|*No description*
+# @cloudcomponents/cdk-stripe-webhook
 
+## Table of contents
 
-**Structs**
+### Classes
 
-Name|Description
-----|-----------
-[StripeEventBusProducerProps](#cloudcomponents-cdk-stripe-webhook-stripeeventbusproducerprops)|*No description*
-[StripeWebhookProps](#cloudcomponents-cdk-stripe-webhook-stripewebhookprops)|*No description*
+- [StripeEventBusProducer](#stripe-event-bus-producer)
+- [StripeWebhook](#stripe-webhook)
 
+### Interfaces
 
+- [StripeEventBusProducerProps](#stripe-event-bus-producer-props)
+- [StripeWebhookProps](#stripe-webhook-props)
 
-## class StripeEventBusProducer  <a id="cloudcomponents-cdk-stripe-webhook-stripeeventbusproducer"></a>
+# Stripe Event Bus Producer
 
+[@cloudcomponents/cdk-stripe-webhook](#readme) / StripeEventBusProducer
 
+# Class: StripeEventBusProducer
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+## Hierarchy
 
-### Initializer
+- `Construct`
 
+  ↳ **`StripeEventBusProducer`**
 
+## Table of contents
 
+### Constructors
 
-```ts
-new StripeEventBusProducer(scope: Construct, id: string, props: StripeEventBusProducerProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[StripeEventBusProducerProps](#cloudcomponents-cdk-stripe-webhook-stripeeventbusproducerprops)</code>)  *No description*
-  * **endpointSecret** (<code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>)  *No description* 
-  * **secretKey** (<code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>)  *No description* 
-  * **eventBus** (<code>[IEventBus](#aws-cdk-aws-events-ieventbus)</code>)  *No description* __*Optional*__
-  * **source** (<code>string</code>)  *No description* __*Optional*__
-  * **throttlingBurstLimit** (<code>number</code>)  *No description* __*Optional*__
-  * **throttlingRateLimit** (<code>number</code>)  *No description* __*Optional*__
-
-
+- [constructor](#constructor)
 
 ### Properties
 
+- [node](#node)
+- [url](#url)
 
-Name | Type | Description 
------|------|-------------
-**url** | <code>string</code> | <span></span>
+### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
+## Constructors
 
-## class StripeWebhook  <a id="cloudcomponents-cdk-stripe-webhook-stripewebhook"></a>
+### constructor
 
+• **new StripeEventBusProducer**(`scope`, `id`, `props`)
 
+#### Parameters
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`StripeEventBusProducerProps`](#stripe-event-bus-producer-props) |
 
-### Initializer
+#### Overrides
 
+Construct.constructor
 
+## Properties
 
+### node
 
-```ts
-new StripeWebhook(scope: Construct, id: string, props: StripeWebhookProps)
-```
+• `Readonly` **node**: `ConstructNode`
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[StripeWebhookProps](#cloudcomponents-cdk-stripe-webhook-stripewebhookprops)</code>)  *No description*
-  * **events** (<code>Array<string></code>)  *No description* 
-  * **secretKey** (<code>string &#124; [SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>)  *No description* 
-  * **url** (<code>string</code>)  *No description* 
-  * **description** (<code>string</code>)  *No description* __*Optional*__
-  * **endpointSecretStore** (<code>[SecretKeyStore](#cloudcomponents-cdk-secret-key-secretkeystore)</code>)  *No description* __*Optional*__
-  * **logLevel** (<code>string</code>)  *No description* __*Optional*__
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
+
+Construct.node
+
+___
+
+### url
+
+• `Readonly` **url**: `string`
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Stripe Webhook
+
+[@cloudcomponents/cdk-stripe-webhook](#readme) / StripeWebhook
+
+# Class: StripeWebhook
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`StripeWebhook`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
+- [id](#id)
+- [node](#node)
 
-Name | Type | Description 
------|------|-------------
-**id** | <code>string</code> | <span></span>
+### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
+## Constructors
 
-## struct StripeEventBusProducerProps  <a id="cloudcomponents-cdk-stripe-webhook-stripeeventbusproducerprops"></a>
+### constructor
 
+• **new StripeWebhook**(`scope`, `id`, `props`)
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`StripeWebhookProps`](#stripe-webhook-props) |
 
+#### Overrides
 
+Construct.constructor
 
-Name | Type | Description 
------|------|-------------
-**endpointSecret** | <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code> | <span></span>
-**secretKey** | <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code> | <span></span>
-**eventBus**? | <code>[IEventBus](#aws-cdk-aws-events-ieventbus)</code> | __*Optional*__
-**source**? | <code>string</code> | __*Optional*__
-**throttlingBurstLimit**? | <code>number</code> | __*Optional*__
-**throttlingRateLimit**? | <code>number</code> | __*Optional*__
+## Properties
 
+### id
 
+• `Readonly` **id**: `string`
 
-## struct StripeWebhookProps  <a id="cloudcomponents-cdk-stripe-webhook-stripewebhookprops"></a>
+___
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
-Name | Type | Description 
------|------|-------------
-**events** | <code>Array<string></code> | <span></span>
-**secretKey** | <code>string &#124; [SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code> | <span></span>
-**url** | <code>string</code> | <span></span>
-**description**? | <code>string</code> | __*Optional*__
-**endpointSecretStore**? | <code>[SecretKeyStore](#cloudcomponents-cdk-secret-key-secretkeystore)</code> | __*Optional*__
-**logLevel**? | <code>string</code> | __*Optional*__
+Construct.node
 
+## Methods
 
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Stripe Event Bus Producer Props
+
+[@cloudcomponents/cdk-stripe-webhook](#readme) / StripeEventBusProducerProps
+
+# Interface: StripeEventBusProducerProps
+
+## Table of contents
+
+### Properties
+
+- [endpointSecret](#endpointsecret)
+- [eventBus](#eventbus)
+- [secretKey](#secretkey)
+- [source](#source)
+- [throttlingBurstLimit](#throttlingburstlimit)
+- [throttlingRateLimit](#throttlingratelimit)
+
+## Properties
+
+### endpointSecret
+
+• `Readonly` **endpointSecret**: `SecretKey`
+
+___
+
+### eventBus
+
+• `Optional` `Readonly` **eventBus**: `IEventBus`
+
+___
+
+### secretKey
+
+• `Readonly` **secretKey**: `SecretKey`
+
+___
+
+### source
+
+• `Optional` `Readonly` **source**: `string`
+
+___
+
+### throttlingBurstLimit
+
+• `Optional` `Readonly` **throttlingBurstLimit**: `number`
+
+___
+
+### throttlingRateLimit
+
+• `Optional` `Readonly` **throttlingRateLimit**: `number`
+
+# Stripe Webhook Props
+
+[@cloudcomponents/cdk-stripe-webhook](#readme) / StripeWebhookProps
+
+# Interface: StripeWebhookProps
+
+## Table of contents
+
+### Properties
+
+- [description](#description)
+- [endpointSecretStore](#endpointsecretstore)
+- [events](#events)
+- [logLevel](#loglevel)
+- [secretKey](#secretkey)
+- [url](#url)
+
+## Properties
+
+### description
+
+• `Optional` `Readonly` **description**: `string`
+
+___
+
+### endpointSecretStore
+
+• `Optional` `Readonly` **endpointSecretStore**: `SecretKeyStore`
+
+___
+
+### events
+
+• `Readonly` **events**: `string`[]
+
+___
+
+### logLevel
+
+• `Optional` `Readonly` **logLevel**: ``"debug"`` \| ``"info"`` \| ``"warning"`` \| ``"error"``
+
+___
+
+### secretKey
+
+• `Readonly` **secretKey**: `string` \| `SecretKey`
+
+___
+
+### url
+
+• `Readonly` **url**: `string`

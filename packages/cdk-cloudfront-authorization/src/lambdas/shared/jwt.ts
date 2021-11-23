@@ -13,7 +13,7 @@ async function getSigningKey(jwksUri: string, kid: string) {
     jwksRsa = jwksClient({ cache: true, rateLimit: true, jwksUri });
   }
   return new Promise<string>((resolve, reject) =>
-    jwksRsa.getSigningKey(kid, (err, jwk) => (err ? reject(err) : resolve(isRsaSigningKey(jwk) ? jwk.rsaPublicKey : jwk.publicKey))),
+    jwksRsa.getSigningKey(kid, (err, jwk) => (err ? reject(err) : resolve((isRsaSigningKey(jwk) ? jwk.rsaPublicKey : jwk.publicKey) as string))),
   );
 }
 

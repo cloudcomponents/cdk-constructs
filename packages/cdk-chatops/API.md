@@ -1,258 +1,865 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-chatops
 
-Name|Description
-----|-----------
-[MSTeamsIncomingWebhookConfiguration](#cloudcomponents-cdk-chatops-msteamsincomingwebhookconfiguration)|*No description*
-[SlackChannelConfiguration](#cloudcomponents-cdk-chatops-slackchannelconfiguration)|*No description*
+# @cloudcomponents/cdk-chatops
 
+## Table of contents
 
-**Structs**
+### Enumerations
 
-Name|Description
-----|-----------
-[MSTeamsIncomingWebhookConfigurationProps](#cloudcomponents-cdk-chatops-msteamsincomingwebhookconfigurationprops)|*No description*
-[SlackChannelConfigurationProps](#cloudcomponents-cdk-chatops-slackchannelconfigurationprops)|*No description*
+- [AccountLabelMode](#account-label-mode)
+- [LoggingLevel](#logging-level)
 
+### Classes
 
-**Interfaces**
+- [MSTeamsIncomingWebhookConfiguration](#ms-teams-incoming-webhook-configuration)
+- [SlackChannelConfiguration](#slack-channel-configuration)
 
-Name|Description
-----|-----------
-[ISlackChannelConfiguration](#cloudcomponents-cdk-chatops-islackchannelconfiguration)|*No description*
+### Interfaces
 
+- [ISlackChannelConfiguration](#i-slack-channel-configuration)
+- [MSTeamsIncomingWebhookConfigurationProps](#ms-teams-incoming-webhook-configuration-props)
+- [SlackChannelConfigurationProps](#slack-channel-configuration-props)
 
-**Enums**
+# MS Teams Incoming Webhook Configuration
 
-Name|Description
-----|-----------
-[AccountLabelMode](#cloudcomponents-cdk-chatops-accountlabelmode)|*No description*
-[LoggingLevel](#cloudcomponents-cdk-chatops-logginglevel)|*No description*
+[@cloudcomponents/cdk-chatops](#readme) / MSTeamsIncomingWebhookConfiguration
 
+# Class: MSTeamsIncomingWebhookConfiguration
 
+## Hierarchy
 
-## class MSTeamsIncomingWebhookConfiguration  <a id="cloudcomponents-cdk-chatops-msteamsincomingwebhookconfiguration"></a>
+- `Construct`
 
+  ↳ **`MSTeamsIncomingWebhookConfiguration`**
 
+## Table of contents
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+### Constructors
 
-### Initializer
-
-
-
-
-```ts
-new MSTeamsIncomingWebhookConfiguration(scope: Construct, id: string, props: MSTeamsIncomingWebhookConfigurationProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[MSTeamsIncomingWebhookConfigurationProps](#cloudcomponents-cdk-chatops-msteamsincomingwebhookconfigurationprops)</code>)  *No description*
-  * **url** (<code>string</code>)  The url of the incoming webhook for a channel. 
-  * **accountLabelMode** (<code>[AccountLabelMode](#cloudcomponents-cdk-chatops-accountlabelmode)</code>)  *No description* __*Default*__: ACCOUNT_LABEL_MODE.ID_AND_ALIAS
-  * **notificationTopics** (<code>Array<[ITopic](#aws-cdk-aws-sns-itopic)></code>)  The SNS topics that deliver notifications to MS Teams. __*Optional*__
-  * **themeColor** (<code>string</code>)  Specifies a custom brand color for the card. __*Default*__: `#CEDB56`
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**incomingWebhook** | <code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code> | <span></span>
+- [incomingWebhook](#incomingwebhook)
+- [node](#node)
 
 ### Methods
 
+- [addEventSource](#addeventsource)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### addEventSource(snsEventSource) <a id="cloudcomponents-cdk-chatops-msteamsincomingwebhookconfiguration-addeventsource"></a>
+## Constructors
 
+### constructor
 
+• **new MSTeamsIncomingWebhookConfiguration**(`scope`, `id`, `props`)
 
-```ts
-addEventSource(snsEventSource: SnsEventSource): void
-```
+#### Parameters
 
-* **snsEventSource** (<code>[SnsEventSource](#aws-cdk-aws-lambda-event-sources-snseventsource)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`MSTeamsIncomingWebhookConfigurationProps`](#ms-teams-incoming-webhook-configuration-props) |
 
+#### Overrides
 
+Construct.constructor
 
+## Properties
 
+### incomingWebhook
 
+• `Readonly` **incomingWebhook**: `IFunction`
 
-## class SlackChannelConfiguration  <a id="cloudcomponents-cdk-chatops-slackchannelconfiguration"></a>
+___
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+The construct tree node associated with this construct.
 
-### Initializer
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
+## Methods
 
-```ts
-new SlackChannelConfiguration(scope: Construct, id: string, props: SlackChannelConfigurationProps)
-```
+### addEventSource
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[SlackChannelConfigurationProps](#cloudcomponents-cdk-chatops-slackchannelconfigurationprops)</code>)  *No description*
-  * **configurationName** (<code>string</code>)  The name of the configuration. 
-  * **slackChannelId** (<code>string</code>)  The ID of the Slack channel. 
-  * **slackWorkspaceId** (<code>string</code>)  The ID of the Slack workspace authorized with AWS Chatbot. 
-  * **loggingLevel** (<code>[LoggingLevel](#cloudcomponents-cdk-chatops-logginglevel)</code>)  Specifies the logging level for this configuration. This property affects the log entries pushed to Amazon CloudWatch Logs. __*Default*__: NONE
-  * **notificationTopics** (<code>Array<[ITopic](#aws-cdk-aws-sns-itopic)></code>)  The SNS topics that deliver notifications to AWS Chatbot. __*Optional*__
-  * **role** (<code>[IRole](#aws-cdk-aws-iam-irole)</code>)  The iam role that defines the permissions for AWS Chatbot. __*Optional*__
+▸ **addEventSource**(`snsEventSource`): `void`
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `snsEventSource` | `SnsEventSource` |
+
+#### Returns
+
+`void`
+
+___
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Slack Channel Configuration
+
+[@cloudcomponents/cdk-chatops](#readme) / SlackChannelConfiguration
+
+# Class: SlackChannelConfiguration
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`SlackChannelConfiguration`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**configurationArn** | <code>string</code> | <span></span>
-**role** | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | <span></span>
+- [configurationArn](#configurationarn)
+- [node](#node)
+- [role](#role)
 
 ### Methods
 
+- [addLambdaInvokeCommandPermissions](#addlambdainvokecommandpermissions)
+- [addNotificationPermissions](#addnotificationpermissions)
+- [addReadOnlyCommandPermissions](#addreadonlycommandpermissions)
+- [addSupportCommandPermissions](#addsupportcommandpermissions)
+- [addToRolePolicy](#addtorolepolicy)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### addLambdaInvokeCommandPermissions(lambda?) <a id="cloudcomponents-cdk-chatops-slackchannelconfiguration-addlambdainvokecommandpermissions"></a>
+## Constructors
 
-Allows Lambda-invoke commands in supported clients.
+### constructor
 
-```ts
-addLambdaInvokeCommandPermissions(lambda?: IFunction): void
-```
+• **new SlackChannelConfiguration**(`scope`, `id`, `props`)
 
-* **lambda** (<code>[IFunction](#aws-cdk-aws-lambda-ifunction)</code>)  *No description*
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`SlackChannelConfigurationProps`](#slack-channel-configuration-props) |
 
+#### Overrides
 
+Construct.constructor
 
-#### addNotificationPermissions() <a id="cloudcomponents-cdk-chatops-slackchannelconfiguration-addnotificationpermissions"></a>
+## Properties
 
-Allows AWS Chatbot to retreive metric graphs from Amazon Cloudwatch.
+### configurationArn
 
-```ts
-addNotificationPermissions(): void
-```
+• `Readonly` **configurationArn**: `string`
 
+___
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
-#### addReadOnlyCommandPermissions() <a id="cloudcomponents-cdk-chatops-slackchannelconfiguration-addreadonlycommandpermissions"></a>
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
-```ts
-addReadOnlyCommandPermissions(): void
-```
+___
 
+### role
 
+• `Readonly` **role**: `IRole`
 
+## Methods
 
+### addLambdaInvokeCommandPermissions
 
-#### addSupportCommandPermissions() <a id="cloudcomponents-cdk-chatops-slackchannelconfiguration-addsupportcommandpermissions"></a>
+▸ **addLambdaInvokeCommandPermissions**(`lambda?`): `void`
 
-Allows calling AWS Support APIs in supportzed clients.
+Allows Lambda-invoke commands in supported clients
 
-```ts
-addSupportCommandPermissions(): void
-```
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `lambda?` | `IFunction` |
 
+#### Returns
 
+`void`
 
+___
 
-#### addToRolePolicy(statement) <a id="cloudcomponents-cdk-chatops-slackchannelconfiguration-addtorolepolicy"></a>
+### addNotificationPermissions
+
+▸ **addNotificationPermissions**(): `void`
+
+Allows AWS Chatbot to retreive metric graphs from Amazon Cloudwatch
+
+#### Returns
+
+`void`
+
+___
+
+### addReadOnlyCommandPermissions
+
+▸ **addReadOnlyCommandPermissions**(): `void`
+
+#### Returns
+
+`void`
+
+___
+
+### addSupportCommandPermissions
+
+▸ **addSupportCommandPermissions**(): `void`
+
+Allows calling AWS Support APIs in supportzed clients
+
+#### Returns
+
+`void`
+
+___
+
+### addToRolePolicy
+
+▸ **addToRolePolicy**(`statement`): `void`
 
 Adds a statement to the IAM role assumed by the instance.
 
-```ts
-addToRolePolicy(statement: PolicyStatement): void
-```
+#### Parameters
 
-* **statement** (<code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `statement` | `PolicyStatement` |
 
+#### Returns
 
+`void`
 
+___
 
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
-## interface ISlackChannelConfiguration  <a id="cloudcomponents-cdk-chatops-islackchannelconfiguration"></a>
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Account Label Mode
+
+[@cloudcomponents/cdk-chatops](#readme) / AccountLabelMode
+
+# Enumeration: AccountLabelMode
+
+## Table of contents
+
+### Enumeration members
+
+- [ALIAS](#alias)
+- [ID](#id)
+- [ID\_AND\_ALIAS](#id_and_alias)
+
+## Enumeration members
+
+### ALIAS
+
+• **ALIAS** = `"ALIAS"`
+
+___
+
+### ID
+
+• **ID** = `"ID"`
+
+___
+
+### ID\_AND\_ALIAS
+
+• **ID\_AND\_ALIAS** = `"ID_AND_ALIAS"`
+
+# Logging Level
+
+[@cloudcomponents/cdk-chatops](#readme) / LoggingLevel
+
+# Enumeration: LoggingLevel
+
+## Table of contents
+
+### Enumeration members
+
+- [ERROR](#error)
+- [INFO](#info)
+- [NONE](#none)
+
+## Enumeration members
+
+### ERROR
+
+• **ERROR** = `"ERROR"`
+
+___
+
+### INFO
+
+• **INFO** = `"INFO"`
+
+___
+
+### NONE
+
+• **NONE** = `"NONE"`
+
+# I Slack Channel Configuration
+
+[@cloudcomponents/cdk-chatops](#readme) / ISlackChannelConfiguration
+
+# Interface: ISlackChannelConfiguration
+
+## Table of contents
 
 ### Properties
 
+- [configurationArn](#configurationarn)
 
-Name | Type | Description 
------|------|-------------
-**configurationArn** | <code>string</code> | <span></span>
+## Properties
 
+### configurationArn
 
+• `Readonly` **configurationArn**: `string`
 
-## struct MSTeamsIncomingWebhookConfigurationProps  <a id="cloudcomponents-cdk-chatops-msteamsincomingwebhookconfigurationprops"></a>
+# MS Teams Incoming Webhook Configuration Props
 
+[@cloudcomponents/cdk-chatops](#readme) / MSTeamsIncomingWebhookConfigurationProps
 
+# Interface: MSTeamsIncomingWebhookConfigurationProps
 
+## Table of contents
 
+### Properties
 
+- [accountLabelMode](#accountlabelmode)
+- [notificationTopics](#notificationtopics)
+- [themeColor](#themecolor)
+- [url](#url)
 
-Name | Type | Description 
------|------|-------------
-**url** | <code>string</code> | The url of the incoming webhook for a channel.
-**accountLabelMode**? | <code>[AccountLabelMode](#cloudcomponents-cdk-chatops-accountlabelmode)</code> | __*Default*__: ACCOUNT_LABEL_MODE.ID_AND_ALIAS
-**notificationTopics**? | <code>Array<[ITopic](#aws-cdk-aws-sns-itopic)></code> | The SNS topics that deliver notifications to MS Teams.<br/>__*Optional*__
-**themeColor**? | <code>string</code> | Specifies a custom brand color for the card.<br/>__*Default*__: `#CEDB56`
+## Properties
 
+### accountLabelMode
 
+• `Optional` `Readonly` **accountLabelMode**: [`AccountLabelMode`](#account-label-mode)
 
-## struct SlackChannelConfigurationProps  <a id="cloudcomponents-cdk-chatops-slackchannelconfigurationprops"></a>
+**`default`** ACCOUNT_LABEL_MODE.ID_AND_ALIAS
 
+___
 
+### notificationTopics
 
+• `Optional` `Readonly` **notificationTopics**: `ITopic`[]
 
+The SNS topics that deliver notifications to MS Teams.
 
+___
 
-Name | Type | Description 
------|------|-------------
-**configurationName** | <code>string</code> | The name of the configuration.
-**slackChannelId** | <code>string</code> | The ID of the Slack channel.
-**slackWorkspaceId** | <code>string</code> | The ID of the Slack workspace authorized with AWS Chatbot.
-**loggingLevel**? | <code>[LoggingLevel](#cloudcomponents-cdk-chatops-logginglevel)</code> | Specifies the logging level for this configuration. This property affects the log entries pushed to Amazon CloudWatch Logs.<br/>__*Default*__: NONE
-**notificationTopics**? | <code>Array<[ITopic](#aws-cdk-aws-sns-itopic)></code> | The SNS topics that deliver notifications to AWS Chatbot.<br/>__*Optional*__
-**role**? | <code>[IRole](#aws-cdk-aws-iam-irole)</code> | The iam role that defines the permissions for AWS Chatbot.<br/>__*Optional*__
+### themeColor
 
+• `Optional` `Readonly` **themeColor**: `string`
 
+Specifies a custom brand color for the card. The color will be displayed in a non-obtrusive manner.
 
-## enum AccountLabelMode  <a id="cloudcomponents-cdk-chatops-accountlabelmode"></a>
+**`default`** `#CEDB56`
 
+___
 
+### url
 
-Name | Description
------|-----
-**ID** |
-**ALIAS** |
-**ID_AND_ALIAS** |
+• `Readonly` **url**: `string`
 
+The url of the incoming webhook for a channel
 
-## enum LoggingLevel  <a id="cloudcomponents-cdk-chatops-logginglevel"></a>
+# Slack Channel Configuration Props
 
+[@cloudcomponents/cdk-chatops](#readme) / SlackChannelConfigurationProps
 
+# Interface: SlackChannelConfigurationProps
 
-Name | Description
------|-----
-**ERROR** |
-**INFO** |
-**NONE** |
+## Table of contents
 
+### Properties
 
+- [configurationName](#configurationname)
+- [loggingLevel](#logginglevel)
+- [notificationTopics](#notificationtopics)
+- [role](#role)
+- [slackChannelId](#slackchannelid)
+- [slackWorkspaceId](#slackworkspaceid)
+
+## Properties
+
+### configurationName
+
+• `Readonly` **configurationName**: `string`
+
+The name of the configuration.
+
+___
+
+### loggingLevel
+
+• `Optional` `Readonly` **loggingLevel**: [`LoggingLevel`](#logging-level)
+
+Specifies the logging level for this configuration. This property
+affects the log entries pushed to Amazon CloudWatch Logs.
+
+Logging levels include ERROR, INFO, or NONE.
+
+**`default`** NONE
+
+___
+
+### notificationTopics
+
+• `Optional` `Readonly` **notificationTopics**: `ITopic`[]
+
+The SNS topics that deliver notifications to AWS Chatbot.
+
+___
+
+### role
+
+• `Optional` `Readonly` **role**: `IRole`
+
+The iam role that defines the permissions for AWS Chatbot.
+
+This is a user-defined role that AWS Chatbot will assume. This is
+not the service-linked role. For more information, see IAM Policies
+for AWS Chatbot.
+
+___
+
+### slackChannelId
+
+• `Readonly` **slackChannelId**: `string`
+
+The ID of the Slack channel.
+
+To get the ID, open Slack, right click on the channel name
+in the left pane, then choose Copy Link. The channel ID is
+the 9-character string at the end of the URL.
+For example, ABCBBLZZZ.
+
+___
+
+### slackWorkspaceId
+
+• `Readonly` **slackWorkspaceId**: `string`
+
+The ID of the Slack workspace authorized with AWS Chatbot.
+
+To get the workspace ID, you must perform the initial authorization
+flow with Slack in the AWS Chatbot console. Then you can copy and
+paste the workspace ID from the console. For more details, see steps
+1-4 in Setting Up AWS Chatbot with Slack in the AWS Chatbot User Guide.

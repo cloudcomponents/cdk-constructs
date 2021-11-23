@@ -1,240 +1,1281 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-static-website
 
-Name|Description
-----|-----------
-[StaticWebsite](#cloudcomponents-cdk-static-website-staticwebsite)|*No description*
-[WebsiteAliasRecord](#cloudcomponents-cdk-static-website-websitealiasrecord)|*No description*
-[WebsiteBucket](#cloudcomponents-cdk-static-website-websitebucket)|*No description*
+# @cloudcomponents/cdk-static-website
 
+## Table of contents
 
-**Structs**
+### Classes
 
-Name|Description
-----|-----------
-[AliasProps](#cloudcomponents-cdk-static-website-aliasprops)|*No description*
-[StaticWebsiteProps](#cloudcomponents-cdk-static-website-staticwebsiteprops)|*No description*
-[WebsiteAliasRecordProps](#cloudcomponents-cdk-static-website-websitealiasrecordprops)|*No description*
-[WebsiteBucketProps](#cloudcomponents-cdk-static-website-websitebucketprops)|*No description*
+- [StaticWebsite](#static-website)
+- [WebsiteAliasRecord](#website-alias-record)
+- [WebsiteBucket](#website-bucket)
 
+### Interfaces
 
+- [AliasProps](#alias-props)
+- [StaticWebsiteProps](#static-website-props)
+- [WebsiteAliasRecordProps](#website-alias-record-props)
+- [WebsiteBucketProps](#website-bucket-props)
 
-## class StaticWebsite  <a id="cloudcomponents-cdk-static-website-staticwebsite"></a>
+# Static Website
 
+[@cloudcomponents/cdk-static-website](#readme) / StaticWebsite
 
+# Class: StaticWebsite
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+## Hierarchy
 
-### Initializer
+- `Construct`
 
+  ↳ **`StaticWebsite`**
 
+## Table of contents
 
+### Constructors
 
-```ts
-new StaticWebsite(scope: Construct, id: string, props?: StaticWebsiteProps)
-```
-
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[StaticWebsiteProps](#cloudcomponents-cdk-static-website-staticwebsiteprops)</code>)  *No description*
-  * **bucketName** (<code>string</code>)  Name of the bucket. __*Default*__: Assigned by CloudFormation (recommended).
-  * **disableUpload** (<code>boolean</code>)  Disable website deployment. __*Default*__: false
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  Policy to apply when the bucket is removed from this stack. __*Default*__: The bucket will be orphaned.
-  * **source** (<code>string</code>)  The source from which to deploy the website. __*Default*__: Dummy placeholder
-  * **websiteErrorDocument** (<code>string</code>)  The error page for the site like 'error.html'. __*Default*__: error.html
-  * **websiteIndexDocument** (<code>string</code>)  The index page for the site like 'index.html'. __*Default*__: index.html
-  * **aliasConfiguration** (<code>[AliasProps](#cloudcomponents-cdk-static-website-aliasprops)</code>)  AliasConfiguration is used to configured CloudFront to respond to requests on custom domain names. __*Default*__: No custom domain names are set up
-  * **bucketConfiguration** (<code>[WebsiteBucketProps](#cloudcomponents-cdk-static-website-websitebucketprops)</code>)  BucketConfiguration is used to configured the S3 website bucket. __*Default*__: The website bucket is provided with default values
-  * **disableIPv6** (<code>boolean</code>)  An override flag that allows you to turn off support for IPv6 if required. __*Default*__: Cloudfront IPv6 support is enabled and if you've supplied an aliasConfiguration, an AAAA record will be created for your service, set this to true to switch this off.
-  * **errorConfigurations** (<code>Array<[CfnDistribution.CustomErrorResponseProperty](#aws-cdk-aws-cloudfront-cfndistribution-customerrorresponseproperty)></code>)  How CloudFront should handle requests that are not successful (e.g., PageNotFound). __*Default*__: No custom error responses.
-  * **webACLId** (<code>string</code>)  AWS WAF WebACL to associate with this CloudFront distribution. __*Default*__: No AWS Web Application Firewall web access control list (web ACL)
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**distribution** | <code>[CloudFrontWebDistribution](#aws-cdk-aws-cloudfront-cloudfrontwebdistribution)</code> | <span></span>
+- [distribution](#distribution)
+- [node](#node)
 
 ### Methods
 
+- [addLambdaFunctionAssociation](#addlambdafunctionassociation)
+- [addLambdaFunctionAssociations](#addlambdafunctionassociations)
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
-#### addLambdaFunctionAssociation(assosiation) <a id="cloudcomponents-cdk-static-website-staticwebsite-addlambdafunctionassociation"></a>
+## Constructors
 
+### constructor
 
+• **new StaticWebsite**(`scope`, `id`, `props?`)
 
-```ts
-addLambdaFunctionAssociation(assosiation: LambdaFunctionAssociation): void
-```
+#### Parameters
 
-* **assosiation** (<code>[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)</code>)  *No description*
-  * **eventType** (<code>[LambdaEdgeEventType](#aws-cdk-aws-cloudfront-lambdaedgeeventtype)</code>)  The lambda event type defines at which event the lambda is called during the request lifecycle. 
-  * **includeBody** (<code>boolean</code>)  Allows a Lambda function to have read access to the body content. __*Default*__: false
-  * **lambdaFunction** (<code>[IVersion](#aws-cdk-aws-lambda-iversion)</code>)  A version of the lambda to associate. 
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`StaticWebsiteProps`](#static-website-props) |
 
+#### Overrides
 
+Construct.constructor
 
+## Properties
 
-#### addLambdaFunctionAssociations(assosiations) <a id="cloudcomponents-cdk-static-website-staticwebsite-addlambdafunctionassociations"></a>
+### distribution
 
+• `Readonly` **distribution**: `CloudFrontWebDistribution`
 
+___
 
-```ts
-addLambdaFunctionAssociations(assosiations: Array<LambdaFunctionAssociation>): void
-```
+### node
 
-* **assosiations** (<code>Array<[LambdaFunctionAssociation](#aws-cdk-aws-cloudfront-lambdafunctionassociation)></code>)  *No description*
+• `Readonly` **node**: `ConstructNode`
 
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
+## Methods
 
-## class WebsiteAliasRecord  <a id="cloudcomponents-cdk-static-website-websitealiasrecord"></a>
+### addLambdaFunctionAssociation
 
+▸ **addLambdaFunctionAssociation**(`assosiation`): `void`
 
+#### Parameters
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+| Name | Type |
+| :------ | :------ |
+| `assosiation` | `LambdaFunctionAssociation` |
 
-### Initializer
+#### Returns
 
+`void`
 
+___
 
+### addLambdaFunctionAssociations
 
-```ts
-new WebsiteAliasRecord(scope: Construct, id: string, props: WebsiteAliasRecordProps)
-```
+▸ **addLambdaFunctionAssociations**(`assosiations`): `void`
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[WebsiteAliasRecordProps](#cloudcomponents-cdk-static-website-websitealiasrecordprops)</code>)  *No description*
-  * **domainName** (<code>string</code>)  The domain name for the site like 'example.com'. 
-  * **recordNames** (<code>Array<string></code>)  Names for the records. 
-  * **target** (<code>[IAliasRecordTarget](#aws-cdk-aws-route53-ialiasrecordtarget)</code>)  Target for the alias record. 
-  * **disableIPv6** (<code>boolean</code>)  We support IPv6 and add an AAAA record by default, but you can turn it off. __*Optional*__
-  * **privateZone** (<code>boolean</code>)  Allow searching a private hosted zone. __*Default*__: false
-  * **vpcId** (<code>string</code>)  Specifies the ID of the VPC associated with a private hosted zone. __*Default*__: No VPC ID
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `assosiations` | `LambdaFunctionAssociation`[] |
 
+#### Returns
 
+`void`
 
-## class WebsiteBucket  <a id="cloudcomponents-cdk-static-website-websitebucket"></a>
+___
 
+### onPrepare
 
+▸ `Protected` **onPrepare**(): `void`
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+Perform final modifications before synthesis.
 
-### Initializer
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
+#### Returns
 
-```ts
-new WebsiteBucket(scope: Construct, id: string, props?: WebsiteBucketProps)
-```
+`void`
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[WebsiteBucketProps](#cloudcomponents-cdk-static-website-websitebucketprops)</code>)  *No description*
-  * **bucketName** (<code>string</code>)  Name of the bucket. __*Default*__: Assigned by CloudFormation (recommended).
-  * **disableUpload** (<code>boolean</code>)  Disable website deployment. __*Default*__: false
-  * **removalPolicy** (<code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code>)  Policy to apply when the bucket is removed from this stack. __*Default*__: The bucket will be orphaned.
-  * **source** (<code>string</code>)  The source from which to deploy the website. __*Default*__: Dummy placeholder
-  * **websiteErrorDocument** (<code>string</code>)  The error page for the site like 'error.html'. __*Default*__: error.html
-  * **websiteIndexDocument** (<code>string</code>)  The index page for the site like 'index.html'. __*Default*__: index.html
+#### Inherited from
 
+Construct.onPrepare
 
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Website Alias Record
+
+[@cloudcomponents/cdk-static-website](#readme) / WebsiteAliasRecord
+
+# Class: WebsiteAliasRecord
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`WebsiteAliasRecord`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
+- [node](#node)
 
-Name | Type | Description 
------|------|-------------
-**s3OriginConfig** | <code>[S3OriginConfig](#aws-cdk-aws-cloudfront-s3originconfig)</code> | <span></span>
+### Methods
 
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
 
+## Constructors
 
-## struct AliasProps  <a id="cloudcomponents-cdk-static-website-aliasprops"></a>
+### constructor
 
+• **new WebsiteAliasRecord**(`scope`, `id`, `props`)
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`WebsiteAliasRecordProps`](#website-alias-record-props) |
 
+#### Overrides
 
+Construct.constructor
 
-Name | Type | Description 
------|------|-------------
-**acmCertRef**⚠️ | <code>string</code> | ARN of an AWS Certificate Manager (ACM) certificate.
-**domainName** | <code>string</code> | The domain name for the site like 'example.com'.
-**names**⚠️ | <code>Array<string></code> | Domain names on the certificate.
-**privateZone**? | <code>boolean</code> | Allow searching a private hosted zone.<br/>__*Default*__: false
-**securityPolicy**?⚠️ | <code>[SecurityPolicyProtocol](#aws-cdk-aws-cloudfront-securitypolicyprotocol)</code> | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.<br/>__*Default*__: SSLv3 if sslMethod VIP, TLSv1 if sslMethod SNI
-**sslMethod**?⚠️ | <code>[SSLMethod](#aws-cdk-aws-cloudfront-sslmethod)</code> | How CloudFront should serve HTTPS requests.<br/>__*Default*__: SSLMethod.SNI
-**vpcId**? | <code>string</code> | Specifies the ID of the VPC associated with a private hosted zone.<br/>__*Default*__: No VPC ID
+## Properties
 
+### node
 
+• `Readonly` **node**: `ConstructNode`
 
-## struct StaticWebsiteProps  <a id="cloudcomponents-cdk-static-website-staticwebsiteprops"></a>
+The construct tree node associated with this construct.
 
+**`stability`** stable
 
+#### Inherited from
 
+Construct.node
 
+## Methods
 
+### onPrepare
 
-Name | Type | Description 
------|------|-------------
-**aliasConfiguration**? | <code>[AliasProps](#cloudcomponents-cdk-static-website-aliasprops)</code> | AliasConfiguration is used to configured CloudFront to respond to requests on custom domain names.<br/>__*Default*__: No custom domain names are set up
-**bucketConfiguration**? | <code>[WebsiteBucketProps](#cloudcomponents-cdk-static-website-websitebucketprops)</code> | BucketConfiguration is used to configured the S3 website bucket.<br/>__*Default*__: The website bucket is provided with default values
-**bucketName**? | <code>string</code> | Name of the bucket.<br/>__*Default*__: Assigned by CloudFormation (recommended).
-**disableIPv6**? | <code>boolean</code> | An override flag that allows you to turn off support for IPv6 if required.<br/>__*Default*__: Cloudfront IPv6 support is enabled and if you've supplied an aliasConfiguration, an AAAA record will be created for your service, set this to true to switch this off.
-**disableUpload**? | <code>boolean</code> | Disable website deployment.<br/>__*Default*__: false
-**errorConfigurations**? | <code>Array<[CfnDistribution.CustomErrorResponseProperty](#aws-cdk-aws-cloudfront-cfndistribution-customerrorresponseproperty)></code> | How CloudFront should handle requests that are not successful (e.g., PageNotFound).<br/>__*Default*__: No custom error responses.
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | Policy to apply when the bucket is removed from this stack.<br/>__*Default*__: The bucket will be orphaned.
-**source**? | <code>string</code> | The source from which to deploy the website.<br/>__*Default*__: Dummy placeholder
-**webACLId**? | <code>string</code> | AWS WAF WebACL to associate with this CloudFront distribution.<br/>__*Default*__: No AWS Web Application Firewall web access control list (web ACL)
-**websiteErrorDocument**? | <code>string</code> | The error page for the site like 'error.html'.<br/>__*Default*__: error.html
-**websiteIndexDocument**? | <code>string</code> | The index page for the site like 'index.html'.<br/>__*Default*__: index.html
+▸ `Protected` **onPrepare**(): `void`
 
+Perform final modifications before synthesis.
 
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
 
-## struct WebsiteAliasRecordProps  <a id="cloudcomponents-cdk-static-website-websitealiasrecordprops"></a>
+This is an advanced framework feature. Only use this if you
+understand the implications.
 
+**`stability`** stable
 
+#### Returns
 
+`void`
 
+#### Inherited from
 
+Construct.onPrepare
 
-Name | Type | Description 
------|------|-------------
-**domainName** | <code>string</code> | The domain name for the site like 'example.com'.
-**recordNames** | <code>Array<string></code> | Names for the records.
-**target** | <code>[IAliasRecordTarget](#aws-cdk-aws-route53-ialiasrecordtarget)</code> | Target for the alias record.
-**disableIPv6**? | <code>boolean</code> | We support IPv6 and add an AAAA record by default, but you can turn it off.<br/>__*Optional*__
-**privateZone**? | <code>boolean</code> | Allow searching a private hosted zone.<br/>__*Default*__: false
-**vpcId**? | <code>string</code> | Specifies the ID of the VPC associated with a private hosted zone.<br/>__*Default*__: No VPC ID
+___
 
+### onSynthesize
 
+▸ `Protected` **onSynthesize**(`session`): `void`
 
-## struct WebsiteBucketProps  <a id="cloudcomponents-cdk-static-website-websitebucketprops"></a>
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
 
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
 
+**`stability`** stable
 
+#### Parameters
 
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
 
+#### Returns
 
-Name | Type | Description 
------|------|-------------
-**bucketName**? | <code>string</code> | Name of the bucket.<br/>__*Default*__: Assigned by CloudFormation (recommended).
-**disableUpload**? | <code>boolean</code> | Disable website deployment.<br/>__*Default*__: false
-**removalPolicy**? | <code>[RemovalPolicy](#aws-cdk-core-removalpolicy)</code> | Policy to apply when the bucket is removed from this stack.<br/>__*Default*__: The bucket will be orphaned.
-**source**? | <code>string</code> | The source from which to deploy the website.<br/>__*Default*__: Dummy placeholder
-**websiteErrorDocument**? | <code>string</code> | The error page for the site like 'error.html'.<br/>__*Default*__: error.html
-**websiteIndexDocument**? | <code>string</code> | The index page for the site like 'index.html'.<br/>__*Default*__: index.html
+`void`
 
+#### Inherited from
 
+Construct.onSynthesize
 
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Website Bucket
+
+[@cloudcomponents/cdk-static-website](#readme) / WebsiteBucket
+
+# Class: WebsiteBucket
+
+## Hierarchy
+
+- `Construct`
+
+  ↳ **`WebsiteBucket`**
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
+
+### Properties
+
+- [node](#node)
+- [s3OriginConfig](#s3originconfig)
+
+### Methods
+
+- [onPrepare](#onprepare)
+- [onSynthesize](#onsynthesize)
+- [onValidate](#onvalidate)
+- [prepare](#prepare)
+- [synthesize](#synthesize)
+- [toString](#tostring)
+- [validate](#validate)
+- [isConstruct](#isconstruct)
+
+## Constructors
+
+### constructor
+
+• **new WebsiteBucket**(`scope`, `id`, `props?`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `scope` | `Construct` |
+| `id` | `string` |
+| `props` | [`WebsiteBucketProps`](#website-bucket-props) |
+
+#### Overrides
+
+Construct.constructor
+
+## Properties
+
+### node
+
+• `Readonly` **node**: `ConstructNode`
+
+The construct tree node associated with this construct.
+
+**`stability`** stable
+
+#### Inherited from
+
+Construct.node
+
+___
+
+### s3OriginConfig
+
+• `Readonly` **s3OriginConfig**: `S3OriginConfig`
+
+## Methods
+
+### onPrepare
+
+▸ `Protected` **onPrepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onPrepare
+
+___
+
+### onSynthesize
+
+▸ `Protected` **onSynthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.onSynthesize
+
+___
+
+### onValidate
+
+▸ `Protected` **onValidate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.onValidate
+
+___
+
+### prepare
+
+▸ `Protected` **prepare**(): `void`
+
+Perform final modifications before synthesis.
+
+This method can be implemented by derived constructs in order to perform
+final changes before synthesis. prepare() will be called after child
+constructs have been prepared.
+
+This is an advanced framework feature. Only use this if you
+understand the implications.
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.prepare
+
+___
+
+### synthesize
+
+▸ `Protected` **synthesize**(`session`): `void`
+
+Allows this construct to emit artifacts into the cloud assembly during synthesis.
+
+This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
+as they participate in synthesizing the cloud assembly.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `session` | `ISynthesisSession` | The synthesis session. |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Construct.synthesize
+
+___
+
+### toString
+
+▸ **toString**(): `string`
+
+Returns a string representation of this construct.
+
+**`stability`** stable
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Construct.toString
+
+___
+
+### validate
+
+▸ `Protected` **validate**(): `string`[]
+
+Validate the current construct.
+
+This method can be implemented by derived constructs in order to perform
+validation logic. It is called on all constructs before synthesis.
+
+**`stability`** stable
+
+#### Returns
+
+`string`[]
+
+An array of validation error messages, or an empty array if the construct is valid.
+
+#### Inherited from
+
+Construct.validate
+
+___
+
+### isConstruct
+
+▸ `Static` **isConstruct**(`x`): x is Construct
+
+Return whether the given object is a Construct.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `x` | `any` |
+
+#### Returns
+
+x is Construct
+
+#### Inherited from
+
+Construct.isConstruct
+
+# Alias Props
+
+[@cloudcomponents/cdk-static-website](#readme) / AliasProps
+
+# Interface: AliasProps
+
+## Hierarchy
+
+- `AliasConfiguration`
+
+  ↳ **`AliasProps`**
+
+## Table of contents
+
+### Properties
+
+- [acmCertRef](#acmcertref)
+- [domainName](#domainname)
+- [names](#names)
+- [privateZone](#privatezone)
+- [securityPolicy](#securitypolicy)
+- [sslMethod](#sslmethod)
+- [vpcId](#vpcid)
+
+## Properties
+
+### acmCertRef
+
+• `Readonly` **acmCertRef**: `string`
+
+(deprecated) ARN of an AWS Certificate Manager (ACM) certificate.
+
+**`deprecated`**
+
+#### Inherited from
+
+AliasConfiguration.acmCertRef
+
+___
+
+### domainName
+
+• `Readonly` **domainName**: `string`
+
+The domain name for the site like 'example.com'
+
+___
+
+### names
+
+• `Readonly` **names**: `string`[]
+
+(deprecated) Domain names on the certificate.
+
+Both main domain name and Subject Alternative Names.
+
+**`deprecated`**
+
+#### Inherited from
+
+AliasConfiguration.names
+
+___
+
+### privateZone
+
+• `Optional` `Readonly` **privateZone**: `boolean`
+
+Allow searching a private hosted zone.
+
+**`default`** false
+
+___
+
+### securityPolicy
+
+• `Optional` `Readonly` **securityPolicy**: `SecurityPolicyProtocol`
+
+(deprecated) The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.
+
+CloudFront serves your objects only to browsers or devices that support at
+least the SSL version that you specify.
+
+**`default`** - SSLv3 if sslMethod VIP, TLSv1 if sslMethod SNI
+
+**`deprecated`**
+
+#### Inherited from
+
+AliasConfiguration.securityPolicy
+
+___
+
+### sslMethod
+
+• `Optional` `Readonly` **sslMethod**: `SSLMethod`
+
+(deprecated) How CloudFront should serve HTTPS requests.
+
+See the notes on SSLMethod if you wish to use other SSL termination types.
+
+**`default`** SSLMethod.SNI
+
+**`see`** https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ViewerCertificate.html
+
+**`deprecated`**
+
+#### Inherited from
+
+AliasConfiguration.sslMethod
+
+___
+
+### vpcId
+
+• `Optional` `Readonly` **vpcId**: `string`
+
+Specifies the ID of the VPC associated with a private hosted zone.
+
+If a VPC ID is provided and privateZone is false, no results will be returned
+and an error will be raised
+
+**`default`** - No VPC ID
+
+# Static Website Props
+
+[@cloudcomponents/cdk-static-website](#readme) / StaticWebsiteProps
+
+# Interface: StaticWebsiteProps
+
+## Hierarchy
+
+- [`WebsiteBucketProps`](#website-bucket-props)
+
+  ↳ **`StaticWebsiteProps`**
+
+## Table of contents
+
+### Properties
+
+- [aliasConfiguration](#aliasconfiguration)
+- [bucketConfiguration](#bucketconfiguration)
+- [bucketName](#bucketname)
+- [disableIPv6](#disableipv6)
+- [disableUpload](#disableupload)
+- [errorConfigurations](#errorconfigurations)
+- [removalPolicy](#removalpolicy)
+- [source](#source)
+- [webACLId](#webaclid)
+- [websiteErrorDocument](#websiteerrordocument)
+- [websiteIndexDocument](#websiteindexdocument)
+
+## Properties
+
+### aliasConfiguration
+
+• `Optional` `Readonly` **aliasConfiguration**: [`AliasProps`](#alias-props)
+
+AliasConfiguration is used to configured CloudFront to respond to requests on custom domain names.
+
+**`default`** - No custom domain names are set up
+
+___
+
+### bucketConfiguration
+
+• `Optional` `Readonly` **bucketConfiguration**: [`WebsiteBucketProps`](#website-bucket-props)
+
+BucketConfiguration is used to configured the S3 website bucket
+
+**`default`** - The website bucket is provided with default values
+
+___
+
+### bucketName
+
+• `Optional` `Readonly` **bucketName**: `string`
+
+Name of the bucket
+
+**`default`** - Assigned by CloudFormation (recommended).
+
+#### Inherited from
+
+[WebsiteBucketProps](#website-bucket-props).[bucketName](#bucketname)
+
+___
+
+### disableIPv6
+
+• `Optional` `Readonly` **disableIPv6**: `boolean`
+
+An override flag that allows you to turn off support for IPv6 if required.
+
+**`default`** - Cloudfront IPv6 support is enabled and if you've supplied an aliasConfiguration, an
+AAAA record will be created for your service, set this to true to switch this off.
+
+___
+
+### disableUpload
+
+• `Optional` `Readonly` **disableUpload**: `boolean`
+
+Disable website deployment
+
+**`default`** - false
+
+#### Inherited from
+
+[WebsiteBucketProps](#website-bucket-props).[disableUpload](#disableupload)
+
+___
+
+### errorConfigurations
+
+• `Optional` `Readonly` **errorConfigurations**: `CustomErrorResponseProperty`[]
+
+How CloudFront should handle requests that are not successful (e.g., PageNotFound).
+
+**`default`** - No custom error responses.
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+Policy to apply when the bucket is removed from this stack.
+
+**`default`** - The bucket will be orphaned.
+
+#### Inherited from
+
+[WebsiteBucketProps](#website-bucket-props).[removalPolicy](#removalpolicy)
+
+___
+
+### source
+
+• `Optional` `Readonly` **source**: `string`
+
+The source from which to deploy the website
+
+**`default`** - Dummy placeholder
+
+#### Inherited from
+
+[WebsiteBucketProps](#website-bucket-props).[source](#source)
+
+___
+
+### webACLId
+
+• `Optional` `Readonly` **webACLId**: `string`
+
+AWS WAF WebACL to associate with this CloudFront distribution
+
+**`default`** - No AWS Web Application Firewall web access control list (web ACL)
+
+___
+
+### websiteErrorDocument
+
+• `Optional` `Readonly` **websiteErrorDocument**: `string`
+
+ The error page for the site like 'error.html'
+
+**`default`** - error.html
+
+#### Inherited from
+
+[WebsiteBucketProps](#website-bucket-props).[websiteErrorDocument](#websiteerrordocument)
+
+___
+
+### websiteIndexDocument
+
+• `Optional` `Readonly` **websiteIndexDocument**: `string`
+
+The index page for the site like 'index.html'
+
+**`default`** - index.html
+
+#### Inherited from
+
+[WebsiteBucketProps](#website-bucket-props).[websiteIndexDocument](#websiteindexdocument)
+
+# Website Alias Record Props
+
+[@cloudcomponents/cdk-static-website](#readme) / WebsiteAliasRecordProps
+
+# Interface: WebsiteAliasRecordProps
+
+## Table of contents
+
+### Properties
+
+- [disableIPv6](#disableipv6)
+- [domainName](#domainname)
+- [privateZone](#privatezone)
+- [recordNames](#recordnames)
+- [target](#target)
+- [vpcId](#vpcid)
+
+## Properties
+
+### disableIPv6
+
+• `Optional` `Readonly` **disableIPv6**: `boolean`
+
+We support IPv6 and add an AAAA record by default, but you can turn it off
+
+___
+
+### domainName
+
+• `Readonly` **domainName**: `string`
+
+The domain name for the site like 'example.com'
+
+___
+
+### privateZone
+
+• `Optional` `Readonly` **privateZone**: `boolean`
+
+Allow searching a private hosted zone.
+
+**`default`** false
+
+___
+
+### recordNames
+
+• `Readonly` **recordNames**: `string`[]
+
+Names for the records.
+
+___
+
+### target
+
+• `Readonly` **target**: `IAliasRecordTarget`
+
+Target for the alias record
+
+___
+
+### vpcId
+
+• `Optional` `Readonly` **vpcId**: `string`
+
+Specifies the ID of the VPC associated with a private hosted zone.
+
+If a VPC ID is provided and privateZone is false, no results will be returned
+and an error will be raised
+
+**`default`** - No VPC ID
+
+# Website Bucket Props
+
+[@cloudcomponents/cdk-static-website](#readme) / WebsiteBucketProps
+
+# Interface: WebsiteBucketProps
+
+## Hierarchy
+
+- **`WebsiteBucketProps`**
+
+  ↳ [`StaticWebsiteProps`](#static-website-props)
+
+## Table of contents
+
+### Properties
+
+- [bucketName](#bucketname)
+- [disableUpload](#disableupload)
+- [removalPolicy](#removalpolicy)
+- [source](#source)
+- [websiteErrorDocument](#websiteerrordocument)
+- [websiteIndexDocument](#websiteindexdocument)
+
+## Properties
+
+### bucketName
+
+• `Optional` `Readonly` **bucketName**: `string`
+
+Name of the bucket
+
+**`default`** - Assigned by CloudFormation (recommended).
+
+___
+
+### disableUpload
+
+• `Optional` `Readonly` **disableUpload**: `boolean`
+
+Disable website deployment
+
+**`default`** - false
+
+___
+
+### removalPolicy
+
+• `Optional` `Readonly` **removalPolicy**: `RemovalPolicy`
+
+Policy to apply when the bucket is removed from this stack.
+
+**`default`** - The bucket will be orphaned.
+
+___
+
+### source
+
+• `Optional` `Readonly` **source**: `string`
+
+The source from which to deploy the website
+
+**`default`** - Dummy placeholder
+
+___
+
+### websiteErrorDocument
+
+• `Optional` `Readonly` **websiteErrorDocument**: `string`
+
+ The error page for the site like 'error.html'
+
+**`default`** - error.html
+
+___
+
+### websiteIndexDocument
+
+• `Optional` `Readonly` **websiteIndexDocument**: `string`
+
+The index page for the site like 'index.html'
+
+**`default`** - index.html

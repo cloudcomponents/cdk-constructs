@@ -1,205 +1,264 @@
-# API Reference
+# README
 
-**Classes**
+@cloudcomponents/cdk-secret-key
 
-Name|Description
-----|-----------
-[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)|*No description*
-[SecretKeyStore](#cloudcomponents-cdk-secret-key-secretkeystore)|*No description*
+# @cloudcomponents/cdk-secret-key
 
+## Table of contents
 
-**Enums**
+### Enumerations
 
-Name|Description
-----|-----------
-[KeyType](#cloudcomponents-cdk-secret-key-keytype)|*No description*
+- [KeyType](#key-type)
 
+### Classes
 
+- [SecretKey](#secret-key)
+- [SecretKeyStore](#secret-key-store)
 
-## class SecretKey  <a id="cloudcomponents-cdk-secret-key-secretkey"></a>
+# Secret Key
 
+[@cloudcomponents/cdk-secret-key](#readme) / SecretKey
 
+# Class: SecretKey
 
+## Table of contents
 
-### Initializer
+### Constructors
 
-
-
-
-```ts
-new SecretKey(secretKeyType: KeyType)
-```
-
-* **secretKeyType** (<code>[KeyType](#cloudcomponents-cdk-secret-key-keytype)</code>)  *No description*
-
-
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**secretKeyType** | <code>[KeyType](#cloudcomponents-cdk-secret-key-keytype)</code> | <span></span>
+- [secretKeyType](#secretkeytype)
 
 ### Methods
 
+- [grantRead](#grantread)
+- [serialize](#serialize)
+- [fromPlainText](#fromplaintext)
+- [fromSSMParameter](#fromssmparameter)
+- [fromSecretsManager](#fromsecretsmanager)
 
-#### grantRead(grantee) <a id="cloudcomponents-cdk-secret-key-secretkey-grantread"></a>
+## Constructors
 
+### constructor
 
+• **new SecretKey**(`secretKeyType`)
 
-```ts
-grantRead(grantee: IGrantable): Grant
-```
+#### Parameters
 
-* **grantee** (<code>[IGrantable](#aws-cdk-aws-iam-igrantable)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `secretKeyType` | [`KeyType`](#key-type) |
 
-__Returns__:
-* <code>[Grant](#aws-cdk-aws-iam-grant)</code>
+## Properties
 
-#### serialize() <a id="cloudcomponents-cdk-secret-key-secretkey-serialize"></a>
+### secretKeyType
 
+• `Readonly` **secretKeyType**: [`KeyType`](#key-type)
 
+## Methods
 
-```ts
-serialize(): string
-```
+### grantRead
 
+▸ `Optional` `Abstract` **grantRead**(`grantee`): `Grant`
 
-__Returns__:
-* <code>string</code>
+#### Parameters
 
-#### *static* fromPlainText(value) <a id="cloudcomponents-cdk-secret-key-secretkey-fromplaintext"></a>
+| Name | Type |
+| :------ | :------ |
+| `grantee` | `IGrantable` |
 
+#### Returns
 
+`Grant`
 
-```ts
-static fromPlainText(value: string): SecretKey
-```
+___
 
-* **value** (<code>string</code>)  *No description*
+### serialize
 
-__Returns__:
-* <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>
+▸ `Abstract` **serialize**(): `string`
 
-#### *static* fromSSMParameter(secretKeyParameter) <a id="cloudcomponents-cdk-secret-key-secretkey-fromssmparameter"></a>
+#### Returns
 
+`string`
 
+___
 
-```ts
-static fromSSMParameter(secretKeyParameter: IParameter): SecretKey
-```
+### fromPlainText
 
-* **secretKeyParameter** (<code>[IParameter](#aws-cdk-aws-ssm-iparameter)</code>)  *No description*
+▸ `Static` **fromPlainText**(`value`): [`SecretKey`](#secret-key)
 
-__Returns__:
-* <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>
+#### Parameters
 
-#### *static* fromSecretsManager(secretKeySecret, fieldName?) <a id="cloudcomponents-cdk-secret-key-secretkey-fromsecretsmanager"></a>
+| Name | Type |
+| :------ | :------ |
+| `value` | `string` |
 
+#### Returns
 
+[`SecretKey`](#secret-key)
 
-```ts
-static fromSecretsManager(secretKeySecret: ISecret, fieldName?: string): SecretKey
-```
+___
 
-* **secretKeySecret** (<code>[ISecret](#aws-cdk-aws-secretsmanager-isecret)</code>)  *No description*
-* **fieldName** (<code>string</code>)  *No description*
+### fromSSMParameter
 
-__Returns__:
-* <code>[SecretKey](#cloudcomponents-cdk-secret-key-secretkey)</code>
+▸ `Static` **fromSSMParameter**(`secretKeyParameter`): [`SecretKey`](#secret-key)
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `secretKeyParameter` | `IParameter` |
 
-## class SecretKeyStore  <a id="cloudcomponents-cdk-secret-key-secretkeystore"></a>
+#### Returns
 
+[`SecretKey`](#secret-key)
 
+___
 
+### fromSecretsManager
 
-### Initializer
+▸ `Static` **fromSecretsManager**(`secretKeySecret`, `fieldName?`): [`SecretKey`](#secret-key)
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `secretKeySecret` | `ISecret` |
+| `fieldName?` | `string` |
 
+#### Returns
 
-```ts
-new SecretKeyStore(secretKeyType: KeyType)
-```
+[`SecretKey`](#secret-key)
 
-* **secretKeyType** (<code>[KeyType](#cloudcomponents-cdk-secret-key-keytype)</code>)  *No description*
+# Secret Key Store
 
+[@cloudcomponents/cdk-secret-key](#readme) / SecretKeyStore
 
+# Class: SecretKeyStore
+
+## Table of contents
+
+### Constructors
+
+- [constructor](#constructor)
 
 ### Properties
 
-
-Name | Type | Description 
------|------|-------------
-**secretKeyType** | <code>[KeyType](#cloudcomponents-cdk-secret-key-keytype)</code> | <span></span>
+- [secretKeyType](#secretkeytype)
 
 ### Methods
 
+- [grantWrite](#grantwrite)
+- [serialize](#serialize)
+- [fromSSMParameter](#fromssmparameter)
+- [fromSecretsManager](#fromsecretsmanager)
 
-#### grantWrite(grantee) <a id="cloudcomponents-cdk-secret-key-secretkeystore-grantwrite"></a>
+## Constructors
 
+### constructor
 
+• **new SecretKeyStore**(`secretKeyType`)
 
-```ts
-grantWrite(grantee: IGrantable): Grant
-```
+#### Parameters
 
-* **grantee** (<code>[IGrantable](#aws-cdk-aws-iam-igrantable)</code>)  *No description*
+| Name | Type |
+| :------ | :------ |
+| `secretKeyType` | [`KeyType`](#key-type) |
 
-__Returns__:
-* <code>[Grant](#aws-cdk-aws-iam-grant)</code>
+## Properties
 
-#### serialize() <a id="cloudcomponents-cdk-secret-key-secretkeystore-serialize"></a>
+### secretKeyType
 
+• `Readonly` **secretKeyType**: [`KeyType`](#key-type)
 
+## Methods
 
-```ts
-serialize(): string
-```
+### grantWrite
 
+▸ `Abstract` **grantWrite**(`grantee`): `Grant`
 
-__Returns__:
-* <code>string</code>
+#### Parameters
 
-#### *static* fromSSMParameter(secretKeyParameter) <a id="cloudcomponents-cdk-secret-key-secretkeystore-fromssmparameter"></a>
+| Name | Type |
+| :------ | :------ |
+| `grantee` | `IGrantable` |
 
+#### Returns
 
+`Grant`
 
-```ts
-static fromSSMParameter(secretKeyParameter: IParameter): SecretKeyStore
-```
+___
 
-* **secretKeyParameter** (<code>[IParameter](#aws-cdk-aws-ssm-iparameter)</code>)  *No description*
+### serialize
 
-__Returns__:
-* <code>[SecretKeyStore](#cloudcomponents-cdk-secret-key-secretkeystore)</code>
+▸ `Abstract` **serialize**(): `string`
 
-#### *static* fromSecretsManager(secretKeySecret) <a id="cloudcomponents-cdk-secret-key-secretkeystore-fromsecretsmanager"></a>
+#### Returns
 
+`string`
 
+___
 
-```ts
-static fromSecretsManager(secretKeySecret: ISecret): SecretKeyStore
-```
+### fromSSMParameter
 
-* **secretKeySecret** (<code>[ISecret](#aws-cdk-aws-secretsmanager-isecret)</code>)  *No description*
+▸ `Static` **fromSSMParameter**(`secretKeyParameter`): [`SecretKeyStore`](#secret-key-store)
 
-__Returns__:
-* <code>[SecretKeyStore](#cloudcomponents-cdk-secret-key-secretkeystore)</code>
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `secretKeyParameter` | `IParameter` |
 
+#### Returns
 
-## enum KeyType  <a id="cloudcomponents-cdk-secret-key-keytype"></a>
+[`SecretKeyStore`](#secret-key-store)
 
+___
 
+### fromSecretsManager
 
-Name | Description
------|-----
-**SECRETS_MANAGER** |
-**SSM_PARAMETER** |
-**PLAIN_TEXT** |
+▸ `Static` **fromSecretsManager**(`secretKeySecret`): [`SecretKeyStore`](#secret-key-store)
 
+#### Parameters
 
+| Name | Type |
+| :------ | :------ |
+| `secretKeySecret` | `ISecret` |
+
+#### Returns
+
+[`SecretKeyStore`](#secret-key-store)
+
+# Key Type
+
+[@cloudcomponents/cdk-secret-key](#readme) / KeyType
+
+# Enumeration: KeyType
+
+## Table of contents
+
+### Enumeration members
+
+- [PLAIN\_TEXT](#plain_text)
+- [SECRETS\_MANAGER](#secrets_manager)
+- [SSM\_PARAMETER](#ssm_parameter)
+
+## Enumeration members
+
+### PLAIN\_TEXT
+
+• **PLAIN\_TEXT** = `"PLAIN_TEXT"`
+
+___
+
+### SECRETS\_MANAGER
+
+• **SECRETS\_MANAGER** = `"SECRETS_MANAGER"`
+
+___
+
+### SSM\_PARAMETER
+
+• **SSM\_PARAMETER** = `"SSM_PARAMETER"`

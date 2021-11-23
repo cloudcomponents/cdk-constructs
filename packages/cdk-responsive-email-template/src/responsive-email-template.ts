@@ -102,7 +102,7 @@ export class ResponsiveEmailTemplate extends Construct {
     let { html } = result;
 
     if (beautify) {
-      html = htmlBeautify(html, {
+      html = htmlBeautify(html as string, {
         indent_size: 2,
         wrap_attributes_indent_size: 2,
         max_preserve_newlines: 0,
@@ -111,7 +111,7 @@ export class ResponsiveEmailTemplate extends Construct {
     }
 
     if (minify) {
-      html = htmlMinify(html, {
+      html = htmlMinify(html as string, {
         collapseWhitespace: true,
         minifyCSS: false,
         caseSensitive: true,
