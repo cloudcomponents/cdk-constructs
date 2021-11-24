@@ -1,6 +1,6 @@
 import { NetworkMode } from '@aws-cdk/aws-ecs';
 import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
-import { Construct } from '@aws-cdk/core';
+import { Construct, ITaggable, TagManager, TagType, Lazy } from '@aws-cdk/core';
 import { AwsCustomResource, AwsCustomResourcePolicy, AwsSdkCall, PhysicalResourceId, PhysicalResourceIdReference } from '@aws-cdk/custom-resources';
 
 export interface IDummyTaskDefinition {
@@ -40,7 +40,7 @@ export interface DummyTaskDefinitionProps {
   readonly containerPort?: number;
 }
 
-export class DummyTaskDefinition extends Construct implements IDummyTaskDefinition {
+export class DummyTaskDefinition extends Construct implements IDummyTaskDefinition, ITaggable {
   public readonly executionRole: IRole;
 
   public readonly family: string;
@@ -51,8 +51,12 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
 
   public readonly containerPort: number;
 
+  public readonly tags: TagManager;
+
   constructor(scope: Construct, id: string, props: DummyTaskDefinitionProps) {
     super(scope, id);
+
+    this.tags = new TagManager(TagType.STANDARD, 'TagManager');
 
     this.executionRole = new Role(this, 'ExecutionRole', {
       assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),
@@ -86,6 +90,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
             ],
           },
         ],
+        tags: Lazy.any({ produce: () => this.tags.renderTags() }),
       },
       physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
     };

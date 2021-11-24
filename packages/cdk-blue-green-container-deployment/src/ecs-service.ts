@@ -4,7 +4,7 @@ import { ICluster, LaunchType, DeploymentCircuitBreaker } from '@aws-cdk/aws-ecs
 import { ITargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Duration, Construct, CustomResource } from '@aws-cdk/core';
+import { Duration, Construct, CustomResource, ITaggable, TagManager, TagType, Lazy } from '@aws-cdk/core';
 
 import { DummyTaskDefinition } from './dummy-task-definition';
 
@@ -65,10 +65,11 @@ export interface EcsServiceProps {
   readonly propagateTags?: PropagateTags;
 }
 
-export class EcsService extends Construct implements IConnectable, IEcsService {
+export class EcsService extends Construct implements IConnectable, IEcsService, ITaggable {
   public readonly clusterName: string;
   public readonly serviceName: string;
   public readonly connections: Connections;
+  public readonly tags: TagManager;
 
   constructor(scope: Construct, id: string, props: EcsServiceProps) {
     super(scope, id);
@@ -84,6 +85,8 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
       taskDefinition,
       healthCheckGracePeriod = Duration.seconds(60),
     } = props;
+
+    this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
 
     const containerPort = props.containerPort ?? taskDefinition.containerPort;
 
@@ -108,7 +111,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
     serviceToken.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ['ecs:CreateService', 'ecs:UpdateService', 'ecs:DeleteService', 'ecs:DescribeServices'],
+        actions: ['ecs:CreateService', 'ecs:UpdateService', 'ecs:DeleteService', 'ecs:DescribeServices', 'ecs:TagResource', 'ecs:UntagResource'],
         resources: ['*'],
       }),
     );
@@ -149,6 +152,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
               }
             : undefined,
         },
+        Tags: Lazy.any({ produce: () => this.tags.renderTags() }),
       },
     });
 

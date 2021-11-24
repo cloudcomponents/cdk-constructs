@@ -24,8 +24,15 @@ export interface EcsDeploymentGroupProps {
   prodTrafficListenerArn: string;
   testTrafficListenerArn: string;
   terminationWaitTimeInMinutes: number;
+  tags: CodeDeploy.Tag[];
   autoRollbackOnEvents?: RollbackEvent[];
   deploymentConfigName?: string;
+}
+
+interface ArnParts {
+  awsPartition: string;
+  awsRegion: string;
+  awsAccountId: string;
 }
 
 const codeDeploy = new CodeDeploy();
@@ -46,9 +53,10 @@ const getProperties = (
   terminationWaitTimeInMinutes: props.TerminationWaitTimeInMinutes,
   autoRollbackOnEvents: props.AutoRollbackOnEvents,
   deploymentConfigName: props.DeploymentConfigName,
+  tags: props.Tags ?? [],
 });
 
-const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
+export const handleCreate: OnCreateHandler = async (event, context): Promise<ResourceHandlerReturn> => {
   const {
     applicationName,
     deploymentGroupName,
@@ -60,6 +68,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
     terminationWaitTimeInMinutes,
     autoRollbackOnEvents,
     deploymentConfigName,
+    tags,
   } = getProperties(event.ResourceProperties);
 
   await codeDeploy
@@ -101,17 +110,22 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
         deploymentOption: 'WITH_TRAFFIC_CONTROL',
       },
       deploymentConfigName: deploymentConfigName ?? 'CodeDeployDefault.ECSAllAtOnce',
+      tags,
     })
     .promise();
 
   return {
     physicalResourceId: deploymentGroupName,
+    responseData: {
+      Arn: arnForDeploymentGroup(applicationName, deploymentGroupName, context.invokedFunctionArn),
+    },
   };
 };
 
-const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
+export const handleUpdate: OnUpdateHandler = async (event, context): Promise<ResourceHandlerReturn> => {
   const newProps = getProperties(event.ResourceProperties);
   const oldProps = getProperties(event.OldResourceProperties);
+  const deploymentGroupArn = arnForDeploymentGroup(newProps.applicationName, newProps.deploymentGroupName, context.invokedFunctionArn);
 
   await codeDeploy
     .updateDeploymentGroup({
@@ -151,8 +165,32 @@ const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerRetu
     })
     .promise();
 
+  const newTagKeys: string[] = newProps.tags.map((t: CodeDeploy.Tag) => t.Key as string);
+  const removableTagKeys: string[] = oldProps.tags.map((t: CodeDeploy.Tag) => t.Key as string).filter((t) => !newTagKeys.includes(t));
+
+  if (removableTagKeys.length > 0) {
+    await codeDeploy
+      .untagResource({
+        ResourceArn: deploymentGroupArn,
+        TagKeys: removableTagKeys,
+      })
+      .promise();
+  }
+
+  if (newProps.tags.length > 0) {
+    await codeDeploy
+      .tagResource({
+        ResourceArn: deploymentGroupArn,
+        Tags: newProps.tags,
+      })
+      .promise();
+  }
+
   return {
     physicalResourceId: newProps.deploymentGroupName,
+    responseData: {
+      Arn: deploymentGroupArn,
+    },
   };
 };
 
@@ -165,6 +203,23 @@ const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
       deploymentGroupName,
     })
     .promise();
+};
+
+const extractArnParts = (invokedFunctionArn: string): ArnParts => {
+  const matcher = /arn:(?<partition>\w+):lambda:(?<region>[\w-]+):(?<accountId>\d+):.*/.exec(invokedFunctionArn);
+  if (!matcher || !matcher.groups || !matcher.groups.partition || !matcher.groups.region || !matcher.groups.accountId) {
+    throw new Error(`Unable to extract necessary parts from function name. (${invokedFunctionArn}).`);
+  }
+  return {
+    awsPartition: matcher.groups.partition,
+    awsRegion: matcher.groups.region,
+    awsAccountId: matcher.groups.accountId,
+  };
+};
+
+const arnForDeploymentGroup = (applicationName: string, deploymentGroupName: string, invokedFunctionArn: string): string => {
+  const arnParts = extractArnParts(invokedFunctionArn);
+  return `arn:${arnParts.awsPartition}:codedeploy:${arnParts.awsRegion}:${arnParts.awsAccountId}:deploymentgroup:${applicationName}/${deploymentGroupName}`;
 };
 
 export const handler = customResourceHelper(
