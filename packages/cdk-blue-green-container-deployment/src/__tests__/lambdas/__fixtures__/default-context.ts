@@ -7,8 +7,14 @@ export const defaultContext = {
   awsRequestId: 'foo',
   logGroupName: 'foo',
   logStreamName: 'foo',
-  getRemainingTimeInMillis: () => 5000,
-  done: () => {},
-  fail: () => {},
-  succeed: () => {},
+  getRemainingTimeInMillis: (): number => 5000,
+  done: (): void => {
+    return;
+  },
+  fail: (): void => {
+    return;
+  },
+  succeed: (): void => {
+    return;
+  },
 };

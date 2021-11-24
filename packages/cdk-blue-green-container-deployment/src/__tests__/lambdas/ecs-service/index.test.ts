@@ -35,10 +35,10 @@ jest.mock('aws-sdk', () => {
 });
 
 import { handleCreate, handleUpdate } from '../../../lambdas/ecs-service';
-import { defaultContext } from '../__fixtures__/defaultContext';
-import { defaultEcsServiceResourceProperties } from '../__fixtures__/defaultEcsServiceResourceProperties';
-import { defaultEvent } from '../__fixtures__/defaultEvent';
-import { defaultLogger } from '../__fixtures__/defaultLogger';
+import { defaultContext } from '../__fixtures__/default-context';
+import { defaultEcsServiceResourceProperties } from '../__fixtures__/default-ecs-service-resource-properties';
+import { defaultEvent } from '../__fixtures__/default-event';
+import { defaultLogger } from '../__fixtures__/default-logger';
 
 afterEach(() => {
   mockCreateRequest.mockClear();
@@ -48,7 +48,7 @@ afterEach(() => {
 });
 
 describe('createHandler', () => {
-  it('sends tags with create request', async () => {
+  test('sends tags with create request', async () => {
     const response = await handleCreate(
       {
         ...defaultEvent,
@@ -84,7 +84,7 @@ describe('createHandler', () => {
 });
 
 describe('updateHandler', () => {
-  it('sends data update request', async () => {
+  test('sends data update request', async () => {
     await handleUpdate(
       {
         ...defaultEvent,
@@ -138,7 +138,7 @@ describe('updateHandler', () => {
     );
   });
 
-  it('does not delete keys if no old keys are deleted', async () => {
+  test('does not delete keys if no old keys are deleted', async () => {
     await handleUpdate(
       {
         ...defaultEvent,
@@ -189,7 +189,7 @@ describe('updateHandler', () => {
     );
   });
 
-  it('does not delete or create keys if no old keys or new keys are present', async () => {
+  test('does not delete or create keys if no old keys or new keys are present', async () => {
     await handleUpdate(
       {
         ...defaultEvent,

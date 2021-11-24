@@ -144,9 +144,7 @@ export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHand
   if (!service) throw Error('Service could not be updated');
 
   const newTagKeys: string[] = tags.map((t: Tag) => t.Key);
-  const removableTagKeys: string[] = (event.OldResourceProperties.Tags || [])
-    .map((t: any) => t.Key)
-    .filter((t: string) => !newTagKeys.includes(t));
+  const removableTagKeys: string[] = (event.OldResourceProperties.Tags || []).map((t: Tag) => t.Key).filter((t: string) => !newTagKeys.includes(t));
 
   if (removableTagKeys.length > 0) {
     await ecs

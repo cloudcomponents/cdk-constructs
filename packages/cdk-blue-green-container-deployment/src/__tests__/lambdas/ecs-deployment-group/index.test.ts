@@ -35,9 +35,9 @@ jest.mock('aws-sdk', () => {
 });
 
 import { handleCreate, handleUpdate } from '../../../lambdas/ecs-deployment-group';
-import { defaultContext } from '../__fixtures__/defaultContext';
-import { defaultEvent } from '../__fixtures__/defaultEvent';
-import { defaultLogger } from '../__fixtures__/defaultLogger';
+import { defaultContext } from '../__fixtures__/default-context';
+import { defaultEvent } from '../__fixtures__/default-event';
+import { defaultLogger } from '../__fixtures__/default-logger';
 
 const defaultEcsDeploymentGroupProperties = {
   ApplicationName: 'TestApplicationName',
@@ -52,11 +52,11 @@ const defaultEcsDeploymentGroupProperties = {
   TargetGroupNames: ['Foo'],
   ProdTrafficListenerArn: 'arn:aws:elasticloadbalancing::012345678910:listener/app/MyApp/foo/prod',
   TestTrafficListenerArn: 'arn:aws:elasticloadbalancing::012345678910:listener/app/MyApp/foo/test',
-  TerminationWaitTimeInMinutes: 5
+  TerminationWaitTimeInMinutes: 5,
 };
 
 describe('createHandler', () => {
-  it('sends tags with create request', async () => {
+  test('sends tags with create request', async () => {
     await handleCreate(
       {
         ...defaultEvent,
@@ -84,7 +84,7 @@ describe('createHandler', () => {
     );
   });
 
-  it('returns the physical id and arn of the deployment group', async () => {
+  test('returns the physical id and arn of the deployment group', async () => {
     const response = await handleCreate(
       {
         ...defaultEvent,
@@ -100,7 +100,7 @@ describe('createHandler', () => {
       },
       {
         ...defaultContext,
-        invokedFunctionArn: 'arn:aws:lambda:eu-west-1:012345678910:function:MyCustomResourceHandler'
+        invokedFunctionArn: 'arn:aws:lambda:eu-west-1:012345678910:function:MyCustomResourceHandler',
       },
       defaultLogger,
     );
@@ -109,15 +109,15 @@ describe('createHandler', () => {
       expect.objectContaining({
         physicalResourceId: 'TestDeploymentGroupName',
         responseData: {
-          Arn: 'arn:aws:codedeploy:eu-west-1:012345678910:deploymentgroup:TestApplicationName/TestDeploymentGroupName'
+          Arn: 'arn:aws:codedeploy:eu-west-1:012345678910:deploymentgroup:TestApplicationName/TestDeploymentGroupName',
         },
       }),
     );
-  })
+  });
 });
 
 describe('updateHandler', () => {
-  it('sends data update requests', async () => {
+  test('sends data update requests', async () => {
     await handleUpdate(
       {
         ...defaultEvent,
@@ -165,7 +165,7 @@ describe('updateHandler', () => {
     );
   });
 
-  it('returns the physical id and arn of the deployment group', async () => {
+  test('returns the physical id and arn of the deployment group', async () => {
     const response = await handleUpdate(
       {
         ...defaultEvent,
@@ -190,9 +190,9 @@ describe('updateHandler', () => {
       expect.objectContaining({
         physicalResourceId: 'TestDeploymentGroupName',
         responseData: {
-          Arn: 'arn:aws:codedeploy:us-east-1:012345678910:deploymentgroup:TestApplicationName/TestDeploymentGroupName'
+          Arn: 'arn:aws:codedeploy:us-east-1:012345678910:deploymentgroup:TestApplicationName/TestDeploymentGroupName',
         },
       }),
     );
-  })
+  });
 });

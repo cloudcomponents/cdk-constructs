@@ -117,7 +117,7 @@ export const handleCreate: OnCreateHandler = async (event, context): Promise<Res
   return {
     physicalResourceId: deploymentGroupName,
     responseData: {
-      Arn: arnForDeploymentGroup(applicationName, deploymentGroupName, context.invokedFunctionArn)
+      Arn: arnForDeploymentGroup(applicationName, deploymentGroupName, context.invokedFunctionArn),
     },
   };
 };
@@ -165,8 +165,8 @@ export const handleUpdate: OnUpdateHandler = async (event, context): Promise<Res
     })
     .promise();
 
-  const newTagKeys: string[] = newProps.tags.map((t: any) => t.Key);
-  const removableTagKeys: string[] = oldProps.tags.map((t: any) => t.Key).filter((t) => !newTagKeys.includes(t));
+  const newTagKeys: string[] = newProps.tags.map((t: CodeDeploy.Tag) => t.Key as string);
+  const removableTagKeys: string[] = oldProps.tags.map((t: CodeDeploy.Tag) => t.Key as string).filter((t) => !newTagKeys.includes(t));
 
   if (removableTagKeys.length > 0) {
     await codeDeploy
@@ -189,7 +189,7 @@ export const handleUpdate: OnUpdateHandler = async (event, context): Promise<Res
   return {
     physicalResourceId: newProps.deploymentGroupName,
     responseData: {
-      Arn: deploymentGroupArn
+      Arn: deploymentGroupArn,
     },
   };
 };
@@ -206,21 +206,21 @@ const handleDelete: OnDeleteHandler = async (event): Promise<void> => {
 };
 
 const extractArnParts = (invokedFunctionArn: string): ArnParts => {
-  const matcher = invokedFunctionArn.match(/arn:(?<partition>\w+):lambda:(?<region>[\w\-]+):(?<accountId>\d+):.*/);
-  if(!matcher || !matcher.groups || !matcher.groups.partition || !matcher.groups.region || !matcher.groups.accountId) {
-    throw new Error(`Unable to extract necessary parts from function name. (${invokedFunctionArn}).`)
+  const matcher = /arn:(?<partition>\w+):lambda:(?<region>[\w-]+):(?<accountId>\d+):.*/.exec(invokedFunctionArn);
+  if (!matcher || !matcher.groups || !matcher.groups.partition || !matcher.groups.region || !matcher.groups.accountId) {
+    throw new Error(`Unable to extract necessary parts from function name. (${invokedFunctionArn}).`);
   }
   return {
     awsPartition: matcher.groups.partition,
     awsRegion: matcher.groups.region,
-    awsAccountId: matcher.groups.accountId
-  }
-}
+    awsAccountId: matcher.groups.accountId,
+  };
+};
 
 const arnForDeploymentGroup = (applicationName: string, deploymentGroupName: string, invokedFunctionArn: string): string => {
   const arnParts = extractArnParts(invokedFunctionArn);
-  return `arn:${arnParts.awsPartition}:codedeploy:${arnParts.awsRegion}:${arnParts.awsAccountId}:deploymentgroup:${applicationName}/${deploymentGroupName}`
-}
+  return `arn:${arnParts.awsPartition}:codedeploy:${arnParts.awsRegion}:${arnParts.awsAccountId}:deploymentgroup:${applicationName}/${deploymentGroupName}`;
+};
 
 export const handler = customResourceHelper(
   (): ResourceHandler => ({

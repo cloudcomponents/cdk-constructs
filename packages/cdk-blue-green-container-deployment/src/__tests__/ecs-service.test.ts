@@ -1,11 +1,10 @@
-import * as cdk from '@aws-cdk/core';
+import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as elb from '@aws-cdk/aws-elasticloadbalancingv2';
+import * as cdk from '@aws-cdk/core';
 
-import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
-
-import { EcsService, PropagateTags } from '../ecs-service';
 import { DummyTaskDefinition } from '../dummy-task-definition';
+import { EcsService, PropagateTags } from '../ecs-service';
 
 describe('EcsService', () => {
   const app = new cdk.App();
@@ -25,11 +24,13 @@ describe('EcsService', () => {
       taskDefinition,
     });
 
-    it('Creates a BlueGreenService custom resource', () => {
-      expectCDK(stack).to(haveResource('Custom::BlueGreenService', {
-        ServiceName: 'My Service',
-        LaunchType: 'FARGATE'
-      }));
+    test('Creates a BlueGreenService custom resource', () => {
+      expectCDK(stack).to(
+        haveResource('Custom::BlueGreenService', {
+          ServiceName: 'My Service',
+          LaunchType: 'FARGATE',
+        }),
+      );
     });
   });
 
@@ -46,15 +47,17 @@ describe('EcsService', () => {
       prodTargetGroup,
       testTargetGroup,
       taskDefinition,
-      propagateTags: PropagateTags.SERVICE
+      propagateTags: PropagateTags.SERVICE,
     });
 
-    it('enables tag propagation', () => {
-      expectCDK(stack).to(haveResource('Custom::BlueGreenService', {
-        ServiceName: 'My Service',
-        LaunchType: 'FARGATE',
-        PropagateTags: 'SERVICE'
-      }));
+    test('enables tag propagation', () => {
+      expectCDK(stack).to(
+        haveResource('Custom::BlueGreenService', {
+          ServiceName: 'My Service',
+          LaunchType: 'FARGATE',
+          PropagateTags: 'SERVICE',
+        }),
+      );
     });
   });
 
@@ -65,7 +68,7 @@ describe('EcsService', () => {
     const testTargetGroup = new elb.ApplicationTargetGroup(stack, 'TestTargetGroup', { vpc: cluster.vpc });
     const taskDefinition = new DummyTaskDefinition(stack, 'DummyTaskDefinition', { image: 'nginx' });
 
-    cdk.Tags.of(stack).add('Foo', 'Bar');    
+    cdk.Tags.of(stack).add('Foo', 'Bar');
 
     new EcsService(stack, 'Service', {
       cluster,
@@ -75,15 +78,17 @@ describe('EcsService', () => {
       taskDefinition,
     });
 
-    it('adds Tags to the BlueGreenService', () => {
-      expectCDK(stack).to(haveResource('Custom::BlueGreenService', {
-        Tags: [
-          {
-            Key: 'Foo',
-            Value: 'Bar'
-          }
-        ]
-      }));
+    test('adds Tags to the BlueGreenService', () => {
+      expectCDK(stack).to(
+        haveResource('Custom::BlueGreenService', {
+          Tags: [
+            {
+              Key: 'Foo',
+              Value: 'Bar',
+            },
+          ],
+        }),
+      );
     });
-  })
+  });
 });
