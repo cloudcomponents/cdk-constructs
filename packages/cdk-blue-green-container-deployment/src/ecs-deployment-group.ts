@@ -3,7 +3,7 @@ import { EcsApplication, IEcsApplication } from '@aws-cdk/aws-codedeploy';
 import { ApplicationTargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { Role, ServicePrincipal, ManagedPolicy, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Aws, Construct, Resource, IResource, CustomResource, Duration, ITaggable, TagType, TagManager, Lazy } from '@aws-cdk/core';
+import { Construct, Resource, IResource, CustomResource, Duration, ITaggable, TagType, TagManager, Lazy } from '@aws-cdk/core';
 
 import { EcsDeploymentConfig, IEcsDeploymentConfig } from './ecs-deployment-config';
 import { IEcsService } from './ecs-service';
