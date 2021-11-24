@@ -117,7 +117,7 @@ export const handleCreate: OnCreateHandler = async (event, context): Promise<Res
   return {
     physicalResourceId: deploymentGroupName,
     responseData: {
-      Arn: arnForDeploymentGroup(applicationName, deploymentGroupName, extractArnParts(context.invokedFunctionArn))
+      Arn: arnForDeploymentGroup(applicationName, deploymentGroupName, context.invokedFunctionArn)
     },
   };
 };
@@ -125,7 +125,7 @@ export const handleCreate: OnCreateHandler = async (event, context): Promise<Res
 export const handleUpdate: OnUpdateHandler = async (event, context): Promise<ResourceHandlerReturn> => {
   const newProps = getProperties(event.ResourceProperties);
   const oldProps = getProperties(event.OldResourceProperties);
-  const deploymentGroupArn = arnForDeploymentGroup(newProps.applicationName, newProps.deploymentGroupName, extractArnParts(context.invokedFunctionArn));
+  const deploymentGroupArn = arnForDeploymentGroup(newProps.applicationName, newProps.deploymentGroupName, context.invokedFunctionArn);
 
   await codeDeploy
     .updateDeploymentGroup({
@@ -217,7 +217,8 @@ const extractArnParts = (invokedFunctionArn: string): ArnParts => {
   }
 }
 
-const arnForDeploymentGroup = (applicationName: string, deploymentGroupName: string, arnParts: ArnParts): string => {
+const arnForDeploymentGroup = (applicationName: string, deploymentGroupName: string, invokedFunctionArn: string): string => {
+  const arnParts = extractArnParts(invokedFunctionArn);
   return `arn:${arnParts.awsPartition}:codedeploy:${arnParts.awsRegion}:${arnParts.awsAccountId}:deploymentgroup:${applicationName}/${deploymentGroupName}`
 }
 
