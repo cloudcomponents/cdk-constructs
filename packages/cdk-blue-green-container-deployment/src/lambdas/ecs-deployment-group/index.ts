@@ -49,7 +49,7 @@ const getProperties = (
   autoRollbackOnEvents: props.AutoRollbackOnEvents,
   deploymentConfigName: props.DeploymentConfigName,
   arnForDeploymentGroup: props.ArnForDeploymentGroup,
-  tags: props.Tags,
+  tags: props.Tags ?? [],
 });
 
 export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
@@ -157,8 +157,8 @@ export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHand
     })
     .promise();
 
-  const newTagKeys: string[] = (newProps.tags || []).map((t: any) => t.Key);
-  const removableTagKeys: string[] = (oldProps.tags || []).map((t: any) => t.Key).filter((t) => !newTagKeys.includes(t));
+  const newTagKeys: string[] = newProps.tags.map((t: any) => t.Key);
+  const removableTagKeys: string[] = oldProps.tags.map((t: any) => t.Key).filter((t) => !newTagKeys.includes(t));
 
   if (removableTagKeys.length > 0) {
     await codeDeploy

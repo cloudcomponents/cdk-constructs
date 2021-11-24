@@ -51,7 +51,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   healthCheckGracePeriodSeconds: props.HealthCheckGracePeriodSeconds,
   deploymentConfiguration: props.DeploymentConfiguration,
   propagateTags: props.PropagateTags,
-  tags: props.Tags,
+  tags: props.Tags ?? [],
 });
 
 export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
