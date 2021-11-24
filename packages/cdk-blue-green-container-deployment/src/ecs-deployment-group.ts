@@ -146,10 +146,7 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup,
     }
     this.node.addDependency(...ecsServices);
 
-    this.deploymentGroupName = deploymentGroupName;
-    this.deploymentGroupArn = this.arnForDeploymentGroup(this.application.applicationName, deploymentGroupName);
-
-    new CustomResource(this, 'CustomResource', {
+    const ecsDeploymentGroup = new CustomResource(this, 'CustomResource', {
       serviceToken: serviceToken.functionArn,
       resourceType: 'Custom::EcsDeploymentGroup',
       properties: {
@@ -167,13 +164,11 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup,
         AutoRollbackOnEvents: autoRollbackOnEvents,
         DeploymentConfigName: this.deploymentConfig.deploymentConfigName,
         Tags: Lazy.any({ produce: () => this.tags.renderTags() }),
-        ArnForDeploymentGroup: this.arnForDeploymentGroup(this.application.applicationName, deploymentGroupName),
       },
     });
-  }
 
-  private arnForDeploymentGroup(applicationName: string, deploymentGroupName: string): string {
-    return `arn:${Aws.PARTITION}:codedeploy:${Aws.REGION}:${Aws.ACCOUNT_ID}:deploymentgroup:${applicationName}/${deploymentGroupName}`;
+    this.deploymentGroupName = ecsDeploymentGroup.ref;
+    this.deploymentGroupArn = ecsDeploymentGroup.getAttString('Arn');
   }
 }
 

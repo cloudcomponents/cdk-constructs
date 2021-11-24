@@ -40,8 +40,8 @@ import { defaultEvent } from '../__fixtures__/defaultEvent';
 import { defaultLogger } from '../__fixtures__/defaultLogger';
 
 const defaultEcsDeploymentGroupProperties = {
-  ApplicationName: 'Foo',
-  DeploymentGroupName: 'Foo',
+  ApplicationName: 'TestApplicationName',
+  DeploymentGroupName: 'TestDeploymentGroupName',
   ServiceRoleArn: 'arn:aws:iam::012345678910:role/MyRole',
   EcsServices: [
     {
@@ -52,8 +52,7 @@ const defaultEcsDeploymentGroupProperties = {
   TargetGroupNames: ['Foo'],
   ProdTrafficListenerArn: 'arn:aws:elasticloadbalancing::012345678910:listener/app/MyApp/foo/prod',
   TestTrafficListenerArn: 'arn:aws:elasticloadbalancing::012345678910:listener/app/MyApp/foo/test',
-  TerminationWaitTimeInMinutes: 5,
-  ArnForDeploymentGroup: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
+  TerminationWaitTimeInMinutes: 5
 };
 
 describe('createHandler', () => {
@@ -84,10 +83,41 @@ describe('createHandler', () => {
       }),
     );
   });
+
+  it('returns the physical id and arn of the deployment group', async () => {
+    const response = await handleCreate(
+      {
+        ...defaultEvent,
+        RequestType: 'Create',
+        ResourceProperties: {
+          ServiceToken: 'foo',
+          ...defaultEcsDeploymentGroupProperties,
+          Tags: [
+            { Key: 'foo', Value: 'bar' },
+            { Key: 'k', Value: 'west' },
+          ],
+        },
+      },
+      {
+        ...defaultContext,
+        invokedFunctionArn: 'arn:aws:lambda:eu-west-1:012345678910:function:MyCustomResourceHandler'
+      },
+      defaultLogger,
+    );
+
+    expect(response).toEqual(
+      expect.objectContaining({
+        physicalResourceId: 'TestDeploymentGroupName',
+        responseData: {
+          Arn: 'arn:aws:codedeploy:eu-west-1:012345678910:deploymentgroup:TestApplicationName/TestDeploymentGroupName'
+        },
+      }),
+    );
+  })
 });
 
 describe('updateHandler', () => {
-  it('sends data update request', async () => {
+  it('sends data update requests', async () => {
     await handleUpdate(
       {
         ...defaultEvent,
@@ -119,13 +149,13 @@ describe('updateHandler', () => {
     expect(mockUpdateRequest).toHaveBeenCalled();
 
     expect(mockUntagResourceRequest).toHaveBeenCalledWith({
-      ResourceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
+      ResourceArn: 'arn:aws:codedeploy:eu-west-1:012345678910:deploymentgroup:TestApplicationName/TestDeploymentGroupName',
       TagKeys: ['foo'],
     });
 
     expect(mockTagResourceRequest).toHaveBeenCalledWith(
       expect.objectContaining({
-        ResourceArn: 'arn:aws:ecs:us-east-1:012345678910:service/MyCluster/MyService',
+        ResourceArn: 'arn:aws:codedeploy:eu-west-1:012345678910:deploymentgroup:TestApplicationName/TestDeploymentGroupName',
         Tags: [
           { Key: 'dis', Value: 'dat' },
           { Key: 'k', Value: 'west' },
@@ -134,4 +164,35 @@ describe('updateHandler', () => {
       }),
     );
   });
+
+  it('returns the physical id and arn of the deployment group', async () => {
+    const response = await handleUpdate(
+      {
+        ...defaultEvent,
+        RequestType: 'Update',
+        PhysicalResourceId: 'foo',
+        ResourceProperties: {
+          ...defaultEcsDeploymentGroupProperties,
+          ServiceToken: 'foo',
+        },
+        OldResourceProperties: {
+          ...defaultEcsDeploymentGroupProperties,
+        },
+      },
+      {
+        ...defaultContext,
+        invokedFunctionArn: 'arn:aws:lambda:us-east-1:012345678910:function:MyCustomResourceHandler',
+      },
+      defaultLogger,
+    );
+
+    expect(response).toEqual(
+      expect.objectContaining({
+        physicalResourceId: 'TestDeploymentGroupName',
+        responseData: {
+          Arn: 'arn:aws:codedeploy:us-east-1:012345678910:deploymentgroup:TestApplicationName/TestDeploymentGroupName'
+        },
+      }),
+    );
+  })
 });

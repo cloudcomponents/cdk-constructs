@@ -2,7 +2,7 @@ export const defaultContext = {
   callbackWaitsForEmptyEventLoop: true,
   functionName: 'foo',
   functionVersion: 'foo',
-  invokedFunctionArn: 'foo',
+  invokedFunctionArn: 'arn:aws:lambda:eu-west-1:012345678910:function:MyCustomResourceHandler',
   memoryLimitInMB: 'foo',
   awsRequestId: 'foo',
   logGroupName: 'foo',
