@@ -13,11 +13,6 @@ export interface IEcsService {
   readonly serviceName: string;
 }
 
-export enum PropagateTags {
-  SERVICE = 'SERVICE',
-  TASK_DEFINITION = 'TASK_DEFINITION',
-}
-
 export interface EcsServiceProps {
   readonly securityGroups?: SecurityGroup[];
   readonly cluster: ICluster;
@@ -79,8 +74,6 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
   constructor(scope: Construct, id: string, props: EcsServiceProps) {
     super(scope, id);
 
-    this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
-
     const {
       cluster,
       serviceName,
@@ -92,6 +85,8 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
       taskDefinition,
       healthCheckGracePeriod = Duration.seconds(60),
     } = props;
+
+    this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
 
     const containerPort = props.containerPort ?? taskDefinition.containerPort;
 
@@ -153,6 +148,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
         ContainerPort: containerPort,
         SchedulingStrategy: SchedulingStrategy.REPLICA,
         HealthCheckGracePeriodSeconds: healthCheckGracePeriod.toSeconds(),
+        PropagateTags: props.propagateTags,
         DeploymentConfiguration: {
           maximumPercent: props.maxHealthyPercent ?? 200,
           minimumHealthyPercent: props.minHealthyPercent ?? 50,
@@ -163,7 +159,6 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
               }
             : undefined,
         },
-        PropagateTags: props.propagateTags,
         Tags: Lazy.any({ produce: () => this.tags.renderTags() }),
       },
     });
@@ -183,4 +178,9 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
 export enum SchedulingStrategy {
   REPLICA = 'REPLICA',
   DAEMON = 'DAEMON',
+}
+
+export enum PropagateTags {
+  TASK_DEFINITION = 'TASK_DEFINITION',
+  SERVICE = 'SERVICE',
 }
