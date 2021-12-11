@@ -93,6 +93,7 @@
 - [s3UrlForObject](#s3urlforobject)
 - [synthesize](#synthesize)
 - [toString](#tostring)
+- [transferAccelerationUrlForObject](#transferaccelerationurlforobject)
 - [urlForObject](#urlforobject)
 - [validate](#validate)
 - [virtualHostedUrlForObject](#virtualhostedurlforobject)
@@ -371,6 +372,10 @@ Bucket.stack
 
 `any`
 
+#### Inherited from
+
+Bucket.putActions
+
 ___
 
 ### writeActions
@@ -380,6 +385,10 @@ ___
 #### Returns
 
 `any`
+
+#### Inherited from
+
+Bucket.writeActions
 
 ## Methods
 
@@ -1254,6 +1263,39 @@ Returns a string representation of this construct.
 #### Inherited from
 
 Bucket.toString
+
+___
+
+### transferAccelerationUrlForObject
+
+▸ **transferAccelerationUrlForObject**(`key?`, `options?`): `string`
+
+The https Transfer Acceleration URL of an S3 object.
+
+Specify `dualStack: true` at the options
+for dual-stack endpoint (connect to the bucket over IPv6). For example:
+
+- `https://bucket.s3-accelerate.amazonaws.com`
+- `https://bucket.s3-accelerate.amazonaws.com/key`
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key?` | `string` | The S3 key of the object. |
+| `options?` | `TransferAccelerationUrlOptions` | Options for generating URL. |
+
+#### Returns
+
+`string`
+
+an TransferAccelerationUrl token
+
+#### Inherited from
+
+Bucket.transferAccelerationUrlForObject
 
 ___
 
@@ -2166,6 +2208,7 @@ Construct.isConstruct
 - [retentionPeriod](#retentionperiod)
 - [serverAccessLogsBucket](#serveraccesslogsbucket)
 - [serverAccessLogsPrefix](#serveraccesslogsprefix)
+- [transferAcceleration](#transferacceleration)
 - [versioned](#versioned)
 - [websiteErrorDocument](#websiteerrordocument)
 - [websiteIndexDocument](#websiteindexdocument)
@@ -2484,6 +2527,22 @@ If defined without "serverAccessLogsBucket", enables access logs to current buck
 #### Inherited from
 
 BucketProps.serverAccessLogsPrefix
+
+___
+
+### transferAcceleration
+
+• `Optional` `Readonly` **transferAcceleration**: `boolean`
+
+Whether this bucket should have transfer acceleration turned on or not.
+
+**`default`** false
+
+**`stability`** stable
+
+#### Inherited from
+
+BucketProps.transferAcceleration
 
 ___
 

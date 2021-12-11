@@ -214,6 +214,10 @@ ACCOUNT.dkr.ecr.REGION.amazonaws.com/REPOSITORY
 
 `string`
 
+#### Inherited from
+
+Repository.repositoryUri
+
 ## Methods
 
 ### \_enableCrossEnvironment

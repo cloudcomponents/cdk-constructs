@@ -13,7 +13,7 @@ import {
 } from '@aws-cdk/aws-cloudfront';
 import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
 import { Bucket, IBucket } from '@aws-cdk/aws-s3';
-import { Construct, Duration, RemovalPolicy, Stack, ResourceEnvironment } from '@aws-cdk/core';
+import { Construct, Duration, RemovalPolicy, Stack, ResourceEnvironment, CfnResource } from '@aws-cdk/core';
 
 import { IAuthorization, IStaticSiteAuthorization, ISpaAuthorization } from './authorizations';
 
@@ -213,6 +213,14 @@ export class BaseDistribution extends Construct implements IDistribution {
       account: this.stack.account,
       region: this.stack.region,
     };
+  }
+
+  public applyRemovalPolicy(policy: RemovalPolicy) {
+    const child = this.node.defaultChild;
+    if (!child || !CfnResource.isCfnResource(child)) {
+      throw new Error('Cannot apply RemovalPolicy: no child or not a CfnResource. Apply the removal policy on the CfnResource directly.');
+    }
+    child.applyRemovalPolicy(policy);
   }
 
   protected renderDefaultBehaviour(origin: IOrigin, authorization: IAuthorization): BehaviorOptions {

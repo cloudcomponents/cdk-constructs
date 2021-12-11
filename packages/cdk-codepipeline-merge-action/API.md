@@ -101,6 +101,10 @@ Action.providedActionProperties
 
 `any`
 
+#### Inherited from
+
+Action.\_pipeline
+
 ___
 
 ### \_scope
@@ -115,6 +119,10 @@ and that Stage to a Pipeline.
 
 `any`
 
+#### Inherited from
+
+Action.\_scope
+
 ___
 
 ### \_stage
@@ -124,6 +132,10 @@ ___
 #### Returns
 
 `any`
+
+#### Inherited from
+
+Action.\_stage
 
 ___
 
@@ -140,6 +152,10 @@ Note that this accessor will be called before the [bind](#bind) callback.
 #### Returns
 
 `ActionProperties`
+
+#### Inherited from
+
+Action.actionProperties
 
 ## Methods
 
@@ -272,6 +288,7 @@ Action.variableExpression
 - [role](#role)
 - [runtime](#runtime)
 - [stack](#stack)
+- [timeout](#timeout)
 - [\_VER\_PROPS](#_ver_props)
 
 ### Accessors
@@ -574,6 +591,20 @@ Function.stack
 
 ___
 
+### timeout
+
+• `Optional` `Readonly` **timeout**: `Duration`
+
+The timeout configured for this lambda.
+
+**`stability`** stable
+
+#### Inherited from
+
+Function.timeout
+
+___
+
 ### \_VER\_PROPS
 
 ▪ `Static` **\_VER\_PROPS**: `Object`
@@ -604,6 +635,10 @@ Will fail if not a VPC-enabled Lambda Function
 
 `Connections`
 
+#### Inherited from
+
+Function.connections
+
 ___
 
 ### currentVersion
@@ -621,6 +656,10 @@ prop when initializing the `lambda.Function`.
 
 `Version`
 
+#### Inherited from
+
+Function.currentVersion
+
 ___
 
 ### isBoundToVpc
@@ -636,6 +675,10 @@ If this is is `false`, trying to access the `connections` object will fail.
 #### Returns
 
 `boolean`
+
+#### Inherited from
+
+Function.isBoundToVpc
 
 ___
 
@@ -658,6 +701,10 @@ function configuration, use `lambdaFunction.currentVersion` instead.
 
 `IVersion`
 
+#### Inherited from
+
+Function.latestVersion
+
 ___
 
 ### logGroup
@@ -678,6 +725,10 @@ to never expire even if it was configured with a different value.
 #### Returns
 
 `ILogGroup`
+
+#### Inherited from
+
+Function.logGroup
 
 ## Methods
 

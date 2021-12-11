@@ -96,6 +96,10 @@ Action.providedActionProperties
 
 `any`
 
+#### Inherited from
+
+Action.\_pipeline
+
 ___
 
 ### \_scope
@@ -110,6 +114,10 @@ and that Stage to a Pipeline.
 
 `any`
 
+#### Inherited from
+
+Action.\_scope
+
 ___
 
 ### \_stage
@@ -119,6 +127,10 @@ ___
 #### Returns
 
 `any`
+
+#### Inherited from
+
+Action.\_stage
 
 ___
 
@@ -135,6 +147,10 @@ Note that this accessor will be called before the [bind](#bind) callback.
 #### Returns
 
 `ActionProperties`
+
+#### Inherited from
+
+Action.actionProperties
 
 ## Methods
 

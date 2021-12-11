@@ -861,6 +861,7 @@ Construct.isConstruct
 
 ### Methods
 
+- [applyRemovalPolicy](#applyremovalpolicy)
 - [defaultOrigin](#defaultorigin)
 - [onPrepare](#onprepare)
 - [onSynthesize](#onsynthesize)
@@ -960,6 +961,26 @@ ___
 IDistribution.stack
 
 ## Methods
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+IDistribution.applyRemovalPolicy
+
+___
 
 ### defaultOrigin
 
@@ -1857,7 +1878,7 @@ ___
 
 ### mode
 
-• `Readonly` **mode**: [`SPA`](#spa)
+• `Readonly` **mode**: [`SPA`](#spa) = `Mode.SPA`
 
 #### Implementation of
 
@@ -2322,6 +2343,7 @@ x is Construct
 
 ### Methods
 
+- [applyRemovalPolicy](#applyremovalpolicy)
 - [onPrepare](#onprepare)
 - [onSynthesize](#onsynthesize)
 - [onValidate](#onvalidate)
@@ -2416,6 +2438,26 @@ ___
 [BaseDistribution](#base-distribution).[stack](#stack)
 
 ## Methods
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[applyRemovalPolicy](#applyremovalpolicy)
+
+___
 
 ### onPrepare
 
@@ -2778,7 +2820,7 @@ ___
 
 ### mode
 
-• `Readonly` **mode**: [`STATIC_SITE`](#static_site)
+• `Readonly` **mode**: [`STATIC_SITE`](#static_site) = `Mode.STATIC_SITE`
 
 #### Implementation of
 
@@ -3253,6 +3295,7 @@ x is Construct
 
 ### Methods
 
+- [applyRemovalPolicy](#applyremovalpolicy)
 - [onPrepare](#onprepare)
 - [onSynthesize](#onsynthesize)
 - [onValidate](#onvalidate)
@@ -3347,6 +3390,26 @@ ___
 [BaseDistribution](#base-distribution).[stack](#stack)
 
 ## Methods
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[BaseDistribution](#base-distribution).[applyRemovalPolicy](#applyremovalpolicy)
+
+___
 
 ### onPrepare
 

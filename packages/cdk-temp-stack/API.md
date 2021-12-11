@@ -359,6 +359,10 @@ To specify a different strategy for selecting availability zones override this m
 
 `string`[]
 
+#### Inherited from
+
+Stack.availabilityZones
+
 ___
 
 ### dependencies
@@ -372,6 +376,10 @@ Return the stacks this stack depends on.
 #### Returns
 
 `Stack`[]
+
+#### Inherited from
+
+Stack.dependencies
 
 ___
 
@@ -387,6 +395,10 @@ Set to 0 to mean "unlimited".
 
 `any`
 
+#### Inherited from
+
+Stack.maxResources
+
 ___
 
 ### nested
@@ -400,6 +412,10 @@ Indicates if this is a nested stack, in which case `parentStack` will include a 
 #### Returns
 
 `boolean`
+
+#### Inherited from
+
+Stack.nested
 
 ___
 
@@ -415,6 +431,10 @@ If this is a nested stack, returns it's parent stack.
 
 `undefined` \| `Stack`
 
+#### Inherited from
+
+Stack.nestedStackParent
+
 ___
 
 ### notificationArns
@@ -428,6 +448,10 @@ Returns the list of notification Amazon Resource Names (ARNs) for the current st
 #### Returns
 
 `string`[]
+
+#### Inherited from
+
+Stack.notificationArns
 
 ___
 
@@ -443,6 +467,10 @@ ___
 
 `undefined` \| `Stack`
 
+#### Inherited from
+
+Stack.parentStack
+
 ___
 
 ### partition
@@ -456,6 +484,10 @@ The partition in which this stack is defined.
 #### Returns
 
 `string`
+
+#### Inherited from
+
+Stack.partition
 
 ___
 
@@ -475,6 +507,10 @@ The ID of the stack.
 #### Returns
 
 `string`
+
+#### Inherited from
+
+Stack.stackId
 
 ___
 
@@ -499,6 +535,10 @@ you can use `Aws.stackName` directly.
 
 `string`
 
+#### Inherited from
+
+Stack.stackName
+
 ___
 
 ### urlSuffix
@@ -512,6 +552,10 @@ The Amazon domain suffix for the region in which this stack is defined.
 #### Returns
 
 `string`
+
+#### Inherited from
+
+Stack.urlSuffix
 
 ## Methods
 

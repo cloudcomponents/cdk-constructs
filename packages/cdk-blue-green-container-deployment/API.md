@@ -48,6 +48,7 @@
 ## Implements
 
 - [`IDummyTaskDefinition`](#i-dummy-task-definition)
+- `ITaggable`
 
 ## Table of contents
 
@@ -62,6 +63,7 @@
 - [executionRole](#executionrole)
 - [family](#family)
 - [node](#node)
+- [tags](#tags)
 - [taskDefinitionArn](#taskdefinitionarn)
 
 ### Methods
@@ -147,6 +149,16 @@ The construct tree node associated with this construct.
 #### Inherited from
 
 Construct.node
+
+___
+
+### tags
+
+• `Readonly` **tags**: `TagManager`
+
+#### Implementation of
+
+ITaggable.tags
 
 ___
 
@@ -939,6 +951,7 @@ Resource.isResource
 ## Implements
 
 - [`IEcsDeploymentGroup`](#i-ecs-deployment-group)
+- `ITaggable`
 
 ## Table of contents
 
@@ -956,12 +969,12 @@ Resource.isResource
 - [node](#node)
 - [physicalName](#physicalname)
 - [stack](#stack)
+- [tags](#tags)
 
 ### Methods
 
 - [\_enableCrossEnvironment](#_enablecrossenvironment)
 - [applyRemovalPolicy](#applyremovalpolicy)
-- [arnForDeploymentGroup](#arnfordeploymentgroup)
 - [generatePhysicalName](#generatephysicalname)
 - [getResourceArnAttribute](#getresourcearnattribute)
 - [getResourceNameAttribute](#getresourcenameattribute)
@@ -1122,6 +1135,16 @@ The stack in which this resource is defined.
 
 Resource.stack
 
+___
+
+### tags
+
+• `Readonly` **tags**: `TagManager`
+
+#### Implementation of
+
+ITaggable.tags
+
 ## Methods
 
 ### \_enableCrossEnvironment
@@ -1171,26 +1194,13 @@ account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
 
 `void`
 
+#### Implementation of
+
+[IEcsDeploymentGroup](#i-ecs-deployment-group).[applyRemovalPolicy](#applyremovalpolicy)
+
 #### Inherited from
 
 Resource.applyRemovalPolicy
-
-___
-
-### arnForDeploymentGroup
-
-▸ `Private` **arnForDeploymentGroup**(`applicationName`, `deploymentGroupName`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `applicationName` | `string` |
-| `deploymentGroupName` | `string` |
-
-#### Returns
-
-`string`
 
 ___
 
@@ -1498,6 +1508,7 @@ Resource.isResource
 
 - `IConnectable`
 - [`IEcsService`](#i-ecs-service)
+- `ITaggable`
 
 ## Table of contents
 
@@ -1511,6 +1522,7 @@ Resource.isResource
 - [connections](#connections)
 - [node](#node)
 - [serviceName](#servicename)
+- [tags](#tags)
 
 ### Methods
 
@@ -1584,6 +1596,16 @@ ___
 #### Implementation of
 
 [IEcsService](#i-ecs-service).[serviceName](#servicename)
+
+___
+
+### tags
+
+• `Readonly` **tags**: `TagManager`
+
+#### Implementation of
+
+ITaggable.tags
 
 ## Methods
 
@@ -2027,6 +2049,10 @@ Will fail if this Project does not have a VPC set.
 
 `Connections`
 
+#### Inherited from
+
+PipelineProject.connections
+
 ___
 
 ### encryptionKey
@@ -2042,6 +2068,10 @@ ___
 #### Returns
 
 `void`
+
+#### Inherited from
+
+PipelineProject.encryptionKey
 
 ## Methods
 
@@ -3571,6 +3601,10 @@ Interface for an ECS deployment group.
 - [node](#node)
 - [stack](#stack)
 
+### Methods
+
+- [applyRemovalPolicy](#applyremovalpolicy)
+
 ## Properties
 
 ### application
@@ -3651,6 +3685,38 @@ The stack in which this resource is defined.
 #### Inherited from
 
 IResource.stack
+
+## Methods
+
+### applyRemovalPolicy
+
+▸ **applyRemovalPolicy**(`policy`): `void`
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `policy` | `RemovalPolicy` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+IResource.applyRemovalPolicy
 
 # I Ecs Service
 
