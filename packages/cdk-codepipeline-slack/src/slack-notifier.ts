@@ -46,7 +46,7 @@ export class SlackNotifier extends Construct {
     }
 
     const notifier = new Function(scope, 'SlackNotifierFunction', {
-      runtime: Runtime.NODEJS_12_X,
+      runtime: Runtime.NODEJS_14_X,
       handler: 'index.handler',
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'notifier')),
       environment: this.environment,
