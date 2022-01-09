@@ -1,9 +1,25 @@
 import * as path from 'path';
-import { EcsApplication, IEcsApplication } from '@aws-cdk/aws-codedeploy';
-import { ApplicationTargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
-import { Role, ServicePrincipal, ManagedPolicy, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Construct, Resource, IResource, CustomResource, Duration, ITaggable, TagType, TagManager, Lazy } from '@aws-cdk/core';
+import { EcsApplication, IEcsApplication } from "aws-cdk-lib/aws-codedeploy";
+import { ApplicationTargetGroup } from "aws-cdk-lib/aws-elasticloadbalancingv2";
+import {
+  Role,
+  ServicePrincipal,
+  ManagedPolicy,
+  Effect,
+  PolicyStatement,
+} from "aws-cdk-lib/aws-iam";
+import { Function, Runtime, Code } from "aws-cdk-lib/aws-lambda";
+import {
+  Resource,
+  IResource,
+  CustomResource,
+  Duration,
+  ITaggable,
+  TagType,
+  TagManager,
+  Lazy,
+} from "aws-cdk-lib/core";
+import { Construct } from "constructs";
 
 import { EcsDeploymentConfig, IEcsDeploymentConfig } from './ecs-deployment-config';
 import { IEcsService } from './ecs-service';

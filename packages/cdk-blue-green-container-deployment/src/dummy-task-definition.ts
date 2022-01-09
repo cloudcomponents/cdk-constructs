@@ -1,8 +1,21 @@
-import { NetworkMode } from '@aws-cdk/aws-ecs';
-import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
-import { Construct, ITaggable, TagManager, TagType, Lazy } from '@aws-cdk/core';
-import { AwsCustomResource, AwsCustomResourcePolicy, AwsSdkCall, PhysicalResourceId, PhysicalResourceIdReference } from '@aws-cdk/custom-resources';
-
+import { NetworkMode } from "aws-cdk-lib/aws-ecs";
+import {
+  Role,
+  ServicePrincipal,
+  ManagedPolicy,
+  PolicyStatement,
+  Effect,
+  IRole,
+} from "aws-cdk-lib/aws-iam";
+import { ITaggable, TagManager, TagType, Lazy } from "aws-cdk-lib/core";
+import {
+  AwsCustomResource,
+  AwsCustomResourcePolicy,
+  AwsSdkCall,
+  PhysicalResourceId,
+  PhysicalResourceIdReference,
+} from "aws-cdk-lib/custom-resources";
+import { Construct } from "constructs";
 export interface IDummyTaskDefinition {
   readonly executionRole: IRole;
 
@@ -40,7 +53,10 @@ export interface DummyTaskDefinitionProps {
   readonly containerPort?: number;
 }
 
-export class DummyTaskDefinition extends Construct implements IDummyTaskDefinition, ITaggable {
+export class DummyTaskDefinition
+  extends Construct
+  implements IDummyTaskDefinition, ITaggable
+{
   public readonly executionRole: IRole;
 
   public readonly family: string;
@@ -56,27 +72,31 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
   constructor(scope: Construct, id: string, props: DummyTaskDefinitionProps) {
     super(scope, id);
 
-    this.tags = new TagManager(TagType.STANDARD, 'TagManager');
+    this.tags = new TagManager(TagType.STANDARD, "TagManager");
 
-    this.executionRole = new Role(this, 'ExecutionRole', {
-      assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),
-      managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
+    this.executionRole = new Role(this, "ExecutionRole", {
+      assumedBy: new ServicePrincipal("ecs-tasks.amazonaws.com"),
+      managedPolicies: [
+        ManagedPolicy.fromAwsManagedPolicyName(
+          "service-role/AmazonECSTaskExecutionRolePolicy"
+        ),
+      ],
     });
 
     this.family = props.family ?? this.node.addr;
-    this.containerName = props.containerName ?? 'sample-website';
+    this.containerName = props.containerName ?? "sample-website";
     this.containerPort = props.containerPort ?? 80;
 
     const registerTaskDefinition: AwsSdkCall = {
-      service: 'ECS',
-      action: 'registerTaskDefinition',
+      service: "ECS",
+      action: "registerTaskDefinition",
       parameters: {
-        requiresCompatibilities: ['FARGATE'],
+        requiresCompatibilities: ["FARGATE"],
         family: this.family,
         executionRoleArn: this.executionRole.roleArn,
         networkMode: NetworkMode.AWS_VPC,
-        cpu: '256',
-        memory: '512',
+        cpu: "256",
+        memory: "512",
         containerDefinitions: [
           {
             name: this.containerName,
@@ -84,7 +104,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
             portMappings: [
               {
                 hostPort: this.containerPort,
-                protocol: 'tcp',
+                protocol: "tcp",
                 containerPort: this.containerPort,
               },
             ],
@@ -92,37 +112,44 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
         ],
         tags: Lazy.any({ produce: () => this.tags.renderTags() }),
       },
-      physicalResourceId: PhysicalResourceId.fromResponse('taskDefinition.taskDefinitionArn'),
+      physicalResourceId: PhysicalResourceId.fromResponse(
+        "taskDefinition.taskDefinitionArn"
+      ),
     };
 
     const deregisterTaskDefinition: AwsSdkCall = {
-      service: 'ECS',
-      action: 'deregisterTaskDefinition',
+      service: "ECS",
+      action: "deregisterTaskDefinition",
       parameters: {
         taskDefinition: new PhysicalResourceIdReference(),
       },
     };
 
-    const taskDefinition = new AwsCustomResource(this, 'DummyTaskDefinition', {
-      resourceType: 'Custom::DummyTaskDefinition',
+    const taskDefinition = new AwsCustomResource(this, "DummyTaskDefinition", {
+      resourceType: "Custom::DummyTaskDefinition",
       onCreate: registerTaskDefinition,
       onUpdate: registerTaskDefinition,
       onDelete: deregisterTaskDefinition,
       policy: AwsCustomResourcePolicy.fromStatements([
         new PolicyStatement({
           effect: Effect.ALLOW,
-          actions: ['ecs:RegisterTaskDefinition', 'ecs:DeregisterTaskDefinition'],
-          resources: ['*'],
+          actions: [
+            "ecs:RegisterTaskDefinition",
+            "ecs:DeregisterTaskDefinition",
+          ],
+          resources: ["*"],
         }),
         new PolicyStatement({
           effect: Effect.ALLOW,
-          actions: ['iam:PassRole'],
+          actions: ["iam:PassRole"],
           resources: [this.executionRole.roleArn],
         }),
       ]),
     });
 
-    this.taskDefinitionArn = taskDefinition.getResponseField('taskDefinition.taskDefinitionArn');
+    this.taskDefinitionArn = taskDefinition.getResponseField(
+      "taskDefinition.taskDefinitionArn"
+    );
   }
 
   /**
