@@ -31,11 +31,11 @@ const getSpace = async (accessToken: string, spaceId: string) => {
 };
 
 const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  
-  
-  const { accessTokenString, spaceId, serviceToken, logLevel, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
-    event.ResourceProperties,
-  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { accessTokenString, spaceId, serviceToken, logLevel, ...props } = camelizeKeys<
+    WebhookProps,
+    CloudFormationCustomResourceEventCommon['ResourceProperties']
+  >(event.ResourceProperties);
 
   const secretKey = new SecretKey(accessTokenString);
   const accessToken = await secretKey.getValue();
@@ -55,9 +55,11 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
 };
 
 const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { accessTokenString, spaceId, serviceToken, logLevel, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
-    event.ResourceProperties,
-  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { accessTokenString, spaceId, serviceToken, logLevel, ...props } = camelizeKeys<
+    WebhookProps,
+    CloudFormationCustomResourceEventCommon['ResourceProperties']
+  >(event.ResourceProperties);
 
   const secretKey = new SecretKey(accessTokenString);
   const accessToken = await secretKey.getValue();
