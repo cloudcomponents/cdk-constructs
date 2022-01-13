@@ -18,6 +18,8 @@ export interface WebhookProps {
   name: string;
   url: string;
   topics: string[];
+  serviceToken?: string;
+  logLevel?: string;
 }
 
 const getSpace = async (accessToken: string, spaceId: string) => {
@@ -29,9 +31,14 @@ const getSpace = async (accessToken: string, spaceId: string) => {
 };
 
 const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { accessTokenString, spaceId, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+  
+  
+  const { accessTokenString, spaceId, serviceToken, logLevel, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
     event.ResourceProperties,
   );
+
+  console.warn('event.ResourceProperties', JSON.stringify(event.ResourceProperties))
+  console.warn('props', JSON.stringify(props))
 
   const secretKey = new SecretKey(accessTokenString);
   const accessToken = await secretKey.getValue();
@@ -51,7 +58,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
 };
 
 const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { accessTokenString, spaceId, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
+  const { accessTokenString, spaceId, serviceToken, logLevel, ...props } = camelizeKeys<WebhookProps, CloudFormationCustomResourceEventCommon['ResourceProperties']>(
     event.ResourceProperties,
   );
 
