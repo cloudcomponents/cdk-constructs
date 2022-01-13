@@ -71,6 +71,7 @@
 - [addToResourcePolicy](#addtoresourcepolicy)
 - [applyRemovalPolicy](#applyremovalpolicy)
 - [arnForObjects](#arnforobjects)
+- [enableEventBridgeNotification](#enableeventbridgenotification)
 - [generatePhysicalName](#generatephysicalname)
 - [getResourceArnAttribute](#getresourcearnattribute)
 - [getResourceNameAttribute](#getresourcenameattribute)
@@ -692,6 +693,22 @@ If you need to specify a keyPattern with multiple components, concatenate them i
 #### Inherited from
 
 Bucket.arnForObjects
+
+___
+
+### enableEventBridgeNotification
+
+▸ `Protected` **enableEventBridgeNotification**(): `void`
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.enableEventBridgeNotification
 
 ___
 
@@ -1806,7 +1823,9 @@ Construct.isConstruct
 - [encryption](#encryption)
 - [encryptionKey](#encryptionkey)
 - [enforceSSL](#enforcessl)
+- [eventBridgeEnabled](#eventbridgeenabled)
 - [forceDelete](#forcedelete)
+- [intelligentTieringConfigurations](#intelligenttieringconfigurations)
 - [inventories](#inventories)
 - [lifecycleRules](#lifecyclerules)
 - [metrics](#metrics)
@@ -1993,6 +2012,22 @@ BucketProps.enforceSSL
 
 ___
 
+### eventBridgeEnabled
+
+• `Optional` `Readonly` **eventBridgeEnabled**: `boolean`
+
+Whether this bucket should send notifications to Amazon EventBridge or not.
+
+**`default`** false
+
+**`stability`** stable
+
+#### Inherited from
+
+BucketProps.eventBridgeEnabled
+
+___
+
 ### forceDelete
 
 • `Optional` `Readonly` **forceDelete**: `boolean`
@@ -2000,6 +2035,24 @@ ___
 If the buckets contains objects, forces the deletion during stack deletion.
 
 **`default`** false
+
+___
+
+### intelligentTieringConfigurations
+
+• `Optional` `Readonly` **intelligentTieringConfigurations**: `IntelligentTieringConfiguration`[]
+
+Inteligent Tiering Configurations.
+
+**`default`** No Intelligent Tiiering Configurations.
+
+**`see`** https://docs.aws.amazon.com/AmazonS3/latest/userguide/intelligent-tiering.html
+
+**`stability`** stable
+
+#### Inherited from
+
+BucketProps.intelligentTieringConfigurations
 
 ___
 

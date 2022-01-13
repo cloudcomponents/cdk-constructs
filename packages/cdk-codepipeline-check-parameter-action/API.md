@@ -164,7 +164,7 @@ ___
 
 ### architecture
 
-• `Optional` `Readonly` **architecture**: `Architecture`
+• `Readonly` **architecture**: `Architecture`
 
 The architecture of this Lambda Function (this is an optional attribute and defaults to X86_64).
 

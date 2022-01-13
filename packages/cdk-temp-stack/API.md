@@ -83,6 +83,7 @@
 - [parseArn](#parsearn)
 - [prepare](#prepare)
 - [prepareCrossReference](#preparecrossreference)
+- [regionalFact](#regionalfact)
 - [renameLogicalId](#renamelogicalid)
 - [reportMissingContext](#reportmissingcontext)
 - [reportMissingContextKey](#reportmissingcontextkey)
@@ -1148,6 +1149,47 @@ reference itself without any change
 #### Inherited from
 
 Stack.prepareCrossReference
+
+___
+
+### regionalFact
+
+▸ **regionalFact**(`factName`, `defaultValue?`): `string`
+
+Look up a fact value for the given fact for the region of this stack.
+
+Will return a definite value only if the region of the current stack is resolved.
+If not, a lookup map will be added to the stack and the lookup will be done at
+CDK deployment time.
+
+What regions will be included in the lookup map is controlled by the
+`@aws-cdk/core:target-partitions` context value: it must be set to a list
+of partitions, and only regions from the given partitions will be included.
+If no such context key is set, all regions will be included.
+
+This function is intended to be used by construct library authors. Application
+builders can rely on the abstractions offered by construct libraries and do
+not have to worry about regional facts.
+
+If `defaultValue` is not given, it is an error if the fact is unknown for
+the given region.
+
+**`stability`** stable
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `factName` | `string` |
+| `defaultValue?` | `string` |
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+Stack.regionalFact
 
 ___
 
