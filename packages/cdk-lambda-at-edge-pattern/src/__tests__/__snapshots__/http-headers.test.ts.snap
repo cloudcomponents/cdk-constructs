@@ -29,10 +29,14 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": Array [
-                  "edgelambda.amazonaws.com",
-                  "lambda.amazonaws.com",
-                ],
+                "Service": "edgelambda.amazonaws.com",
+              },
+            },
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
               },
             },
           ],
@@ -563,10 +567,14 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": Array [
-                  "edgelambda.amazonaws.com",
-                  "lambda.amazonaws.com",
-                ],
+                "Service": "edgelambda.amazonaws.com",
+              },
+            },
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
               },
             },
           ],

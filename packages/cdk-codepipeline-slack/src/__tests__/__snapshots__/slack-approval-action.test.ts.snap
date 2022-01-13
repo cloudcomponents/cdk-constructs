@@ -177,6 +177,9 @@ Object {
       "Type": "AWS::ApiGateway::Deployment",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15": Object {
+      "DependsOn": Array [
+        "PipelineApproveSlackApprovalSlackApprovalApiAccountA4491BD6",
+      ],
       "Properties": Object {
         "DeploymentId": Object {
           "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE01cde33ef942aa0a8f7065400447651dd",
@@ -971,6 +974,9 @@ Object {
       "Type": "AWS::ApiGateway::Deployment",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiDeploymentStageprod8DAD2B15": Object {
+      "DependsOn": Array [
+        "PipelineApproveSlackApprovalSlackApprovalApiAccountA4491BD6",
+      ],
       "Properties": Object {
         "DeploymentId": Object {
           "Ref": "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE01cde33ef942aa0a8f7065400447651dd",

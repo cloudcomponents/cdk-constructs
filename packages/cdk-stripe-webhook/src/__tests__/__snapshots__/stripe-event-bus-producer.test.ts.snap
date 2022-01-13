@@ -97,6 +97,9 @@ Object {
       "Type": "AWS::ApiGateway::Deployment",
     },
     "StripeEventBusProducerEndpointDeploymentStageprodCEEA8490": Object {
+      "DependsOn": Array [
+        "StripeEventBusProducerEndpointAccount92D81366",
+      ],
       "Properties": Object {
         "DeploymentId": Object {
           "Ref": "StripeEventBusProducerEndpointDeploymentE12AA95F46491c5acfe2c3ec9059e7abeec24dac",
