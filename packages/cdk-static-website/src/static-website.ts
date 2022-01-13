@@ -82,7 +82,7 @@ export class StaticWebsite extends Construct {
       ...bucketConfiguration,
     });
 
-    const distibutionConfig: CloudFrontWebDistributionProps = {
+    const distributionConfig: CloudFrontWebDistributionProps = {
       webACLId,
       enableIpV6: !disableIPv6,
       originConfigs: [
@@ -97,7 +97,7 @@ export class StaticWebsite extends Construct {
       errorConfigurations,
     };
 
-    this.distribution = new CloudFrontWebDistribution(this, 'Distribution', distibutionConfig);
+    this.distribution = new CloudFrontWebDistribution(this, 'Distribution', distributionConfig);
 
     if (aliasConfiguration) {
       new WebsiteAliasRecord(this, 'AliasRecord', {
