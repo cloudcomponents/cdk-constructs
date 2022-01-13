@@ -37,9 +37,6 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
     event.ResourceProperties,
   );
 
-  console.warn('event.ResourceProperties', JSON.stringify(event.ResourceProperties))
-  console.warn('props', JSON.stringify(props))
-
   const secretKey = new SecretKey(accessTokenString);
   const accessToken = await secretKey.getValue();
 
