@@ -1,28 +1,25 @@
-import { IDistribution } from '@aws-cdk/aws-cloudfront';
-import { AaaaRecord, ARecord, IHostedZone, RecordTarget } from '@aws-cdk/aws-route53';
-import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
-import { Construct } from '@aws-cdk/core';
-
+import { aws_cloudfront, aws_route53, aws_route53_targets } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 export interface DnsProps {
   readonly domainName: string;
-  readonly domainZone: IHostedZone;
-  readonly distribution: IDistribution;
+  readonly domainZone: aws_route53.IHostedZone;
+  readonly distribution: aws_cloudfront.IDistribution;
 }
 
 export class Dns extends Construct {
   constructor(scope: Construct, id: string, props: DnsProps) {
     super(scope, id);
 
-    new ARecord(this, 'ARecord', {
+    new aws_route53.ARecord(this, 'ARecord', {
       zone: props.domainZone,
       recordName: props.domainName,
-      target: RecordTarget.fromAlias(new CloudFrontTarget(props.distribution)),
+      target: aws_route53.RecordTarget.fromAlias(new aws_route53_targets.CloudFrontTarget(props.distribution)),
     });
 
-    new AaaaRecord(this, 'AaaaRecord', {
+    new aws_route53.AaaaRecord(this, 'AaaaRecord', {
       zone: props.domainZone,
       recordName: props.domainName,
-      target: RecordTarget.fromAlias(new CloudFrontTarget(props.distribution)),
+      target: aws_route53.RecordTarget.fromAlias(new aws_route53_targets.CloudFrontTarget(props.distribution)),
     });
   }
 }

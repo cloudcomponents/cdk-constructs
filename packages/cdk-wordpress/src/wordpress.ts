@@ -1,9 +1,5 @@
-import { BackupPlan, BackupResource } from '@aws-cdk/aws-backup';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
-import { IVpc, Vpc } from '@aws-cdk/aws-ec2';
-import { ContainerImage, LogDriver, Secret } from '@aws-cdk/aws-ecs';
-import { IHostedZone } from '@aws-cdk/aws-route53';
-import { Construct, RemovalPolicy } from '@aws-cdk/core';
+import { RemovalPolicy, aws_backup, aws_certificatemanager, aws_ec2, aws_ecs, aws_route53 } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { Application, StaticContentOffload } from './application';
 import { Database } from './database';
@@ -11,18 +7,18 @@ import { EfsVolume } from './efs-volume';
 
 export interface WordpressProps {
   readonly domainName: string;
-  readonly domainZone: IHostedZone;
+  readonly domainZone: aws_route53.IHostedZone;
   readonly subjectAlternativeNames?: string[];
-  readonly vpc?: IVpc;
+  readonly vpc?: aws_ec2.IVpc;
   readonly volume?: EfsVolume;
   readonly database?: Database;
-  readonly image?: ContainerImage;
+  readonly image?: aws_ecs.ContainerImage;
   readonly environment?: Record<string, string>;
-  readonly secrets?: Record<string, Secret>;
+  readonly secrets?: Record<string, aws_ecs.Secret>;
   readonly serviceName?: string;
   readonly memoryLimitMiB?: number;
-  readonly logDriver?: LogDriver;
-  readonly backupPlan?: BackupPlan;
+  readonly logDriver?: aws_ecs.LogDriver;
+  readonly backupPlan?: aws_backup.BackupPlan;
   readonly cloudFrontHashHeader?: string;
   readonly offloadStaticContent?: boolean;
   readonly removalPolicy?: RemovalPolicy;
@@ -43,7 +39,7 @@ export class Wordpress extends Construct {
       subjectAlternativeNames.push(staticContentDomainName);
     }
 
-    const certificate = new DnsValidatedCertificate(this, 'Certificate', {
+    const certificate = new aws_certificatemanager.DnsValidatedCertificate(this, 'Certificate', {
       domainName: props.domainName,
       hostedZone: props.domainZone,
       subjectAlternativeNames,
@@ -52,7 +48,7 @@ export class Wordpress extends Construct {
 
     const vpc =
       props.vpc ??
-      new Vpc(this, 'Vpc', {
+      new aws_ec2.Vpc(this, 'Vpc', {
         maxAzs: 2,
       });
 
@@ -99,7 +95,7 @@ export class Wordpress extends Construct {
         props.backupPlan.applyRemovalPolicy(props.removalPolicy);
       }
       props.backupPlan.addSelection('BackupPlanSelection', {
-        resources: [BackupResource.fromConstruct(this)],
+        resources: [aws_backup.BackupResource.fromConstruct(this)],
       });
     }
   }

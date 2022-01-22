@@ -1,28 +1,25 @@
-import { IConnectable, IVpc } from '@aws-cdk/aws-ec2';
-import { EfsVolumeConfiguration } from '@aws-cdk/aws-ecs';
-import { FileSystem, PerformanceMode, LifecyclePolicy, ThroughputMode } from '@aws-cdk/aws-efs';
-import { Construct, RemovalPolicy } from '@aws-cdk/core';
-
+import { RemovalPolicy, aws_ec2, aws_ecs, aws_efs } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 export interface EfsVolumeProps {
-  readonly vpc: IVpc;
+  readonly vpc: aws_ec2.IVpc;
   readonly name?: string;
   readonly removalPolicy?: RemovalPolicy;
 }
 
 export class EfsVolume extends Construct {
   public readonly name: string;
-  public readonly efsVolumeConfiguration: EfsVolumeConfiguration;
+  public readonly efsVolumeConfiguration: aws_ecs.EfsVolumeConfiguration;
 
-  private readonly fileSystem: FileSystem;
+  private readonly fileSystem: aws_efs.FileSystem;
 
   constructor(scope: Construct, id: string, props: EfsVolumeProps) {
     super(scope, id);
 
-    this.fileSystem = new FileSystem(this, 'FileSystem', {
+    this.fileSystem = new aws_efs.FileSystem(this, 'FileSystem', {
       vpc: props.vpc,
-      performanceMode: PerformanceMode.GENERAL_PURPOSE,
-      lifecyclePolicy: LifecyclePolicy.AFTER_30_DAYS,
-      throughputMode: ThroughputMode.BURSTING,
+      performanceMode: aws_efs.PerformanceMode.GENERAL_PURPOSE,
+      lifecyclePolicy: aws_efs.LifecyclePolicy.AFTER_30_DAYS,
+      throughputMode: aws_efs.ThroughputMode.BURSTING,
       encrypted: true,
       removalPolicy: props.removalPolicy,
     });
@@ -39,7 +36,7 @@ export class EfsVolume extends Construct {
     };
   }
 
-  public allowDefaultPortFrom(other: IConnectable, description?: string): void {
+  public allowDefaultPortFrom(other: aws_ec2.IConnectable, description?: string): void {
     this.fileSystem.connections.allowDefaultPortFrom(other, description);
   }
 }
