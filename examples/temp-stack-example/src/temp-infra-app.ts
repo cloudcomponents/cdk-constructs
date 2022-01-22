@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import 'source-map-support/register';
-import { App, Duration } from '@aws-cdk/core';
+import { App, Duration } from 'aws-cdk-lib';
 
 import { TempInfraStack } from './temp-infra-stack';
 

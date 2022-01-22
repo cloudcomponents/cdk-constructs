@@ -1,4 +1,6 @@
-import { Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
+import { Stack, StackProps, Duration } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+
 import { TimeToLive } from './time-to-live';
 
 export interface TempStackProps extends StackProps {

@@ -1,9 +1,6 @@
 import * as path from 'path';
-import { Rule, Schedule, RuleTargetInput } from '@aws-cdk/aws-events';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Code, Runtime, Function } from '@aws-cdk/aws-lambda';
-import { Annotations, Aws, Construct, Duration, Stack } from '@aws-cdk/core';
+import { Annotations, Aws, Duration, Stack, aws_events, aws_events_targets, aws_iam, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface TimeToLiveProps {
   /**
@@ -18,53 +15,53 @@ export class TimeToLive extends Construct {
 
     Annotations.of(this).addInfo(`Warning! The stack destroys itself in ${props.ttl.toMinutes()} minutes.\n`);
 
-    const deleteStack = new Function(this, 'DeleteStack', {
-      runtime: Runtime.NODEJS_12_X,
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'delete-stack')),
+    const deleteStack = new aws_lambda.Function(this, 'DeleteStack', {
+      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'delete-stack')),
       handler: 'index.handler',
     });
 
     deleteStack.addToRolePolicy(
-      new PolicyStatement({
-        effect: Effect.ALLOW,
+      new aws_iam.PolicyStatement({
+        effect: aws_iam.Effect.ALLOW,
         actions: ['*'],
         resources: ['*'],
       }),
     );
 
-    const rule = new Rule(this, 'TimeToLive', {
-      schedule: Schedule.rate(props.ttl),
+    const rule = new aws_events.Rule(this, 'TimeToLive', {
+      schedule: aws_events.Schedule.rate(props.ttl),
     });
 
     rule.addTarget(
-      new LambdaFunction(deleteStack, {
-        event: RuleTargetInput.fromObject({
+      new aws_events_targets.LambdaFunction(deleteStack, {
+        event: aws_events.RuleTargetInput.fromObject({
           stackId: Aws.STACK_ID,
         }),
       }),
     );
-  }
 
-  protected onPrepare(): void {
-    Stack.of(this).node.children.forEach((c) => {
-      if (!this.node.findAll().includes(c)) {
-        c.node.addDependency(this);
-      }
+    this.node.addValidation({
+      validate: () => {
+        Stack.of(this).node.children.forEach((c) => {
+          if (!this.node.findAll().includes(c)) {
+            c.node.addDependency(this);
+          }
+        });
+
+        let count = 0;
+        Stack.of(this).node.children.forEach((c) => {
+          if (c instanceof TimeToLive) {
+            count++;
+          }
+        });
+
+        if (count > 1) {
+          return [`Found ${count} instances of the TimeToLive construct in the stack. The construct may only be added once per stack.`];
+        }
+
+        return [];
+      },
     });
-  }
-
-  protected validate(): string[] {
-    let count = 0;
-    Stack.of(this).node.children.forEach((c) => {
-      if (c instanceof TimeToLive) {
-        count++;
-      }
-    });
-
-    if (count > 1) {
-      return [`Found ${count} instances of the TimeToLive construct in the stack. The construct may only be added once per stack.`];
-    }
-
-    return [];
   }
 }

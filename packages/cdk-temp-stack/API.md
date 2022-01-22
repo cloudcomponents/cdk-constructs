@@ -57,7 +57,6 @@
 - [nested](#nested)
 - [nestedStackParent](#nestedstackparent)
 - [notificationArns](#notificationarns)
-- [parentStack](#parentstack)
 - [partition](#partition)
 - [stackId](#stackid)
 - [stackName](#stackname)
@@ -70,29 +69,18 @@
 - [\_toCloudFormation](#_tocloudformation)
 - [\_validateId](#_validateid)
 - [addDependency](#adddependency)
-- [addDockerImageAsset](#adddockerimageasset)
-- [addFileAsset](#addfileasset)
 - [addTransform](#addtransform)
 - [allocateLogicalId](#allocatelogicalid)
 - [exportValue](#exportvalue)
 - [formatArn](#formatarn)
 - [getLogicalId](#getlogicalid)
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [parseArn](#parsearn)
-- [prepare](#prepare)
-- [prepareCrossReference](#preparecrossreference)
 - [regionalFact](#regionalfact)
 - [renameLogicalId](#renamelogicalid)
-- [reportMissingContext](#reportmissingcontext)
 - [reportMissingContextKey](#reportmissingcontextkey)
 - [resolve](#resolve)
 - [splitArn](#splitarn)
-- [synthesize](#synthesize)
 - [toJsonString](#tojsonstring)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 - [isStack](#isstack)
 - [of](#of)
@@ -222,9 +210,9 @@ ___
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -456,24 +444,6 @@ Stack.notificationArns
 
 ___
 
-### parentStack
-
-• `get` **parentStack**(): `undefined` \| `Stack`
-
-(deprecated) Returns the parent of a nested stack.
-
-**`deprecated`** use `nestedStackParent`
-
-#### Returns
-
-`undefined` \| `Stack`
-
-#### Inherited from
-
-Stack.parentStack
-
-___
-
 ### partition
 
 • `get` **partition**(): `string`
@@ -685,56 +655,6 @@ app, and also supports nested stacks.
 #### Inherited from
 
 Stack.addDependency
-
-___
-
-### addDockerImageAsset
-
-▸ **addDockerImageAsset**(`asset`): `DockerImageAssetLocation`
-
-(deprecated) Register a docker image asset on this Stack.
-
-**`deprecated`** Use `stack.synthesizer.addDockerImageAsset()` if you are calling,
-and a different `IStackSynthesizer` class if you are implementing.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `asset` | `DockerImageAssetSource` |
-
-#### Returns
-
-`DockerImageAssetLocation`
-
-#### Inherited from
-
-Stack.addDockerImageAsset
-
-___
-
-### addFileAsset
-
-▸ **addFileAsset**(`asset`): `FileAssetLocation`
-
-(deprecated) Register a file asset on this Stack.
-
-**`deprecated`** Use `stack.synthesizer.addFileAsset()` if you are calling,
-and a different IStackSynthesizer class if you are implementing.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `asset` | `FileAssetSource` |
-
-#### Returns
-
-`FileAssetLocation`
-
-#### Inherited from
-
-Stack.addFileAsset
 
 ___
 
@@ -971,187 +891,6 @@ Stack.getLogicalId
 
 ___
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Stack.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Stack.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Stack.onValidate
-
-___
-
-### parseArn
-
-▸ **parseArn**(`arn`, `sepIfToken?`, `hasName?`): `ArnComponents`
-
-(deprecated) Given an ARN, parses it and returns components.
-
-IF THE ARN IS A CONCRETE STRING...
-
-...it will be parsed and validated. The separator (`sep`) will be set to '/'
-if the 6th component includes a '/', in which case, `resource` will be set
-to the value before the '/' and `resourceName` will be the rest. In case
-there is no '/', `resource` will be set to the 6th components and
-`resourceName` will be set to the rest of the string.
-
-IF THE ARN IS A TOKEN...
-
-...it cannot be validated, since we don't have the actual value yet at the
-time of this function call. You will have to supply `sepIfToken` and
-whether or not ARNs of the expected format usually have resource names
-in order to parse it properly. The resulting `ArnComponents` object will
-contain tokens for the subexpressions of the ARN, not string literals.
-
-If the resource name could possibly contain the separator char, the actual
-resource name cannot be properly parsed. This only occurs if the separator
-char is '/', and happens for example for S3 object ARNs, IAM Role ARNs,
-IAM OIDC Provider ARNs, etc. To properly extract the resource name from a
-Tokenized ARN, you must know the resource type and call
-`Arn.extractResourceName`.
-
-**`deprecated`** use splitArn instead
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `arn` | `string` | The ARN string to parse. |
-| `sepIfToken?` | `string` | The separator used to separate resource from resourceName. |
-| `hasName?` | `boolean` | Whether there is a name component in the ARN at all. |
-
-#### Returns
-
-`ArnComponents`
-
-an ArnComponents object which allows access to the various
-components of the ARN.
-
-#### Inherited from
-
-Stack.parseArn
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Stack.prepare
-
-___
-
-### prepareCrossReference
-
-▸ `Protected` **prepareCrossReference**(`_sourceStack`, `reference`): `IResolvable`
-
-(deprecated) Deprecated.
-
-**`see`** https://github.com/aws/aws-cdk/pull/7187
-
-**`deprecated`** cross reference handling has been moved to `App.prepare()`.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_sourceStack` | `Stack` |
-| `reference` | `Reference` |
-
-#### Returns
-
-`IResolvable`
-
-reference itself without any change
-
-#### Inherited from
-
-Stack.prepareCrossReference
-
-___
-
 ### regionalFact
 
 ▸ **regionalFact**(`factName`, `defaultValue?`): `string`
@@ -1218,30 +957,6 @@ override the `allocateLogicalId` method.
 #### Inherited from
 
 Stack.renameLogicalId
-
-___
-
-### reportMissingContext
-
-▸ **reportMissingContext**(`report`): `void`
-
-(deprecated) DEPRECATED.
-
-**`deprecated`** use `reportMissingContextKey()`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `report` | `MissingContext` |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Stack.reportMissingContext
 
 ___
 
@@ -1326,33 +1041,6 @@ Stack.splitArn
 
 ___
 
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Stack.synthesize
-
-___
-
 ### toJsonString
 
 ▸ **toJsonString**(`obj`, `space?`): `string`
@@ -1396,46 +1084,25 @@ Stack.toString
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Stack.validate
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -1517,13 +1184,7 @@ Stack.of
 
 ### Methods
 
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -1548,9 +1209,9 @@ Construct.constructor
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -1559,122 +1220,6 @@ The construct tree node associated with this construct.
 Construct.node
 
 ## Methods
-
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-#### Returns
-
-`void`
-
-#### Overrides
-
-Construct.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.prepare
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.synthesize
-
-___
 
 ### toString
 
@@ -1694,37 +1239,25 @@ Construct.toString
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-#### Returns
-
-`string`[]
-
-#### Overrides
-
-Construct.validate
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
