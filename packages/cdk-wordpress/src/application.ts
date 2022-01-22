@@ -1,38 +1,19 @@
-import { CertificateValidation, Certificate, ICertificate } from '@aws-cdk/aws-certificatemanager';
 import {
-  Distribution,
-  OriginProtocolPolicy,
-  AllowedMethods,
-  CachedMethods,
-  ViewerProtocolPolicy,
-  HttpVersion,
-  PriceClass,
-  IDistribution,
-  OriginSslPolicy,
-  OriginRequestPolicy,
-  OriginRequestCookieBehavior,
-  OriginRequestHeaderBehavior,
-  OriginRequestQueryStringBehavior,
-} from '@aws-cdk/aws-cloudfront';
-import { LoadBalancerV2Origin, S3Origin } from '@aws-cdk/aws-cloudfront-origins';
-import { IVpc, Port } from '@aws-cdk/aws-ec2';
-import { Cluster, ContainerImage, FargateService, FargateTaskDefinition, LogDriver, Secret } from '@aws-cdk/aws-ecs';
-import {
-  ApplicationListener,
-  ApplicationLoadBalancer,
-  ApplicationProtocol,
-  ApplicationTargetGroup,
-  ListenerAction,
-  ListenerCertificate,
-  ListenerCondition,
-  SslPolicy,
-  TargetType,
-} from '@aws-cdk/aws-elasticloadbalancingv2';
-import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { RetentionDays } from '@aws-cdk/aws-logs';
-import { IHostedZone } from '@aws-cdk/aws-route53';
-import { Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
-import { Construct, Duration, RemovalPolicy, Stack } from '@aws-cdk/core';
+  Duration,
+  RemovalPolicy,
+  Stack,
+  aws_certificatemanager,
+  aws_cloudfront,
+  aws_cloudfront_origins,
+  aws_ec2,
+  aws_ecs,
+  aws_elasticloadbalancingv2,
+  aws_iam,
+  aws_logs,
+  aws_route53,
+  aws_s3,
+} from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { Database } from './database';
 import { Dns } from './dns';
@@ -40,17 +21,17 @@ import { EfsVolume } from './efs-volume';
 
 export interface ApplicationProps {
   readonly domainName: string;
-  readonly domainZone: IHostedZone;
-  readonly certificate: ICertificate;
-  readonly vpc: IVpc;
+  readonly domainZone: aws_route53.IHostedZone;
+  readonly certificate: aws_certificatemanager.ICertificate;
+  readonly vpc: aws_ec2.IVpc;
   readonly volume: EfsVolume;
   readonly database: Database;
-  readonly image?: ContainerImage;
+  readonly image?: aws_ecs.ContainerImage;
   readonly serviceName?: string;
   readonly memoryLimitMiB?: number;
   readonly environment?: Record<string, string>;
-  readonly secrets?: Record<string, Secret>;
-  readonly logDriver?: LogDriver;
+  readonly secrets?: Record<string, aws_ecs.Secret>;
+  readonly logDriver?: aws_ecs.LogDriver;
   readonly cloudFrontHashHeader?: string;
   readonly removalPolicy?: RemovalPolicy;
 }
@@ -59,16 +40,16 @@ const CUSTOM_HTTP_HEADER = 'X_Request_From_CloudFront';
 
 export interface StaticContentOffload {
   readonly domainName: string;
-  readonly distribution: IDistribution;
+  readonly distribution: aws_cloudfront.IDistribution;
 }
 
 export class Application extends Construct {
   public readonly domainName: string;
-  public readonly domainZone: IHostedZone;
-  public readonly distribution: IDistribution;
-  public readonly service: FargateService;
-  public readonly targetGroup: ApplicationTargetGroup;
-  public readonly listener: ApplicationListener;
+  public readonly domainZone: aws_route53.IHostedZone;
+  public readonly distribution: aws_cloudfront.IDistribution;
+  public readonly service: aws_ecs.FargateService;
+  public readonly targetGroup: aws_elasticloadbalancingv2.ApplicationTargetGroup;
+  public readonly listener: aws_elasticloadbalancingv2.ApplicationListener;
 
   private readonly cloudFrontHashHeader: string;
   private readonly removalPolicy?: RemovalPolicy;
@@ -84,15 +65,15 @@ export class Application extends Construct {
     this.cloudFrontHashHeader = props.cloudFrontHashHeader ?? Buffer.from(`${stack.stackName}.${this.domainName}`).toString('base64');
     this.removalPolicy = props.removalPolicy;
 
-    const cluster = new Cluster(this, 'Cluster', {
+    const cluster = new aws_ecs.Cluster(this, 'Cluster', {
       containerInsights: true,
       vpc: props.vpc,
     });
 
-    this.targetGroup = new ApplicationTargetGroup(this, 'TargetGroup', {
+    this.targetGroup = new aws_elasticloadbalancingv2.ApplicationTargetGroup(this, 'TargetGroup', {
       vpc: props.vpc,
       port: 80,
-      targetType: TargetType.IP,
+      targetType: aws_elasticloadbalancingv2.TargetType.IP,
       stickinessCookieDuration: Duration.days(7),
     });
 
@@ -101,7 +82,7 @@ export class Application extends Construct {
       interval: Duration.minutes(1),
     });
 
-    const loadBalancer = new ApplicationLoadBalancer(this, 'Loadbalancer', {
+    const loadBalancer = new aws_elasticloadbalancingv2.ApplicationLoadBalancer(this, 'Loadbalancer', {
       vpc: props.vpc,
       internetFacing: true,
       http2Enabled: true,
@@ -109,36 +90,36 @@ export class Application extends Construct {
 
     this.listener = loadBalancer.addListener('Listener', {
       port: 443,
-      protocol: ApplicationProtocol.HTTPS,
+      protocol: aws_elasticloadbalancingv2.ApplicationProtocol.HTTPS,
       certificates: [
-        ListenerCertificate.fromCertificateManager(
-          new Certificate(this, 'LBCertificate', {
+        aws_elasticloadbalancingv2.ListenerCertificate.fromCertificateManager(
+          new aws_certificatemanager.Certificate(this, 'LBCertificate', {
             domainName: this.domainName,
-            validation: CertificateValidation.fromDns(this.domainZone),
+            validation: aws_certificatemanager.CertificateValidation.fromDns(this.domainZone),
           }),
         ),
       ],
-      sslPolicy: SslPolicy.FORWARD_SECRECY_TLS12,
-      defaultAction: ListenerAction.fixedResponse(403, {
+      sslPolicy: aws_elasticloadbalancingv2.SslPolicy.FORWARD_SECRECY_TLS12,
+      defaultAction: aws_elasticloadbalancingv2.ListenerAction.fixedResponse(403, {
         contentType: 'text/plain',
         messageBody: 'Access denied',
       }),
     });
 
     this.listener.addAction('Cloudfornt', {
-      action: ListenerAction.forward([this.targetGroup]),
-      conditions: [ListenerCondition.httpHeader(CUSTOM_HTTP_HEADER, [this.cloudFrontHashHeader])],
+      action: aws_elasticloadbalancingv2.ListenerAction.forward([this.targetGroup]),
+      conditions: [aws_elasticloadbalancingv2.ListenerCondition.httpHeader(CUSTOM_HTTP_HEADER, [this.cloudFrontHashHeader])],
       priority: 100,
     });
 
-    const taskDefinition = new FargateTaskDefinition(this, 'TaskDefinition', {
+    const taskDefinition = new aws_ecs.FargateTaskDefinition(this, 'TaskDefinition', {
       memoryLimitMiB: props.memoryLimitMiB ?? 512,
       cpu: 256,
       volumes: [props.volume],
     });
 
     const container = taskDefinition.addContainer('Wordpress', {
-      image: props.image ?? ContainerImage.fromRegistry('wordpress:5.8-apache'),
+      image: props.image ?? aws_ecs.ContainerImage.fromRegistry('wordpress:5.8-apache'),
       environment: {
         ...props.environment,
         ...props.database.environment,
@@ -149,9 +130,9 @@ export class Application extends Construct {
       },
       logging:
         props.logDriver ??
-        LogDriver.awsLogs({
+        aws_ecs.LogDriver.awsLogs({
           streamPrefix: `${stack.stackName}WordpressContainerLog`,
-          logRetention: RetentionDays.ONE_MONTH,
+          logRetention: aws_logs.RetentionDays.ONE_MONTH,
         }),
     });
 
@@ -165,66 +146,66 @@ export class Application extends Construct {
       sourceVolume: props.volume.name,
     });
 
-    this.service = new FargateService(this, 'Service', {
+    this.service = new aws_ecs.FargateService(this, 'Service', {
       cluster,
       serviceName: props.serviceName,
       taskDefinition,
       desiredCount: 2,
     });
 
-    this.service.connections.allowFrom(loadBalancer, Port.tcp(80));
+    this.service.connections.allowFrom(loadBalancer, aws_ec2.Port.tcp(80));
     this.targetGroup.addTarget(this.service);
 
-    const origin = new LoadBalancerV2Origin(loadBalancer, {
-      originSslProtocols: [OriginSslPolicy.TLS_V1_2],
+    const origin = new aws_cloudfront_origins.LoadBalancerV2Origin(loadBalancer, {
+      originSslProtocols: [aws_cloudfront.OriginSslPolicy.TLS_V1_2],
       customHeaders: {
         [CUSTOM_HTTP_HEADER]: this.cloudFrontHashHeader,
       },
       readTimeout: Duration.seconds(60),
-      protocolPolicy: OriginProtocolPolicy.HTTPS_ONLY,
+      protocolPolicy: aws_cloudfront.OriginProtocolPolicy.HTTPS_ONLY,
     });
 
-    this.distribution = new Distribution(this, 'WorpdressDistribution', {
+    this.distribution = new aws_cloudfront.Distribution(this, 'WorpdressDistribution', {
       comment: 'wordpress cdn',
       defaultBehavior: {
         origin,
-        originRequestPolicy: new OriginRequestPolicy(this, 'OriginRequestPolicy', {
+        originRequestPolicy: new aws_cloudfront.OriginRequestPolicy(this, 'OriginRequestPolicy', {
           originRequestPolicyName: 'WordpressDefaultBehavior',
-          cookieBehavior: OriginRequestCookieBehavior.allowList('comment_*', 'wordpress_*', 'wp-settings-*'),
-          headerBehavior: OriginRequestHeaderBehavior.allowList(
+          cookieBehavior: aws_cloudfront.OriginRequestCookieBehavior.allowList('comment_*', 'wordpress_*', 'wp-settings-*'),
+          headerBehavior: aws_cloudfront.OriginRequestHeaderBehavior.allowList(
             'Host',
             'CloudFront-Forwarded-Proto',
             'CloudFront-Is-Mobile-Viewer',
             'CloudFront-Is-Tablet-Viewer',
             'CloudFront-Is-Desktop-Viewer',
           ),
-          queryStringBehavior: OriginRequestQueryStringBehavior.all(),
+          queryStringBehavior: aws_cloudfront.OriginRequestQueryStringBehavior.all(),
         }),
-        allowedMethods: AllowedMethods.ALLOW_ALL,
-        cachedMethods: CachedMethods.CACHE_GET_HEAD_OPTIONS,
-        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        allowedMethods: aws_cloudfront.AllowedMethods.ALLOW_ALL,
+        cachedMethods: aws_cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+        viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
       additionalBehaviors: {
         'wp-admin/*': {
           origin,
-          originRequestPolicy: OriginRequestPolicy.ALL_VIEWER,
-          allowedMethods: AllowedMethods.ALLOW_ALL,
-          cachedMethods: CachedMethods.CACHE_GET_HEAD_OPTIONS,
-          viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          originRequestPolicy: aws_cloudfront.OriginRequestPolicy.ALL_VIEWER,
+          allowedMethods: aws_cloudfront.AllowedMethods.ALLOW_ALL,
+          cachedMethods: aws_cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+          viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         },
         'wp-login.php': {
           origin,
-          originRequestPolicy: OriginRequestPolicy.ALL_VIEWER,
-          allowedMethods: AllowedMethods.ALLOW_ALL,
-          cachedMethods: CachedMethods.CACHE_GET_HEAD_OPTIONS,
-          viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          originRequestPolicy: aws_cloudfront.OriginRequestPolicy.ALL_VIEWER,
+          allowedMethods: aws_cloudfront.AllowedMethods.ALLOW_ALL,
+          cachedMethods: aws_cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+          viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         },
       },
       enableIpv6: true,
-      httpVersion: HttpVersion.HTTP2,
+      httpVersion: aws_cloudfront.HttpVersion.HTTP2,
       certificate: props.certificate,
       domainNames: [this.domainName],
-      priceClass: PriceClass.PRICE_CLASS_100,
+      priceClass: aws_cloudfront.PriceClass.PRICE_CLASS_100,
     });
 
     new Dns(this, 'WordpressDns', {
@@ -234,9 +215,9 @@ export class Application extends Construct {
     });
   }
 
-  public enableStaticContentOffload(domainName: string, certificate: ICertificate): StaticContentOffload {
-    const bucket = new Bucket(this, 'Bucket', {
-      encryption: BucketEncryption.S3_MANAGED,
+  public enableStaticContentOffload(domainName: string, certificate: aws_certificatemanager.ICertificate): StaticContentOffload {
+    const bucket = new aws_s3.Bucket(this, 'Bucket', {
+      encryption: aws_s3.BucketEncryption.S3_MANAGED,
       versioned: true,
       removalPolicy: this.removalPolicy,
       autoDeleteObjects: this.removalPolicy === RemovalPolicy.DESTROY,
@@ -245,26 +226,26 @@ export class Application extends Construct {
     bucket.grantReadWrite(this.service.taskDefinition.taskRole);
 
     this.service.taskDefinition.taskRole.addToPrincipalPolicy(
-      new PolicyStatement({
-        effect: Effect.ALLOW,
+      new aws_iam.PolicyStatement({
+        effect: aws_iam.Effect.ALLOW,
         actions: ['s3:GetBucketLocation'],
         resources: [bucket.bucketArn],
       }),
     );
 
-    const distribution = new Distribution(this, 'StaticContentDistribution', {
+    const distribution = new aws_cloudfront.Distribution(this, 'StaticContentDistribution', {
       comment: 'static content cdn',
       defaultBehavior: {
-        origin: new S3Origin(bucket),
-        allowedMethods: AllowedMethods.ALLOW_GET_HEAD,
-        cachedMethods: CachedMethods.CACHE_GET_HEAD,
-        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        origin: new aws_cloudfront_origins.S3Origin(bucket),
+        allowedMethods: aws_cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+        cachedMethods: aws_cloudfront.CachedMethods.CACHE_GET_HEAD,
+        viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
       enableIpv6: true,
-      httpVersion: HttpVersion.HTTP2,
+      httpVersion: aws_cloudfront.HttpVersion.HTTP2,
       certificate,
       domainNames: [domainName],
-      priceClass: PriceClass.PRICE_CLASS_100,
+      priceClass: aws_cloudfront.PriceClass.PRICE_CLASS_100,
     });
 
     new Dns(this, 'StaticContentDns', {

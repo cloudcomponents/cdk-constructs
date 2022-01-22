@@ -59,45 +59,13 @@
     }
   },
   "peerDependencies": {
-    "@aws-cdk/aws-backup": "^1.140.0",
-    "@aws-cdk/aws-certificatemanager": "^1.140.0",
-    "@aws-cdk/aws-cloudfront": "^1.140.0",
-    "@aws-cdk/aws-cloudfront-origins": "^1.140.0",
-    "@aws-cdk/aws-ec2": "^1.140.0",
-    "@aws-cdk/aws-ecs": "^1.140.0",
-    "@aws-cdk/aws-efs": "^1.140.0",
-    "@aws-cdk/aws-elasticloadbalancingv2": "^1.140.0",
-    "@aws-cdk/aws-elasticloadbalancingv2-actions": "^1.140.0",
-    "@aws-cdk/aws-iam": "^1.140.0",
-    "@aws-cdk/aws-logs": "^1.140.0",
-    "@aws-cdk/aws-rds": "^1.140.0",
-    "@aws-cdk/aws-route53": "^1.140.0",
-    "@aws-cdk/aws-route53-targets": "^1.140.0",
-    "@aws-cdk/aws-s3": "^1.140.0",
-    "@aws-cdk/core": "^1.140.0",
-    "constructs": "^3.2.0"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-backup": "^1.140.0",
-    "@aws-cdk/aws-certificatemanager": "^1.140.0",
-    "@aws-cdk/aws-cloudfront": "^1.140.0",
-    "@aws-cdk/aws-cloudfront-origins": "^1.140.0",
-    "@aws-cdk/aws-ec2": "^1.140.0",
-    "@aws-cdk/aws-ecs": "^1.140.0",
-    "@aws-cdk/aws-efs": "^1.140.0",
-    "@aws-cdk/aws-elasticloadbalancingv2": "^1.140.0",
-    "@aws-cdk/aws-elasticloadbalancingv2-actions": "^1.140.0",
-    "@aws-cdk/aws-iam": "^1.140.0",
-    "@aws-cdk/aws-logs": "^1.140.0",
-    "@aws-cdk/aws-rds": "^1.140.0",
-    "@aws-cdk/aws-route53": "^1.140.0",
-    "@aws-cdk/aws-route53-targets": "^1.140.0",
-    "@aws-cdk/aws-s3": "^1.140.0",
-    "@aws-cdk/core": "^1.140.0"
+    "aws-cdk-lib": "^2.8.0",
+    "constructs": "^10.0.41"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.140.0",
-    "jest-cdk-snapshot": "^1.4.2"
+    "aws-cdk-lib": "2.8.0",
+    "constructs": "10.0.41",
+    "jest-cdk-snapshot": "^2.0.1"
   },
   "publishConfig": {
     "access": "public"
