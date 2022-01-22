@@ -1,6 +1,4 @@
-import { Secret } from '@aws-cdk/aws-secretsmanager';
-import { StringParameter } from '@aws-cdk/aws-ssm';
-import { Stack } from '@aws-cdk/core';
+import { Stack, aws_secretsmanager, aws_ssm } from 'aws-cdk-lib';
 
 import { KeyType } from '../key-type';
 import { SecretKey } from '../secret-key';
@@ -18,7 +16,7 @@ test('plain text', (): void => {
 
 test('ssm parameter', (): void => {
   const stack = new Stack();
-  const secretKeyParameter = StringParameter.fromStringParameterName(stack, 'TestParameter', 'secret-key');
+  const secretKeyParameter = aws_ssm.StringParameter.fromStringParameterName(stack, 'TestParameter', 'secret-key');
   const secretKey = SecretKey.fromSSMParameter(secretKeyParameter);
 
   const parsedSecretKey = JSON.parse(secretKey.serialize());
@@ -31,7 +29,7 @@ test('ssm parameter', (): void => {
 
 test('secrets manager', (): void => {
   const stack = new Stack();
-  const secretKeySecret = Secret.fromSecretNameV2(stack, 'TestSecret', 'secret-key');
+  const secretKeySecret = aws_secretsmanager.Secret.fromSecretNameV2(stack, 'TestSecret', 'secret-key');
   const secretKey = SecretKey.fromSecretsManager(secretKeySecret);
 
   const parsedSecretKey = JSON.parse(secretKey.serialize());
@@ -44,7 +42,7 @@ test('secrets manager', (): void => {
 
 test('secrets manager with fieldName', (): void => {
   const stack = new Stack();
-  const secretKeySecret = Secret.fromSecretNameV2(stack, 'TestSecret', 'secret-key');
+  const secretKeySecret = aws_secretsmanager.Secret.fromSecretNameV2(stack, 'TestSecret', 'secret-key');
   const secretKey = SecretKey.fromSecretsManager(secretKeySecret, 'api');
 
   const parsedSecretKey = JSON.parse(secretKey.serialize());

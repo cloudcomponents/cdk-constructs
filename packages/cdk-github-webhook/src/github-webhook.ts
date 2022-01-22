@@ -1,7 +1,7 @@
 import * as path from 'path';
-import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 import { SecretKey } from '@cloudcomponents/cdk-secret-key';
+import { CustomResource, Duration, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface GithubWebhookProps {
   /**
@@ -34,10 +34,10 @@ export class GithubWebhook extends Construct {
 
     const githubApiToken = typeof props.githubApiToken === 'string' ? SecretKey.fromPlainText(props.githubApiToken) : props.githubApiToken;
 
-    const handler = new SingletonFunction(this, 'CustomResourceHandler', {
+    const handler = new aws_lambda.SingletonFunction(this, 'CustomResourceHandler', {
       uuid: '83CBF3EB-7B62-44F2-8C67-8441E4C1232E',
-      runtime: Runtime.NODEJS_12_X,
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'github-webhook')),
+      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'github-webhook')),
       handler: 'index.handler',
       lambdaPurpose: 'Custom::GithubWebhook',
       timeout: Duration.minutes(15),

@@ -1,5 +1,5 @@
-import { Stack } from '@aws-cdk/core';
 import { SecretKey } from '@cloudcomponents/cdk-secret-key';
+import { Stack } from 'aws-cdk-lib';
 import 'jest-cdk-snapshot';
 
 import { StripeWebhook } from '../stripe-webhook';

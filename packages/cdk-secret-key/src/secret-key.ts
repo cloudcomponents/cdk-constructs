@@ -1,6 +1,4 @@
-import { Grant, IGrantable } from '@aws-cdk/aws-iam';
-import { ISecret } from '@aws-cdk/aws-secretsmanager';
-import { IParameter } from '@aws-cdk/aws-ssm';
+import { aws_iam, aws_secretsmanager, aws_ssm } from 'aws-cdk-lib';
 
 import { KeyType } from './key-type';
 
@@ -9,17 +7,17 @@ export abstract class SecretKey {
     return new PlainTextSecretKey(value);
   }
 
-  public static fromSSMParameter(secretKeyParameter: IParameter): SecretKey {
+  public static fromSSMParameter(secretKeyParameter: aws_ssm.IParameter): SecretKey {
     return new SSMParameterSecretKey(secretKeyParameter);
   }
 
-  public static fromSecretsManager(secretKeySecret: ISecret, fieldName?: string): SecretKey {
+  public static fromSecretsManager(secretKeySecret: aws_secretsmanager.ISecret, fieldName?: string): SecretKey {
     return new SecretsManagerSecretKey(secretKeySecret, fieldName);
   }
 
   constructor(public readonly secretKeyType: KeyType) {}
 
-  public abstract grantRead?(grantee: IGrantable): Grant;
+  public abstract grantRead?(grantee: aws_iam.IGrantable): aws_iam.Grant;
 
   public abstract serialize(): string;
 }
@@ -40,11 +38,11 @@ class PlainTextSecretKey extends SecretKey {
 }
 
 class SecretsManagerSecretKey extends SecretKey {
-  constructor(public readonly secretKeySecret: ISecret, public readonly fieldName?: string) {
+  constructor(public readonly secretKeySecret: aws_secretsmanager.ISecret, public readonly fieldName?: string) {
     super(KeyType.SECRETS_MANAGER);
   }
 
-  public grantRead(grantee: IGrantable): Grant {
+  public grantRead(grantee: aws_iam.IGrantable): aws_iam.Grant {
     return this.secretKeySecret.grantRead(grantee);
   }
 
@@ -58,11 +56,11 @@ class SecretsManagerSecretKey extends SecretKey {
 }
 
 class SSMParameterSecretKey extends SecretKey {
-  constructor(public readonly secretKeyParameter: IParameter) {
+  constructor(public readonly secretKeyParameter: aws_ssm.IParameter) {
     super(KeyType.SSM_PARAMETER);
   }
 
-  public grantRead(grantee: IGrantable): Grant {
+  public grantRead(grantee: aws_iam.IGrantable): aws_iam.Grant {
     return this.secretKeyParameter.grantRead(grantee);
   }
 

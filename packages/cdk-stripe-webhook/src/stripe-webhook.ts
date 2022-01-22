@@ -1,7 +1,8 @@
 import * as path from 'path';
-import { SingletonFunction, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Construct, Duration, CustomResource } from '@aws-cdk/core';
 import { SecretKey, SecretKeyStore } from '@cloudcomponents/cdk-secret-key';
+import { CustomResource, Duration, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+
 export interface StripeWebhookProps {
   readonly secretKey: SecretKey | string;
   readonly url: string;
@@ -19,10 +20,10 @@ export class StripeWebhook extends Construct {
 
     const secretKey = typeof props.secretKey === 'string' ? SecretKey.fromPlainText(props.secretKey) : props.secretKey;
 
-    const handler = new SingletonFunction(this, 'CustomResourceHandler', {
+    const handler = new aws_lambda.SingletonFunction(this, 'CustomResourceHandler', {
       uuid: 'e9db3870-d793-4cd2-96a9-efe2e318ebbc',
-      runtime: Runtime.NODEJS_12_X,
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-webhook')),
+      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-webhook')),
       handler: 'index.handler',
       lambdaPurpose: 'Custom::StripeWebhook',
       timeout: Duration.minutes(15),
