@@ -1,4 +1,4 @@
-import { App, Duration } from '@aws-cdk/core';
+import { App, Duration } from 'aws-cdk-lib';
 import 'jest-cdk-snapshot';
 
 import { TempStack } from '../temp-stack';
