@@ -1,3 +1,17 @@
 {
-  "extends": ["cdk"]
+  "extends": ["cdk"],
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          // Only allow importing devDependencies from:
+          "**/__tests__/**/**", // --> Unit tests
+          "**/lambdas/**/**" // --> Lambdas
+        ],
+        "optionalDependencies": false, // Disallow importing optional dependencies (those shouldn"t be in use in the project)
+        "peerDependencies": true
+      }
+    ]
+  }
 }

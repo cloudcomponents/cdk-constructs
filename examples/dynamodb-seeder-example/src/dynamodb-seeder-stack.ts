@@ -1,18 +1,16 @@
 import * as path from 'path';
-import { Table, AttributeType } from '@aws-cdk/aws-dynamodb';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
-import { Construct, Stack, StackProps, RemovalPolicy } from '@aws-cdk/core';
 import { DynamoDBSeeder, Seeds } from '@cloudcomponents/cdk-dynamodb-seeder';
+import { Stack, StackProps, RemovalPolicy, aws_dynamodb as dynamodb, aws_s3 as s3, aws_s3_deployment as s3_deployment } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class DynamoDBSeederStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
-    const table = new Table(this, 'Table', {
+    const table = new dynamodb.Table(this, 'Table', {
       partitionKey: {
         name: 'id',
-        type: AttributeType.NUMBER,
+        type: dynamodb.AttributeType.NUMBER,
       },
       removalPolicy: RemovalPolicy.DESTROY,
     });
@@ -36,13 +34,13 @@ export class DynamoDBSeederStack extends Stack {
       ]),
     });
 
-    const seedsBucket = new Bucket(this, 'Bucket', {
+    const seedsBucket = new s3.Bucket(this, 'Bucket', {
       autoDeleteObjects: true,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const deploy = new BucketDeployment(this, 'DeployWebsite', {
-      sources: [Source.asset(path.join(__dirname, '..', 's3-seeds'))],
+    const deploy = new s3_deployment.BucketDeployment(this, 'DeployWebsite', {
+      sources: [s3_deployment.Source.asset(path.join(__dirname, '..', 's3-seeds'))],
       destinationBucket: seedsBucket,
     });
 

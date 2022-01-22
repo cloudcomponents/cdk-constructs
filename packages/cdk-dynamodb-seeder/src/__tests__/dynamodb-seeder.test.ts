@@ -1,7 +1,5 @@
 import * as path from 'path';
-import { AttributeType, Table, TableEncryption } from '@aws-cdk/aws-dynamodb';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Stack } from '@aws-cdk/core';
+import { Stack, aws_s3, aws_dynamodb } from 'aws-cdk-lib';
 import 'jest-cdk-snapshot';
 
 import { DynamoDBSeeder } from '../dynamodb-seeder';
@@ -10,10 +8,10 @@ import { Seeds } from '../seeds';
 test('inline', () => {
   // GIVEN
   const stack = new Stack();
-  const table = new Table(stack, 'Table', {
+  const table = new aws_dynamodb.Table(stack, 'Table', {
     partitionKey: {
       name: 'id',
-      type: AttributeType.NUMBER,
+      type: aws_dynamodb.AttributeType.NUMBER,
     },
   });
 
@@ -39,10 +37,10 @@ test('inline', () => {
 test('json file', () => {
   // GIVEN
   const stack = new Stack();
-  const table = new Table(stack, 'Table', {
+  const table = new aws_dynamodb.Table(stack, 'Table', {
     partitionKey: {
       name: 'id',
-      type: AttributeType.NUMBER,
+      type: aws_dynamodb.AttributeType.NUMBER,
     },
   });
 
@@ -59,10 +57,10 @@ test('json file', () => {
 test('json file: no such file', () => {
   // GIVEN
   const stack = new Stack();
-  const table = new Table(stack, 'Table', {
+  const table = new aws_dynamodb.Table(stack, 'Table', {
     partitionKey: {
       name: 'id',
-      type: AttributeType.NUMBER,
+      type: aws_dynamodb.AttributeType.NUMBER,
     },
   });
 
@@ -81,10 +79,10 @@ test('json file: no such file', () => {
 test('json file: no json file', () => {
   // GIVEN
   const stack = new Stack();
-  const table = new Table(stack, 'Table', {
+  const table = new aws_dynamodb.Table(stack, 'Table', {
     partitionKey: {
       name: 'id',
-      type: AttributeType.NUMBER,
+      type: aws_dynamodb.AttributeType.NUMBER,
     },
   });
 
@@ -103,14 +101,14 @@ test('json file: no json file', () => {
 test('bucket', () => {
   // GIVEN
   const stack = new Stack();
-  const table = new Table(stack, 'Table', {
+  const table = new aws_dynamodb.Table(stack, 'Table', {
     partitionKey: {
       name: 'id',
-      type: AttributeType.NUMBER,
+      type: aws_dynamodb.AttributeType.NUMBER,
     },
   });
 
-  const seedsBucket = Bucket.fromBucketName(stack, 'SeedsBucket', 'my-seeds-bucket');
+  const seedsBucket = aws_s3.Bucket.fromBucketName(stack, 'SeedsBucket', 'my-seeds-bucket');
 
   // WHEN
   new DynamoDBSeeder(stack, 'DynamoDBSeeder', {
@@ -125,15 +123,15 @@ test('bucket', () => {
 test('multiple seeders', () => {
   // GIVEN
   const stack = new Stack();
-  const table = new Table(stack, 'Table', {
+  const table = new aws_dynamodb.Table(stack, 'Table', {
     partitionKey: {
       name: 'id',
-      type: AttributeType.NUMBER,
+      type: aws_dynamodb.AttributeType.NUMBER,
     },
   });
 
-  const seedsBucket1 = Bucket.fromBucketName(stack, 'SeedsBucket1', 'seeds-bucket-one');
-  const seedsBucket2 = Bucket.fromBucketName(stack, 'SeedsBucket2', 'seeds-bucket-two');
+  const seedsBucket1 = aws_s3.Bucket.fromBucketName(stack, 'SeedsBucket1', 'seeds-bucket-one');
+  const seedsBucket2 = aws_s3.Bucket.fromBucketName(stack, 'SeedsBucket2', 'seeds-bucket-two');
 
   // WHEN
   new DynamoDBSeeder(stack, 'DynamoDBSeeder1', {
@@ -153,12 +151,12 @@ test('multiple seeders', () => {
 test('customer managed encryption key', () => {
   // GIVEN
   const stack = new Stack();
-  const table = new Table(stack, 'Table', {
+  const table = new aws_dynamodb.Table(stack, 'Table', {
     partitionKey: {
       name: 'id',
-      type: AttributeType.NUMBER,
+      type: aws_dynamodb.AttributeType.NUMBER,
     },
-    encryption: TableEncryption.CUSTOMER_MANAGED,
+    encryption: aws_dynamodb.TableEncryption.CUSTOMER_MANAGED,
   });
 
   // WHEN
