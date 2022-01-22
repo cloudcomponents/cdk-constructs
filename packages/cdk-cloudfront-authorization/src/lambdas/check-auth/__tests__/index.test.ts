@@ -1,6 +1,5 @@
 import type { CloudFrontResponseResult } from 'aws-lambda';
 import { invokeLambda, createEvent } from 'aws-local-testing-library';
-import { mocked } from 'ts-jest/utils';
 
 import { handler } from '..';
 import { getConfig, extractAndParseCookies, decodeIdToken, validate, Logger, LogLevel } from '../../shared';
@@ -88,7 +87,7 @@ beforeEach(() => {
     tokenJwksUri,
   };
 
-  mocked(getConfig).mockReturnValue(config);
+  jest.mocked(getConfig).mockReturnValue(config);
 });
 
 afterEach(() => {
@@ -96,7 +95,7 @@ afterEach(() => {
 });
 
 test('redirect to sign-in when no idToken exists', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     scopes: 'scopes',
     nonce: '10Test',
@@ -115,7 +114,7 @@ test('redirect to sign-in when no idToken exists', async () => {
 });
 
 test('redirect to refreshauth when idToken expires and refresh token exists', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',
@@ -126,7 +125,7 @@ test('redirect to refreshauth when idToken expires and refresh token exists', as
     nonceHmac: 'original_nonceHmac',
   }));
 
-  mocked(decodeIdToken).mockImplementation(() => ({
+  jest.mocked(decodeIdToken).mockImplementation(() => ({
     sub: 'sub',
     aud: 'aud',
     token_use: 'id',
@@ -146,7 +145,7 @@ test('redirect to refreshauth when idToken expires and refresh token exists', as
 });
 
 test('return unchanged request to forward request to origin', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',
@@ -157,7 +156,7 @@ test('return unchanged request to forward request to origin', async () => {
     nonceHmac: 'original_nonceHmac',
   }));
 
-  mocked(decodeIdToken).mockImplementation(() => ({
+  jest.mocked(decodeIdToken).mockImplementation(() => ({
     sub: 'sub',
     aud: 'aud',
     token_use: 'id',
@@ -176,7 +175,7 @@ test('return unchanged request to forward request to origin', async () => {
 });
 
 test('redirect to sign-in when jwt is invalid', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',
@@ -187,7 +186,7 @@ test('redirect to sign-in when jwt is invalid', async () => {
     nonceHmac: 'original_nonceHmac',
   }));
 
-  mocked(decodeIdToken).mockImplementation(() => ({
+  jest.mocked(decodeIdToken).mockImplementation(() => ({
     sub: 'sub',
     aud: 'aud',
     token_use: 'id',
@@ -196,7 +195,7 @@ test('redirect to sign-in when jwt is invalid', async () => {
     exp: Date.now() / 1000 + 60 * 20,
   }));
 
-  mocked(validate).mockImplementation(() => {
+  jest.mocked(validate).mockImplementation(() => {
     throw new Error('Cannot parse JWT token');
   });
 

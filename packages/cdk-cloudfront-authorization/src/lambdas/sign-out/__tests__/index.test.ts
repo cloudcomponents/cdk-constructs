@@ -1,5 +1,4 @@
 import { invokeLambda, createEvent } from 'aws-local-testing-library';
-import { mocked } from 'ts-jest/utils';
 
 import { handler } from '..';
 import { getConfig, extractAndParseCookies, Logger, LogLevel } from '../../shared';
@@ -86,7 +85,7 @@ beforeEach(() => {
     tokenJwksUri,
   };
 
-  mocked(getConfig).mockReturnValue(config);
+  jest.mocked(getConfig).mockReturnValue(config);
 });
 
 afterEach(() => {
@@ -94,7 +93,7 @@ afterEach(() => {
 });
 
 test('redirect to logout', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     idToken: 'idToken',
     accessToken: 'accessToken',
     refreshToken: 'refreshToken',
@@ -111,7 +110,7 @@ test('redirect to logout', async () => {
 });
 
 test('show error page', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     accessToken: 'accessToken',
     refreshToken: 'refreshToken',
   }));

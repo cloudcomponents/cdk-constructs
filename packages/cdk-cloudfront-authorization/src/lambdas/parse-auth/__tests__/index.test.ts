@@ -1,6 +1,5 @@
 import { stringify, parse } from 'querystring';
 import { invokeLambda, createEvent } from 'aws-local-testing-library';
-import { mocked } from 'ts-jest/utils';
 
 import { handler } from '..';
 import { getConfig, Logger, LogLevel, httpPostWithRetry, extractAndParseCookies, sign, generateCookieHeaders, urlSafe, validate } from '../../shared';
@@ -90,7 +89,7 @@ beforeEach(() => {
     tokenJwksUri,
   };
 
-  mocked(getConfig).mockReturnValue(config);
+  jest.mocked(getConfig).mockReturnValue(config);
 });
 
 afterEach(() => {
@@ -98,15 +97,15 @@ afterEach(() => {
 });
 
 test('redirect to requestedUri', async () => {
-  mocked(stringify).mockImplementation(() => {
+  jest.mocked(stringify).mockImplementation(() => {
     return 'grant_type=authorization_code&client_id=clientId&redirect_uri=https%3A%2F%2FdomainName%2FredirectPathSignIn&code=code&code_verifier=pkce';
   });
 
-  mocked(parse).mockImplementation(() => {
+  jest.mocked(parse).mockImplementation(() => {
     return { code: 'code', state: 'state' };
   });
 
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',
@@ -117,7 +116,7 @@ test('redirect to requestedUri', async () => {
     nonceHmac: 'original_nonceHmac',
   }));
 
-  mocked(httpPostWithRetry).mockResolvedValue({
+  jest.mocked(httpPostWithRetry).mockResolvedValue({
     status: 200,
     statusText: 'OK',
     config: {},
@@ -131,7 +130,7 @@ test('redirect to requestedUri', async () => {
     },
   });
 
-  mocked(urlSafe).parse.mockImplementation(() =>
+  jest.mocked(urlSafe).parse.mockImplementation(() =>
     Buffer.from(
       JSON.stringify({
         requestedUri: '/requestedUri',
@@ -140,9 +139,9 @@ test('redirect to requestedUri', async () => {
     ).toString('base64'),
   );
 
-  mocked(sign).mockImplementation(() => 'original_nonceHmac');
+  jest.mocked(sign).mockImplementation(() => 'original_nonceHmac');
 
-  mocked(generateCookieHeaders).newTokens.mockReturnValue([]);
+  jest.mocked(generateCookieHeaders).newTokens.mockReturnValue([]);
 
   const viewRequest = createEvent('cloudfront:ViewerRequest');
 
@@ -155,7 +154,7 @@ test('redirect to requestedUri', async () => {
 });
 
 test('redirect to domain when already signed in (idToken)', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',
@@ -166,7 +165,7 @@ test('redirect to domain when already signed in (idToken)', async () => {
     nonceHmac: 'original_nonceHmac',
   }));
 
-  const mock = mocked(validate).mockImplementation(jest.fn());
+  const mock = jest.mocked(validate).mockImplementation(jest.fn());
 
   const viewRequest = createEvent('cloudfront:ViewerRequest');
 
@@ -184,7 +183,7 @@ test('redirect to domain when already signed in (idToken)', async () => {
 });
 
 test('show error page when token validation fails', async () => {
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',
@@ -195,7 +194,7 @@ test('show error page when token validation fails', async () => {
     nonceHmac: 'original_nonceHmac',
   }));
 
-  mocked(validate).mockImplementation(() => {
+  jest.mocked(validate).mockImplementation(() => {
     throw new Error('Token validation fails');
   });
 
@@ -213,9 +212,9 @@ test('show error page when token validation fails', async () => {
 });
 
 test('show error page in case of cognito error', async () => {
-  const mock = mocked(extractAndParseCookies).mockImplementation(jest.fn());
+  const mock = jest.mocked(extractAndParseCookies).mockImplementation(jest.fn());
 
-  mocked(parse).mockImplementation(() => {
+  jest.mocked(parse).mockImplementation(() => {
     return { error: 'Error message description' };
   });
 

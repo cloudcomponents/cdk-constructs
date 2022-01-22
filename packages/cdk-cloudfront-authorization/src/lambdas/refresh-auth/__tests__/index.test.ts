@@ -1,6 +1,5 @@
 import { stringify, parse } from 'querystring';
 import { invokeLambda, createEvent } from 'aws-local-testing-library';
-import { mocked } from 'ts-jest/utils';
 
 import { handler } from '..';
 import { getConfig, Logger, LogLevel, httpPostWithRetry, extractAndParseCookies, generateCookieHeaders } from '../../shared';
@@ -90,7 +89,7 @@ beforeEach(() => {
     tokenJwksUri,
   };
 
-  mocked(getConfig).mockReturnValue(config);
+  jest.mocked(getConfig).mockReturnValue(config);
 });
 
 afterEach(() => {
@@ -98,15 +97,15 @@ afterEach(() => {
 });
 
 test('redirect to requestedUri', async () => {
-  mocked(stringify).mockImplementation(() => {
+  jest.mocked(stringify).mockImplementation(() => {
     return 'grant_type=refresh_token&client_id=client_id&refresh_token=refreshToken';
   });
 
-  mocked(parse).mockImplementation(() => {
+  jest.mocked(parse).mockImplementation(() => {
     return { requestedUri: '/requestedUri', nonce: '10Test' };
   });
 
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',
@@ -116,7 +115,7 @@ test('redirect to requestedUri', async () => {
     pkce: 'pkce',
   }));
 
-  mocked(httpPostWithRetry).mockResolvedValue({
+  jest.mocked(httpPostWithRetry).mockResolvedValue({
     status: 200,
     statusText: 'OK',
     config: {},
@@ -141,15 +140,15 @@ test('redirect to requestedUri', async () => {
 });
 
 test('redirect to domain when post request fails', async () => {
-  mocked(stringify).mockImplementation(() => {
+  jest.mocked(stringify).mockImplementation(() => {
     return 'grant_type=refresh_token&client_id=client_id&refresh_token=refreshToken';
   });
 
-  mocked(parse).mockImplementation(() => {
+  jest.mocked(parse).mockImplementation(() => {
     return { requestedUri: '/requestedUri', nonce: '10Test' };
   });
 
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',
@@ -159,9 +158,9 @@ test('redirect to domain when post request fails', async () => {
     pkce: 'pkce',
   }));
 
-  mocked(httpPostWithRetry).mockRejectedValue('HTTP POST to url failed');
+  jest.mocked(httpPostWithRetry).mockRejectedValue('HTTP POST to url failed');
 
-  const mock = mocked(generateCookieHeaders).refreshFailed.mockImplementation(jest.fn());
+  const mock = jest.mocked(generateCookieHeaders).refreshFailed.mockImplementation(jest.fn());
 
   const viewRequest = createEvent('cloudfront:ViewerRequest');
 
@@ -175,15 +174,15 @@ test('redirect to domain when post request fails', async () => {
 });
 
 test('show error page when nonce not match', async () => {
-  mocked(stringify).mockImplementation(() => {
+  jest.mocked(stringify).mockImplementation(() => {
     return 'grant_type=refresh_token&client_id=client_id&refresh_token=refreshToken';
   });
 
-  mocked(parse).mockImplementation(() => {
+  jest.mocked(parse).mockImplementation(() => {
     return { requestedUri: '/requestedUri', nonce: 'wrong' };
   });
 
-  mocked(extractAndParseCookies).mockImplementation(() => ({
+  jest.mocked(extractAndParseCookies).mockImplementation(() => ({
     tokenUserName: 'tokenUserName',
     idToken: 'idToken',
     accessToken: 'accessToken',

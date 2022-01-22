@@ -71,7 +71,6 @@
 - [addToResourcePolicy](#addtoresourcepolicy)
 - [applyRemovalPolicy](#applyremovalpolicy)
 - [arnForObjects](#arnforobjects)
-- [enableEventBridgeNotification](#enableeventbridgenotification)
 - [generatePhysicalName](#generatephysicalname)
 - [getResourceArnAttribute](#getresourcearnattribute)
 - [getResourceNameAttribute](#getresourcenameattribute)
@@ -693,22 +692,6 @@ If you need to specify a keyPattern with multiple components, concatenate them i
 #### Inherited from
 
 Bucket.arnForObjects
-
-___
-
-### enableEventBridgeNotification
-
-▸ `Protected` **enableEventBridgeNotification**(): `void`
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Bucket.enableEventBridgeNotification
 
 ___
 
@@ -1823,7 +1806,6 @@ Construct.isConstruct
 - [encryption](#encryption)
 - [encryptionKey](#encryptionkey)
 - [enforceSSL](#enforcessl)
-- [eventBridgeEnabled](#eventbridgeenabled)
 - [forceDelete](#forcedelete)
 - [intelligentTieringConfigurations](#intelligenttieringconfigurations)
 - [inventories](#inventories)
@@ -2009,22 +1991,6 @@ S3.5 of the AWS Foundational Security Best Practices Regarding S3.
 #### Inherited from
 
 BucketProps.enforceSSL
-
-___
-
-### eventBridgeEnabled
-
-• `Optional` `Readonly` **eventBridgeEnabled**: `boolean`
-
-Whether this bucket should send notifications to Amazon EventBridge or not.
-
-**`default`** false
-
-**`stability`** stable
-
-#### Inherited from
-
-BucketProps.eventBridgeEnabled
 
 ___
 

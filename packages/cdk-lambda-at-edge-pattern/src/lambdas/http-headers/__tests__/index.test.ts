@@ -1,6 +1,4 @@
 import { invokeLambda, createEvent } from 'aws-local-testing-library';
-import { mocked } from 'ts-jest/utils';
-
 import { handler, HttpHeadersConfig } from '..';
 import { getConfig, Logger, LogLevel } from '../../shared';
 
@@ -20,7 +18,7 @@ test('with headers', async () => {
     },
   };
 
-  mocked(getConfig).mockReturnValue(config);
+  jest.mocked(getConfig).mockReturnValue(config);
 
   const originResponse = createEvent('cloudfront:OriginResponse');
 
@@ -39,7 +37,7 @@ test('no headers', async () => {
     httpHeaders: {},
   };
 
-  mocked(getConfig).mockReturnValue(config);
+  jest.mocked(getConfig).mockReturnValue(config);
 
   const originResponse = createEvent('cloudfront:OriginResponse');
 

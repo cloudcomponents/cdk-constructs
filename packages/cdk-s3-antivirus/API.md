@@ -668,7 +668,6 @@ lambda.LayerVersion.isResource
 - [addToResourcePolicy](#addtoresourcepolicy)
 - [applyRemovalPolicy](#applyremovalpolicy)
 - [arnForObjects](#arnforobjects)
-- [enableEventBridgeNotification](#enableeventbridgenotification)
 - [generatePhysicalName](#generatephysicalname)
 - [getResourceArnAttribute](#getresourcearnattribute)
 - [getResourceNameAttribute](#getresourcenameattribute)
@@ -1290,22 +1289,6 @@ If you need to specify a keyPattern with multiple components, concatenate them i
 #### Inherited from
 
 Bucket.arnForObjects
-
-___
-
-### enableEventBridgeNotification
-
-▸ `Protected` **enableEventBridgeNotification**(): `void`
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Bucket.enableEventBridgeNotification
 
 ___
 
