@@ -59,30 +59,22 @@
     }
   },
   "peerDependencies": {
-    "@aws-cdk/aws-apigateway": "^1.140.0",
-    "@aws-cdk/aws-events": "^1.140.0",
-    "@aws-cdk/aws-iam": "^1.140.0",
-    "@aws-cdk/aws-lambda": "^1.140.0",
-    "@aws-cdk/core": "^1.140.0",
-    "@cloudcomponents/cdk-secret-key": "^1.15.0",
-    "constructs": "^3.2.0"
+    "aws-cdk-lib": "^2.8.0",
+    "constructs": "^10.0.41",
+    "@cloudcomponents/cdk-secret-key": "^1.15.0"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.140.0",
-    "@aws-cdk/aws-events": "^1.140.0",
-    "@aws-cdk/aws-iam": "^1.140.0",
-    "@aws-cdk/aws-lambda": "^1.140.0",
-    "@aws-cdk/core": "^1.140.0",
     "@cloudcomponents/cdk-secret-key": "^1.21.0"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.140.0",
+    "aws-cdk-lib": "2.8.0",
+    "constructs": "10.0.41",
     "@cloudcomponents/lambda-utils": "^0.2.0",
     "@types/stripe": "^8.0.417",
     "aws-sdk": "^2.1062.0",
     "custom-resource-helper": "^1.0.15",
     "get-env-or-die": "^1.0.11",
-    "jest-cdk-snapshot": "^1.4.2",
+    "jest-cdk-snapshot": "^2.0.1",
     "stripe": "^8.199.0"
   },
   "externals": [

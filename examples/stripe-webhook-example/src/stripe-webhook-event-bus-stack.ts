@@ -1,7 +1,7 @@
-import { StringParameter } from '@aws-cdk/aws-ssm';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { SecretKey, SecretKeyStore } from '@cloudcomponents/cdk-secret-key';
 import { StripeWebhook, StripeEventBusProducer } from '@cloudcomponents/cdk-stripe-webhook';
+import { Stack, StackProps, aws_ssm } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class StripeWebhookEventBusStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -9,7 +9,7 @@ export class StripeWebhookEventBusStack extends Stack {
 
     const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY as string);
 
-    const endpointSecretParameter = StringParameter.fromSecureStringParameterAttributes(this, 'Param', {
+    const endpointSecretParameter = aws_ssm.StringParameter.fromSecureStringParameterAttributes(this, 'Param', {
       parameterName: 'stripe',
       version: 1,
     });

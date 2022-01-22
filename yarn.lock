@@ -734,7 +734,7 @@
     "@aws-cdk/core" "1.140.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-secretsmanager@1.140.0", "@aws-cdk/aws-secretsmanager@^1.140.0":
+"@aws-cdk/aws-secretsmanager@1.140.0":
   version "1.140.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-secretsmanager/-/aws-secretsmanager-1.140.0.tgz#7d0d5825954d86ae7e3745681250197be5965220"
   integrity sha512-Kl6AF9gcSFuxiZGpKr0WVARodSR7UETRaaGSaMFZxIuDfGTr7vVzEVypvdqY2J60i3GP3+oL9atOGAbM9sKSfQ==
@@ -3572,7 +3572,7 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-cdk-lib@^2.8.0:
+aws-cdk-lib@2.8.0, aws-cdk-lib@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.8.0.tgz#11e1d21705bd7b60bd9fdd4e230ddd9202863fd0"
   integrity sha512-i6vys7oGc77a6LpXuBF3434wyx6X7WUS/BPaRFAf52LWb8PPlq/pSOVP5kkKPgqCElvAzQatqMZuoeT6tbincQ==
@@ -4889,7 +4889,7 @@ constants-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
 
-constructs@^10.0.41:
+constructs@10.0.41, constructs@^10.0.41:
   version "10.0.41"
   resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.0.41.tgz#4deeb04baf2502110807f2d028cedd5a18bf326a"
   integrity sha512-h8HytpdxtuO9PPndcvZGX90Silp9lCWxf0XlzGhWOGpZchIyDFR+pqy4n0eiyEsPcclPF0CMfCA3UcGugu3+vw==
@@ -5229,6 +5229,13 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
+cross-env@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"
+  integrity sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==
+  dependencies:
+    cross-spawn "^7.0.1"
+
 cross-spawn@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
@@ -5238,7 +5245,7 @@ cross-spawn@^5.0.1:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^7.0.2, cross-spawn@^7.0.3:
+cross-spawn@^7.0.1, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
   integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
@@ -8332,6 +8339,13 @@ jest-cdk-snapshot@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/jest-cdk-snapshot/-/jest-cdk-snapshot-1.4.2.tgz#b6532a26ee345232bea40ec4f93d02a4a03f712e"
   integrity sha512-VbY2j/w6tOUxAFeR1fyG+ev/CBvGjfM9ju/Z8V/1yGy5BSVpwJtY3fg/F6w4EJOVu+8Etelkv7wRPv+qLSL68A==
+  dependencies:
+    js-yaml "^3.13.1"
+
+jest-cdk-snapshot@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/jest-cdk-snapshot/-/jest-cdk-snapshot-2.0.1.tgz#1e92e1ac06e13e515981014a81d083d6e5f60dab"
+  integrity sha512-bj0NwurGSEOIbiwPJmvF/uMQF1DsFVkxCilV221Lmv9VWlngEEZ3ql0PeH4jKB0zyP8xCf6UHwRPe4aFBzuabQ==
   dependencies:
     js-yaml "^3.13.1"
 

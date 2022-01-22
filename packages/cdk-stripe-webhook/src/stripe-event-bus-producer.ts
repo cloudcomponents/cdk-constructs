@@ -1,16 +1,13 @@
 import * as path from 'path';
-import { LambdaIntegration, RestApi } from '@aws-cdk/aws-apigateway';
-import { IEventBus } from '@aws-cdk/aws-events';
-import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
-import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Construct, Arn, Stack } from '@aws-cdk/core';
 import { SecretKey } from '@cloudcomponents/cdk-secret-key';
+import { Arn, Stack, aws_iam, aws_lambda, aws_apigateway, aws_events } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface StripeEventBusProducerProps {
   readonly secretKey: SecretKey;
   readonly endpointSecret: SecretKey;
   readonly source?: string;
-  readonly eventBus?: IEventBus;
+  readonly eventBus?: aws_events.IEventBus;
   readonly throttlingBurstLimit?: number;
   readonly throttlingRateLimit?: number;
 }
@@ -21,9 +18,9 @@ export class StripeEventBusProducer extends Construct {
   constructor(scope: Construct, id: string, props: StripeEventBusProducerProps) {
     super(scope, id);
 
-    const handler = new Function(this, 'Function', {
-      runtime: Runtime.NODEJS_12_X,
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-event-bus-producer')),
+    const handler = new aws_lambda.Function(this, 'Function', {
+      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-event-bus-producer')),
       handler: 'index.handler',
     });
 
@@ -32,16 +29,16 @@ export class StripeEventBusProducer extends Construct {
     if (props.eventBus) {
       handler.addEnvironment('EVENT_BUS_NAME', props.eventBus.eventBusArn);
       handler.addToRolePolicy(
-        new PolicyStatement({
-          effect: Effect.ALLOW,
+        new aws_iam.PolicyStatement({
+          effect: aws_iam.Effect.ALLOW,
           actions: ['events:PutEvents'],
           resources: [props.eventBus.eventBusArn],
         }),
       );
     } else {
       handler.addToRolePolicy(
-        new PolicyStatement({
-          effect: Effect.ALLOW,
+        new aws_iam.PolicyStatement({
+          effect: aws_iam.Effect.ALLOW,
           actions: ['events:PutEvents'],
           resources: [
             Arn.format(
@@ -67,7 +64,7 @@ export class StripeEventBusProducer extends Construct {
     }
     handler.addEnvironment('SECRET_KEY_STRING', props.secretKey.serialize());
 
-    const api = new RestApi(this, 'Endpoint', {
+    const api = new aws_apigateway.RestApi(this, 'Endpoint', {
       description: 'Stripe event bridge producer webhook',
       deployOptions: {
         throttlingBurstLimit: props.throttlingBurstLimit,
@@ -75,7 +72,7 @@ export class StripeEventBusProducer extends Construct {
       },
     });
 
-    api.root.addMethod('POST', new LambdaIntegration(handler));
+    api.root.addMethod('POST', new aws_apigateway.LambdaIntegration(handler));
 
     this.url = api.url;
   }
