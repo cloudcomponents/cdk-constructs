@@ -4,7 +4,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "prepare": "FORCE_COLOR=1 lerna run build",
-    "test": "cdkdx test",
+    "test": "cdkdx test --runInBand",
     "build": "FORCE_COLOR=1 lerna run build",
     "outdated:all": "yarn outdated",
     "upgrade:all": "yarn upgrade",
