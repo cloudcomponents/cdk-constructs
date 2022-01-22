@@ -64,7 +64,7 @@ export class ImageRepository extends Repository {
 
     const rule = this.onImageScanCompleted(id, { imageTags });
 
-    const severityFilter = new Function(this, 'SevierityFilter', {
+    const severityFilter = new Function(this, 'SeverityFilter', {
       runtime: Runtime.NODEJS_12_X,
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'severity-filter')),
       handler: 'index.handler',
