@@ -1,10 +1,9 @@
-import { IUserPool, IUserPoolClient } from '@aws-cdk/aws-cognito';
-import { Construct } from '@aws-cdk/core';
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '@aws-cdk/custom-resources';
+import { aws_cognito, custom_resources } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface RetrieveUserPoolClientSecretProps {
-  readonly userPoolClient: IUserPoolClient;
-  readonly userPool: IUserPool;
+  readonly userPoolClient: aws_cognito.IUserPoolClient;
+  readonly userPool: aws_cognito.IUserPool;
 }
 
 export class RetrieveUserPoolClientSecret extends Construct {
@@ -13,7 +12,7 @@ export class RetrieveUserPoolClientSecret extends Construct {
   constructor(scope: Construct, id: string, props: RetrieveUserPoolClientSecretProps) {
     super(scope, id);
 
-    const clientSecret = new AwsCustomResource(this, 'Resource', {
+    const clientSecret = new custom_resources.AwsCustomResource(this, 'Resource', {
       onUpdate: {
         service: 'CognitoIdentityServiceProvider',
         action: 'describeUserPoolClient',
@@ -21,9 +20,11 @@ export class RetrieveUserPoolClientSecret extends Construct {
           UserPoolId: props.userPool.userPoolId,
           ClientId: props.userPoolClient.userPoolClientId,
         },
-        physicalResourceId: PhysicalResourceId.of(`${props.userPool.userPoolId}-${props.userPoolClient.userPoolClientId}-retrieved-client-secret`),
+        physicalResourceId: custom_resources.PhysicalResourceId.of(
+          `${props.userPool.userPoolId}-${props.userPoolClient.userPoolClientId}-retrieved-client-secret`,
+        ),
       },
-      policy: AwsCustomResourcePolicy.fromSdkCalls({
+      policy: custom_resources.AwsCustomResourcePolicy.fromSdkCalls({
         resources: [props.userPool.userPoolArn],
       }),
     });

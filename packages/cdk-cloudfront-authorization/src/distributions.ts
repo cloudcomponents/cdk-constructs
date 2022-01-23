@@ -1,19 +1,15 @@
-import { ICertificate } from '@aws-cdk/aws-certificatemanager';
 import {
-  IOrigin,
-  IDistribution,
-  Distribution,
-  ErrorResponse,
-  PriceClass,
-  HttpVersion,
-  GeoRestriction,
-  BehaviorOptions,
-  CachePolicy,
-  SecurityPolicyProtocol,
-} from '@aws-cdk/aws-cloudfront';
-import { S3Origin } from '@aws-cdk/aws-cloudfront-origins';
-import { Bucket, IBucket } from '@aws-cdk/aws-s3';
-import { Construct, Duration, RemovalPolicy, Stack, ResourceEnvironment, CfnResource } from '@aws-cdk/core';
+  Duration,
+  RemovalPolicy,
+  Stack,
+  ResourceEnvironment,
+  CfnResource,
+  aws_certificatemanager,
+  aws_cloudfront,
+  aws_cloudfront_origins,
+  aws_s3,
+} from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { IAuthorization, IStaticSiteAuthorization, ISpaAuthorization } from './authorizations';
 
@@ -21,7 +17,7 @@ export interface CommonDistributionProps {
   /**
    * The origin that you want CloudFront to route requests
    */
-  readonly origin?: IOrigin;
+  readonly origin?: aws_cloudfront.IOrigin;
   /**
    * The price class that corresponds with the maximum price that you want to pay for CloudFront service.
    * If you specify PriceClass_All, CloudFront responds to requests for your objects from all CloudFront edge locations.
@@ -30,7 +26,7 @@ export interface CommonDistributionProps {
    *
    * @default PriceClass.PRICE_CLASS_100
    */
-  readonly priceClass?: PriceClass;
+  readonly priceClass?: aws_cloudfront.PriceClass;
 
   /**
    * Alternative domain names for this distribution.
@@ -48,7 +44,7 @@ export interface CommonDistributionProps {
    *
    * @default - the CloudFront wildcard certificate (*.cloudfront.net) will be used.
    */
-  readonly certificate?: ICertificate;
+  readonly certificate?: aws_certificatemanager.ICertificate;
 
   /**
    * Any comments you want to include about the distribution.
@@ -95,7 +91,7 @@ export interface CommonDistributionProps {
    *
    * @default - A bucket is created if `enableLogging` is true
    */
-  readonly logBucket?: IBucket;
+  readonly logBucket?: aws_s3.IBucket;
 
   /**
    * Specifies whether you want CloudFront to include cookies in access logs
@@ -116,7 +112,7 @@ export interface CommonDistributionProps {
    *
    * @default - No geographic restrictions
    */
-  readonly geoRestriction?: GeoRestriction;
+  readonly geoRestriction?: aws_cloudfront.GeoRestriction;
 
   /**
    * Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
@@ -125,7 +121,7 @@ export interface CommonDistributionProps {
    *
    * @default HttpVersion.HTTP2
    */
-  readonly httpVersion?: HttpVersion;
+  readonly httpVersion?: aws_cloudfront.HttpVersion;
 
   /**
    * Unique identifier that specifies the AWS WAF web ACL to associate with this CloudFront distribution.
@@ -149,7 +145,7 @@ export interface CommonDistributionProps {
    *
    * @default SecurityPolicyProtocol.TLS_V1_2_2019
    */
-  readonly minimumProtocolVersion?: SecurityPolicyProtocol;
+  readonly minimumProtocolVersion?: aws_cloudfront.SecurityPolicyProtocol;
 
   /**
    * @default Destroy
@@ -159,10 +155,10 @@ export interface CommonDistributionProps {
 
 export interface BaseDistributionProps extends CommonDistributionProps {
   readonly authorization: IAuthorization;
-  readonly errorResponses?: ErrorResponse[];
+  readonly errorResponses?: aws_cloudfront.ErrorResponse[];
 }
 
-export class BaseDistribution extends Construct implements IDistribution {
+export class BaseDistribution extends Construct implements aws_cloudfront.IDistribution {
   public readonly domainName: string;
   public readonly distributionDomainName: string;
   public readonly distributionId: string;
@@ -175,7 +171,7 @@ export class BaseDistribution extends Construct implements IDistribution {
     const removalPolicy = props.removalPolicy ?? RemovalPolicy.DESTROY;
     const origin = props.origin ?? this.defaultOrigin(removalPolicy);
 
-    const distribution = new Distribution(this, 'Distribution', {
+    const distribution = new aws_cloudfront.Distribution(this, 'Distribution', {
       enabled: props.enabled ?? true,
       enableIpv6: props.enableIpv6 ?? true,
       comment: props.comment,
@@ -183,9 +179,9 @@ export class BaseDistribution extends Construct implements IDistribution {
       logBucket: props.logBucket,
       logIncludesCookies: props.logIncludesCookies,
       logFilePrefix: props.logFilePrefix,
-      priceClass: props.priceClass ?? PriceClass.PRICE_CLASS_100,
+      priceClass: props.priceClass ?? aws_cloudfront.PriceClass.PRICE_CLASS_100,
       geoRestriction: props.geoRestriction,
-      httpVersion: props.httpVersion ?? HttpVersion.HTTP2,
+      httpVersion: props.httpVersion ?? aws_cloudfront.HttpVersion.HTTP2,
       webAclId: props.webAclId,
       minimumProtocolVersion: props.minimumProtocolVersion,
       errorResponses: props.errorResponses,
@@ -223,33 +219,33 @@ export class BaseDistribution extends Construct implements IDistribution {
     child.applyRemovalPolicy(policy);
   }
 
-  protected renderDefaultBehaviour(origin: IOrigin, authorization: IAuthorization): BehaviorOptions {
+  protected renderDefaultBehaviour(origin: aws_cloudfront.IOrigin, authorization: IAuthorization): aws_cloudfront.BehaviorOptions {
     return authorization.createDefaultBehavior(origin, {
       originRequestPolicy: undefined,
-      cachePolicy: CachePolicy.CACHING_DISABLED,
+      cachePolicy: aws_cloudfront.CachePolicy.CACHING_DISABLED,
     });
   }
 
-  protected renderAdditionalBehaviors(origin: IOrigin, authorization: IAuthorization): Record<string, BehaviorOptions> {
+  protected renderAdditionalBehaviors(origin: aws_cloudfront.IOrigin, authorization: IAuthorization): Record<string, aws_cloudfront.BehaviorOptions> {
     return authorization.createAdditionalBehaviors(origin, {
       originRequestPolicy: undefined,
-      cachePolicy: CachePolicy.CACHING_DISABLED,
+      cachePolicy: aws_cloudfront.CachePolicy.CACHING_DISABLED,
     });
   }
 
-  private defaultOrigin(removalPolicy: RemovalPolicy): IOrigin {
-    const bucket = new Bucket(this, 'Bucket', {
+  private defaultOrigin(removalPolicy: RemovalPolicy): aws_cloudfront.IOrigin {
+    const bucket = new aws_s3.Bucket(this, 'Bucket', {
       autoDeleteObjects: removalPolicy === RemovalPolicy.DESTROY,
       removalPolicy,
     });
 
-    return new S3Origin(bucket);
+    return new aws_cloudfront_origins.S3Origin(bucket);
   }
 }
 
 export interface StaticSiteDistributionProps extends CommonDistributionProps {
   readonly authorization: IStaticSiteAuthorization;
-  readonly errorResponses?: ErrorResponse[];
+  readonly errorResponses?: aws_cloudfront.ErrorResponse[];
 }
 
 export class StaticSiteDistribution extends BaseDistribution {

@@ -1,9 +1,7 @@
 import * as path from 'path';
-import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
-import { IUserPool, IUserPoolClient, OAuthScope } from '@aws-cdk/aws-cognito';
-import { Code } from '@aws-cdk/aws-lambda';
-import { Construct } from '@aws-cdk/core';
 import { EdgeFunction, HttpHeaders, LogLevel, EdgeRole } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
+import { aws_cloudfront, aws_cognito, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface RedirectPaths {
   readonly signIn: string;
@@ -14,11 +12,11 @@ export interface RedirectPaths {
 export interface AuthFlowProps {
   readonly logLevel: LogLevel;
   readonly httpHeaders: Record<string, string>;
-  readonly userPool: IUserPool;
-  readonly userPoolClient: IUserPoolClient;
+  readonly userPool: aws_cognito.IUserPool;
+  readonly userPoolClient: aws_cognito.IUserPoolClient;
   readonly cognitoAuthDomain: string;
   readonly redirectPaths: RedirectPaths;
-  readonly oauthScopes: OAuthScope[];
+  readonly oauthScopes: aws_cognito.OAuthScope[];
   readonly cookieSettings: Record<string, string>;
   readonly nonceSigningSecret: string;
   readonly clientSecret?: string;
@@ -53,34 +51,34 @@ export class AuthFlow extends Construct {
 
     this.checkAuth = new EdgeFunction(this, 'CheckAuth', {
       name: 'check-auth',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'check-auth')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'check-auth')),
       edgeRole,
       configuration,
-      eventType: LambdaEdgeEventType.VIEWER_REQUEST,
+      eventType: aws_cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
     });
 
     this.parseAuth = new EdgeFunction(this, 'ParseAuth', {
       name: 'parse-auth',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'parse-auth')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'parse-auth')),
       edgeRole,
       configuration,
-      eventType: LambdaEdgeEventType.VIEWER_REQUEST,
+      eventType: aws_cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
     });
 
     this.refreshAuth = new EdgeFunction(this, 'RefreshAuth', {
       name: 'refresh-auth',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'refresh-auth')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'refresh-auth')),
       edgeRole,
       configuration,
-      eventType: LambdaEdgeEventType.VIEWER_REQUEST,
+      eventType: aws_cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
     });
 
     this.signOut = new EdgeFunction(this, 'SignOut', {
       name: 'sign-out',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'sign-out')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'sign-out')),
       edgeRole,
       configuration,
-      eventType: LambdaEdgeEventType.VIEWER_REQUEST,
+      eventType: aws_cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
     });
 
     this.httpHeaders = new HttpHeaders(this, 'HttpHeaders', {

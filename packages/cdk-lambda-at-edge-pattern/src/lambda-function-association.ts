@@ -1,7 +1,6 @@
-import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
-import { IVersion } from '@aws-cdk/aws-lambda';
+import { aws_cloudfront, aws_lambda } from 'aws-cdk-lib';
 
 export interface ILambdaFunctionAssociation {
-  readonly eventType: LambdaEdgeEventType;
-  readonly lambdaFunction: IVersion;
+  readonly eventType: aws_cloudfront.LambdaEdgeEventType;
+  readonly lambdaFunction: aws_lambda.IVersion;
 }

@@ -1,6 +1,5 @@
 import 'jest-cdk-snapshot';
-import { UserPool } from '@aws-cdk/aws-cognito';
-import { App, Stack } from '@aws-cdk/core';
+import { App, Stack, aws_cognito } from 'aws-cdk-lib';
 
 import { SpaAuthorization, StaticSiteAuthorization } from '../authorizations';
 
@@ -13,7 +12,7 @@ test('default spa setup', (): void => {
     },
   });
 
-  const userPool = new UserPool(stack, 'UserPool', {
+  const userPool = new aws_cognito.UserPool(stack, 'UserPool', {
     selfSignUpEnabled: false,
     userPoolName: 'cloudfront-authorization-userpool',
   });
@@ -77,7 +76,7 @@ test('default static-site setup', (): void => {
     },
   });
 
-  const userPool = new UserPool(stack, 'UserPool', {
+  const userPool = new aws_cognito.UserPool(stack, 'UserPool', {
     selfSignUpEnabled: false,
     userPoolName: 'cloudfront-authorization-userpool',
   });

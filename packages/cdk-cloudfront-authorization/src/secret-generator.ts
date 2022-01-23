@@ -1,6 +1,6 @@
 import * as path from 'path';
-import { Code, SingletonFunction, Runtime } from '@aws-cdk/aws-lambda';
-import { Construct, CustomResource } from '@aws-cdk/core';
+import { CustomResource, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface SecretGeneratorProps {
   readonly length?: number;
@@ -13,11 +13,11 @@ export class SecretGenerator extends Construct {
   constructor(scope: Construct, id: string, props: SecretGeneratorProps = {}) {
     super(scope, id);
 
-    const secretGenerator = new SingletonFunction(this, 'Function', {
+    const secretGenerator = new aws_lambda.SingletonFunction(this, 'Function', {
       uuid: 'cloudcomponents-cdk-cloudfront-authorization-secret-generator',
-      runtime: Runtime.NODEJS_12_X,
+      runtime: aws_lambda.Runtime.NODEJS_14_X,
       handler: 'index.handler',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'secret-generator')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'secret-generator')),
     });
 
     const cr = new CustomResource(this, 'CustomResource', {

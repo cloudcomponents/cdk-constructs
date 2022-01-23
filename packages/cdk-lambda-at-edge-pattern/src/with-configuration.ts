@@ -1,7 +1,6 @@
 import * as path from 'path';
-import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { SingletonFunction, Runtime, Code, IFunction, IVersion, Version } from '@aws-cdk/aws-lambda';
-import { Construct, CustomResource, Duration } from '@aws-cdk/core';
+import { CustomResource, Duration, aws_iam, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export enum LogLevel {
   NONE = 'none',
@@ -17,30 +16,30 @@ export interface Configuration {
 }
 
 export interface WithConfigurationProps {
-  readonly function: IFunction;
+  readonly function: aws_lambda.IFunction;
   readonly configuration: Configuration;
 }
 
 export class WithConfiguration extends Construct {
-  public readonly functionVersion: IVersion;
+  public readonly functionVersion: aws_lambda.IVersion;
 
   constructor(scope: Construct, id: string, props: WithConfigurationProps) {
     super(scope, id);
 
     const resourceType = 'Custom::WithConfiguration';
 
-    const handler = new SingletonFunction(this, 'Handler', {
+    const handler = new aws_lambda.SingletonFunction(this, 'Handler', {
       uuid: 'cloudcomponents-cdk-lambda-at-edge-pattern-with-configuration',
-      runtime: Runtime.NODEJS_12_X,
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'with-configuration')),
+      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'with-configuration')),
       handler: 'index.handler',
       lambdaPurpose: resourceType,
       timeout: Duration.minutes(5),
     });
 
     handler.addToRolePolicy(
-      new PolicyStatement({
-        effect: Effect.ALLOW,
+      new aws_iam.PolicyStatement({
+        effect: aws_iam.Effect.ALLOW,
         actions: ['lambda:GetFunction', 'lambda:UpdateFunctionCode'],
         resources: [props.function.functionArn],
       }),
@@ -56,6 +55,6 @@ export class WithConfiguration extends Construct {
       },
     });
 
-    this.functionVersion = Version.fromVersionArn(this, 'Version', cr.getAttString('FunctionArn'));
+    this.functionVersion = aws_lambda.Version.fromVersionArn(this, 'Version', cr.getAttString('FunctionArn'));
   }
 }

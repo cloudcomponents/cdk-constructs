@@ -1,7 +1,6 @@
 import * as path from 'path';
-import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
-import { Code } from '@aws-cdk/aws-lambda';
-import { Construct } from '@aws-cdk/core';
+import { aws_cloudfront, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { EdgeFunction, CommonEdgeFunctionProps } from './edge-function';
 import { LogLevel } from './with-configuration';
@@ -14,8 +13,8 @@ export class OriginMutation extends EdgeFunction {
   constructor(scope: Construct, id: string, props: OriginMutationProps = {}) {
     super(scope, id, {
       name: 'origin-mutation',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'origin-mutation')),
-      eventType: LambdaEdgeEventType.ORIGIN_REQUEST,
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'origin-mutation')),
+      eventType: aws_cloudfront.LambdaEdgeEventType.ORIGIN_REQUEST,
       edgeRole: props.edgeRole,
       configuration: {
         logLevel: props.logLevel ?? LogLevel.WARN,

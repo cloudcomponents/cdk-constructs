@@ -1,4 +1,5 @@
-import { App, BootstraplessSynthesizer, Construct, DefaultStackSynthesizer, IStackSynthesizer, Stack } from '@aws-cdk/core';
+import { App, BootstraplessSynthesizer, DefaultStackSynthesizer, IStackSynthesizer, Stack } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class BaseEdgeConstruct extends Construct {
   protected readonly stack: Stack;
