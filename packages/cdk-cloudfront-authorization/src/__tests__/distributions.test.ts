@@ -43,12 +43,6 @@ test('default spa setup', (): void => {
             Update: expect.any(String),
           },
         },
-        SpaAuthorizationAuthFlowhttpheadersProviderCAB23200: {
-          Properties: {
-            Create: expect.any(String),
-            Update: expect.any(String),
-          },
-        },
         SpaAuthorizationAuthFlowparseauthProviderFAD7CF01: {
           Properties: {
             Create: expect.any(String),
@@ -106,12 +100,6 @@ test('default static-site setup', (): void => {
     propertyMatchers: {
       Resources: {
         StaticSiteAuthorizationAuthFlowcheckauthProviderA6235A8D: {
-          Properties: {
-            Create: expect.any(String),
-            Update: expect.any(String),
-          },
-        },
-        StaticSiteAuthorizationAuthFlowhttpheadersProvider1776DA6C: {
           Properties: {
             Create: expect.any(String),
             Update: expect.any(String),

@@ -27,7 +27,6 @@
 - [HttpHeadersProps](#http-headers-props)
 - [IEdgeLambda](#i-edge-lambda)
 - [IEdgeRole](#i-edge-role)
-- [ILambdaFunctionAssociation](#i-lambda-function-association)
 - [WithConfigurationProps](#with-configuration-props)
 
 # Base Edge Construct
@@ -60,16 +59,9 @@
 
 ### Methods
 
-- [getCrossRegionSupportSynthesizer](#getcrossregionsupportsynthesizer)
 - [getOrCreateCrossRegionSupportStack](#getorcreatecrossregionsupportstack)
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
 - [requireApp](#requireapp)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -99,9 +91,9 @@ ___
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -117,16 +109,6 @@ ___
 
 ## Methods
 
-### getCrossRegionSupportSynthesizer
-
-▸ `Private` **getCrossRegionSupportSynthesizer**(): `undefined` \| `IStackSynthesizer`
-
-#### Returns
-
-`undefined` \| `IStackSynthesizer`
-
-___
-
 ### getOrCreateCrossRegionSupportStack
 
 ▸ `Private` **getOrCreateCrossRegionSupportStack**(): `Stack`
@@ -137,106 +119,6 @@ ___
 
 ___
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.prepare
-
-___
-
 ### requireApp
 
 ▸ `Private` **requireApp**(): `App`
@@ -244,33 +126,6 @@ ___
 #### Returns
 
 `App`
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.synthesize
 
 ___
 
@@ -292,46 +147,25 @@ Construct.toString
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.validate
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -353,7 +187,6 @@ Construct.isConstruct
 
 ## Implements
 
-- [`ILambdaFunctionAssociation`](#i-lambda-function-association)
 - [`IEdgeLambda`](#i-edge-lambda)
 
 ## Table of contents
@@ -368,19 +201,12 @@ Construct.isConstruct
 - [edgeStack](#edgestack)
 - [eventType](#eventtype)
 - [functionVersion](#functionversion)
-- [lambdaFunction](#lambdafunction)
 - [node](#node)
 - [stack](#stack)
 
 ### Methods
 
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -439,21 +265,11 @@ ___
 
 ___
 
-### lambdaFunction
-
-• `Readonly` **lambdaFunction**: `IVersion`
-
-#### Implementation of
-
-[ILambdaFunctionAssociation](#i-lambda-function-association).[lambdaFunction](#lambdafunction)
-
-___
-
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -473,133 +289,6 @@ ___
 
 ## Methods
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[onPrepare](#onprepare)
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[onSynthesize](#onsynthesize)
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[onValidate](#onvalidate)
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[prepare](#prepare)
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[synthesize](#synthesize)
-
-___
-
 ### toString
 
 ▸ **toString**(): `string`
@@ -618,46 +307,25 @@ Returns a string representation of this construct.
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[validate](#validate)
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -695,13 +363,7 @@ x is Construct
 ### Methods
 
 - [addToEdgeRolePolicy](#addtoedgerolepolicy)
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -736,9 +398,9 @@ ___
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -750,7 +412,7 @@ ___
 
 ### role
 
-• `Readonly` **role**: `IRole`
+• `Readonly` **role**: `Role`
 
 #### Implementation of
 
@@ -788,133 +450,6 @@ ___
 
 ___
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[onPrepare](#onprepare)
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[onSynthesize](#onsynthesize)
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[onValidate](#onvalidate)
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[prepare](#prepare)
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[synthesize](#synthesize)
-
-___
-
 ### toString
 
 ▸ **toString**(): `string`
@@ -933,46 +468,25 @@ Returns a string representation of this construct.
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-[BaseEdgeConstruct](#base-edge-construct).[validate](#validate)
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -1002,19 +516,12 @@ x is Construct
 - [edgeStack](#edgestack)
 - [eventType](#eventtype)
 - [functionVersion](#functionversion)
-- [lambdaFunction](#lambdafunction)
 - [node](#node)
 - [stack](#stack)
 
 ### Methods
 
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -1077,21 +584,11 @@ ___
 
 ___
 
-### lambdaFunction
-
-• `Readonly` **lambdaFunction**: `IVersion`
-
-#### Inherited from
-
-[EdgeFunction](#edge-function).[lambdaFunction](#lambdafunction)
-
-___
-
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -1111,133 +608,6 @@ ___
 
 ## Methods
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[EdgeFunction](#edge-function).[onPrepare](#onprepare)
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[EdgeFunction](#edge-function).[onSynthesize](#onsynthesize)
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-[EdgeFunction](#edge-function).[onValidate](#onvalidate)
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[EdgeFunction](#edge-function).[prepare](#prepare)
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[EdgeFunction](#edge-function).[synthesize](#synthesize)
-
-___
-
 ### toString
 
 ▸ **toString**(): `string`
@@ -1256,46 +626,25 @@ Returns a string representation of this construct.
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-[EdgeFunction](#edge-function).[validate](#validate)
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -1326,13 +675,7 @@ x is Construct
 
 ### Methods
 
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -1363,9 +706,9 @@ ___
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -1374,133 +717,6 @@ The construct tree node associated with this construct.
 Construct.node
 
 ## Methods
-
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.prepare
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.synthesize
-
-___
 
 ### toString
 
@@ -1520,46 +736,25 @@ Construct.toString
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.validate
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -1863,7 +1058,7 @@ ___
 
 ### role
 
-• `Readonly` **role**: `IRole`
+• `Readonly` **role**: `Role`
 
 ## Methods
 
@@ -1880,35 +1075,6 @@ ___
 #### Returns
 
 `void`
-
-# I Lambda Function Association
-
-[@cloudcomponents/cdk-lambda-at-edge-pattern](#readme) / ILambdaFunctionAssociation
-
-# Interface: ILambdaFunctionAssociation
-
-## Implemented by
-
-- [`EdgeFunction`](#edge-function)
-
-## Table of contents
-
-### Properties
-
-- [eventType](#eventtype)
-- [lambdaFunction](#lambdafunction)
-
-## Properties
-
-### eventType
-
-• `Readonly` **eventType**: `LambdaEdgeEventType`
-
-___
-
-### lambdaFunction
-
-• `Readonly` **lambdaFunction**: `IVersion`
 
 # With Configuration Props
 

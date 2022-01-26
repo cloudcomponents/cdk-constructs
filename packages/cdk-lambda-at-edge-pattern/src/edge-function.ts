@@ -5,7 +5,6 @@ import { BaseEdgeConstruct } from './base-edge-construct';
 import { EdgeFunctionProvider } from './edge-function-provider';
 import { IEdgeLambda } from './edge-lambda';
 import { EdgeRole, IEdgeRole } from './edge-role';
-import { ILambdaFunctionAssociation } from './lambda-function-association';
 import { Configuration, WithConfiguration } from './with-configuration';
 
 export interface CommonEdgeFunctionProps {
@@ -24,11 +23,10 @@ export interface EdgeFunctionProps extends CommonEdgeFunctionProps {
   readonly eventType: aws_cloudfront.LambdaEdgeEventType;
 }
 
-export class EdgeFunction extends BaseEdgeConstruct implements ILambdaFunctionAssociation, IEdgeLambda {
+export class EdgeFunction extends BaseEdgeConstruct implements IEdgeLambda {
   public readonly edgeRole: IEdgeRole;
   public readonly eventType: aws_cloudfront.LambdaEdgeEventType;
   public readonly functionVersion: aws_lambda.IVersion;
-  public readonly lambdaFunction: aws_lambda.IVersion;
 
   constructor(scope: Construct, id: string, props: EdgeFunctionProps) {
     super(scope, id);
@@ -63,7 +61,5 @@ export class EdgeFunction extends BaseEdgeConstruct implements ILambdaFunctionAs
     });
 
     this.functionVersion = lambdaWithConfig.functionVersion;
-
-    this.lambdaFunction = this.functionVersion;
   }
 }

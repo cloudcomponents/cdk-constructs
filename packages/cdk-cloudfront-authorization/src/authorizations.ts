@@ -1,5 +1,5 @@
 import { LogLevel } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
-import { aws_cloudfront, aws_cognito } from 'aws-cdk-lib';
+import { Duration, aws_cloudfront, aws_cognito } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 import { AuthFlow, RedirectPaths } from './auth-flow';
@@ -35,7 +35,8 @@ export interface AuthorizationProps {
   readonly userPool: aws_cognito.IUserPool;
   readonly redirectPaths?: RedirectPaths;
   readonly signOutUrl?: string;
-  readonly httpHeaders?: Record<string, string>;
+  readonly customHeaders?: aws_cloudfront.ResponseCustomHeader[];
+  readonly securityHeadersBehavior?: aws_cloudfront.ResponseSecurityHeadersBehavior;
   readonly logLevel?: LogLevel;
   readonly oauthScopes?: aws_cognito.OAuthScope[];
   readonly cookieSettings?: Record<string, string>;
@@ -51,10 +52,10 @@ export abstract class Authorization extends Construct {
   protected readonly userPool: aws_cognito.IUserPool;
   protected readonly oauthScopes: aws_cognito.OAuthScope[];
   protected readonly cookieSettings: Record<string, string> | undefined;
-  protected readonly httpHeaders: Record<string, string>;
   protected readonly nonceSigningSecret: string;
   protected readonly cognitoAuthDomain: string;
   protected readonly identityProviders: aws_cognito.UserPoolClientIdentityProvider[];
+  protected readonly responseHeaderPolicy: aws_cloudfront.IResponseHeadersPolicy;
 
   constructor(scope: Construct, id: string, props: AuthorizationProps) {
     super(scope, id);
@@ -69,16 +70,29 @@ export abstract class Authorization extends Construct {
 
     this.signOutUrlPath = props.signOutUrl ?? '/signout';
 
-    this.httpHeaders = props.httpHeaders ?? {
-      'Content-Security-Policy':
-        "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
-      'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload',
-      'Referrer-Policy': 'same-origin',
-      'X-XSS-Protection': '1; mode=block',
-      'X-Frame-Options': 'DENY',
-      'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'no-cache',
-    };
+    this.responseHeaderPolicy = new aws_cloudfront.ResponseHeadersPolicy(this, 'ResponseHeadersPolicy', {
+      securityHeadersBehavior: props.securityHeadersBehavior ?? {
+        contentSecurityPolicy: {
+          contentSecurityPolicy:
+            "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+          override: true,
+        },
+        contentTypeOptions: { override: true },
+        frameOptions: { frameOption: aws_cloudfront.HeadersFrameOption.DENY, override: true },
+        referrerPolicy: { referrerPolicy: aws_cloudfront.HeadersReferrerPolicy.SAME_ORIGIN, override: true },
+        strictTransportSecurity: { accessControlMaxAge: Duration.seconds(31536000), includeSubdomains: true, preload: true, override: true },
+        xssProtection: { protection: true, modeBlock: true, override: true },
+      },
+      customHeadersBehavior: {
+        customHeaders: props.customHeaders ?? [
+          {
+            header: 'Cache-Control',
+            value: 'no-cache',
+            override: true,
+          },
+        ],
+      },
+    });
 
     this.oauthScopes = props.oauthScopes ?? [
       aws_cognito.OAuthScope.PHONE,
@@ -124,7 +138,8 @@ export abstract class Authorization extends Construct {
       compress: true,
       originRequestPolicy: aws_cloudfront.OriginRequestPolicy.ALL_VIEWER,
       viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      edgeLambdas: [this.authFlow.checkAuth, this.authFlow.httpHeaders],
+      edgeLambdas: [this.authFlow.checkAuth],
+      responseHeadersPolicy: this.responseHeaderPolicy,
       ...options,
     };
   }
@@ -204,7 +219,6 @@ export class SpaAuthorization extends Authorization implements ISpaAuthorization
   protected createAuthFlow(logLevel: LogLevel): AuthFlow {
     return new AuthFlow(this, 'AuthFlow', {
       logLevel,
-      httpHeaders: this.httpHeaders,
       userPool: this.userPool,
       userPoolClient: this.userPoolClient,
       oauthScopes: this.oauthScopes,
@@ -253,7 +267,6 @@ export class StaticSiteAuthorization extends Authorization implements IStaticSit
 
     return new AuthFlow(this, 'AuthFlow', {
       logLevel,
-      httpHeaders: this.httpHeaders,
       userPool: this.userPool,
       userPoolClient: this.userPoolClient,
       oauthScopes: this.oauthScopes,

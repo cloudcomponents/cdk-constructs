@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { EdgeFunction, HttpHeaders, LogLevel, EdgeRole } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
+import { EdgeFunction, LogLevel, EdgeRole } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
 import { aws_cloudfront, aws_cognito, aws_lambda } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
@@ -11,7 +11,6 @@ export interface RedirectPaths {
 
 export interface AuthFlowProps {
   readonly logLevel: LogLevel;
-  readonly httpHeaders: Record<string, string>;
   readonly userPool: aws_cognito.IUserPool;
   readonly userPoolClient: aws_cognito.IUserPoolClient;
   readonly cognitoAuthDomain: string;
@@ -27,7 +26,6 @@ export class AuthFlow extends Construct {
   public readonly parseAuth: EdgeFunction;
   public readonly refreshAuth: EdgeFunction;
   public readonly signOut: EdgeFunction;
-  public readonly httpHeaders: EdgeFunction;
 
   constructor(scope: Construct, id: string, props: AuthFlowProps) {
     super(scope, id);
@@ -36,7 +34,6 @@ export class AuthFlow extends Construct {
 
     const configuration = {
       logLevel: props.logLevel,
-      httpHeaders: props.httpHeaders,
       redirectPathSignIn: props.redirectPaths.signIn,
       redirectPathAuthRefresh: props.redirectPaths.authRefresh,
       redirectPathSignOut: props.redirectPaths.signOut,
@@ -79,11 +76,6 @@ export class AuthFlow extends Construct {
       edgeRole,
       configuration,
       eventType: aws_cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
-    });
-
-    this.httpHeaders = new HttpHeaders(this, 'HttpHeaders', {
-      httpHeaders: props.httpHeaders,
-      edgeRole,
     });
   }
 }

@@ -9,7 +9,7 @@ import {
   aws_cloudfront_origins,
   aws_s3,
 } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import { Construct, IConstruct } from 'constructs';
 
 import { IAuthorization, IStaticSiteAuthorization, ISpaAuthorization } from './authorizations';
 
@@ -212,7 +212,7 @@ export class BaseDistribution extends Construct implements aws_cloudfront.IDistr
   }
 
   public applyRemovalPolicy(policy: RemovalPolicy) {
-    const child = this.node.defaultChild;
+    const child = this.node.defaultChild as IConstruct;
     if (!child || !CfnResource.isCfnResource(child)) {
       throw new Error('Cannot apply RemovalPolicy: no child or not a CfnResource. Apply the removal policy on the CfnResource directly.');
     }
