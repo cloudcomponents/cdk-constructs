@@ -1,6 +1,9 @@
 import * as crypto from 'crypto';
 import * as path from 'path';
 import {
+  ArnFormat,
+  Stack,
+  Token,
   Duration,
   RemovalPolicy,
   aws_certificatemanager,
@@ -63,6 +66,14 @@ export interface StaticWebsiteProps {
    */
   readonly minimumProtocolVersion?: aws_cloudfront.SecurityPolicyProtocol;
 
+  /**
+   * Hosted zone of the domain which will be used to create alias record(s) from
+   * domain names in the hosted zone to the destination.
+   *
+   * Domain names in the hosted zone can include a specific domain (example.com)
+   * and its subdomains (acme.example.com, zenith.example.com).
+   *
+   */
   readonly hostedZone?: aws_route53.IHostedZone;
 
   /**
@@ -155,7 +166,7 @@ export interface StaticWebsiteProps {
   /**
    * How CloudFront should handle requests that are not successful (e.g., PageNotFound).
    *
-   * @default - No custom error responses.
+   * @default - 403 and 404 are routed as 404 to error.html.
    */
   readonly errorResponses?: aws_cloudfront.ErrorResponse[];
 
@@ -214,10 +225,35 @@ export class StaticWebsite extends Construct {
   constructor(scope: Construct, id: string, props: StaticWebsiteProps = {}) {
     super(scope, id);
 
+    if (props.certificate) {
+      const certificateRegion = Stack.of(this).splitArn(props.certificate.certificateArn, ArnFormat.SLASH_RESOURCE_NAME).region;
+
+      if (!Token.isUnresolved(certificateRegion) && certificateRegion !== 'us-east-1') {
+        throw new Error(`The certificate must be in the us-east-1 region and the certificate you provided is in ${certificateRegion}.`);
+      }
+    }
+
+    const certificate = props.certificate ?? this.createCertificate(props.hostedZone, props.domainNames);
     const enabledIpv6 = props.enableIpv6 ?? true;
     const removalPolicy = props.removalPolicy ?? RemovalPolicy.DESTROY;
 
+    const errorResponses = props.errorResponses ?? [
+      {
+        httpStatus: 404,
+        ttl: Duration.minutes(3),
+        responseHttpStatus: 404,
+        responsePagePath: '/error.html',
+      },
+      {
+        httpStatus: 403,
+        ttl: Duration.minutes(3),
+        responseHttpStatus: 404,
+        responsePagePath: '/error.html',
+      },
+    ];
+
     this.bucket = new aws_s3.Bucket(this, 'Bucket', {
+      blockPublicAccess: aws_s3.BlockPublicAccess.BLOCK_ALL,
       autoDeleteObjects: removalPolicy === RemovalPolicy.DESTROY,
       removalPolicy,
     });
@@ -226,11 +262,11 @@ export class StaticWebsite extends Construct {
       comment: props.comment,
       defaultRootObject: props.defaultRootObject ?? 'index.html',
       domainNames: props.domainNames,
-      certificate: props.certificate,
+      certificate,
       minimumProtocolVersion: props.minimumProtocolVersion ?? aws_cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
       enabled: props.enabled ?? true,
       enableIpv6: enabledIpv6,
-      errorResponses: props.errorResponses,
+      errorResponses,
       defaultBehavior: {
         origin: new aws_cloudfront_origins.S3Origin(this.bucket),
         allowedMethods: aws_cloudfront.AllowedMethods.ALLOW_GET_HEAD,
@@ -292,8 +328,25 @@ export class StaticWebsite extends Construct {
     return new aws_cloudfront.ResponseHeadersPolicy(this, 'ResponseHeadersPolicy', {
       securityHeadersBehavior: securityHeadersBehavior ?? DefaultSecurityHeadersBehavior,
       customHeadersBehavior: {
-        customHeaders: customHeaders ?? [],
+        customHeaders: customHeaders ?? [
+          {
+            header: 'Server',
+            value: 'Server',
+            override: true,
+          },
+        ],
       },
+    });
+  }
+
+  private createCertificate(hostedZone?: aws_route53.IHostedZone, domainNames?: string[]): aws_certificatemanager.ICertificate | undefined {
+    if (!hostedZone || !domainNames || domainNames.length == 0) return;
+
+    return new aws_certificatemanager.DnsValidatedCertificate(this, 'Certificate', {
+      domainName: domainNames[0],
+      subjectAlternativeNames: domainNames,
+      hostedZone,
+      region: 'us-east-1',
     });
   }
 }

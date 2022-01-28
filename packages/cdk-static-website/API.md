@@ -51,6 +51,7 @@
 ### Methods
 
 - [addBehaviour](#addbehaviour)
+- [createCertificate](#createcertificate)
 - [createResponseHeadersPolicy](#createresponseheaderspolicy)
 - [toString](#tostring)
 - [isConstruct](#isconstruct)
@@ -116,6 +117,23 @@ Construct.node
 #### Returns
 
 `void`
+
+___
+
+### createCertificate
+
+▸ `Private` **createCertificate**(`hostedZone?`, `domainNames?`): `undefined` \| `ICertificate`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `hostedZone?` | `IHostedZone` |
+| `domainNames?` | `string`[] |
+
+#### Returns
+
+`undefined` \| `ICertificate`
 
 ___
 
@@ -329,7 +347,7 @@ ___
 
 How CloudFront should handle requests that are not successful (e.g., PageNotFound).
 
-**`default`** - No custom error responses.
+**`default`** - 403 and 404 are routed as 404 to error.html.
 
 ___
 
@@ -346,6 +364,12 @@ ___
 ### hostedZone
 
 • `Optional` `Readonly` **hostedZone**: `IHostedZone`
+
+Hosted zone of the domain which will be used to create alias record(s) from
+domain names in the hosted zone to the destination.
+
+Domain names in the hosted zone can include a specific domain (example.com)
+and its subdomains (acme.example.com, zenith.example.com).
 
 ___
 

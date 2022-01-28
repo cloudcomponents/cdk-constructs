@@ -1,5 +1,5 @@
 import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
-import { RemovalPolicy, Stack, StackProps, aws_certificatemanager, aws_route53, aws_ssm } from 'aws-cdk-lib';
+import { RemovalPolicy, Stack, StackProps, aws_route53 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 export class StaticWebsiteStack extends Stack {
@@ -10,14 +10,9 @@ export class StaticWebsiteStack extends Stack {
       domainName: 'cloudcomponents.org',
     });
 
-    const certificateArn = aws_ssm.StringParameter.valueFromLookup(this, '/certificate/cloudcomponents.org');
-
-    const certificate = aws_certificatemanager.Certificate.fromCertificateArn(this, 'Certificate', certificateArn);
-
     new StaticWebsite(this, 'StaticWebsite', {
       hostedZone,
-      certificate,
-      domainNames: ['www.cloudcomponents.org', 'cloudcomponents.org'],
+      domainNames: ['cloudcomponents.org', 'www.cloudcomponents.org'],
       removalPolicy: RemovalPolicy.DESTROY,
     });
   }

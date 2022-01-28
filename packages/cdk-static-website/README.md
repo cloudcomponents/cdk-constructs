@@ -25,98 +25,87 @@ pip install cloudcomponents.cdk-static-website
 
 ## How to use
 
-### Example 1: With an existing certificate
 ```typescript
-import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
-import { StringParameter } from '@aws-cdk/aws-ssm';
-import { SecurityPolicyProtocol } from '@aws-cdk/aws-cloudfront';
 import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
-import { HttpHeaders } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
+import { RemovalPolicy, Stack, StackProps, aws_route53 } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class StaticWebsiteStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
-    const certificateArn = StringParameter.valueFromLookup(
-      this,
-      '/certificate/cloudcomponents.org',
-    );
-
-    const website = new StaticWebsite(this, 'StaticWebsite', {
-      bucketConfiguration: {
-        removalPolicy: RemovalPolicy.DESTROY,
-      },
-      aliasConfiguration: {
-        domainName: 'cloudcomponents.org',
-        names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
-        acmCertRef: certificateArn,
-      },
+    const hostedZone = aws_route53.HostedZone.fromLookup(this, 'HostedZone', {
+      domainName: 'cloudcomponents.org',
     });
-
-    // A us-east-1 stack is generated under the hood
-    const httpHeaders = new HttpHeaders(this, 'HttpHeaders', {
-      httpHeaders: {
-        'Content-Security-Policy':
-          "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
-        'Strict-Transport-Security':
-          'max-age=31536000; includeSubdomains; preload',
-        'Referrer-Policy': 'same-origin',
-        'X-XSS-Protection': '1; mode=block',
-        'X-Frame-Options': 'DENY',
-        'X-Content-Type-Options': 'nosniff',
-        'Cache-Control': 'no-cache',
-      },
-    });
-
-    website.addLambdaFunctionAssociation(httpHeaders);
-  }
-}
-```
-
-### Example 2: Cloudfront URL with existing sources and up to date Securitypolicy
-
-```typescript
-import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core';
-import { StringParameter } from '@aws-cdk/aws-ssm';
-import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
-import { SecurityPolicyProtocol } from '@aws-cdk/aws-cloudfront';
-
-export class StaticWebsiteWithExistingSourcesAndSecurityPolicyStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
-
-    const certificateArn = StringParameter.valueFromLookup(
-      this,
-      '/certificate/cloudcomponents.org',
-    );
 
     new StaticWebsite(this, 'StaticWebsite', {
-      bucketConfiguration: {
-        source: '../path/to/your/static/webpage',
-        removalPolicy: RemovalPolicy.DESTROY,
-      },
-      aliasConfiguration: {
-        domainName: 'cloudcomponents.org',
-        names: ['www.cloudcomponents.org', 'cloudcomponents.org'],
-        acmCertRef: certificateArn,
-        securityPolicy: SecurityPolicyProtocol.TLS_V1_2_2018
-      },
+      hostedZone,
+      domainNames: ['cloudcomponents.org', 'www.cloudcomponents.org'],
+      removalPolicy: RemovalPolicy.DESTROY,
     });
   }
 }
 ```
 
-### Lambda@Edge function
+### Single page application (SPA)
 
 ```typescript
-website.addLambdaFunctionAssociation({
-  eventType: LambdaEdgeEventType.ORIGIN_REQUEST,
-  lambdaFunction: Version.fromVersionArn(
-    stack,
-    'LambdaEdge',
-    'arn:aws:lambda:us-east-1:123456789012:function:my-function:1',
-  ),
-});
+import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
+import { RemovalPolicy, Stack, StackProps, aws_route53 } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+
+export class StaticWebsiteStack extends Stack {
+  constructor(scope: Construct, id: string, props: StackProps) {
+    super(scope, id, props);
+
+    const hostedZone = aws_route53.HostedZone.fromLookup(this, 'HostedZone', {
+      domainName: 'cloudcomponents.org',
+    });
+
+    new StaticWebsite(this, 'StaticWebsite', {
+      hostedZone,
+      domainNames: ['cloudcomponents.org', 'www.cloudcomponents.org'],
+      errorResponses: [
+        {
+          httpStatus: 404,
+          responseHttpStatus: 200,
+          ttl: props.ttl ?? Duration.seconds(300),
+          responsePagePath: '/index.html',
+        },
+      ],
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+  }
+}
+```
+
+### Lambda at edge
+
+```typescript
+import { StaticWebsite } from '@cloudcomponents/cdk-static-website';
+import { OriginMutation } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
+import { RemovalPolicy, Stack, StackProps, aws_route53 } from 'aws-cdk-lib';
+
+import { Construct } from 'constructs';
+
+export class StaticWebsiteStack extends Stack {
+  constructor(scope: Construct, id: string, props: StackProps) {
+    super(scope, id, props);
+
+    const hostedZone = aws_route53.HostedZone.fromLookup(this, 'HostedZone', {
+      domainName: 'cloudcomponents.org',
+    });
+
+    const originMutation = new OriginMutation(stack, 'OriginMutation');
+
+    new StaticWebsite(this, 'StaticWebsite', {
+      hostedZone,
+      domainNames: ['cloudcomponents.org', 'www.cloudcomponents.org'],
+      edgeLambdas: [originMutation],
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+  }
+}
 ```
 
 ## API Reference
