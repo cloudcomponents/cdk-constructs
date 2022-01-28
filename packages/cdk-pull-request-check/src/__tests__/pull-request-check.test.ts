@@ -1,8 +1,8 @@
-import { BuildSpec, ComputeType, LinuxBuildImage } from '@aws-cdk/aws-codebuild';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { Topic } from '@aws-cdk/aws-sns';
-import { Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
+import { BuildSpec, ComputeType, LinuxBuildImage } from 'aws-cdk-lib/aws-codebuild';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
+import { Topic } from 'aws-cdk-lib/aws-sns';
 import 'jest-cdk-snapshot';
 
 import { PullRequestCheck } from '../pull-request-check';
@@ -42,7 +42,7 @@ test('custom setup', (): void => {
     repository,
     buildSpec: BuildSpec.fromSourceFilename('buildspecs/prcheck.yml'),
     computeType: ComputeType.LARGE,
-    buildImage: LinuxBuildImage.UBUNTU_14_04_PYTHON_3_7_1,
+    buildImage: LinuxBuildImage.STANDARD_5_0,
   });
 
   // THEN

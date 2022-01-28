@@ -1,6 +1,7 @@
-import { IRepository } from '@aws-cdk/aws-codecommit';
-import { OnEventOptions, Rule } from '@aws-cdk/aws-events';
-import { Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
+import { CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from 'aws-cdk-lib';
+import { IRepository } from 'aws-cdk-lib/aws-codecommit';
+import { OnEventOptions, Rule } from 'aws-cdk-lib/aws-events';
+import { Construct } from 'constructs';
 
 import { approvalRuleTemplateRepositoryAssociationDir } from './directories';
 
@@ -28,7 +29,7 @@ export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
 
     const serviceToken = CustomResourceProvider.getOrCreate(this, resourceType, {
       codeDirectory: approvalRuleTemplateRepositoryAssociationDir,
-      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      runtime: CustomResourceProviderRuntime.NODEJS_14_X,
       policyStatements: [
         {
           Effect: 'Allow',

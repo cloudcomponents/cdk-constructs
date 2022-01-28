@@ -1,4 +1,5 @@
-import { Construct, CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from '@aws-cdk/core';
+import { CustomResource, CustomResourceProvider, CustomResourceProviderRuntime } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { approvalRuleTemplateDir } from './directories';
 
@@ -39,7 +40,7 @@ export class ApprovalRuleTemplate extends Construct {
 
     const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::ApprovalRuleTemplate', {
       codeDirectory: approvalRuleTemplateDir,
-      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      runtime: CustomResourceProviderRuntime.NODEJS_14_X,
       policyStatements: [
         {
           Effect: 'Allow',
