@@ -41,7 +41,7 @@ export class S3CodeCommitBackup extends Construct {
 
     const { repositoryName, repositoryCloneUrlHttp, repositoryArn } = repository;
 
-    const buildImage = LinuxBuildImage.STANDARD_2_0;
+    const buildImage = LinuxBuildImage.STANDARD_5_0;
 
     this.backupProject = new Project(this, 'BackupProject', {
       environment: {
