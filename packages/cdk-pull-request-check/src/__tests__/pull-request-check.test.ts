@@ -1,9 +1,9 @@
 import { Stack } from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
 import { BuildSpec, ComputeType, LinuxBuildImage } from 'aws-cdk-lib/aws-codebuild';
 import { Repository } from 'aws-cdk-lib/aws-codecommit';
 import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
 import { Topic } from 'aws-cdk-lib/aws-sns';
-import 'jest-cdk-snapshot';
 
 import { PullRequestCheck } from '../pull-request-check';
 
@@ -23,9 +23,8 @@ test('default setup', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot({
-    ignoreAssets: true,
-  });
+  const template = Template.fromStack(stack);
+  expect(template.toJSON()).toMatchSnapshot();
 });
 
 test('custom setup', (): void => {
@@ -46,9 +45,8 @@ test('custom setup', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot({
-    ignoreAssets: true,
-  });
+  const template = Template.fromStack(stack);
+  expect(template.toJSON()).toMatchSnapshot();
 });
 
 test('privileged', (): void => {
@@ -68,9 +66,8 @@ test('privileged', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot({
-    ignoreAssets: true,
-  });
+  const template = Template.fromStack(stack);
+  expect(template.toJSON()).toMatchSnapshot();
 });
 
 test('custom projectName', (): void => {
@@ -90,9 +87,8 @@ test('custom projectName', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot({
-    ignoreAssets: true,
-  });
+  const template = Template.fromStack(stack);
+  expect(template.toJSON()).toMatchSnapshot();
 });
 
 test('events', (): void => {
@@ -118,9 +114,8 @@ test('events', (): void => {
   prCheck.onCheckFailed('failed', { target: new SnsTopic(topic) });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot({
-    ignoreAssets: true,
-  });
+  const template = Template.fromStack(stack);
+  expect(template.toJSON()).toMatchSnapshot();
 });
 
 test('randomizer', (): void => {
@@ -145,7 +140,6 @@ test('randomizer', (): void => {
   });
 
   // THEN
-  expect(stack).toMatchCdkSnapshot({
-    ignoreAssets: true,
-  });
+  const template = Template.fromStack(stack);
+  expect(template.toJSON()).toMatchSnapshot();
 });

@@ -2,7 +2,13 @@
 
 exports[`custom projectName 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -10,7 +16,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -447,7 +458,13 @@ Object {
 
 exports[`custom setup 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -455,7 +472,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -905,7 +927,13 @@ Object {
 
 exports[`default setup 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -913,7 +941,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -1363,7 +1396,13 @@ Object {
 
 exports[`events 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -1371,7 +1410,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -1945,7 +1989,13 @@ Object {
 
 exports[`privileged 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -1953,7 +2003,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -2403,7 +2458,13 @@ Object {
 
 exports[`randomizer 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheck1CodeBuildResultFunction92561847": Object {
       "DependsOn": Array [
@@ -2411,7 +2472,12 @@ Object {
         "PullRequestCheck1CodeBuildResultFunctionServiceRole56BD8BE4",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -2759,7 +2825,12 @@ Object {
         "PullRequestCheck2CodeBuildResultFunctionServiceRole5CE92E16",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
