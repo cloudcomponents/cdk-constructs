@@ -1,10 +1,11 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Schedule } from '@aws-cdk/aws-events';
-import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { Topic } from '@aws-cdk/aws-sns';
-import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import { Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
 import { BackupBucket, S3CodeCommitBackup } from '@cloudcomponents/cdk-codecommit-backup';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Schedule } from 'aws-cdk-lib/aws-events';
+import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
+import { Topic } from 'aws-cdk-lib/aws-sns';
+import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+import { Construct } from 'constructs';
 
 export class CodeCommitBackupStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

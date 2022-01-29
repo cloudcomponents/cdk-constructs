@@ -1,10 +1,10 @@
-import { BuildSpec, LinuxBuildImage, Project, ComputeType } from '@aws-cdk/aws-codebuild';
-import { IRepository } from '@aws-cdk/aws-codecommit';
-import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
-import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Construct } from '@aws-cdk/core';
+import { BuildSpec, ComputeType, LinuxBuildImage, Project } from 'aws-cdk-lib/aws-codebuild';
+import { IRepository } from 'aws-cdk-lib/aws-codecommit';
+import { OnEventOptions, Rule, Schedule } from 'aws-cdk-lib/aws-events';
+import { CodeBuildProject } from 'aws-cdk-lib/aws-events-targets';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Construct } from 'constructs';
 
 export interface S3CodeCommitBackupProps {
   /**

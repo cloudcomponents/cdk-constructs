@@ -1,9 +1,9 @@
 import 'jest-cdk-snapshot';
-import { Schedule } from '@aws-cdk/aws-events';
-import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { Topic } from '@aws-cdk/aws-sns';
-import { Stack } from '@aws-cdk/core';
 
+import { Stack } from 'aws-cdk-lib';
+import { Schedule } from 'aws-cdk-lib/aws-events';
+import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
+import { Topic } from 'aws-cdk-lib/aws-sns';
 import { BackupBucket } from '../backup-bucket';
 import { FullRegionS3CodeCommitBackup } from '../full-region-s3-codecommit-backup';
 
