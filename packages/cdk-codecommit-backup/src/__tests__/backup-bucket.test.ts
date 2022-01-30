@@ -1,6 +1,5 @@
-import { Stack, Duration } from '@aws-cdk/core';
 import 'jest-cdk-snapshot';
-
+import { Duration, Stack } from 'aws-cdk-lib';
 import { BackupBucket } from '../backup-bucket';
 
 test('default setup', (): void => {

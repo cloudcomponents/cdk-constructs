@@ -1,8 +1,8 @@
 import * as path from 'path';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { Topic } from '@aws-cdk/aws-sns';
-import { Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
+import { Topic } from 'aws-cdk-lib/aws-sns';
 import 'jest-cdk-snapshot';
 
 import { ApprovalRuleTemplateRepositoryAssociation } from '../approval-rule-template-repository-association';

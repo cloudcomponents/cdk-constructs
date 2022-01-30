@@ -2,7 +2,13 @@
 
 exports[`custom projectName 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -10,7 +16,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -24,7 +35,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -142,7 +153,7 @@ Object {
         "EncryptionKey": "alias/aws/s3",
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:4.0",
+          "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -415,12 +426,45 @@ Object {
       "Type": "AWS::Events::Rule",
     },
   },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
 }
 `;
 
 exports[`custom setup 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -428,7 +472,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -442,7 +491,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -560,7 +609,7 @@ Object {
         "EncryptionKey": "alias/aws/s3",
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_LARGE",
-          "Image": "aws/codebuild/python:3.7.1",
+          "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -844,6 +893,33 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
     },
   },
 }
@@ -851,7 +927,13 @@ Object {
 
 exports[`default setup 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -859,7 +941,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -873,7 +960,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -991,7 +1078,7 @@ Object {
         "EncryptionKey": "alias/aws/s3",
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:4.0",
+          "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -1277,12 +1364,45 @@ Object {
       "Type": "AWS::Events::Rule",
     },
   },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
 }
 `;
 
 exports[`events 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -1290,7 +1410,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -1304,7 +1429,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -1422,7 +1547,7 @@ Object {
         "EncryptionKey": "alias/aws/s3",
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:4.0",
+          "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -1832,12 +1957,45 @@ Object {
       "Type": "AWS::SNS::TopicPolicy",
     },
   },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
 }
 `;
 
 exports[`privileged 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheckCodeBuildResultFunctionE246172A": Object {
       "DependsOn": Array [
@@ -1845,7 +2003,12 @@ Object {
         "PullRequestCheckCodeBuildResultFunctionServiceRole18C3CF5B",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -1859,7 +2022,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -1977,7 +2140,7 @@ Object {
         "EncryptionKey": "alias/aws/s3",
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:4.0",
+          "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": true,
           "Type": "LINUX_CONTAINER",
@@ -2263,12 +2426,45 @@ Object {
       "Type": "AWS::Events::Rule",
     },
   },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
 }
 `;
 
 exports[`randomizer 1`] = `
 Object {
-  "Parameters": Any<Object>,
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": Object {
     "PullRequestCheck1CodeBuildResultFunction92561847": Object {
       "DependsOn": Array [
@@ -2276,7 +2472,12 @@ Object {
         "PullRequestCheck1CodeBuildResultFunctionServiceRole56BD8BE4",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -2290,7 +2491,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -2365,7 +2566,7 @@ Object {
         "EncryptionKey": "alias/aws/s3",
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:4.0",
+          "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -2624,7 +2825,12 @@ Object {
         "PullRequestCheck2CodeBuildResultFunctionServiceRole5CE92E16",
       ],
       "Properties": Object {
-        "Code": Any<Object>,
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c662fdaec2573111fc66de19d48f7f1137ac86dad620fab7a3a7ae0b5593cfb5.zip",
+        },
         "Environment": Object {
           "Variables": Object {
             "POST_COMMENT": "TRUE",
@@ -2638,7 +2844,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -2713,7 +2919,7 @@ Object {
         "EncryptionKey": "alias/aws/s3",
         "Environment": Object {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:4.0",
+          "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -3081,6 +3287,33 @@ Object {
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
     },
   },
 }
