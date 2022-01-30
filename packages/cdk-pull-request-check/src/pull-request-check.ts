@@ -1,12 +1,21 @@
 import * as path from 'path';
-import { BuildSpec, ComputeType, IBuildImage, LinuxBuildImage, Project, Source, BuildEnvironmentVariable, IArtifacts } from '@aws-cdk/aws-codebuild';
-import { IRepository } from '@aws-cdk/aws-codecommit';
-import { IVpc, SubnetSelection, ISecurityGroup } from '@aws-cdk/aws-ec2';
-import { EventField, RuleTargetInput, OnEventOptions, Rule } from '@aws-cdk/aws-events';
-import { CodeBuildProject, LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { PolicyStatement, Effect, IRole } from '@aws-cdk/aws-iam';
-import { Code, Function, IFunction, Runtime } from '@aws-cdk/aws-lambda';
-import { Construct } from '@aws-cdk/core';
+import {
+  BuildEnvironmentVariable,
+  BuildSpec,
+  ComputeType,
+  IArtifacts,
+  IBuildImage,
+  LinuxBuildImage,
+  Project,
+  Source,
+} from 'aws-cdk-lib/aws-codebuild';
+import { IRepository } from 'aws-cdk-lib/aws-codecommit';
+import { ISecurityGroup, IVpc, SubnetSelection } from 'aws-cdk-lib/aws-ec2';
+import { EventField, OnEventOptions, Rule, RuleTargetInput } from 'aws-cdk-lib/aws-events';
+import { CodeBuildProject, LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+import { Effect, IRole, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Code, Function, IFunction, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Construct } from 'constructs';
 
 export interface PullRequestCheckProps {
   /**
@@ -134,7 +143,7 @@ export class PullRequestCheck extends Construct {
     const {
       repository,
       buildSpec,
-      buildImage = LinuxBuildImage.STANDARD_4_0,
+      buildImage = LinuxBuildImage.STANDARD_5_0,
       computeType = buildImage.defaultComputeType,
       privileged = false,
       updateApprovalState = true,
@@ -171,7 +180,7 @@ export class PullRequestCheck extends Construct {
 
     if (updateApprovalState || postComment) {
       this.codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
-        runtime: Runtime.NODEJS_12_X,
+        runtime: Runtime.NODEJS_14_X,
         code: Code.fromAsset(path.join(__dirname, 'lambdas', 'code-build-result')),
         handler: 'index.handler',
         environment: {

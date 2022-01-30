@@ -1,8 +1,9 @@
-import { BuildSpec } from '@aws-cdk/aws-codebuild';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { ApprovalRuleTemplate, ApprovalRuleTemplateRepositoryAssociation } from '@cloudcomponents/cdk-pull-request-approval-rule';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Construct } from 'constructs';
 
 export class PullRequestStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
