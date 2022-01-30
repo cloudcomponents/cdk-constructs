@@ -1,11 +1,11 @@
 import * as path from 'path';
-import { BuildSpec, LinuxBuildImage, Project, ComputeType } from '@aws-cdk/aws-codebuild';
-import { Rule, Schedule, OnEventOptions } from '@aws-cdk/aws-events';
-import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Asset } from '@aws-cdk/aws-s3-assets';
-import { Construct } from '@aws-cdk/core';
+import { BuildSpec, ComputeType, LinuxBuildImage, Project } from 'aws-cdk-lib/aws-codebuild';
+import { OnEventOptions, Rule, Schedule } from 'aws-cdk-lib/aws-events';
+import { CodeBuildProject } from 'aws-cdk-lib/aws-events-targets';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Asset } from 'aws-cdk-lib/aws-s3-assets';
+import { Construct } from 'constructs';
 
 const S3_BUCKET_ENV = 'SCRIPTS_BUCKET';
 const S3_KEY_ENV = 'SCRIPTS_BUCKET_KEY';
@@ -49,7 +49,7 @@ export class FullRegionS3CodeCommitBackup extends Construct {
       path: path.join(__dirname, '..', 'scripts'),
     });
 
-    const buildImage = LinuxBuildImage.STANDARD_2_0;
+    const buildImage = LinuxBuildImage.STANDARD_5_0;
 
     this.backupProject = new Project(this, 'FullRegionBackupProject', {
       environment: {
