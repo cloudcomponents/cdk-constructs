@@ -99,7 +99,7 @@
     "@aws-cdk/core" "1.140.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-certificatemanager@1.140.0", "@aws-cdk/aws-certificatemanager@^1.140.0":
+"@aws-cdk/aws-certificatemanager@1.140.0":
   version "1.140.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-certificatemanager/-/aws-certificatemanager-1.140.0.tgz#09c404132a451efea5abfd1a91bedf25d2c45594"
   integrity sha512-ZtY1fT3EVXzBGdadkai50/xk/J8c/14kq3JXxtCkGLZCK0gecjWmwnCxKv01t3fFBqQ4ix+C5w4GvksmC/yvjQ==
@@ -138,19 +138,7 @@
     "@aws-cdk/cx-api" "1.140.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-cloudfront-origins@^1.140.0":
-  version "1.140.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudfront-origins/-/aws-cloudfront-origins-1.140.0.tgz#50ea5778aa482ec8706a099f1f610198f7ac049d"
-  integrity sha512-xWe/1YlTq9qYNJVjygFtiDlZh/iD3uxEaSpMRSnb2S9Ipx0qdPmGdhX/HPk+25AQg5bqiggMlKZ9jWV2FQgpCQ==
-  dependencies:
-    "@aws-cdk/aws-cloudfront" "1.140.0"
-    "@aws-cdk/aws-elasticloadbalancingv2" "1.140.0"
-    "@aws-cdk/aws-iam" "1.140.0"
-    "@aws-cdk/aws-s3" "1.140.0"
-    "@aws-cdk/core" "1.140.0"
-    constructs "^3.3.69"
-
-"@aws-cdk/aws-cloudfront@1.140.0", "@aws-cdk/aws-cloudfront@^1.140.0":
+"@aws-cdk/aws-cloudfront@1.140.0":
   version "1.140.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudfront/-/aws-cloudfront-1.140.0.tgz#a1383be39e3306d8ca32d936d06d399242c864e7"
   integrity sha512-AqNhSodQyYzCAVuiiZunVKcOGIlWbkqVpM0Q37PLn7IW/PaIujHrDm2x0Kw96haq9qst3BAXUBTF62WWED0Riw==
@@ -285,7 +273,7 @@
     "@aws-cdk/core" "1.140.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-cognito@1.140.0", "@aws-cdk/aws-cognito@^1.140.0":
+"@aws-cdk/aws-cognito@1.140.0":
   version "1.140.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cognito/-/aws-cognito-1.140.0.tgz#afb1ab8fde72e74484386377d0d09456fbb79449"
   integrity sha512-4yJRBM0bbdGeSbQXI8ZT2sVre4zBzfs8GzjZ1PHuJprFc78dsMuwH9D88M8LE9ldCvlaaS+gexjJrsZQJNw+mw==
@@ -593,7 +581,7 @@
     "@aws-cdk/cx-api" "1.140.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-route53-targets@1.140.0", "@aws-cdk/aws-route53-targets@^1.140.0":
+"@aws-cdk/aws-route53-targets@1.140.0":
   version "1.140.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-route53-targets/-/aws-route53-targets-1.140.0.tgz#05e12b3205e8bdf4261a792af5ae64abb6f1294e"
   integrity sha512-0SlpMqicSWpzxsAry7c7HZ5DeIp3wtJrOSaZjmR9XPUKRBkYk9VuKF5uGmtxIin50KB1LFc3sO4sPjsaKxZ/bA==
@@ -612,7 +600,7 @@
     "@aws-cdk/region-info" "1.140.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-route53@1.140.0", "@aws-cdk/aws-route53@^1.140.0":
+"@aws-cdk/aws-route53@1.140.0":
   version "1.140.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-route53/-/aws-route53-1.140.0.tgz#93152a2dffe4c04d2520cf031a53a7bf800393ef"
   integrity sha512-jEiHuxk5+WHkxDCkTf20RrxcdeadiBZ/UcBURBt1nu2dPLGUBlRG653wxFhdaVBbQ4+yn2LnKg8079XITe/Vcw==
@@ -625,7 +613,7 @@
     "@aws-cdk/custom-resources" "1.140.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-s3-assets@1.140.0", "@aws-cdk/aws-s3-assets@^1.140.0":
+"@aws-cdk/aws-s3-assets@1.140.0":
   version "1.140.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3-assets/-/aws-s3-assets-1.140.0.tgz#999efb70fb205cf4699059b01205d5c51ff96b41"
   integrity sha512-R9pxxTQyr2CRAO5H3fN5y69wAw/otthWeeAYOZXWvEKxFAXCv6qHP2qP07v3lrZ47Oq6wqNBf9w9qGgedVGerQ==
@@ -636,24 +624,6 @@
     "@aws-cdk/aws-s3" "1.140.0"
     "@aws-cdk/core" "1.140.0"
     "@aws-cdk/cx-api" "1.140.0"
-    constructs "^3.3.69"
-
-"@aws-cdk/aws-s3-deployment@^1.140.0":
-  version "1.140.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3-deployment/-/aws-s3-deployment-1.140.0.tgz#9687af14212b77e1a3104e84cab54e53f228c9ec"
-  integrity sha512-pvvGrYqyQ93VCcSiKiYMKcyyrWMcIc+Ak9MPaJafl4ypwPnN9w2BVklEo2h87vCIcMZs2dIUoBQlX/U0N43yaw==
-  dependencies:
-    "@aws-cdk/aws-cloudfront" "1.140.0"
-    "@aws-cdk/aws-ec2" "1.140.0"
-    "@aws-cdk/aws-efs" "1.140.0"
-    "@aws-cdk/aws-iam" "1.140.0"
-    "@aws-cdk/aws-lambda" "1.140.0"
-    "@aws-cdk/aws-logs" "1.140.0"
-    "@aws-cdk/aws-s3" "1.140.0"
-    "@aws-cdk/aws-s3-assets" "1.140.0"
-    "@aws-cdk/core" "1.140.0"
-    "@aws-cdk/lambda-layer-awscli" "1.140.0"
-    case "1.6.3"
     constructs "^3.3.69"
 
 "@aws-cdk/aws-s3-notifications@1.140.0":
@@ -770,7 +740,7 @@
     "@aws-cdk/core" "1.140.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-ssm@1.140.0", "@aws-cdk/aws-ssm@^1.140.0":
+"@aws-cdk/aws-ssm@1.140.0":
   version "1.140.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ssm/-/aws-ssm-1.140.0.tgz#fb465d429d5126becd2bdbfc1bd83d4883b029f7"
   integrity sha512-SNf1OVpbS71L52b6X9nO7YZGWnPlDKzGQpbIQmhgx6twakZ6nz3jNScXVc8NR+NMVHoNVRh1j5anOoaN45bcAQ==
@@ -858,15 +828,6 @@
   dependencies:
     "@aws-cdk/cloud-assembly-schema" "1.140.0"
     semver "^7.3.5"
-
-"@aws-cdk/lambda-layer-awscli@1.140.0":
-  version "1.140.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/lambda-layer-awscli/-/lambda-layer-awscli-1.140.0.tgz#b0a3ecd48cf9f350276453979635e914f7c75f03"
-  integrity sha512-uchmIPHXF9buNxS6dVF3t4NxVBXXezczyQb8kMG/VYHqhlwYKDoYUOBacaM/d1K1w7JiCxAwEvPKaf7RfbgV+g==
-  dependencies:
-    "@aws-cdk/aws-lambda" "1.140.0"
-    "@aws-cdk/core" "1.140.0"
-    constructs "^3.3.69"
 
 "@aws-cdk/region-info@1.140.0":
   version "1.140.0"
@@ -4221,10 +4182,10 @@ cdk-assets@1.140.0:
     mime "^2.6.0"
     yargs "^16.2.0"
 
-cdkdx@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/cdkdx/-/cdkdx-1.6.1.tgz#01272e51219911eac0461b7cad35718fcc1d436f"
-  integrity sha512-o567e6+KCuUWUaZ0Psh2zsgkXeR98MOe7aJY0+zQnU07hExtuR2+MAq7Ee00+bc6yo+6clzC0Vgnh2FQJUhq5Q==
+cdkdx@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/cdkdx/-/cdkdx-1.7.0.tgz#e70aa3e9badd54732060fa8ac5c01e5a36aad5d2"
+  integrity sha512-+aCE+jj23R/a3bBTsO5CjbFl9CuYR3bb/BEb+cGpb8Bbn3iQ36HveGIZ/rrryeS4U24TyBPD1zCUn67pt1dIfg==
   dependencies:
     "@types/aws-lambda" "^8.10.84"
     "@types/jest" "^27.0.2"
@@ -4240,7 +4201,7 @@ cdkdx@^1.6.1:
     eslint-config-cdk "^1.5.3"
     eslint-config-prettier "^8.2.0"
     eslint-import-resolver-typescript "^2.4.0"
-    eslint-plugin-cdk "^1.6.0"
+    eslint-plugin-cdk "^1.7.0"
     eslint-plugin-import "^2.25.2"
     eslint-plugin-jest "^25.2.2"
     eslint-plugin-prettier "^4.0.0"
@@ -4248,6 +4209,7 @@ cdkdx@^1.6.1:
     fork-ts-checker-webpack-plugin "^6.2.1"
     friendly-errors-webpack-plugin "^1.7.0"
     fs-extra "^10.0.0"
+    globby "^11.0.4"
     gzip-size "^6.0.0"
     html-loader "^1.3.2"
     jest "^27.2.4"
@@ -4267,7 +4229,7 @@ cdkdx@^1.6.1:
     ts-node "^10.3.0"
     typedoc "^0.22.4"
     typedoc-plugin-markdown "^3.6.1"
-    typescript "4.5.2"
+    typescript "4.5.5"
     v8-compile-cache "^2.3.0"
     webpack "^4.46.0"
     webpack-license-plugin "^4.2.1"
@@ -6135,10 +6097,10 @@ eslint-module-utils@^2.7.2:
     debug "^3.2.7"
     find-up "^2.1.0"
 
-eslint-plugin-cdk@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-cdk/-/eslint-plugin-cdk-1.6.0.tgz#8bcb72a9d5a082adcfb2ccd12d07759756fa1e26"
-  integrity sha512-UpH6zrVJx96MyUUcvYMDKEjv/WDg5oijojPf6eeiU8xADkuDd96y9tSOAlI4KjOi4SHun5pJZlGvwoNWYtp6uw==
+eslint-plugin-cdk@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-cdk/-/eslint-plugin-cdk-1.7.0.tgz#9cdcfb8e2f75436e8c1b1c2b5c638cfe86b7d9da"
+  integrity sha512-lGKMUjJTi6p/mBfrCuL3qNOyAL3VXAxITx1l0JxFuzG/g4YEEBt/+TbcaKwNdtPQTyWeiIH/mv2ZoeG4tqjRLA==
   dependencies:
     "@typescript-eslint/experimental-utils" "^5.4.0"
     read-pkg-up "^7.0.1"
@@ -14073,10 +14035,10 @@ typedoc@^0.22.4:
     minimatch "^3.0.4"
     shiki "^0.9.12"
 
-typescript@4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
-  integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
+typescript@4.5.5:
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
+  integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==
 
 typescript@~3.9.10:
   version "3.9.10"

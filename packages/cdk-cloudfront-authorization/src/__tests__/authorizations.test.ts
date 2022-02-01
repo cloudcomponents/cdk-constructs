@@ -1,6 +1,5 @@
 import 'jest-cdk-snapshot';
-import { UserPool } from '@aws-cdk/aws-cognito';
-import { App, Stack } from '@aws-cdk/core';
+import { App, Stack, aws_cognito } from 'aws-cdk-lib';
 
 import { SpaAuthorization, StaticSiteAuthorization } from '../authorizations';
 
@@ -13,7 +12,7 @@ test('default spa setup', (): void => {
     },
   });
 
-  const userPool = new UserPool(stack, 'UserPool', {
+  const userPool = new aws_cognito.UserPool(stack, 'UserPool', {
     selfSignUpEnabled: false,
     userPoolName: 'cloudfront-authorization-userpool',
   });
@@ -34,12 +33,6 @@ test('default spa setup', (): void => {
     propertyMatchers: {
       Resources: {
         SpaAuthorizationAuthFlowcheckauthProviderAD2E39F4: {
-          Properties: {
-            Create: expect.any(String),
-            Update: expect.any(String),
-          },
-        },
-        SpaAuthorizationAuthFlowhttpheadersProviderCAB23200: {
           Properties: {
             Create: expect.any(String),
             Update: expect.any(String),
@@ -77,7 +70,7 @@ test('default static-site setup', (): void => {
     },
   });
 
-  const userPool = new UserPool(stack, 'UserPool', {
+  const userPool = new aws_cognito.UserPool(stack, 'UserPool', {
     selfSignUpEnabled: false,
     userPoolName: 'cloudfront-authorization-userpool',
   });
@@ -98,12 +91,6 @@ test('default static-site setup', (): void => {
     propertyMatchers: {
       Resources: {
         StaticSiteAuthorizationAuthFlowcheckauthProviderA6235A8D: {
-          Properties: {
-            Create: expect.any(String),
-            Update: expect.any(String),
-          },
-        },
-        StaticSiteAuthorizationAuthFlowhttpheadersProvider1776DA6C: {
           Properties: {
             Create: expect.any(String),
             Update: expect.any(String),

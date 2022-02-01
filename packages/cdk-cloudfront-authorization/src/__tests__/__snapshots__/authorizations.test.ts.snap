@@ -67,7 +67,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
       },
       "Type": "AWS::Lambda::Function",
@@ -128,19 +128,6 @@ Object {
                 ],
               },
             },
-            Object {
-              "Action": Array [
-                "lambda:GetFunction",
-                "lambda:UpdateFunctionCode",
-              ],
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "SpaAuthorizationAuthFlowhttpheadersProviderCAB23200",
-                  "Parameter.Value",
-                ],
-              },
-            },
           ],
           "Version": "2012-10-17",
         },
@@ -197,7 +184,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -246,7 +233,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -316,15 +303,6 @@ Object {
             Array [
               "{
   \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  },
   \\"redirectPathSignIn\\": \\"/parseauth\\",
   \\"redirectPathAuthRefresh\\": \\"/refreshauth\\",
   \\"redirectPathSignOut\\": \\"/\\",
@@ -395,48 +373,6 @@ Object {
       "Type": "Custom::WithConfiguration",
       "UpdateReplacePolicy": "Delete",
     },
-    "SpaAuthorizationAuthFlowHttpHeadersWithConfiguration4714CE87": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Configuration": "{
-  \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  }
-}",
-        "FunctionName": Object {
-          "Fn::Select": Array [
-            6,
-            Object {
-              "Fn::Split": Array [
-                ":",
-                Object {
-                  "Fn::GetAtt": Array [
-                    "SpaAuthorizationAuthFlowhttpheadersProviderCAB23200",
-                    "Parameter.Value",
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        "Region": "us-east-1",
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "Custom::WithConfiguration",
-      "UpdateReplacePolicy": "Delete",
-    },
     "SpaAuthorizationAuthFlowParseAuthWithConfiguration2E496D2B": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
@@ -446,15 +382,6 @@ Object {
             Array [
               "{
   \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  },
   \\"redirectPathSignIn\\": \\"/parseauth\\",
   \\"redirectPathAuthRefresh\\": \\"/refreshauth\\",
   \\"redirectPathSignOut\\": \\"/\\",
@@ -534,15 +461,6 @@ Object {
             Array [
               "{
   \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  },
   \\"redirectPathSignIn\\": \\"/parseauth\\",
   \\"redirectPathAuthRefresh\\": \\"/refreshauth\\",
   \\"redirectPathSignOut\\": \\"/\\",
@@ -622,15 +540,6 @@ Object {
             Array [
               "{
   \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  },
   \\"redirectPathSignIn\\": \\"/parseauth\\",
   \\"redirectPathAuthRefresh\\": \\"/refreshauth\\",
   \\"redirectPathSignOut\\": \\"/\\",
@@ -748,61 +657,6 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "SpaAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyEB70BE7B",
-        "Roles": Array [
-          Object {
-            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "SpaAuthorizationAuthFlowhttpheadersProviderCAB23200": Object {
-      "DeletionPolicy": "Delete",
-      "DependsOn": Array [
-        "SpaAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy62224D55",
-      ],
-      "Properties": Object {
-        "Create": Any<String>,
-        "InstallLatestAwsSdk": true,
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
-            "Arn",
-          ],
-        },
-        "Update": Any<String>,
-      },
-      "Type": "Custom::AWS",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "SpaAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy62224D55": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "SpaAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy62224D55",
         "Roles": Array [
           Object {
             "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
@@ -976,6 +830,51 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
+    "SpaAuthorizationResponseHeadersPolicyA5002A50": Object {
+      "Properties": Object {
+        "ResponseHeadersPolicyConfig": Object {
+          "CustomHeadersConfig": Object {
+            "Items": Array [
+              Object {
+                "Header": "Cache-Control",
+                "Override": true,
+                "Value": "no-cache",
+              },
+            ],
+          },
+          "Name": "DummySpaAuthorizationResponseHeadersPolicyA39100DF",
+          "SecurityHeadersConfig": Object {
+            "ContentSecurityPolicy": Object {
+              "ContentSecurityPolicy": "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+              "Override": true,
+            },
+            "ContentTypeOptions": Object {
+              "Override": true,
+            },
+            "FrameOptions": Object {
+              "FrameOption": "DENY",
+              "Override": true,
+            },
+            "ReferrerPolicy": Object {
+              "Override": true,
+              "ReferrerPolicy": "same-origin",
+            },
+            "StrictTransportSecurity": Object {
+              "AccessControlMaxAgeSec": 31536000,
+              "IncludeSubdomains": true,
+              "Override": true,
+              "Preload": true,
+            },
+            "XSSProtection": Object {
+              "ModeBlock": true,
+              "Override": true,
+              "Protection": true,
+            },
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::ResponseHeadersPolicy",
+    },
     "SpaAuthorizationSecretGeneratorCustomResource7B87C244": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
@@ -1076,6 +975,33 @@ Object {
       "Type": "AWS::Cognito::UserPoolClient",
     },
   },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
 }
 `;
 
@@ -1146,7 +1072,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
         "Timeout": 300,
       },
       "Type": "AWS::Lambda::Function",
@@ -1207,19 +1133,6 @@ Object {
                 ],
               },
             },
-            Object {
-              "Action": Array [
-                "lambda:GetFunction",
-                "lambda:UpdateFunctionCode",
-              ],
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "StaticSiteAuthorizationAuthFlowhttpheadersProvider1776DA6C",
-                  "Parameter.Value",
-                ],
-              },
-            },
           ],
           "Version": "2012-10-17",
         },
@@ -1276,7 +1189,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -1325,7 +1238,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -1395,15 +1308,6 @@ Object {
             Array [
               "{
   \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  },
   \\"redirectPathSignIn\\": \\"/parseauth\\",
   \\"redirectPathAuthRefresh\\": \\"/refreshauth\\",
   \\"redirectPathSignOut\\": \\"/\\",
@@ -1482,48 +1386,6 @@ Object {
       "Type": "Custom::WithConfiguration",
       "UpdateReplacePolicy": "Delete",
     },
-    "StaticSiteAuthorizationAuthFlowHttpHeadersWithConfiguration3CF0AA9E": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "Configuration": "{
-  \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  }
-}",
-        "FunctionName": Object {
-          "Fn::Select": Array [
-            6,
-            Object {
-              "Fn::Split": Array [
-                ":",
-                Object {
-                  "Fn::GetAtt": Array [
-                    "StaticSiteAuthorizationAuthFlowhttpheadersProvider1776DA6C",
-                    "Parameter.Value",
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        "Region": "us-east-1",
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "CustomWithConfigurationcloudcomponentscdklambdaatedgepatternwithconfigurationE415FB9B",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "Custom::WithConfiguration",
-      "UpdateReplacePolicy": "Delete",
-    },
     "StaticSiteAuthorizationAuthFlowParseAuthWithConfiguration9C15B36F": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
@@ -1533,15 +1395,6 @@ Object {
             Array [
               "{
   \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  },
   \\"redirectPathSignIn\\": \\"/parseauth\\",
   \\"redirectPathAuthRefresh\\": \\"/refreshauth\\",
   \\"redirectPathSignOut\\": \\"/\\",
@@ -1629,15 +1482,6 @@ Object {
             Array [
               "{
   \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  },
   \\"redirectPathSignIn\\": \\"/parseauth\\",
   \\"redirectPathAuthRefresh\\": \\"/refreshauth\\",
   \\"redirectPathSignOut\\": \\"/\\",
@@ -1725,15 +1569,6 @@ Object {
             Array [
               "{
   \\"logLevel\\": \\"warn\\",
-  \\"httpHeaders\\": {
-    \\"Content-Security-Policy\\": \\"default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'\\",
-    \\"Strict-Transport-Security\\": \\"max-age=31536000; includeSubdomains; preload\\",
-    \\"Referrer-Policy\\": \\"same-origin\\",
-    \\"X-XSS-Protection\\": \\"1; mode=block\\",
-    \\"X-Frame-Options\\": \\"DENY\\",
-    \\"X-Content-Type-Options\\": \\"nosniff\\",
-    \\"Cache-Control\\": \\"no-cache\\"
-  },
   \\"redirectPathSignIn\\": \\"/parseauth\\",
   \\"redirectPathAuthRefresh\\": \\"/refreshauth\\",
   \\"redirectPathSignOut\\": \\"/\\",
@@ -1859,61 +1694,6 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "StaticSiteAuthorizationAuthFlowcheckauthProviderCustomResourcePolicyA7CBA911",
-        "Roles": Array [
-          Object {
-            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "StaticSiteAuthorizationAuthFlowhttpheadersProvider1776DA6C": Object {
-      "DeletionPolicy": "Delete",
-      "DependsOn": Array [
-        "StaticSiteAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy0BFA9A4D",
-      ],
-      "Properties": Object {
-        "Create": Any<String>,
-        "InstallLatestAwsSdk": true,
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
-            "Arn",
-          ],
-        },
-        "Update": Any<String>,
-      },
-      "Type": "Custom::AWS",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "StaticSiteAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy0BFA9A4D": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "ssm:GetParameter",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":ssm:us-east-1:",
-                    Object {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":parameter/cloudcomponents/edge-lambda/Dummy/http-headers/c83d99d8def072b82738c0d40222a792527c17f94d",
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "StaticSiteAuthorizationAuthFlowhttpheadersProviderCustomResourcePolicy0BFA9A4D",
         "Roles": Array [
           Object {
             "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
@@ -2086,6 +1866,51 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "StaticSiteAuthorizationResponseHeadersPolicy04BF3CFB": Object {
+      "Properties": Object {
+        "ResponseHeadersPolicyConfig": Object {
+          "CustomHeadersConfig": Object {
+            "Items": Array [
+              Object {
+                "Header": "Cache-Control",
+                "Override": true,
+                "Value": "no-cache",
+              },
+            ],
+          },
+          "Name": "DummyStaticSiteAuthorizationResponseHeadersPolicyC6087463",
+          "SecurityHeadersConfig": Object {
+            "ContentSecurityPolicy": Object {
+              "ContentSecurityPolicy": "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+              "Override": true,
+            },
+            "ContentTypeOptions": Object {
+              "Override": true,
+            },
+            "FrameOptions": Object {
+              "FrameOption": "DENY",
+              "Override": true,
+            },
+            "ReferrerPolicy": Object {
+              "Override": true,
+              "ReferrerPolicy": "same-origin",
+            },
+            "StrictTransportSecurity": Object {
+              "AccessControlMaxAgeSec": 31536000,
+              "IncludeSubdomains": true,
+              "Override": true,
+              "Preload": true,
+            },
+            "XSSProtection": Object {
+              "ModeBlock": true,
+              "Override": true,
+              "Protection": true,
+            },
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::ResponseHeadersPolicy",
     },
     "StaticSiteAuthorizationRetrieveUserPoolClientSecret4CD67128": Object {
       "DeletionPolicy": "Delete",
@@ -2276,6 +2101,33 @@ Object {
         },
       },
       "Type": "AWS::Cognito::UserPoolClient",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
     },
   },
 }

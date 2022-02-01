@@ -1,11 +1,9 @@
-import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
-import { Version } from '@aws-cdk/aws-lambda';
-import { Stack } from '@aws-cdk/core';
+import { Stack, aws_cloudfront, aws_lambda, Duration } from 'aws-cdk-lib';
 import 'jest-cdk-snapshot';
 
 import { StaticWebsite } from '../static-website';
 
-test('default setup', (): void => {
+test('default setup', () => {
   const stack = new Stack();
 
   new StaticWebsite(stack, 'StaticWebsite', {
@@ -17,33 +15,34 @@ test('default setup', (): void => {
   });
 });
 
-test('lambda at edge', (): void => {
-  const stack = new Stack();
-
-  const staticWebsite = new StaticWebsite(stack, 'StaticWebsite', {
-    disableUpload: true,
-  });
-
-  staticWebsite.addLambdaFunctionAssociation({
-    eventType: LambdaEdgeEventType.ORIGIN_REQUEST,
-    lambdaFunction: Version.fromVersionArn(stack, 'LambdaEdge', 'arn:aws:lambda:us-east-1:123456789012:function:my-function:1'),
-  });
-
-  expect(stack).toMatchCdkSnapshot({
-    ignoreAssets: true,
-  });
-});
-
-test('test sertting errorConfigurations', (): void => {
+test('lambda at edge', () => {
   const stack = new Stack();
 
   new StaticWebsite(stack, 'StaticWebsite', {
     disableUpload: true,
-    errorConfigurations: [
+    edgeLambdas: [
       {
-        errorCode: 404,
-        errorCachingMinTtl: 3,
-        responseCode: 200,
+        eventType: aws_cloudfront.LambdaEdgeEventType.ORIGIN_REQUEST,
+        functionVersion: aws_lambda.Version.fromVersionArn(stack, 'LambdaEdge', 'arn:aws:lambda:us-east-1:123456789012:function:my-function:1'),
+      },
+    ],
+  });
+
+  expect(stack).toMatchCdkSnapshot({
+    ignoreAssets: true,
+  });
+});
+
+test('test setting error responses', () => {
+  const stack = new Stack();
+
+  new StaticWebsite(stack, 'StaticWebsite', {
+    disableUpload: true,
+    errorResponses: [
+      {
+        httpStatus: 404,
+        ttl: Duration.minutes(3),
+        responseHttpStatus: 200,
         responsePagePath: '/index.html',
       },
     ],

@@ -1,21 +1,20 @@
-import { IUserPoolClient, IUserPool, OAuthScope, UserPoolClientIdentityProvider } from '@aws-cdk/aws-cognito';
-import { Construct } from '@aws-cdk/core';
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '@aws-cdk/custom-resources';
+import { aws_cognito, custom_resources } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface UserPoolClientRedirectsProps {
-  readonly userPoolClient: IUserPoolClient;
-  readonly userPool: IUserPool;
+  readonly userPoolClient: aws_cognito.IUserPoolClient;
+  readonly userPool: aws_cognito.IUserPool;
   readonly callbackUrls: string[];
   readonly logoutUrls: string[];
-  readonly oauthScopes: OAuthScope[];
-  readonly identityProviders: UserPoolClientIdentityProvider[];
+  readonly oauthScopes: aws_cognito.OAuthScope[];
+  readonly identityProviders: aws_cognito.UserPoolClientIdentityProvider[];
 }
 
 export class UserPoolClientRedirects extends Construct {
   constructor(scope: Construct, id: string, props: UserPoolClientRedirectsProps) {
     super(scope, id);
 
-    new AwsCustomResource(this, 'Resource', {
+    new custom_resources.AwsCustomResource(this, 'Resource', {
       onUpdate: {
         service: 'CognitoIdentityServiceProvider',
         action: 'updateUserPoolClient',
@@ -29,9 +28,11 @@ export class UserPoolClientRedirects extends Construct {
           CallbackURLs: props.callbackUrls,
           LogoutURLs: props.logoutUrls,
         },
-        physicalResourceId: PhysicalResourceId.of(`${props.userPool.userPoolId}-${props.userPoolClient.userPoolClientId}-updated-client`),
+        physicalResourceId: custom_resources.PhysicalResourceId.of(
+          `${props.userPool.userPoolId}-${props.userPoolClient.userPoolClientId}-updated-client`,
+        ),
       },
-      policy: AwsCustomResourcePolicy.fromSdkCalls({
+      policy: custom_resources.AwsCustomResourcePolicy.fromSdkCalls({
         resources: [props.userPool.userPoolArn],
       }),
     });

@@ -4,7 +4,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "prepare": "FORCE_COLOR=1 lerna run build",
-    "test": "cross-env NODE_OPTIONS=--max-old-space-size=8192 cdkdx test --runInBand",
+    "test": "cross-env NODE_OPTIONS=--max-old-space-size=8192 cdkdx test",
     "build": "FORCE_COLOR=1 lerna run build",
     "outdated:all": "yarn outdated",
     "upgrade:all": "yarn upgrade",
@@ -23,7 +23,7 @@
   ],
   "devDependencies": {
     "@types/node": "^12.12.50",
-    "cdkdx": "^1.6.1",
+    "cdkdx": "^1.7.0",
     "cross-env": "^7.0.3",
     "lerna": "^4.0.0"
   }

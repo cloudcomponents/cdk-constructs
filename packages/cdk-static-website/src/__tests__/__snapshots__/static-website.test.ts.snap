@@ -4,31 +4,38 @@ exports[`default setup 1`] = `
 Object {
   "Parameters": Any<Object>,
   "Resources": Object {
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": Object {
+    "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": Object {
       "DependsOn": Array [
-        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
-        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
       ],
       "Properties": Object {
         "Code": Any<Object>,
-        "Handler": "index.handler",
-        "Layers": Array [
-          Object {
-            "Ref": "StaticWebsiteBucketDeploymentAwsCliLayerAC7C3F56",
-          },
-        ],
+        "Description": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "Lambda function for auto-deleting objects in ",
+              Object {
+                "Ref": "StaticWebsiteBucket0E92E0FC",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
             "Arn",
           ],
         },
-        "Runtime": "python3.7",
+        "Runtime": "nodejs12.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": Object {
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -44,80 +51,76 @@ Object {
         },
         "ManagedPolicyArns": Array [
           Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
           },
         ],
       },
       "Type": "AWS::IAM::Role",
     },
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF": Object {
+    "StaticWebsiteBucket0E92E0FC": Object {
+      "DeletionPolicy": "Delete",
       "Properties": Object {
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+        ],
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "StaticWebsiteBucketAutoDeleteObjectsCustomResource840785FA": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticWebsiteBucketPolicy86C0E5CF",
+      ],
+      "Properties": Object {
+        "BucketName": Object {
+          "Ref": "StaticWebsiteBucket0E92E0FC",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "StaticWebsiteBucketPolicy86C0E5CF": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "StaticWebsiteBucket0E92E0FC",
+        },
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
               "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":s3:::",
-                      Object {
-                        "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-                      },
-                    ],
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":s3:::",
-                      Object {
-                        "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-            Object {
-              "Action": Array [
-                "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*",
               ],
               "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::GetAtt": Array [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                    "StaticWebsiteBucket0E92E0FC",
                     "Arn",
                   ],
                 },
@@ -127,7 +130,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                          "StaticWebsiteBucket0E92E0FC",
                           "Arn",
                         ],
                       },
@@ -137,169 +140,13 @@ Object {
                 },
               ],
             },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
-        "Roles": Array [
-          Object {
-            "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "StaticWebsiteBucketDeploymentAwsCliLayerAC7C3F56": Object {
-      "Properties": Object {
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3BucketAEADE8C7",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3VersionKeyE415415F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3VersionKeyE415415F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Description": "/opt/awscli/aws",
-      },
-      "Type": "AWS::Lambda::LayerVersion",
-    },
-    "StaticWebsiteBucketDeploymentCustomResourceBC04F1EE": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "DestinationBucketName": Object {
-          "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-        },
-        "Prune": true,
-        "RetainOnDelete": true,
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
-            "Arn",
-          ],
-        },
-        "SourceBucketNames": Array [
-          Object {
-            "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-          },
-        ],
-        "SourceObjectKeys": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3VersionKey3038CFFB",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3VersionKey3038CFFB",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "Custom::CDKBucketDeployment",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "StaticWebsiteBucketOriginAccessIdentity7BF15D42": Object {
-      "Properties": Object {
-        "CloudFrontOriginAccessIdentityConfig": Object {
-          "Comment": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "CloudFront OriginAccessIdentity for ",
-                Object {
-                  "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-                },
-              ],
-            ],
-          },
-        },
-      },
-      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
-    },
-    "StaticWebsiteBucketWebsiteBucket9EE4F45B": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "Tags": Array [
-          Object {
-            "Key": "aws-cdk:cr-owned:bb19c8a9",
-            "Value": "true",
-          },
-        ],
-        "WebsiteConfiguration": Object {
-          "ErrorDocument": "error.html",
-          "IndexDocument": "index.html",
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "StaticWebsiteBucketWebsiteBucketPolicyD8AEC0D4": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
             Object {
               "Action": "s3:GetObject",
               "Effect": "Allow",
               "Principal": Object {
                 "CanonicalUser": Object {
                   "Fn::GetAtt": Array [
-                    "StaticWebsiteBucketOriginAccessIdentity7BF15D42",
+                    "StaticWebsiteDistributionOrigin1S3Origin3045572F",
                     "S3CanonicalUserId",
                   ],
                 },
@@ -310,7 +157,7 @@ Object {
                   Array [
                     Object {
                       "Fn::GetAtt": Array [
-                        "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                        "StaticWebsiteBucket0E92E0FC",
                         "Arn",
                       ],
                     },
@@ -325,26 +172,34 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "StaticWebsiteDistributionCFDistribution4F2E76E7": Object {
+    "StaticWebsiteDistributionBAD21F75": Object {
       "Properties": Object {
         "DistributionConfig": Object {
+          "CustomErrorResponses": Array [
+            Object {
+              "ErrorCachingMinTTL": 180,
+              "ErrorCode": 404,
+              "ResponseCode": 404,
+              "ResponsePagePath": "/error.html",
+            },
+            Object {
+              "ErrorCachingMinTTL": 180,
+              "ErrorCode": 403,
+              "ResponseCode": 404,
+              "ResponsePagePath": "/error.html",
+            },
+          ],
           "DefaultCacheBehavior": Object {
             "AllowedMethods": Array [
               "GET",
               "HEAD",
             ],
-            "CachedMethods": Array [
-              "GET",
-              "HEAD",
-            ],
+            "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
             "Compress": true,
-            "ForwardedValues": Object {
-              "Cookies": Object {
-                "Forward": "none",
-              },
-              "QueryString": false,
+            "ResponseHeadersPolicyId": Object {
+              "Ref": "StaticWebsiteResponseHeadersPolicyF3EBE566",
             },
-            "TargetOriginId": "origin1",
+            "TargetOriginId": "StaticWebsiteDistributionOrigin1128FCAFB",
             "ViewerProtocolPolicy": "redirect-to-https",
           },
           "DefaultRootObject": "index.html",
@@ -353,15 +208,13 @@ Object {
           "IPV6Enabled": true,
           "Origins": Array [
             Object {
-              "ConnectionAttempts": 3,
-              "ConnectionTimeout": 10,
               "DomainName": Object {
                 "Fn::GetAtt": Array [
-                  "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                  "StaticWebsiteBucket0E92E0FC",
                   "RegionalDomainName",
                 ],
               },
-              "Id": "origin1",
+              "Id": "StaticWebsiteDistributionOrigin1128FCAFB",
               "S3OriginConfig": Object {
                 "OriginAccessIdentity": Object {
                   "Fn::Join": Array [
@@ -369,7 +222,7 @@ Object {
                     Array [
                       "origin-access-identity/cloudfront/",
                       Object {
-                        "Ref": "StaticWebsiteBucketOriginAccessIdentity7BF15D42",
+                        "Ref": "StaticWebsiteDistributionOrigin1S3Origin3045572F",
                       },
                     ],
                   ],
@@ -378,12 +231,89 @@ Object {
             },
           ],
           "PriceClass": "PriceClass_100",
-          "ViewerCertificate": Object {
-            "CloudFrontDefaultCertificate": true,
-          },
         },
       },
       "Type": "AWS::CloudFront::Distribution",
+    },
+    "StaticWebsiteDistributionOrigin1S3Origin3045572F": Object {
+      "Properties": Object {
+        "CloudFrontOriginAccessIdentityConfig": Object {
+          "Comment": "Identity for StaticWebsiteDistributionOrigin1128FCAFB",
+        },
+      },
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+    },
+    "StaticWebsiteResponseHeadersPolicyF3EBE566": Object {
+      "Properties": Object {
+        "ResponseHeadersPolicyConfig": Object {
+          "CustomHeadersConfig": Object {
+            "Items": Array [
+              Object {
+                "Header": "Server",
+                "Override": true,
+                "Value": "Server",
+              },
+            ],
+          },
+          "Name": "StaticWebsiteResponseHeadersPolicy53E0361F",
+          "SecurityHeadersConfig": Object {
+            "ContentSecurityPolicy": Object {
+              "ContentSecurityPolicy": "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+              "Override": true,
+            },
+            "ContentTypeOptions": Object {
+              "Override": true,
+            },
+            "FrameOptions": Object {
+              "FrameOption": "DENY",
+              "Override": true,
+            },
+            "ReferrerPolicy": Object {
+              "Override": true,
+              "ReferrerPolicy": "same-origin",
+            },
+            "StrictTransportSecurity": Object {
+              "AccessControlMaxAgeSec": 31536000,
+              "IncludeSubdomains": true,
+              "Override": true,
+              "Preload": true,
+            },
+            "XSSProtection": Object {
+              "ModeBlock": true,
+              "Override": true,
+              "Protection": true,
+            },
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::ResponseHeadersPolicy",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
     },
   },
 }
@@ -393,31 +323,38 @@ exports[`lambda at edge 1`] = `
 Object {
   "Parameters": Any<Object>,
   "Resources": Object {
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": Object {
+    "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": Object {
       "DependsOn": Array [
-        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
-        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
       ],
       "Properties": Object {
         "Code": Any<Object>,
-        "Handler": "index.handler",
-        "Layers": Array [
-          Object {
-            "Ref": "StaticWebsiteBucketDeploymentAwsCliLayerAC7C3F56",
-          },
-        ],
+        "Description": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "Lambda function for auto-deleting objects in ",
+              Object {
+                "Ref": "StaticWebsiteBucket0E92E0FC",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
             "Arn",
           ],
         },
-        "Runtime": "python3.7",
+        "Runtime": "nodejs12.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": Object {
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -433,80 +370,76 @@ Object {
         },
         "ManagedPolicyArns": Array [
           Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
           },
         ],
       },
       "Type": "AWS::IAM::Role",
     },
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF": Object {
+    "StaticWebsiteBucket0E92E0FC": Object {
+      "DeletionPolicy": "Delete",
       "Properties": Object {
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+        ],
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "StaticWebsiteBucketAutoDeleteObjectsCustomResource840785FA": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticWebsiteBucketPolicy86C0E5CF",
+      ],
+      "Properties": Object {
+        "BucketName": Object {
+          "Ref": "StaticWebsiteBucket0E92E0FC",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "StaticWebsiteBucketPolicy86C0E5CF": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "StaticWebsiteBucket0E92E0FC",
+        },
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
               "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":s3:::",
-                      Object {
-                        "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-                      },
-                    ],
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":s3:::",
-                      Object {
-                        "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-            Object {
-              "Action": Array [
-                "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*",
               ],
               "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::GetAtt": Array [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                    "StaticWebsiteBucket0E92E0FC",
                     "Arn",
                   ],
                 },
@@ -516,7 +449,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                          "StaticWebsiteBucket0E92E0FC",
                           "Arn",
                         ],
                       },
@@ -526,169 +459,13 @@ Object {
                 },
               ],
             },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
-        "Roles": Array [
-          Object {
-            "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "StaticWebsiteBucketDeploymentAwsCliLayerAC7C3F56": Object {
-      "Properties": Object {
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3BucketAEADE8C7",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3VersionKeyE415415F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3VersionKeyE415415F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Description": "/opt/awscli/aws",
-      },
-      "Type": "AWS::Lambda::LayerVersion",
-    },
-    "StaticWebsiteBucketDeploymentCustomResourceBC04F1EE": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "DestinationBucketName": Object {
-          "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-        },
-        "Prune": true,
-        "RetainOnDelete": true,
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
-            "Arn",
-          ],
-        },
-        "SourceBucketNames": Array [
-          Object {
-            "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-          },
-        ],
-        "SourceObjectKeys": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3VersionKey3038CFFB",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3VersionKey3038CFFB",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "Custom::CDKBucketDeployment",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "StaticWebsiteBucketOriginAccessIdentity7BF15D42": Object {
-      "Properties": Object {
-        "CloudFrontOriginAccessIdentityConfig": Object {
-          "Comment": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "CloudFront OriginAccessIdentity for ",
-                Object {
-                  "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-                },
-              ],
-            ],
-          },
-        },
-      },
-      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
-    },
-    "StaticWebsiteBucketWebsiteBucket9EE4F45B": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "Tags": Array [
-          Object {
-            "Key": "aws-cdk:cr-owned:bb19c8a9",
-            "Value": "true",
-          },
-        ],
-        "WebsiteConfiguration": Object {
-          "ErrorDocument": "error.html",
-          "IndexDocument": "index.html",
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "StaticWebsiteBucketWebsiteBucketPolicyD8AEC0D4": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
             Object {
               "Action": "s3:GetObject",
               "Effect": "Allow",
               "Principal": Object {
                 "CanonicalUser": Object {
                   "Fn::GetAtt": Array [
-                    "StaticWebsiteBucketOriginAccessIdentity7BF15D42",
+                    "StaticWebsiteDistributionOrigin1S3Origin3045572F",
                     "S3CanonicalUserId",
                   ],
                 },
@@ -699,7 +476,7 @@ Object {
                   Array [
                     Object {
                       "Fn::GetAtt": Array [
-                        "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                        "StaticWebsiteBucket0E92E0FC",
                         "Arn",
                       ],
                     },
@@ -714,32 +491,40 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "StaticWebsiteDistributionCFDistribution4F2E76E7": Object {
+    "StaticWebsiteDistributionBAD21F75": Object {
       "Properties": Object {
         "DistributionConfig": Object {
+          "CustomErrorResponses": Array [
+            Object {
+              "ErrorCachingMinTTL": 180,
+              "ErrorCode": 404,
+              "ResponseCode": 404,
+              "ResponsePagePath": "/error.html",
+            },
+            Object {
+              "ErrorCachingMinTTL": 180,
+              "ErrorCode": 403,
+              "ResponseCode": 404,
+              "ResponsePagePath": "/error.html",
+            },
+          ],
           "DefaultCacheBehavior": Object {
             "AllowedMethods": Array [
               "GET",
               "HEAD",
             ],
-            "CachedMethods": Array [
-              "GET",
-              "HEAD",
-            ],
+            "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
             "Compress": true,
-            "ForwardedValues": Object {
-              "Cookies": Object {
-                "Forward": "none",
-              },
-              "QueryString": false,
-            },
             "LambdaFunctionAssociations": Array [
               Object {
                 "EventType": "origin-request",
                 "LambdaFunctionARN": "arn:aws:lambda:us-east-1:123456789012:function:my-function:1",
               },
             ],
-            "TargetOriginId": "origin1",
+            "ResponseHeadersPolicyId": Object {
+              "Ref": "StaticWebsiteResponseHeadersPolicyF3EBE566",
+            },
+            "TargetOriginId": "StaticWebsiteDistributionOrigin1128FCAFB",
             "ViewerProtocolPolicy": "redirect-to-https",
           },
           "DefaultRootObject": "index.html",
@@ -748,15 +533,13 @@ Object {
           "IPV6Enabled": true,
           "Origins": Array [
             Object {
-              "ConnectionAttempts": 3,
-              "ConnectionTimeout": 10,
               "DomainName": Object {
                 "Fn::GetAtt": Array [
-                  "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                  "StaticWebsiteBucket0E92E0FC",
                   "RegionalDomainName",
                 ],
               },
-              "Id": "origin1",
+              "Id": "StaticWebsiteDistributionOrigin1128FCAFB",
               "S3OriginConfig": Object {
                 "OriginAccessIdentity": Object {
                   "Fn::Join": Array [
@@ -764,7 +547,7 @@ Object {
                     Array [
                       "origin-access-identity/cloudfront/",
                       Object {
-                        "Ref": "StaticWebsiteBucketOriginAccessIdentity7BF15D42",
+                        "Ref": "StaticWebsiteDistributionOrigin1S3Origin3045572F",
                       },
                     ],
                   ],
@@ -773,46 +556,130 @@ Object {
             },
           ],
           "PriceClass": "PriceClass_100",
-          "ViewerCertificate": Object {
-            "CloudFrontDefaultCertificate": true,
-          },
         },
       },
       "Type": "AWS::CloudFront::Distribution",
+    },
+    "StaticWebsiteDistributionOrigin1S3Origin3045572F": Object {
+      "Properties": Object {
+        "CloudFrontOriginAccessIdentityConfig": Object {
+          "Comment": "Identity for StaticWebsiteDistributionOrigin1128FCAFB",
+        },
+      },
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+    },
+    "StaticWebsiteResponseHeadersPolicyF3EBE566": Object {
+      "Properties": Object {
+        "ResponseHeadersPolicyConfig": Object {
+          "CustomHeadersConfig": Object {
+            "Items": Array [
+              Object {
+                "Header": "Server",
+                "Override": true,
+                "Value": "Server",
+              },
+            ],
+          },
+          "Name": "StaticWebsiteResponseHeadersPolicy53E0361F",
+          "SecurityHeadersConfig": Object {
+            "ContentSecurityPolicy": Object {
+              "ContentSecurityPolicy": "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+              "Override": true,
+            },
+            "ContentTypeOptions": Object {
+              "Override": true,
+            },
+            "FrameOptions": Object {
+              "FrameOption": "DENY",
+              "Override": true,
+            },
+            "ReferrerPolicy": Object {
+              "Override": true,
+              "ReferrerPolicy": "same-origin",
+            },
+            "StrictTransportSecurity": Object {
+              "AccessControlMaxAgeSec": 31536000,
+              "IncludeSubdomains": true,
+              "Override": true,
+              "Preload": true,
+            },
+            "XSSProtection": Object {
+              "ModeBlock": true,
+              "Override": true,
+              "Protection": true,
+            },
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::ResponseHeadersPolicy",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
     },
   },
 }
 `;
 
-exports[`test sertting errorConfigurations 1`] = `
+exports[`test setting error responses 1`] = `
 Object {
   "Parameters": Any<Object>,
   "Resources": Object {
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": Object {
+    "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": Object {
       "DependsOn": Array [
-        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
-        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
       ],
       "Properties": Object {
         "Code": Any<Object>,
-        "Handler": "index.handler",
-        "Layers": Array [
-          Object {
-            "Ref": "StaticWebsiteBucketDeploymentAwsCliLayerAC7C3F56",
-          },
-        ],
+        "Description": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "Lambda function for auto-deleting objects in ",
+              Object {
+                "Ref": "StaticWebsiteBucket0E92E0FC",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
             "Arn",
           ],
         },
-        "Runtime": "python3.7",
+        "Runtime": "nodejs12.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": Object {
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -828,80 +695,76 @@ Object {
         },
         "ManagedPolicyArns": Array [
           Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
           },
         ],
       },
       "Type": "AWS::IAM::Role",
     },
-    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF": Object {
+    "StaticWebsiteBucket0E92E0FC": Object {
+      "DeletionPolicy": "Delete",
       "Properties": Object {
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+        ],
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "StaticWebsiteBucketAutoDeleteObjectsCustomResource840785FA": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "StaticWebsiteBucketPolicy86C0E5CF",
+      ],
+      "Properties": Object {
+        "BucketName": Object {
+          "Ref": "StaticWebsiteBucket0E92E0FC",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "StaticWebsiteBucketPolicy86C0E5CF": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "StaticWebsiteBucket0E92E0FC",
+        },
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
               "Action": Array [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-              ],
-              "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":s3:::",
-                      Object {
-                        "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-                      },
-                    ],
-                  ],
-                },
-                Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":s3:::",
-                      Object {
-                        "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-                      },
-                      "/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-            Object {
-              "Action": Array [
-                "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
                 "s3:DeleteObject*",
-                "s3:PutObject*",
-                "s3:Abort*",
               ],
               "Effect": "Allow",
+              "Principal": Object {
+                "AWS": Object {
+                  "Fn::GetAtt": Array [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
               "Resource": Array [
                 Object {
                   "Fn::GetAtt": Array [
-                    "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                    "StaticWebsiteBucket0E92E0FC",
                     "Arn",
                   ],
                 },
@@ -911,7 +774,7 @@ Object {
                     Array [
                       Object {
                         "Fn::GetAtt": Array [
-                          "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                          "StaticWebsiteBucket0E92E0FC",
                           "Arn",
                         ],
                       },
@@ -921,169 +784,13 @@ Object {
                 },
               ],
             },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
-        "Roles": Array [
-          Object {
-            "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "StaticWebsiteBucketDeploymentAwsCliLayerAC7C3F56": Object {
-      "Properties": Object {
-        "Content": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3BucketAEADE8C7",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3VersionKeyE415415F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3VersionKeyE415415F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Description": "/opt/awscli/aws",
-      },
-      "Type": "AWS::Lambda::LayerVersion",
-    },
-    "StaticWebsiteBucketDeploymentCustomResourceBC04F1EE": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "DestinationBucketName": Object {
-          "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-        },
-        "Prune": true,
-        "RetainOnDelete": true,
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
-            "Arn",
-          ],
-        },
-        "SourceBucketNames": Array [
-          Object {
-            "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3Bucket23EE0CD5",
-          },
-        ],
-        "SourceObjectKeys": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3VersionKey3038CFFB",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameterse8c1e2870568471ade3f580f6a0b3cc4cbceff4ec23064663e29bbe537d9ed4eS3VersionKey3038CFFB",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "Custom::CDKBucketDeployment",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "StaticWebsiteBucketOriginAccessIdentity7BF15D42": Object {
-      "Properties": Object {
-        "CloudFrontOriginAccessIdentityConfig": Object {
-          "Comment": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "CloudFront OriginAccessIdentity for ",
-                Object {
-                  "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-                },
-              ],
-            ],
-          },
-        },
-      },
-      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
-    },
-    "StaticWebsiteBucketWebsiteBucket9EE4F45B": Object {
-      "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "Tags": Array [
-          Object {
-            "Key": "aws-cdk:cr-owned:bb19c8a9",
-            "Value": "true",
-          },
-        ],
-        "WebsiteConfiguration": Object {
-          "ErrorDocument": "error.html",
-          "IndexDocument": "index.html",
-        },
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "StaticWebsiteBucketWebsiteBucketPolicyD8AEC0D4": Object {
-      "Properties": Object {
-        "Bucket": Object {
-          "Ref": "StaticWebsiteBucketWebsiteBucket9EE4F45B",
-        },
-        "PolicyDocument": Object {
-          "Statement": Array [
             Object {
               "Action": "s3:GetObject",
               "Effect": "Allow",
               "Principal": Object {
                 "CanonicalUser": Object {
                   "Fn::GetAtt": Array [
-                    "StaticWebsiteBucketOriginAccessIdentity7BF15D42",
+                    "StaticWebsiteDistributionOrigin1S3Origin3045572F",
                     "S3CanonicalUserId",
                   ],
                 },
@@ -1094,7 +801,7 @@ Object {
                   Array [
                     Object {
                       "Fn::GetAtt": Array [
-                        "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                        "StaticWebsiteBucket0E92E0FC",
                         "Arn",
                       ],
                     },
@@ -1109,12 +816,12 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "StaticWebsiteDistributionCFDistribution4F2E76E7": Object {
+    "StaticWebsiteDistributionBAD21F75": Object {
       "Properties": Object {
         "DistributionConfig": Object {
           "CustomErrorResponses": Array [
             Object {
-              "ErrorCachingMinTTL": 3,
+              "ErrorCachingMinTTL": 180,
               "ErrorCode": 404,
               "ResponseCode": 200,
               "ResponsePagePath": "/index.html",
@@ -1125,18 +832,12 @@ Object {
               "GET",
               "HEAD",
             ],
-            "CachedMethods": Array [
-              "GET",
-              "HEAD",
-            ],
+            "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
             "Compress": true,
-            "ForwardedValues": Object {
-              "Cookies": Object {
-                "Forward": "none",
-              },
-              "QueryString": false,
+            "ResponseHeadersPolicyId": Object {
+              "Ref": "StaticWebsiteResponseHeadersPolicyF3EBE566",
             },
-            "TargetOriginId": "origin1",
+            "TargetOriginId": "StaticWebsiteDistributionOrigin1128FCAFB",
             "ViewerProtocolPolicy": "redirect-to-https",
           },
           "DefaultRootObject": "index.html",
@@ -1145,15 +846,13 @@ Object {
           "IPV6Enabled": true,
           "Origins": Array [
             Object {
-              "ConnectionAttempts": 3,
-              "ConnectionTimeout": 10,
               "DomainName": Object {
                 "Fn::GetAtt": Array [
-                  "StaticWebsiteBucketWebsiteBucket9EE4F45B",
+                  "StaticWebsiteBucket0E92E0FC",
                   "RegionalDomainName",
                 ],
               },
-              "Id": "origin1",
+              "Id": "StaticWebsiteDistributionOrigin1128FCAFB",
               "S3OriginConfig": Object {
                 "OriginAccessIdentity": Object {
                   "Fn::Join": Array [
@@ -1161,7 +860,7 @@ Object {
                     Array [
                       "origin-access-identity/cloudfront/",
                       Object {
-                        "Ref": "StaticWebsiteBucketOriginAccessIdentity7BF15D42",
+                        "Ref": "StaticWebsiteDistributionOrigin1S3Origin3045572F",
                       },
                     ],
                   ],
@@ -1170,12 +869,89 @@ Object {
             },
           ],
           "PriceClass": "PriceClass_100",
-          "ViewerCertificate": Object {
-            "CloudFrontDefaultCertificate": true,
-          },
         },
       },
       "Type": "AWS::CloudFront::Distribution",
+    },
+    "StaticWebsiteDistributionOrigin1S3Origin3045572F": Object {
+      "Properties": Object {
+        "CloudFrontOriginAccessIdentityConfig": Object {
+          "Comment": "Identity for StaticWebsiteDistributionOrigin1128FCAFB",
+        },
+      },
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+    },
+    "StaticWebsiteResponseHeadersPolicyF3EBE566": Object {
+      "Properties": Object {
+        "ResponseHeadersPolicyConfig": Object {
+          "CustomHeadersConfig": Object {
+            "Items": Array [
+              Object {
+                "Header": "Server",
+                "Override": true,
+                "Value": "Server",
+              },
+            ],
+          },
+          "Name": "StaticWebsiteResponseHeadersPolicy53E0361F",
+          "SecurityHeadersConfig": Object {
+            "ContentSecurityPolicy": Object {
+              "ContentSecurityPolicy": "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+              "Override": true,
+            },
+            "ContentTypeOptions": Object {
+              "Override": true,
+            },
+            "FrameOptions": Object {
+              "FrameOption": "DENY",
+              "Override": true,
+            },
+            "ReferrerPolicy": Object {
+              "Override": true,
+              "ReferrerPolicy": "same-origin",
+            },
+            "StrictTransportSecurity": Object {
+              "AccessControlMaxAgeSec": 31536000,
+              "IncludeSubdomains": true,
+              "Override": true,
+              "Preload": true,
+            },
+            "XSSProtection": Object {
+              "ModeBlock": true,
+              "Override": true,
+              "Protection": true,
+            },
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::ResponseHeadersPolicy",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
     },
   },
 }

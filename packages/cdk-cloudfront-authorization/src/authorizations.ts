@@ -1,7 +1,6 @@
-import { IOrigin, Behavior, BehaviorOptions, AddBehaviorOptions, ViewerProtocolPolicy, OriginRequestPolicy } from '@aws-cdk/aws-cloudfront';
-import { OAuthScope, UserPoolClientIdentityProvider, IUserPool, IUserPoolClient } from '@aws-cdk/aws-cognito';
-import { Construct } from '@aws-cdk/core';
 import { LogLevel } from '@cloudcomponents/cdk-lambda-at-edge-pattern';
+import { Duration, aws_cloudfront, aws_cognito } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { AuthFlow, RedirectPaths } from './auth-flow';
 import { RetrieveUserPoolClientSecret } from './retrieve-user-pool-client-secret';
@@ -25,36 +24,38 @@ export interface IAuthorization {
   readonly redirectPaths: RedirectPaths;
   readonly signOutUrlPath: string;
   updateUserPoolClientCallbacks(redirects: UserPoolClientCallbackUrls): void;
-  createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions;
-  createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Record<string, BehaviorOptions>;
-  createLegacyDefaultBehavior(): Behavior;
-  createLegacyAdditionalBehaviors(): Behavior[];
+  createDefaultBehavior(origin: aws_cloudfront.IOrigin, options?: aws_cloudfront.AddBehaviorOptions): aws_cloudfront.BehaviorOptions;
+  createAdditionalBehaviors(
+    origin: aws_cloudfront.IOrigin,
+    options?: aws_cloudfront.AddBehaviorOptions,
+  ): Record<string, aws_cloudfront.BehaviorOptions>;
 }
 
 export interface AuthorizationProps {
-  readonly userPool: IUserPool;
+  readonly userPool: aws_cognito.IUserPool;
   readonly redirectPaths?: RedirectPaths;
   readonly signOutUrl?: string;
-  readonly httpHeaders?: Record<string, string>;
+  readonly customHeaders?: aws_cloudfront.ResponseCustomHeader[];
+  readonly securityHeadersBehavior?: aws_cloudfront.ResponseSecurityHeadersBehavior;
   readonly logLevel?: LogLevel;
-  readonly oauthScopes?: OAuthScope[];
+  readonly oauthScopes?: aws_cognito.OAuthScope[];
   readonly cookieSettings?: Record<string, string>;
-  readonly identityProviders?: UserPoolClientIdentityProvider[];
+  readonly identityProviders?: aws_cognito.UserPoolClientIdentityProvider[];
 }
 
 export abstract class Authorization extends Construct {
   public readonly redirectPaths: RedirectPaths;
   public readonly signOutUrlPath: string;
   public readonly authFlow: AuthFlow;
-  public readonly userPoolClient: IUserPoolClient;
+  public readonly userPoolClient: aws_cognito.IUserPoolClient;
 
-  protected readonly userPool: IUserPool;
-  protected readonly oauthScopes: OAuthScope[];
+  protected readonly userPool: aws_cognito.IUserPool;
+  protected readonly oauthScopes: aws_cognito.OAuthScope[];
   protected readonly cookieSettings: Record<string, string> | undefined;
-  protected readonly httpHeaders: Record<string, string>;
   protected readonly nonceSigningSecret: string;
   protected readonly cognitoAuthDomain: string;
-  protected readonly identityProviders: UserPoolClientIdentityProvider[];
+  protected readonly identityProviders: aws_cognito.UserPoolClientIdentityProvider[];
+  protected readonly responseHeaderPolicy: aws_cloudfront.IResponseHeadersPolicy;
 
   constructor(scope: Construct, id: string, props: AuthorizationProps) {
     super(scope, id);
@@ -69,22 +70,41 @@ export abstract class Authorization extends Construct {
 
     this.signOutUrlPath = props.signOutUrl ?? '/signout';
 
-    this.httpHeaders = props.httpHeaders ?? {
-      'Content-Security-Policy':
-        "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
-      'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload',
-      'Referrer-Policy': 'same-origin',
-      'X-XSS-Protection': '1; mode=block',
-      'X-Frame-Options': 'DENY',
-      'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'no-cache',
-    };
+    this.responseHeaderPolicy = new aws_cloudfront.ResponseHeadersPolicy(this, 'ResponseHeadersPolicy', {
+      securityHeadersBehavior: props.securityHeadersBehavior ?? {
+        contentSecurityPolicy: {
+          contentSecurityPolicy:
+            "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self'",
+          override: true,
+        },
+        contentTypeOptions: { override: true },
+        frameOptions: { frameOption: aws_cloudfront.HeadersFrameOption.DENY, override: true },
+        referrerPolicy: { referrerPolicy: aws_cloudfront.HeadersReferrerPolicy.SAME_ORIGIN, override: true },
+        strictTransportSecurity: { accessControlMaxAge: Duration.seconds(31536000), includeSubdomains: true, preload: true, override: true },
+        xssProtection: { protection: true, modeBlock: true, override: true },
+      },
+      customHeadersBehavior: {
+        customHeaders: props.customHeaders ?? [
+          {
+            header: 'Cache-Control',
+            value: 'no-cache',
+            override: true,
+          },
+        ],
+      },
+    });
 
-    this.oauthScopes = props.oauthScopes ?? [OAuthScope.PHONE, OAuthScope.EMAIL, OAuthScope.PROFILE, OAuthScope.OPENID, OAuthScope.COGNITO_ADMIN];
+    this.oauthScopes = props.oauthScopes ?? [
+      aws_cognito.OAuthScope.PHONE,
+      aws_cognito.OAuthScope.EMAIL,
+      aws_cognito.OAuthScope.PROFILE,
+      aws_cognito.OAuthScope.OPENID,
+      aws_cognito.OAuthScope.COGNITO_ADMIN,
+    ];
 
     this.cookieSettings = props.cookieSettings;
 
-    this.identityProviders = props.identityProviders ?? [UserPoolClientIdentityProvider.COGNITO];
+    this.identityProviders = props.identityProviders ?? [aws_cognito.UserPoolClientIdentityProvider.COGNITO];
 
     this.userPoolClient = this.createUserPoolClient();
 
@@ -95,7 +115,7 @@ export abstract class Authorization extends Construct {
     this.authFlow = this.createAuthFlow(props.logLevel ?? LogLevel.WARN);
   }
 
-  protected abstract createUserPoolClient(): IUserPoolClient;
+  protected abstract createUserPoolClient(): aws_cognito.IUserPoolClient;
 
   protected abstract createAuthFlow(logLevel: LogLevel): AuthFlow;
 
@@ -112,84 +132,47 @@ export abstract class Authorization extends Construct {
     });
   }
 
-  public createDefaultBehavior(origin: IOrigin, options?: AddBehaviorOptions): BehaviorOptions {
+  public createDefaultBehavior(origin: aws_cloudfront.IOrigin, options?: aws_cloudfront.AddBehaviorOptions): aws_cloudfront.BehaviorOptions {
     return {
       origin,
       compress: true,
-      originRequestPolicy: OriginRequestPolicy.ALL_VIEWER,
-      viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      edgeLambdas: [this.authFlow.checkAuth, this.authFlow.httpHeaders],
+      originRequestPolicy: aws_cloudfront.OriginRequestPolicy.ALL_VIEWER,
+      viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      edgeLambdas: [this.authFlow.checkAuth],
+      responseHeadersPolicy: this.responseHeaderPolicy,
       ...options,
     };
   }
 
-  public createLegacyDefaultBehavior(options?: Behavior): Behavior {
-    return {
-      isDefaultBehavior: true,
-      forwardedValues: {
-        queryString: true,
-      },
-      compress: true,
-      lambdaFunctionAssociations: [this.authFlow.checkAuth, this.authFlow.httpHeaders],
-      ...options,
-    };
-  }
-
-  public createAdditionalBehaviors(origin: IOrigin, options?: AddBehaviorOptions): Record<string, BehaviorOptions> {
+  public createAdditionalBehaviors(
+    origin: aws_cloudfront.IOrigin,
+    options?: aws_cloudfront.AddBehaviorOptions,
+  ): Record<string, aws_cloudfront.BehaviorOptions> {
     return {
       [this.redirectPaths.signIn]: {
         origin,
         compress: true,
-        originRequestPolicy: OriginRequestPolicy.ALL_VIEWER,
-        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        originRequestPolicy: aws_cloudfront.OriginRequestPolicy.ALL_VIEWER,
+        viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.parseAuth],
         ...options,
       },
       [this.redirectPaths.authRefresh]: {
         origin,
         compress: true,
-        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.refreshAuth],
         ...options,
       },
       [this.signOutUrlPath]: {
         origin,
         compress: true,
-        originRequestPolicy: OriginRequestPolicy.ALL_VIEWER,
-        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        originRequestPolicy: aws_cloudfront.OriginRequestPolicy.ALL_VIEWER,
+        viewerProtocolPolicy: aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         edgeLambdas: [this.authFlow.signOut],
         ...options,
       },
     };
-  }
-
-  public createLegacyAdditionalBehaviors(options?: Behavior): Behavior[] {
-    return [
-      {
-        pathPattern: this.redirectPaths.signIn,
-        forwardedValues: {
-          queryString: true,
-        },
-        lambdaFunctionAssociations: [this.authFlow.parseAuth],
-        ...options,
-      },
-      {
-        pathPattern: this.redirectPaths.authRefresh,
-        forwardedValues: {
-          queryString: true,
-        },
-        lambdaFunctionAssociations: [this.authFlow.refreshAuth],
-        ...options,
-      },
-      {
-        pathPattern: this.signOutUrlPath,
-        forwardedValues: {
-          queryString: true,
-        },
-        lambdaFunctionAssociations: [this.authFlow.signOut],
-        ...options,
-      },
-    ];
   }
 
   private generateNonceSigningSecret(): string {
@@ -219,7 +202,7 @@ export class SpaAuthorization extends Authorization implements ISpaAuthorization
     super(scope, id, props);
   }
 
-  protected createUserPoolClient(): IUserPoolClient {
+  protected createUserPoolClient(): aws_cognito.IUserPoolClient {
     return this.userPool.addClient('UserPoolClient', {
       generateSecret: false,
       oAuth: {
@@ -236,7 +219,6 @@ export class SpaAuthorization extends Authorization implements ISpaAuthorization
   protected createAuthFlow(logLevel: LogLevel): AuthFlow {
     return new AuthFlow(this, 'AuthFlow', {
       logLevel,
-      httpHeaders: this.httpHeaders,
       userPool: this.userPool,
       userPoolClient: this.userPoolClient,
       oauthScopes: this.oauthScopes,
@@ -266,7 +248,7 @@ export class StaticSiteAuthorization extends Authorization implements IStaticSit
     super(scope, id, props);
   }
 
-  protected createUserPoolClient(): IUserPoolClient {
+  protected createUserPoolClient(): aws_cognito.IUserPoolClient {
     return this.userPool.addClient('UserPoolClient', {
       generateSecret: true,
       oAuth: {
@@ -285,7 +267,6 @@ export class StaticSiteAuthorization extends Authorization implements IStaticSit
 
     return new AuthFlow(this, 'AuthFlow', {
       logLevel,
-      httpHeaders: this.httpHeaders,
       userPool: this.userPool,
       userPoolClient: this.userPoolClient,
       oauthScopes: this.oauthScopes,

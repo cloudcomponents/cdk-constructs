@@ -1,13 +1,10 @@
-import { LambdaEdgeEventType } from '@aws-cdk/aws-cloudfront';
-import { Code, Function, Runtime, IVersion } from '@aws-cdk/aws-lambda';
-import { StringParameter } from '@aws-cdk/aws-ssm';
-import { Construct } from '@aws-cdk/core';
+import { aws_cloudfront, aws_lambda, aws_ssm } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { BaseEdgeConstruct } from './base-edge-construct';
 import { EdgeFunctionProvider } from './edge-function-provider';
 import { IEdgeLambda } from './edge-lambda';
 import { EdgeRole, IEdgeRole } from './edge-role';
-import { ILambdaFunctionAssociation } from './lambda-function-association';
 import { Configuration, WithConfiguration } from './with-configuration';
 
 export interface CommonEdgeFunctionProps {
@@ -21,16 +18,15 @@ export interface CommonEdgeFunctionProps {
 
 export interface EdgeFunctionProps extends CommonEdgeFunctionProps {
   readonly configuration: Configuration;
-  readonly code: Code;
+  readonly code: aws_lambda.Code;
   readonly name: string;
-  readonly eventType: LambdaEdgeEventType;
+  readonly eventType: aws_cloudfront.LambdaEdgeEventType;
 }
 
-export class EdgeFunction extends BaseEdgeConstruct implements ILambdaFunctionAssociation, IEdgeLambda {
+export class EdgeFunction extends BaseEdgeConstruct implements IEdgeLambda {
   public readonly edgeRole: IEdgeRole;
-  public readonly eventType: LambdaEdgeEventType;
-  public readonly functionVersion: IVersion;
-  public readonly lambdaFunction: IVersion;
+  public readonly eventType: aws_cloudfront.LambdaEdgeEventType;
+  public readonly functionVersion: aws_lambda.IVersion;
 
   constructor(scope: Construct, id: string, props: EdgeFunctionProps) {
     super(scope, id);
@@ -42,14 +38,14 @@ export class EdgeFunction extends BaseEdgeConstruct implements ILambdaFunctionAs
 
     this.eventType = props.eventType;
 
-    const edgeFunction = new Function(this.edgeStack, `${name}Function`, {
-      runtime: Runtime.NODEJS_12_X,
+    const edgeFunction = new aws_lambda.Function(this.edgeStack, `${name}Function`, {
+      runtime: aws_lambda.Runtime.NODEJS_14_X,
       handler: 'index.handler',
       code: props.code,
       role: this.edgeRole.role,
     });
 
-    const parameter = new StringParameter(this.edgeStack, `${name}StringParameter`, {
+    const parameter = new aws_ssm.StringParameter(this.edgeStack, `${name}StringParameter`, {
       parameterName,
       description: 'Parameter stored for cross region Lambda@Edge',
       stringValue: edgeFunction.functionArn,
@@ -65,7 +61,5 @@ export class EdgeFunction extends BaseEdgeConstruct implements ILambdaFunctionAs
     });
 
     this.functionVersion = lambdaWithConfig.functionVersion;
-
-    this.lambdaFunction = this.functionVersion;
   }
 }

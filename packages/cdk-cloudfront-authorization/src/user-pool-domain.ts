@@ -1,11 +1,9 @@
 import * as path from 'path';
-import { IUserPool } from '@aws-cdk/aws-cognito';
-import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
-import { Code, SingletonFunction, Runtime } from '@aws-cdk/aws-lambda';
-import { Construct, CustomResource } from '@aws-cdk/core';
+import { CustomResource, aws_cognito, aws_iam, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface UserPoolDomainProps {
-  readonly userPool: IUserPool;
+  readonly userPool: aws_cognito.IUserPool;
 }
 
 export class UserPoolDomain extends Construct {
@@ -14,16 +12,16 @@ export class UserPoolDomain extends Construct {
   constructor(scope: Construct, id: string, props: UserPoolDomainProps) {
     super(scope, id);
 
-    const secretGenerator = new SingletonFunction(this, 'Function', {
+    const secretGenerator = new aws_lambda.SingletonFunction(this, 'Function', {
       uuid: 'cloudcomponents-cdk-cloudfront-authorization-user-pool-domain',
-      runtime: Runtime.NODEJS_12_X,
+      runtime: aws_lambda.Runtime.NODEJS_14_X,
       handler: 'index.handler',
-      code: Code.fromAsset(path.join(__dirname, 'lambdas', 'user-pool-domain')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'user-pool-domain')),
     });
 
     secretGenerator.addToRolePolicy(
-      new PolicyStatement({
-        effect: Effect.ALLOW,
+      new aws_iam.PolicyStatement({
+        effect: aws_iam.Effect.ALLOW,
         actions: ['cognito-idp:DescribeUserPool'],
         resources: [props.userPool.userPoolArn],
       }),
