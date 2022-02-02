@@ -104,6 +104,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
       ],
     });
 
+
     const service = new CustomResource(this, 'CustomResource', {
       serviceToken,
       resourceType: 'Custom::BlueGreenService',
@@ -115,7 +116,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
         LaunchType: launchType,
         PlatformVersion: platformVersion,
         DesiredCount: desiredCount,
-        Subnets: vpc.privateSubnets.map((sn) => sn.subnetId),
+        Subnets: getPrivateOrIsolatedSubnets(vpc),
         SecurityGroups: securityGroups.map((sg) => sg.securityGroupId),
         TargetGroupArn: prodTargetGroup.targetGroupArn,
         ContainerPort: containerPort,
@@ -149,4 +150,16 @@ export class EcsService extends Construct implements IConnectable, IEcsService {
 export enum SchedulingStrategy {
   REPLICA = 'REPLICA',
   DAEMON = 'DAEMON',
+}
+
+function getPrivateOrIsolatedSubnets(vpc): string[] {
+
+  const privateSubnets = vpc.privateSubnets.map(sn => sn.subnetId)
+
+
+  if(privateSubnets.length === 0) {
+    return  vpc.isolatedSubnets.map(sn => sn.subnetId);
+  } else {
+    return privateSubnets;
+  }
 }
