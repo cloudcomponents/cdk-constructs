@@ -1,7 +1,8 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeCommitSourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Stack, StackProps } from 'aws-cdk-lib/core';
+import { Construct } from "constructs";
 
 import { SlackApprovalAction, SlackNotifier } from '@cloudcomponents/cdk-codepipeline-slack';
 

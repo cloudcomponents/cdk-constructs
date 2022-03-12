@@ -1,12 +1,12 @@
 import * as path from 'path';
-import { RestApi, LambdaIntegration } from '@aws-cdk/aws-apigateway';
-import { ActionCategory, CommonActionProps, IStage, ActionBindOptions, ActionConfig } from '@aws-cdk/aws-codepipeline';
-import { Action } from '@aws-cdk/aws-codepipeline-actions';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { Topic } from '@aws-cdk/aws-sns';
-import { LambdaSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import { Construct } from '@aws-cdk/core';
+import { RestApi, LambdaIntegration } from 'aws-cdk-lib/aws-apigateway';
+import { ActionCategory, CommonActionProps, IStage, ActionBindOptions, ActionConfig } from 'aws-cdk-lib/aws-codepipeline';
+import { Action } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Topic } from 'aws-cdk-lib/aws-sns';
+import { LambdaSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+import { Construct } from 'constructs';
 
 import { ChannelTypes } from './channel-types';
 

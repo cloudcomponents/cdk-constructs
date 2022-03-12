@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import 'source-map-support/register';
-import { App } from '@aws-cdk/core';
+import { App } from 'aws-cdk-lib/core';
 
 import { CodePipelineSlackApprovalStack } from './codepipeline-slack-approval-stack';
 
