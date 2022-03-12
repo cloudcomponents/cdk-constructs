@@ -1,9 +1,9 @@
 import * as path from 'path';
-import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
-import { Code, Function, IFunction, Runtime } from '@aws-cdk/aws-lambda';
-import { SnsEventSource } from '@aws-cdk/aws-lambda-event-sources';
-import { ITopic } from '@aws-cdk/aws-sns';
-import { Construct } from '@aws-cdk/core';
+import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
+import { Code, Function, IFunction, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { SnsEventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
+import { ITopic } from 'aws-cdk-lib/aws-sns';
+import { Construct } from 'constructs';
 
 export interface MSTeamsIncomingWebhookConfigurationProps {
   /**

@@ -1,7 +1,7 @@
-import { ServicePrincipal } from '@aws-cdk/aws-iam';
-import { SnsEventSource } from '@aws-cdk/aws-lambda-event-sources';
-import { Topic, ITopic } from '@aws-cdk/aws-sns';
-import { Construct } from '@aws-cdk/core';
+import { ServicePrincipal } from 'aws-cdk-lib/aws-iam';
+import { SnsEventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
+import { Topic, ITopic } from 'aws-cdk-lib/aws-sns';
+import { Construct } from 'constructs';
 import { ISlackChannelConfiguration, MSTeamsIncomingWebhookConfiguration } from '@cloudcomponents/cdk-chatops';
 
 import { INotificationRule } from './notification-rules';

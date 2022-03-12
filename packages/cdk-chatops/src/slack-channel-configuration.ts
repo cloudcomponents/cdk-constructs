@@ -1,8 +1,8 @@
-import { CfnSlackChannelConfiguration } from '@aws-cdk/aws-chatbot';
-import { IRole, Role, ServicePrincipal, PolicyStatement, Effect, ManagedPolicy } from '@aws-cdk/aws-iam';
-import { IFunction } from '@aws-cdk/aws-lambda';
-import { ITopic } from '@aws-cdk/aws-sns';
-import { Construct } from '@aws-cdk/core';
+import { CfnSlackChannelConfiguration } from 'aws-cdk-lib/aws-chatbot';
+import { Role, ServicePrincipal, PolicyStatement, Effect, ManagedPolicy } from 'aws-cdk-lib/aws-iam';
+import { IFunction } from 'aws-cdk-lib/aws-lambda';
+import { ITopic } from 'aws-cdk-lib/aws-sns';
+import { Construct } from 'constructs';
 
 export interface ISlackChannelConfiguration {
   readonly configurationArn: string;
@@ -21,7 +21,7 @@ export interface SlackChannelConfigurationProps {
    * not the service-linked role. For more information, see IAM Policies
    * for AWS Chatbot.
    */
-  readonly role?: IRole;
+  readonly role?: Role;
 
   /**
    * The ID of the Slack channel.
@@ -61,7 +61,7 @@ export interface SlackChannelConfigurationProps {
 
 export class SlackChannelConfiguration extends Construct {
   public readonly configurationArn: string;
-  public readonly role: IRole;
+  public readonly role: Role;
 
   constructor(scope: Construct, id: string, props: SlackChannelConfigurationProps) {
     super(scope, id);

@@ -1,9 +1,9 @@
-import { IProject } from '@aws-cdk/aws-codebuild';
-import { IRepository } from '@aws-cdk/aws-codecommit';
-import { IServerApplication, ILambdaApplication, IEcsApplication } from '@aws-cdk/aws-codedeploy';
-import { IPipeline } from '@aws-cdk/aws-codepipeline';
-import { CfnNotificationRule } from '@aws-cdk/aws-codestarnotifications';
-import { Construct } from '@aws-cdk/core';
+import { IProject } from 'aws-cdk-lib/aws-codebuild';
+import { IRepository } from 'aws-cdk-lib/aws-codecommit';
+import { IServerApplication, ILambdaApplication, IEcsApplication } from 'aws-cdk-lib/aws-codedeploy';
+import { IPipeline } from 'aws-cdk-lib/aws-codepipeline';
+import { CfnNotificationRule } from 'aws-cdk-lib/aws-codestarnotifications';
+import { Construct } from 'constructs';
 
 import { NotificationTargetProperty, INotificationTarget } from './notification-targets';
 
@@ -81,17 +81,19 @@ export class NotificationRule extends Construct implements INotificationRule {
     });
 
     this.notificationRuleArn = notificationRule.ref;
+
+    this.node.addValidation({
+      validate: () => {
+        if (this.targets.length === 0) {
+          return ['Notification rule must have a target'];
+        }
+        return [];
+      }
+    })
   }
 
   public addTarget(target: INotificationTarget): void {
     this.targets.push(target.bind(this, this));
-  }
-
-  protected validate(): string[] {
-    if (this.targets.length === 0) {
-      return ['Notification rule must have a target'];
-    }
-    return [];
   }
 }
 
