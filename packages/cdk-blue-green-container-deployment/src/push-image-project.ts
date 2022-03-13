@@ -1,3 +1,4 @@
+import { Stack } from 'aws-cdk-lib';
 import {
   Cache,
   LocalCacheMode,
@@ -7,10 +8,10 @@ import {
   ComputeType,
   BuildEnvironmentVariable,
   BuildEnvironmentVariableType,
-} from '@aws-cdk/aws-codebuild';
-import { IRepository } from '@aws-cdk/aws-ecr';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Construct, Stack } from '@aws-cdk/core';
+} from 'aws-cdk-lib/aws-codebuild';
+import { IRepository } from 'aws-cdk-lib/aws-ecr';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Construct } from 'constructs';
 
 import { BuildSpecGenerator } from './build-spec-generator';
 import { IDummyTaskDefinition } from './dummy-task-definition';

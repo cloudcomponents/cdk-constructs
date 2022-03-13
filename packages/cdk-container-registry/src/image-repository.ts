@@ -1,12 +1,13 @@
 import * as path from 'path';
-import { Repository, RepositoryProps } from '@aws-cdk/aws-ecr';
-import { Rule, EventField, RuleTargetInput } from '@aws-cdk/aws-events';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { ITopic } from '@aws-cdk/aws-sns';
-import { Construct, RemovalPolicy } from '@aws-cdk/core';
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '@aws-cdk/custom-resources';
+import { RemovalPolicy } from 'aws-cdk-lib';
+import { Repository, RepositoryProps } from 'aws-cdk-lib/aws-ecr';
+import { Rule, EventField, RuleTargetInput } from 'aws-cdk-lib/aws-events';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
+import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { ITopic } from 'aws-cdk-lib/aws-sns';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
+import { Construct } from 'constructs';
 
 export interface OnFindingOptions {
   readonly alarmTopic: ITopic;

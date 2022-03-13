@@ -1,10 +1,11 @@
 import * as path from 'path';
-import { IConnectable, Connections, SecurityGroup, Port } from '@aws-cdk/aws-ec2';
-import { ICluster, LaunchType, DeploymentCircuitBreaker } from '@aws-cdk/aws-ecs';
-import { ITargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
-import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Function, Runtime, Code } from '@aws-cdk/aws-lambda';
-import { Duration, Construct, CustomResource, ITaggable, TagManager, TagType, Lazy } from '@aws-cdk/core';
+import { Duration, CustomResource, ITaggable, TagManager, TagType, Lazy } from 'aws-cdk-lib';
+import { IConnectable, Connections, SecurityGroup, Port } from 'aws-cdk-lib/aws-ec2';
+import { ICluster, LaunchType, DeploymentCircuitBreaker } from 'aws-cdk-lib/aws-ecs';
+import { ITargetGroup } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Function, Runtime, Code } from 'aws-cdk-lib/aws-lambda';
+import { Construct } from 'constructs';
 
 import { DummyTaskDefinition } from './dummy-task-definition';
 
