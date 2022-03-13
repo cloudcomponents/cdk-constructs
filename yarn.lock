@@ -3488,17 +3488,17 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-cdk-lib@2.8.0, aws-cdk-lib@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.8.0.tgz#11e1d21705bd7b60bd9fdd4e230ddd9202863fd0"
-  integrity sha512-i6vys7oGc77a6LpXuBF3434wyx6X7WUS/BPaRFAf52LWb8PPlq/pSOVP5kkKPgqCElvAzQatqMZuoeT6tbincQ==
+aws-cdk-lib@2.16.0, aws-cdk-lib@^2.16.0:
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.16.0.tgz#51b2d07bac27f5401fda7ccc52d08331289f8558"
+  integrity sha512-qQlSNat5/HPNFbExZ8LTVDLOZaI+8O2Uv6/vsp87gqfapTqu6MM9m7MouTnFd+f3JiAdTBDu7A0q802oZSH6JA==
   dependencies:
     "@balena/dockerignore" "^1.0.2"
     case "1.6.3"
     fs-extra "^9.1.0"
     ignore "^5.2.0"
     jsonschema "^1.4.0"
-    minimatch "^3.0.4"
+    minimatch "^3.1.2"
     punycode "^2.1.1"
     semver "^7.3.5"
     yaml "1.10.2"
@@ -3534,6 +3534,13 @@ aws-cdk@^1.140.0:
     wrap-ansi "^7.0.0"
     yaml "1.10.2"
     yargs "^16.2.0"
+
+aws-cdk@^2.16.0:
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.16.0.tgz#953610e7bbd398dc1f1771f9c9a99595d84214e3"
+  integrity sha512-7pX1FNY2lhBwFJwrD4b0fTfbaYqLgxiGrd0KEu3oOk2yAR/GFaSo9L83jT7fdNzpZE1GzB4Ryd6svCCyPLE18A==
+  optionalDependencies:
+    fsevents "2.3.2"
 
 aws-local-testing-library@^0.0.7:
   version "0.0.7"
@@ -4806,10 +4813,10 @@ constants-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
 
-constructs@10.0.41, constructs@^10.0.41:
-  version "10.0.41"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.0.41.tgz#4deeb04baf2502110807f2d028cedd5a18bf326a"
-  integrity sha512-h8HytpdxtuO9PPndcvZGX90Silp9lCWxf0XlzGhWOGpZchIyDFR+pqy4n0eiyEsPcclPF0CMfCA3UcGugu3+vw==
+constructs@10.0.86, constructs@^10.0.86:
+  version "10.0.86"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.0.86.tgz#2fe90a81181fdf8c41ac3376cd37dd1176494e4f"
+  integrity sha512-AfQ6M3Z18dOBL179CPcSbsZJfRkkr+/NXRC2X4fASjudEFzNVyx3tyznJpTO1a6lySAjFg6HmiiAsbGOnbWauw==
 
 constructs@^3.3.156, constructs@^3.3.69:
   version "3.3.187"
@@ -6879,6 +6886,11 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
+fsevents@2.3.2, fsevents@^2.3.2, fsevents@~2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
+  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
+
 fsevents@^1.2.7:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.13.tgz#f325cb0455592428bcf11b383370ef70e3bfcc38"
@@ -6886,11 +6898,6 @@ fsevents@^1.2.7:
   dependencies:
     bindings "^1.5.0"
     nan "^2.12.1"
-
-fsevents@^2.3.2, fsevents@~2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
-  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
 ftp@^0.3.10:
   version "0.3.10"
@@ -10011,6 +10018,13 @@ minimatch@>=3.0, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
+  dependencies:
+    brace-expansion "^1.1.7"
+
+minimatch@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"
+  integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
   dependencies:
     brace-expansion "^1.1.7"
 

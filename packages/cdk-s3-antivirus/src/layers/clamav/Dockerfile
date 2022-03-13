@@ -14,7 +14,7 @@ RUN amazon-linux-extras install epel -y && yum-config-manager --enable epel
 
 #
 # layer
-# 
+#
 RUN yum install clamav-$CLAMAV_VERSION -y
 
 
