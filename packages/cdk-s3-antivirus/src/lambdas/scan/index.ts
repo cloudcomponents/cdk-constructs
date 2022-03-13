@@ -13,7 +13,10 @@ export const handler = async (event: S3CreateEvent, context: Context): Promise<S
   const { name: bucket } = event.Records[0].s3.bucket;
   const { key } = event.Records[0].s3.object;
 
-  const mirror = process.env.DEFINITIONS_URL as string;
+  if (typeof process.env.DEFINITIONS_URL === 'undefined') {
+    throw new Error('environment variable DEFINITIONS_URL undefined');
+  }
+  const mirror = process.env.DEFINITIONS_URL;
   const downloadPath = path.join(getEnv('EFS_MOUNT_PATH'), context.awsRequestId);
 
   await antiVirus.updateDefinitions([`PrivateMirror ${mirror}`]);

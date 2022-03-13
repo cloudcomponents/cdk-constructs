@@ -1,8 +1,9 @@
-import { IRepository } from '@aws-cdk/aws-codecommit';
-import { ActionCategory, CommonAwsActionProps, IStage, ActionBindOptions, ActionConfig } from '@aws-cdk/aws-codepipeline';
-import { Action } from '@aws-cdk/aws-codepipeline-actions';
-import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
-import { Construct, Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
+import { IRepository } from 'aws-cdk-lib/aws-codecommit';
+import { ActionCategory, CommonAwsActionProps, IStage, ActionBindOptions, ActionConfig } from 'aws-cdk-lib/aws-codepipeline';
+import { Action } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { PolicyStatement, IRole } from 'aws-cdk-lib/aws-iam';
+import { Construct } from 'constructs';
 
 import { MergeBranchesFunction } from './merge-branches-function';
 
@@ -61,7 +62,7 @@ export class CodePipelineMergeAction extends Action {
     });
 
     // allow pipeline to list functions
-    options.role.addToPolicy(
+    options.role.addToPrincipalPolicy(
       new PolicyStatement({
         actions: ['lambda:ListFunctions'],
         resources: ['*'],
@@ -69,7 +70,7 @@ export class CodePipelineMergeAction extends Action {
     );
 
     // allow pipeline to invoke this lambda functionn
-    options.role.addToPolicy(
+    options.role.addToPrincipalPolicy(
       new PolicyStatement({
         actions: ['lambda:InvokeFunction'],
         resources: [mergeBranchesFunction.functionArn],

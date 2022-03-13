@@ -66,36 +66,15 @@
     "@types/aws-serverless-express/@types/aws-lambda": "^8.10.67"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-apigateway": "^1.140.0",
-    "@aws-cdk/aws-codebuild": "^1.140.0",
-    "@aws-cdk/aws-codepipeline": "^1.140.0",
-    "@aws-cdk/aws-codepipeline-actions": "^1.140.0",
-    "@aws-cdk/aws-events": "^1.140.0",
-    "@aws-cdk/aws-events-targets": "^1.140.0",
-    "@aws-cdk/aws-iam": "^1.140.0",
-    "@aws-cdk/aws-lambda": "^1.140.0",
-    "@aws-cdk/aws-s3": "^1.140.0",
-    "@aws-cdk/aws-sns": "^1.140.0",
-    "@aws-cdk/aws-sns-subscriptions": "^1.140.0",
-    "@aws-cdk/core": "^1.140.0",
-    "constructs": "^3.2.0"
+    "aws-cdk-lib": "^2.8.0",
+    "constructs": "^10.0.41"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.140.0",
-    "@aws-cdk/aws-codebuild": "^1.140.0",
-    "@aws-cdk/aws-codepipeline": "^1.140.0",
-    "@aws-cdk/aws-codepipeline-actions": "^1.140.0",
-    "@aws-cdk/aws-events": "^1.140.0",
-    "@aws-cdk/aws-events-targets": "^1.140.0",
-    "@aws-cdk/aws-iam": "^1.140.0",
-    "@aws-cdk/aws-lambda": "^1.140.0",
-    "@aws-cdk/aws-s3": "^1.140.0",
-    "@aws-cdk/aws-sns": "^1.140.0",
-    "@aws-cdk/aws-sns-subscriptions": "^1.140.0",
-    "@aws-cdk/core": "^1.140.0"
+    "aws-cdk-lib": "2.8.0",
+    "constructs": "10.0.41"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.140.0",
+    "@aws-cdk/assert": "2.8.0",
     "@slack/interactive-messages": "^1.7.1",
     "@slack/web-api": "^5.15.0",
     "@types/aws-serverless-express": "^3.3.3",
@@ -104,7 +83,7 @@
     "aws-serverless-express": "^3.4.0",
     "express": "^4.17.1",
     "get-env-or-die": "^1.0.11",
-    "jest-cdk-snapshot": "^1.4.2"
+    "jest-cdk-snapshot": "^2.0.1"
   },
   "externals": [
     "aws-sdk"

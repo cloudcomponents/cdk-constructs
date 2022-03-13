@@ -11,7 +11,10 @@ export class CodeCommitBackupStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const repository = Repository.fromRepositoryName(this, 'Repository', process.env.REPOSITORY_NAME as string);
+    if (typeof process.env.REPOSITORY_NAME === 'undefined') {
+      throw new Error('environment variable REPOSITORY_NAME undefined');
+    }
+    const repository = Repository.fromRepositoryName(this, 'Repository', process.env.REPOSITORY_NAME);
 
     const backupBucket = new BackupBucket(this, 'BackupBuckt', {
       retentionPeriod: Duration.days(90),
@@ -29,7 +32,9 @@ export class CodeCommitBackupStack extends Stack {
 
     const backupTopic = new Topic(this, 'BackupTopic');
 
-    backupTopic.addSubscription(new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string));
+    if (process.env.DEVSECOPS_TEAM_EMAIL) {
+      backupTopic.addSubscription(new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL));
+    }
 
     backup.onBackupStarted('started', {
       target: new SnsTopic(backupTopic),

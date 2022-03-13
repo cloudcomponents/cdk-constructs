@@ -10,10 +10,16 @@ export class GithubWebhookStack extends Stack {
     const api = new aws_apigateway.RestApi(this, 'github-webhook');
     api.root.addMethod('POST');
 
-    const githubApiToken = SecretKey.fromPlainText(process.env.API_TOKEN as string);
+    if (typeof process.env.API_TOKEN === 'undefined') {
+      throw new Error('environment variable API_TOKEN undefined');
+    }
+    const githubApiToken = SecretKey.fromPlainText(process.env.API_TOKEN);
 
     // @example https://github.com/cloudcomponents/cdk-constructs
-    const githubRepoUrl = process.env.REPO_URL as string;
+    if (typeof process.env.REPO_URL === 'undefined') {
+      throw new Error('environment variable REPO_URL undefined');
+    }
+    const githubRepoUrl = process.env.REPO_URL;
 
     // @see https://developer.github.com/v3/activity/events/types/
     const events = ['*'];

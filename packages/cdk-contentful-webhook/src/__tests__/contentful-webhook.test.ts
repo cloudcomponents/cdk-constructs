@@ -17,7 +17,6 @@ describe('cdk-contentful-webhook', (): void => {
 
     expect(stack).toMatchCdkSnapshot({
       propertyMatchers: {
-        Parameters: expect.any(Object),
         Resources: {
           CustomContentfulWebhook91f2075fb9504743a66bee0f6febf50d4005AAA1: {
             Properties: {

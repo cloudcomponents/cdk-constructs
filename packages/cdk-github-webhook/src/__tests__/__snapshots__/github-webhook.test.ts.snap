@@ -2,7 +2,6 @@
 
 exports[`cdk-github-webhook snapshot 1`] = `
 Object {
-  "Parameters": Any<Object>,
   "Resources": Object {
     "CustomGithubWebhook83CBF3EB7B6244F28C678441E4C1232EA4E17075": Object {
       "DependsOn": Array [
@@ -71,33 +70,6 @@ Object {
       },
       "Type": "Custom::GithubWebhook",
       "UpdateReplacePolicy": "Delete",
-    },
-  },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  Object {
-                    "Ref": "BootstrapVersion",
-                  },
-                ],
-              },
-            ],
-          },
-          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
-        },
-      ],
     },
   },
 }

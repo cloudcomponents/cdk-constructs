@@ -1,7 +1,7 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Artifact, Pipeline } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Artifact, Pipeline } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeCommitSourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
 import 'jest-cdk-snapshot';
 
 import { CodePipelineCheckParameterAction } from '../codepipeline-check-parameter-action';

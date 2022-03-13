@@ -1,8 +1,8 @@
-import { BuildSpec, LinuxBuildImage, PipelineProject, ComputeType } from '@aws-cdk/aws-codebuild';
-import { ActionBindOptions, ActionCategory, ActionConfig, Artifact, CommonAwsActionProps, IStage } from '@aws-cdk/aws-codepipeline';
-import { Action } from '@aws-cdk/aws-codepipeline-actions';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Construct } from '@aws-cdk/core';
+import { BuildSpec, LinuxBuildImage, PipelineProject, ComputeType } from 'aws-cdk-lib/aws-codebuild';
+import { ActionBindOptions, ActionCategory, ActionConfig, Artifact, CommonAwsActionProps, IStage } from 'aws-cdk-lib/aws-codepipeline';
+import { Action } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Construct } from 'constructs';
 
 export interface CodePipelineDockerfileLinterActionProps extends CommonAwsActionProps {
   /**

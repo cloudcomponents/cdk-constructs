@@ -9,7 +9,10 @@ export class StripeWebhookStack extends Stack {
     const api = new aws_apigateway.RestApi(this, 'Endpoint');
     api.root.addMethod('POST');
 
-    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY as string);
+    if (typeof process.env.SECRET_KEY === 'undefined') {
+      throw new Error('environment variable SECRET_KEY undefined');
+    }
+    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY);
 
     const events = ['charge.failed', 'charge.succeeded'];
 

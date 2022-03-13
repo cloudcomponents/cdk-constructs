@@ -1,5 +1,5 @@
-import { CfnTemplate } from '@aws-cdk/aws-ses';
-import { Construct } from '@aws-cdk/core';
+import { CfnTemplate } from 'aws-cdk-lib/aws-ses';
+import { Construct } from 'constructs';
 import { minify as htmlMinify } from 'html-minifier';
 import { html as htmlBeautify } from 'js-beautify';
 import * as mjml2html from 'mjml';

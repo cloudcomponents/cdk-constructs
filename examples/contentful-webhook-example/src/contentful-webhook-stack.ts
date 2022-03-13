@@ -10,9 +10,15 @@ export class ContentfulWebhookStack extends Stack {
     const api = new aws_apigateway.RestApi(this, 'Endpoint');
     api.root.addMethod('POST');
 
-    const accessToken = SecretKey.fromPlainText(process.env.ACCESS_TOKEN as string);
+    if (typeof process.env.ACCESS_TOKEN === 'undefined') {
+      throw new Error('environment variable ACCESS_TOKEN undefined');
+    }
+    const accessToken = SecretKey.fromPlainText(process.env.ACCESS_TOKEN);
 
-    const spaceId = process.env.SPACE_ID as string;
+    if (typeof process.env.SPACE_ID === 'undefined') {
+      throw new Error('environment variable SPACE_ID undefined');
+    }
+    const spaceId = process.env.SPACE_ID;
 
     const topics = ['Entry.create'];
 

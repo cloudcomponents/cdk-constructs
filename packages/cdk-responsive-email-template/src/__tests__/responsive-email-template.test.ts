@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
 import 'jest-cdk-snapshot';
 
 import { ResponsiveEmailTemplate } from '../responsive-email-template';

@@ -58,17 +58,18 @@
     }
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.0.0",
-    "constructs": "^10.0.0"
+    "aws-cdk-lib": "^2.8.0",
+    "constructs": "^10.0.41"
   },
   "dependencies": {
     "@cloudcomponents/cdk-secret-key": "^1.21.0"
   },
   "devDependencies": {
-    "aws-cdk-lib": "^2.8.0",
-    "constructs": "^10.0.41",
+    "@aws-cdk/assert": "2.8.0",
     "@cloudcomponents/lambda-utils": "^0.2.0",
+    "aws-cdk-lib": "2.8.0",
     "aws-sdk": "^2.1062.0",
+    "constructs": "10.0.41",
     "contentful-management": "^6.1.1",
     "custom-resource-helper": "^1.0.15",
     "jest-cdk-snapshot": "^2.0.1"
