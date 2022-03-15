@@ -24,7 +24,10 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     }
 
     const endpointSecret = await endpointSecretKey.getValue();
-    const eventReceived = stripe.webhooks.constructEvent(event.body as string, signature, endpointSecret);
+    if (!event.body) {
+      throw new Error('event body undefined or null');
+    }
+    const eventReceived = stripe.webhooks.constructEvent(event.body, signature, endpointSecret);
 
     const { type, ...details } = eventReceived;
 

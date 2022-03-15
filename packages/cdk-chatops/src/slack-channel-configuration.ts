@@ -1,8 +1,8 @@
-import { CfnSlackChannelConfiguration } from '@aws-cdk/aws-chatbot';
-import { IRole, Role, ServicePrincipal, PolicyStatement, Effect, ManagedPolicy } from '@aws-cdk/aws-iam';
-import { IFunction } from '@aws-cdk/aws-lambda';
-import { ITopic } from '@aws-cdk/aws-sns';
-import { Construct } from '@aws-cdk/core';
+import { CfnSlackChannelConfiguration } from 'aws-cdk-lib/aws-chatbot';
+import { IRole, Role, ServicePrincipal, PolicyStatement, Effect, ManagedPolicy } from 'aws-cdk-lib/aws-iam';
+import { IFunction } from 'aws-cdk-lib/aws-lambda';
+import { ITopic } from 'aws-cdk-lib/aws-sns';
+import { Construct } from 'constructs';
 
 export interface ISlackChannelConfiguration {
   readonly configurationArn: string;
@@ -88,7 +88,7 @@ export class SlackChannelConfiguration extends Construct {
    * Adds a statement to the IAM role assumed by the instance.
    */
   public addToRolePolicy(statement: PolicyStatement): void {
-    this.role.addToPolicy(statement);
+    this.role.addToPrincipalPolicy(statement);
   }
 
   /**

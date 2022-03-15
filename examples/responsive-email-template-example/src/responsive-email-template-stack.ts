@@ -1,5 +1,6 @@
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { ResponsiveEmailTemplate, TemplatePart } from '@cloudcomponents/cdk-responsive-email-template';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class ResponsiveEmailTemplateStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {

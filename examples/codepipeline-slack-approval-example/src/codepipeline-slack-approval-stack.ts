@@ -1,9 +1,9 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
-
 import { SlackApprovalAction, SlackNotifier } from '@cloudcomponents/cdk-codepipeline-slack';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeCommitSourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Construct } from 'constructs';
 
 export class CodePipelineSlackApprovalStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -21,9 +21,20 @@ export class CodePipelineSlackApprovalStack extends Stack {
       output: sourceArtifact,
     });
 
-    const slackBotToken = process.env.SLACK_BOT_TOKEN as string;
-    const slackSigningSecret = process.env.SLACK_SIGNING_SECRET as string;
-    const slackChannel = process.env.SLACK_CHANNEL_NAME as string;
+    if (typeof process.env.SLACK_BOT_TOKEN === 'undefined') {
+      throw new Error('environment variable SLACK_BOT_TOKEN undefined');
+    }
+    const slackBotToken = process.env.SLACK_BOT_TOKEN;
+
+    if (typeof process.env.SLACK_SIGNING_SECRET === 'undefined') {
+      throw new Error('environment variable SLACK_SIGNING_SECRET undefined');
+    }
+    const slackSigningSecret = process.env.SLACK_SIGNING_SECRET;
+
+    if (typeof process.env.SLACK_CHANNEL_NAME === 'undefined') {
+      throw new Error('environment variable SLACK_CHANNEL_NAME undefined');
+    }
+    const slackChannel = process.env.SLACK_CHANNEL_NAME;
 
     const approvalAction = new SlackApprovalAction({
       actionName: 'SlackApproval',

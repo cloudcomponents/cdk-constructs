@@ -1,7 +1,7 @@
-import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { IFunction } from '@aws-cdk/aws-lambda';
-import { Construct } from '@aws-cdk/core';
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '@aws-cdk/custom-resources';
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { IFunction } from 'aws-cdk-lib/aws-lambda';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
+import { Construct } from 'constructs';
 
 export interface DefinitionInitializerProps {
   readonly fn: IFunction;

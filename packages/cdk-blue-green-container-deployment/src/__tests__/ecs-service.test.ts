@@ -1,7 +1,7 @@
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
-import * as ecs from '@aws-cdk/aws-ecs';
-import * as elb from '@aws-cdk/aws-elasticloadbalancingv2';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as ecs from 'aws-cdk-lib/aws-ecs';
+import * as elb from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 
 import { DummyTaskDefinition } from '../dummy-task-definition';
 import { EcsService, PropagateTags } from '../ecs-service';

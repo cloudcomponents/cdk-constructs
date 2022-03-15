@@ -1,8 +1,9 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { CodePipelineCheckParameterAction } from '@cloudcomponents/cdk-codepipeline-check-parameter-action';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeCommitSourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Construct } from 'constructs';
 
 export class CodePipelineCheckParameterActionStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

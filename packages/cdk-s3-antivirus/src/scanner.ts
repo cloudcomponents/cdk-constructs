@@ -1,12 +1,13 @@
 import * as path from 'path';
-import { Port } from '@aws-cdk/aws-ec2';
-import { Rule, Schedule } from '@aws-cdk/aws-events';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { ArnPrincipal, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Code, Function, IFunction, FileSystem, Runtime, IDestination } from '@aws-cdk/aws-lambda';
-import { S3EventSource } from '@aws-cdk/aws-lambda-event-sources';
-import { Bucket, EventType } from '@aws-cdk/aws-s3';
-import { Construct, Duration, Stack } from '@aws-cdk/core';
+import { Duration, Stack } from 'aws-cdk-lib';
+import { Port } from 'aws-cdk-lib/aws-ec2';
+import { Rule, Schedule } from 'aws-cdk-lib/aws-events';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+import { ArnPrincipal, Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Code, Function, IFunction, FileSystem, Runtime, IDestination } from 'aws-cdk-lib/aws-lambda';
+import { S3EventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
+import { Bucket, EventType } from 'aws-cdk-lib/aws-s3';
+import { Construct } from 'constructs';
 
 import { ClamavLayer } from './clamav-layer';
 import { DefinitionInitializer } from './definition-initializer';

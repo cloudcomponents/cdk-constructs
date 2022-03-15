@@ -59,19 +59,20 @@
     }
   },
   "peerDependencies": {
+    "@cloudcomponents/cdk-secret-key": "^1.15.0",
     "aws-cdk-lib": "^2.8.0",
-    "constructs": "^10.0.41",
-    "@cloudcomponents/cdk-secret-key": "^1.15.0"
+    "constructs": "^10.0.41"
   },
   "dependencies": {
     "@cloudcomponents/cdk-secret-key": "^1.21.0"
   },
   "devDependencies": {
-    "aws-cdk-lib": "2.8.0",
-    "constructs": "10.0.41",
+    "@aws-cdk/assert": "2.8.0",
     "@cloudcomponents/lambda-utils": "^0.2.0",
     "@types/stripe": "^8.0.417",
+    "aws-cdk-lib": "2.8.0",
     "aws-sdk": "^2.1062.0",
+    "constructs": "10.0.41",
     "custom-resource-helper": "^1.0.15",
     "get-env-or-die": "^1.0.11",
     "jest-cdk-snapshot": "^2.0.1",

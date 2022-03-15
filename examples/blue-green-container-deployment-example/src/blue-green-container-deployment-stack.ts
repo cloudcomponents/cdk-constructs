@@ -1,13 +1,13 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeBuildAction, CodeCommitSourceAction, CodeDeployEcsDeployAction } from '@aws-cdk/aws-codepipeline-actions';
-import { Vpc, Port } from '@aws-cdk/aws-ec2';
-import { Cluster } from '@aws-cdk/aws-ecs';
-import { ApplicationLoadBalancer, ApplicationTargetGroup, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
-import { Construct, Duration, Stack, StackProps } from '@aws-cdk/core';
-
 import { EcsService, DummyTaskDefinition, EcsDeploymentGroup, PushImageProject } from '@cloudcomponents/cdk-blue-green-container-deployment';
 import { ImageRepository } from '@cloudcomponents/cdk-container-registry';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeBuildAction, CodeCommitSourceAction, CodeDeployEcsDeployAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Vpc, Port } from 'aws-cdk-lib/aws-ec2';
+import { Cluster } from 'aws-cdk-lib/aws-ecs';
+import { ApplicationLoadBalancer, ApplicationTargetGroup, TargetType } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { Construct } from 'constructs';
 
 export class BlueGreenContainerDeploymentStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

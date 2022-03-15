@@ -1,7 +1,8 @@
-import { Vpc, SubnetType, IVpc, GatewayVpcEndpoint, GatewayVpcEndpointAwsService, SecurityGroup } from '@aws-cdk/aws-ec2';
-import { FileSystem, LifecyclePolicy, PerformanceMode, IAccessPoint } from '@aws-cdk/aws-efs';
-import { AnyPrincipal, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Construct, RemovalPolicy } from '@aws-cdk/core';
+import { RemovalPolicy } from 'aws-cdk-lib';
+import { Vpc, SubnetType, IVpc, GatewayVpcEndpoint, GatewayVpcEndpointAwsService, SecurityGroup } from 'aws-cdk-lib/aws-ec2';
+import { FileSystem, LifecyclePolicy, PerformanceMode, IAccessPoint } from 'aws-cdk-lib/aws-efs';
+import { AnyPrincipal, Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Construct } from 'constructs';
 
 import { DefinitionBucket } from './definition-bucket';
 

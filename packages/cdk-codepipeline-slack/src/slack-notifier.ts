@@ -1,10 +1,10 @@
 import * as path from 'path';
-import { IPipeline } from '@aws-cdk/aws-codepipeline';
-import { Rule } from '@aws-cdk/aws-events';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { Code, Function, Runtime } from '@aws-cdk/aws-lambda';
-import { Construct } from '@aws-cdk/core';
+import { IPipeline } from 'aws-cdk-lib/aws-codepipeline';
+import { Rule } from 'aws-cdk-lib/aws-events';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Construct } from 'constructs';
 
 import { ChannelTypes } from './channel-types';
 

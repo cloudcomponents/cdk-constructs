@@ -1,4 +1,4 @@
-//import { SynthUtils } from '@aws-cdk/assert';
+//import { SynthUtils } from 'aws-cdk-lib/assert';
 import { App, Duration, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import 'jest-cdk-snapshot';

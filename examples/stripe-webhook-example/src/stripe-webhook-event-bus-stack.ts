@@ -7,7 +7,10 @@ export class StripeWebhookEventBusStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY as string);
+    if (typeof process.env.SECRET_KEY === 'undefined') {
+      throw new Error('environment variable SECRET_KEY undefined');
+    }
+    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY);
 
     const endpointSecretParameter = aws_ssm.StringParameter.fromSecureStringParameterAttributes(this, 'Param', {
       parameterName: 'stripe',

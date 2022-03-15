@@ -15,7 +15,6 @@ test('default setup', (): void => {
 
   expect(stack).toMatchCdkSnapshot({
     propertyMatchers: {
-      Parameters: expect.any(Object),
       Resources: {
         CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbc3F433A9D: {
           Properties: {
@@ -40,7 +39,6 @@ test('default setup - secretKey', (): void => {
 
   expect(stack).toMatchCdkSnapshot({
     propertyMatchers: {
-      Parameters: expect.any(Object),
       Resources: {
         CustomStripeWebhooke9db3870d7934cd296a9efe2e318ebbc3F433A9D: {
           Properties: {

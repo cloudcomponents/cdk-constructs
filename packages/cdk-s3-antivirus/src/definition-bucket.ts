@@ -1,6 +1,7 @@
-import { AnyPrincipal, Effect, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Bucket, BucketEncryption } from '@aws-cdk/aws-s3';
-import { Construct, RemovalPolicy } from '@aws-cdk/core';
+import { RemovalPolicy } from 'aws-cdk-lib';
+import { AnyPrincipal, Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
+import { Construct } from 'constructs';
 
 export interface DefinitionBucketProps {
   readonly bucketName?: string;

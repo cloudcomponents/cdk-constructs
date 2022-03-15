@@ -1,7 +1,3 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { CodeCommitSourceAction, ManualApprovalAction } from '@aws-cdk/aws-codepipeline-actions';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { SlackChannelConfiguration, MSTeamsIncomingWebhookConfiguration, AccountLabelMode } from '@cloudcomponents/cdk-chatops';
 import {
   RepositoryNotificationRule,
@@ -11,6 +7,11 @@ import {
   SlackChannel,
   MSTeamsIncomingWebhook,
 } from '@cloudcomponents/cdk-developer-tools-notifications';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Construct } from 'constructs';
 
 export class NotificationsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -20,14 +21,23 @@ export class NotificationsStack extends Stack {
       repositoryName: 'notifications-repository',
     });
 
+    if (typeof process.env.SLACK_WORKSPACE_ID === 'undefined') {
+      throw new Error('environment variable SLACK_WORKSPACE_ID undefined');
+    }
+    if (typeof process.env.SLACK_CHANNEL_ID === 'undefined') {
+      throw new Error('environment variable SLACK_CHANNEL_ID undefined');
+    }
     const slackChannel = new SlackChannelConfiguration(this, 'SlackChannel', {
-      slackWorkspaceId: process.env.SLACK_WORKSPACE_ID as string,
+      slackWorkspaceId: process.env.SLACK_WORKSPACE_ID,
       configurationName: 'notifications',
-      slackChannelId: process.env.SLACK_CHANNEL_ID as string,
+      slackChannelId: process.env.SLACK_CHANNEL_ID,
     });
 
+    if (typeof process.env.INCOMING_WEBHOOK_URL === 'undefined') {
+      throw new Error('environment variable INCOMING_WEBHOOK_URL undefined');
+    }
     const webhook = new MSTeamsIncomingWebhookConfiguration(this, 'MSTeamsWebhook', {
-      url: process.env.INCOMING_WEBHOOK_URL as string,
+      url: process.env.INCOMING_WEBHOOK_URL,
       accountLabelMode: AccountLabelMode.ID_AND_ALIAS,
       themeColor: '#FF0000',
     });

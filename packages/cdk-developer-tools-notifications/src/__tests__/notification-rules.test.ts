@@ -1,7 +1,7 @@
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Topic } from '@aws-cdk/aws-sns';
-import { Stack } from '@aws-cdk/core';
 import { SlackChannelConfiguration } from '@cloudcomponents/cdk-chatops';
+import { Stack } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Topic } from 'aws-cdk-lib/aws-sns';
 import 'jest-cdk-snapshot';
 
 import { RepositoryNotificationRule, RepositoryEvent } from '../notification-rules';

@@ -60,13 +60,12 @@
     }
   },
   "peerDependencies": {
-    "@aws-cdk/aws-ses": "^1.140.0",
-    "@aws-cdk/core": "^1.140.0",
-    "constructs": "^3.2.0"
+    "aws-cdk-lib": "^2.8.0",
+    "constructs": "^10.0.41"
   },
   "dependencies": {
-    "@aws-cdk/aws-ses": "^1.140.0",
-    "@aws-cdk/core": "^1.140.0",
+    "aws-cdk-lib": "2.8.0",
+    "constructs": "10.0.41",
     "html-minifier": "^4.0.0",
     "js-beautify": "^1.13.13",
     "mjml": "^4.9.3"
@@ -77,9 +76,10 @@
     "js-beautify"
   ],
   "devDependencies": {
+    "@aws-cdk/assert": "2.8.0",
     "@types/html-minifier": "^4.0.1",
     "@types/js-beautify": "^1.13.3",
-    "jest-cdk-snapshot": "^1.4.2"
+    "jest-cdk-snapshot": "^2.0.1"
   },
   "publishConfig": {
     "access": "public"

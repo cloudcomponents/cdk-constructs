@@ -19,7 +19,10 @@ export const handler = async (event: SNSEvent): Promise<void> => {
 
         const messageCard = await MessageCardFactory.createNotificationCard(snsMessage, options);
 
-        return axios.post(process.env.URL as string, messageCard.payload);
+        if (process.env.URL) {
+          return axios.post(process.env.URL, messageCard.payload);
+        }
+        return;
       }),
     );
   } catch (e) {

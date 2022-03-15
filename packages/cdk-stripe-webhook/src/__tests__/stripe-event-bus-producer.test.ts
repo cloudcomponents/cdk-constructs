@@ -17,7 +17,6 @@ test('default setup - secretKey', (): void => {
 
   expect(stack).toMatchCdkSnapshot({
     propertyMatchers: {
-      Parameters: expect.any(Object),
       Resources: {
         StripeEventBusProducerFunctionC5CBF385: {
           Properties: {

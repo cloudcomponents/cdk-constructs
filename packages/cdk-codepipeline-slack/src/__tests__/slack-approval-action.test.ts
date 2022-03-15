@@ -1,7 +1,7 @@
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { S3SourceAction } from '@aws-cdk/aws-codepipeline-actions';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { S3SourceAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
 import 'jest-cdk-snapshot';
 
 import { ChannelTypes } from '../channel-types';

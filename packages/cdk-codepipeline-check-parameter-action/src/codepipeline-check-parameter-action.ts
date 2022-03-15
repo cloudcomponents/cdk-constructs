@@ -1,7 +1,8 @@
-import { ActionCategory, CommonAwsActionProps, IStage, ActionBindOptions, ActionConfig } from '@aws-cdk/aws-codepipeline';
-import { Action } from '@aws-cdk/aws-codepipeline-actions';
-import { PolicyStatement, IRole } from '@aws-cdk/aws-iam';
-import { Construct, Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
+import { ActionCategory, CommonAwsActionProps, IStage, ActionBindOptions, ActionConfig } from 'aws-cdk-lib/aws-codepipeline';
+import { Action } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { PolicyStatement, IRole } from 'aws-cdk-lib/aws-iam';
+import { Construct } from 'constructs';
 
 import { CheckParameterFunction } from './check-parameter-function';
 

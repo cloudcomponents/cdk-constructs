@@ -1,8 +1,9 @@
-import { BuildSpec, Cache, LocalCacheMode, LinuxBuildImage, PipelineProject, ComputeType } from '@aws-cdk/aws-codebuild';
-import { ActionBindOptions, ActionCategory, ActionConfig, Artifact, CommonAwsActionProps, IStage } from '@aws-cdk/aws-codepipeline';
-import { Action } from '@aws-cdk/aws-codepipeline-actions';
-import { IRole, PolicyStatement } from '@aws-cdk/aws-iam';
-import { Construct, Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
+import { BuildSpec, Cache, LocalCacheMode, LinuxBuildImage, PipelineProject, ComputeType } from 'aws-cdk-lib/aws-codebuild';
+import { ActionBindOptions, ActionCategory, ActionConfig, Artifact, CommonAwsActionProps, IStage } from 'aws-cdk-lib/aws-codepipeline';
+import { Action } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { IRole, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Construct } from 'constructs';
 
 export interface CodePipelineAnchoreInlineScanActionProps extends CommonAwsActionProps {
   /**
