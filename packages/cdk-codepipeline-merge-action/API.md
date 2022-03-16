@@ -311,7 +311,6 @@ Action.variableExpression
 - [addLayers](#addlayers)
 - [addPermission](#addpermission)
 - [addToRolePolicy](#addtorolepolicy)
-- [addVersion](#addversion)
 - [applyRemovalPolicy](#applyremovalpolicy)
 - [configureAsyncInvoke](#configureasyncinvoke)
 - [generatePhysicalName](#generatephysicalname)
@@ -323,13 +322,7 @@ Action.variableExpression
 - [metricErrors](#metricerrors)
 - [metricInvocations](#metricinvocations)
 - [metricThrottles](#metricthrottles)
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [classifyVersionProperty](#classifyversionproperty)
 - [fromFunctionArn](#fromfunctionarn)
 - [fromFunctionAttributes](#fromfunctionattributes)
@@ -503,9 +496,9 @@ ___
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -517,7 +510,7 @@ ___
 
 ### permissionsNode
 
-• `Readonly` **permissionsNode**: `ConstructNode`
+• `Readonly` **permissionsNode**: `Node`
 
 The construct node where permissions are attached.
 
@@ -771,7 +764,7 @@ ___
 
 ### \_functionNode
 
-▸ `Protected` **_functionNode**(): `ConstructNode`
+▸ `Protected` **_functionNode**(): `Node`
 
 Returns the construct tree node that corresponds to the lambda function.
 For use internally for constructs, when the tree is set up in non-standard ways. Ex: SingletonFunction.
@@ -780,7 +773,7 @@ For use internally for constructs, when the tree is set up in non-standard ways.
 
 #### Returns
 
-`ConstructNode`
+`Node`
 
 #### Inherited from
 
@@ -974,47 +967,6 @@ Adds a statement to the IAM role assumed by the instance.
 #### Inherited from
 
 Function.addToRolePolicy
-
-___
-
-### addVersion
-
-▸ **addVersion**(`name`, `codeSha256?`, `description?`, `provisionedExecutions?`, `asyncInvokeConfig?`): `Version`
-
-(deprecated) Add a new version for this Lambda.
-
-If you want to deploy through CloudFormation and use aliases, you need to
-add a new version (with a new name) to your Lambda every time you want to
-deploy an update. An alias can then refer to the newly created Version.
-
-All versions should have distinct names, and you should not delete versions
-as long as your Alias needs to refer to them.
-
-**`deprecated`** This method will create an AWS::Lambda::Version resource which
-snapshots the AWS Lambda function *at the time of its creation* and it
-won't get updated when the function changes. Instead, use
-`this.currentVersion` to obtain a reference to a version resource that gets
-automatically recreated when the function configuration (or code) changes.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `name` | `string` | A unique name for this version. |
-| `codeSha256?` | `string` | The SHA-256 hash of the most recently deployed Lambda source code, or omit to skip validation. |
-| `description?` | `string` | A description for this version. |
-| `provisionedExecutions?` | `number` | A provisioned concurrency configuration for a function's version. |
-| `asyncInvokeConfig?` | `EventInvokeConfigOptions` | configuration for this version when it is invoked asynchronously. |
-
-#### Returns
-
-`Version`
-
-A new Version object.
-
-#### Inherited from
-
-Function.addVersion
 
 ___
 
@@ -1301,133 +1253,6 @@ Function.metricThrottles
 
 ___
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Function.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Function.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Function.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Function.prepare
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Function.synthesize
-
-___
-
 ### toString
 
 ▸ **toString**(): `string`
@@ -1443,29 +1268,6 @@ Returns a string representation of this construct.
 #### Inherited from
 
 Function.toString
-
-___
-
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Function.validate
 
 ___
 
@@ -1552,19 +1354,21 @@ ___
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 

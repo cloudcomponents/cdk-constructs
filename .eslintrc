@@ -12,6 +12,21 @@
         "optionalDependencies": false, // Disallow importing optional dependencies (those shouldn"t be in use in the project)
         "peerDependencies": true
       }
-    ]
+    ],
+    "cdk/ban-lambda-runtimes": [
+      "error", 
+      { 
+        "bannedRuntimes": [
+          "NODEJS",
+          "NODEJS_4_3",
+          "NODEJS_6_10",
+          "NODEJS_8_10",
+          "NODEJS_10_X",
+          "NODEJS_12_X",
+          "DOTNET_CORE_1",
+          "DOTNET_CORE_2",
+        ]
+      }
+    ],
   }
 }
