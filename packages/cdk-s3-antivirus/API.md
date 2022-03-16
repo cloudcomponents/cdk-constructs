@@ -58,13 +58,7 @@ Clamav Lambda layer.
 - [generatePhysicalName](#generatephysicalname)
 - [getResourceArnAttribute](#getresourcearnattribute)
 - [getResourceNameAttribute](#getresourcenameattribute)
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [fromLayerVersionArn](#fromlayerversionarn)
 - [fromLayerVersionAttributes](#fromlayerversionattributes)
 - [isConstruct](#isconstruct)
@@ -140,9 +134,9 @@ ___
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -345,133 +339,6 @@ lambda.LayerVersion.getResourceNameAttribute
 
 ___
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-lambda.LayerVersion.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-lambda.LayerVersion.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-lambda.LayerVersion.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-lambda.LayerVersion.prepare
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-lambda.LayerVersion.synthesize
-
-___
-
 ### toString
 
 ▸ **toString**(): `string`
@@ -487,29 +354,6 @@ Returns a string representation of this construct.
 #### Inherited from
 
 lambda.LayerVersion.toString
-
-___
-
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-lambda.LayerVersion.validate
 
 ___
 
@@ -571,19 +415,21 @@ ___
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -668,6 +514,7 @@ lambda.LayerVersion.isResource
 - [addToResourcePolicy](#addtoresourcepolicy)
 - [applyRemovalPolicy](#applyremovalpolicy)
 - [arnForObjects](#arnforobjects)
+- [enableEventBridgeNotification](#enableeventbridgenotification)
 - [generatePhysicalName](#generatephysicalname)
 - [getResourceArnAttribute](#getresourcearnattribute)
 - [getResourceNameAttribute](#getresourcenameattribute)
@@ -681,16 +528,10 @@ lambda.LayerVersion.isResource
 - [onCloudTrailEvent](#oncloudtrailevent)
 - [onCloudTrailPutObject](#oncloudtrailputobject)
 - [onCloudTrailWriteObject](#oncloudtrailwriteobject)
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
 - [s3UrlForObject](#s3urlforobject)
-- [synthesize](#synthesize)
 - [toString](#tostring)
 - [transferAccelerationUrlForObject](#transferaccelerationurlforobject)
 - [urlForObject](#urlforobject)
-- [validate](#validate)
 - [virtualHostedUrlForObject](#virtualhostedurlforobject)
 - [fromBucketArn](#frombucketarn)
 - [fromBucketAttributes](#frombucketattributes)
@@ -896,9 +737,9 @@ ___
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -1289,6 +1130,22 @@ If you need to specify a keyPattern with multiple components, concatenate them i
 #### Inherited from
 
 Bucket.arnForObjects
+
+___
+
+### enableEventBridgeNotification
+
+▸ `Protected` **enableEventBridgeNotification**(): `void`
+
+**`stability`** stable
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+Bucket.enableEventBridgeNotification
 
 ___
 
@@ -1687,106 +1544,6 @@ Bucket.onCloudTrailWriteObject
 
 ___
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Bucket.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Bucket.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Bucket.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Bucket.prepare
-
-___
-
 ### s3UrlForObject
 
 ▸ **s3UrlForObject**(`key?`): `string`
@@ -1813,33 +1570,6 @@ an ObjectS3Url token
 #### Inherited from
 
 Bucket.s3UrlForObject
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Bucket.synthesize
 
 ___
 
@@ -1921,27 +1651,6 @@ an ObjectS3Url token
 #### Inherited from
 
 Bucket.urlForObject
-
-___
-
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-#### Inherited from
-
-Bucket.validate
 
 ___
 
@@ -2055,19 +1764,21 @@ ___
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -2145,13 +1856,7 @@ Bucket.validateBucketName
 
 ### Methods
 
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -2176,9 +1881,9 @@ Construct.constructor
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -2187,133 +1892,6 @@ The construct tree node associated with this construct.
 Construct.node
 
 ## Methods
-
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.prepare
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.synthesize
-
-___
 
 ### toString
 
@@ -2333,46 +1911,25 @@ Construct.toString
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.validate
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -2407,13 +1964,7 @@ Construct.isConstruct
 ### Methods
 
 - [addToS3EnpointPolicy](#addtos3enpointpolicy)
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -2450,9 +2001,9 @@ ___
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -2490,133 +2041,6 @@ ___
 
 ___
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.prepare
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.synthesize
-
-___
-
 ### toString
 
 ▸ **toString**(): `string`
@@ -2635,46 +2059,25 @@ Construct.toString
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.validate
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
@@ -2709,13 +2112,7 @@ Construct.isConstruct
 ### Methods
 
 - [addSourceBucket](#addsourcebucket)
-- [onPrepare](#onprepare)
-- [onSynthesize](#onsynthesize)
-- [onValidate](#onvalidate)
-- [prepare](#prepare)
-- [synthesize](#synthesize)
 - [toString](#tostring)
-- [validate](#validate)
 - [isConstruct](#isconstruct)
 
 ## Constructors
@@ -2740,9 +2137,9 @@ Construct.constructor
 
 ### node
 
-• `Readonly` **node**: `ConstructNode`
+• `Readonly` **node**: `Node`
 
-The construct tree node associated with this construct.
+The tree node.
 
 **`stability`** stable
 
@@ -2792,133 +2189,6 @@ ___
 
 ___
 
-### onPrepare
-
-▸ `Protected` **onPrepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onPrepare
-
-___
-
-### onSynthesize
-
-▸ `Protected` **onSynthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.onSynthesize
-
-___
-
-### onValidate
-
-▸ `Protected` **onValidate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.onValidate
-
-___
-
-### prepare
-
-▸ `Protected` **prepare**(): `void`
-
-Perform final modifications before synthesis.
-
-This method can be implemented by derived constructs in order to perform
-final changes before synthesis. prepare() will be called after child
-constructs have been prepared.
-
-This is an advanced framework feature. Only use this if you
-understand the implications.
-
-**`stability`** stable
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.prepare
-
-___
-
-### synthesize
-
-▸ `Protected` **synthesize**(`session`): `void`
-
-Allows this construct to emit artifacts into the cloud assembly during synthesis.
-
-This method is usually implemented by framework-level constructs such as `Stack` and `Asset`
-as they participate in synthesizing the cloud assembly.
-
-**`stability`** stable
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `session` | `ISynthesisSession` | The synthesis session. |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Construct.synthesize
-
-___
-
 ### toString
 
 ▸ **toString**(): `string`
@@ -2937,46 +2207,25 @@ Construct.toString
 
 ___
 
-### validate
-
-▸ `Protected` **validate**(): `string`[]
-
-Validate the current construct.
-
-This method can be implemented by derived constructs in order to perform
-validation logic. It is called on all constructs before synthesis.
-
-**`stability`** stable
-
-#### Returns
-
-`string`[]
-
-An array of validation error messages, or an empty array if the construct is valid.
-
-#### Inherited from
-
-Construct.validate
-
-___
-
 ### isConstruct
 
 ▸ `Static` **isConstruct**(`x`): x is Construct
 
-Return whether the given object is a Construct.
+(deprecated) Checks if `x` is a construct.
 
-**`stability`** stable
+**`deprecated`** use `x instanceof Construct` instead
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x` | `any` | Any object. |
 
 #### Returns
 
 x is Construct
+
+true if `x` is an object created from a class which extends `Construct`.
 
 #### Inherited from
 
