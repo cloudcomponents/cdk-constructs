@@ -25,13 +25,11 @@ pip install cloudcomponents.cdk-container-registry
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { Topic } from '@aws-cdk/aws-sns';
-import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import {
-  ImageRepository,
-  Severity,
-} from '@cloudcomponents/cdk-container-registry';
+import { ImageRepository, Severity } from '@cloudcomponents/cdk-container-registry';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Topic } from 'aws-cdk-lib/aws-sns';
+import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+import { Construct } from 'constructs';
 
 export class ImageRepositoryStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

@@ -27,18 +27,21 @@ pip install cloudcomponents.cdk-stripe-webhook
 ### EventBus Producer
 
 ```typescript
-import { StringParameter } from '@aws-cdk/aws-ssm';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { SecretKey, SecretKeyStore } from '@cloudcomponents/cdk-secret-key';
 import { StripeWebhook, StripeEventBusProducer } from '@cloudcomponents/cdk-stripe-webhook';
+import { Stack, StackProps, aws_ssm } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
-export class StripeWebhookStack extends Stack {
+export class StripeWebhookEventBusStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY as string);
+    if (typeof process.env.SECRET_KEY === 'undefined') {
+      throw new Error('environment variable SECRET_KEY undefined');
+    }
+    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY);
 
-    const endpointSecretParameter = StringParameter.fromSecureStringParameterAttributes(this, 'Param', {
+    const endpointSecretParameter = aws_ssm.StringParameter.fromSecureStringParameterAttributes(this, 'Param', {
       parameterName: 'stripe',
       version: 1,
     });
@@ -66,18 +69,21 @@ export class StripeWebhookStack extends Stack {
 ### Custom Handler
 
 ```typescript
-import { RestApi } from '@aws-cdk/aws-apigateway';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { SecretKey } from '@cloudcomponents/cdk-secret-key';
 import { StripeWebhook } from '@cloudcomponents/cdk-stripe-webhook';
+import { Stack, StackProps, aws_apigateway } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 export class StripeWebhookStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const api = new RestApi(this, 'Endpoint');
+    const api = new aws_apigateway.RestApi(this, 'Endpoint');
     api.root.addMethod('POST');
 
-    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY as string);
+    if (typeof process.env.SECRET_KEY === 'undefined') {
+      throw new Error('environment variable SECRET_KEY undefined');
+    }
+    const secretKey = SecretKey.fromPlainText(process.env.SECRET_KEY);
 
     const events = ['charge.failed', 'charge.succeeded'];
 
@@ -89,7 +95,6 @@ export class StripeWebhookStack extends Stack {
     });
   }
 }
-
 ```
 
 ## API Reference

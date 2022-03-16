@@ -26,10 +26,11 @@ pip install cloudcomponents.cdk-dynamodb-seeder
 
 ```typescript
 import * as path from 'path';
-import { Construct, Stack, StackProps, RemovalPolicy } from '@aws-cdk/core';
-import { Table, AttributeType } from '@aws-cdk/aws-dynamodb';
-import { Bucket } from '@aws-cdk/aws-s3';
 import { DynamoDBSeeder, Seeds } from '@cloudcomponents/cdk-dynamodb-seeder';
+import { Stack, StackProps, RemovalPolicy } from 'aws-cdk-lib';
+import { Table, AttributeType } from 'aws-cdk-lib/aws-dynamodb';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Construct } from 'constructs';
 
 export class DynamoDBSeederStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {

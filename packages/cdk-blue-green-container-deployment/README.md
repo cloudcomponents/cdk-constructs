@@ -26,30 +26,16 @@ pip install cloudcomponents.cdk-blue-green-container-deployment
 ## How to use
 
 ```typescript
-import { Construct, Duration, Stack, StackProps } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import { Vpc, Port } from '@aws-cdk/aws-ec2';
-import { Cluster } from '@aws-cdk/aws-ecs';
-import {
-  ApplicationLoadBalancer,
-  ApplicationTargetGroup,
-  TargetType,
-} from '@aws-cdk/aws-elasticloadbalancingv2';
-import {
-  CodeBuildAction,
-  CodeCommitSourceAction,
-  CodeDeployEcsDeployAction,
-} from '@aws-cdk/aws-codepipeline-actions';
-
+import { EcsService, DummyTaskDefinition, EcsDeploymentGroup, PushImageProject } from '@cloudcomponents/cdk-blue-green-container-deployment';
 import { ImageRepository } from '@cloudcomponents/cdk-container-registry';
-import {
-  EcsService,
-  DummyTaskDefinition,
-  EcsDeploymentConfig,
-  EcsDeploymentGroup,
-  PushImageProject,
-} from '@cloudcomponents/cdk-blue-green-container-deployment';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeBuildAction, CodeCommitSourceAction, CodeDeployEcsDeployAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Vpc, Port } from 'aws-cdk-lib/aws-ec2';
+import { Cluster } from 'aws-cdk-lib/aws-ecs';
+import { ApplicationLoadBalancer, ApplicationTargetGroup, TargetType } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { Construct } from 'constructs';
 
 export class BlueGreenContainerDeploymentStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -69,7 +55,7 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       internetFacing: true,
     });
 
-    const prodListener = loadBalancer.addListener('ProdListener', {
+    const prodListener = loadBalancer.addListener('ProfListener', {
       port: 80,
     });
 
@@ -77,43 +63,31 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       port: 8080,
     });
 
-    const prodTargetGroup = new ApplicationTargetGroup(
-      this,
-      'ProdTargetGroup',
-      {
-        port: 80,
-        targetType: TargetType.IP,
-        vpc,
-      },
-    );
+    const prodTargetGroup = new ApplicationTargetGroup(this, 'ProdTargetGroup', {
+      port: 80,
+      targetType: TargetType.IP,
+      vpc,
+    });
 
     prodListener.addTargetGroups('AddProdTg', {
       targetGroups: [prodTargetGroup],
     });
 
-    const testTargetGroup = new ApplicationTargetGroup(
-      this,
-      'TestTargetGroup',
-      {
-        port: 8080,
-        targetType: TargetType.IP,
-        vpc,
-      },
-    );
+    const testTargetGroup = new ApplicationTargetGroup(this, 'TestTargetGroup', {
+      port: 8080,
+      targetType: TargetType.IP,
+      vpc,
+    });
 
     testListener.addTargetGroups('AddTestTg', {
       targetGroups: [testTargetGroup],
     });
 
     // Will be replaced by CodeDeploy in CodePipeline
-    const taskDefinition = new DummyTaskDefinition(
-      this,
-      'DummyTaskDefinition',
-      {
-        image: 'nginx',
-        family: 'blue-green',
-      },
-    );
+    const taskDefinition = new DummyTaskDefinition(this, 'DummyTaskDefinition', {
+      image: 'nginx',
+      family: 'blue-green',
+    });
 
     const ecsService = new EcsService(this, 'EcsService', {
       cluster,
@@ -127,21 +101,6 @@ export class BlueGreenContainerDeploymentStack extends Stack {
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(80));
     ecsService.connections.allowFrom(loadBalancer, Port.tcp(8080));
 
-    const deploymentConfig = new EcsDeploymentConfig(
-      this,
-      'DeploymentConfig',
-      {
-        deploymentConfigName: 'Canary20Percent5Minute',
-        trafficRoutingConfig: {
-          type: 'TimeBasedCanary',
-          timeBasedCanary: {
-            canaryInterval: 5,
-            canaryPercentage: 20,
-          },
-        },
-      }
-    );
-
     const deploymentGroup = new EcsDeploymentGroup(this, 'DeploymentGroup', {
       applicationName: 'blue-green-application',
       deploymentGroupName: 'blue-green-deployment-group',
@@ -150,10 +109,9 @@ export class BlueGreenContainerDeploymentStack extends Stack {
       prodTrafficListener: prodListener,
       testTrafficListener: testListener,
       terminationWaitTime: Duration.minutes(100),
-      deploymentConfig, // If you want to use default DeploymentConfig name, use static method as "EcsDeploymentConfig.CANARY_10PERCENT_15MINUTES".
     });
 
-    // @see https://github.com/cloudcomponents/cdk-constructs/tree/master/examples/blue-green-container-deployment-example/blue-green-repository
+    // @see files: ./blue-green-repository for example content
     const repository = new Repository(this, 'CodeRepository', {
       repositoryName: 'blue-green-repository',
     });

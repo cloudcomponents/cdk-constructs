@@ -25,8 +25,9 @@ pip install cloudcomponents.cdk-deletable-bucket
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
 import { DeletableBucket } from '@cloudcomponents/cdk-deletable-bucket';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class DeletableBucketStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

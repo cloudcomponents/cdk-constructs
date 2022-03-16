@@ -26,10 +26,11 @@ pip install cloudcomponents.cdk-pull-request-check
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { BuildSpec } from '@aws-cdk/aws-codebuild';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Construct } from 'constructs';
 
 export class CodePipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -52,46 +53,35 @@ export class CodePipelineStack extends Stack {
 ## Approval Template Rules
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { BuildSpec } from '@aws-cdk/aws-codebuild';
+import { ApprovalRuleTemplate, ApprovalRuleTemplateRepositoryAssociation } from '@cloudcomponents/cdk-pull-request-approval-rule';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
-import {
-  ApprovalRuleTemplate,
-  ApprovalRuleTemplateRepositoryAssociation,
-} from '@cloudcomponents/cdk-pull-request-approval-rule';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Construct } from 'constructs';
 
-export class CodePipelinePullRequestCheckStack extends Stack {
+export class PullRequestStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const repository = new Repository(this, 'Repository', {
-      repositoryName: 'repository',
+      repositoryName: 'pr-check-repository',
     });
 
-    const { approvalRuleTemplateName } = new ApprovalRuleTemplate(
-      this,
-      'ApprovalRuleTemplate',
-      {
-        approvalRuleTemplateName: 'Require 1 approver',
-        template: {
-          approvers: {
-            numberOfApprovalsNeeded: 1,
-          },
+    const { approvalRuleTemplateName } = new ApprovalRuleTemplate(this, 'ApprovalRuleTemplate', {
+      approvalRuleTemplateName: 'template-name',
+      template: {
+        approvers: {
+          numberOfApprovalsNeeded: 1,
         },
       },
-    );
+    });
 
-    new ApprovalRuleTemplateRepositoryAssociation(
-      this,
-      'ApprovalRuleTemplateRepositoryAssociation',
-      {
-        approvalRuleTemplateName,
-        repository,
-      },
-    );
+    new ApprovalRuleTemplateRepositoryAssociation(this, 'ApprovalRuleTemplateRepositoryAssociation', {
+      approvalRuleTemplateName,
+      repository,
+    });
 
-    // Approves the pull request
     new PullRequestCheck(this, 'PullRequestCheck', {
       repository,
       buildSpec: BuildSpec.fromSourceFilename('prcheck.yml'),
@@ -105,13 +95,14 @@ export class CodePipelinePullRequestCheckStack extends Stack {
 The component comments the pull request and sets the approval state by default. Custom notifications can be set up this way
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { BuildSpec } from '@aws-cdk/aws-codebuild';
-import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { Topic } from '@aws-cdk/aws-sns';
-import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
 import { PullRequestCheck } from '@cloudcomponents/cdk-pull-request-check';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
+import { Topic } from 'aws-cdk-lib/aws-sns';
+import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+import { Construct } from 'constructs';
 
 export class CodePipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
