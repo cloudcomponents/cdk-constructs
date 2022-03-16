@@ -30,7 +30,7 @@ pip install cloudcomponents.cdk-temp-stack
 #!/usr/bin/env node
 
 import 'source-map-support/register';
-import { App, Duration } from '@aws-cdk/core';
+import { App, Duration } from 'aws-cdk-lib';
 
 import { TempInfraStack } from './temp-infra-stack';
 
@@ -46,9 +46,9 @@ new TempInfraStack(app, 'TempInfraStack', {
 
 // temp-infra-stack.ts
 
-import { Construct } from '@aws-cdk/core';
-import { Vpc } from '@aws-cdk/aws-ec2';
 import { TempStack, TempStackProps } from '@cloudcomponents/cdk-temp-stack';
+import { Vpc } from 'aws-cdk-lib/aws-ec2';
+import { Construct } from 'constructs';
 
 export class TempInfraStack extends TempStack {
   constructor(scope: Construct, id: string, props: TempStackProps) {
@@ -66,8 +66,9 @@ Alternatively, you can also add the TimeToLive construct to your stack
 ```typescript
 // your stack
 
-import { Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
 import { TimeToLive } from '@cloudcomponents/cdk-temp-stack';
+import { Stack, StackProps, Duration } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class YourStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {

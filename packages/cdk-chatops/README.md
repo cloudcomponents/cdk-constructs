@@ -25,13 +25,6 @@ pip install cloudcomponents.cdk-chatops
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import {
-  CodeCommitSourceAction,
-  ManualApprovalAction,
-} from '@aws-cdk/aws-codepipeline-actions';
 import {
   RepositoryNotificationRule,
   PipelineNotificationRule,
@@ -45,6 +38,11 @@ import {
   MSTeamsIncomingWebhookConfiguration,
   AccountLabelMode,
 } from '@cloudcomponents/cdk-chatops';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Construct } from 'constructs';
 
 export class NotificationsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

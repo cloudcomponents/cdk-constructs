@@ -42,13 +42,7 @@ pip install cloudcomponents.cdk-developer-tools-notifications
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Pipeline, Artifact } from '@aws-cdk/aws-codepipeline';
-import {
-  CodeCommitSourceAction,
-  ManualApprovalAction,
-} from '@aws-cdk/aws-codepipeline-actions';
+import { SlackChannelConfiguration, MSTeamsIncomingWebhookConfiguration, AccountLabelMode } from '@cloudcomponents/cdk-chatops';
 import {
   RepositoryNotificationRule,
   PipelineNotificationRule,
@@ -57,11 +51,11 @@ import {
   SlackChannel,
   MSTeamsIncomingWebhook,
 } from '@cloudcomponents/cdk-developer-tools-notifications';
-import {
-  SlackChannelConfiguration,
-  MSTeamsIncomingWebhookConfiguration,
-  AccountLabelMode,
-} from '@cloudcomponents/cdk-chatops';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Pipeline, Artifact } from 'aws-cdk-lib/aws-codepipeline';
+import { CodeCommitSourceAction, ManualApprovalAction } from 'aws-cdk-lib/aws-codepipeline-actions';
+import { Construct } from 'constructs';
 
 export class NotificationsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -71,34 +65,32 @@ export class NotificationsStack extends Stack {
       repositoryName: 'notifications-repository',
     });
 
+    if (typeof process.env.SLACK_WORKSPACE_ID === 'undefined') {
+      throw new Error('environment variable SLACK_WORKSPACE_ID undefined');
+    }
+    if (typeof process.env.SLACK_CHANNEL_ID === 'undefined') {
+      throw new Error('environment variable SLACK_CHANNEL_ID undefined');
+    }
     const slackChannel = new SlackChannelConfiguration(this, 'SlackChannel', {
-      slackWorkspaceId: process.env.SLACK_WORKSPACE_ID as string,
+      slackWorkspaceId: process.env.SLACK_WORKSPACE_ID,
       configurationName: 'notifications',
-      slackChannelId: process.env.SLACK_CHANNEL_ID as string,
+      slackChannelId: process.env.SLACK_CHANNEL_ID,
     });
 
-    const webhook = new MSTeamsIncomingWebhookConfiguration(
-      this,
-      'MSTeamsWebhook',
-      {
-        url: process.env.INCOMING_WEBHOOK_URL as string,
-        accountLabelMode: AccountLabelMode.ID_AND_ALIAS,
-        themeColor: '#FF0000',
-      },
-    );
+    if (typeof process.env.INCOMING_WEBHOOK_URL === 'undefined') {
+      throw new Error('environment variable INCOMING_WEBHOOK_URL undefined');
+    }
+    const webhook = new MSTeamsIncomingWebhookConfiguration(this, 'MSTeamsWebhook', {
+      url: process.env.INCOMING_WEBHOOK_URL,
+      accountLabelMode: AccountLabelMode.ID_AND_ALIAS,
+      themeColor: '#FF0000',
+    });
 
     new RepositoryNotificationRule(this, 'RepoNotifications', {
       name: 'notifications-repository',
       repository,
-      events: [
-        RepositoryEvent.COMMENTS_ON_COMMITS,
-        RepositoryEvent.PULL_REQUEST_CREATED,
-        RepositoryEvent.PULL_REQUEST_MERGED,
-      ],
-      targets: [
-        new SlackChannel(slackChannel),
-        new MSTeamsIncomingWebhook(webhook),
-      ],
+      events: [RepositoryEvent.COMMENTS_ON_COMMITS, RepositoryEvent.PULL_REQUEST_CREATED, RepositoryEvent.PULL_REQUEST_MERGED],
+      targets: [new SlackChannel(slackChannel), new MSTeamsIncomingWebhook(webhook)],
     });
 
     const sourceArtifact = new Artifact();
@@ -144,10 +136,7 @@ export class NotificationsStack extends Stack {
         // PipelineEvent.STAGE_EXECUTION_SUCCEEDED,
         // PipelineEvent.STAGE_EXECUTION_FAILED,
       ],
-      targets: [
-        new SlackChannel(slackChannel),
-        new MSTeamsIncomingWebhook(webhook),
-      ],
+      targets: [new SlackChannel(slackChannel), new MSTeamsIncomingWebhook(webhook)],
     });
   }
 }

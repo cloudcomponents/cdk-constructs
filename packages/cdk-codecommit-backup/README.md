@@ -26,26 +26,23 @@ pip install cloudcomponents.cdk-codecommit-backup
 ## How to use
 
 ```typescript
-import { Construct, Stack, StackProps, Duration } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-codecommit';
-import { Schedule } from '@aws-cdk/aws-events';
-import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { Topic } from '@aws-cdk/aws-sns';
-import { EmailSubscription } from '@aws-cdk/aws-sns-subscriptions';
-import {
-  BackupBucket,
-  S3CodeCommitBackup,
-} from '@cloudcomponents/cdk-codecommit-backup';
+import { BackupBucket, S3CodeCommitBackup } from '@cloudcomponents/cdk-codecommit-backup';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-codecommit';
+import { Schedule } from 'aws-cdk-lib/aws-events';
+import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
+import { Topic } from 'aws-cdk-lib/aws-sns';
+import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+import { Construct } from 'constructs';
 
 export class CodeCommitBackupStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const repository = Repository.fromRepositoryName(
-      this,
-      'Repository',
-      process.env.REPOSITORY_NAME as string,
-    );
+    if (typeof process.env.REPOSITORY_NAME === 'undefined') {
+      throw new Error('environment variable REPOSITORY_NAME undefined');
+    }
+    const repository = Repository.fromRepositoryName(this, 'Repository', process.env.REPOSITORY_NAME);
 
     const backupBucket = new BackupBucket(this, 'BackupBuckt', {
       retentionPeriod: Duration.days(90),
@@ -63,9 +60,9 @@ export class CodeCommitBackupStack extends Stack {
 
     const backupTopic = new Topic(this, 'BackupTopic');
 
-    backupTopic.addSubscription(
-      new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL as string),
-    );
+    if (process.env.DEVSECOPS_TEAM_EMAIL) {
+      backupTopic.addSubscription(new EmailSubscription(process.env.DEVSECOPS_TEAM_EMAIL));
+    }
 
     backup.onBackupStarted('started', {
       target: new SnsTopic(backupTopic),
