@@ -43,6 +43,19 @@ export interface IEcsDeploymentGroup extends IResource {
 }
 
 export interface EcsDeploymentGroupProps {
+  /**
+   * The CodeDeploy Application to associate to the DeploymentGroup.
+   *
+   * @default - create a new CodeDeploy Application.
+   */
+  readonly application?: IEcsApplication;
+
+  /**
+   * The name to use for the implicitly created CodeDeploy Application.
+   *
+   * @default - uses auto-generated name
+   * @deprecated Use {@link application} instead to create a custom CodeDeploy Application.
+   */
   readonly applicationName?: string;
 
   readonly deploymentGroupName: string;
@@ -87,7 +100,7 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup,
     this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
 
     const {
-      applicationName,
+      application,
       deploymentGroupName,
       deploymentConfig,
       ecsServices,
@@ -107,9 +120,13 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup,
       managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('AWSCodeDeployRoleForECS')],
     });
 
-    this.application = new EcsApplication(this, 'EcsApplication', {
-      applicationName,
-    });
+    if (application) {
+      this.application = application;
+    } else {
+      this.application = new EcsApplication(this, 'EcsApplication', {
+        applicationName: props.applicationName, // support deprecated applicationName prop
+      });
+    }
 
     const serviceToken = new Function(this, 'Function', {
       runtime: Runtime.NODEJS_14_X,
