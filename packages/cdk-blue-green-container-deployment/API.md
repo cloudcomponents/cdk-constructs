@@ -2506,6 +2506,7 @@ ___
 
 ### Properties
 
+- [application](#application)
 - [applicationName](#applicationname)
 - [autoRollbackOnEvents](#autorollbackonevents)
 - [deploymentConfig](#deploymentconfig)
@@ -2518,9 +2519,25 @@ ___
 
 ## Properties
 
+### application
+
+• `Optional` `Readonly` **application**: `IEcsApplication`
+
+The CodeDeploy Application to associate to the DeploymentGroup.
+
+**`default`** - create a new CodeDeploy Application.
+
+___
+
 ### applicationName
 
 • `Optional` `Readonly` **applicationName**: `string`
+
+The name to use for the implicitly created CodeDeploy Application.
+
+**`default`** - uses auto-generated name
+
+**`deprecated`** Use [application](#application) instead to create a custom CodeDeploy Application.
 
 ___
 
