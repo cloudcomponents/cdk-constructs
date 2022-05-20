@@ -17,10 +17,11 @@ export interface WebhookProps {
   githubRepoUrl: string;
   payloadUrl: string;
   events: string[];
+  webhookSecret?: string;
 }
 
 const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { githubApiTokenString, githubRepoUrl, payloadUrl, events } = camelizeKeys<
+  const { githubApiTokenString, githubRepoUrl, payloadUrl, events, webhookSecret } = camelizeKeys<
     WebhookProps,
     CloudFormationCustomResourceEventCommon['ResourceProperties']
   >(event.ResourceProperties);
@@ -28,7 +29,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
   const secretKey = new SecretKey(githubApiTokenString);
   const githubApiToken = await secretKey.getValue();
 
-  const { data } = await createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events);
+  const { data } = await createWebhook(githubApiToken, githubRepoUrl, payloadUrl, events, webhookSecret);
 
   const physicalResourceId = data.id.toString();
 
@@ -41,7 +42,7 @@ const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerRetu
 };
 
 const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { githubApiTokenString, githubRepoUrl, payloadUrl, events } = camelizeKeys<
+  const { githubApiTokenString, githubRepoUrl, payloadUrl, events, webhookSecret } = camelizeKeys<
     WebhookProps,
     CloudFormationCustomResourceEventCommon['ResourceProperties']
   >(event.ResourceProperties);
@@ -51,7 +52,7 @@ const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerRetu
 
   const hookId = event.PhysicalResourceId;
 
-  const { data } = await updateWebhook(githubApiToken, githubRepoUrl, payloadUrl, events, parseInt(hookId, 10));
+  const { data } = await updateWebhook(githubApiToken, githubRepoUrl, payloadUrl, events, parseInt(hookId, 10), webhookSecret);
 
   const physicalResourceId = data.id.toString();
 

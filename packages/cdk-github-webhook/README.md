@@ -45,6 +45,9 @@ export class GithubWebhookStack extends Stack {
 
     // @see https://developer.github.com/v3/activity/events/types/
     const events = ['*'];
+ 
+    // @see https://docs.github.com/en/developers/webhooks-and-events/webhooks/securing-your-webhooks#validating-payloads-from-github
+    const webhookSecret = process.env.SECURE_WEBHOOK === 'true' ? (process.env.WEBHOOK_SECRET || githubApiToken.serialize()) : undefined
 
     new GithubWebhook(this, 'GithubWebhook', {
       githubApiToken,
@@ -52,6 +55,7 @@ export class GithubWebhookStack extends Stack {
       payloadUrl: api.url,
       events,
       logLevel: 'debug',
+      webhookSecret
     });
   }
 }

@@ -6,6 +6,7 @@ export const createWebhook = async (
   githubRepoUrl: string,
   payloadUrl: string,
   events: string[],
+  webhookSecret?: string
 ): Promise<RestEndpointMethodTypes['repos']['createWebhook']['response']> => {
   const octokit = new Octokit({
     auth: githubApiToken,
@@ -17,11 +18,16 @@ export const createWebhook = async (
     throw new Error('GithubRepoUrl is not correct');
   }
 
+  const config = { url: payloadUrl, content_type: 'json' };
+  if (webhookSecret != null) {
+    Object.assign(config, { secret: webhookSecret});
+  }
+
   const params = {
     name: 'web',
     owner: gh.owner,
     repo: gh.name,
-    config: { url: payloadUrl, content_type: 'json' },
+    config,
     events,
     active: true,
   };
@@ -35,6 +41,7 @@ export const updateWebhook = async (
   payloadUrl: string,
   events: string[],
   hookId: number,
+  webhookSecret?: string
 ): Promise<RestEndpointMethodTypes['repos']['updateWebhook']['response']> => {
   const octokit = new Octokit({
     auth: githubApiToken,
@@ -46,10 +53,15 @@ export const updateWebhook = async (
     throw new Error('GithubRepoUrl is not correct');
   }
 
+  const config = { url: payloadUrl, content_type: 'json' };
+  if (webhookSecret != null) {
+    Object.assign(config, { secret: webhookSecret});
+  }
+
   const params = {
     owner: gh.owner,
     repo: gh.name,
-    config: { url: payloadUrl, content_type: 'json' },
+    config,
     events,
     active: true,
     hook_id: hookId,

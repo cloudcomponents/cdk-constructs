@@ -24,6 +24,12 @@ export interface GithubWebhookProps {
    * @see https://developer.github.com/v3/activity/events/types/
    */
   readonly events: string[];
+  /**
+   * The webhook secret that GitHub uses to create a
+   * hash signature with each payload
+   * @see https://docs.github.com/en/developers/webhooks-and-events/webhooks/securing-your-webhooks#validating-payloads-from-github
+   */
+  readonly webhookSecret?: string
 
   readonly logLevel?: 'debug' | 'info' | 'warning' | 'error';
 }
@@ -57,6 +63,7 @@ export class GithubWebhook extends Construct {
         payloadUrl: props.payloadUrl,
         events: props.events,
         logLevel: props.logLevel,
+        webhookSecret: props.webhookSecret
       },
     });
   }
