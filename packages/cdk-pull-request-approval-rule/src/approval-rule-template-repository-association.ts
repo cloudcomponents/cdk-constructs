@@ -28,7 +28,7 @@ export class ApprovalRuleTemplateRepositoryAssociation extends Construct {
 
     const serviceToken = CustomResourceProvider.getOrCreate(this, resourceType, {
       codeDirectory: approvalRuleTemplateRepositoryAssociationDir,
-      runtime: CustomResourceProviderRuntime.NODEJS_12,
+      runtime: CustomResourceProviderRuntime.NODEJS_14_X,
       policyStatements: [
         {
           Effect: 'Allow',
