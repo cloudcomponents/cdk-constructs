@@ -19,7 +19,7 @@ export class StripeEventBusProducer extends Construct {
     super(scope, id);
 
     const handler = new aws_lambda.Function(this, 'Function', {
-      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      runtime: aws_lambda.Runtime.NODEJS_16_X,
       code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-event-bus-producer')),
       handler: 'index.handler',
     });

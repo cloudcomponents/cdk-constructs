@@ -16,7 +16,7 @@ export class EmptyBucket extends Construct {
     const onEvent = new SingletonFunction(this, 'EmptyBucketFunction', {
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'empty-bucket')),
       handler: 'index.handler',
-      runtime: Runtime.NODEJS_14_X,
+      runtime: Runtime.NODEJS_16_X,
       uuid: 'CloudcomponentsEmptyBucketCustomResource',
       timeout: Duration.minutes(15),
     });

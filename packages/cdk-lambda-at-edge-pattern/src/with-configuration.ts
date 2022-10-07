@@ -30,7 +30,7 @@ export class WithConfiguration extends Construct {
 
     const handler = new aws_lambda.SingletonFunction(this, 'Handler', {
       uuid: 'cloudcomponents-cdk-lambda-at-edge-pattern-with-configuration',
-      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      runtime: aws_lambda.Runtime.NODEJS_16_X,
       code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'with-configuration')),
       handler: 'index.handler',
       lambdaPurpose: resourceType,

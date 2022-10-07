@@ -40,7 +40,7 @@ export class ApprovalRuleTemplate extends Construct {
 
     const serviceToken = CustomResourceProvider.getOrCreate(this, 'Custom::ApprovalRuleTemplate', {
       codeDirectory: approvalRuleTemplateDir,
-      runtime: CustomResourceProviderRuntime.NODEJS_14_X,
+      runtime: CustomResourceProviderRuntime.NODEJS_16_X,
       policyStatements: [
         {
           Effect: 'Allow',

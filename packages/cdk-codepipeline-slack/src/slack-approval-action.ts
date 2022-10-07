@@ -63,7 +63,7 @@ export class SlackApprovalAction extends Action {
     }
 
     const approvalRequester = new Function(scope, 'SlackApprovalRequesterFunction', {
-      runtime: Runtime.NODEJS_14_X,
+      runtime: Runtime.NODEJS_16_X,
       handler: 'index.handler',
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'approval-requester')),
       environment,
@@ -74,7 +74,7 @@ export class SlackApprovalAction extends Action {
     topic.addSubscription(new LambdaSubscription(approvalRequester));
 
     const approvalHandler = new Function(scope, 'SlackApprovalHandlerFunction', {
-      runtime: Runtime.NODEJS_14_X,
+      runtime: Runtime.NODEJS_16_X,
       handler: 'index.handler',
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'approval-handler')),
       environment,

@@ -22,7 +22,7 @@ export class StripeWebhook extends Construct {
 
     const handler = new aws_lambda.SingletonFunction(this, 'CustomResourceHandler', {
       uuid: 'e9db3870-d793-4cd2-96a9-efe2e318ebbc',
-      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      runtime: aws_lambda.Runtime.NODEJS_16_X,
       code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'stripe-webhook')),
       handler: 'index.handler',
       lambdaPurpose: 'Custom::StripeWebhook',
