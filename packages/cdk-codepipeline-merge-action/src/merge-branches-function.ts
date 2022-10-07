@@ -19,7 +19,7 @@ export interface MergeBranchesFunctionProps {
 export class MergeBranchesFunction extends Function {
   constructor(scope: Construct, id: string, props: MergeBranchesFunctionProps) {
     super(scope, id, {
-      runtime: Runtime.NODEJS_12_X,
+      runtime: Runtime.NODEJS_16_X,
       handler: 'index.handler',
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'merge-branches')),
     });
