@@ -1,5 +1,5 @@
 import { BackupPlan, BackupResource } from '@aws-cdk/aws-backup';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
+const { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { IVpc, Vpc } from '@aws-cdk/aws-ec2';
 import { ContainerImage, LogDriver, Secret } from '@aws-cdk/aws-ecs';
 import { IHostedZone } from '@aws-cdk/aws-route53';
@@ -43,9 +43,9 @@ export class Wordpress extends Construct {
       subjectAlternativeNames.push(staticContentDomainName);
     }
 
-    const certificate = new DnsValidatedCertificate(this, 'Certificate', {
+    const certificate = new Certificate(this, 'Certificate', {
       domainName: props.domainName,
-      hostedZone: props.domainZone,
+      validation: CertificateValidation.fromDns(props.domainZone),
       subjectAlternativeNames,
       region: 'us-east-1',
     });
