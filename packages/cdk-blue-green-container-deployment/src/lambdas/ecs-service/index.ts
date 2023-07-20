@@ -31,6 +31,7 @@ export interface BlueGreenServiceProps {
   deploymentConfiguration: ECS.DeploymentConfiguration;
   propagateTags: 'SERVICE' | 'TASK_DEFINITION' | string;
   tags: Tag[];
+  enableExecuteCommand?: boolean;
 }
 
 const ecs = new ECS();
@@ -52,6 +53,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   deploymentConfiguration: props.DeploymentConfiguration,
   propagateTags: props.PropagateTags,
   tags: props.Tags ?? [],
+  enableExecuteCommand: props.enableExecuteCommand,
 });
 
 export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {
@@ -72,6 +74,7 @@ export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHand
     deploymentConfiguration,
     propagateTags,
     tags,
+    enableExecuteCommand,
   } = getProperties(event.ResourceProperties);
 
   const { service } = await ecs
@@ -105,6 +108,7 @@ export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHand
       tags: tags.map((t) => {
         return { key: t.Key, value: t.Value };
       }),
+      enableExecuteCommand
     })
     .promise();
 
@@ -127,7 +131,7 @@ export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHand
  * For more information, see CreateDeployment in the AWS CodeDeploy API Reference.
  */
 export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHandlerReturn> => {
-  const { cluster, serviceName, desiredCount, deploymentConfiguration, healthCheckGracePeriodSeconds, tags } = getProperties(
+  const { cluster, serviceName, desiredCount, deploymentConfiguration, healthCheckGracePeriodSeconds, tags, enableExecuteCommand } = getProperties(
     event.ResourceProperties,
   );
 
@@ -138,6 +142,7 @@ export const handleUpdate: OnUpdateHandler = async (event): Promise<ResourceHand
       desiredCount,
       deploymentConfiguration,
       healthCheckGracePeriodSeconds,
+      enableExecuteCommand
     })
     .promise();
 
