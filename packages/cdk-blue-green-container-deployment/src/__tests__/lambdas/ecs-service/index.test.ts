@@ -81,6 +81,68 @@ describe('createHandler', () => {
       },
     });
   });
+
+  test('sends enable execute true command with create request', async () => {
+        const response = await handleCreate(
+            {
+                ...defaultEvent,
+                RequestType: 'Create',
+                ResourceProperties: {
+                    ...defaultEcsServiceResourceProperties,
+                    EnableExecuteCommand: true,
+                },
+            },
+            defaultContext,
+            defaultLogger,
+        );
+
+        expect(mockCreateRequest).toHaveBeenCalledWith(
+            expect.objectContaining({
+                enableExecuteCommand: true,
+            }),
+        );
+    });
+
+  test('sends enable execute false command with create request', async () => {
+        const response = await handleCreate(
+            {
+                ...defaultEvent,
+                RequestType: 'Create',
+                ResourceProperties: {
+                    ...defaultEcsServiceResourceProperties,
+                    EnableExecuteCommand: false,
+                },
+            },
+            defaultContext,
+            defaultLogger,
+        );
+
+        expect(mockCreateRequest).toHaveBeenCalledWith(
+            expect.objectContaining({
+                enableExecuteCommand: false,
+            }),
+        );
+    });
+
+  test('enable execute command defaults to undefined', async () => {
+        const response = await handleCreate(
+            {
+                ...defaultEvent,
+                RequestType: 'Create',
+                ResourceProperties: {
+                    ...defaultEcsServiceResourceProperties,
+                },
+            },
+            defaultContext,
+            defaultLogger,
+        );
+
+        expect(mockCreateRequest).toHaveBeenCalledWith(
+            expect.objectContaining({
+                enableExecuteCommand: undefined,
+            }),
+        );
+    });
 });
 
 describe('updateHandler', () => {
@@ -137,6 +199,31 @@ describe('updateHandler', () => {
       }),
     );
   });
+
+    test('update enable execute command', async () => {
+        await handleUpdate(
+            {
+                ...defaultEvent,
+                RequestType: 'Update',
+                PhysicalResourceId: 'foo',
+                ResourceProperties: {
+                    ...defaultEcsServiceResourceProperties,
+                    EnableExecuteCommand: true,
+                },
+                OldResourceProperties: {
+                    ...defaultEcsServiceResourceProperties,
+                },
+            },
+            defaultContext,
+            defaultLogger,
+        );
+
+        expect(mockUpdateRequest).toHaveBeenCalledWith(
+            expect.objectContaining({
+                enableExecuteCommand: true
+            }),
+        );
+    });
 
   test('does not delete keys if no old keys are deleted', async () => {
     await handleUpdate(
