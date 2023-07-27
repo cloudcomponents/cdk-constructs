@@ -123,26 +123,6 @@ describe('createHandler', () => {
             }),
         );
     });
-
-  test('enable execute command defaults to undefined', async () => {
-        const response = await handleCreate(
-            {
-                ...defaultEvent,
-                RequestType: 'Create',
-                ResourceProperties: {
-                    ...defaultEcsServiceResourceProperties,
-                },
-            },
-            defaultContext,
-            defaultLogger,
-        );
-
-        expect(mockCreateRequest).toHaveBeenCalledWith(
-            expect.objectContaining({
-                enableExecuteCommand: false,
-            }),
-        );
-    });
 });
 
 describe('updateHandler', () => {

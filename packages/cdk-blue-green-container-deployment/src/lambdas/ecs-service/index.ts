@@ -31,7 +31,7 @@ export interface BlueGreenServiceProps {
   deploymentConfiguration: ECS.DeploymentConfiguration;
   propagateTags: 'SERVICE' | 'TASK_DEFINITION' | string;
   tags: Tag[];
-  enableExecuteCommand?: boolean;
+  enableExecuteCommand: boolean;
 }
 
 const ecs = new ECS();
@@ -53,7 +53,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   deploymentConfiguration: props.DeploymentConfiguration,
   propagateTags: props.PropagateTags,
   tags: props.Tags ?? [],
-  enableExecuteCommand: props.EnableExecuteCommand ?? false,
+  enableExecuteCommand: props.EnableExecuteCommand,
 });
 
 export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {

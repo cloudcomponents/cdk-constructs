@@ -117,4 +117,28 @@ describe('EcsService', () => {
             );
         });
     });
+
+    describe('execute command defaults to false', () => {
+        const stack = new cdk.Stack(app, 'MyStackWithout');
+        const cluster = new ecs.Cluster(stack, 'Cluster');
+        const prodTargetGroup = new elb.ApplicationTargetGroup(stack, 'ProdTargetGroup', { vpc: cluster.vpc });
+        const testTargetGroup = new elb.ApplicationTargetGroup(stack, 'TestTargetGroup', { vpc: cluster.vpc });
+        const taskDefinition = new DummyTaskDefinition(stack, 'DummyTaskDefinition', { image: 'nginx' });
+
+        new EcsService(stack, 'Service', {
+            cluster,
+            serviceName: 'My Service',
+            prodTargetGroup,
+            testTargetGroup,
+            taskDefinition
+        });
+
+        test('Creates a BlueGreenService custom resource', () => {
+            expectCDK(stack).to(
+                haveResource('Custom::BlueGreenService', {
+                    EnableExecuteCommand: false,
+                }),
+            );
+        });
+    });
 });

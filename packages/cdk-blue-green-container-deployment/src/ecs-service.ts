@@ -86,7 +86,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
       testTargetGroup,
       taskDefinition,
       healthCheckGracePeriod = Duration.seconds(60),
-      enableExecuteCommand,
+      enableExecuteCommand = false,
     } = props;
 
     this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
