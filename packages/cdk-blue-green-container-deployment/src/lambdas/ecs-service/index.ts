@@ -53,7 +53,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   deploymentConfiguration: props.DeploymentConfiguration,
   propagateTags: props.PropagateTags,
   tags: props.Tags ?? [],
-  enableExecuteCommand: props.EnableExecuteCommand,
+  enableExecuteCommand: props.EnableExecuteCommand ?? false,
 });
 
 export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {

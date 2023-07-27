@@ -139,7 +139,7 @@ describe('createHandler', () => {
 
         expect(mockCreateRequest).toHaveBeenCalledWith(
             expect.objectContaining({
-                enableExecuteCommand: undefined,
+                enableExecuteCommand: false,
             }),
         );
     });
