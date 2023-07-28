@@ -36,6 +36,15 @@ export interface BlueGreenServiceProps {
 
 const ecs = new ECS();
 
+// this method is required to fix a Cloudformation bug which causes properties to be converted to strings.
+// Can be removed once resolved: https://github.com/aws-cloudformation/cloudformation-coverage-roadmap/issues/1037
+function booleanize(candidate: string | boolean) : boolean {
+    if(typeof candidate === "boolean") {
+        return candidate;
+    }
+    return candidate === "true";
+}
+
 const getProperties = (props: CloudFormationCustomResourceEvent['ResourceProperties']): BlueGreenServiceProps => ({
   cluster: props.Cluster,
   serviceName: props.ServiceName,
@@ -53,7 +62,7 @@ const getProperties = (props: CloudFormationCustomResourceEvent['ResourcePropert
   deploymentConfiguration: props.DeploymentConfiguration,
   propagateTags: props.PropagateTags,
   tags: props.Tags ?? [],
-  enableExecuteCommand: props.EnableExecuteCommand === "true" ? true : false,
+  enableExecuteCommand: booleanize(props.EnableExecuteCommand),
 });
 
 export const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => {

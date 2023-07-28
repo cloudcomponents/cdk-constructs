@@ -89,7 +89,7 @@ describe('createHandler', () => {
                 RequestType: 'Create',
                 ResourceProperties: {
                     ...defaultEcsServiceResourceProperties,
-                    EnableExecuteCommand: 'true',
+                    EnableExecuteCommand: true,
                 },
             },
             defaultContext,
@@ -188,7 +188,7 @@ describe('updateHandler', () => {
                 PhysicalResourceId: 'foo',
                 ResourceProperties: {
                     ...defaultEcsServiceResourceProperties,
-                    EnableExecuteCommand: 'true',
+                    EnableExecuteCommand: true,
                 },
                 OldResourceProperties: {
                     ...defaultEcsServiceResourceProperties,
