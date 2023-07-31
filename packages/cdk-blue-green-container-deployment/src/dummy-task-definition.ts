@@ -1,6 +1,6 @@
-import { ITaggable, TagManager, TagType, Lazy } from 'aws-cdk-lib';
+import { ITaggable, TagManager, TagType, Lazy, Aws } from 'aws-cdk-lib';
 import { NetworkMode } from 'aws-cdk-lib/aws-ecs';
-import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole } from 'aws-cdk-lib/aws-iam';
+import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole, CompositePrincipal } from 'aws-cdk-lib/aws-iam';
 import {
   AwsCustomResource,
   AwsCustomResourcePolicy,
@@ -72,8 +72,10 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
       managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
     });
 
+    new CompositePrincipal()
     this.taskRole = new Role(this, 'TaskRole', {
-        assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com')
+        assumedBy: new CompositePrincipal(new ServicePrincipal('ecs-tasks.amazonaws.com'),
+            new ServicePrincipal(`arn:${Aws.PARTITION}:iam::${Aws.ACCOUNT_ID}:root`))
     });
 
     this.family = props.family ?? this.node.addr;
