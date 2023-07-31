@@ -50,7 +50,7 @@ export interface DummyTaskDefinitionProps {
 export class DummyTaskDefinition extends Construct implements IDummyTaskDefinition, ITaggable {
   public readonly executionRole: IRole;
 
-    public readonly taskRole: IRole;
+  public readonly taskRole: IRole;
 
   public readonly family: string;
 
@@ -73,8 +73,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
     });
 
     this.taskRole = new Role(this, 'TaskRole', {
-        assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com'),
-        managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('task-role/AmazonECSTaskRolePolicy')],
+        assumedBy: new ServicePrincipal('ecs-tasks.amazonaws.com')
     });
 
     this.family = props.family ?? this.node.addr;
