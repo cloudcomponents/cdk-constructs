@@ -1,6 +1,13 @@
-import { ITaggable, TagManager, TagType, Lazy, Aws } from 'aws-cdk-lib';
+import { ITaggable, TagManager, TagType, Lazy } from 'aws-cdk-lib';
 import { NetworkMode } from 'aws-cdk-lib/aws-ecs';
-import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole, CompositePrincipal } from 'aws-cdk-lib/aws-iam';
+import {
+    Role,
+    ServicePrincipal,
+    ManagedPolicy,
+    PolicyStatement,
+    Effect,
+    IRole,
+} from 'aws-cdk-lib/aws-iam';
 import {
   AwsCustomResource,
   AwsCustomResourcePolicy,
@@ -50,8 +57,6 @@ export interface DummyTaskDefinitionProps {
 export class DummyTaskDefinition extends Construct implements IDummyTaskDefinition, ITaggable {
   public readonly executionRole: IRole;
 
-  public readonly taskRole: IRole;
-
   public readonly family: string;
 
   public readonly taskDefinitionArn: string;
@@ -72,12 +77,6 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
       managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy')],
     });
 
-    new CompositePrincipal()
-    this.taskRole = new Role(this, 'TaskRole', {
-        assumedBy: new CompositePrincipal(new ServicePrincipal('ecs-tasks.amazonaws.com'),
-            new ServicePrincipal(`arn:${Aws.PARTITION}:iam::${Aws.ACCOUNT_ID}:root`))
-    });
-
     this.family = props.family ?? this.node.addr;
     this.containerName = props.containerName ?? 'sample-website';
     this.containerPort = props.containerPort ?? 80;
@@ -89,7 +88,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
         requiresCompatibilities: ['FARGATE'],
         family: this.family,
         executionRoleArn: this.executionRole.roleArn,
-        taskRoleArn: this.taskRole.roleArn,
+        taskRoleArn: this.executionRole.roleArn,
         networkMode: NetworkMode.AWS_VPC,
         cpu: '256',
         memory: '512',

@@ -103,6 +103,13 @@ Object {
                   "Arn",
                 ],
               },
+              "\\",\\"taskRoleArn\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "DummyTaskDefinitionExecutionRole715DBD43",
+                  "Arn",
+                ],
+              },
               "\\",\\"networkMode\\":\\"awsvpc\\",\\"cpu\\":\\"256\\",\\"memory\\":\\"512\\",\\"containerDefinitions\\":[{\\"name\\":\\"sample-website\\",\\"image\\":\\"image\\",\\"portMappings\\":[{\\"hostPort\\":80,\\"protocol\\":\\"tcp\\",\\"containerPort\\":80}]}]},\\"physicalResourceId\\":{\\"responsePath\\":\\"taskDefinition.taskDefinitionArn\\"}}",
             ],
           ],
@@ -120,6 +127,13 @@ Object {
             "",
             Array [
               "{\\"service\\":\\"ECS\\",\\"action\\":\\"registerTaskDefinition\\",\\"parameters\\":{\\"requiresCompatibilities\\":[\\"FARGATE\\"],\\"family\\":\\"c86e1e5d419d3c124c7e40411b7e7805f91621e162\\",\\"executionRoleArn\\":\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "DummyTaskDefinitionExecutionRole715DBD43",
+                  "Arn",
+                ],
+              },
+              "\\",\\"taskRoleArn\\":\\"",
               Object {
                 "Fn::GetAtt": Array [
                   "DummyTaskDefinitionExecutionRole715DBD43",
