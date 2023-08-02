@@ -18,7 +18,8 @@
     "release:pypi": "FORCE_COLOR=1 lerna run release:pypi --scope @cloudcomponents/*"
   },
   "workspaces": [
-    "packages/cdk-blue-green-container-deployment"
+    "packages/*",
+    "examples/*"
   ],
   "devDependencies": {
     "@types/node": "^14.14.31",
