@@ -81,6 +81,44 @@ describe('createHandler', () => {
       },
     });
   });
+
+  describe('with desired count', () => {
+    test('sends the specified desired count', async () => {
+      await handleCreate(
+        {
+          ...defaultEvent,
+          RequestType: 'Create',
+          ResourceProperties: {
+            ...defaultEcsServiceResourceProperties,
+            DesiredCount: 4,
+          },
+        },
+        defaultContext,
+        defaultLogger,
+      );
+
+      expect(mockCreateRequest).toHaveBeenCalledWith(expect.objectContaining({ desiredCount: 4 }));
+    });
+  });
+
+  describe('without desired count', () => {
+    test('sends 1 (default) as the desired count', async () => {
+      await handleCreate(
+        {
+          ...defaultEvent,
+          RequestType: 'Create',
+          ResourceProperties: {
+            ...defaultEcsServiceResourceProperties,
+            desiredCount: undefined,
+          },
+        },
+        defaultContext,
+        defaultLogger,
+      );
+
+      expect(mockCreateRequest).toHaveBeenCalledWith(expect.objectContaining({ desiredCount: 1 }));
+    });
+  });
 });
 
 describe('updateHandler', () => {
@@ -221,5 +259,62 @@ describe('updateHandler', () => {
     expect(mockUntagResourceRequest).not.toHaveBeenCalled();
 
     expect(mockTagResourceRequest).not.toHaveBeenCalled();
+  });
+
+  describe('with desired count', () => {
+    test('sends the desired count', async () => {
+      await handleUpdate(
+        {
+          ...defaultEvent,
+          RequestType: 'Update',
+          PhysicalResourceId: 'foo',
+          ResourceProperties: {
+            ...defaultEcsServiceResourceProperties,
+            DesiredCount: 3,
+          },
+          OldResourceProperties: {
+            ...defaultEcsServiceResourceProperties,
+            DesiredCount: 2,
+          },
+        },
+        defaultContext,
+        defaultLogger,
+      );
+      expect(mockUpdateRequest).toHaveBeenCalledWith(
+        expect.objectContaining({
+          cluster: 'foo',
+          deploymentConfiguration: {},
+          desiredCount: 3,
+          healthCheckGracePeriodSeconds: 3,
+          service: 'foo',
+        }),
+      );
+    });
+  });
+
+  describe('without desired count', () => {
+    test('does not send the desired count', async () => {
+      await handleUpdate(
+        {
+          ...defaultEvent,
+          RequestType: 'Update',
+          PhysicalResourceId: 'foo',
+          ResourceProperties: {
+            ...defaultEcsServiceResourceProperties,
+            DesiredCount: undefined,
+          },
+          OldResourceProperties: {
+            ...defaultEcsServiceResourceProperties,
+          },
+        },
+        defaultContext,
+        defaultLogger,
+      );
+      expect(mockUpdateRequest).toHaveBeenCalledWith(
+        expect.objectContaining({
+          desiredCount: undefined,
+        }),
+      );
+    });
   });
 });
