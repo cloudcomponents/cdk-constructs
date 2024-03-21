@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
+      - name: Grant Docker permissions
+        run: sudo chmod 666 /var/run/docker.sock
       - name: Installing
         run: yarn install --frozen-lockfile
       - name: Linting
