@@ -25,6 +25,7 @@ export interface EcsServiceProps {
   readonly prodTargetGroup: ITargetGroup;
   readonly testTargetGroup: ITargetGroup;
   readonly taskDefinition: DummyTaskDefinition;
+  readonly enableExecuteCommand?: boolean;
 
   /**
    * The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy
@@ -85,6 +86,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
       testTargetGroup,
       taskDefinition,
       healthCheckGracePeriod = Duration.seconds(60),
+      enableExecuteCommand = false,
     } = props;
 
     this.tags = new TagManager(TagType.KEY_VALUE, 'TagManager');
@@ -142,6 +144,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
         ContainerPort: containerPort,
         SchedulingStrategy: SchedulingStrategy.REPLICA,
         HealthCheckGracePeriodSeconds: healthCheckGracePeriod.toSeconds(),
+        EnableExecuteCommand: enableExecuteCommand,
         PropagateTags: props.propagateTags,
         DeploymentConfiguration: {
           maximumPercent: props.maxHealthyPercent ?? 200,
