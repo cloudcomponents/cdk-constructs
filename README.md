@@ -45,6 +45,18 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 
 We welcome community contributions and pull requests.
 
+## Build
+
+1. Install `yarn` on your system.
+
+1. Install Docker which is required for some of the packages.
+
+1. Install Node dependencies.
+
+    yarn install
+
+1.
+
 ## License
 
 [MIT](LICENSE)
