@@ -51,11 +51,17 @@ We welcome community contributions and pull requests.
 
 1. Install Docker which is required for some of the packages.
 
-1. Install Node dependencies.
+1. Install Node dependencies. This also automatically builds the packages.
 
-    yarn install
+    yarn install --frozen-lockfile
 
-1.
+1. Run tests.
+
+    npm test
+
+1. Run linting.
+
+    npm run lint
 
 ## License
 
