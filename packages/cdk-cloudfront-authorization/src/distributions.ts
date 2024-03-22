@@ -9,6 +9,7 @@ import {
   aws_cloudfront_origins,
   aws_s3,
 } from 'aws-cdk-lib';
+import { IGrantable, Grant } from 'aws-cdk-lib/aws-iam';
 import { Construct, IConstruct } from 'constructs';
 
 import { IAuthorization, IStaticSiteAuthorization, ISpaAuthorization } from './authorizations';
@@ -165,13 +166,15 @@ export class BaseDistribution extends Construct implements aws_cloudfront.IDistr
   public readonly stack: Stack;
   public readonly env: ResourceEnvironment;
 
+  private readonly distribution: aws_cloudfront.Distribution;
+
   constructor(scope: Construct, id: string, props: BaseDistributionProps) {
     super(scope, id);
 
     const removalPolicy = props.removalPolicy ?? RemovalPolicy.DESTROY;
     const origin = props.origin ?? this.defaultOrigin(removalPolicy);
 
-    const distribution = new aws_cloudfront.Distribution(this, 'Distribution', {
+    const distribution = this.distribution = new aws_cloudfront.Distribution(this, 'Distribution', {
       enabled: props.enabled ?? true,
       enableIpv6: props.enableIpv6 ?? true,
       comment: props.comment,
@@ -209,6 +212,14 @@ export class BaseDistribution extends Construct implements aws_cloudfront.IDistr
       account: this.stack.account,
       region: this.stack.region,
     };
+  }
+
+  public grant(identity: IGrantable, ...actions: string[]): Grant {
+    return this.distribution.grant(identity, ...actions);
+  }
+
+  public grantCreateInvalidation(identity: IGrantable): Grant {
+    return this.distribution.grantCreateInvalidation(identity);
   }
 
   public applyRemovalPolicy(policy: RemovalPolicy) {

@@ -22,7 +22,7 @@ export class Sandbox extends Construct {
     this.vpc = new Vpc(this, 'VPC', {
       subnetConfiguration: [
         {
-          subnetType: SubnetType.ISOLATED,
+          subnetType: SubnetType.PRIVATE_ISOLATED,
           name: 'Sandbox',
         },
       ],

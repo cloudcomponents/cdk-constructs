@@ -28,7 +28,7 @@ export class ContentfulWebhook extends Construct {
     });
 
     if (accessToken.grantRead) {
-      accessToken.grantRead(handler);
+      accessToken.grantRead(handler.role!);
     }
 
     new CustomResource(this, 'CustomResource', {
