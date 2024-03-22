@@ -16,7 +16,7 @@ export class TimeToLive extends Construct {
     Annotations.of(this).addInfo(`Warning! The stack destroys itself in ${props.ttl.toMinutes()} minutes.\n`);
 
     const deleteStack = new aws_lambda.Function(this, 'DeleteStack', {
-      runtime: aws_lambda.Runtime.NODEJS_16_X,
+      runtime: aws_lambda.Runtime.NODEJS_18_X,
       code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'delete-stack')),
       handler: 'index.handler',
     });

@@ -20,7 +20,7 @@ export class ContentfulWebhook extends Construct {
 
     const handler = new aws_lambda.SingletonFunction(this, 'CustomResourceHandler', {
       uuid: '91f2075f-b950-4743-a66b-ee0f6febf50d',
-      runtime: aws_lambda.Runtime.NODEJS_16_X,
+      runtime: aws_lambda.Runtime.NODEJS_18_X,
       code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'contentful-webhook')),
       handler: 'index.handler',
       lambdaPurpose: 'Custom::ContentfulWebhook',

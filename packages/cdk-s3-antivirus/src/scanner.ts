@@ -42,7 +42,7 @@ export class Scanner extends Construct {
     this.scanFunction = new Function(this, 'ScanFunction', {
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'scan')),
       handler: 'index.handler',
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_18_X,
       onSuccess: props.onResult,
       onFailure: props.onError,
       filesystem: FileSystem.fromEfsAccessPoint(this.sandbox.lambdaAccessPoint, '/mnt/lambda'),
@@ -66,7 +66,7 @@ export class Scanner extends Construct {
     this.updateFunction = new Function(this, 'UpdateFunction', {
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'update')),
       handler: 'index.handler',
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_18_X,
       onFailure: props.onError,
       timeout: Duration.minutes(5),
       memorySize: 1024,

@@ -19,7 +19,7 @@ export interface CheckParamterFunctionProps {
 export class CheckParameterFunction extends Function {
   constructor(scope: Construct, id: string, props: CheckParamterFunctionProps) {
     super(scope, id, {
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_18_X,
       handler: 'index.handler',
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'check-parameter')),
     });

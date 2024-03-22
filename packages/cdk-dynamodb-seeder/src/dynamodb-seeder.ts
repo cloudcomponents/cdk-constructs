@@ -27,7 +27,7 @@ export class DynamoDBSeeder extends Construct {
 
     const handler = new lambda.SingletonFunction(this, 'CustomResourceHandler', {
       uuid: 'Custom::DynamodbSeeder',
-      runtime: lambda.Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_18_X,
       code: lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'dynamodb-seeder')),
       handler: 'index.handler',
       lambdaPurpose: 'Custom::DynamodbSeeder',

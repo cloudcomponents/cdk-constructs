@@ -15,7 +15,7 @@ export class SecretGenerator extends Construct {
 
     const secretGenerator = new aws_lambda.SingletonFunction(this, 'Function', {
       uuid: 'cloudcomponents-cdk-cloudfront-authorization-secret-generator',
-      runtime: aws_lambda.Runtime.NODEJS_16_X,
+      runtime: aws_lambda.Runtime.NODEJS_18_X,
       handler: 'index.handler',
       code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'secret-generator')),
     });

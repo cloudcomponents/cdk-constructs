@@ -36,7 +36,7 @@ export class MSTeamsIncomingWebhookConfiguration extends Construct {
     super(scope, id);
 
     this.incomingWebhook = new Function(this, 'Function', {
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_18_X,
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'msteams-incoming-webhook')),
       handler: 'index.handler',
       environment: {

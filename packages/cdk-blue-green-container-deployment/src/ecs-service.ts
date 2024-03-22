@@ -103,7 +103,7 @@ export class EcsService extends Construct implements IConnectable, IEcsService, 
     ];
 
     const serviceToken = new Function(this, 'Function', {
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_18_X,
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'ecs-service')),
       handler: 'index.handler',
       timeout: Duration.minutes(15),
