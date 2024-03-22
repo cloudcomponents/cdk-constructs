@@ -36,7 +36,7 @@ export class GithubWebhook extends Construct {
 
     const handler = new aws_lambda.SingletonFunction(this, 'CustomResourceHandler', {
       uuid: '83CBF3EB-7B62-44F2-8C67-8441E4C1232E',
-      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      runtime: aws_lambda.Runtime.NODEJS_16_X,
       code: aws_lambda.Code.fromAsset(path.join(__dirname, 'lambdas', 'github-webhook')),
       handler: 'index.handler',
       lambdaPurpose: 'Custom::GithubWebhook',

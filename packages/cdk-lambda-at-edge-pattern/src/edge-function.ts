@@ -39,7 +39,7 @@ export class EdgeFunction extends BaseEdgeConstruct implements IEdgeLambda {
     this.eventType = props.eventType;
 
     const edgeFunction = new aws_lambda.Function(this.edgeStack, `${name}Function`, {
-      runtime: aws_lambda.Runtime.NODEJS_14_X,
+      runtime: aws_lambda.Runtime.NODEJS_16_X,
       handler: 'index.handler',
       code: props.code,
       role: this.edgeRole.role,

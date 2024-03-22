@@ -111,6 +111,7 @@ Object {
       "Type": "AWS::ApiGateway::Method",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiAccountA4491BD6": Object {
+      "DeletionPolicy": "Retain",
       "DependsOn": Array [
         "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
       ],
@@ -123,6 +124,7 @@ Object {
         },
       },
       "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B": Object {
       "Properties": Object {
@@ -131,6 +133,7 @@ Object {
       "Type": "AWS::ApiGateway::RestApi",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiCloudWatchRoleE69841A0": Object {
+      "DeletionPolicy": "Retain",
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -160,6 +163,7 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE01cde33ef942aa0a8f7065400447651dd": Object {
       "DependsOn": Array [
@@ -346,7 +350,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -463,7 +467,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -626,6 +630,10 @@ Object {
                 "s3:List*",
                 "s3:DeleteObject*",
                 "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
                 "s3:Abort*",
               ],
               "Effect": "Allow",
@@ -754,6 +762,10 @@ Object {
               "Action": Array [
                 "s3:DeleteObject*",
                 "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
                 "s3:Abort*",
               ],
               "Effect": "Allow",
@@ -907,6 +919,7 @@ Object {
       "Type": "AWS::ApiGateway::Method",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiAccountA4491BD6": Object {
+      "DeletionPolicy": "Retain",
       "DependsOn": Array [
         "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B",
       ],
@@ -919,6 +932,7 @@ Object {
         },
       },
       "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiC2FC528B": Object {
       "Properties": Object {
@@ -927,6 +941,7 @@ Object {
       "Type": "AWS::ApiGateway::RestApi",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiCloudWatchRoleE69841A0": Object {
+      "DeletionPolicy": "Retain",
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -956,6 +971,7 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
     },
     "PipelineApproveSlackApprovalSlackApprovalApiDeployment1BB48DE01cde33ef942aa0a8f7065400447651dd": Object {
       "DependsOn": Array [
@@ -1142,7 +1158,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -1259,7 +1275,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs16.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -1422,6 +1438,10 @@ Object {
                 "s3:List*",
                 "s3:DeleteObject*",
                 "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
                 "s3:Abort*",
               ],
               "Effect": "Allow",
@@ -1550,6 +1570,10 @@ Object {
               "Action": Array [
                 "s3:DeleteObject*",
                 "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
                 "s3:Abort*",
               ],
               "Effect": "Allow",

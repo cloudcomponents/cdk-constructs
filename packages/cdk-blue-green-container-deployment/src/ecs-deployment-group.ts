@@ -129,7 +129,7 @@ export class EcsDeploymentGroup extends Resource implements IEcsDeploymentGroup,
     }
 
     const serviceToken = new Function(this, 'Function', {
-      runtime: Runtime.NODEJS_14_X,
+      runtime: Runtime.NODEJS_16_X,
       code: Code.fromAsset(path.join(__dirname, 'lambdas', 'ecs-deployment-group')),
       handler: 'index.handler',
       timeout: Duration.minutes(15),

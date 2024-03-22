@@ -9,6 +9,7 @@ import {
   aws_cloudfront_origins,
   aws_s3,
 } from 'aws-cdk-lib';
+import { IGrantable, Grant } from 'aws-cdk-lib/aws-iam';
 import { Construct, IConstruct } from 'constructs';
 
 import { IAuthorization, IStaticSiteAuthorization, ISpaAuthorization } from './authorizations';
@@ -165,6 +166,8 @@ export class BaseDistribution extends Construct implements aws_cloudfront.IDistr
   public readonly stack: Stack;
   public readonly env: ResourceEnvironment;
 
+  private readonly distribution: aws_cloudfront.Distribution;
+
   constructor(scope: Construct, id: string, props: BaseDistributionProps) {
     super(scope, id);
 
@@ -192,6 +195,8 @@ export class BaseDistribution extends Construct implements aws_cloudfront.IDistr
       defaultRootObject: props.defaultRootObject ?? 'index.html',
     });
 
+    this.distribution = distribution;
+
     const callbackUrls = props.domainNames?.map((name) => `https://${name}${props.authorization.redirectPaths.signIn}`) ?? [];
     const logoutUrls = props.domainNames?.map((name) => `https://${name}${props.authorization.redirectPaths.signOut}`) ?? [];
 
@@ -209,6 +214,14 @@ export class BaseDistribution extends Construct implements aws_cloudfront.IDistr
       account: this.stack.account,
       region: this.stack.region,
     };
+  }
+
+  public grant(identity: IGrantable, ...actions: string[]): Grant {
+    return this.distribution.grant(identity, ...actions);
+  }
+
+  public grantCreateInvalidation(identity: IGrantable): Grant {
+    return this.distribution.grantCreateInvalidation(identity);
   }
 
   public applyRemovalPolicy(policy: RemovalPolicy) {

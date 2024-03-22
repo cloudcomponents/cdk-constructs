@@ -180,7 +180,7 @@ export class PullRequestCheck extends Construct {
 
     if (updateApprovalState || postComment) {
       this.codeBuildResultFunction = new Function(this, 'CodeBuildResultFunction', {
-        runtime: Runtime.NODEJS_14_X,
+        runtime: Runtime.NODEJS_16_X,
         code: Code.fromAsset(path.join(__dirname, 'lambdas', 'code-build-result')),
         handler: 'index.handler',
         environment: {
