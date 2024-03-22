@@ -94,7 +94,7 @@ describe('EcsDeploymentConfig', () => {
     const { service, prodTargetGroup, testTargetGroup, prodListener, testListener } = createPrereqResources(stack);
 
     const customApplication = new codedeploy.EcsApplication(stack, 'CustomApplication', {
-      applicationName: 'My Custom Application',
+      applicationName: 'My-Custom-Application',
     });
 
     new EcsDeploymentGroup(stack, 'DeploymentGroup', {
@@ -110,7 +110,7 @@ describe('EcsDeploymentConfig', () => {
       expectCDK(stack).to(
         haveResource('AWS::CodeDeploy::Application', {
           ComputePlatform: 'ECS',
-          ApplicationName: 'My Custom Application',
+          ApplicationName: 'My-Custom-Application',
         }),
       );
 
@@ -129,7 +129,7 @@ describe('EcsDeploymentConfig', () => {
     const { service, prodTargetGroup, testTargetGroup, prodListener, testListener } = createPrereqResources(stack);
 
     new EcsDeploymentGroup(stack, 'DeploymentGroup', {
-      applicationName: 'My Named Application',
+      applicationName: 'My-Named-Application',
       deploymentGroupName: 'My Deployment Group',
       ecsServices: [service],
       targetGroups: [prodTargetGroup, testTargetGroup],
@@ -141,7 +141,7 @@ describe('EcsDeploymentConfig', () => {
       expectCDK(stack).to(
         haveResource('AWS::CodeDeploy::Application', {
           ComputePlatform: 'ECS',
-          ApplicationName: 'My Named Application',
+          ApplicationName: 'My-Named-Application',
         }),
       );
 

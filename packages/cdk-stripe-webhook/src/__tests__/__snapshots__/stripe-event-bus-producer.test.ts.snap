@@ -39,6 +39,7 @@ Object {
       "Type": "AWS::ApiGateway::RestApi",
     },
     "StripeEventBusProducerEndpointAccount92D81366": Object {
+      "DeletionPolicy": "Retain",
       "DependsOn": Array [
         "StripeEventBusProducerEndpoint7432B484",
       ],
@@ -51,8 +52,10 @@ Object {
         },
       },
       "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
     },
     "StripeEventBusProducerEndpointCloudWatchRole7058459E": Object {
+      "DeletionPolicy": "Retain",
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -82,13 +85,14 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
     },
     "StripeEventBusProducerEndpointDeploymentE12AA95F46491c5acfe2c3ec9059e7abeec24dac": Object {
       "DependsOn": Array [
         "StripeEventBusProducerEndpointPOST2D64073D",
       ],
       "Properties": Object {
-        "Description": "Automatically created by the RestApi construct",
+        "Description": "Stripe event bridge producer webhook",
         "RestApiId": Object {
           "Ref": "StripeEventBusProducerEndpoint7432B484",
         },
@@ -252,7 +256,7 @@ Object {
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x"",
+        "Runtime": "nodejs16.x",
       },
       "Type": "AWS::Lambda::Function",
     },
