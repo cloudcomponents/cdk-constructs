@@ -174,7 +174,7 @@ export class BaseDistribution extends Construct implements aws_cloudfront.IDistr
     const removalPolicy = props.removalPolicy ?? RemovalPolicy.DESTROY;
     const origin = props.origin ?? this.defaultOrigin(removalPolicy);
 
-    const distribution = this.distribution = new aws_cloudfront.Distribution(this, 'Distribution', {
+    const distribution = new aws_cloudfront.Distribution(this, 'Distribution', {
       enabled: props.enabled ?? true,
       enableIpv6: props.enableIpv6 ?? true,
       comment: props.comment,
@@ -194,6 +194,8 @@ export class BaseDistribution extends Construct implements aws_cloudfront.IDistr
       additionalBehaviors: this.renderAdditionalBehaviors(origin, props.authorization),
       defaultRootObject: props.defaultRootObject ?? 'index.html',
     });
+
+    this.distribution = distribution;
 
     const callbackUrls = props.domainNames?.map((name) => `https://${name}${props.authorization.redirectPaths.signIn}`) ?? [];
     const logoutUrls = props.domainNames?.map((name) => `https://${name}${props.authorization.redirectPaths.signOut}`) ?? [];

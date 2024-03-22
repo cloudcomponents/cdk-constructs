@@ -27,8 +27,8 @@ export class ContentfulWebhook extends Construct {
       timeout: Duration.minutes(15),
     });
 
-    if (accessToken.grantRead) {
-      accessToken.grantRead(handler.role!);
+    if (accessToken.grantRead && handler.role) {
+      accessToken.grantRead(handler.role);
     }
 
     new CustomResource(this, 'CustomResource', {
