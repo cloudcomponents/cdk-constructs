@@ -45,6 +45,24 @@ This repository is a monorepo managed with [Lerna](https://github.com/lerna/lern
 
 We welcome community contributions and pull requests.
 
+## Build
+
+1. Install `yarn` on your system.
+
+1. Install Docker which is required for some of the packages.
+
+1. Install Node dependencies. This also automatically builds the packages.
+
+    yarn install --frozen-lockfile
+
+1. Run tests.
+
+    npm test
+
+1. Run linting.
+
+    npm run lint
+
 ## License
 
 [MIT](LICENSE)

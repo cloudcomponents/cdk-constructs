@@ -13,13 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["14", "16"]
+        node: ["18", "20"]
     name: Node ${{ matrix.node }} build
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
+      - name: Grant Docker permissions
+        run: sudo chmod 666 /var/run/docker.sock
       - name: Installing
         run: yarn install --frozen-lockfile
       - name: Linting
@@ -31,4 +33,4 @@ jobs:
       #- name: Anti-tamper check
       #  run: git diff --exit-code
     container:
-      image: jsii/superchain
+      image: jsii/superchain:1-bullseye-slim
