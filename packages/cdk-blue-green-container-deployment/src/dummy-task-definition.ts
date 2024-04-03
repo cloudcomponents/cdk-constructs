@@ -1,6 +1,13 @@
 import { ITaggable, TagManager, TagType, Lazy } from 'aws-cdk-lib';
 import { NetworkMode } from 'aws-cdk-lib/aws-ecs';
-import { Role, ServicePrincipal, ManagedPolicy, PolicyStatement, Effect, IRole } from 'aws-cdk-lib/aws-iam';
+import {
+    Role,
+    ServicePrincipal,
+    ManagedPolicy,
+    PolicyStatement,
+    Effect,
+    IRole,
+} from 'aws-cdk-lib/aws-iam';
 import {
   AwsCustomResource,
   AwsCustomResourcePolicy,
@@ -81,6 +88,7 @@ export class DummyTaskDefinition extends Construct implements IDummyTaskDefiniti
         requiresCompatibilities: ['FARGATE'],
         family: this.family,
         executionRoleArn: this.executionRole.roleArn,
+        taskRoleArn: this.executionRole.roleArn,
         networkMode: NetworkMode.AWS_VPC,
         cpu: '256',
         memory: '512',

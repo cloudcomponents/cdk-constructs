@@ -16,4 +16,5 @@ export const defaultEcsServiceResourceProperties = {
   DeploymentConfiguration: {},
   PropogateTags: 'SERVICE',
   Tags: [],
+  EnableExecuteCommand: false
 };
