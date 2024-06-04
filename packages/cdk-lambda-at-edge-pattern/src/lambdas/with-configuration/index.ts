@@ -1,6 +1,6 @@
 import { mkdtempSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
-import { GetFunctionCommand, LambdaClient, UpdateFunctionCodeCommand } from '@aws-sdk/client-lambda';
+import { GetFunctionCommand, LambdaClient, UpdateFunctionCodeCommand, waitUntilFunctionActiveV2 } from '@aws-sdk/client-lambda';
 import Zip from 'adm-zip';
 import type {
   CloudFormationCustomResourceCreateEvent,
@@ -26,6 +26,7 @@ interface WithConfiguration {
 const updateLambdaCode = async (
   event: CloudFormationCustomResourceCreateEvent | CloudFormationCustomResourceUpdateEvent,
 ): Promise<ResourceHandlerReturn> => {
+  console.log(`Recieved event: ${event}`);
   const { region, functionName, configuration } = camelizeKeys<
     WithConfiguration,
     CloudFormationCustomResourceEventCommon['ResourceProperties']
@@ -72,15 +73,48 @@ const updateLambdaCode = async (
       Publish: true,
     }),
   );
-
-  return {
+  
+  let responseDetails = {
+    responseStatus: 'FAILED',
+    reason: 'Internal Error',
     physicalResourceId: functionName,
-    responseData: {
-      CodeSha256: codeSha256,
-      Version: version,
-      FunctionArn: functionArn,
-    },
+    responseData: {},
   };
+
+  // wait for functions to go active before proceeding because if an edge function isn't active updates to the
+  // related distribution fail
+  console.log(`Waiting for ${functionName} to go active...`);
+  waitUntilFunctionActiveV2(
+    {client: lambda, maxWaitTime: 60},
+    {FunctionName: functionName}
+  )
+  .then((result=>{
+    console.log(`Lambda function ${functionName} is active. Result: ${result}`);
+    responseDetails = {
+      physicalResourceId: functionName,
+      responseStatus: 'SUCCESS',
+      reason: `Lambda function ${functionName} is active.`,
+      responseData: {
+        CodeSha256: codeSha256,
+        Version: version,
+        FunctionArn: functionArn,
+      },
+    };
+    setTimeout(()=>{
+      console.log(`Waiting 5s for lambda status propagation...`);
+    }, 5000);
+  }))
+  .catch((err=>{
+    console.log(`Error waiting for ${functionName} to go active: ${err}`);
+    responseDetails = {
+      responseStatus: 'FAILED',
+      physicalResourceId: functionName,
+      reason: `Encountered error while waiting for ${functionName} to go active: ${err}`,
+      responseData: {}
+    };
+  }));
+
+  return responseDetails;
 };
 
 const handleCreate: OnCreateHandler = async (event): Promise<ResourceHandlerReturn> => updateLambdaCode(event);

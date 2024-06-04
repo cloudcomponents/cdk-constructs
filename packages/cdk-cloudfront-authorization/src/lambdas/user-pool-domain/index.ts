@@ -7,8 +7,9 @@ import type {
 } from 'aws-lambda';
 import axios from 'axios';
 
+const awsRegion = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION;
 const COGNITO_CLIENT = new CognitoIdentityProvider({
-  region: process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION,
+  region: awsRegion,
 });
 
 async function ensureCognitoUserPoolDomain(userPoolId: string): Promise<string> {
@@ -28,7 +29,7 @@ async function ensureCognitoUserPoolDomain(userPoolId: string): Promise<string> 
     throw new Error('Cognito auth domain is missing! Either a domain prefix or a custom domain must be configured.');
   }
 
-  return userPool.CustomDomain ?? `${userPool.Domain}.auth.${COGNITO_CLIENT.config.region}.amazoncognito.com`;
+  return userPool.CustomDomain ?? `${userPool.Domain}.auth.${awsRegion}.amazoncognito.com`;
 }
 
 export const handler: CloudFormationCustomResourceHandler = async (event) => {

@@ -19,6 +19,7 @@ export interface AuthFlowProps {
   readonly cookieSettings: Record<string, string>;
   readonly nonceSigningSecret: string;
   readonly clientSecret?: string;
+  readonly httpHeaders?: Record<string, string>;
 }
 
 export class AuthFlow extends Construct {
@@ -44,6 +45,7 @@ export class AuthFlow extends Construct {
       cookieSettings: props.cookieSettings,
       nonceSigningSecret: props.nonceSigningSecret,
       clientSecret: props.clientSecret,
+      httpHeaders: props.httpHeaders ?? [],
     };
 
     this.checkAuth = new EdgeFunction(this, 'CheckAuth', {

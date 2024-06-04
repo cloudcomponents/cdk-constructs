@@ -44,6 +44,7 @@ export interface AuthorizationProps {
   readonly oauthScopes?: aws_cognito.OAuthScope[];
   readonly cookieSettings?: Record<string, string>;
   readonly identityProviders?: aws_cognito.UserPoolClientIdentityProvider[];
+  readonly httpHeaders?: Record<string, string> | undefined;
 }
 
 export abstract class Authorization extends Construct {
@@ -59,6 +60,7 @@ export abstract class Authorization extends Construct {
   protected readonly cognitoAuthDomain: string;
   protected readonly identityProviders: aws_cognito.UserPoolClientIdentityProvider[];
   protected readonly responseHeaderPolicy: aws_cloudfront.IResponseHeadersPolicy;
+  protected readonly httpHeaders: Record<string, string> | undefined;
 
   constructor(scope: Construct, id: string, props: AuthorizationProps) {
     super(scope, id);
@@ -125,6 +127,8 @@ export abstract class Authorization extends Construct {
     this.nonceSigningSecret = this.generateNonceSigningSecret();
 
     this.cognitoAuthDomain = this.retrieveCognitoAuthDomain();
+
+    this.httpHeaders = props.httpHeaders;
 
     this.authFlow = this.createAuthFlow(props.logLevel ?? LogLevel.WARN);
   }
@@ -297,6 +301,7 @@ export class StaticSiteAuthorization extends Authorization implements IStaticSit
         refreshToken: 'Path=/; Secure; HttpOnly; SameSite=Lax',
         nonce: 'Path=/; Secure; HttpOnly; SameSite=Lax',
       },
+      httpHeaders: this.httpHeaders,
     });
   }
 
