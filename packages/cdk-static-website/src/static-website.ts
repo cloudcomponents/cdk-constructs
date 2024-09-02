@@ -367,7 +367,7 @@ export class StaticWebsite extends Construct {
 
     return new aws_certificatemanager.DnsValidatedCertificate(this, 'Certificate', {
       domainName: domainNames[0],
-      subjectAlternativeNames: domainNames,
+      subjectAlternativeNames: domainNames.slice(1),
       hostedZone,
       region: 'us-east-1',
     });
