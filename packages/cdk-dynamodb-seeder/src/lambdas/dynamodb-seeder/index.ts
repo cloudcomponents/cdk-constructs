@@ -63,11 +63,15 @@ const getSeedsFromS3 = async (s3Location: { s3Bucket?: string; s3Key?: string; s
     })
     .promise();
 
-  if (!body) {
-    throw new Error(`Cannot load seeds from bucket ${s3Bucket} with key ${s3Key}`);
+  const bodyContents = await body.transformToString("utf-8");
+
+  if (!bodyContents) {
+    throw new Error(
+      `Cannot load seeds from bucket ${s3Bucket} with key ${s3Key}`
+    );
   }
 
-  return JSON.parse(body.toString()) as Seeds;
+  return JSON.parse(bodyContents) as Seeds;
 };
 
 const writeSeeds = async (tableName: string, seeds: Seeds): Promise<void> => {
