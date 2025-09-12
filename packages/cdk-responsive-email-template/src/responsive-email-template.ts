@@ -1,6 +1,7 @@
-import { CfnTemplate } from '@aws-cdk/aws-ses';
-import { Construct } from '@aws-cdk/core';
-import { minify as htmlMinify } from 'html-minifier';
+import { Resource, type ResourceProps } from 'aws-cdk-lib/core';
+import { CfnTemplate } from 'aws-cdk-lib/aws-ses';
+import type { Construct } from 'constructs';
+import { minify as htmlMinify } from 'html-minifier-next';
 import { html as htmlBeautify } from 'js-beautify';
 import * as mjml2html from 'mjml';
 
@@ -60,7 +61,7 @@ export interface ParsingOptions {
   readonly mjmlConfigPath?: string;
 }
 
-export interface ResponsiveEmailTemplateProps {
+export interface ResponsiveEmailTemplateProps extends ResourceProps {
   readonly templateName: string;
   readonly subjectPart: string;
   readonly textPart?: TemplatePart;
@@ -68,7 +69,7 @@ export interface ResponsiveEmailTemplateProps {
   readonly parsingOptions?: ParsingOptions;
 }
 
-export class ResponsiveEmailTemplate extends Construct {
+export class ResponsiveEmailTemplate extends Resource {
   constructor(scope: Construct, id: string, props: ResponsiveEmailTemplateProps) {
     super(scope, id);
 
@@ -111,11 +112,13 @@ export class ResponsiveEmailTemplate extends Construct {
     }
 
     if (minify) {
-      html = htmlMinify(html as string, {
+      htmlMinify(html as string, {
         collapseWhitespace: true,
         minifyCSS: false,
         caseSensitive: true,
         removeEmptyAttributes: true,
+      }).then((minified) => {
+        html = minified;
       });
     }
 
